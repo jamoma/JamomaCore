@@ -54,16 +54,11 @@ mScript(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-    TTObjectBaseInstantiate(kTTSym_Script, TTObjectBaseHandle(&mScript), arguments); // use arguments to pass the returnLineCallback
+    mScript = TTObject(kTTSym_Script, arguments);
 }
 
 TTCue::~TTCue()
-{
-    if (mScript) {
-        TTObjectBaseRelease(TTObjectBaseHandle(&mScript));
-        mScript = NULL;
-    }
-}
+{}
 
 
 TTErr TTCue::getName(TTValue& value)
@@ -73,7 +68,7 @@ TTErr TTCue::getName(TTValue& value)
 	TTSymbol		name;
 	TTValue			v;
 	
-	mScript->getAttributeValue(kTTSym_lines, v);
+	mScript.get(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -105,7 +100,7 @@ TTErr TTCue::setName(const TTValue& value)
 	TTSymbol			name;
 	TTValue				v;
 	
-	mScript->getAttributeValue(kTTSym_lines, v);
+	mScript.get(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -137,7 +132,7 @@ TTErr TTCue::getDescription(TTValue& value)
 	TTSymbol		name;
 	TTValue			v;
 	
-	mScript->getAttributeValue(kTTSym_lines, v);
+	mScript.get(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -170,7 +165,7 @@ TTErr TTCue::setDescription(const TTValue& value)
 	TTSymbol		name;
 	TTValue			v;
 	
-	mScript->getAttributeValue(kTTSym_lines, v);
+	mScript.get(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -203,14 +198,14 @@ TTErr TTCue::getRamp(TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTCue::searchRamp(TTObjectBasePtr aScript, TTUInt32& ramp)
+TTErr TTCue::searchRamp(TTObject aScript, TTUInt32& ramp)
 {
 	TTListPtr		lines;
-	TTScriptPtr		aSubScript;
+	TTObject		aSubScript;
 	TTDictionaryBasePtr	aLine;
 	TTValue			v, r;
 	
-	aScript->getAttributeValue(kTTSym_lines, v);
+	aScript.get(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -231,9 +226,9 @@ TTErr TTCue::searchRamp(TTObjectBasePtr aScript, TTUInt32& ramp)
 			
 			// get the script
 			aLine->getValue(v);
-			aSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
+			aSubScript = v[0];
 			
-			if (aSubScript)
+			if (aSubScript.valid())
 				searchRamp(aSubScript, ramp);
 		}
 	}
@@ -249,30 +244,30 @@ TTErr TTCue::setRamp(const TTValue& value)
 	mRamp = value;
 	
     // is the cue already flattened ?
-    mScript->getAttributeValue(kTTSym_flattened, v);
+    mScript.get(kTTSym_flattened, v);
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
+        mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
 	
 	// TODO : don't change line with a ramp value different from the mRamp
 	return processRamp(mScript, mRamp);
 }
 
-TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
+TTErr TTCue::processRamp(TTObject aScript, TTUInt32 ramp)
 {
 	TTListPtr		lines;
 	TTDictionaryBasePtr	aLine;
     TTAddress       anAddress;
     TTNodePtr       aNode;
-	TTObjectBasePtr	anObject;
+	TTObject        anObject;
 	TTSymbol		rampDrive;
 	TTValue			v, r;
     TTErr           err;
 	
 	r = TTValue((int)ramp);
 	
-	aScript->getAttributeValue(TTSymbol("flattenedLines"), v);
+	aScript.get(TTSymbol("flattenedLines"), v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -290,11 +285,11 @@ TTErr TTCue::processRamp(TTObjectBasePtr aScript, TTUInt32 ramp)
             
                 anObject = aNode->getObject();
                 
-                if (anObject) {
+                if (anObject.valid()) {
                     
-                    if (anObject->getName() == kTTSym_Data) {
+                    if (anObject.name() == kTTSym_Data) {
                         
-                        anObject->getAttributeValue(kTTSym_rampDrive, v);
+                        anObject.get(kTTSym_rampDrive, v);
                         rampDrive = v[0];
                         
                         if (rampDrive != kTTSym_none) {
@@ -339,12 +334,12 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		// 1. Append a cue flag with the name
 		v = TTValue(TTSymbol("cue"));
 		v.append(mName);
-		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
+		mScript.send("AppendFlag", v, parsedLine);
 		
 		// 2. Append a description flag
 		v = TTValue(TTSymbol("description"));
 		v.append(mDescription);
-		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
+		mScript.send("AppendFlag", v, parsedLine);
 		
 		// 3. Process namespace storage from the mAddress
         // (but others directories are handled too. see in processStore)
@@ -365,13 +360,13 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aSelection, TTNodePtr nodeToProcess)
+TTErr TTCue::processStore(TTObject aScript, const TTAddressItemPtr aSelection, TTNodePtr nodeToProcess)
 {
 	TTAddressItemPtr nameItem, instanceItem;
 	TTString		nameInstance;
 	TTNodePtr		scriptNode, aNode;
 	TTDictionaryBasePtr	aLine;
-	TTObjectBasePtr	anObject, aSubScript;
+	TTObject        anObject, aSubScript;
 	TTList			aNodeList, childrenNodes;
     TTListPtr       instanceOptions;
 	TTAddress		scriptAddress, childAddress, address;
@@ -422,7 +417,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aSelec
                     
                     // get the sub script
                     aLine->getValue(v);
-                    aSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
+                    aSubScript = v[0];
                     
                     // process namespace item on sub script
                     err = processStore(aSubScript, instanceItem, scriptNode);
@@ -431,12 +426,12 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aSelec
                     if (!err) {
                         
                         // append 2 comment lines to the script before the sub script line
-                        aScript->sendMessage(TTSymbol("AppendComment"), none, parsedLine);
-                        aScript->sendMessage(TTSymbol("AppendComment"), none, parsedLine);
+                        aScript.send("AppendComment", none, parsedLine);
+                        aScript.send("AppendComment", none, parsedLine);
                         
                         // append the sub script line
                         v = TTValue((TTPtr)aLine);
-                        aScript->sendMessage(TTSymbol("Append"), v, parsedLine);
+                        aScript.send("Append", v, parsedLine);
                         
                         // the script is not empty
                         empty = NO;
@@ -475,13 +470,13 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aSelec
 				anObject = aNode->getObject();
 				
 				// edit the script depending on the object type
-				if (anObject) {
+				if (anObject.valid()) {
 					
 					// DATA case : get value attribute
-					if (anObject->getName() == kTTSym_Data) {
+					if (anObject.name() == kTTSym_Data) {
 						
 						v.clear();
-						anObject->getAttributeValue(kTTSym_service, v);
+						anObject.get(kTTSym_service, v);
 						service = v[0];
 						
 						if (service != kTTSym_parameter) {
@@ -502,7 +497,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aSelec
                                 option = kTTSym_value;
                                 
                             v.clear();
-                            anObject->getAttributeValue(option, v);
+                            anObject.get(option, v);
                             
                             if (v.empty())
                                 continue;
@@ -514,7 +509,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aSelec
                             
                             // append a command line
                             v.prepend(address);
-                            aScript->sendMessage(TTSymbol("AppendCommand"), v, parsedLine);
+                            aScript.send("AppendCommand", v, parsedLine);
                             
                             // the script is not empty
                             empty = NO;
@@ -530,7 +525,7 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aSelec
 				
 				// get the sub script
 				aLine->getValue(v);
-				aSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
+				aSubScript = v[0];
 				
 				// process namespace item on sub script
 				err = processStore(aSubScript, instanceItem, aNode);
@@ -538,16 +533,16 @@ TTErr TTCue::processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aSelec
 				// if the sub script is not empty
 				if (!err) {
 					
-					if (anObject) {
+					if (anObject.valid()) {
 						
 						// CONTAINER case : append a comment line to the script before the sub script line
-						if (anObject->getName() == kTTSym_Container)
-							aScript->sendMessage(TTSymbol("AppendComment"), none, parsedLine);
+						if (anObject.name() == kTTSym_Container)
+							aScript.send("AppendComment", none, parsedLine);
 					}
 					
 					// append the sub script line
 					v = TTValue((TTPtr)aLine);
-					aScript->sendMessage(TTSymbol("Append"), v, parsedLine);
+					aScript.send("Append", v, parsedLine);
 					
 					// the script is not empty
 					empty = NO;
@@ -570,16 +565,16 @@ TTErr TTCue::Update(const TTValue& inputValue, TTValue& outputValue)
     // TODO : update from an address
     
     // is the cue already flattened ?
-    mScript->getAttributeValue(kTTSym_flattened, v);
+    mScript.get(kTTSym_flattened, v);
     flattened = v[0];
     
     if (!flattened)
-    mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
+        mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
 	
 	return processUpdate(mScript);
 }
 
-TTErr TTCue::processUpdate(TTObjectBasePtr aScript)
+TTErr TTCue::processUpdate(TTObject aScript)
 {
 	TTListPtr		lines;
 	TTDictionaryBasePtr	aLine;
@@ -590,7 +585,7 @@ TTErr TTCue::processUpdate(TTObjectBasePtr aScript)
 	TTValue			v;
     TTErr           err;
 	
-	aScript->getAttributeValue(TTSymbol("flattenedLines"), v);
+	aScript.get(TTSymbol("flattenedLines"), v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -640,12 +635,12 @@ TTErr TTCue::processUpdate(TTObjectBasePtr aScript)
 
 TTErr TTCue::Append(const TTValue& inputValue, TTValue& outputValue)
 {
-    return mScript->sendMessage(TTSymbol("Append"), inputValue, outputValue);
+    return mScript.send("Append", inputValue, outputValue);
 }
 
 TTErr TTCue::Clear()
 {
-	return mScript->sendMessage(TTSymbol("Clear"));
+	return mScript.send("Clear");
 }
 
 TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
@@ -664,19 +659,19 @@ TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
         }
     
     // is the cue already flattened ?
-    mScript->getAttributeValue(kTTSym_flattened, v);
+    mScript.get(kTTSym_flattened, v);
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, mAddress, none);
+        mScript.send(kTTSym_Flatten, mAddress, none);
     
     // if an address is passed, run the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript->sendMessage(TTSymbol("RunCommand"), anAddress, none);
+        return mScript.send("RunCommand", anAddress, none);
     
     // else run all the script
     else
-        return mScript->sendMessage(kTTSym_Run, inputValue, none);
+        return mScript.send(kTTSym_Run, inputValue, none);
 }
 
 TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
@@ -695,19 +690,19 @@ TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
         }
     
     // is the cue already flattened ?
-    mScript->getAttributeValue(kTTSym_flattened, v);
+    mScript.get(kTTSym_flattened, v);
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, mAddress, none);
+        mScript.send(kTTSym_Flatten, mAddress, none);
     
     // if an address is passed, dump the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript->sendMessage(TTSymbol("DumpLine"), anAddress, none);
+        return mScript.send("DumpLine", anAddress, none);
     
     // else dump all the script
     else
-        return mScript->sendMessage(kTTSym_Dump, inputValue, none);
+        return mScript.send(kTTSym_Dump, inputValue, none);
 }
 
 TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
@@ -738,17 +733,17 @@ TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
     return kTTErrNone;
 }
 
-TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aSelection)
+TTErr TTCue::processSelect(TTObject aScript, TTAddressItemPtr aSelection)
 {
 	TTListPtr			lines;
 	TTAddressItemPtr    anItem;
-	TTScriptPtr			aSubScript;
-	TTDictionaryBasePtr		aLine;
+	TTObject			aSubScript;
+	TTDictionaryBasePtr aLine;
 	TTAddress           address;
 	TTValue				v;
 	TTErr				err;
 	
-	aScript->getAttributeValue(kTTSym_lines, v);
+	aScript.get(kTTSym_lines, v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// select all items which are in the script
@@ -775,9 +770,9 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aSelection)
 					
 					// get the script
 					aLine->getValue(v);
-					aSubScript = TTScriptPtr((TTObjectBasePtr)v[0]);
+					aSubScript = v[0];
 					
-					if (aSubScript)
+					if (aSubScript.valid())
 						processSelect(aSubScript, anItem);
 				}
 			}
@@ -789,10 +784,12 @@ TTErr TTCue::processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aSelection)
 
 TTErr TTCue::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTXmlHandlerPtr	aXmlHandler = NULL;
+    TTObject o = inputValue[0];
+	TTXmlHandlerPtr aXmlHandler = (TTXmlHandlerPtr)o.instance();
+    if (!aXmlHandler)
+		return kTTErrGeneric;
+    
 	TTValue			v;
-	
-	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	
 	// use WriteAsXml of the script
 	v = TTValue(mScript);
@@ -804,10 +801,12 @@ TTErr TTCue::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCue::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTXmlHandlerPtr	aXmlHandler = NULL;
+    TTObject o = inputValue[0];
+	TTXmlHandlerPtr aXmlHandler = (TTXmlHandlerPtr)o.instance();
+    if (!aXmlHandler)
+		return kTTErrGeneric;
+    
 	TTValue			v, parsedLine;
-	
-	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	
 	// Cue node : append a cue flag with the name
 	if (aXmlHandler->mXmlNodeName == TTSymbol("cue")) {
@@ -817,7 +816,7 @@ TTErr TTCue::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		
 		v = TTValue(TTSymbol("cue"));
 		v.append(mName);
-		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
+		mScript.send("AppendFlag", v, parsedLine);
 		
 		return kTTErrNone;
 	}
@@ -832,14 +831,15 @@ TTErr TTCue::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTTextHandlerPtr	aTextHandler;
-	//TTNodeAddressPtr	address;
+    TTObject o = inputValue[0];
+	TTTextHandlerPtr aTextHandler = (TTTextHandlerPtr)o.instance();
+    if (!aTextHandler)
+		return kTTErrGeneric;
+
 	TTValue				v;
 	
-	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
-	
 	/* get the address of the script
-	mScript->getAttributeValue(kTTSym_address, v);
+	mScript.get(kTTSym_address, v);
 	address = v[0];
 	
 	// write address of the script
@@ -858,11 +858,13 @@ TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTTextHandlerPtr aTextHandler;
+    TTObject o = inputValue[0];
+	TTTextHandlerPtr aTextHandler = (TTTextHandlerPtr)o.instance();
+    if (!aTextHandler)
+		return kTTErrGeneric;
+    
 	TTValue	v;
-	
-	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
-	
+
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
 		Clear();
@@ -880,31 +882,31 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark Some Methods
 #endif
 
-TTErr TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position)
+TTErr TTCueInterpolate(TTObject cue1, TTObject cue2, TTFloat64 position)
 {
     TTBoolean   flattened1, flattened2;
     TTValue     v, none;
     
     // is the cue1 already flattened ?
-    cue1->mScript->getAttributeValue(kTTSym_flattened, v);
+    TTCuePtr(cue1.instance())->mScript.get(kTTSym_flattened, v);
     flattened1 = v[0];
     
     if (!flattened1)
-        cue1->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
+        TTCuePtr(cue1.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
     
     // is the cue2 already flattened ?
-    cue2->mScript->getAttributeValue(kTTSym_flattened, v);
+    TTCuePtr(cue2.instance())->mScript.get(kTTSym_flattened, v);
     flattened2 = v[0];
     
     if (!flattened2)
-        cue2->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
+        TTCuePtr(cue2.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
     
-	return TTScriptInterpolate(cue1->mScript, cue2->mScript, position);
+	return TTScriptInterpolate(TTCuePtr(cue1.instance())->mScript, TTCuePtr(cue2.instance())->mScript, position);
 }
 
 TTErr TTCueMix(const TTValue& cues, const TTValue& factors)
 {
-	TTCuePtr	aCue;
+	TTObject	aCue;
 	TTValue		scripts;
     TTBoolean   flattened;
     TTValue     v, none;
@@ -912,38 +914,38 @@ TTErr TTCueMix(const TTValue& cues, const TTValue& factors)
 	
 	for (i = 0; i < cues.size(); i++) {
         
-		aCue = TTCuePtr((TTObjectBasePtr)cues[i]);
+		aCue = cues[i];
         
         // is the cue already flattened ?
-        aCue->mScript->getAttributeValue(kTTSym_flattened, v);
+        TTCuePtr(aCue.instance())->mScript.get(kTTSym_flattened, v);
         flattened = v[0];
         
         if (!flattened)
-            aCue->mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
+            TTCuePtr(aCue.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
         
-		scripts.append(aCue->mScript);
+		scripts.append(TTCuePtr(aCue.instance())->mScript);
 	}
 	
 	return TTScriptMix(scripts, factors);
 }
 
-TTErr TTCueMerge(TTCue* aCueToMerge, TTCue* mergedCue)
+TTErr TTCueMerge(TTObject aCueToMerge, TTObject mergedCue)
 {
-	return TTScriptMerge(aCueToMerge->mScript, mergedCue->mScript);
+	return TTScriptMerge(TTCuePtr(aCueToMerge.instance())->mScript, TTCuePtr(mergedCue.instance())->mScript);
 }
 
-TTErr TTCueOptimize(TTCue* aCueToOptimize, TTCue* aCue, TTCue* optimizedCue)
+TTErr TTCueOptimize(TTObject aCueToOptimize, TTObject aCue, TTObject optimizedCue)
 {
-	return TTScriptOptimize(aCueToOptimize->mScript, aCue->mScript, optimizedCue->mScript);
+	return TTScriptOptimize(TTCuePtr(aCueToOptimize.instance())->mScript, TTCuePtr(aCue.instance())->mScript, TTCuePtr(optimizedCue.instance())->mScript);
 }
 
-TTErr TTCueCopy(TTCue* aCueToCopy, TTCue* aCueCopy)
+TTErr TTCueCopy(TTObject aCueToCopy, TTObject aCueCopy)
 {
 	TTValue v, args;
 	
-	aCueCopy->mName = aCueToCopy->mName;
-	aCueCopy->mDescription = aCueToCopy->mDescription;
-	aCueCopy->mRamp = aCueToCopy->mRamp;
-    aCueCopy->mAddress = aCueToCopy->mAddress;
-	return TTScriptCopy(aCueToCopy->mScript, aCueCopy->mScript);
+	TTCuePtr(aCueCopy.instance())->mName = TTCuePtr(aCueToCopy.instance())->mName;
+	TTCuePtr(aCueCopy.instance())->mDescription = TTCuePtr(aCueToCopy.instance())->mDescription;
+	TTCuePtr(aCueCopy.instance())->mRamp = TTCuePtr(aCueToCopy.instance())->mRamp;
+    TTCuePtr(aCueCopy.instance())->mAddress = TTCuePtr(aCueToCopy.instance())->mAddress;
+	return TTScriptCopy(TTCuePtr(aCueToCopy.instance())->mScript, TTCuePtr(aCueCopy.instance())->mScript);
 }
