@@ -355,12 +355,12 @@ TTErr TTApplication::DirectoryObserve(const TTValue& inputValue, TTValue& output
 
 TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTString		editKey;
-	TTSymbol		appToNotify, key;
-	TTAddress		whereToListen;
-	TTCallbackPtr	returnValueCallback;
-	TTValue			cacheElement, none;
-	TTErr			err;
+	TTString	editKey;
+	TTSymbol	appToNotify, key;
+	TTAddress	whereToListen;
+	TTObject	returnValueCallback;
+	TTValue		cacheElement, none;
+	TTErr		err;
 	
 	appToNotify = inputValue[1];
 	whereToListen = inputValue[2];
@@ -374,11 +374,10 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 	if (mAttributeListenersCache.lookup(key, cacheElement)) {
 		
 		// prepare a callback based on ProtocolDirectoryCallback
-		returnValueCallback = NULL;			// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), none);
+		returnValueCallback = TTObject("callback");
 		
-		returnValueCallback->setAttributeValue(kTTSym_baton, inputValue);
-		returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolDirectoryCallback));
+		returnValueCallback.set(kTTSym_baton, inputValue);
+		returnValueCallback.set(kTTSym_function, TTPtr(&ProtocolDirectoryCallback));
 		
 		err = mDirectory->addObserverForNotifications(whereToListen, returnValueCallback); // ask to be notified for any address below
 		
@@ -397,11 +396,11 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 
 TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTString			editKey;
-	TTSymbol			appToNotify, key;
-	TTAddress			whereToListen;
-	TTCallbackPtr		returnValueCallback;
-	TTValue				cacheElement;
+	TTString	editKey;
+	TTSymbol	appToNotify, key;
+	TTAddress	whereToListen;
+	TTObject	returnValueCallback;
+	TTValue		cacheElement;
 	
 	appToNotify = inputValue[0];
 	whereToListen = inputValue[1];
@@ -414,9 +413,9 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 	// if this listener exists
 	if (!mDirectoryListenersCache.lookup(key, cacheElement)) {
         
-		returnValueCallback = TTCallbackPtr((TTObjectBasePtr)cacheElement[0]);
+		returnValueCallback = cacheElement[0];
 		mDirectory->removeObserverForNotifications(whereToListen, returnValueCallback);
-		TTObjectBaseRelease(TTObjectBaseHandle(&returnValueCallback));
+		
 		return mDirectoryListenersCache.remove(key);
 	}
 	
@@ -798,9 +797,10 @@ TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputV
 
 TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTXmlHandlerPtr aXmlHandler;
-	
-	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
+    TTObject o = inputValue[0];
+	TTXmlHandlerPtr aXmlHandler = (TTXmlHandlerPtr)o.instance();
+    if (!aXmlHandler)
+		return kTTErrGeneric;
 	
     // Write all the namespace starting from the root of the directory
 	if (mDirectory)
@@ -963,13 +963,13 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
 
 TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTXmlHandlerPtr	aXmlHandler = NULL;
+    TTObject o = inputValue[0];
+	TTXmlHandlerPtr aXmlHandler = (TTXmlHandlerPtr)o.instance();
+    if (!aXmlHandler)
+		return kTTErrGeneric;
+    
 	TTString		anAppKey, aTTKey;
 	TTValue			appValue, ttValue, v, nameValue, parameterValue;
-	
-	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
-	if (!aXmlHandler)
-		return kTTErrGeneric;
 	
 	// Switch on the name of the XML node
 	
