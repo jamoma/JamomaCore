@@ -16,6 +16,8 @@
 		22976FF5169C9F61000C7453 /* TTDataObjectBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDataObjectBase.h; path = includes/TTDataObjectBase.h; sourceTree = "<group>"; };
 		22976FF6169C9F69000C7453 /* TTObjectBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTObjectBase.h; path = includes/TTObjectBase.h; sourceTree = "<group>"; };
 		229E3DBB15ED1F6900BD1FC0 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		22B03DC418E2535800C8E763 /* TTMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTMatrix.h; sourceTree = "<group>"; };
+		22B03DC618E2569D00C8E763 /* TTMatrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrix.cpp; path = source/TTMatrix.cpp; sourceTree = SOURCE_ROOT; };
 		22BBA1A817772EE3000941AC /* TTDictionaryBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDictionaryBase.h; path = includes/TTDictionaryBase.h; sourceTree = "<group>"; };
 		22BBA1A917772F27000941AC /* TTDictionaryBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDictionaryBase.cpp; path = source/TTDictionaryBase.cpp; sourceTree = "<group>"; };
 		22E1302F18DF4D860040A028 /* TTObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTObject.cpp; path = source/TTObject.cpp; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				A74EAA491666353D004E1097 /* TTInterpolate.h */,
 				D2F0975514A0D70100EC0396 /* TTLimits.h */,
 				D2F0975614A0D70100EC0396 /* TTList.h */,
+				22B03DC418E2535800C8E763 /* TTMatrix.h */,
 				D2F0975714A0D70100EC0396 /* TTMatrixBase.h */,
 				D2F0975814A0D70100EC0396 /* TTMatrixArray.h */,
 				D2F0975A14A0D70100EC0396 /* TTMutex.h */,
@@ -261,6 +264,7 @@
 				D2F0977414A0D70F00EC0396 /* TTFoundation.cpp */,
 				D2F0977614A0D70F00EC0396 /* TTHash.cpp */,
 				D2F0977714A0D70F00EC0396 /* TTList.cpp */,
+				22B03DC618E2569D00C8E763 /* TTMatrix.cpp */,
 				D2F0977814A0D70F00EC0396 /* TTMatrixBase.cpp */,
 				D2F0977914A0D70F00EC0396 /* TTMatrixArray.cpp */,
 				D2F0977A14A0D70F00EC0396 /* TTMatrixMath.cpp */,
