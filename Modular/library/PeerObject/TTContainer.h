@@ -39,10 +39,10 @@ private:
 	TTAddress           mAlias;							///< ATTRIBUTE : an alias address to retrieve the container using another address
 	TTValue				mActivity;                      ///< ATTRIBUTE : a local value to allow observation of outputing data
     TTValue             mContent;                       ///< ATTRIBUTE : a local value to allow observation of all address handled by the container
-	TTCallbackPtr		mReturnAddressCallback;			///< a way to return back address to the owner of this container
-	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this container
-	TTHashPtr			mObjectsObserversCache;			///< a hash table containing all <relativeAddress : Objects, ValueObserver, InitializedObserver> for quick access
-	TTCallbackPtr		mObserver;						///< a life cycle observer
+	TTObject            mReturnAddressCallback;			///< a way to return back address to the owner of this container
+	TTObject            mReturnValueCallback;			///< a way to return back value to the owner of this container
+	TTHash              mObjectsObserversCache;			///< a hash table containing all <relativeAddress : Objects, ValueObserver, InitializedObserver> for quick access
+	TTObject            mObserver;						///< a life cycle observer
 	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop
     
     TTAttributePtr      activityAttribute;              ///< cache activity attribute for observer notification
