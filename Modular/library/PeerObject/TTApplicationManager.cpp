@@ -937,15 +937,17 @@ TTErr TTApplicationManager::ProtocolStop(const TTValue& inputValue, TTValue& out
 
 TTErr TTApplicationManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTXmlHandlerPtr aXmlHandler;
+	TTObject o = inputValue[0];
+	TTXmlHandlerPtr aXmlHandler = (TTXmlHandlerPtr)o.instance();
+    if (!aXmlHandler)
+		return kTTErrGeneric;
+    
 	TTSymbol        name;
 	TTObject        anApplication;
     TTObject        aProtocol;
     TTValue         keys, v;
     TTUInt16        i;
 	
-	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
-    
     // Write each protocol
     xmlTextWriterWriteComment((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "protocols setup");
     
@@ -1030,16 +1032,18 @@ TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, TTOb
 
 TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTXmlHandlerPtr		aXmlHandler = NULL;	
+    TTObject o = inputValue[0];
+	TTXmlHandlerPtr aXmlHandler = (TTXmlHandlerPtr)o.instance();
+    if (!aXmlHandler)
+		return kTTErrGeneric;
+    
 	TTSymbol			applicationName, currentApplicationName, version, type;
     TTSymbol			protocolName, currentProtocolName, parameterName;
 	TTValue				v, args, applicationNames, protocolNames, parameterValue, out, none;
     TTUInt16            i, j;
     TTErr               err;
 	
-	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
-	if (!aXmlHandler)
-		return kTTErrGeneric;
+	
 	
 	// switch on the name of the XML node
 	
@@ -1274,11 +1278,11 @@ TTApplicationPtr TTApplicationManager::findApplicationFrom(TTAddress anAddress)
 
 TTValue TTApplicationManager::getApplicationProtocolNames(TTSymbol applicationName)
 {
-    TTValue         v, keys, result;
-	TTSymbol        name;
-	TTObjectBasePtr	anObject;
-    TTBoolean       registered;
-	TTErr           err;
+    TTValue     v, keys, result;
+	TTSymbol    name;
+	TTObject	anObject;
+    TTBoolean   registered;
+	TTErr       err;
 	
     // release each protocol
 	mProtocols.getKeys(keys);
@@ -1290,7 +1294,7 @@ TTValue TTApplicationManager::getApplicationProtocolNames(TTSymbol applicationNa
 		if (!err) {
             
 			anObject = v[0];
-			anObject->sendMessage(TTSymbol("isRegistered"), applicationName, v);
+			anObject.send("isRegistered", applicationName, v);
             
             registered = v[0];
             if (registered)
@@ -1306,8 +1310,9 @@ ProtocolPtr TTApplicationManager::findProtocol(TTSymbol protocolName)
     TTValue v;
     
     if (!mProtocols.lookup(protocolName, v)) {
-        
-        return ProtocolPtr(TTObjectBasePtr(v[0]));
+        // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+        TTObject aProtocol = v[0];
+        return ProtocolPtr(aProtocol.instance());
     }
     else {
         
