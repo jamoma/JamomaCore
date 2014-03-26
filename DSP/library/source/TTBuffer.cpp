@@ -221,16 +221,16 @@ TTErr TTBuffer::checkInMatrix(TTSampleMatrixPtr& doneUsingThisMatrix)
 
 TTErr TTBuffer::checkInMatrixValues(const TTValueRef input, const TTValueRef unusedOutput)
 {
-    TTObjectBasePtr doneUsingThisObject = input[0];
+    TTObject doneUsingThisObject = input[0];
     
     // let's make sure input is a samplematrix first
-    if (doneUsingThisObject->getName() != TT("samplematrix"))
+    if (doneUsingThisObject.name() != TT("samplematrix"))
     {
         // if no: return an error
         return kTTErrInvalidValue;
     } else {
         // if yes: get a generic TTPtr, then cast to TTSampleMatrixPtr
-        TTSampleMatrixPtr doneUsingThisMatrix = (TTSampleMatrixPtr)(TTPtr(doneUsingThisObject));
+        TTSampleMatrixPtr doneUsingThisMatrix = (TTSampleMatrixPtr)doneUsingThisObject.instance();
         return checkInMatrix(doneUsingThisMatrix);
     }
     
