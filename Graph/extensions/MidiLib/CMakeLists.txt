@@ -1,3 +1,5 @@
+if(NOT ANDROID)
+
 cmake_minimum_required(VERSION 2.6)
 project(MidiLib)
 
@@ -29,3 +31,4 @@ addAppleFramework(CoreMIDI)
 addAppleFramework(CoreFoundation)
 addAppleFramework(CoreAudio)
 addAppleFramework(Carbon)
+endif()

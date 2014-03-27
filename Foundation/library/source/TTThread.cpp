@@ -1,7 +1,7 @@
-/* 
+/*
  * TTBlue Class for working with threads
  * Copyright © 2008, Timothy Place
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -46,7 +46,9 @@ TTThread::~TTThread()
 #ifdef TT_PLATFORM_WIN
 	// FIXME: Implement!
 #else
+#ifndef __ANDROID_API__
 	pthread_cancel(thread);
+#endif
 #endif
 }
 

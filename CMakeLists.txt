@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 
 SET (CMAKE_C_COMPILER "clang")
 SET (CMAKE_CXX_COMPILER "clang++")
-SET (CMAKE_CXX_FLAGS "-std=c++11 -fPIC -Wno-unknown-pragmas -Wno-conversion")
+SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC -Wno-unknown-pragmas -Wno-conversion")
 
 
 if(APPLE)

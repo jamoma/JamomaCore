@@ -84,8 +84,10 @@ include_directories("${PROJECT_SOURCE_DIR}/boost")
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
+if(NOT ANDROID)
 target_link_libraries(${PROJECT_NAME} pthread)
 target_link_libraries(${PROJECT_NAME} dl)
+endif(NOT ANDROID)
 
 # Pour OS X :
 addAppleFramework(Carbon)

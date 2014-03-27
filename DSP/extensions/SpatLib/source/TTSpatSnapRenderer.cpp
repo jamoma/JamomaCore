@@ -32,48 +32,48 @@ TTSpatSnapRenderer::~TTSpatSnapRenderer()
 
 
 void TTSpatSnapRenderer::recalculateMatrixCoefficients(TTSpatSourceVector& sources, TTSpatSinkVector& sinks)
-{	
+{
 	TTInt32 nearestSink;
 	TTFloat64 sqrDistance, smallestDist;
 	TTFloat64 sourceX, sourceY, sourceZ;
 	TTFloat64 sinkX, sinkY, sinkZ;
-	
-	mMixerMatrixCoefficients->setRowCount(sources.size());
-	mMixerMatrixCoefficients->setColumnCount(sinks.size());
-	
+
+	mMixerMatrixCoefficients->setRowCount(TTUInt32(sources.size()));
+	mMixerMatrixCoefficients->setColumnCount(TTUInt32(sinks.size()));
+
 	for (TTInt32 source=0; source<sources.size(); source++) {
-		
+
 		// The source that we want to locate the nearest sink for:
 		sources[source].getPosition(sourceX, sourceY, sourceZ);
-		
+
 		// In order to find the nearest sink for a source, we'll start by assuming that sink 0 is the nearest
 		sinks[0].getPosition(sinkX, sinkY, sinkZ);
-		
+
 		// It is more efficient to do comparement on square of the distance
 		sqrDistance = (sourceX-sinkX)*(sourceX-sinkX) + (sourceY-sinkY)*(sourceY-sinkY) + (sourceZ-sinkZ)*(sourceZ-sinkZ);
 		smallestDist = sqrDistance;
 		nearestSink = 0;
-		
+
 		// We also ensures that the matrix coefficient is set to 0 for the first sink
 		mMixerMatrixCoefficients->set2d(source, 0., 0.);
-		
+
 		// Now we iterate over the remaining sinks to see if any of them are closer
 		for (TTInt32 sink=1; sink<sinks.size(); sink++) {
-			
+
 			sinks[sink].getPosition(sinkX, sinkY, sinkZ);
-			
+
 			sqrDistance = (sourceX-sinkX)*(sourceX-sinkX) + (sourceY-sinkY)*(sourceY-sinkY) + (sourceZ-sinkZ)*(sourceZ-sinkZ);
-			
+
 			// Check if sinks[sink] is closer
 			if ((smallestDist>sqrDistance)){
 				smallestDist = sqrDistance;
 				nearestSink = sink;
-				
+
 			}
 			// In the process we also set all matrix coefficients to 0
 			mMixerMatrixCoefficients->set2d(source, sink, 0.);
 		}
-		
+
 		// We have now found the nearest sink, and all coefficients have been reset to 0.
 		// The only thing left to do is to send the coefficient of the nearest sink to 1
 		mMixerMatrixCoefficients->set2d(source, nearestSink, 1.);

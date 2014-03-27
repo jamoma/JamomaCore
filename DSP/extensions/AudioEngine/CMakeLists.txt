@@ -1,3 +1,5 @@
+if(NOT ANDROID)
+
 cmake_minimum_required(VERSION 2.6)
 project(AudioEngine)
 
@@ -22,3 +24,4 @@ addAppleFramework(Carbon)
 addAppleFramework(CoreAudio)
 addAppleFramework(AudioUnit)
 addAppleFramework(AudioToolbox)
+endif()
