@@ -88,3 +88,18 @@ Create a folder in which you want to build Jamoma
 % make
 
 All the .so and .ttso are now available to use for Android apps.
+However Android doesn't accept to load .ttso's hence we have to rename them in standard so.
+First we put them in our toolchain in order to make the compiler find them.
+Go in root or use sudo for the next commands :
+
+# cp *.*so /opt/android-toolchain/arm-linux-androideabi/lib/jamoma
+# cd /opt/android-toolchain/arm-linux-androideabi/lib/jamoma
+# for file in *.ttso; do                                                                                           !1667
+	mv "$file" "`basename $file .ttso`.so"
+  done
+
+Finally, if you want to use them in Qt for instance you have to add this line in your .pro file
+(add the relevant jamoma libraries and extensions) :
+ANDROID_EXTRA_LIBS = /opt/android-toolchain/android-toolchain/arm-linux-androideabi/lib/jamoma/libJamomaFoundation.so, etc...
+
+This is because only the shared libraries declared here get copied on the device.

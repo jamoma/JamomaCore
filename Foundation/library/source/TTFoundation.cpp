@@ -37,6 +37,12 @@
 #endif
 #include <dlfcn.h>
 #include <dirent.h>
+#ifdef __ANDROID_API__
+#include <unistd.h>
+#include <string>
+#include <fstream>
+#include <iostream>
+#endif
 #elif defined(TT_PLATFORM_WIN)
 #include <ShlObj.h>
 #endif
@@ -246,7 +252,18 @@ void TTFoundationLoadExternalClasses(void)
 	}
 
 #else // Some other platform, like Linux
+#ifdef __ANDROID_API__
+	TTString s("/proc/");
+	s.append(getpid());
+	s.append("/cmdline");
+	std::ifstream input(s.c_str());
+	std::string line;
+	std::getline(input, line);
+	line = std::string("/data/data/") + line + std::string("/lib");
+	TTFoundationLoadExternalClassesFromFolder(TTString(line.c_str()));
+#else
     TTFoundationLoadExternalClassesFromFolder("/usr/local/lib/jamoma/extensions");
+#endif
 #endif
 }
 
@@ -312,7 +329,11 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		TTString	fileSuffix(cFileSuffix);
 
 #ifdef TT_PLATFORM_LINUX
+#ifdef __ANDROID_API__
+		int dlExtSize = 3; // .so
+#else
 		int dlExtSize = 5; // .ttso
+#endif
 #elif TT_PLATFORM_MAC
 		int dlExtSize = 8; // .ttdylib
 #elif TT_PLATFORM_WIN
@@ -328,7 +349,11 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 
 		// make sure the files have the correct extension before trying to load them
 #ifdef TT_PLATFORM_LINUX
+#ifdef __ANDROID_API__
+		if (fileSuffix != ".so")
+#else
 		if (fileSuffix != ".ttso")
+#endif
 #elif defined(TT_PLATFORM_MAC)
 		if (fileSuffix != ".ttdylib")
 #elif defined(TT_PLATFORM_WIN)
