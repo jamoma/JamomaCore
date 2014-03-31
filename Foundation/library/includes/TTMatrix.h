@@ -23,7 +23,7 @@
 class TTMatrixBase;
 
 /** Wrap TTMatrixBase instances. */
-class TTMatrix : public TTObject {
+class TTFOUNDATION_EXPORT TTMatrix : public TTObject {
 public:
 	
 	/** Constructor */
