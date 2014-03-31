@@ -33,7 +33,7 @@ public:
 	
 	
 	/** Get a pointer to the wrapped #TTMatrixBase instance. */
-	TTMatrixBase* instance()
+	TTMatrixBase* instance() const
 	{
 		return (TTMatrixBase*)mObjectInstance;
 	}
@@ -77,8 +77,21 @@ public:
 	void releaseLockedPointer();
 	
 	
+	
+	/**	Number of rows in the matrix.
+		@return	TTRowID		the value stored at mRowCount
+	 */
+	TTRowID getRowCount() const;
+
+	
+	/**	Number of columns in the matrix.
+		@return	TTColumnID	the value stored at mColumnCount
+	 */
+	TTColumnID getColumnCount() const;
+
+	
 	/** Return number of bytes from one the beginning one matrix component to the next. */
-	TTUInt32 getComponentStride();
+	TTUInt32 getComponentStride() const;
 
 };
 

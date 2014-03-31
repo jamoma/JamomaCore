@@ -36,7 +36,7 @@ public:
 
 	
 	/** Get a pointer to the wrapped #TTMatrixBase instance. */
-	TTDataObjectBase* instance()
+	TTDataObjectBase* instance() const
 	{
 		return (TTDataObjectBase*)mObjectInstance;
 	}

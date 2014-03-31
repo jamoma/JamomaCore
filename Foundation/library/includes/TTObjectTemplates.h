@@ -26,7 +26,7 @@ TTErr TTObject::set(const TTSymbol aName, T aValue)
 
 
 template <class T>
-TTErr TTObject::get(const TTSymbol aName, T& aReturnedValue)
+TTErr TTObject::get(const TTSymbol aName, T& aReturnedValue) const
 {
 	return mObjectInstance->getAttributeValue(aName, aReturnedValue);
 }

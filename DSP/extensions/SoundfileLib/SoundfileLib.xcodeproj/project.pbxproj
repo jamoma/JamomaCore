@@ -1285,6 +1285,7 @@
 				22B03DC318E2437C00C8E763 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A7B79E041652B7370099C2DD /* Build configuration list for PBXProject "SoundfileLib" */ = {
 			isa = XCConfigurationList;

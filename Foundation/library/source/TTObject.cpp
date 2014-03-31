@@ -108,7 +108,7 @@ TTObjectBase* TTObject::instance() const
 }
 
 
-void TTObject::attributes(TTValue& returnedAttributeNames)
+void TTObject::attributes(TTValue& returnedAttributeNames) const
 {
 	mObjectInstance->getAttributeNames(returnedAttributeNames);
 }
@@ -120,7 +120,7 @@ TTSymbol TTObject::attributeType(const TTSymbol aName)
 }
 
 
-void TTObject::messages(TTValue& returnedMessageNames)
+void TTObject::messages(TTValue& returnedMessageNames) const
 {
 	mObjectInstance->getMessageNames(returnedMessageNames);
 }

@@ -39,7 +39,21 @@ void TTMatrix::releaseLockedPointer()
 }
 
 
-TTUInt32 TTMatrix::getComponentStride()
+TTRowID TTMatrix::getRowCount() const
+{
+	return instance()->getRowCount();
+}
+
+
+TTColumnID TTMatrix::getColumnCount() const
+{
+	return instance()->getColumnCount();
+}
+
+
+TTUInt32 TTMatrix::getComponentStride() const
 {
 	return instance()->getComponentStride();
 }
+
+

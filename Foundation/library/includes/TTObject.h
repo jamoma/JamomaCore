@@ -98,13 +98,13 @@ public:
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.	 
 	 */
 	template <class T>
-	TTErr get(const TTSymbol aName, T& aReturnedValue);
+	TTErr get(const TTSymbol aName, T& aReturnedValue) const;
 	
 	
 	/** Return a list of names of the available attributes.
 		@param attributeNameList		Pointer to a list of all attributes registered with this TTObjectBase.
 	 */
-	void attributes(TTValue& returnedAttributeNames);
+	void attributes(TTValue& returnedAttributeNames) const;
     
 	
     /** Return the type of an attribute as a symbol.
@@ -117,7 +117,7 @@ public:
 	/** Return a list of names of the available messages.
 		@param messageNameList		Pointer to a list of all messages registered with this TTObjectBase.
 	 */
-	void messages(TTValue& returnedMessageNames);
+	void messages(TTValue& returnedMessageNames) const;
 	
 	
 	/** Return the name of this class.
