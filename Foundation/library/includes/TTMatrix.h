@@ -17,6 +17,7 @@
 #ifndef __TT_MATRIX_H__
 #define __TT_MATRIX_H__
 
+#include "TTBase.h"
 #include "TTObject.h"
 
 class TTMatrixBase;
@@ -37,9 +38,48 @@ public:
 		return (TTMatrixBase*)mObjectInstance;
 	}
 	
-		
+	
+	/** Set all components of a matrix to zero. */
 	void clear();
 	
+	
+	/**	You must proceed to set the various attributes, dimensions, etc. to match the data format of the matrix you are referencing.
+	 
+		One caveat regards data alignment.  Jitter, for example, aligns rows on 16-byte boundaries.
+		In this case, a 4x10 matrix (using the m-by-n convention rather than Jitter's width-by-height convention) of 32-bit ints,
+		all with a value of "4" will look like this:
+
+		4, 4, 4, 4,   4, 4, 4, 4,   4, 4, 0, 0
+		4, 4, 4, 4,   4, 4, 4, 4,   4, 4, 0, 0
+		4, 4, 4, 4,   4, 4, 4, 4,   4, 4, 0, 0
+		4, 4, 4, 4,   4, 4, 4, 4,   4, 4, 0, 0
+
+		Thus, the rows are really of a dimension length 12 instead of 10 and the total size of the matrix scales as well.
+
+		For the time being, we do not handle this case.
+		Jitter users must dimension their matrices so that the row size in bytes is a multiple of 16.
+		This is not actually hard to do for most purposes.  For example:
+
+		float64, element count of 1, width is a multiple of 2 (an even number)
+		float32 or int32, element count of 1, width is a multiple of 4
+		uint8, element count of 1, width is a multiple of 16 (which includes 80, 160, 320, 640, ...), but
+		element count of 4 (i.e. color pixels) width should be a multiple of values.
+	 */
+	void referenceExternalData(TTPtr aDataPointer);
+
+	
+	/** Return a pointer to the matrix data, and lock the matrix so that others cannot access the data.
+	 If matrix is already locked, this function waits until it becomes free. */
+	TTByte* getLockedPointer();
+	
+	
+	/**	Release a locked pointer obtained using getLockedPointer().	*/
+	void releaseLockedPointer();
+	
+	
+	/** Return number of bytes from one the beginning one matrix component to the next. */
+	TTUInt32 getComponentStride();
+
 };
 
 

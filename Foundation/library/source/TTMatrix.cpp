@@ -19,3 +19,27 @@ void TTMatrix::clear()
 {
 	instance()->clear();
 }
+
+
+void TTMatrix::referenceExternalData(TTPtr aDataPointer)
+{
+	instance()->referenceExternalData(aDataPointer);
+}
+
+
+TTByte* TTMatrix::getLockedPointer()
+{
+	return instance()->getLockedPointer();
+}
+
+
+void TTMatrix::releaseLockedPointer()
+{
+	instance()->releaseLockedPointer();
+}
+
+
+TTUInt32 TTMatrix::getComponentStride()
+{
+	return instance()->getComponentStride();
+}

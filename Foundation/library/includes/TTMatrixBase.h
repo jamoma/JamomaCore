@@ -1,19 +1,27 @@
 /** @file
- *
- * @ingroup foundationLibrary
- *
- * @brief 2-dimensional matrix of compound values with N elements each.
- * 
- * @details Each compound value stored in the matrix is known as a component. The number of elements in each component is variable, enabling the storage of things like complex numbers or RGBA colors. However, this element count for each component and their datatype is uniform across the entire matrix. @n@n
- * Locations for individual components in the matrix are identified by (row, column) pairs.  These coordinates are translated internally into linear memory using <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column-major order</a>. @n@n
- * All dimension indices begin counting at zero. This means that index values greater than or equal to the respective mRowCount, mColumnCount or mElementCount will be out of bounds. @n@n
- * Please note that previous support for N dimensions has been deprecated and the TTMatrixBase class is now fixed at 2 dimensions. Throughout this documentation, dimension 1 is referred to as the "row" and dimension 2 is referred to as the "column".
- *  
- * @authors Timothy Place & Nathan Wolek
- *
- * @copyright Copyright © 2011-2012, Timothy Place & Nathan Wolek @n
- * This code is licensed under the terms of the "New BSD License" @n
- * http://creativecommons.org/licenses/BSD/
+
+	@ingroup foundationLibrary
+
+	@brief 2-dimensional matrix of compound values with N elements each.
+ 
+	@details Each compound value stored in the matrix is known as a component. 
+			 The number of elements in each component is variable, enabling the storage of things like complex numbers or RGBA colors. 
+			 However, this element count for each component and their datatype is uniform across the entire matrix. @n@n
+ 
+			 Locations for individual components in the matrix are identified by (row, column) pairs.  
+			 These coordinates are translated internally into linear memory using <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column-major order</a>. @n@n
+ 
+			 All dimension indices begin counting at zero. 
+			 This means that index values greater than or equal to the respective mRowCount, mColumnCount or mElementCount will be out of bounds. @n@n
+ 
+			 Please note that previous support for N dimensions has been deprecated and the TTMatrixBase class is now fixed at 2 dimensions. 
+			 Throughout this documentation, dimension 1 is referred to as the "row" and dimension 2 is referred to as the "column".
+  
+	@authors Timothy Place & Nathan Wolek
+
+	@copyright	Copyright © 2011-2012, Timothy Place & Nathan Wolek @n
+				This code is licensed under the terms of the "New BSD License" @n
+				http://creativecommons.org/licenses/BSD/
  */
 
 #ifndef __TT_MATRIX_BASE_H__
