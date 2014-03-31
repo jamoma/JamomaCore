@@ -11,6 +11,8 @@
 		2236CD8316188DB00008DF69 /* TTAddressBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTAddressBase.cpp; path = source/TTAddressBase.cpp; sourceTree = SOURCE_ROOT; };
 		2262733915B0604A00B13F9D /* TTFifo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTFifo.h; sourceTree = "<group>"; };
 		226B5BAA1790529400341B43 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		22737C4B18E90042006A51F7 /* TTMatrixObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTMatrixObject.h; path = includes/TTMatrixObject.h; sourceTree = SOURCE_ROOT; };
+		22737C4C18E9023C006A51F7 /* TTMatrixObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTMatrixObject.cpp; path = source/TTMatrixObject.cpp; sourceTree = SOURCE_ROOT; };
 		22976FF3169C9F35000C7453 /* TTDataObjectBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataObjectBase.cpp; path = source/TTDataObjectBase.cpp; sourceTree = "<group>"; };
 		22976FF4169C9F3E000C7453 /* TTObjectBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTObjectBase.cpp; path = source/TTObjectBase.cpp; sourceTree = "<group>"; };
 		22976FF5169C9F61000C7453 /* TTDataObjectBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDataObjectBase.h; path = includes/TTDataObjectBase.h; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				D2F0975614A0D70100EC0396 /* TTList.h */,
 				22B03DC418E2535800C8E763 /* TTMatrix.h */,
 				D2F0975714A0D70100EC0396 /* TTMatrixBase.h */,
+				22737C4B18E90042006A51F7 /* TTMatrixObject.h */,
 				D2F0975814A0D70100EC0396 /* TTMatrixArray.h */,
 				D2F0975A14A0D70100EC0396 /* TTMutex.h */,
 				D2F0976314A0D70100EC0396 /* TTQueue.h */,
@@ -266,6 +269,7 @@
 				D2F0977714A0D70F00EC0396 /* TTList.cpp */,
 				22B03DC618E2569D00C8E763 /* TTMatrix.cpp */,
 				D2F0977814A0D70F00EC0396 /* TTMatrixBase.cpp */,
+				22737C4C18E9023C006A51F7 /* TTMatrixObject.cpp */,
 				D2F0977914A0D70F00EC0396 /* TTMatrixArray.cpp */,
 				D2F0977A14A0D70F00EC0396 /* TTMatrixMath.cpp */,
 				D2F0977C14A0D70F00EC0396 /* TTMutex.cpp */,

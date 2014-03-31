@@ -1,14 +1,14 @@
 /** @file
  *
- * @ingroup dspLibrary
+ * @ingroup foundationLibrary
  *
- * @brief #TTAudioObjectBase is the Jamoma DSP Audio Object Base Class
+ * @brief #TTMatrix wraps a TTMatrixBase for use.
  *
  * @details
  *
- * @authors Tim Place, Nils Peters, Trond Lossius
+ * @authors Timothy Place, Nathan Wolek
  *
- * @copyright Copyright © 2008 by Timothy Place @n
+ * @copyright Copyright © 2014 by Timothy Place @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */

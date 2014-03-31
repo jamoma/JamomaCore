@@ -42,6 +42,7 @@
 #include "TTObject.h"
 #include "TTObjectTemplates.h"
 #include "TTMatrix.h"
+#include "TTMatrixObject.h"
 
 #ifdef TT_PLATFORM_WIN
 #define TT_EXTENSION_EXPORT __declspec(dllexport)
