@@ -62,7 +62,7 @@ add_subdirectory(Graph)
 add_subdirectory(AudioGraph)
 add_subdirectory(Modular)
 
-if(IS_DIRECTORY "Score")
+if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/Score")
 	add_subdirectory(Score)
 endif()
 
