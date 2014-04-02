@@ -1,7 +1,10 @@
-if(NOT ANDROID)
-
 cmake_minimum_required(VERSION 2.6)
 project(MidiLib)
+
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID)
+message(STATUS "We can't build this for Android / ARM for now.")
+return()
+endif()
 
 find_package(PortMidi)
 if(NOT PORTMIDI_FOUND)
@@ -37,4 +40,3 @@ addAppleFramework(CoreMIDI)
 addAppleFramework(CoreFoundation)
 addAppleFramework(CoreAudio)
 addAppleFramework(Carbon)
-endif()

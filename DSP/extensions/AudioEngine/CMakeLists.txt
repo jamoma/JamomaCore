@@ -1,7 +1,11 @@
-if(NOT ANDROID)
-
 cmake_minimum_required(VERSION 2.6)
 project(AudioEngine)
+
+# Doesn't yet work on ARM
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID)
+message(STATUS "We can't build this for Android / ARM for now.")
+return()
+endif()
 
 find_package(Portaudio)
 if(NOT PORTAUDIO_FOUND)
@@ -33,4 +37,3 @@ addAppleFramework(CoreAudio)
 addAppleFramework(AudioUnit)
 addAppleFramework(AudioToolbox)
 
-endif()
