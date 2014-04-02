@@ -15,6 +15,7 @@ elseif(UNIX)
 	SET(CPACK_INSTALL_PREFIX "/usr/local/lib/jamoma/")
 elseif(WIN32)
 	add_definitions(-DTT_PLATFORM_WIN)
+	SET(CPACK_GENERATOR "NSIS")
 endif(APPLE)
 
 
@@ -60,14 +61,17 @@ add_subdirectory(DSP)
 add_subdirectory(Graph)
 add_subdirectory(AudioGraph)
 add_subdirectory(Modular)
-add_subdirectory(Score)
+
+if(IS_DIRECTORY "Score")
+	add_subdirectory(Score)
+endif()
 
 
 ### Creation of packages ###
 SET(CPACK_PACKAGE_NAME "Jamoma")
 SET(CPACK_PACKAGE_VENDOR "Jamoma")
 
-SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Jamoma is a set of libraries used for artistic programming.")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Jamoma is a community-based project, dedicated to the development of several toolsets and frameworks for artistic creation through digital means. ")
 SET(CPACK_PACKAGE_VERSION "0.6-dev")
 SET(CPACK_PACKAGE_VERSION_MAJOR "0")
 SET(CPACK_PACKAGE_VERSION_MINOR "6")
