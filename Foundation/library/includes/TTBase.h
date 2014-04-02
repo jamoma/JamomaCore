@@ -73,6 +73,7 @@
 #include <sstream>
 #include <iterator>
 #include <stdexcept>
+#include <cstdint>
 
 #ifdef TT_PLATFORM_LINUX
 #include <stdarg.h>
@@ -170,39 +171,12 @@ typedef const char*			TTImmutableCString;
 
 typedef signed char			TTInt8;					///< 8 bit signed integer (char)
 typedef unsigned char		TTUInt8;				///< 8 bit unsigned integer (char)
-typedef signed short		TTInt16;				///< 16 bit signed integer
-typedef unsigned short		TTUInt16;				///< 16 bit unsigned integer
-
-#ifdef USE_PROBLEMATIC_FOR_CPP_DUE_TO_AMBIGUITY_INT_TYPE
-#ifdef __LP64__		// Mac 64-bit
-	typedef signed int			TTInt32;			///< 32 bit signed integer
-	typedef unsigned int		TTUInt32;			///< 32 bit unsigned integer
-#else				// Mac 32-bit, Win32 32-bit
-	typedef signed long			TTInt32;			///< 32 bit signed integer
-	typedef unsigned long		TTUInt32;			///< 32 bit unsigned integer
-#endif
-#else
-#define TTInt32 int
-#ifdef __LP64__		// Mac 64-bit
-typedef unsigned int		TTUInt32;			///< 32 bit unsigned integer
-#else				// Mac 32-bit, Win32 32-bit
-typedef unsigned long		TTUInt32;			///< 32 bit unsigned integer
-#endif
-
-#endif
-
-#if defined(_MSC_VER) || defined(__BORLANDC__)
-	typedef __int64				TTInt64;			///< 64 bit signed integer
-	typedef unsigned __int64	TTUInt64;			///< 64 bit unsigned integer
-#else
-	#if defined(__LP64__)	// Mac 64-bit
-		typedef signed long			TTInt64;		///< 64 bit unsigned integer
-		typedef unsigned long		TTUInt64;		///< 64 bit unsigned integer
-	#else // Max 32-bit
-		typedef signed long long	TTInt64;		///< 64 bit unsigned integer
-		typedef unsigned long long	TTUInt64;		///< 64 bit unsigned integer
-	#endif
-#endif
+typedef std::int16_t		TTInt16;				///< 16 bit signed integer
+typedef std::uint16_t		TTUInt16;				///< 16 bit unsigned integer
+typedef std::int32_t		TTInt32;				///< 32 bit signed integer
+typedef std::uint32_t		TTUInt32;				///< 32 bit unsigned integer
+typedef std::int64_t		TTInt64;				///< 64 bit signed integer
+typedef std::uint64_t		TTUInt64;				///< 64 bit unsigned integer
 
 // can't do the follow -- conflicts on the mac with Carbon headers
 //#ifndef uint
@@ -211,7 +185,7 @@ typedef unsigned long		TTUInt32;			///< 32 bit unsigned integer
 
 typedef float					TTFloat32;			///< 32 bit floating point number
 typedef double					TTFloat64;			///< 64 bit floating point number
-typedef std::complex<double>	TTComplex;			///< Conmplex number
+typedef std::complex<double>	TTComplex;			///< Complex number
 
 /** A value representing a single audio sample.  TTSampleValue should be used any place a sample value is what the value represents.  This will enable us to change the type in the future if needed.  For example, to use 64-bit floats. */
 typedef TTFloat64			TTSampleValue;
