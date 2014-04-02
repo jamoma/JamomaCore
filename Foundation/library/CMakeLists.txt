@@ -92,3 +92,5 @@ endif(NOT ANDROID)
 # Pour OS X :
 addAppleFramework(Carbon)
 addAppleFramework(CoreServices)
+
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")

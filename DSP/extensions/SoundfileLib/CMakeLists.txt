@@ -25,3 +25,5 @@ setExtensionSuffix()
 
 addAppleFramework(Carbon)
 addAppleFramework(AudioUnit)
+
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")

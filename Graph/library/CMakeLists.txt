@@ -26,3 +26,5 @@ target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} JamomaDSP)
 
 addAppleFramework(Carbon)
+
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")

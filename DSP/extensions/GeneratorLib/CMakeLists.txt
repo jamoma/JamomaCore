@@ -25,3 +25,5 @@ target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} JamomaDSP)
 
 setExtensionSuffix()
+
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")

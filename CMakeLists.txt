@@ -9,6 +9,10 @@ if(APPLE)
 	add_definitions(-DTT_PLATFORM_MAC)
 elseif(UNIX)
 	add_definitions(-DTT_PLATFORM_LINUX)
+	SET(CPACK_GENERATOR "DEB")
+	SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jean-Michaël Celerier")
+	SET(CPACK_SET_DESTDIR true)
+	SET(CPACK_INSTALL_PREFIX "/usr/local/lib/jamoma/")
 elseif(WIN32)
 	add_definitions(-DTT_PLATFORM_WIN)
 endif(APPLE)
@@ -48,6 +52,7 @@ ENDMACRO()
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 project (JamomaCore)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/Shared/toolchains/modules/")
 
 ### Here are the Jamoma Submodules ###
 add_subdirectory(Foundation)
@@ -57,3 +62,16 @@ add_subdirectory(AudioGraph)
 add_subdirectory(Modular)
 add_subdirectory(Score)
 
+
+### Creation of packages ###
+SET(CPACK_PACKAGE_NAME "Jamoma")
+SET(CPACK_PACKAGE_VENDOR "Jamoma")
+
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Jamoma is a set of libraries used for artistic programming.")
+SET(CPACK_PACKAGE_VERSION "0.6-dev")
+SET(CPACK_PACKAGE_VERSION_MAJOR "0")
+SET(CPACK_PACKAGE_VERSION_MINOR "6")
+
+SET(CPACK_SOURCE_GENERATOR TGZ)
+SET(CPACK_SOURCE_PACKAGE_FILE_NAME "Jamoma-0.6-dev")
+INCLUDE(CPack)

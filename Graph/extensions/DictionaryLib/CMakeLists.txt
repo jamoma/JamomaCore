@@ -19,3 +19,5 @@ target_link_libraries(${PROJECT_NAME} JamomaDSP)
 target_link_libraries(${PROJECT_NAME} JamomaGraph)
 
 setExtensionSuffix()
+
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")

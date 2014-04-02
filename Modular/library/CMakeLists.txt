@@ -3,6 +3,12 @@ project(JamomaModular)
 
 add_definitions(-DTTMODULAR_EXPORTS)
 
+find_package(LibXml2)
+if(NOT LIBXML2_FOUND)
+  message(FATAL_ERROR "Package libxml2 required, but not found!")
+endif()
+
+
 set(PROJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTModular.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTApplication.cpp
@@ -42,20 +48,16 @@ include_directories("${PROJECT_SOURCE_DIR}/ProtocolLib")
 include_directories("${PROJECT_SOURCE_DIR}/SchedulerLib")
 include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/libiconv/include")
-include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/libxml2/win32/include")
 include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes")
+include_directories(${LIBXML2_INCLUDE_DIR})
 
-if(ANDROID)
-include_directories("${CMAKE_FIND_ROOT_PATH}/include")
-include_directories("${CMAKE_FIND_ROOT_PATH}/include/libxml2")
-elseif(UNIX)
-include_directories("/usr/include/libxml2")
-endif()
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} JamomaDSP)
-target_link_libraries(${PROJECT_NAME} xml2)
+target_link_libraries(${PROJECT_NAME} ${LIBXML2_LIBRARIES})
 
 addAppleFramework(Carbon)
+
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")

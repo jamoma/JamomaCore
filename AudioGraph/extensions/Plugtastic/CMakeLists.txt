@@ -20,3 +20,5 @@ target_link_libraries(${PROJECT_NAME} JamomaGraph)
 target_link_libraries(${PROJECT_NAME} JamomaAudioGraph)
 
 setExtensionSuffix()
+
+INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")
