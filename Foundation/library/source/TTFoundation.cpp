@@ -323,7 +323,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 	dirent* dp;
 	while ((dp = readdir(dirp))) {
 		TTString	fileName(dp->d_name);
-		char*		cFileSuffix = strrchr(fileName.c_str(), '.');
+		const char*		cFileSuffix = strrchr(fileName.c_str(), '.');
 		if (!cFileSuffix)
 			continue;
 		TTString	fileSuffix(cFileSuffix);
