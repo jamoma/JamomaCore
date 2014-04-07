@@ -7,6 +7,10 @@ SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lc++ -stdlib=libc++ -std=c++11 -fPIC -
 
 if(APPLE)
 	add_definitions(-DTT_PLATFORM_MAC)
+	SET(CPACK_GENERATOR "Bundle")
+	SET(CPACK_BUNDLE_NAME "Jamoma")
+	SET(CPACK_BUNDLE_ICON "../icone.icns")
+	SET(CPACK_BUNDLE_PLIST "../Shared/toolchains/jamoma-Info.plist")
 elseif(UNIX)
 	add_definitions(-DTT_PLATFORM_LINUX)
 	SET(CPACK_GENERATOR "DEB")
