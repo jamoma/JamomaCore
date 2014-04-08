@@ -588,18 +588,10 @@ public:
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%iu", (unsigned int)mValue.uint32);
 				break;
 			case kTypeInt64:
-#ifdef __LP64__ // Mac 64-Bit
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%ld", mValue.int64);
-#else
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%lld", mValue.int64);
-#endif
 				break;
 			case kTypeUInt64:
-#ifdef __LP64__ // Mac 64-Bit
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%lu", mValue.int64);
-#else
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%llu", mValue.uint64);
-#endif
 				break;
 			case kTypeBoolean:
 				if (mValue.boolean)

@@ -2,25 +2,9 @@ cmake_minimum_required(VERSION 2.6)
 
 SET (CMAKE_C_COMPILER "clang")
 SET (CMAKE_CXX_COMPILER "clang++")
-SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lc++ -stdlib=libc++ -std=c++11 -fPIC -Wno-unknown-pragmas -Wno-conversion")
+SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -std=c++11 -fPIC -Wno-unknown-pragmas -Wno-deprecated-register -Wno-conversion")
 
 
-if(APPLE)
-	add_definitions(-DTT_PLATFORM_MAC)
-	SET(CPACK_GENERATOR "Bundle")
-	SET(CPACK_BUNDLE_NAME "Jamoma")
-	SET(CPACK_BUNDLE_ICON "../Shared/toolchains/icone.icns")
-	SET(CPACK_BUNDLE_PLIST "../Shared/toolchains/jamoma-Info.plist")
-elseif(UNIX)
-	add_definitions(-DTT_PLATFORM_LINUX)
-	SET(CPACK_GENERATOR "DEB")
-	SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jean-Michaël Celerier")
-	SET(CPACK_SET_DESTDIR true)
-	SET(CPACK_INSTALL_PREFIX "/usr/local/lib/jamoma/")
-elseif(WIN32)
-	add_definitions(-DTT_PLATFORM_WIN)
-	SET(CPACK_GENERATOR "NSIS")
-endif(APPLE)
 
 
 function(setExtensionSuffix)
@@ -54,10 +38,49 @@ MACRO(SUBDIRLIST result curdir)
 ENDMACRO()
 
 
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
-
 project (JamomaCore)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/Shared/toolchains/modules/")
+set(CMAKE_INSTALL_PREFIX "jamoma/")
+
+
+if(APPLE)
+	add_definitions(-DTT_PLATFORM_MAC)
+	SET(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /usr/local/lib)
+
+# No lib prefix for libraries
+    SET(CMAKE_SHARED_LIBRARY_PREFIX "")
+
+# Independent shared libraries
+    #SET(CMAKE_SKIP_BUILD_RPATH FALSE)
+    #SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+    #SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+    #SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+    
+    #LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
+    #if("${isSystemDir}" STREQUAL "-1")
+    #    SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+    #endif("${isSystemDir}" STREQUAL "-1")
+    set(CMAKE_MACOSX_RPATH 1)
+# CPack
+    SET(CPACK_GENERATOR "Bundle")
+	SET(CPACK_BUNDLE_NAME "Jamoma")
+	SET(CPACK_BUNDLE_ICON "../Shared/toolchains/icone.icns")
+	SET(CPACK_BUNDLE_PLIST "../Shared/toolchains/jamoma-Info.plist")
+
+elseif(UNIX)
+	add_definitions(-DTT_PLATFORM_LINUX)
+	SET(CPACK_GENERATOR "DEB")
+	SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jean-Michaël Celerier")
+	SET(CPACK_SET_DESTDIR true)
+	SET(CPACK_INSTALL_PREFIX "/usr/local/lib/jamoma/")
+
+elseif(WIN32)
+	add_definitions(-DTT_PLATFORM_WIN)
+	SET(CPACK_GENERATOR "NSIS")
+
+endif()
+
 
 ### Here are the Jamoma Submodules ###
 add_subdirectory(Foundation)

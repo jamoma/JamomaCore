@@ -182,7 +182,7 @@ TTErr TTViewer::observeDataspace()
 	if (mDataspaceObserver)
 		TTObjectBaseRelease(TTObjectBaseHandle(&mDataspaceObserver));
 	
-	args.append(NULL);
+	args.append(0);
 	
 	returnDataspaceCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnDataspaceCallback, none);
@@ -211,7 +211,7 @@ TTErr TTViewer::observeDataspaceUnit()
 		TTObjectBaseRelease(TTObjectBaseHandle(&mDataspaceUnitObserver));
 	
 	// Make a TTReceiver object
-	args.append(NULL);
+	args.append(0);
 	
 	returnDataspaceUnitCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnDataspaceUnitCallback, none);

@@ -294,7 +294,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	mObserveInputRange = true;
 	
 	// Make a TTReceiver object
-	args.append(NULL);
+	args.append(0);
 	
 	returnValueCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, none);
@@ -357,7 +357,7 @@ TTErr TTMapper::observeInput()
 	returnInputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperInputCreationCallback));
 	args.append(returnInputCreationCallback);
 	
-	args.append(NULL);
+	args.append(0);
 	
 	mInputObserver = NULL;
 	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(&mInputObserver), args);
@@ -377,7 +377,7 @@ TTErr TTMapper::observeInputRange()
 		TTObjectBaseRelease(TTObjectBaseHandle(&mInputRangeObserver));
 	
 	// Make a TTReceiver object
-	args.append(NULL);
+	args.append(0);
 	
 	returnInputRangeCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnInputRangeCallback, none);
@@ -463,7 +463,7 @@ TTErr TTMapper::observeOutput()
 	returnOutputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperOutputCreationCallback));
 	args.append(returnOutputCreationCallback);
 	
-	args.append(NULL);
+	args.append(0);
 	
 	mOutputObserver = NULL;
 	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(&mOutputObserver), args);
@@ -483,7 +483,7 @@ TTErr TTMapper::observeOutputRange()
 		TTObjectBaseRelease(TTObjectBaseHandle(&mOutputRangeObserver));
 	
 	// Make a TTReceiver object
-	args.append(NULL);
+	args.append(0);
 	
 	returnOutputRangeCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
 	TTObjectBaseInstantiate(TTSymbol("callback"), &returnOutputRangeCallback, none);

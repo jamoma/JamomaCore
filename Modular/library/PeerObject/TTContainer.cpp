@@ -588,12 +588,12 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	else if (anObject->getName() == kTTSym_PresetManager) {
 		
 		// 1 : cache NULL
-		cacheElement.append(NULL);
+		cacheElement.append(0);
 	}
 	
 	else
 		// 1 : cache NULL
-		cacheElement.append(NULL);
+		cacheElement.append(0);
 
 	// 2 : cache the node too (used during alias creation/destruction)
 	cacheElement.append((TTPtr)aNode);

@@ -1255,7 +1255,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
             args.append(getAttributeCallback);
         }
         else
-            args.append(NULL);
+            args.append(0);
         
         aProtocol->getAttributeValue(TTSymbol("set"), allowSetRequest);
         
@@ -1281,8 +1281,8 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         }
         else {
             
-            args.append(NULL);
-            args.append(NULL);
+            args.append(0);
+            args.append(0);
         }
         
         aProtocol->getAttributeValue(TTSymbol("listen"), allowListenRequest);
@@ -1299,7 +1299,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
             args.append(listenAttributeCallback);
         }
         else
-            args.append(NULL);
+            args.append(0);
         
         TTObjectBaseInstantiate(kTTSym_Mirror, TTObjectBaseHandle(&aMirror), args);
         

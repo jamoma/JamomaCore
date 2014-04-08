@@ -39,7 +39,7 @@ mRampGainUnit(NULL),
 mInputObject(NULL),
 mReturnSignalCallback(NULL),
 mReturnLinkCallback(NULL),
-mLast(NULL),
+mLast(0),
 mAddressObserver(NULL),
 mSignal(kTTValNONE),
 mSignalAttr(NULL)

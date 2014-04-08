@@ -9,20 +9,40 @@
 # See documentation on how to write CMake scripts at
 # http://www.cmake.org/Wiki/CMake:How_To_Find_Libraries
 
+include(FindPkgConfig)
+pkg_check_modules(PORTMIDIPKG portmidi)
+
+if(PORTMIDIPKG_FOUND)
+	set(PORTMIDI_INCLUDE_DIR ${PORTMIDIPKG_INCLUDE_DIR})
+	set(PORTMIDI_LIBRARIES ${PORTMIDIPKG_LIBRARIES})
+else()
 find_path(PORTMIDI_INCLUDE_DIR portmidi.h
   HINTS
   $ENV{PORTMIDI_DIR}
+  PATHS
+  /usr/include
+  /usr/local/include
+  /opt/local/include
 )
 
-find_library(PORTMIDI_LIBRARY portmidi
+find_library(PORTMIDI_LIBRARIES portmidi
   HINTS
   $ENV{PORTMIDI_DIR}
+  PATHS
+  /usr/lib
+  /usr/local/lib
+  /opt/local/lib
 )
 
-find_library(PORTTIME_LIBRARY porttime
+find_library(PORTTIME_LIBRARIES porttime
   HINTS
   $ENV{PORTMIDI_DIR}
+  PATHS
+  /usr/lib
+  /usr/local/lib
+  /opt/local/lib
 )
+endif()
 
 # Porttime library is merged to Portmidi in new versions, so
 # we work around problems by adding it only if it's present
