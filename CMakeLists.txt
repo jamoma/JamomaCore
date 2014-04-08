@@ -4,11 +4,9 @@ SET (CMAKE_C_COMPILER "clang")
 SET (CMAKE_CXX_COMPILER "clang++")
 SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -std=c++11 -fPIC -Wno-unknown-pragmas -Wno-deprecated-register -Wno-conversion")
 
-
-
-
 function(setExtensionSuffix)
 	if(APPLE)
+        SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES PREFIX "")
 		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdylib")
 	elseif(UNIX)
 		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".ttso")
@@ -41,32 +39,21 @@ ENDMACRO()
 project (JamomaCore)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/Shared/toolchains/modules/")
-set(CMAKE_INSTALL_PREFIX "jamoma/")
 
 
 if(APPLE)
 	add_definitions(-DTT_PLATFORM_MAC)
-	SET(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /usr/local/lib)
-
-# No lib prefix for libraries
-    SET(CMAKE_SHARED_LIBRARY_PREFIX "")
+	set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /usr/local/lib)
+    set(CMAKE_INSTALL_PREFIX "/usr/local/jamoma/")
 
 # Independent shared libraries
-    #SET(CMAKE_SKIP_BUILD_RPATH FALSE)
-    #SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
-    #SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
-    #SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-    
-    #LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
-    #if("${isSystemDir}" STREQUAL "-1")
-    #    SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
-    #endif("${isSystemDir}" STREQUAL "-1")
     set(CMAKE_MACOSX_RPATH 1)
+
 # CPack
     SET(CPACK_GENERATOR "Bundle")
 	SET(CPACK_BUNDLE_NAME "Jamoma")
-	SET(CPACK_BUNDLE_ICON "../Shared/toolchains/icone.icns")
-	SET(CPACK_BUNDLE_PLIST "../Shared/toolchains/jamoma-Info.plist")
+	SET(CPACK_BUNDLE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Shared/toolchains/icone.icns")
+	SET(CPACK_BUNDLE_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Shared/toolchains/jamoma-Info.plist")
 
 elseif(UNIX)
 	add_definitions(-DTT_PLATFORM_LINUX)

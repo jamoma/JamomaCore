@@ -129,10 +129,10 @@ void TTFoundationShutdown()
 void TTFoundationLoadExternalClasses(void)
 {
 #ifdef TT_PLATFORM_MAC
-	if (!TTFoundationBinaryPath.empty()) {
+    if (!TTFoundationBinaryPath.empty()) {
 		// Look in the specified folder rather than the default location
 		TTString extensionsPath = TTFoundationBinaryPath;
-		extensionsPath += "/Extensions";
+        extensionsPath += "/extensions";
 		TTFoundationLoadExternalClassesFromFolder(extensionsPath);
 	}
 	else {
@@ -170,7 +170,7 @@ void TTFoundationLoadExternalClasses(void)
 		CFRelease(mainBundlePath);
 #endif
 
-
+        std::cerr << "Trying to load from: " << mainBundleStr << std::endl;
 		err = TTFoundationLoadExternalClassesFromFolder(mainBundleStr);
 		if (!err)
 			return; // if we loaded classes out of a standalone app, then we don't want to be corrupted by global extensions Redmine #348
