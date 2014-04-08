@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 
 SET (CMAKE_C_COMPILER "clang")
 SET (CMAKE_CXX_COMPILER "clang++")
-SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -std=c++11 -fPIC -Wno-unknown-pragmas -Wno-deprecated-register -Wno-conversion")
+SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC -Wno-unknown-pragmas -Wno-deprecated-register -Wno-conversion")
 
 function(setExtensionSuffix)
 	if(APPLE)
@@ -44,13 +44,13 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/Shared/toolcha
 if(APPLE)
 	add_definitions(-DTT_PLATFORM_MAC)
 	set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /usr/local/lib)
-    set(CMAKE_INSTALL_PREFIX "/usr/local/jamoma/")
-
+	set(CMAKE_INSTALL_PREFIX "/usr/local/jamoma/")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 # Independent shared libraries
-    set(CMAKE_MACOSX_RPATH 1)
+	set(CMAKE_MACOSX_RPATH 1)
 
 # CPack
-    SET(CPACK_GENERATOR "Bundle")
+	SET(CPACK_GENERATOR "Bundle")
 	SET(CPACK_BUNDLE_NAME "Jamoma")
 	SET(CPACK_BUNDLE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Shared/toolchains/icone.icns")
 	SET(CPACK_BUNDLE_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Shared/toolchains/jamoma-Info.plist")
