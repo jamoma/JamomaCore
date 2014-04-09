@@ -29,6 +29,7 @@
 #include "TTAddressCache.h"
 #endif
 
+#include <cinttypes>
 class TTObjectBase;
 class TTMatrix;
 class TTDictionary;
@@ -121,7 +122,7 @@ break;\
 
 class TTFOUNDATION_EXPORT TTElement {
 	friend class TTDictionary;
-	
+
 	/** The data value of TTValue is stored using a union, which means that the size of TTDataValue is the size of the largest type in this list.
 		It is generally in our interest to keep this size as small as possible.
 		On a 64-bit platform a pointer uses 8-bytes.
@@ -145,51 +146,51 @@ class TTFOUNDATION_EXPORT TTElement {
 		TTMatrix*		matrix;
 		TTPtr			ptr;
 		TTSymbolBase*	dictionary;	///< dictionaries are referenced by name
-		
+
 		TTDataValue() :
 		sym(kTTSymEmpty)
 		{}
 	};
-	
+
 	TTDataValue		mValue;
 	TTDataType		mType;
 
 public:
-	
+
 	TTElement() :
 	mType(kTypeNone)
 	{
 		mValue.ptr = NULL;	// windows doesn't permit using an initializer for a union?
 	}
-	
-	
+
+
 	template<class T>
 	TTElement(const T& anInitialValue) :
 	mType(kTypeNone)
 	{
 		*this = anInitialValue;
 	}
-	
+
 	/** Copy constructor. */
 	TTElement(const TTElement& anOtherElement)
 	{
 		*this = anOtherElement;
 	}
-	
+
 	virtual ~TTElement();
 
-	
+
 	/**	query an element for its type */
 	TTDataType type() const
 	{
 		return mType;
 	}
-	
+
 #if 0
 #pragma mark -
 #pragma mark casting
 #endif
-	
+
 	operator TTFloat32() const
 	{
 		if (mType == kTypeFloat32)
@@ -222,7 +223,7 @@ public:
 			return value;
 		}
 	}
-	
+
 	operator TTUInt8() const
 	{
 		if (mType == kTypeUInt8)
@@ -277,7 +278,7 @@ public:
 			return value;
 		}
 	}
-	
+
 	operator TTInt64() const
 	{
 		if (mType == kTypeInt64)
@@ -288,7 +289,7 @@ public:
 			return value;
 		}
 	}
-	
+
 	operator TTUInt64() const
 	{
 		if (mType == kTypeUInt64)
@@ -299,7 +300,7 @@ public:
 			return value;
 		}
 	}
-	
+
 	operator TTBoolean() const
 	{
 		if (mType == kTypeBoolean)
@@ -311,7 +312,7 @@ public:
 			return (TTBoolean)(value != 0);
 		}
 	}
-		
+
 	operator TTSymbol() const
 	{
 		if (mType == kTypeSymbol)
@@ -329,11 +330,11 @@ public:
 			return kTTAdrsEmpty;
 	}
 #endif
-	
+
 	operator TTString() const
 	{
 		TT_ASSERT(ttvalue_cast_to_string_ref, (mType == kTypeString));
-		
+
 		if (mType == kTypeString)
 			return *mValue.stringPtr;
 		else
@@ -345,7 +346,7 @@ public:
 	operator TTObjectBase&() const
 	{
 		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeObject));
-		
+
 		if (mType == kTypeObject)
 			return *mValue.object;
 		else {
@@ -353,21 +354,21 @@ public:
 			return *mValue.object;
 		}
 	}
-	
+
 	operator TTObjectBase*() const
 	{
 		TT_ASSERT(ttvalue_cast_to_object_ptr, (mType == kTypeObject));
-		
+
 		if (mType == kTypeObject)
 			return mValue.object;
 		else
 			return NULL;
 	}
-	
+
 	operator TTMatrix&() const
 	{
 		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeObject));
-		
+
 		if (mType == kTypeMatrix)
 			return *mValue.matrix;
 		else {
@@ -375,11 +376,11 @@ public:
 			return *mValue.matrix;
 		}
 	}
-	
+
 	operator TTMatrix*() const
 	{
 		TT_ASSERT(ttvalue_cast_to_object_ptr, (mType == kTypeObject));
-		
+
 		if (mType == kTypeMatrix)
 			return mValue.matrix;
 		else
@@ -393,29 +394,29 @@ public:
 		else
 			return NULL;
 	}
-	
+
 	operator TTDictionary() const;
 
-	
+
 #if 0
 #pragma mark -
 #pragma mark assignment
 #endif
-	
+
 	TTElement& operator = (TTFloat32 value)
 	{
 		mType = kTypeFloat32;
 		mValue.float32 = value;
 		return *this;
 	}
-		
+
 	TTElement& operator = (TTFloat64 value)
 	{
 		mType = kTypeFloat64;
 		mValue.float64 = value;
 		return *this;
 	}
-	
+
 	TTElement& operator = (TTInt8 value)
 	{
 		mType = kTypeInt8;
@@ -478,7 +479,7 @@ public:
 		mValue.boolean = value;
 		return *this;
 	}
-	
+
 	TTElement& operator = (const TTSymbol value)
 	{
 		mType = kTypeSymbol;
@@ -494,7 +495,7 @@ public:
 		return *this;
 	}
 #endif
-	
+
 	TTElement& operator = (const TTString value)
 	{
 		//		if (!stringsPresent && *type != kTypeString)
@@ -506,28 +507,28 @@ public:
 		*mValue.stringPtr = value;
 		return *this;
 	}
-	
+
 	TTElement& operator = (const TTObjectBase& value)
 	{
 		mType = kTypeObject;
 		mValue.object = (TTObjectBase*)&value;
 		return *this;
 	}
-	
+
 	TTElement& operator = (TTObjectBase* value)
 	{
 		mType = kTypeObject;
 		mValue.object = value;
 		return *this;
 	}
-	
+
 	TTElement& operator = (TTMatrix& value)
 	{
 		mType = kTypeMatrix;
 		mValue.matrix = &value;
 		return *this;
 	}
-	
+
 	TTElement& operator = (TTMatrix* value)
 	{
 		mType = kTypeMatrix;
@@ -541,27 +542,27 @@ public:
 		mValue.ptr = value;
 		return *this;
 	}
-	
+
 	// TODO: an assignment to a different type (like the above) will leak the dictionary!
-	
+
 	TTElement& operator = (const TTDictionary value);
 
-	
+
 #if 0
 #pragma mark -
 #pragma mark conversion
 #endif
-	
+
 #define TTELEMENT_TEMP_STRINGLEN 32
-	
+
 	void string(TTString& aString)
 	{
 		char		temp[TTELEMENT_TEMP_STRINGLEN];
 		TTBoolean	addQuotes;
-		
+
 
 		temp[0] = 0;
-		
+
 		switch (mType) {
 			case kTypeFloat32:
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%f", mValue.float32);
@@ -570,28 +571,28 @@ public:
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%lf", mValue.float64);
 				break;
 			case kTypeInt8:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%i", mValue.int8);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRId8, mValue.int8);
 				break;
 			case kTypeUInt8:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%u", mValue.uint8);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu8, mValue.uint8);
 				break;
 			case kTypeInt16:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%i", mValue.int16);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRId16, mValue.int16);
 				break;
 			case kTypeUInt16:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%u", mValue.uint16);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu16, mValue.uint16);
 				break;
 			case kTypeInt32:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%i", (int)mValue.int32);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRId32, mValue.int32);
 				break;
 			case kTypeUInt32:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%iu", (unsigned int)mValue.uint32);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu32, mValue.uint32);
 				break;
 			case kTypeInt64:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%lld", mValue.int64);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRId64, mValue.int64);
 				break;
 			case kTypeUInt64:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%llu", mValue.uint64);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu64, mValue.uint64);
 				break;
 			case kTypeBoolean:
 				if (mValue.boolean)
@@ -619,16 +620,16 @@ public:
 			default:
 				break;
 		}
-		
+
 		if (temp[0])
 			aString.append(temp);
 	}
 
-	
-	
+
+
 	// comparison overloads
-	
-	
+
+
 	// make sure this is a friend so that it can access the private members of the other element
 	friend bool operator == (const TTElement& a1, const TTElement& a2)
 	{
@@ -707,7 +708,7 @@ public:
 	{
 		return !(a1 == a2);
 	}
-	
+
 	friend bool operator == (const TTElement& a1, const int& i)
 	{
 		switch (a1.mType) {
@@ -757,7 +758,7 @@ public:
 
 
 
-	
+
 	friend bool operator == (const TTElement& a1, const double& f)
 	{
 		switch (a1.mType) {
@@ -775,7 +776,7 @@ public:
 		return true;
 	}
 
-	
+
 	friend bool operator == (const TTElement& a1, const float& f)
 	{
 		switch (a1.mType) {
@@ -793,11 +794,11 @@ public:
 		return true;
 	}
 
-	
+
 	/**
 	 We define the < operator for sorting of linked-list and other STL calls that require sorting ability of TTValue.
 	 */
-	
+
 	// make sure this is a friend so that it can access the private members of the other atom
 	friend bool operator < (const TTElement& a1, const TTElement& a2)
 	{
@@ -868,12 +869,12 @@ public:
 		return true;
 	}
 
-	
+
 #if 0
 #pragma mark -
 #pragma mark transformation
 #endif
-	
+
 	void clip(const TTFloat64& lowBound, const TTFloat64& highBound)
 	{
 		if (TTDataInfo::getIsNumerical(mType)) {
@@ -914,7 +915,7 @@ public:
 			}
 		}
 	}
-	
+
 
 	void cliplow(const TTFloat64& lowBound)
 	{
@@ -956,8 +957,8 @@ public:
 			}
 		}
 	}
-	
-	
+
+
 	void cliphigh(const TTFloat64& highBound)
 	{
 		if (TTDataInfo::getIsNumerical(mType)) {
@@ -998,8 +999,8 @@ public:
 			}
 		}
 	}
-	
-	
+
+
 	void round()
 	{
 		if (TTDataInfo::getIsNumerical(mType)) {
@@ -1040,8 +1041,8 @@ public:
 			}
 		}
 	}
-	
-	
+
+
 	void truncate()
 	{
 		if (TTDataInfo::getIsNumerical(mType)) {
@@ -1060,8 +1061,8 @@ public:
 			}
 		}
 	}
-	
-	
+
+
 	void booleanize()
 	{
 		if (TTDataInfo::getIsNumerical(mType)) {
@@ -1119,6 +1120,6 @@ public:
 typedef std::vector<TTElement>		TTElementVector;
 typedef TTElementVector::iterator	TTElementIter;
 
-	
+
 #endif // __TT_ELEMENT_H__
 

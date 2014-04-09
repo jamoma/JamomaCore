@@ -74,6 +74,7 @@
 #include <iterator>
 #include <stdexcept>
 #include <cstdint>
+#include <atomic>
 
 #ifdef TT_PLATFORM_LINUX
 #include <stdarg.h>
@@ -200,14 +201,10 @@ typedef TTSampleVector*				TTSampleVectorPtr;
 /** An integer that is the same size as a pointer.	*/
 typedef long				TTPtrSizedInt;				// this works for both 32 and 64 bit code on the Mac
 
-/** An integer that can be used for atomic operations. TODO: consider if other type should be used here	*/
-#ifdef TT_PLATFORM_WIN
-typedef TT_ALIGN_16 volatile int			TTAtomicInt;
-typedef TT_ALIGN_16 volatile unsigned int	TTAtomicUInt;
-#else
-typedef TT_ALIGN_16 volatile int32_t		TTAtomicInt;
-typedef TT_ALIGN_16 volatile u_int32_t		TTAtomicUInt;
-#endif
+/** An integer that can be used for atomic operations. */
+typedef std::atomic<int32_t> TTAtomicInt;
+typedef std::atomic<uint32_t> TTAtomicUInt;
+
 
 /** A generic pointer. */
 typedef void*				TTPtr;
@@ -349,86 +346,45 @@ public:
 
 inline void TTAtomicIncrement(TTAtomicInt& value)
 {
-#ifdef TT_PLATFORM_MAC
-	OSAtomicIncrement32(&value);
-#elif defined (TT_PLATFORM_WIN)
-	_InterlockedIncrement((volatile long*)&value);
-#else // what should we do for thread safety on Linux and iOS?
 	value++;
-#endif
 }
 
 
 inline void TTAtomicIncrement(TTAtomicUInt& value)
 {
-#ifdef TT_PLATFORM_MAC
-	OSAtomicIncrement32((int32_t*)&value);
-#elif defined (TT_PLATFORM_WIN)
-	_InterlockedIncrement((volatile long*)&value);
-#else // what should we do for thread safety on Linux and iOS?
 	value++;
-#endif
 }
 
 
 inline void TTAtomicDecrement(TTAtomicInt& value)
 {
-#ifdef TT_PLATFORM_MAC
-	OSAtomicDecrement32(&value);
-#elif defined (TT_PLATFORM_WIN)
-	_InterlockedDecrement((volatile long*)&value);
-#else // what should we do for thread safety on Linux and iOS?
 	value--;
-#endif
 }
 
 
 inline void TTAtomicDecrement(TTAtomicUInt& value)
 {
-#ifdef TT_PLATFORM_MAC
-	OSAtomicDecrement32((int32_t*)&value);
-#elif defined (TT_PLATFORM_WIN)
-	_InterlockedDecrement((volatile long*)&value);
-#else // what should we do for thread safety on Linux and iOS?
 	value--;
-#endif
 }
 
 
 inline void TTAtomicIncrementWithBarrier(TTAtomicUInt& value)
 {
-#ifdef TT_PLATFORM_MAC
-	OSAtomicIncrement32Barrier((int32_t*)&value);
-#elif defined (TT_PLATFORM_WIN)
-	_InterlockedIncrement((volatile long*)&value); // on windows there is always a barrier
-#else // what should we do for thread safety on Linux and iOS?
-	value++;
-#endif
+	value.fetch_add(1, std::memory_order_seq_cst);
 }
 
 
 inline void TTAtomicDecrementWithBarrier(TTAtomicUInt& value)
 {
-#ifdef TT_PLATFORM_MAC
-	OSAtomicDecrement32Barrier((int32_t*)&value);
-#elif defined (TT_PLATFORM_WIN)
-	_InterlockedDecrement((volatile long*)&value); // on windows there is always a barrier
-#else // what should we do for thread safety on Linux and iOS?
-	value++;
-#endif
+	value.fetch_sub(1, std::memory_order_seq_cst);
 }
 
 
 inline void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt& newValue, const TTAtomicInt& oldValue)
 {
-#ifdef TT_PLATFORM_MAC
-	OSAtomicCompareAndSwap32(oldValue, newValue, &value);
-#elif defined (TT_PLATFORM_WIN)
-	_InterlockedCompareExchange((volatile long*)&value, (long) newValue, (long) oldValue);
-#else // what should we do for thread safety on Linux and iOS?
-	__sync_val_compare_and_swap(&value, oldValue, newValue);
-	//value = newValue;
-#endif
+	auto oldVal = oldValue.load();
+	auto newVal = newValue.load();
+	value.compare_exchange_strong(oldVal, newVal);
 }
 
 
