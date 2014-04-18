@@ -13,7 +13,7 @@ public:
     
     // This application is divided into four main functions
     void Setup();
-    void Dump();
+    void Export();
     void Execute(std::string command);
     void Quit();
     
@@ -67,9 +67,9 @@ main(int argc, char **argv)
             return EXIT_SUCCESS;
         }
         // dump informations about the application
-        else if (!s.compare("dump")) {
+        else if (!s.compare("export")) {
             
-             app.Dump();
+             app.Export();
         }
         // parse a command and execute it
         else {
@@ -310,10 +310,14 @@ DemoApp::Setup()
 }
 
 void
-DemoApp::Dump()
+DemoApp::Export()
 {
-    // Write an application namespace in console
-    mApplicationDemo.send("Dump");
+    TTValue     out;
+    TTObject    xmlHandler("XmlHandler");
+    
+    // export the namespace of myDemoApp
+    xmlHandler.set("object", mApplicationDemo);
+    xmlHandler.send("Write", "./myDemoApp.xml", out);
 }
 
 void
