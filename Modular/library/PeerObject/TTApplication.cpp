@@ -797,7 +797,7 @@ TTErr TTApplication::ConvertToTTName(const TTValue& inputValue, TTValue& outputV
 
 TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTObject o = inputValue[0];
+	TTObject o = inputValue[0];
 	TTXmlHandlerPtr aXmlHandler = (TTXmlHandlerPtr)o.instance();
     if (!aXmlHandler)
 		return kTTErrGeneric;
@@ -923,7 +923,12 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                         attributeName != kTTSym_bypass &&
                         attributeName != kTTSym_activityIn &&
                         attributeName != kTTSym_activityOut &&
-                        attributeName != kTTSym_rampStatus) {
+                        attributeName != kTTSym_rampStatus &&
+                        attributeName != kTTSym_baton &&            // because #TTData inherits #TTCallaback
+                        attributeName != kTTSym_object &&           // because #TTData inherits #TTCallaback
+                        attributeName != kTTSym_notification &&     // because #TTData inherits #TTCallaback
+                        attributeName != kTTSym_function)           // because #TTData inherits #TTCallaback
+                    {
                         
                         anObject->getAttributeValue(attributeName, v);
                         
