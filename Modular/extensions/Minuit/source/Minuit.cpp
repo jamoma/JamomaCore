@@ -565,7 +565,7 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
 				
 				err = anOscSender->sendMessage(TTSymbol("send"), message, kTTValNONE);
             
-				if (mActivity) {
+				if (!err && mActivity) {
 					v = arguments;
 					v.prepend(header);
 					ActivityOutMessage(v);
