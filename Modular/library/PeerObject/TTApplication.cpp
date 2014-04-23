@@ -69,6 +69,8 @@ mTempAddress(kTTAdrsRoot)
     registerAttribute(TTSymbol("activityOut"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getActivityOut, (TTSetterMethod)& TTApplication::setActivityOut);
     this->findAttribute(TTSymbol("activityOut"), &anAttribute);
     anAttribute->sethidden(YES);
+    
+    addAttributeWithSetter(CachedAttributes, kTypeLocalValue);
 	
 	addAttribute(Directory, kTypePointer);
 	addAttributeProperty(Directory, hidden, YES);
@@ -220,6 +222,97 @@ TTErr TTApplication::setActivityOut(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTApplication::setCachedAttributes(const TTValue& value)
+{
+    // this accessor is only available for a mirror application
+    if (mType != kTTSym_mirror)
+        return kTTErrGeneric;
+    
+    // update each node of the directory if exists
+    if (mDirectory) {
+        
+        TTUInt32 i, j;
+        TTSymbol oldName, newName;
+        TTBoolean stillCached, toCache;
+        
+        // uncache all former cached attributes that are not in the new cached attribute
+        for (i = 0; i < mCachedAttributes.size(); i++) {
+            
+            oldName = mCachedAttributes[i];
+            
+            stillCached = NO;
+            for (j = 0; j < value.size(); j++) {
+                
+                if (value[j].type() != kTypeSymbol)
+                    return kTTErrGeneric;
+                
+                newName = value[j];
+                
+                stillCached = newName == oldName;
+                
+                if (stillCached)
+                    break;
+            }
+            
+            if (!stillCached)
+                cacheAttributeNode(mDirectory->getRoot(), oldName, NO);
+        }
+        
+        // cache all new attributes that are not in the former cached attribute
+        for (j = 0; j < value.size(); j++) {
+            
+            newName = value[j];
+            
+            toCache = YES;
+            for (i = 0; i < mCachedAttributes.size(); i++) {
+                
+                oldName = mCachedAttributes[i];
+                
+                toCache = toCache && newName != oldName;
+                
+                if (!toCache)
+                    break;
+            }
+            
+            if (toCache)
+                cacheAttributeNode(mDirectory->getRoot(), newName, YES);
+        }
+    }
+    
+    mCachedAttributes = value;
+    
+    return kTTErrNone;
+}
+
+TTErr TTApplication::cacheAttributeNode(TTNodePtr aNode, TTSymbol attributeName, TTBoolean cacheOrUncache)
+{
+	TTObjectBasePtr anObject;
+	TTList          nodeList;
+	TTNodePtr       aChild;
+    TTValue         none;
+    
+    // Send AttributeCache message to the mirror's node
+    anObject = aNode->getObject();
+    if (anObject) {
+        
+        if (cacheOrUncache)
+            anObject->sendMessage(TTSymbol("AttributeCache"), attributeName, none);
+        else
+            anObject->sendMessage(TTSymbol("AttributeUncache"), attributeName, none);
+    }
+    
+    // Cache attribute of node's object below
+    aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+    
+    for (nodeList.begin(); nodeList.end(); nodeList.next())
+    {
+        aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+        cacheAttributeNode(aChild, attributeName, cacheOrUncache);
+    }
+    
+    return kTTErrNone;
+}
+
 TTErr TTApplication::Init()
 {
     return initNode(mDirectory->getRoot());
@@ -307,8 +400,30 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
         
         if (anAddress != kTTAdrsRoot) {
             
-            if (mType == kTTSym_mirror)
+            if (mType == kTTSym_mirror) {
+                
+                TTSymbol    cachedAttribute;
+                TTValue     v, args, none;
+                
                 anObject = appendMirrorObject(aProtocol, anAddress, returnedType);
+                
+                if (anObject) {
+                    
+                    for (TTUInt32 i = 0; i < mCachedAttributes.size(); i++) {
+                        
+                        cachedAttribute = mCachedAttributes[i];
+                        
+                        // get the attribute value
+                        if (!anObject->getAttributeValue(cachedAttribute, v)) {
+                        
+                            // cache the attribute
+                            args = cachedAttribute;
+                            args.append((TTPtr)&v);
+                            anObject->sendMessage(TTSymbol("AttributeCache"), args, none);
+                        }
+                    }
+                }
+            }
             
             else if (mType == kTTSym_proxy) {
                 
@@ -842,45 +957,63 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
             xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none.c_str());
         
         // Write attributes for local or proxy application
-        if (mType != kTTSym_mirror) {
+        if (anObject) {
             
-            if (anObject) {
+            anObject->getAttributeNames(attributeNameList);
+            
+            for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
+            {
+                attributeName = attributeNameList[i];
                 
-                anObject->getAttributeNames(attributeNameList);
-                
-                for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
-                {
-                    attributeName = attributeNameList[i];
+                // Filter attribute names
+                if (attributeName != kTTSym_description &&
+                    attributeName != kTTSym_value &&
+                    attributeName != kTTSym_address &&
+                    attributeName != kTTSym_bypass &&
+                    attributeName != kTTSym_activityIn &&
+                    attributeName != kTTSym_activityOut &&
+                    attributeName != kTTSym_rampStatus) {
                     
-                    // Filter attribute names
-                    if (attributeName != kTTSym_description &&
-                        attributeName != kTTSym_value &&
-                        attributeName != kTTSym_address &&
-                        attributeName != kTTSym_bypass &&
-                        attributeName != kTTSym_activityIn &&
-                        attributeName != kTTSym_activityOut &&
-                        attributeName != kTTSym_rampStatus) {
+                    // write only cached attributes
+                    if (mType == kTTSym_mirror) {
                         
-                        anObject->getAttributeValue(attributeName, v);
+                        TTSymbol cachedAttribute;
                         
-                        if (v.empty())
+                        // is it a cached attribute ?
+                        TTBoolean cached = NO;
+                        for (TTUInt32 i = 0; i < mCachedAttributes.size(); i++) {
+                            
+                            cachedAttribute = mCachedAttributes[i];
+                            
+                            cached = attributeName == cachedAttribute;
+                            
+                            if (cached)
+                                break;
+                        }
+                        
+                        if (!cached)
                             continue;
-                        
-                        v.toString();
-                        aString = TTString(v[0]);
-                        
-                        if (aString.empty())
-                            continue;
-                        
-                        // replace TTName by AppName
-                        attributeName = ToAppName(attributeName);
-                        
-                        xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
                     }
+                    
+                    anObject->getAttributeValue(attributeName, v);
+                    
+                    if (v.empty())
+                        continue;
+                    
+                    v.toString();
+                    aString = TTString(v[0]);
+                    
+                    if (aString.empty())
+                        continue;
+                    
+                    // replace TTName by AppName
+                    attributeName = ToAppName(attributeName);
+                    
+                    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
                 }
-                
-                // TODO : Write messages ?
             }
+            
+            // TODO : Write messages ?
         }
     }
     
@@ -1003,6 +1136,12 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
                         mVersion = v[0];
                     }
                 }
+            }
+            
+            // get the cached attributes
+            if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("cachedAttributes")) == 1) {
+                
+                aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), mCachedAttributes);
             }
         }
         
@@ -1207,6 +1346,34 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                             // get attribute value
                                             aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
                                             
+                                            // in mirror application case
+                                            if (mType == kTTSym_mirror) {
+                                                
+                                                TTSymbol    cachedAttribute;
+                                                TTValue     args, none;
+                                                
+                                                // is it an attribute to cache ?
+                                                TTBoolean toCache = NO;
+                                                for (TTUInt32 i = 0; i < mCachedAttributes.size(); i++) {
+                                                    
+                                                    cachedAttribute = mCachedAttributes[i];
+                                                    
+                                                    toCache = attributeName == cachedAttribute;
+                                                    
+                                                    if (toCache)
+                                                        break;
+                                                }
+                                                
+                                                if (toCache) {
+                                                    
+                                                    args = cachedAttribute;
+                                                    args.append((TTPtr)&v);
+                                                    anObject->sendMessage(TTSymbol("AttributeCache"), attributeName, none);
+                                                    continue;
+                                                }
+                                            }
+                                            
+                                            // if the attribute is not cached or in proxy application case
                                             anObject->setAttributeValue(attributeName, v);
                                         }
                                     }
