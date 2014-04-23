@@ -30,11 +30,11 @@ protected:
 	
 	TTErr setGroups(const TTValueRef args)
 	{
-		TTUInt16 numArgs = args.getSize();
+		TTUInt16 numArgs = args.size();
 		
 		mSplitChannels.resize(numArgs);
-		for (TTUInt16 i=0; i<numArgs; i++) 
-			args.get(i, mSplitChannels[i]);
+		for (TTUInt16 i=0; i<numArgs; i++)
+            mSplitChannels[i] = args[i];
 		return kTTErrNone;
 	}
 	
@@ -42,9 +42,9 @@ protected:
 	{
 		TTUInt16 numArgs = mSplitChannels.size();
 		
-		args.setSize(numArgs);
+		args.resize(numArgs);
 		for (TTUInt16 i=0; i<numArgs; i++)
-			args.set(i, mSplitChannels[i]);
+            args[i] = mSplitChannels[i];
 		return kTTErrNone;
 	}
 	
