@@ -90,7 +90,7 @@ private:
 	
 	TTBoolean					mActivity;			///< ATTRIBUTE : enable the activity mechanism
     
-    TTValue                     mCachedAttributes;	///< ATTRIBUTE : all attribute names which need to be cached by a mirror application to reduce the number of network requests
+    TTHash                      mCachedAttributes;  ///< ATTRIBUTE : all attribute names which need to be cached by a mirror application to reduce the number of network requests
 	
 	TTHashPtr					mDirectoryListenersCache;	///< a hash table containing all <address, Listener> for quick access
 	TTHashPtr					mAttributeListenersCache;	///< a hash table containing all <address:attribute, Listener> for quick access
@@ -124,10 +124,15 @@ private:
 	/** */
 	TTErr setActivityOut(const TTValue& value);
     
-    /** set Cache an attribute of all the Mirrors of an application
-     @param value      all attribute name to cache
+    /** get the cached attributes (for mirror application only)
+     @param value      all cached attribute names
      @return #TTErr error code */
-    TTErr setCachedAttributes(const TTValue& inputValue);
+    TTErr getCachedAttributes(TTValue& value);
+    
+    /** set the attributes to cache (for mirror application only)
+     @param value      all attribute names to cache
+     @return #TTErr error code */
+    TTErr setCachedAttributes(const TTValue& value);
     
     /** recursive method to cache or uncache an attribute of an object of a node and do the same under all its children
      @param aNode           a node to process

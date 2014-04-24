@@ -721,7 +721,6 @@ TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, Prot
         }
     }
     
-    
     // End "protocol" xml node
     xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
     
