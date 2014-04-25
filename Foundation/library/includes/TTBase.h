@@ -140,7 +140,7 @@
  */
 #ifndef TT_NO_DEPRECATION_WARNINGS
 #ifdef __GNUC__
-#define TT_DEPRECATED(func) func __attribute__ ((deprecated))
+#define TT_DEPRECATED(func)  __attribute__ ((deprecated)) func
 #elif defined(_MSC_VER)
 #define TT_DEPRECATED(func) __declspec(deprecated) func
 #endif

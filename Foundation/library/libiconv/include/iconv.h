@@ -26,12 +26,31 @@
 #ifdef LIBICONV_STATIC
 #define LIBICONV_DLL_EXPORTED
 #else /* LIBICONV_STATIC */
-#ifdef BUILDING_LIBICONV
-#define LIBICONV_DLL_EXPORTED __declspec(dllexport)
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef BUILDING_LIBICONV
+    #ifdef __GNUC__
+      #define LIBICONV_DLL_EXPORTED __attribute__ ((dllexport))
+    #else
+      #define LIBICONV_DLL_EXPORTED __declspec(dllexport) // Note: actually gcc seems to also supports this syntax.
+    #endif
+  #else
+    #ifdef __GNUC__
+      #define LIBICONV_DLL_EXPORTED __attribute__ ((dllimport))
+    #else
+      #define LIBICONV_DLL_EXPORTED __declspec(dllimport) // Note: actually gcc seems to also supports this syntax.
+    #endif
+  #endif
+  #define DLL_LOCAL
 #else
-#define LIBICONV_DLL_EXPORTED __declspec(dllimport)
+  #if __GNUC__ >= 4
+    #define LIBICONV_DLL_EXPORTED __attribute__ ((visibility ("default")))
+    #define DLL_LOCAL  __attribute__ ((visibility ("hidden")))
+  #else
+    #define LIBICONV_DLL_EXPORTED
+    #define DLL_LOCAL
+  #endif
 #endif
-#endif /* LIBICONV_STATIC */ 
+#endif /* LIBICONV_STATIC */
 extern LIBICONV_DLL_EXPORTED int _libiconv_version;       /* Likewise */
 
 /* We would like to #include any system header file which could define
@@ -65,7 +84,7 @@ typedef void* iconv_t;
    have EILSEQ in a different header.  On these systems, define EILSEQ
    ourselves. */
 #ifndef EILSEQ
-#define EILSEQ 
+#define EILSEQ
 #endif
 
 

@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 
-SET (CMAKE_C_COMPILER "clang")
-SET (CMAKE_CXX_COMPILER "clang++")
-SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC -Wno-unknown-pragmas -Wno-deprecated-register -Wno-conversion")
+SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC -Wno-unknown-pragmas -Wno-conversion")
 
 function(setExtensionSuffix)
 	if(APPLE)
@@ -40,7 +38,6 @@ project (JamomaCore)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/Shared/toolchains/modules/")
 
-
 if(APPLE)
 	add_definitions(-DTT_PLATFORM_MAC)
 	set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /usr/local/lib)
@@ -58,7 +55,7 @@ if(APPLE)
 elseif(UNIX)
 	add_definitions(-DTT_PLATFORM_LINUX)
 	SET(CPACK_GENERATOR "DEB")
-	SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jean-Michaël Celerier")
+	SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "The Jamoma Foundation")
 	SET(CPACK_SET_DESTDIR true)
 	SET(CPACK_INSTALL_PREFIX "/usr/local/lib/jamoma/")
 
@@ -68,7 +65,6 @@ elseif(UNIX)
 elseif(WIN32)
 	add_definitions(-DTT_PLATFORM_WIN)
 	SET(CPACK_GENERATOR "NSIS")
-
 endif()
 
 
@@ -85,8 +81,8 @@ endif()
 
 
 ### Creation of packages ###
-SET(CPACK_PACKAGE_NAME "Jamoma")
-SET(CPACK_PACKAGE_VENDOR "Jamoma")
+SET(CPACK_PACKAGE_NAME "Jamoma Core Libraries")
+SET(CPACK_PACKAGE_VENDOR "The Jamoma Foundation")
 
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Jamoma is a community-based project, dedicated to the development of several toolsets and frameworks for artistic creation through digital means. ")
 SET(CPACK_PACKAGE_VERSION "0.6-dev")
@@ -96,4 +92,3 @@ SET(CPACK_PACKAGE_VERSION_MINOR "6")
 SET(CPACK_SOURCE_GENERATOR TGZ)
 SET(CPACK_SOURCE_PACKAGE_FILE_NAME "Jamoma-0.6-dev")
 INCLUDE(CPack)
-

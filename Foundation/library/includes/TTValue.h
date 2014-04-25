@@ -22,7 +22,7 @@
 
 
 /**	The TTValue class represents a composite value that can be passed around to methods in Jamoma.
-	It may be composed of a single element or many elements.  
+	It may be composed of a single element or many elements.
 	The types of the elements are defined in the TTDataType enumeration.
 */
 class TTValue : public TTElementVector {
@@ -37,7 +37,7 @@ public:
 	{
 		reserve(1);
 	}
-	
+
 	/** Constructor with a single initial element. */
 	template<class T>
 	TTValue(const T& anInitialValue)
@@ -46,7 +46,7 @@ public:
 		resize(1);
 		at(0) = anInitialValue;
 	}
-		
+
 	/** Constructor with two initial elements. */
 	template <class T, class U>
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue)
@@ -56,7 +56,7 @@ public:
 		at(0) = aFirstElementInitialValue;
 		at(1) = aSecondElementInitialValue;
 	}
-	
+
 	/** Constructor with three initial elements. */
 	template <class T, class U, class V>
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue, const V& aThirdElementInitialValue)
@@ -84,12 +84,12 @@ public:
 	// we don't want subclasses of TTValue so it won't be a problem, and this solves linking snafus in some edge cases
 	~TTValue()
 	{;}
-	
-	
+
+
 private:
 	/** Internal method used by the constructors. */
 	void init();
-	
+
 	/** Performs a deep copy of the object */
 	inline void copy(const TTValue& obj);
 
@@ -98,24 +98,24 @@ public:
 	void clear() {
 		TTElementVector::clear();
 	}
-	
-	/** Return the number of values of this instance. 
+
+	/** Return the number of values of this instance.
 		DEPRECATED -- now just call size() instead.
 	 */
 	TT_DEPRECATED( TTUInt16 getSize() const )
 	{
 		return size();
 	}
-	
-	/** Set the number of values, and allocate any needed memory. 
+
+	/** Set the number of values, and allocate any needed memory.
 		DEPRECATED -- now just call resize() instead.
 	 */
 	TT_DEPRECATED( void setSize(const TTUInt16 arg) )
 	{
 		resize(arg);
 	}
-	
-	
+
+
 	/** Get the type of an element.
 		DEPRECATED -- now call type() on the element itself, e.g.
 		TTValue v(1,2,3);
@@ -125,9 +125,9 @@ public:
 	{
 		return at(index).type();
 	}
-	
-	
-	
+
+
+
 	/** Copy a value starting from an index until another index */
 	void copyRange(const TTValue& obj, TTUInt16 startIndex, TTUInt16 endIndex)
 	{
@@ -136,15 +136,15 @@ public:
 			at(i) = obj[startIndex+i];
 //		stringsPresent = obj.stringsPresent;
 	}
-	
-	
+
+
 	/** Copy a value starting at index */
 	void copyFrom(const TTValue& obj, TTUInt16 index)
 	{
 		copyRange(obj, index, obj.size());
 	}
-	
-	
+
+
 	/** Perform a copy of a value before and copy ourself after.
 		For example, given a TTValue a <1, 2, 3> and another TTValue b <ga, bu, zo, meu>
 		b.prepend(a) will be <1, 2, 3, ga, bu, zo, meu>
@@ -157,14 +157,14 @@ public:
 		*this = v;
 	}
 
-	
+
 	//
 //	TTValue& operator = (const TTValue &newValue)
 //	{
 	//
 //	}
 
-	
+
 	/**	Assign a value to TTValue
 	 */
 	template<class T>
@@ -174,8 +174,8 @@ public:
 		at(0) = value;
 		return *this;
 	}
-	
-	
+
+
 	friend bool operator == (const TTValue& a, const TTValue& b)
 	{
 		if (a.size() == b.size()) {
@@ -189,7 +189,8 @@ public:
 		return false;
 	}
 
-#ifndef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_WIN) && (!defined(__GNUC__) || defined(__clang__))
+
 	template<class T>
 	friend bool operator == (const TTValue& a, const T b)
 	{
@@ -198,6 +199,7 @@ public:
 		else
 			return false;
 	}
+
 #endif
 
 	/** Get a value from TTValue
@@ -219,7 +221,7 @@ public:
 		else
 			return kTTSymEmpty;
 	}
-	
+
 	/** DEPRECATED / OLD
 		To make an assignment you now use standard C array syntax.  For example, instead of:
 		TTValue v;
@@ -267,49 +269,49 @@ public:
 		value = (TTString)at(index);
 	}
 
-	
+
 	template<class T>
 	void append(const T& anElementValueToAppend)
 	{
 		TTElement e(anElementValueToAppend);
-		
+
 		push_back(e);
 	}
-	
+
 	void append(const TTValue& aValueToAppend)
 	{
 		TTUInt32 appendingElementCount = aValueToAppend.size();
 		TTUInt32 oldElementCount = size();
 		TTUInt32 newElementCount = oldElementCount + appendingElementCount;
-		
+
 		resize(newElementCount);
-		
+
 		for (TTUInt32 i=0; i<appendingElementCount; i++) {
 			TTElement e = aValueToAppend[i];
-			
+
 			at(oldElementCount+i) = e;
 		}
 	}
 
-	
+
 	// inlined for speed (e.g. for use in the matrix)
 	TT_DEPRECATED( TTFloat64 getUInt8(TTUInt16 index = 0) const )
 	{
 		return TTUInt8(at(index));
 	}
-	
+
 	// inlined for speed (e.g. for use in the matrix)
 	TT_DEPRECATED( TTFloat64 getInt32(TTUInt16 index = 0) const )
 	{
 		return TTInt32(at(index));
 	}
-	
+
 	// inlined for speed (e.g. for use in the matrix)
 	TT_DEPRECATED( TTFloat64 getFloat32(TTUInt16 index = 0) const )
 	{
 		return TTFloat32(at(index));
 	}
-	
+
 	// inlined for speed (e.g. for use in the dataspace lib)
 	TT_DEPRECATED( TTFloat64 getFloat64(TTUInt16 index = 0) const )
 	{
@@ -329,8 +331,8 @@ public:
 			*(arrayToFill+i) = TTUInt8(at(i));
 		}
 	}
-	
-	
+
+
 	/**
 	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
 	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
@@ -343,8 +345,8 @@ public:
 			*(arrayToFill+i) = TTInt32(at(i));
 		}
 	}
-	
-	
+
+
 	/**
 	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
 	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
@@ -357,8 +359,8 @@ public:
 			*(arrayToFill+i) = TTFloat32(at(i));
 		}
 	}
-	
-	
+
+
 	/**
 	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
 	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
@@ -371,70 +373,70 @@ public:
 			*(arrayToFill+i) = TTFloat64(at(i));
 		}
 	}
-	
-	
+
+
 	void clip(const TTFloat64& aLowBound, const TTFloat64& aHighBound)
 	{
 		for (TTElementIter i = this->begin(); i != this->end(); i++)
 			i->clip(aLowBound, aHighBound);
 	}
-	
-	
+
+
 	void cliplow(const TTFloat64& aLowBound)
 	{
 		for (TTElementIter i = this->begin(); i != this->end(); i++)
 			i->cliplow(aLowBound);
 	}
-	
-	
+
+
 	void cliphigh(const TTFloat64& aHighBound)
 	{
 		for (TTElementIter i = this->begin(); i != this->end(); i++)
 			i->cliphigh(aHighBound);
 	}
-	
-	
+
+
 	void round()
 	{
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::round));
 	}
 
-	
+
 	void truncate()
 	{
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::truncate));
 	}
-	
-	
+
+
 	void booleanize()
 	{
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::booleanize));
 	}
-	
-	
+
+
 	void toString()
 	{
 		TTString	temp;
-	
+
 		for (size_t i=0; i<size(); i++) {
 			at(i).string(temp);		// get a string for each item
 			if (i < (size()-1))		// add a space between each item, but no space at the end
 				temp.append(" ");
 		}
-		
+
 		// now set the value to the new string
 		clear();
 		append(temp);
 	}
-	
-	
+
+
 	void fromString(TTBoolean numberAsSymbol = NO)
 	{
 		if (at(0).type() != kTypeString) {
 			clear();
 			return;
 		}
-					
+
 		TTUInt32					n = 0;
 		TTInt32						convertedInt;
         TTUInt32					convertedUInt;
@@ -442,45 +444,45 @@ public:
 		std::vector<std::string>	strList;
 		std::string					str(TTString(at(0)));
 		std::istringstream			iss(str);
-		
+
 		std::copy(
 				  std::istream_iterator<std::string>( iss ),
 				  std::istream_iterator<std::string>(),
 				  back_inserter( strList ) );
-		
+
 		if (strList.size() < 1) {
 			clear();
 			return;
 		}
 
 		resize(strList.size());
-		
+
 		for (unsigned int i = 0; i < strList.size(); ++i) {
 			TTString	currentString = strList.at(i).c_str();
-			
+
 			if (currentString.toTTInt32(convertedInt) && !numberAsSymbol) {
-                
+
 				at(n) = int(convertedInt);
 				n++;
 			}
             else if (currentString.toTTUInt32(convertedUInt) && !numberAsSymbol) {
-                
+
 				at(n) = TTUInt32(convertedUInt);
 				n++;
 			}
 			else if (currentString.toTTFloat32(convertedFloat) && !numberAsSymbol) {
-                
+
 				at(n) = TTFloat64(convertedFloat);  // cast float32 into float64
 				n++;
 			}
 			else {
 				if (currentString.c_str()[0] == '"') {
 					TTString	editString = currentString.substr(1, currentString.size());	// don't keep the leading "
-					
+
 					while (currentString.c_str()[currentString.size()-1] != '"' && (i != (strList.size() - 1))) {
 						i++;
 						currentString = strList.at(i);
-						
+
 						editString += " ";
 						editString += currentString;
 					}
@@ -490,46 +492,46 @@ public:
 
 				}
 				else {
-					
+
 					at(n) = TTSymbol(currentString.c_str());
 					n++;
 				}
 			}
 		}
-		
+
 		// resize value
 		resize(n);
 	}
-		
 
-	/**	In-place method that converts the internal value, if it is a TTString, 
-		from a comma-separated-value string into an array of TTSymbols.  
+
+	/**	In-place method that converts the internal value, if it is a TTString,
+		from a comma-separated-value string into an array of TTSymbols.
 	 */
 	TTErr transformCSVStringToSymbolArray()
 	{
 		if (at(0).type() != kTypeString)
 			return kTTErrInvalidType;
-		
+
 		const TTString&	str = at(0);
 		char*			cStr;
 		char*			current;
 
 		clear();
-		
+
 		cStr = new char[str.size()+1];
 		strncpy(cStr, str.c_str(), str.size()+1);
-		
+
 		current = strrchr(cStr, ',');
 		while (current) {
 			*current = 0;
 			current++;
-			
+
 			// Do some basic whitespace stripping from the ends
 			while (*current == ' ')
 				current++;
 			while (current[strlen(current)-1] == ' ')
 				current[strlen(current)-1] = 0;
-			
+
 			append(TTSymbol(current));
 			current = strrchr(cStr, ',');
 		}
@@ -537,7 +539,7 @@ public:
 		delete[] cStr;
 		return kTTErrNone;
 	}
-	
+
 
 };
 
