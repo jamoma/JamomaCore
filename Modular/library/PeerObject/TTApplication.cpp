@@ -69,6 +69,10 @@ mTempAddress(kTTAdrsRoot)
     registerAttribute(TTSymbol("activityOut"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getActivityOut, (TTSetterMethod)& TTApplication::setActivityOut);
     this->findAttribute(TTSymbol("activityOut"), &anAttribute);
     anAttribute->sethidden(YES);
+    
+    registerAttribute(TTSymbol("cachedAttributes"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getCachedAttributes, (TTSetterMethod)& TTApplication::setCachedAttributes);
+    this->findAttribute(TTSymbol("cachedAttributes"), &anAttribute);
+    anAttribute->sethidden(YES);
 	
 	addAttribute(Directory, kTypePointer);
 	addAttributeProperty(Directory, hidden, YES);
@@ -220,6 +224,93 @@ TTErr TTApplication::setActivityOut(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTApplication::getCachedAttributes(TTValue& value)
+{
+    // this accessor is only available for a mirror application
+    if (mType != kTTSym_mirror)
+        return kTTErrGeneric;
+    
+    mCachedAttributes.getKeys(value);
+}
+
+TTErr TTApplication::setCachedAttributes(const TTValue& value)
+{
+    // this accessor is only available for a mirror application
+    if (mType != kTTSym_mirror)
+        return kTTErrGeneric;
+    
+    // update each node of the directory
+    if (mDirectory) {
+        
+        TTUInt32    i;
+        TTValue     v, none;
+        TTHash      lastCachedAttributes;
+        TTSymbol    name;
+        
+        // keep the last cached attributes
+        mCachedAttributes.getKeys(v);
+        for (i = 0; i < v.size(); i++) {
+            
+            name = v[i];
+            lastCachedAttributes.append(name, none);
+        }
+        
+        // cache the new attributes that are not already cached
+        mCachedAttributes.clear();
+        for (i = 0; i < value.size(); i++) {
+            
+            name = value[i];
+            mCachedAttributes.append(name, none);
+            
+            // if the attribute wasn't already cached
+            if (lastCachedAttributes.lookup(name, none))
+                cacheAttributeNode(mDirectory->getRoot(), name, YES);
+        }
+        
+        // uncache the last cached attributes that are not cached anymore
+        lastCachedAttributes.getKeys(v);
+        for (i = 0; i < v.size(); i++) {
+            
+            name = v[i];
+            
+            // if the attribute is not cached anymore
+            if (mCachedAttributes.lookup(name, none))
+                cacheAttributeNode(mDirectory->getRoot(), name, NO);
+        }
+    }
+    
+    return kTTErrNone;
+}
+
+TTErr TTApplication::cacheAttributeNode(TTNodePtr aNode, TTSymbol attributeName, TTBoolean cacheOrUncache)
+{
+	TTObjectBasePtr anObject;
+	TTList          nodeList;
+	TTNodePtr       aChild;
+    TTValue         none;
+    
+    // Send AttributeCache message to the mirror's node
+    anObject = aNode->getObject();
+    if (anObject) {
+        
+        if (cacheOrUncache)
+            anObject->sendMessage(TTSymbol("AttributeCache"), attributeName, none);
+        else
+            anObject->sendMessage(TTSymbol("AttributeUncache"), attributeName, none);
+    }
+    
+    // Cache attribute of node's object below
+    aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+    
+    for (nodeList.begin(); nodeList.end(); nodeList.next())
+    {
+        aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+        cacheAttributeNode(aChild, attributeName, cacheOrUncache);
+    }
+    
+    return kTTErrNone;
+}
+
 TTErr TTApplication::Init()
 {
     return initNode(mDirectory->getRoot());
@@ -307,8 +398,32 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
         
         if (anAddress != kTTAdrsRoot) {
             
-            if (mType == kTTSym_mirror)
+            if (mType == kTTSym_mirror) {
+                
+                TTSymbol    cachedAttribute;
+                TTValue     attributesToCache, v, args, none;
+                
                 anObject = appendMirrorObject(aProtocol, anAddress, returnedType);
+                
+                if (anObject) {
+                    
+                    // cache attributes value
+                    mCachedAttributes.getKeys(attributesToCache);
+                    for (TTUInt32 i = 0; i < attributesToCache.size(); i++) {
+                        
+                        cachedAttribute = attributesToCache[i];
+                        
+                        // if the attribute exist
+                        if (anObject->getAttributeValue(cachedAttribute, v) != kTTErrInvalidAttribute) {
+                        
+                            // cache the attribute value
+                            args = cachedAttribute;
+                            args.append((TTPtr)&v);
+                            anObject->sendMessage(TTSymbol("AttributeCache"), args, none);
+                        }
+                    }
+                }
+            }
             
             else if (mType == kTTSym_proxy) {
                 
@@ -737,10 +852,28 @@ TTErr TTApplication::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	TTXmlHandlerPtr aXmlHandler;
 	
 	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
-	
+    
+    // Start "Application" xml node
+    xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "application");
+    
+    // Write attributes
+    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST mName.c_str());
+    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "author", BAD_CAST mAuthor.c_str());
+    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "version", BAD_CAST mVersion.c_str());
+    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "type", BAD_CAST mType.c_str());
+    
+    TTValue v;
+    mCachedAttributes.getKeys(v);
+    v.toString();
+    TTString s = TTString(v[0]);
+    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "cachedAttributes", BAD_CAST s.c_str());
+    
     // Write all the namespace starting from the root of the directory
 	if (mDirectory)
         writeNodeAsXml(aXmlHandler, mDirectory->getRoot());
+    
+    // End xml node
+    xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
     
 	return kTTErrNone;
 }
@@ -750,7 +883,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
 	TTAddress    nameInstance;
 	TTSymbol     objectName, attributeName;
 	TTObjectBasePtr  anObject;
-	TTValue      attributeNameList, v, c;
+	TTValue      attributeNameList, v, c, none;
 	TTList       nodeList;
 	TTNodePtr    aChild;
 	TTString     aString;
@@ -768,38 +901,8 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
         
     }
     
-    // Application node case
-    if (objectName == kTTSym_Application) {
-        
-        // Start "application" xml node
-        xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "application");
-        
-        // Write attributes
-        anObject->getAttributeNames(attributeNameList);
-        
-        for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
-        {
-            attributeName = attributeNameList[i];
-            
-            // Filter attribute names
-            if (attributeName != kTTSym_debug &&
-                attributeName != kTTSym_bypass &&
-                attributeName != kTTSym_activity &&
-                attributeName != kTTSym_activityIn &&
-                attributeName != kTTSym_activityOut) {
-                
-                anObject->getAttributeValue(attributeName, v);
-                
-                v.toString();
-                aString = TTString(v[0]);
-                
-                xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
-            }
-        }
-    }
-    
-    // Other object type node
-    else {
+    // don't write the application that is registered under the root
+    if (objectName != kTTSym_Application) {
         
         // Write description attribute as an xml comment for local or proxy application
         if (mType != kTTSym_mirror) {
@@ -842,45 +945,47 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
             xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "object", BAD_CAST kTTSym_none.c_str());
         
         // Write attributes for local or proxy application
-        if (mType != kTTSym_mirror) {
+        if (anObject) {
             
-            if (anObject) {
+            anObject->getAttributeNames(attributeNameList);
+            
+            for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
+            {
+                attributeName = attributeNameList[i];
                 
-                anObject->getAttributeNames(attributeNameList);
-                
-                for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
-                {
-                    attributeName = attributeNameList[i];
+                // Filter attribute names
+                if (attributeName != kTTSym_description &&
+                    attributeName != kTTSym_value &&
+                    attributeName != kTTSym_address &&
+                    attributeName != kTTSym_bypass &&
+                    attributeName != kTTSym_activityIn &&
+                    attributeName != kTTSym_activityOut &&
+                    attributeName != kTTSym_rampStatus) {
                     
-                    // Filter attribute names
-                    if (attributeName != kTTSym_description &&
-                        attributeName != kTTSym_value &&
-                        attributeName != kTTSym_address &&
-                        attributeName != kTTSym_bypass &&
-                        attributeName != kTTSym_activityIn &&
-                        attributeName != kTTSym_activityOut &&
-                        attributeName != kTTSym_rampStatus) {
-                        
-                        anObject->getAttributeValue(attributeName, v);
-                        
-                        if (v.empty())
+                    // write only cached attributes
+                    if (mType == kTTSym_mirror)
+                        if (mCachedAttributes.lookup(attributeName, none))
                             continue;
-                        
-                        v.toString();
-                        aString = TTString(v[0]);
-                        
-                        if (aString.empty())
-                            continue;
-                        
-                        // replace TTName by AppName
-                        attributeName = ToAppName(attributeName);
-                        
-                        xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
-                    }
+                    
+                    anObject->getAttributeValue(attributeName, v);
+                    
+                    if (v.empty())
+                        continue;
+                    
+                    v.toString();
+                    aString = TTString(v[0]);
+                    
+                    if (aString.empty())
+                        continue;
+                    
+                    // replace TTName by AppName
+                    attributeName = ToAppName(attributeName);
+                    
+                    xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
                 }
-                
-                // TODO : Write messages ?
             }
+            
+            // TODO : Write messages ?
         }
     }
     
@@ -894,7 +999,9 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
     }
     
     // End xml node
-    xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
+    // don't write the application that is registered under the root
+    if (objectName != kTTSym_Application)
+        xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
 }
 
 TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
@@ -1004,6 +1111,13 @@ TTErr TTApplication::ReadFromXml(const TTValue& inputValue, TTValue& outputValue
                     }
                 }
             }
+            
+            // get the cached attributes
+            if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("cachedAttributes")) == 1) {
+                
+                aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                setCachedAttributes(v);
+            }
         }
         
         return kTTErrNone;
@@ -1023,8 +1137,8 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
     TTInt32         instance;
     ProtocolPtr     aProtocol;
     TTObjectBasePtr anObject = NULL;
-	TTValue			v, protocolNames;
-    TTList          attributesToFilter;
+	TTValue			v, protocolNames, none;
+    TTHash          attributesToFilter;
     
     // when a node starts : append address to the current temp address
     if (aXmlHandler->mXmlNodeStart) {
@@ -1039,10 +1153,6 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                 if (v[0].type() == kTypeSymbol) {
                     
                     address = v[0];
-                    
-                    // DEBUG
-                    if (address == TTSymbol("0"))
-                        TTLogMessage("TTApplication::readNodeFromXml : address is \"0\"");
                     
                     if (address == TTSymbol("instance"))
                         useInstanceAsName = YES;
@@ -1136,7 +1246,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                                 anObject = appendProxyData(aProtocol, address, v[0]);
                                                 
                                                 // filter service attribute for the parsing of all attributes
-                                                attributesToFilter.append(kTTSym_service);
+                                                attributesToFilter.append(kTTSym_service, none);
                                                 
                                                 // get the data type
                                                 if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("type")) == 1) {
@@ -1151,7 +1261,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                                             anObject->setAttributeValue(kTTSym_type, v);
                                                             
                                                             // filter type attribute for the parsing of all attributes
-                                                            attributesToFilter.append(kTTSym_type);
+                                                            attributesToFilter.append(kTTSym_type, none);
                                                         }
                                                     }
                                                 }
@@ -1180,6 +1290,29 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                             
                             if (anObject) {
                                 
+                                // cache attributes (for mirror application only)
+                                if (mType == kTTSym_mirror) {
+                                    
+                                    TTSymbol        cachedAttribute;
+                                    TTValue         attributesToCache, v, args, none;
+                                    TTAttributePtr  attribute;
+                                    
+                                    // cache attributes value
+                                    mCachedAttributes.getKeys(attributesToCache);
+                                    for (TTUInt32 i = 0; i < attributesToCache.size(); i++) {
+                                        
+                                        cachedAttribute = attributesToCache[i];
+                                        
+                                        // if the attribute exist
+                                        if (!anObject->findAttribute(cachedAttribute, &attribute)) {
+                                            
+                                            // cache the attribute with no value (see after)
+                                            args = cachedAttribute;
+                                            anObject->sendMessage(TTSymbol("AttributeCache"), args, none);
+                                        }
+                                    }
+                                }
+                                
                                 // return to the first attribute
                                 xmlTextReaderMoveToFirstAttribute((xmlTextReaderPtr)aXmlHandler->mReader);
                                 
@@ -1196,17 +1329,13 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                             attributeName = ToTTName(v[0]);
                                             
                                             // filter attributes
-                                            for (attributesToFilter.begin(); attributesToFilter.end(); attributesToFilter.next()) {
-                                                
-                                                attributeToFilterName = attributesToFilter.current()[0];
-                                                
-                                                if (attributeToFilterName == attributeName)
+                                            if (!attributesToFilter.lookup(attributeName, none))
                                                     continue;
-                                            }
                                             
                                             // get attribute value
                                             aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
                                             
+                                            // if the attribute is not cached or in proxy application case
                                             anObject->setAttributeValue(attributeName, v);
                                         }
                                     }
