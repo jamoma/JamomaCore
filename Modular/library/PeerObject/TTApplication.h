@@ -63,6 +63,8 @@ private:
 	
 	TTBoolean					mActivity;			///< ATTRIBUTE : enable the activity mechanism
     TTBoolean					mDebug;				///< ATTRIBUTE : to enable the debug mode for the application (default : NO)
+
+	TTHash                      mCachedAttributes;  ///< ATTRIBUTE : all attribute names which need to be cached by a mirror application to reduce the number of network requests
     
 	TTHash                      mDirectoryListenersCache;	///< hash table containing all <address, Listener> for quick access
 	TTHash                      mAttributeListenersCache;	///< hash table containing all <address:attribute, Listener> for quick access
@@ -109,6 +111,23 @@ private:
      @param  value
      @return #TTErr    always returns #kTTErrNone */
 	TTErr setActivityOut(const TTValue& value);
+
+	/** Attribute accesor: get the cached attributes (for mirror application only)
+     @param value      all cached attribute names
+     @return #TTErr error code */
+    TTErr getCachedAttributes(TTValue& value);
+    
+    /** Attribute accesor: set the attributes to cache (for mirror application only)
+     @param value      all attribute names to cache
+     @return #TTErr error code */
+    TTErr setCachedAttributes(const TTValue& value);
+    
+    /** Convenient recursive method to cache or uncache an attribute of an object of a node and do the same under all its children
+     @param aNode           a node to process
+     @param attributeName   the name of the attribute
+     @param cacheOrUncache  a boolean to cache (YES) or uncache (NO) the attribute
+     @return #TTErr error code */
+    TTErr cacheAttributeNode(TTNodePtr aNode, TTSymbol attributeName, TTBoolean cacheOrUncache);
 
 #if 0
 #pragma mark -
