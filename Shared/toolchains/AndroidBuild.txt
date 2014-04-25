@@ -94,7 +94,7 @@ Go in root or use sudo for the next commands :
 
 # cp *.*so /opt/android-toolchain/arm-linux-androideabi/lib/jamoma
 # cd /opt/android-toolchain/arm-linux-androideabi/lib/jamoma
-# for file in *.ttso; do                                                                                           !1667
+# for file in *.ttso; do
 	mv "$file" "`basename $file .ttso`.so"
   done
 
