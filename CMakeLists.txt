@@ -1,3 +1,5 @@
+project (JamomaCore) #should be on top, otherwise potential cmake options need 2 cmake runs to be effective
+
 cmake_minimum_required(VERSION 2.6)
 
 SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC -Wno-unknown-pragmas -Wno-conversion")
@@ -33,15 +35,21 @@ MACRO(SUBDIRLIST result curdir)
   SET(${result} ${dirlist})
 ENDMACRO()
 
-
-project (JamomaCore)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/Shared/toolchains/modules/")
 
 if(APPLE)
+        if(NOT CMAKE_INSTALL_PREFIX)
+            set(CMAKE_INSTALL_PREFIX "/usr/local/")
+        endif()
+        set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "${CMAKE_INSTALL_PREFIX}/lib")
+        string(REGEX MATCH "jamoma" CMAKE_INSTALL_PREFIX_WITH_JAMOMA "${CMAKE_INSTALL_PREFIX}")
+        if(NOT CMAKE_INSTALL_PREFIX_WITH_JAMOMA)
+            set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/jamoma/")
+        endif()
+        message("CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}")
 	add_definitions(-DTT_PLATFORM_MAC)
-	set(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} /usr/local/lib)
-	set(CMAKE_INSTALL_PREFIX "/usr/local/jamoma/")
+
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 # Independent shared libraries
 	set(CMAKE_MACOSX_RPATH 1)
