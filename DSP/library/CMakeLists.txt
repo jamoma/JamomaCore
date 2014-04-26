@@ -21,7 +21,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTBuffer.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTDelay.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSampleMatrix.test.cpp
 )
-
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
 
@@ -31,3 +31,4 @@ add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
+INSTALL(FILES ${PROJECT_HDRS} DESTINATION include)
