@@ -43,6 +43,7 @@ else (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
       NAMES
         portaudio.h
       PATHS
+        ${JamomaCore_SOURCE_DIR}/DSP/extensions/AudioEngine/portaudio/include
         /usr/include
         /usr/local/include
         /opt/local/include

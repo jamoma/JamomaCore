@@ -14,18 +14,19 @@ pkg_check_modules(PORTMIDIPKG portmidi)
 
 if(PORTMIDIPKG_FOUND)
 	set(PORTMIDI_INCLUDE_DIR ${PORTMIDIPKG_INCLUDE_DIR})
-	set(PORTMIDI_LIBRARIES ${PORTMIDIPKG_LIBRARIES})
+	set(PORTMIDI_LIBRARY ${PORTMIDIPKG_LIBRARY})
 else()
 find_path(PORTMIDI_INCLUDE_DIR portmidi.h
   HINTS
   $ENV{PORTMIDI_DIR}
   PATHS
+  ${JamomaCore_SOURCE_DIR}/Graph/extensions/MidiLib/portmidi/pm_common
   /usr/include
   /usr/local/include
   /opt/local/include
 )
 
-find_library(PORTMIDI_LIBRARIES portmidi
+find_library(PORTMIDI_LIBRARY portmidi
   HINTS
   $ENV{PORTMIDI_DIR}
   PATHS
@@ -34,7 +35,7 @@ find_library(PORTMIDI_LIBRARIES portmidi
   /opt/local/lib
 )
 
-find_library(PORTTIME_LIBRARIES porttime
+find_library(PORTTIME_LIBRARY porttime
   HINTS
   $ENV{PORTMIDI_DIR}
   PATHS
@@ -52,8 +53,10 @@ else()
   set(PORTMIDI_LIBRARIES ${PORTMIDI_LIBRARY} ${PORTTIME_LIBRARY})
 endif()
 
+set(PORTMIDI_INCLUDE_DIRS ${PORTMIDI_INCLUDE_DIR})
+
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(PortMidi
-  REQUIRED_VARS PORTMIDI_INCLUDE_DIR PORTMIDI_LIBRARIES)
+  REQUIRED_VARS PORTMIDI_INCLUDE_DIRS PORTMIDI_LIBRARIES)
 
 mark_as_advanced(PORTMIDI_LIBRARY PORTTIME_LIBRARY)
