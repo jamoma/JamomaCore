@@ -23,7 +23,6 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMessage.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTObjectBase.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTDictionary.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTDictionaryBase.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/tests/TTDictionary.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTHash.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTList.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMatrix.cpp
@@ -35,10 +34,15 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSymbolBase.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSymbolCache.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSymbolTable.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTRegex.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/tests/TTMatrix.test.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/tests/TTString.test.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSymbol.test.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/tests/TTValue.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTNodeLib.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTNode.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddress.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressBase.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressTable.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressCache.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressItem.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTNodeDirectory.cpp
+
 ${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/filesystem/src/codecvt_error_category.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/filesystem/src/operations.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/filesystem/src/path_traits.cpp
@@ -64,23 +68,20 @@ ${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/w32_regex_traits.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/wc_regex_traits.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/wide_posix_api.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/winstances.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTNodeLib.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTNode.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddress.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressBase.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressTable.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressCache.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressItem.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTNodeDirectory.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/tests/TTNodeLib.test.cpp
+
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTDictionary.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTInterpolate.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTMatrix.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTNodeLib.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTString.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSymbol.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTValue.test.cpp
 )
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/tests")
 include_directories("${PROJECT_SOURCE_DIR}/Mersenne-1.1")
 include_directories("${PROJECT_SOURCE_DIR}/boost")
-
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
@@ -89,8 +90,12 @@ target_link_libraries(${PROJECT_NAME} pthread)
 target_link_libraries(${PROJECT_NAME} dl)
 endif(NOT ANDROID)
 
-# Pour OS X :
+# OS X :
 addAppleFramework(Carbon)
 addAppleFramework(CoreServices)
 
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
+### Output ###
+setOutput()
+
+### Tests ###
+addTestTarget()

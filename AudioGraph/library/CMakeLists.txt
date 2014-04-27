@@ -11,7 +11,6 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAudioGraphObject.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAudioGraphGenerator.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAudioGraphInput.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAudioGraphOutput.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/tests/split-gain-join.test.cpp
 )
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
@@ -29,4 +28,8 @@ target_link_libraries(${PROJECT_NAME} JamomaGraph)
 
 addAppleFramework(Carbon)
 
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
+### Output ###
+setOutput()
+
+### Tests ###
+addTestTarget()

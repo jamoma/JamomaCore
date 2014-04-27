@@ -39,6 +39,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTViewer.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTXmlHandler.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/ProtocolLib/Protocol.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/SchedulerLib/Scheduler.cpp
+
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTApplication.test.cpp
 )
 
@@ -60,4 +61,8 @@ target_link_libraries(${PROJECT_NAME} ${LIBXML2_LIBRARIES})
 
 addAppleFramework(Carbon)
 
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
+### Output ###
+setOutput()
+
+### Tests ###
+addTestTarget()

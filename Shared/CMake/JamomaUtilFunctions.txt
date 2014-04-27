@@ -1,0 +1,66 @@
+cmake_minimum_required(VERSION 2.6)
+## Set suffixes according to the conventions of the Jamoma project ##
+function(setExtensionSuffix)
+	if(APPLE)
+        SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES PREFIX "")
+		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdylib")
+	elseif(UNIX)
+		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".ttso")
+	elseif(WIN32)
+		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdll")
+	endif(APPLE)
+endFunction(setExtensionSuffix)
+
+## Add Apple frameworks ##
+function(addAppleFramework FRAMEWORK_NAME)
+IF(APPLE)
+   INCLUDE_DIRECTORIES ( /Developer/Headers/FlatCarbon )
+   FIND_LIBRARY(THE_LIBRARY ${FRAMEWORK_NAME})
+   MARK_AS_ADVANCED (THE_LIBRARY)
+   SET(EXTRA_LIBS ${EXTRA_LIBS} ${THE_LIBRARY})
+ENDIF (APPLE)
+endFunction(addAppleFramework)
+
+## List subdirectories (for extensions) ##
+MACRO(SUBDIRLIST result curdir)
+  FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+  SET(dirlist "")
+  FOREACH(child ${children})
+    IF(IS_DIRECTORY ${curdir}/${child})
+        SET(dirlist ${dirlist} ${child})
+    ENDIF()
+  ENDFOREACH()
+  SET(${result} ${dirlist})
+ENDMACRO()
+
+## Add extensions recursively ##
+function(addExtensions)
+	SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
+	SET(IS_EXTENSION)
+	FOREACH(subdir ${SUBDIRS})
+	    ADD_SUBDIRECTORY(${subdir})
+	ENDFOREACH()
+endFunction()
+
+
+## Function to create test targets ##
+function(addTestTarget)
+	if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp)
+		file(GLOB TEST_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp)
+
+		add_executable("test_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
+		target_link_libraries("test_${PROJECT_NAME}" ${PROJECT_NAME})
+
+		add_test("test_${PROJECT_NAME}" "test_${PROJECT_NAME}")
+	endif()
+endFunction()
+
+## Function to set install path ##
+function(setOutput)
+	if(DEFINED IS_EXTENSION)
+		setExtensionSuffix()
+		INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")
+	else()
+		INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
+	endif()
+endFunction()

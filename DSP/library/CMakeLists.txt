@@ -16,6 +16,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMixer.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMultiMixer.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTOperator.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTDSP.cpp
+
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTAudioObjectArray.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTBuffer.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTDelay.test.cpp
@@ -27,7 +28,10 @@ include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
 
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
-
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
+### Output ###
+setOutput()
+
+### Tests ###
+addTestTarget()
