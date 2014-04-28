@@ -19,6 +19,8 @@ target_link_libraries(${PROJECT_NAME} JamomaDSP)
 target_link_libraries(${PROJECT_NAME} JamomaGraph)
 target_link_libraries(${PROJECT_NAME} JamomaAudioGraph)
 
-setExtensionSuffix()
+### Output ###
+setOutput()
 
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")
+### Tests ###
+addTestTarget()

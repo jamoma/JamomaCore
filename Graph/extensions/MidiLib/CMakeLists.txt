@@ -2,13 +2,14 @@ cmake_minimum_required(VERSION 2.6)
 project(MidiLib)
 
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID)
-message(STATUS "We can't build this for Android / ARM for now.")
-return()
+  message(STATUS "We can't build this for Android / ARM for now.")
+  return()
 endif()
 
 find_package(PortMidi)
 if(NOT PORTMIDI_FOUND)
-  message(FATAL_ERROR "Package portmidi required, but not found!")
+  message(STATUS "Package portmidi required, but not found! Won't build MidiLib extension.")
+  return()
 endif()
 
 set(PROJECT_SRCS
@@ -32,11 +33,13 @@ target_link_libraries(${PROJECT_NAME} JamomaDSP)
 target_link_libraries(${PROJECT_NAME} JamomaGraph)
 target_link_libraries(${PROJECT_NAME} ${PORTMIDI_LIBRARIES})
 
-setExtensionSuffix()
-
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")
-
 addAppleFramework(CoreMIDI)
 addAppleFramework(CoreFoundation)
 addAppleFramework(CoreAudio)
 addAppleFramework(Carbon)
+
+### Output ###
+setOutput()
+
+### Tests ###
+addTestTarget()

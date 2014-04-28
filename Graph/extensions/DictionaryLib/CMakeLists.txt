@@ -18,6 +18,8 @@ target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} JamomaDSP)
 target_link_libraries(${PROJECT_NAME} JamomaGraph)
 
-setExtensionSuffix()
+### Output ###
+setOutput()
 
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")
+### Tests ###
+addTestTarget()

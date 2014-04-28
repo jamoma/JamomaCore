@@ -21,9 +21,11 @@ target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} JamomaDSP)
 target_link_libraries(${PROJECT_NAME} sndfile)
 
-setExtensionSuffix()
-
 addAppleFramework(Carbon)
 addAppleFramework(AudioUnit)
 
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")
+### Output ###
+setOutput()
+
+### Tests ###
+addTestTarget()

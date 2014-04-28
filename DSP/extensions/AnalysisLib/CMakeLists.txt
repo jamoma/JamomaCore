@@ -17,6 +17,8 @@ add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} JamomaDSP)
 
-setExtensionSuffix()
+### Output ###
+setOutput()
 
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")
+### Tests ###
+addTestTarget()

@@ -3,13 +3,14 @@ project(AudioEngine)
 
 # Doesn't yet work on ARM
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID)
-message(STATUS "We can't build this for Android / ARM for now.")
-return()
+  message(STATUS "We can't build this for Android / ARM for now.")
+  return()
 endif()
 
 find_package(Portaudio)
 if(NOT PORTAUDIO_FOUND)
-  message(FATAL_ERROR "Package portaudio required, but not found!")
+  message(STATUS "Package portaudio required, but not found! Won't build AudioEngine extension.")
+  return()
 endif()
 
 
@@ -28,12 +29,13 @@ target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} JamomaDSP)
 target_link_libraries(${PROJECT_NAME} ${PORTAUDIO_LIBRARIES})
 
-setExtensionSuffix()
-
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")
-
 addAppleFramework(Carbon)
 addAppleFramework(CoreAudio)
 addAppleFramework(AudioUnit)
 addAppleFramework(AudioToolbox)
 
+### Output ###
+setOutput()
+
+### Tests ###
+addTestTarget()

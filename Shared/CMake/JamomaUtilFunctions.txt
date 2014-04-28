@@ -36,7 +36,7 @@ ENDMACRO()
 ## Add extensions recursively ##
 function(addExtensions)
 	SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
-	SET(IS_EXTENSION)
+	SET(IS_EXTENSION 1)
 	FOREACH(subdir ${SUBDIRS})
 	    ADD_SUBDIRECTORY(${subdir})
 	ENDFOREACH()
