@@ -1,4 +1,10 @@
 cmake_minimum_required(VERSION 2.6)
+
+find_package(Sndfile)
+
+if(SNDFILE_FOUND)
+include_directories(${SNDFILE_INCLUDE_DIR})
+
 project(SoundfileLib)
 
 set(PROJECT_SRCS
@@ -19,7 +25,7 @@ add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} JamomaDSP)
-target_link_libraries(${PROJECT_NAME} sndfile)
+target_link_libraries(${PROJECT_NAME} ${SNDFILE_LIBRARIES})
 
 addAppleFramework(Carbon)
 addAppleFramework(AudioUnit)
@@ -29,3 +35,5 @@ setOutput()
 
 ### Tests ###
 addTestTarget()
+
+endif(SNDFILE_FOUND)

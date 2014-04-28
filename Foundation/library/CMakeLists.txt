@@ -1,10 +1,15 @@
 cmake_minimum_required(VERSION 2.6)
 project(JamomaFoundation)
 
-add_definitions(-DTTFOUNDATION_EXPORTS)
-add_definitions(-DBOOST_REGEX)
-add_definitions(-DBOOST_REGEX_USE_C_LOCALE)
+find_package(Boost REQUIRED COMPONENTS filesystem regex)
+include_directories(${Boost_INCLUDE_DIRS})
 
+find_package(Threads REQUIRED) #for phtread
+find_package(DL REQUIRED)
+
+add_definitions(-DTTFOUNDATION_EXPORTS)
+#add_definitions(-DBOOST_REGEX) #fails on OSX 10.9
+add_definitions(-DBOOST_REGEX_USE_C_LOCALE)
 
 set(PROJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTFoundation.cpp
@@ -43,51 +48,28 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressCache.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressItem.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTNodeDirectory.cpp
 
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/filesystem/src/codecvt_error_category.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/filesystem/src/operations.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/filesystem/src/path_traits.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/filesystem/src/path.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/filesystem/src/portability.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/filesystem/src/unique_path.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/filesystem/src/utf8_codecvt_facet.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/system/src/error_code.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/c_regex_traits.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/cpp_regex_traits.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/cregex.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/fileiter.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/icu.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/instances.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/posix_api.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/regex_debug.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/regex_raw_buffer.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/regex_traits_defaults.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/regex.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/static_mutex.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/usinstances.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/w32_regex_traits.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/wc_regex_traits.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/wide_posix_api.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/winstances.cpp
-
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTDictionary.test.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/tests/TTInterpolate.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTMatrix.test.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/tests/TTNodeLib.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTString.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSymbol.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTValue.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTNodeLib.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTInterpolate.test.cpp
 )
 
+
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/tests")
 include_directories("${PROJECT_SOURCE_DIR}/Mersenne-1.1")
-include_directories("${PROJECT_SOURCE_DIR}/boost")
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
+add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS} ${PROJECT_HDRS})
+
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
 if(NOT ANDROID)
 target_link_libraries(${PROJECT_NAME} pthread)
-target_link_libraries(${PROJECT_NAME} dl)
+target_link_libraries(${PROJECT_NAME} ${DL_LIBRARY})
 endif(NOT ANDROID)
 
 # OS X :

@@ -15,6 +15,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTGraphOutput.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTParameter.cpp
 )
 
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes")
@@ -25,6 +26,7 @@ target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} JamomaDSP)
 
 addAppleFramework(Carbon)
+
 
 ### Output ###
 setOutput()

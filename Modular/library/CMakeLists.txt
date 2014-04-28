@@ -3,11 +3,13 @@ project(JamomaModular)
 
 add_definitions(-DTTMODULAR_EXPORTS)
 
-find_package(LibXml2)
+find_package(LibXml2 REQUIRED)
 if(NOT LIBXML2_FOUND)
   message(FATAL_ERROR "Package libxml2 required, but not found!")
 endif()
-
+# libiconv headers were included but not used: here is the proper way to include it (from installed packages)
+#find_package(Libiconv REQUIRED)
+#include_directories(${LIBICONV_INCLUDE_DIR})
 
 set(PROJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTModular.cpp
@@ -43,12 +45,18 @@ ${CMAKE_CURRENT_SOURCE_DIR}/SchedulerLib/Scheduler.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTApplication.test.cpp
 )
 
+file(GLOB_RECURSE PROJECT_HDRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/ProtocolLib/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/SchedulerLib/*.h
+)
+
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/PeerObject")
 include_directories("${PROJECT_SOURCE_DIR}/ProtocolLib")
 include_directories("${PROJECT_SOURCE_DIR}/SchedulerLib")
 include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/libiconv/include")
 include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes")
 include_directories(${LIBXML2_INCLUDE_DIR})
 

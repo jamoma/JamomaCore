@@ -12,7 +12,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAudioGraphGenerator.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAudioGraphInput.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAudioGraphOutput.cpp
 )
-
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes")
