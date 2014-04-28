@@ -19,6 +19,7 @@ add_subdirectory(AudioGraph)
 add_subdirectory(Modular)
 
 if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/Score")
+	set(BUILD_SCORE_FROM_JAMOMACORE 1)
 	add_subdirectory(Score)
 endif()
 
