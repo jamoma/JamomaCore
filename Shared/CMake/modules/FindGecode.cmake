@@ -8,9 +8,10 @@
 # After using this module, the following variables will be available:
 #   GECODE_VERSION : The version of gecode found
 #   GECODE_LIBRARIES : The gecode libraries that were found.
-#   GECODE_INCLUDE_DIR : path to the gecode headers.
+#   GECODE_INCLUDE_DIRS : path to the gecode headers.
 
 # Look for the main header files of gecode.
+include(FindPackageHandleStandardArgs)
 find_path(GECODE_INCLUDE_DIR NAMES gecode/kernel.hh)
 find_file(GECODE_CONFIG gecode/support/config.hpp)
 
@@ -60,3 +61,9 @@ file(STRINGS ${GECODE_VIMP} GECODE_LINE_CPREL_CLASS
     REGEX "^.*class ${GECODE_CPREL_CLASS} .*")
 message(STATUS "Gecode class: ${GECODE_LINE_CPREL_CLASS}")
 list(LENGTH GECODE_LINE_CPREL_CLASS GECODE_CPREL_SUPPORT)
+
+
+set(GECODE_INCLUDE_DIRS ${GECODE_INCLUDE_DIR})
+
+find_package_handle_standard_args(Gecode
+  REQUIRED_VARS GECODE_INCLUDE_DIRS GECODE_LIBRARIES)

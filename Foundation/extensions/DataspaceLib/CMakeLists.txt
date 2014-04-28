@@ -16,6 +16,16 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TimeDataspace.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTDataspace.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTDataspaceConverter.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTDataspaceUnit.cpp
+
+${CMAKE_CURRENT_SOURCE_DIR}/tests/AngleDataspace.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/ColorDataspace.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/DistanceDataspace.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/GainDataspace.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/OrientationDataspace.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/PositionDataspace.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/SpeedDataspace.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TemperatureDataspace.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TimeDataspace.test.cpp
 )
 
 include_directories("${PROJECT_SOURCE_DIR}")

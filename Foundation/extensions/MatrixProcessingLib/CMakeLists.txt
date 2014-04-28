@@ -5,6 +5,10 @@ set(PROJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/TTMatrixProcessingLib.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMatrixStencil.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMatrixGain.cpp
+
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTMatrixGain.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTMatrixStencil.test.cpp
+
 )
 
 include_directories("${PROJECT_SOURCE_DIR}")
