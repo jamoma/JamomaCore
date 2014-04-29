@@ -2,13 +2,15 @@ cmake_minimum_required(VERSION 2.6)
 ## Set suffixes according to the conventions of the Jamoma project ##
 function(setExtensionSuffix)
 	if(APPLE)
-        SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES PREFIX "")
+		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES PREFIX "")
 		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdylib")
+	elseif(ANDROID)
+		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".so")
 	elseif(UNIX)
 		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".ttso")
 	elseif(WIN32)
 		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdll")
-	endif(APPLE)
+	endif()
 endFunction(setExtensionSuffix)
 
 ## Add Apple frameworks ##
