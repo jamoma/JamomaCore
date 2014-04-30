@@ -26,11 +26,9 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	mInterpolated(0),
-	tempGainMatrix(NULL),
 	mNumInputs(1),
 	mNumOutputs(1)
 {
-	TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&tempGainMatrix, 0);
 	
 	addAttributeWithSetter(NumInputs,	kTypeUInt16);
 	addAttributeWithSetter(NumOutputs,	kTypeUInt16);
@@ -44,11 +42,11 @@ TT_AUDIO_CONSTRUCTOR,
 	addMessage(clear);	
 	mGainMatrix.set("type", "float64");
 	oldGainMatrix.set("type", "float64");
-	tempGainMatrix->setAttributeValue(TT("type"), TT("float64"));
+	tempGainMatrix.set("type","float64");
 	TTValue		v(1, 1);
 	mGainMatrix.set("dimensions", v);
 	oldGainMatrix.set("dimensions", v);
-	tempGainMatrix->setAttributeValue(TT("dimensions"), v);
+	tempGainMatrix.set("dimensions", v);
 	clear();
 	setProcessMethod(processAudio);
 }
@@ -56,8 +54,6 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTMixer::~TTMixer()
 {
-	TTObjectBaseRelease((TTObjectBasePtr*)&oldGainMatrix);
-	TTObjectBaseRelease((TTObjectBasePtr*)&tempGainMatrix);
 }
 
 
@@ -73,8 +69,7 @@ TTErr TTMixer::setNumInputs(const TTValue& newValue)
 	
 	if (numInputs != mNumInputs) {
 		mNumInputs = numInputs;
-		tempGainMatrix->adaptTo(mGainMatrix.instance()); //1. copy mGainMtrix to tempGainMatrix;
-		TTMatrixBase::copy(*mGainMatrix.instance(), *tempGainMatrix);
+		TTMatrixBase::copy(*mGainMatrix.instance(), *tempGainMatrix.instance()); //1. copy mGainMtrix to tempGainMatrix;
 		mGainMatrix.set("dimensions", v); //2. resize
 		oldGainMatrix.set("dimensions", v);
 		clear();						//3. clear mGainMatrix
@@ -91,8 +86,7 @@ TTErr TTMixer::setNumOutputs(const TTValue& newValue)
 	
 	if (numOutputs != mNumOutputs) {
 		mNumOutputs = numOutputs;
-		tempGainMatrix->adaptTo(mGainMatrix.instance()); //1. copy mGainMtrix to tempGainMatrix;
-		TTMatrixBase::copy(*mGainMatrix.instance(), *tempGainMatrix);
+		TTMatrixBase::copy(*mGainMatrix.instance(), *tempGainMatrix.instance()); //1. copy mGainMtrix to tempGainMatrix;
 		mGainMatrix.set("dimensions", v);
 		oldGainMatrix.set("dimensions", v);
 		clear();						//3. clear mGainMatrix
@@ -106,14 +100,14 @@ TTErr TTMixer::restoreMatrix()
 	TTValue dim;
 	TTFloat64 tempValue; 	
 	TTUInt16 xx, yy;
-	tempGainMatrix->getDimensions(dim);
+	tempGainMatrix.get("dimensions", dim);
 	dim.get(0,xx);
 	dim.get(1,yy);
 	TTLimit(xx,(TTUInt16) 1, mNumInputs); // in case xx or yy is greater than the current mGainMatrix ...
 	TTLimit(yy,(TTUInt16) 1, mNumOutputs);
 	for (TTUInt16 y=0; y < yy; y++) {
 		for (TTUInt16 x=0; x < xx; x++) {
-			tempGainMatrix->get2d(x, y, tempValue);
+			tempGainMatrix.get2d(x, y, tempValue);
 			mGainMatrix.set2d(   x, y, tempValue);
 			oldGainMatrix.set2d( x, y, tempValue);
 		}
