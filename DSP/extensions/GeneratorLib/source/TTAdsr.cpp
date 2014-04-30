@@ -51,20 +51,22 @@ TTAdsr::~TTAdsr()
 
 TTErr TTAdsr::dictionary(const TTValue& input, TTValue& output)
 {
-	TTDictionaryPtr	d = NULL;
+	TTDictionary	d;
 	TTSymbol		schema;
 	
-	input.get(0, (TTPtr*)(&d));
-	schema = d->getSchema();
+    if (input[0].type() == kTypeDictionary) {
+        d = input[0];
+        schema = d.getSchema();
+    }
 
 	if (schema == TT("MidiNoteEvent")) {
 		TTValue	v;
 		TTErr	err;
 		TTUInt8	velocity;
 	
-		err = d->getValue(v);
+		err = d.getValue(v);
 		if (!err) {
-			v.get(1, velocity);
+			velocity = v[1];
 			if (velocity)
 				trigger = true;
 			else
