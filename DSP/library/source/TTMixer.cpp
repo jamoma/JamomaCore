@@ -26,12 +26,10 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	mInterpolated(0),
-	oldGainMatrix(NULL),
 	tempGainMatrix(NULL),
 	mNumInputs(1),
 	mNumOutputs(1)
 {
-	TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&oldGainMatrix, 0);
 	TTObjectBaseInstantiate(kTTSym_matrix, (TTObjectBasePtr*)&tempGainMatrix, 0);
 	
 	addAttributeWithSetter(NumInputs,	kTypeUInt16);
@@ -45,11 +43,11 @@ TT_AUDIO_CONSTRUCTOR,
 	//registerMessageWithArgument(updateMaxNumChannels);
 	addMessage(clear);	
 	mGainMatrix.set("type", "float64");
-	oldGainMatrix->setAttributeValue(TT("type"), TT("float64"));
+	oldGainMatrix.set("type", "float64");
 	tempGainMatrix->setAttributeValue(TT("type"), TT("float64"));
 	TTValue		v(1, 1);
 	mGainMatrix.set("dimensions", v);
-	oldGainMatrix->setAttributeValue(TT("dimensions"), v);
+	oldGainMatrix.set("dimensions", v);
 	tempGainMatrix->setAttributeValue(TT("dimensions"), v);
 	clear();
 	setProcessMethod(processAudio);
@@ -78,7 +76,7 @@ TTErr TTMixer::setNumInputs(const TTValue& newValue)
 		tempGainMatrix->adaptTo(mGainMatrix.instance()); //1. copy mGainMtrix to tempGainMatrix;
 		TTMatrixBase::copy(*mGainMatrix.instance(), *tempGainMatrix);
 		mGainMatrix.set("dimensions", v); //2. resize
-		oldGainMatrix->setAttributeValue(TT("dimensions"), v);
+		oldGainMatrix.set("dimensions", v);
 		clear();						//3. clear mGainMatrix
 		restoreMatrix(); //4. element-wise copy tempGainMatrix content over to mGainMatrix
 	}
@@ -96,7 +94,7 @@ TTErr TTMixer::setNumOutputs(const TTValue& newValue)
 		tempGainMatrix->adaptTo(mGainMatrix.instance()); //1. copy mGainMtrix to tempGainMatrix;
 		TTMatrixBase::copy(*mGainMatrix.instance(), *tempGainMatrix);
 		mGainMatrix.set("dimensions", v);
-		oldGainMatrix->setAttributeValue(TT("dimensions"), v);
+		oldGainMatrix.set("dimensions", v);
 		clear();						//3. clear mGainMatrix
 		restoreMatrix(); //4. element-wise copy tempGainMatrix content over to mGainMatrix
 	}
@@ -117,7 +115,7 @@ TTErr TTMixer::restoreMatrix()
 		for (TTUInt16 x=0; x < xx; x++) {
 			tempGainMatrix->get2d(x, y, tempValue);
 			mGainMatrix.set2d(   x, y, tempValue);
-			oldGainMatrix->set2d( x, y, tempValue);
+			oldGainMatrix.set2d( x, y, tempValue);
 		}
 	}
 	return kTTErrNone;
@@ -127,7 +125,7 @@ TTErr TTMixer::restoreMatrix()
 TTErr TTMixer::clear()
 {
 	mGainMatrix.clear();
-	oldGainMatrix->clear();
+	oldGainMatrix.clear();
 	return kTTErrNone;
 }
 
@@ -297,7 +295,7 @@ TTErr TTMixer::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAudioSig
 		for (inChannel=0; inChannel<numInputChannels; inChannel++) {		
 			mGainMatrix.get2d(inChannel, outChannel, value);
 			//if (value != 0.0){  // this condition caused a click when the destination value is 0
-				oldGainMatrix->get2d(inChannel, outChannel, oldValue);
+				oldGainMatrix.get2d(inChannel, outChannel, oldValue);
 				increment = (value-oldValue)/vs;
 			TTAntiDenormal(increment); // TODO: necessary if we use flush-to-zero compiling flag?
 				gainValue = oldValue;
@@ -307,7 +305,7 @@ TTErr TTMixer::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAudioSig
 					outSample[i] += inSample[i] * gainValue;
 				}				
 			//}
-			oldGainMatrix->set2d(inChannel, outChannel, value);
+			oldGainMatrix.set2d(inChannel, outChannel, value);
 		}
 	}	
 	setProcessMethod(processAudio);
