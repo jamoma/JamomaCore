@@ -101,8 +101,8 @@ TTErr TTMixer::restoreMatrix()
 	TTFloat64 tempValue; 	
 	TTUInt16 xx, yy;
 	tempGainMatrix.get("dimensions", dim);
-	dim.get(0,xx);
-	dim.get(1,yy);
+	xx = dim[0];
+	yy = dim[1];
 	TTLimit(xx,(TTUInt16) 1, mNumInputs); // in case xx or yy is greater than the current mGainMatrix ...
 	TTLimit(yy,(TTUInt16) 1, mNumOutputs);
 	for (TTUInt16 y=0; y < yy; y++) {
@@ -150,9 +150,9 @@ TTErr TTMixer::setGain(const TTValue& newValue, TTValue&)
 	if (newValue.size() != 3)
 		return kTTErrWrongNumValues;
 	
-	newValue.get(0, x);
-	newValue.get(1, y);
-	newValue.get(2, gainValue);
+	x = newValue[0];
+	y = newValue[1];
+	gainValue = newValue[2];
 
 	checkMatrixSize(x,y);
     
@@ -173,9 +173,9 @@ TTErr TTMixer::setLinearGain(const TTValue& newValue, TTValue&)
 	if (newValue.size() != 3)
 		return kTTErrWrongNumValues;
 	
-	newValue.get(0, x);
-	newValue.get(1, y);
-	newValue.get(2, gainValue);	
+	x = newValue[0];
+	y = newValue[1];
+	gainValue = newValue[2];
 
 	checkMatrixSize(x,y);
 	
@@ -195,9 +195,9 @@ TTErr TTMixer::setMidiGain(const TTValue& newValue, TTValue&)
 	if (newValue.size() != 3)
 		return kTTErrWrongNumValues;
 	
-	newValue.get(0, x);
-	newValue.get(1, y);
-	newValue.get(2, gainValue);
+	x = newValue[0];
+	y = newValue[1];
+	gainValue = newValue[2];
 
 	checkMatrixSize(x,y);
 	mGainMatrix.set2d(x, y, TTMidiToLinearGain(gainValue));
