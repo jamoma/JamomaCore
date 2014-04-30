@@ -32,14 +32,6 @@
 #include "TTLimits.h" 
 
 
-/**	@typedef TTElementID
-	@brief Datatype for any number used to indicate an element index within the matrix.
-	@see TTRowID
-	@ingroup typedefs
- */
-typedef TTInt16 TTElementID;
-// TODO: should there be a similar typedef for results of math operations that combine these values, i.e. TTIndexMathType?
-
 /****************************************************************************************************/
 // Class Specification
 /** 2-dimensional matrix of compound values with N elements each.

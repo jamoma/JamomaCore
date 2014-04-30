@@ -240,6 +240,16 @@ typedef TTInt32 TTRowID;
 typedef TTInt32 TTColumnID;
 
 
+/**	@typedef TTElementID
+ @brief Datatype for any number used to indicate an element index within the matrix.
+ @see TTRowID
+ @ingroup typedefs
+ */
+typedef TTInt16 TTElementID;
+// TODO: should there be a similar typedef for results of math operations that combine these values, i.e. TTIndexMathType?
+
+
+
 /** A value representing a single audio sample.  TTSampleValue should be used any place a sample value is what the value represents.  This will enable us to change the type in the future if needed.  For example, to use 64-bit floats. */
 typedef TTFloat64			TTSampleValue;
 

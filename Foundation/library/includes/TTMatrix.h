@@ -22,6 +22,7 @@
 
 class TTMatrixBase;
 
+
 /** Wrap TTMatrixBase instances. */
 class TTFOUNDATION_EXPORT TTMatrix : public TTObject {
 public:
@@ -93,7 +94,82 @@ public:
 	/** Return number of bytes from one the beginning one matrix component to the next. */
 	TTUInt32 getComponentStride() const;
 
+		
+	/**	Get the value of a component located at (i,j) in a 2-dimensional matrix.
+	 Remember that the first component in the matrix is (0,0).
+	 
+	 In order to provide some degree of efficiency, the data passed-in is not bounds checked --
+	 you must ensure that you are passing memory that is at least mComponentStride bytes large.
+	 
+	 In fact, you should pass a compound type if you want more than one of the primitive types.
+	 For example, pass a pointer to a TTComplex if you want two doubles.
+	 
+	 @param[in]	i			row in matrix of desired component
+	 @param[in]	j			column in matrix of desired component
+	 @param[out]	data		reference to where method should return value
+	 @return 	TTErr		always returns kTTErrNone
+	 */
+	template<typename T>
+	TTErr get2d(TTRowID i, TTColumnID j, T& data) const;
+	
+	
+	/**	Get the value of element e of the component located at (i,j) in a 2-dimensional matrix.
+	 Remember that the first component in the matrix is (0,0) and its first element is 0.
+	 
+	 In order to provide some degree of efficiency, the data passed-in is not bounds checked --
+	 you must ensure that you are passing memory that is at least mComponentStride bytes large.
+	 
+	 In fact, you should pass a compound type if you want more than one of the primitive types.
+	 For example, pass a pointer to a TTComplex if you want two doubles.
+	 
+	 @param[in]	i			row in matrix of desired component
+	 @param[in]	j			column in matrix of desired component
+	 @param[in]	e			element within matrix component
+	 @param[out]	data		reference to where method should return value
+	 @return 	TTErr		always returns kTTErrNone
+	 */
+	template<typename T>
+	TTErr get2d(TTRowID i, TTColumnID j, TTElementID e, T& data) const;
+	
+		
+	/**	Set the value of a component located at (i,j) in a 2-dimensional matrix.
+	 Remember that the first component in the matrix is (0,0).
+	 
+	 In order to provide some degree of efficiency, the data passed-in is not bounds checked --
+	 you must ensure that you are passing memory that is at least mComponentStride bytes large.
+	 
+	 In fact, you should pass a compound type if you want more than one of the primitive types.
+	 For example, pass a pointer to a TTComplex if you want two doubles.
+	 
+	 @param[in]	i			row in matrix of component to be set
+	 @param[in]	j			column in matrix of component to be set
+	 @param[out]	data		reference to where method should return value
+	 @return 	TTErr		always returns kTTErrNone
+	 */
+	template<typename T>
+	TTErr set2d(TTRowID i, TTColumnID j, T data);
+	
+	
+	/**	Set the value of element e of the component located at (i,j) in a 2-dimensional matrix.
+	 Remember that the first component in the matrix is (0,0) and its first element is 0.
+	 
+	 In order to provide some degree of efficiency, the data passed-in is not bounds checked --
+	 you must ensure that you are passing memory that is at least mComponentStride bytes large.
+	 
+	 In fact, you should pass a compound type if you want more than one of the primitive types.
+	 For example, pass a pointer to a TTComplex if you want two doubles.
+	 
+	 @param[in]	i			row in matrix of component to be set
+	 @param[in]	j			column in matrix of component to be set
+	 @param[in]	e			element within matrix component
+	 @param[out]	data		reference to where method should return value
+	 @return 	TTErr		always returns kTTErrNone
+	 */
+	template<typename T>
+	TTErr set2d(TTRowID i, TTColumnID j, TTElementID e, T data);
+	
 };
+
 
 
 #endif // __TT_MATRIX_H__

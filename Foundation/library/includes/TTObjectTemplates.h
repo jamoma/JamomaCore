@@ -31,5 +31,34 @@ TTErr TTObject::get(const TTSymbol aName, T& aReturnedValue) const
 	return mObjectInstance->getAttributeValue(aName, aReturnedValue);
 }
 
+#include "TTMatrixBase.h"
+
+template<typename T>
+TTErr TTMatrix::get2d(TTRowID i, TTColumnID j, T& data) const
+{
+	return instance()->get2d(i, j, data);
+}
+
+
+template<typename T>
+TTErr TTMatrix::get2d(TTRowID i, TTColumnID j, TTElementID e, T& data) const
+{
+	return instance()->get2d(i, j, e, data);
+}
+
+
+template<typename T>
+TTErr TTMatrix::set2d(TTRowID i, TTColumnID j, T data)
+{
+	return instance()->set2d(i, j, data);
+}
+
+
+template<typename T>
+TTErr TTMatrix::set2d(TTRowID i, TTColumnID j, TTElementID e, T data)
+{
+	return instance()->set2d(i, j, e, data);
+}
+
 
 #endif // __TT_OBJECT_TEMPLATES_H__
