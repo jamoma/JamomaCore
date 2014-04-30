@@ -41,13 +41,13 @@ TTDictionaryAppend::~TTDictionaryAppend()
 
 TTErr TTDictionaryAppend::dictionary(const TTValue& input, TTValue& output)
 {
-	TTDictionaryPtr d = NULL;
-	
-	input.get(0, (TTPtr*)&d);
-	if (d) {
-		d->remove(mKey);
-		d->append(mKey, *mValue);
-		output.set(0, TTPtr(d));
+	TTDictionary d;
+    
+	if (input[0].type() == kTypeDictionary) {
+        d = input[0];
+        d.remove(mKey);
+		d.append(mKey, *mValue);
+		output[0] = d;
 		return kTTErrNone;
 	}
 	return kTTErrInvalidValue;
