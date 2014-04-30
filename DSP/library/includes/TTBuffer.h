@@ -74,7 +74,7 @@ public:
 		TTValue				returnedValue;
 		TTErr				err = kTTErrNone;
 		
-		newName.get(0, name);
+		name = newName[0];
 		
 		// if the name is the same, then do nothing
 		if (name == mName)

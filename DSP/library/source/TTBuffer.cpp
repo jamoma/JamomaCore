@@ -48,9 +48,9 @@ TTBuffer::TTBuffer(const TTValue& arguments) :
 	TTSymbol	name = TTSymbol::random();
 	
 	if (arguments.size() > 0) {
-		arguments.get(0, channelCount);	// TODO: should we limit range? what should zero mean?
+		channelCount = arguments[0];	// TODO: should we limit range? what should zero mean?
 		if (arguments.size() > 1)
-			arguments.get(1, name);
+			name = arguments[1];
 	}
 	
 	addMessageWithArguments(getNames);
