@@ -115,7 +115,7 @@ TTErr TTFunction::setMode(const TTValue& mode)
 
 TTErr TTFunction::getFunctions(const TTValue&, TTValue& listOfWindowTypesToReturn)
 {
-	return TTGetRegisteredClassNamesForTags(listOfWindowTypesToReturn, TT("function"));
+	return TTObject::GetRegisteredClassNamesForTags(listOfWindowTypesToReturn, TT("function"));
 }
 
 
