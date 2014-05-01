@@ -37,9 +37,9 @@ mKernel(arguments[0], 1) // first arg is the name of the class, second arg is in
 	TTUInt16	numOutlets = 1;
 	
 	if (arguments.size() > 1)
-		arguments.get(1, numInlets);
+		numInlets = arguments[1];
 	if (arguments.size() > 2)
-		arguments.get(2, numOutlets);
+		numOutlets = arguments[2];
 	
 	mDictionary = new TTDictionary;
 	
@@ -155,7 +155,7 @@ TTErr TTGraphObjectBase::push(const TTDictionary& aDictionary)
 			
 			aDictionary.lookup(TT("name"), nameValue);
 			aDictionary.getValue(v);
-			nameValue.get(0, nameSymbol);
+			nameSymbol = nameValue[0];
 			err = mKernel.send(nameSymbol, v, v);
 			
 			mDictionary->setSchema(TT("message"));
@@ -168,7 +168,7 @@ TTErr TTGraphObjectBase::push(const TTDictionary& aDictionary)
 			
 			aDictionary.lookup(TT("name"), nameValue);
 			aDictionary.getValue(v);
-			nameValue.get(0, nameSymbol);
+			nameSymbol = nameValue[0];
 			err = mKernel.set(nameSymbol, v);
 			
 			mDictionary->setSchema(TT("attribute"));
