@@ -105,16 +105,16 @@ TTErr TTSpatBase::getSourcePosition(const TTValue& requestedChannel, TTValue& aP
 	// TODO: We need to think of what to do if there are no arguments...
 	// or if sinkNumber is out of range of the available sources
 	
-	requestedChannel.get(0, sourceNumber);
+	sourceNumber = requestedChannel[0];
 	
 	getOneSourcePosition(sourceNumber, x, y, z);
 	
 	aPosition.resize(4);
 	
-	aPosition.set(0, sourceNumber);
-	aPosition.set(1, x);
-	aPosition.set(2, y);
-	aPosition.set(3, z);
+	aPosition[0] = sourceNumber;
+	aPosition[1] = x;
+	aPosition[2] = y;
+	aPosition[3] = z;
 	
 	return kTTErrNone;
 }
@@ -137,10 +137,10 @@ TTErr TTSpatBase::setSourcePosition(const TTValue& aPosition, TTValue& unused)
 	
 	// TODO: We need to think of what to do if there are not four arguments...
 	
-	aPosition.get(0, sourceNumber);
-	aPosition.get(1, x);
-	aPosition.get(2, y);
-	aPosition.get(3, z);
+	sourceNumber = aPosition[0];
+	x = aPosition[1];
+	y = aPosition[2];
+	z = aPosition[3];
 	
 	setOneSourcePosition(sourceNumber, x, y, z);
 	
@@ -167,16 +167,16 @@ TTErr TTSpatBase::getSinkPosition(const TTValue& requestedChannel, TTValue& aPos
 	// TODO: We need to think of what to do if there are no arguments...
 	// or if sinkNumber is out of range of the available sources
 	
-	requestedChannel.get(0, sinkNumber);
+	sinkNumber = requestedChannel[0];
 	
 	getOneSinkPosition(sinkNumber, x, y, z);
 	
 	aPosition.resize(4);
 	
-	aPosition.set(0, sinkNumber);
-	aPosition.set(1, x);
-	aPosition.set(2, y);
-	aPosition.set(3, z);
+	aPosition[0] = sinkNumber;
+	aPosition[1] = x;
+	aPosition[2] = y;
+	aPosition[3] = z;
 	
 	return kTTErrNone;
 }
@@ -199,10 +199,10 @@ TTErr TTSpatBase::setSinkPosition(const TTValue& aPosition, TTValue& unused)
 	
 	// TODO: We need to think of what to do if there are not four arguments...
 	
-	aPosition.get(0, sinkNumber);
-	aPosition.get(1, x);
-	aPosition.get(2, y);
-	aPosition.get(3, z);
+	sinkNumber = aPosition[0];
+	x = aPosition[1];
+	y = aPosition[2];
+	z = aPosition[3];
 	
 	setOneSinkPosition(sinkNumber, x, y, z);
 	
