@@ -144,7 +144,7 @@ TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 			oscStream << intValue;
 		}
 		else if (valueType == kTypeFloat32 || valueType == kTypeFloat64) {
-			arguments.get(i, floatValue);
+			floatValue = arguments[i];
 			oscStream << (float)floatValue;
 		}
 		else {
