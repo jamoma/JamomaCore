@@ -44,7 +44,7 @@ TTErr TTMatrixStencil::getStepSize(TTValue& returnedStepSize)
 {
 	returnedStepSize.resize(mStepSize.size());
 	for (TTUInt32 k=0; k<mStepSize.size(); k++)
-		returnedStepSize.set(k, mStepSize[k]);
+		returnedStepSize[k] = mStepSize[k];
 	return kTTErrNone;
 }
 
@@ -60,7 +60,7 @@ TTErr TTMatrixStencil::setStepSize(const TTValue& newStepSize)
 
 	// assign all values passed-in
 	for (k=0; k<count; k++) {
-		newStepSize.get(k, step);
+		step = newStepSize[k];
 		mStepSize[k] = step;
 	}
 	
@@ -88,8 +88,8 @@ TTErr TTMatrixStencil::doCalculateAverage2D_zeroedEdges(TTMatrixBasePtr inMatrix
 	inMatrix->getLockedPointer();
 	outMatrix->getLockedPointer();
 	inMatrix->getDimensions(dimensions);
-	dimensions.get(0, m);
-	dimensions.get(1, n);
+	m = dimensions[0];
+	n = dimensions[1];
 	
 	for (TTUInt8 k=0; k < inMatrix->getElementCount(); k++) {	
 		for (TTUInt32 i=0; i<m; i++) {
@@ -156,8 +156,8 @@ TTErr TTMatrixStencil::doCalculateAverage2D_clippedEdges(TTMatrixBasePtr inMatri
 	inMatrix->getLockedPointer();
 	outMatrix->getLockedPointer();
 	inMatrix->getDimensions(dimensions);
-	dimensions.get(0, m);
-	dimensions.get(1, n);
+	m = dimensions[0];
+	n = dimensions[1];
 	
 	for (TTUInt8 k=0; k < inMatrix->getElementCount(); k++) {	
 		for (TTUInt32 i=0; i<m; i++) {
