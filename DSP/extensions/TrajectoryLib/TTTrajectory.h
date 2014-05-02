@@ -89,7 +89,7 @@ public:
 		v.resize(2);
 		v[0] = TT("trajectory");
 		v[1] = TT("audio");
-		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
+		return TTObject::GetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
 	}
 
 	/**	Return the current trajectory type.

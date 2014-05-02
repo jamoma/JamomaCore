@@ -181,6 +181,13 @@ TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseRelease(TTObjectBasePtr* an
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames) );
+
+
+/** This mehtod is depreacted.
+ @details PLease use @n
+ TTObject::GetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags) @n
+ instead.
+ */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags) );
 
 #endif // __TT_ENVIRONMENT_H__

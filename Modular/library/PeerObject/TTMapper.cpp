@@ -247,7 +247,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 #ifndef TT_NO_DSP
 TTErr TTMapper::getFunctionLibrary(TTValue& value)
 {
-    TTGetRegisteredClassNamesForTags(mFunctionLibrary, kTTSym_function);
+	TTObject::GetRegisteredClassNamesForTags(mFunctionLibrary, kTTSym_function);
 	
 	value = mFunctionLibrary;
 	return kTTErrNone;

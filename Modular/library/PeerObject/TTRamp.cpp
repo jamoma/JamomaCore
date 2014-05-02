@@ -138,7 +138,7 @@ TTErr TTRamp::setScheduler(const TTValue& inputValue)
 
 TTErr TTRamp::getSchedulerLibrary(TTValue& value)
 {
-    TTGetRegisteredClassNamesForTags(value, TTSymbol("scheduler"));
+	TTObject::GetRegisteredClassNamesForTags(value, TTSymbol("scheduler"));
 	return kTTErrNone;
 }
 
@@ -211,7 +211,7 @@ TTErr TTRamp::setFunction(const TTValue& inputValue)
 
 TTErr TTRamp::getFunctionLibrary(TTValue& value)
 {
-    TTGetRegisteredClassNamesForTags(value, kTTSym_function);
+	TTObject::GetRegisteredClassNamesForTags(value, kTTSym_function);
 	return kTTErrNone;
 }
 
