@@ -31,7 +31,7 @@
 TT_OBJECT_CONSTRUCTOR,
 mKernel(arguments[0], 1) // first arg is the name of the class, second arg is initialChannelCount
 {
-	TT_ASSERT(graph_correct_instantiation_args, arguments.size() > 0);
+	TT_ASSERT(graph_correct_instantiation_args, (arguments.size() > 0));
 	
 	TTUInt16	numInlets = 1;
 	TTUInt16	numOutlets = 1;
