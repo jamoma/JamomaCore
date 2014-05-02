@@ -57,13 +57,13 @@ TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
 	addAttributeWithSetter(NumAudioInlets, kTypeUInt32);
 	addAttributeWithSetter(NumAudioOutlets, kTypeUInt32);
 	
-	TT_ASSERT(audiograph_correct_instantiation_arg_count, arguments.size() > 0);
+	TT_ASSERT(audiograph_correct_instantiation_arg_count, (arguments.size() > 0));
 
-	arguments.get(0, wrappedObjectName);
+	wrappedObjectName = arguments[0];
 	if (arguments.size() > 1)
-		arguments.get(1, numInlets);
+		numInlets = arguments[1];
 	if (arguments.size() > 2)
-		arguments.get(2, numOutlets);
+		numOutlets = arguments[2];
 	
 	setAttributeValue(TT("numAudioInlets"), numInlets);
 	setAttributeValue(TT("numAudioOutlets"), numOutlets);
