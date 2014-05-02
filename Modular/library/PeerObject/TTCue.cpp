@@ -27,7 +27,7 @@ mRamp(0),
 mAddress(kTTAdrsRoot),
 mScript(NULL)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTCue", arguments.size() == 0 || arguments.size() == 1);
+	TT_ASSERT("Correct number of arguments to instantiate TTCue", (arguments.size() == 0 || arguments.size() == 1));
 	
 	addAttributeWithGetterAndSetter(Name, kTypeSymbol);
 	addAttributeWithGetterAndSetter(Description, kTypeSymbol);

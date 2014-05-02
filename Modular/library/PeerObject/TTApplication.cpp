@@ -113,7 +113,7 @@ mTempAddress(kTTAdrsRoot)
     // create a TTNodeDirectory to handle the application namespace
 	mDirectory = new TTNodeDirectory(mName);
 	mDirectory->getRoot()->setObject(TTObjectBasePtr(this));
-	TT_ASSERT("NodeDirectory created successfully", mDirectory != NULL);
+	TT_ASSERT("NodeDirectory created successfully", (mDirectory != NULL));
 }
 
 #if 0
@@ -256,7 +256,7 @@ TTErr TTApplication::DirectoryBuild()
     
     // a distant application should have one protocol
     protocolNames = accessApplicationProtocolNames(mName);
-    protocolNames.get(0, protocolName);
+	protocolName = protocolNames[0];
 
     aProtocol = accessProtocol(protocolName);
     if (aProtocol) {
@@ -342,7 +342,7 @@ TTErr TTApplication::DirectoryObserve(const TTValue& inputValue, TTValue& output
             
             // a distant application should have one protocol
             protocolNames = accessApplicationProtocolNames(mName);
-            protocolNames.get(0, protocolName);
+			protocolName = protocolNames[0];
             
             aProtocol = accessProtocol(protocolName);
             if (aProtocol)
@@ -561,7 +561,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 	whereComesFrom = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);
 	
-	newValue->get(0, type);
+	type = newValue[0];
     
     err = mDirectory->Lookup(whereComesFrom, aNodeList, &aNode);
 	
@@ -570,7 +570,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
         
         // a distant application should have one protocol
         protocolNames = accessApplicationProtocolNames(mName);
-        protocolNames.get(0, protocolName);
+		protocolName = protocolNames[0];
         
         aProtocol = accessProtocol(protocolName);
         if (aProtocol)

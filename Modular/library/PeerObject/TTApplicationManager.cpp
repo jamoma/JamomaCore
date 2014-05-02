@@ -26,7 +26,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mApplicationObserversMutex(NULL)
 {
-    TT_ASSERT("TTModularApplicationManager is NULL", TTModularApplicationManager == NULL);
+    TT_ASSERT("TTModularApplicationManager is NULL", (TTModularApplicationManager == NULL));
     
     // application attributes
 	addAttribute(Applications, kTypePointer);
