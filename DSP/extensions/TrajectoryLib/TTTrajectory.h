@@ -87,8 +87,8 @@ public:
 	{
 		TTValue v;
 		v.resize(2);
-		v.set(0, TT("trajectory"));
-		v.set(1, TT("audio")); 
+		v[0] = TT("trajectory");
+		v[1] = TT("audio");
 		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
 	}
 
@@ -118,7 +118,7 @@ public:
 		mActualTrajectoryObject->getAttributeNames(names);
 		n = names.size();
 		for (int i=0; i<n; i++) {
-			names.get(i, aName);
+			aName = names[i];
 
 			if (aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sampleRate"))
 				continue;	
@@ -157,40 +157,47 @@ public:
 				switch(n)
 				{
 					case 4:
-						if (ttDataTypeInfo[arguments[2].type()]->isNumerical and ttDataTypeInfo[arguments[3].type()]->isNumerical == false){
-							arguments.get(3, attrType);
+						if (ttDataTypeInfo[arguments[2].type()]->isNumerical and ttDataTypeInfo[arguments[3].type()]->isNumerical == false) {
+							attrType = arguments[3];
 							setType(attrType);
-							arguments.get(0, x); x = x * 2.0;  // scaling						
+							x = arguments[0];
+							x = x * 2.0;  // scaling
 							mRamps[0]->setAttributeValue(TT("startValue"), x);
-							arguments.get(1, x); x = x * 2.0;  // scaling
-							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
-							arguments.get(2, x); 
+							x = arguments[1];
+							x = x * 2.0;  // scaling
+							mRamps[0]->setAttributeValue(TT("destinationValue"), x);
+							x = arguments[2];
 							mRamps[0]->setAttributeValue(TT("rampTime"), x);	
 						}	
 						break;
 					case 3:
-						if (ttDataTypeInfo[arguments[2].type()]->isNumerical)
-							{// start stop time
-							arguments.get(0, x); x = x * 2.0;  // scaling						
+						if (ttDataTypeInfo[arguments[2].type()]->isNumerical) {
+							// start stop time
+							x = arguments[0];
+							x = arguments[0];
+							x = x * 2.0;  // scaling
 							mRamps[0]->setAttributeValue(TT("startValue"), x);
-							arguments.get(1, x); x = x * 2.0;  // scaling
-							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
-							arguments.get(2, x); 
+							x = arguments[1];
+							x = x * 2.0;  // scaling
+							mRamps[0]->setAttributeValue(TT("destinationValue"), x);
+							x = arguments[2];
 							mRamps[0]->setAttributeValue(TT("rampTime"), x);	
 						}
 						else {// stop time type
-							arguments.get(2, attrType);
+							attrType = arguments[2];
 							setType(attrType);
-							arguments.get(0, x); x = x * 2.0;  // scaling
-							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
-							arguments.get(1, x); 
+							x = arguments[0];
+							x = x * 2.0;  // scaling
+							mRamps[0]->setAttributeValue(TT("destinationValue"), x);
+							x = arguments[1];
 							mRamps[0]->setAttributeValue(TT("rampTime"), x);
 						}
 					break;
 				case 2: // stop time
-						arguments.get(0, x); x = x * 2.0;  // scaling
-						mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
-						arguments.get(1, x); 
+						x = arguments[0];
+						x = x * 2.0;  // scaling
+						mRamps[0]->setAttributeValue(TT("destinationValue"), x);
+						x = arguments[1];
 						mRamps[0]->setAttributeValue(TT("rampTime"), x);
 					break;
 				default:
