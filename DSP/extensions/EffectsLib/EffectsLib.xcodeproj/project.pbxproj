@@ -63,6 +63,7 @@
 		A752BBDA16373A47007CE627 /* TTGain.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTGain.test.cpp; path = tests/TTGain.test.cpp; sourceTree = "<group>"; };
 		A752BBDB16373A47007CE627 /* TTThru.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTThru.test.cpp; path = tests/TTThru.test.cpp; sourceTree = "<group>"; };
 		A789657217A6C4FC0053FC83 /* EffectsLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectsLib.cpp; sourceTree = "<group>"; };
+		A7EE173419153F5100EC3B33 /* EffectsLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = EffectsLib.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				22784E9A17B403380053393C /* Makefile */,
+				A7EE173419153F5100EC3B33 /* EffectsLib.yml */,
 				A789657217A6C4FC0053FC83 /* EffectsLib.cpp */,
 				22784E9B17B403740053393C /* test.cpp */,
 				A752BBCF16373A19007CE627 /* includes */,

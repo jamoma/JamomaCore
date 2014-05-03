@@ -2,7 +2,7 @@
  *
  * @ingroup dspEffectsLib
  *
- * @brief Adjust adio gain
+ * @brief #TTGain adjusts adio gain
  * 
  * @authors Timothy Place, Trond Lossius
  *
@@ -10,6 +10,7 @@
  * License: This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_GAIN_H__
 #define __TT_GAIN_H__

@@ -1,10 +1,16 @@
-/* 
- * Unit tests for the Jamoma DSP gain object
- * Copyright © 2011, Timothy Place and Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief Unit tests for #TTGain
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2011, Timothy Place, Trond Lossius @n
+ * License: This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTGain.h"
 

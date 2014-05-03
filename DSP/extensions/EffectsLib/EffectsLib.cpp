@@ -1,11 +1,16 @@
-/* 
- * EffectsLib -- A library of effects units
- * Extension Class for Jamoma DSP
- * Copyright © 2009, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief #dspEffectsLib is a library of effects units
+ *
+ * @authors Tim Place, Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2009, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTDSP.h"
 #include "TTBalance.h"
