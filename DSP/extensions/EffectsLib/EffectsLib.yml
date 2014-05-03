@@ -5,11 +5,13 @@ sources:
   - sources/TTDegrade.cpp
   - sources/TTGain.cpp
   - sources/TTLimiter.cpp
+  - sources/TTMuteSolo.cpp
   - sources/TTOverdrive.cpp
   - sources/TTPanorama.cpp
   - sources/TTThru.cpp  
   - sources/TTWaveshaper.cpp
   - tests/TTGain.test.cpp
+  - tests/TTMuteSolo.test.cpp
   - tests/TTThru.test.cpp
   
 includes:

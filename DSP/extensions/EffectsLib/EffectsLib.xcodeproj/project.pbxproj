@@ -21,6 +21,8 @@
 		2AD7888D169CFD1C00604D7C /* EffectsLibIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AD7888C169CFD1C00604D7C /* EffectsLibIOS.h */; };
 		2AD7888F169CFD1C00604D7C /* EffectsLibIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7888E169CFD1C00604D7C /* EffectsLibIOS.m */; };
 		A789657317A6C4FC0053FC83 /* EffectsLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A789657217A6C4FC0053FC83 /* EffectsLib.cpp */; };
+		A7EE173719154DF100EC3B33 /* TTMuteSolo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7EE173619154DF100EC3B33 /* TTMuteSolo.cpp */; };
+		A7EE173919154E0C00EC3B33 /* TTMuteSolo.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7EE173819154E0C00EC3B33 /* TTMuteSolo.test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,6 +66,9 @@
 		A752BBDB16373A47007CE627 /* TTThru.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTThru.test.cpp; path = tests/TTThru.test.cpp; sourceTree = "<group>"; };
 		A789657217A6C4FC0053FC83 /* EffectsLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectsLib.cpp; sourceTree = "<group>"; };
 		A7EE173419153F5100EC3B33 /* EffectsLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = EffectsLib.yml; sourceTree = "<group>"; };
+		A7EE173519154DE100EC3B33 /* TTMuteSolo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTMuteSolo.h; path = includes/TTMuteSolo.h; sourceTree = "<group>"; };
+		A7EE173619154DF100EC3B33 /* TTMuteSolo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMuteSolo.cpp; path = sources/TTMuteSolo.cpp; sourceTree = "<group>"; };
+		A7EE173819154E0C00EC3B33 /* TTMuteSolo.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMuteSolo.test.cpp; path = tests/TTMuteSolo.test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +140,7 @@
 				A752BBC616373A14007CE627 /* TTDegrade.h */,
 				A752BBC716373A14007CE627 /* TTGain.h */,
 				A752BBC816373A14007CE627 /* TTLimiter.h */,
+				A7EE173519154DE100EC3B33 /* TTMuteSolo.h */,
 				A752BBC916373A14007CE627 /* TTOverdrive.h */,
 				A752BBCA16373A14007CE627 /* TTPanorama.h */,
 				A752BBCC16373A14007CE627 /* TTThru.h */,
@@ -150,6 +156,7 @@
 				A752BBD116373A33007CE627 /* TTDegrade.cpp */,
 				A752BBD216373A33007CE627 /* TTGain.cpp */,
 				A752BBD316373A33007CE627 /* TTLimiter.cpp */,
+				A7EE173619154DF100EC3B33 /* TTMuteSolo.cpp */,
 				A752BBD416373A33007CE627 /* TTOverdrive.cpp */,
 				A752BBD516373A33007CE627 /* TTPanorama.cpp */,
 				A752BBD716373A33007CE627 /* TTThru.cpp */,
@@ -162,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				A752BBDA16373A47007CE627 /* TTGain.test.cpp */,
+				A7EE173819154E0C00EC3B33 /* TTMuteSolo.test.cpp */,
 				A752BBDB16373A47007CE627 /* TTThru.test.cpp */,
 			);
 			name = tests;
@@ -240,12 +248,14 @@
 				2A23ACEF169CFED9004793F5 /* TTBalance.cpp in Sources */,
 				2A23ACF0169CFED9004793F5 /* TTDegrade.cpp in Sources */,
 				2A23ACF1169CFED9004793F5 /* TTGain.cpp in Sources */,
+				A7EE173919154E0C00EC3B33 /* TTMuteSolo.test.cpp in Sources */,
 				2A23ACF2169CFED9004793F5 /* TTLimiter.cpp in Sources */,
 				2A23ACF3169CFED9004793F5 /* TTOverdrive.cpp in Sources */,
 				2A23ACF4169CFED9004793F5 /* TTPanorama.cpp in Sources */,
 				2A23ACF6169CFED9004793F5 /* TTThru.cpp in Sources */,
 				2A23ACF7169CFED9004793F5 /* TTWaveshaper.cpp in Sources */,
 				2A23ACF8169CFEDD004793F5 /* TTGain.test.cpp in Sources */,
+				A7EE173719154DF100EC3B33 /* TTMuteSolo.cpp in Sources */,
 				2A23ACF9169CFEDD004793F5 /* TTThru.test.cpp in Sources */,
 				A789657317A6C4FC0053FC83 /* EffectsLib.cpp in Sources */,
 			);
