@@ -2,7 +2,7 @@
  *
  * @ingroup dspEffectsLib
  *
- * @brief ##TTWaveshaper distorts the signal by applying a waveshaper distortion
+ * @brief #TTWaveshaper distorts the signal by applying a waveshaper distortion
  *
  * @authors Nils Peters, Trond Lossius
  *

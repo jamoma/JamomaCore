@@ -2,7 +2,7 @@
  *
  * @ingroup dspEffectsLib
  *
- * @brief ##TTThru pass an input signal to the output unchanged.
+ * @brief #TTThru pass an input signal to the output unchanged.
  *
  * @authors Tim Place, Trond Lossius
  *

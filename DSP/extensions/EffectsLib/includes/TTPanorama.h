@@ -2,7 +2,7 @@
  *
  * @ingroup dspEffectsLib
  *
- * @brief ##TTPanorama performes stereo panning.
+ * @brief #TTPanorama performes stereo panning.
  *
  * @authors Tim Place, Nils Peters, Trond Lossius
  *
