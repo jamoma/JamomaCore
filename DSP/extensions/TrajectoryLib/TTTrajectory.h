@@ -34,9 +34,9 @@ protected:
 	TTSymbol				mType;					///< The name of the current trajectory type
 	TTSymbol				mMode;					///< the underlying signal generator, can be "phasor" or "ramp"
 	//TTList					mAnchorPoints;
-	TTAudioObjectBasePtr		mPhasors[1];			///< Object pointer to the internal phasor generator
+	TTAudioObject			mPhasor;				///< The internal phasor generator
 	TTAudioSignalArrayPtr	mPhasorOutputSignals;   ///< The output vector of the phasor generator
-	TTAudioObjectBasePtr		mRamps[1];				///< Object pointer to the internal ramp generator
+	TTAudioObject			mRamp;					///< The internal ramp generator
 	TTAudioSignalArrayPtr	mRampOutputSignals;		///< The output vector of the ramp generator
 	
 public:
@@ -162,12 +162,12 @@ public:
 							setType(attrType);
 							x = arguments[0];
 							x = x * 2.0;  // scaling
-							mRamps[0]->setAttributeValue(TT("startValue"), x);
+							mRamp.set("startValue", x);
 							x = arguments[1];
 							x = x * 2.0;  // scaling
-							mRamps[0]->setAttributeValue(TT("destinationValue"), x);
+							mRamp.set("destinationValue", x);
 							x = arguments[2];
-							mRamps[0]->setAttributeValue(TT("rampTime"), x);	
+							mRamp.set("rampTime", x);
 						}	
 						break;
 					case 3:
@@ -176,29 +176,29 @@ public:
 							x = arguments[0];
 							x = arguments[0];
 							x = x * 2.0;  // scaling
-							mRamps[0]->setAttributeValue(TT("startValue"), x);
+							mRamp.set("startValue", x);
 							x = arguments[1];
 							x = x * 2.0;  // scaling
-							mRamps[0]->setAttributeValue(TT("destinationValue"), x);
+							mRamp.set("destinationValue", x);
 							x = arguments[2];
-							mRamps[0]->setAttributeValue(TT("rampTime"), x);	
+							mRamp.set("rampTime", x);
 						}
 						else {// stop time type
 							attrType = arguments[2];
 							setType(attrType);
 							x = arguments[0];
 							x = x * 2.0;  // scaling
-							mRamps[0]->setAttributeValue(TT("destinationValue"), x);
+							mRamp.set("destinationValue", x);
 							x = arguments[1];
-							mRamps[0]->setAttributeValue(TT("rampTime"), x);
+							mRamp.set("rampTime", x);
 						}
 					break;
 				case 2: // stop time
 						x = arguments[0];
 						x = x * 2.0;  // scaling
-						mRamps[0]->setAttributeValue(TT("destinationValue"), x);
+						mRamp.set("destinationValue", x);
 						x = arguments[1];
-						mRamps[0]->setAttributeValue(TT("rampTime"), x);
+						mRamp.set("rampTime", x);
 					break;
 				default:
 					err = kTTErrWrongNumValues;
@@ -216,8 +216,8 @@ public:
 		TTValue v;
 		v[0] = 0.0;
 		//for (int i=0; i<1; i++) {
-		mPhasors[0]->setAttributeValue(TT("phase"),v);		
-		mRamps[0]->setAttributeValue(TT("startValue"),v);
+		mPhasor.set("phase",v);
+		mRamp.set("startValue",v);
 		//}		
 		return kTTErrNone;
 	}
@@ -292,8 +292,8 @@ public:
 	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 	{
 		//for (int i=0; i<3; i++) {
-		mPhasors[0]->setAttributeValue(kTTSym_sampleRate, sr);
-		mRamps[0]->setAttributeValue(kTTSym_sampleRate, sr); 
+		mPhasor.set(kTTSym_sampleRate, sr);
+		mRamp.set(kTTSym_sampleRate, sr);
 		//}
 		return mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, sr);
 	}
@@ -332,7 +332,7 @@ public:
 	{
 		mPhasorOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
 		
-		mPhasors[0]->process(mPhasorOutputSignals->getSignal(0));
+		mPhasor.process(mPhasorOutputSignals->getSignal(0));
 		//mPhasors[1]->process(mPhasorOutputSignals->getSignal(1));
 		//mPhasors[2]->process(mPhasorOutputSignals->getSignal(2));
 		
@@ -347,7 +347,7 @@ public:
 	{
 		mRampOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
 		
-		mRamps[0]->process(mRampOutputSignals->getSignal(0));
+		mRamp.process(mRampOutputSignals->getSignal(0));
 		//mRamps[1]->process(mRampOutputSignals->getSignal(1));
 		//mRamps[2]->process(mRampOutputSignals->getSignal(2));
 		

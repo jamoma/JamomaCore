@@ -23,16 +23,12 @@
 TT_AUDIO_CONSTRUCTOR,
 	mActualTrajectoryObject(NULL),
 	mPhasorOutputSignals(NULL),
-	mRampOutputSignals(NULL)
+	mRampOutputSignals(NULL),
+	mPhasor("phasor"),
+	mRamp("ramp")
 
-{   
-	mPhasors[0] = NULL;	//mPhasors[1] = NULL;	mPhasors[2] = NULL;
-	mRamps[0] = NULL;	//mRamps[1] = NULL;	mRamps[2] = NULL;
-//	for (int i=0; i<3; i++){
-		TTObjectBaseInstantiate(TT("phasor"), &mPhasors[0], TTValue(1));
-		TTObjectBaseInstantiate(TT("ramp")	, &mRamps[0],	TTValue(1));
-//	}
-	extendAttribute(TT("frequency"), mPhasors[0], TT("frequency"));
+{
+	extendAttribute(TT("frequency"), mPhasor, TT("frequency"));
 	
 	TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mPhasorOutputSignals, 1);
 	TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mRampOutputSignals, 1);	
@@ -83,11 +79,6 @@ TT_AUDIO_CONSTRUCTOR,
 // Destructor
 TTTrajectory::~TTTrajectory()
 {
-
-	TTObjectBaseRelease(&mPhasors[0]);
-	TTObjectBaseRelease(&mRamps[0]);
-	
 	TTObjectBaseRelease((TTObjectBasePtr*)&mPhasorOutputSignals);
 	TTObjectBaseRelease((TTObjectBasePtr*)&mRampOutputSignals);
-
 }
