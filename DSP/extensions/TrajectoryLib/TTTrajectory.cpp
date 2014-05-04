@@ -28,7 +28,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mRampOutputSignals(NULL)
 
 {
-	extendAttribute(TT("frequency"), mPhasor, TT("frequency"));
+	extendAttribute(TT("frequency"), mPhasor.instance(), TT("frequency"));
 	
 	TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mPhasorOutputSignals, 1);
 	TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mRampOutputSignals, 1);	
@@ -44,8 +44,8 @@ TT_AUDIO_CONSTRUCTOR,
 		TTObjectBaseInstantiate(kTTSym_audiosignal, &anAudioSignal, 1);
 		mPhasorOutputSignals->setSignal(0, (TTAudioSignal*)anAudioSignal);
 		mRampOutputSignals->setSignal(0, (TTAudioSignal*)anAudioSignal);
-		mPhasors[0]->setAttributeValue(TT("gain"), TTLinearGainToDecibels(2)); // factor 2 in [dB] 
-		mRamps[0]->setAttributeValue(TT("mode"), TT("sample"));
+		mPhasor.set("gain", TTLinearGainToDecibels(2)); // factor 2 in [dB]
+		mRamp.set("mode", "sample");
 	//}
 	addAttributeWithSetter(A,				kTypeFloat64);
 	addAttributeWithSetter(B,				kTypeFloat64);
