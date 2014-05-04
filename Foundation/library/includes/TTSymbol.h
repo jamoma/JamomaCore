@@ -142,7 +142,9 @@ public:
 };
 
 	
-/** This macro is defined as a shortcut for doing a lookup in the symbol table. */
+/** This macro is defined as a shortcut for doing a lookup in the symbol table.
+	@ingroup macros
+ */
 #define TT TTSymbol
 
 
