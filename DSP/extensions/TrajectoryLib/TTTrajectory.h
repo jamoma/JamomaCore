@@ -214,7 +214,7 @@ public:
 	TTErr reset()
 	{
 		TTValue v;
-		v.set(0,0.0);
+		v[0] = 0.0;
 		//for (int i=0; i<1; i++) {
 		mPhasors[0]->setAttributeValue(TT("phase"),v);		
 		mRamps[0]->setAttributeValue(TT("startValue"),v);
