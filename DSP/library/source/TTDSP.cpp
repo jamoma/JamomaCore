@@ -87,6 +87,7 @@ TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTAudioObjectBasePtr* r
 	return ttEnvironment->createInstance(className, (TTObjectBasePtr*)returnedObjectPtr, arguments);
 }
 
+
 TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments)
 {
 	return ttEnvironment->createInstance(className, (TTObjectBasePtr*)returnedObjectPtr, arguments);
@@ -97,6 +98,7 @@ TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTAudioObjectBasePtr* r
 {
 	return ttEnvironment->createInstance(className, (TTObjectBasePtr*)returnedObjectPtr, arguments);
 }
+
 
 TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments)
 {
@@ -110,6 +112,7 @@ TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTAudioObjectBasePtr* r
 	return ttEnvironment->createInstance(className, (TTObjectBasePtr*)returnedObjectPtr, v);
 }
 
+
 TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments)
 {
 	TTValue	v(arguments);
@@ -117,15 +120,20 @@ TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTAudioSignalPtr* retur
 }
 
 
+
+
 TTAudioObjectBasePtr TTObjectBaseReference(TTAudioObjectBasePtr anObject)
 {
 	return (TTAudioObjectBasePtr)ttEnvironment->referenceInstance((TTObjectBasePtr)anObject);
 }
 
+
 TTAudioSignalPtr TTObjectBaseReference(TTAudioSignalPtr anObject)
 {
 	return (TTAudioSignalPtr)ttEnvironment->referenceInstance((TTObjectBasePtr)anObject);
 }
+
+
 
 
 TTErr TTObjectBaseRelease(TTAudioObjectBasePtr* anObject)
@@ -135,6 +143,7 @@ TTErr TTObjectBaseRelease(TTAudioObjectBasePtr* anObject)
 	else
 		return kTTErrNone;
 }
+
 
 TTErr TTObjectBaseRelease(TTAudioSignalPtr* anObject)
 {
