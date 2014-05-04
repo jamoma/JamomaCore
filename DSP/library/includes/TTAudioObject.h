@@ -126,6 +126,10 @@ public:
 		return TTAudioObjectBasePtr(mObjectInstance)->process(out);
 	}
 	
+	TTErr process(TTAudio& out)
+	{
+		return process(*out.instance());
+	}
 
 	TTErr process(TTAudioSignalArrayPtr in, TTAudioSignalArrayPtr out)
 	{

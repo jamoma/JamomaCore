@@ -33,11 +33,11 @@ protected:
 	TTFloat64				mDeltaZ; 				///< Trajectory Parameter, usage depend on the actual trajectory function 
 	TTSymbol				mType;					///< The name of the current trajectory type
 	TTSymbol				mMode;					///< the underlying signal generator, can be "phasor" or "ramp"
-	//TTList					mAnchorPoints;
+	//TTList				mAnchorPoints;
 	TTAudioObject			mPhasor;				///< The internal phasor generator
-	TTAudioSignalArrayPtr	mPhasorOutputSignals;   ///< The output vector of the phasor generator
+	TTAudio					mPhasorOutputSignal;	///< The output vector of the phasor generator
 	TTAudioObject			mRamp;					///< The internal ramp generator
-	TTAudioSignalArrayPtr	mRampOutputSignals;		///< The output vector of the ramp generator
+	TTAudio					mRampOutputSignal;		///< The output vector of the ramp generator
 	
 public:
 	
@@ -330,11 +330,10 @@ public:
  	*/
 	TTErr processAudioPhasorInternal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		mPhasorOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
+		mPhasorOutputSignal.allocWithVectorSize(outputs->getVectorSize());
+		mPhasor.process(mPhasorOutputSignal);
 		
-		mPhasor.process(mPhasorOutputSignals->getSignal(0));
-		
-		return mActualTrajectoryObject->process(mPhasorOutputSignals, outputs);
+		return mActualTrajectoryObject->process(*mPhasorOutputSignal.instance(), outputs->getSignal(0));
 	}
 
 	/**	Internal Computing the ramp signal to drive the trajectory functions
@@ -343,11 +342,11 @@ public:
  	*/
 	TTErr processAudioRampInternal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		mRampOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
+		mRampOutputSignal.allocWithVectorSize(outputs->getVectorSize());
 		
-		mRamp.process(mRampOutputSignals->getSignal(0));
+		mRamp.process(mRampOutputSignal);
 		
-		return mActualTrajectoryObject->process(mRampOutputSignals, outputs);
+		return mActualTrajectoryObject->process(*mRampOutputSignal.instance(), outputs->getSignal(0));
 	}
 };
 
