@@ -65,10 +65,27 @@ public:
 	virtual ~TTObject();
 	
 		
-	// class methods for querying the registry
+	/** Query #TTEnvironment for names of all registered #TTObjectBase classes
+     
+     @param[out]	classNames      #TTValue whose content will be set to an array of #TTSymbol names for available classes
+     @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	static TTErr GetRegisteredClassNames(TTValue& classNames);
+    
+    /** Query #TTEnvironment for names of all registered #TTObjectBase classes that share specific tags
+     
+     @param[out]	classNames      #TTValue whose content will be set to an array of #TTSymbol names for available classes     
+     @param[in]     searchTags      #TTValue array containing the tags used to limit search
+     @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	static TTErr GetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags);
-	static TTErr GetRegisteredTags(TTValue& tags);
+	
+    /** Query #TTEnvironment for all registered tags used by #TTObjectBase classes
+     
+     @param[out]     tags           #TTValue whose content will be set to an array of #TTSymbol names for available tags
+     @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+    static TTErr GetRegisteredTags(TTValue& tags);
 
 	
 	/**	Assign a TTObject instance to another TTObject
