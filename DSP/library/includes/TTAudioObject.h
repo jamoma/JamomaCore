@@ -120,7 +120,13 @@ public:
 		return TTAudioObjectBasePtr(mObjectInstance)->adaptMaxNumChannels(aNewChannelCount);
 	}
 
+
+	TTErr process(TTAudioSignal& out)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->process(out);
+	}
 	
+
 	TTErr process(TTAudioSignalArrayPtr in, TTAudioSignalArrayPtr out)
 	{
 		return TTAudioObjectBasePtr(mObjectInstance)->process(in, out);
