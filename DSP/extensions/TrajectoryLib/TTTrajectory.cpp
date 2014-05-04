@@ -22,10 +22,10 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	mActualTrajectoryObject(NULL),
-	mPhasorOutputSignals(NULL),
-	mRampOutputSignals(NULL),
 	mPhasor("phasor"),
-	mRamp("ramp")
+	mPhasorOutputSignals(NULL),
+	mRamp("ramp"),
+	mRampOutputSignals(NULL)
 
 {
 	extendAttribute(TT("frequency"), mPhasor, TT("frequency"));

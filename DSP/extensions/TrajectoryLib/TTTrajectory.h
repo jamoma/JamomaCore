@@ -333,8 +333,6 @@ public:
 		mPhasorOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
 		
 		mPhasor.process(mPhasorOutputSignals->getSignal(0));
-		//mPhasors[1]->process(mPhasorOutputSignals->getSignal(1));
-		//mPhasors[2]->process(mPhasorOutputSignals->getSignal(2));
 		
 		return mActualTrajectoryObject->process(mPhasorOutputSignals, outputs);
 	}
@@ -348,8 +346,6 @@ public:
 		mRampOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
 		
 		mRamp.process(mRampOutputSignals->getSignal(0));
-		//mRamps[1]->process(mRampOutputSignals->getSignal(1));
-		//mRamps[2]->process(mRampOutputSignals->getSignal(2));
 		
 		return mActualTrajectoryObject->process(mRampOutputSignals, outputs);
 	}
