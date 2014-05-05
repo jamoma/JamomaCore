@@ -93,15 +93,15 @@ public:
 	}
 	
 	/** Return the number of values of this instance. 
-		DEPRECATED -- now just call size() instead.
+		@deprecated instead, please call the size() method
 	 */
 	TT_DEPRECATED( TTUInt16 getSize() const )
 	{
 		return size();
 	}
 	
-	/** Set the number of values, and allocate any needed memory. 
-		DEPRECATED -- now just call resize() instead.
+	/** @deprecated instead, please call the resize() method @n Set the number of values, and allocate any needed memory.
+     
 	 */
 	TT_DEPRECATED( void setSize(const TTUInt16 arg) )
 	{
