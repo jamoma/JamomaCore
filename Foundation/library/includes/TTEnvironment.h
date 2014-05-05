@@ -176,10 +176,10 @@ extern TTFOUNDATION_EXPORT TTEnvironment* ttEnvironment;
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTValue arguments) );
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments) );
 
-/** @deprecated Instead, please use @n recommendation */
+/** @deprecated Instead, most uses can be handled via the @n #TTObject and its = operator */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTObjectBasePtr TTObjectBaseReference(TTObjectBasePtr anObject) );
 
-/** @deprecated Instead, please use @n recommendation */
+/** @deprecated Instead, please use the @n #TTObject destructor via the delete operator as detailed in @ref chapter_usingobjects_lifecycle */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject) );
 
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
