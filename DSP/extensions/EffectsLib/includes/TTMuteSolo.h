@@ -30,9 +30,9 @@ protected:
 
 	TTBoolean		mInterpolated;	///< Flag indicating whether interpolation will be applied when gain is changed.
 	
-	TTSampleVector	mSolo;			///< solo status for each channel. Soloing takes presedence over muting.
+	TTSampleVector	mChannelSolo;			///< solo status for each channel. Soloing takes presedence over muting.
 	
-	TTSampleVector	mMute;			///< mute status for each channel
+	TTSampleVector	mChannelMute;			///< mute status for each channel
 	
 	TTSampleVector	gain;			///< Gain value for each channel, depends on current settings for mute and solo
 	
@@ -63,7 +63,7 @@ protected:
 	 @param	outputNotUsed		This argument is not used.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setMute(const TTValue& aValue, TTValue&);
+	TTErr setChannelMute(const TTValue& aValue, TTValue&);
 	
 	
 	/**	Set whether one of the channels is soloed or not.
@@ -71,7 +71,7 @@ protected:
 	 @param	outputNotUsed		This argument is not used.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setSolo(const TTValue& aValue, TTValue&);
+	TTErr setChannelSolo(const TTValue& aValue, TTValue&);
 	
 	
 	/** Get current mute settings for all channels as an array.
@@ -79,7 +79,7 @@ protected:
 	 @param aMuteValue			Returns mute values for all channels as an array.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getMute(const TTValue&, TTValue& aMuteValues);
+	TTErr getChannelMute(const TTValue&, TTValue& aMuteValues);
 	
 	
 	/** Get current solo settings for all channels as an array.
@@ -87,7 +87,7 @@ protected:
 	 @param aSoloValue			Returns solo values for all channels as an array.
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getSolo(const TTValue&, TTValue& aSoloValues);
+	TTErr getChannelSolo(const TTValue&, TTValue& aSoloValues);
 	
 	
 	/**	Receives notifications when there are changes to the inherited maxNumChannels attribute.  This allocates memory for mute, solo and gain so that each channel's previous values are remembered.		

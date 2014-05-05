@@ -22,18 +22,24 @@
 TT_AUDIO_CONSTRUCTOR,
 mInterpolated(0)
 {
+	TTUInt16	initialMaxNumChannels = arguments;
+	
+	// Register our attributes
 	addAttribute(Interpolated,		kTypeBoolean);
 	
-	addMessageWithArguments(setMute);
-	addMessageWithArguments(getMute);
-	addMessageWithArguments(setSolo);
-	addMessageWithArguments(getSolo);
+	// Register messages
+	addMessageWithArguments(setChannelMute);
+	addMessageWithArguments(getChannelMute);
+	addMessageWithArguments(setChannelSolo);
+	addMessageWithArguments(getChannelSolo);
+	addMessage(clear);
 	
-	// register for notifications from the parent class so we can allocate memory as required
+	// Register for notifications from the parent class so we can allocate memory as required
 	addUpdates(MaxNumChannels);
 	
-	// TODO : Register messages for getting and setting mute and solo
-	
+	// Set defaults
+	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
+	clear();
 	setProcessMethod(processAudio);
 }
 
@@ -46,8 +52,8 @@ TTMutesolo::~TTMutesolo()
 
 TTErr TTMutesolo::clear()
 {
-	mMute.assign(mMaxNumChannels, 0.0);
-	mSolo.assign(mMaxNumChannels, 0.0);
+	mChannelMute.assign(mMaxNumChannels, 0.0);
+	mChannelSolo.assign(mMaxNumChannels, 0.0);
 	updateGains();
 	return kTTErrNone;
 }
@@ -59,14 +65,14 @@ TTErr TTMutesolo::updateGains()
 	
 	// Mute channels, and count the number of soloed channels
 	for (TTUInt16 i=0; i<mMaxNumChannels; i++) {
-		gain[i] = 1.0 - mMute[i];
-		if (mSolo[i])
+		gain[i] = 1.0 - mChannelMute[i];
+		if (mChannelSolo[i])
 			numSoloedChannels++;
 	}
 	// If at least one channel is soloed, soloing takes presedence over muting
 	if (numSoloedChannels>0) {
 		for (TTUInt16 i=0; i<mMaxNumChannels; i++) {
-			gain[i] = mSolo[i];
+			gain[i] = mChannelSolo[i];
 		}
 	}
 	
@@ -78,7 +84,7 @@ TTErr TTMutesolo::updateGains()
 
 
 
-TTErr TTMutesolo::setMute(const TTValue& aValue, TTValue& output)
+TTErr TTMutesolo::setChannelMute(const TTValue& aValue, TTValue& output)
 {
 	TTUInt16 channel;
 	
@@ -86,14 +92,13 @@ TTErr TTMutesolo::setMute(const TTValue& aValue, TTValue& output)
 		return kTTErrWrongNumValues;
 	else {
 		channel = aValue[0];
-		mMute[channel] = aValue[1];
-		updateGains();
-		return kTTErrNone;
+		mChannelMute[channel] = aValue[1];
+		return updateGains();
 	}
 }
 
 
-TTErr TTMutesolo::setSolo(const TTValue& aValue, TTValue&)
+TTErr TTMutesolo::setChannelSolo(const TTValue& aValue, TTValue&)
 {
 	TTUInt16 channel;
 	
@@ -101,30 +106,29 @@ TTErr TTMutesolo::setSolo(const TTValue& aValue, TTValue&)
 		return kTTErrWrongNumValues;
 	else {
 		channel = aValue[0];
-		mSolo[channel] = aValue[1];
-		updateGains();
-		return kTTErrNone;
+		mChannelSolo[channel] = aValue[1];
+		return updateGains();
 	}
 }
 
 
-TTErr TTMutesolo::getMute(const TTValue&, TTValue& aMuteValues)
+TTErr TTMutesolo::getChannelMute(const TTValue&, TTValue& aMuteValues)
 {
 	aMuteValues.resize(mMaxNumChannels);
 	
 	for (TTUInt16 i=0; i<mMaxNumChannels; i++) {
-		aMuteValues[i] = mMute[i];
+		aMuteValues[i] = mChannelMute[i];
 	}
 	return kTTErrNone;
 }
 
 
-TTErr TTMutesolo::getSolo(const TTValue&, TTValue& aSoloValues)
+TTErr TTMutesolo::getChannelSolo(const TTValue&, TTValue& aSoloValues)
 {
 	aSoloValues.resize(mMaxNumChannels);
 	
 	for (TTUInt16 i=0; i<mMaxNumChannels; i++) {
-		aSoloValues[i] = mSolo[i];
+		aSoloValues[i] = mChannelSolo[i];
 	}
 	return kTTErrNone;
 }
@@ -132,15 +136,17 @@ TTErr TTMutesolo::getSolo(const TTValue&, TTValue& aSoloValues)
 
 TTErr TTMutesolo::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	// TODO: Is it possible to keep current values when resizing?
-	mMute.resize(mMaxNumChannels);
-	mSolo.resize(mMaxNumChannels);
+	mChannelMute.resize(mMaxNumChannels);
+	mChannelSolo.resize(mMaxNumChannels);
 	
 	gain.resize(mMaxNumChannels);
 	oldGain.resize(mMaxNumChannels);
 	
+	// Reset mutes and solos, and recalculate gains
+	// TODO: Is it possible to keep current values when resizing?
 	clear();
 	
+	// Overwrite old gain values
 	for (TTUInt16 i=0; i<mMaxNumChannels; i++)
 		oldGain[i] = gain[i];
 	
