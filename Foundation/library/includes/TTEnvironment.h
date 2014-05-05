@@ -171,12 +171,15 @@ extern TTFOUNDATION_EXPORT TTEnvironment* ttEnvironment;
 
 
 // Public Interface -- REPLACED BY TTOBJECT
-// Some of this looks a bit crazy due to duplication -- however the use of templates causes problems for linking on some Macs and PCs
-// (while not neccessarily on others)
+
+/** @deprecated Instead, please use the @n #TTObject constructor as detailed in @ref chapter_usingobjects_lifecycle */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTValue arguments) );
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments) );
 
+/** @deprecated Instead, please use @n recommendation */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTObjectBasePtr TTObjectBaseReference(TTObjectBasePtr anObject) );
+
+/** @deprecated Instead, please use @n recommendation */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject) );
 
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
