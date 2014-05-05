@@ -29,6 +29,8 @@ TTErr TTMutesolo::test(TTValue& returnedTestInfo)
 	input->allocWithVectorSize(64);
 	output->allocWithVectorSize(64);
 	
+	// Try using a ... setNumChannels
+	
 	for (int i=0; i<64; i++) {
 		input->mSampleVectors[0][i] = 1.;
 		input->mSampleVectors[1][i] = 2.;
@@ -39,7 +41,7 @@ TTErr TTMutesolo::test(TTValue& returnedTestInfo)
 	 I'v struggled before with this crashing in this way in tests, but I can't see what the problem is here.
 	
 	this->process(input, output);
-	 */
+
 	int					validSampleCount = 0;
 	
 	for (int channel=0; channel<4; channel++) {
@@ -55,7 +57,7 @@ TTErr TTMutesolo::test(TTValue& returnedTestInfo)
 					testAssertionCount,
 					errorCount);
 	TTTestLog("Number of bad samples: %i", 256-validSampleCount);
-	
+	*/
 	
 	TTObjectBaseRelease(&input);
 	TTObjectBaseRelease(&output);

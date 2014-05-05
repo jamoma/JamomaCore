@@ -40,7 +40,7 @@ protected:
 	
 	
 	/**	Clear all current mute and solo settings
-	 @return Returns a TTErr error code.
+	 @return Returns a #TTErr error code.
 	 */
 	TTErr clear();
 	
@@ -53,12 +53,48 @@ protected:
 	
 	
 	/**	Update gain values in response to current mute and solo settings
-	 @return Returns a TTErr error code.
+	 @return Returns a #TTErr error code.
 	 */
 	TTErr updateGains();
 	
 	
-	/**	Receives notifications when there are changes to the inherited maxNumChannels attribute.  This allocates memory for mute, solo and gain so that each channel's previous values are remembered.		*/
+	/**	Set whether one of the channels is muted or not.
+	 @param	input				Expects a #TTValue containing an array of two values: Channel number and flag indicating if it is to be muted or not.
+	 @param	outputNotUsed		This argument is not used.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr setMute(const TTValue& aValue, TTValue&);
+	
+	
+	/**	Set whether one of the channels is soloed or not.
+	 @param	input				Expects a #TTValue containing an array of two values: Channel number and flag indicating if it is to be soloed or not.
+	 @param	outputNotUsed		This argument is not used.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr setSolo(const TTValue& aValue, TTValue&);
+	
+	
+	/** Get current mute settings for all channels as an array.
+	 @param						Not used;
+	 @param aMuteValue			Returns mute values for all channels as an array.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr getMute(const TTValue&, TTValue& aMuteValues);
+	
+	
+	/** Get current solo settings for all channels as an array.
+	 @param						Not used;
+	 @param aSoloValue			Returns solo values for all channels as an array.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr getSolo(const TTValue&, TTValue& aSoloValues);
+	
+	
+	/**	Receives notifications when there are changes to the inherited maxNumChannels attribute.  This allocates memory for mute, solo and gain so that each channel's previous values are remembered.		
+	 @param	oldMaxNumChannels	The previous maximum number of channels.
+	 @param	outputNotUsed		This argument is not used.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
 	
 	

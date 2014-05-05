@@ -24,8 +24,15 @@ mInterpolated(0)
 {
 	addAttribute(Interpolated,		kTypeBoolean);
 	
+	addMessageWithArguments(setMute);
+	addMessageWithArguments(getMute);
+	addMessageWithArguments(setSolo);
+	addMessageWithArguments(getSolo);
+	
 	// register for notifications from the parent class so we can allocate memory as required
 	addUpdates(MaxNumChannels);
+	
+	// TODO : Register messages for getting and setting mute and solo
 	
 	setProcessMethod(processAudio);
 }
@@ -66,6 +73,59 @@ TTErr TTMutesolo::updateGains()
 	if (mInterpolated)
 		setProcessMethod(processAudioInterpolated);
 	
+	return kTTErrNone;
+}
+
+
+
+TTErr TTMutesolo::setMute(const TTValue& aValue, TTValue& output)
+{
+	TTUInt16 channel;
+	
+	if (aValue.size() < 2)
+		return kTTErrWrongNumValues;
+	else {
+		channel = aValue[0];
+		mMute[channel] = aValue[1];
+		updateGains();
+		return kTTErrNone;
+	}
+}
+
+
+TTErr TTMutesolo::setSolo(const TTValue& aValue, TTValue&)
+{
+	TTUInt16 channel;
+	
+	if (aValue.size() < 2)
+		return kTTErrWrongNumValues;
+	else {
+		channel = aValue[0];
+		mSolo[channel] = aValue[1];
+		updateGains();
+		return kTTErrNone;
+	}
+}
+
+
+TTErr TTMutesolo::getMute(const TTValue&, TTValue& aMuteValues)
+{
+	aMuteValues.resize(mMaxNumChannels);
+	
+	for (TTUInt16 i=0; i<mMaxNumChannels; i++) {
+		aMuteValues[i] = mMute[i];
+	}
+	return kTTErrNone;
+}
+
+
+TTErr TTMutesolo::getSolo(const TTValue&, TTValue& aSoloValues)
+{
+	aSoloValues.resize(mMaxNumChannels);
+	
+	for (TTUInt16 i=0; i<mMaxNumChannels; i++) {
+		aSoloValues[i] = mSolo[i];
+	}
 	return kTTErrNone;
 }
 
