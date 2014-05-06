@@ -92,7 +92,11 @@ TTErr TTMutesolo::setChannelMute(const TTValue& aValue, TTValue& output)
 		return kTTErrWrongNumValues;
 	else {
 		channel = aValue[0];
-		mChannelMute[channel] = aValue[1];
+		if (aValue[1] == 0.)
+			mChannelMute[channel] = 0.;
+		else
+			mChannelMute[channel] = 1.;
+		
 		return updateGains();
 	}
 }
@@ -106,7 +110,11 @@ TTErr TTMutesolo::setChannelSolo(const TTValue& aValue, TTValue&)
 		return kTTErrWrongNumValues;
 	else {
 		channel = aValue[0];
-		mChannelSolo[channel] = aValue[1];
+		if (aValue[1] == 0.)
+			mChannelSolo[channel] = 0.;
+		else
+			mChannelSolo[channel] = 1.;
+		
 		return updateGains();
 	}
 }
