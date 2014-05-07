@@ -2,7 +2,7 @@
  *
  * @ingroup modularLibrary
  *
- * @brief TTObjectBase to handle any signal input
+ * @brief Handles any signal input
  *
  * @details
  *
@@ -25,30 +25,17 @@ mType(kTTSymEmpty),
 mOutputAddress(kTTAdrsEmpty),
 mMute(NO),
 mBypass(NO),
-mSignalIn(NULL),
-mSignalCache(NULL),
-mSignalOut(NULL),
-mSignalZero(NULL),
-mOutputObject(NULL),
-mReturnSignalCallback(NULL),
-mAddressObserver(NULL),
 mSignalAttr(NULL)
 {
-	// There will be no args passed if this is created as a super-class for TTInputAudio [tap]
-	// TT_ASSERT("Correct number of arguments to instantiate TTInput", arguments.size() > 0);
-	
-    if (arguments.size() > 0)
-        mType = arguments[0];
-    
-    if (arguments.size() > 1) {
-        mReturnSignalCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
-        TT_ASSERT("Return Signal Callback passed to TTInput is not NULL", mReturnSignalCallback);
+    if (arguments.size() > 0) {
+        mReturnSignalCallback = arguments[0];
+        TT_ASSERT("Return Signal Callback passed to TTInput is valid", mReturnSignalCallback.valid());
     }
 	
-	if (arguments.size() > 2) {
-		mSignalIn = arguments[2];
-		mSignalOut = arguments[3];
-		mSignalZero = arguments[4];
+	if (arguments.size() > 1) {
+		mSignalIn = arguments[1];
+		mSignalOut = arguments[2];
+		mSignalZero = arguments[3];
 	}
 	
 	addAttribute(Type, kTypeSymbol);
@@ -73,36 +60,14 @@ mSignalAttr(NULL)
 	
 	addMessage(Unlink);
 	addMessageProperty(Unlink, hidden, YES);
-	
-	mSignalCache = new TTList();
     
     this->findAttribute(TTSymbol("signal"), &mSignalAttr);
 }
 
 TTInput::~TTInput()
 {
-	if (mReturnSignalCallback)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnSignalCallback));
-	
-	if (mSignalIn)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mSignalIn));
-	
-	if (mSignalCache)
-		delete mSignalCache;
-	
-	if (mSignalOut)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mSignalOut));
-	
-	if (mSignalZero)
-		TTObjectBaseRelease(&mSignalZero);
-	
-	if (mAddressObserver) {
-		
-		if (mOutputAddress != kTTSymEmpty)
-			accessApplicationLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
-		
-		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
-	}
+    if (mOutputAddress != kTTSymEmpty)
+        accessApplicationLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
 }
 
 TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
@@ -110,18 +75,17 @@ TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
     TTErr   err;
 	TTValue none;
 	
-   
-    if (!mReturnSignalCallback)
+    if (!mReturnSignalCallback.valid())
         return kTTErrGeneric;
     
 	if (mMute)
 		return kTTErrNone;
     
-	else if (mBypass && mOutputObject)
-		err = mOutputObject->sendMessage(TTSymbol("SendBypassed"), inputValue, none);
+	else if (mBypass && mOutputObject.valid())
+		err = mOutputObject.send("SendBypassed", inputValue, none);
     
 	else
-		err = mReturnSignalCallback->notify(inputValue, none);
+		err = mReturnSignalCallback.send("notify", inputValue, none);
     
     notifySignalObserver(inputValue);
     
@@ -130,45 +94,43 @@ TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTInput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
-    mOutputObject = TTOutputPtr((TTObjectBasePtr)inputValue[0]);
+    mOutputObject = inputValue[0];
 	return kTTErrNone;
 }
 
 TTErr TTInput::Unlink()
 {
-	mOutputObject = NULL;
+	mOutputObject = TTObject();
 	return kTTErrNone;
 }
 
 TTErr TTInput::setOutputAddress(const TTValue& value)
 {
-	TTValue			args, none;
-	TTAddress		newAddress;
-	TTNodePtr		aNode;
-	TTList			aNodeList;
-	TTObjectBasePtr	o;
+	TTValue		args, none;
+	TTAddress	newAddress;
+	TTNodePtr	aNode;
+	TTList		aNodeList;
+	TTObject    o;
 
 	newAddress = value[0];
 	
 	if (!accessApplicationLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
 		o = aNode->getObject();
-		if (o)
-			if (o->getName() == kTTSym_Output|| o->getName() == kTTSym_OutputAudio)
-				Link(o, none);
+        if (o.name() == kTTSym_Output|| o.name() == kTTSym_OutputAudio)
+            Link(o, none);
 	}
 	
-	if (!mAddressObserver) {
+	if (!mAddressObserver.valid()) {
+        
 		// prepare arguments
-		mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
-		
-		mAddressObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
-		mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
-		mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTInput"));		// this is usefull only to debug
+		mAddressObserver = TTObject("callback");
+        // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+		mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+		mAddressObserver.set(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
 	}
 	
-	if (mAddressObserver) {
+	if (mAddressObserver.valid()) {
 		if (mOutputAddress != kTTAdrsEmpty)
 			accessApplicationLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
 		
@@ -196,15 +158,16 @@ TTErr TTInput::notifySignalObserver(const TTValue& value)
 
 TTErr TTInputDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
+    TTObject        o;
 	TTInputPtr		anInput;
 	TTSymbol		anAddress;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
-	TTObjectBasePtr	o;
 	TTValue         none;
 	
-	// unpack baton (an InputPtr)
-	anInput = TTInputPtr((TTObjectBasePtr)baton[0]);
+	// unpack baton (a TTInput)
+    o = baton[0];
+	anInput = (TTInputPtr)o.instance();
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -212,8 +175,8 @@ TTErr TTInputDirectoryCallback(const TTValue& baton, const TTValue& data)
 	flag = data[2];
 	
 	o = aNode->getObject();
-	if (o) {
-		if (o->getName() == kTTSym_Output || o->getName() == kTTSym_OutputAudio) {
+	if (o.valid()) {
+		if (o.name() == kTTSym_Output || o.name() == kTTSym_OutputAudio) {
 			
 			switch (flag) {
 					

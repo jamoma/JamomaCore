@@ -2,7 +2,7 @@
  *
  * @ingroup modularLibrary
  *
- * @brief TTObjectBase to handle any signal input
+ * @brief Handles any signal input
  *
  * @details
  *
@@ -45,23 +45,23 @@ public:	// use public for quick acces during signal processing
 	// Sometimes we need more complex structures (like audio signal)s
 	// When it is just a TTValue we don't use these below -- they are used for e.g. the audio signal case
 	
-	TTObjectBasePtr		mSignalIn;					///< any data structure to receive complex signal
+	TTObject            mSignalIn;					///< any data structure to receive complex signal
 	
-	TTListPtr			mSignalCache;				///< a list of any data structure to deal with others complex signals (like mixing, dubbing, ...)
+	TTList              mSignalCache;				///< a list of any data structure to deal with others complex signals (like mixing, dubbing, ...)
 													///< this is used to receive audio e.g. from many jcom.send~ objects pointing to our object
 													///< note that the senders also have object caches that point back to us if appropriate
 	
-	TTObjectBasePtr		mSignalOut;					///< any data structure to send complex signal
+	TTObject            mSignalOut;					///< any data structure to send complex signal
 													///< mirrors the input to the model
 	
-	TTObjectBasePtr		mSignalZero;				///< a zero signal -- used when e.g. muted
+	TTObject            mSignalZero;				///< a zero signal -- used when e.g. muted
 	
-	TTOutputPtr			mOutputObject;				///< TTOutput object to which to forward is we are linked to a TTOutput object
+	TTObject            mOutputObject;				///< TTOutput object to which to forward is we are linked to a TTOutput object
 	
 private:
 
-	TTCallbackPtr		mReturnSignalCallback;		///< a way to return back signal to the owner of this input
-	TTCallbackPtr		mAddressObserver;			///< to observe mOutputAddress creation/destruction
+	TTObject            mReturnSignalCallback;		///< a way to return back signal to the owner of this input
+	TTObject            mAddressObserver;			///< to observe mOutputAddress creation/destruction
     
     TTValue				mSignal;					///< ATTRIBUTE : dummy variable -- unused by the attribute but here because the macro expects it
 	TTAttributePtr		mSignalAttr;				///< optimization: cache the pointer to the above attribute for direct access to the
