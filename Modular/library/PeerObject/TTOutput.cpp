@@ -33,7 +33,7 @@ mSignalAttr(NULL)
 	
     if (arguments.size() > 0) {
         mReturnSignalCallback = arguments[0];
-        TT_ASSERT("Return Signal Callback passed to TTOutput is valid", mReturnSignalCallback).valid();
+        TT_ASSERT("Return Signal Callback passed to TTOutput is valid", mReturnSignalCallback.valid());
     }
     
     if (arguments.size() > 1) {
@@ -135,6 +135,8 @@ TTErr TTOutput::SendBypassed(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
+    TTValue none;
+    
 	mInputObject = inputValue[0];
 	
     return mReturnLinkCallback.send("notify", 1, none);
@@ -142,9 +144,11 @@ TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTOutput::Unlink()
 {
+    TTValue none;
+    
 	mInputObject = TTObject();
 	
-	return mReturnLinkCallback->deliver(0);
+	return mReturnLinkCallback.send("notify", 0, none);
 }
 
 TTErr TTOutput::setInputAddress(const TTValue& value)
@@ -239,7 +243,7 @@ TTErr TTOutputDirectoryCallback(const TTValue& baton, const TTValue& data)
     TTValue         none;
 	
 	// unpack baton (a TTOutput)
-    o = baton[0]
+    o = baton[0];
 	anOutput = (TTOutputPtr)o.instance();
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)

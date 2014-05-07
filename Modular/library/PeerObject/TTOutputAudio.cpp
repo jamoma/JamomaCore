@@ -73,7 +73,7 @@ void TTOutputAudio::process(TTSampleValue* anInputSampleVector, TTSampleValue* a
 	
 	// if the output signal is muted
 	if (mMute)
-		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalZero.instance()), *TTAudioSignalPtr(mSignalOut));
+		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalZero.instance()), *TTAudioSignalPtr(mSignalOut.instance()));
 	
 	// if input signal exists
 	else if (mInputObject.instance()) {

@@ -836,7 +836,7 @@ TTErr TTMapperReceiveValueCallback(const TTValue& baton, const TTValue& inputVal
         }
         
         // notify if output going down
-        TTBoolean newOutputGoingDown = outputValue <= TTValue(aMapper->mOutputThresholdDown, none);
+        TTBoolean newOutputGoingDown = outputValue <= TTValue(aMapper->mOutputThresholdDown);
         if (newOutputGoingDown != aMapper->mOutputGoingDown) {
             
             aMapper->mOutputGoingDown = newOutputGoingDown;

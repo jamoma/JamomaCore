@@ -28,7 +28,6 @@ mType(kTTSymEmpty)
 	TTAttributePtr		anAttribute;
 	TTAttributeFlags	attributeFlags = kTTAttrPassObject;
 	TTMessagePtr		aMessage;
-    TTErr               err;
 	
 	TT_ASSERT("Correct number of arguments to instantiate TTMirror", arguments.size() == 5);
     
@@ -194,7 +193,6 @@ TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 		data.append(anAttribute.name);
 		data.append((TTPtr)&value);
 		
-		return mGetAttributeCallback->deliver(data);
 		mGetAttributeCallback.send("notify", data, none);
         
         if (value.size() > 0)
@@ -261,7 +259,7 @@ TTErr TTMirror::setMirrorCachedAttribute(TTAttribute& anAttribute, const TTValue
 		err = mSetAttributeCallback.send("notify", data, none);
         
         // if the mirror cannot listen value : notify observers ourself
-        if (!mListenAttributeCallback)
+        if (!mListenAttributeCallback.valid())
             anAttribute.sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
 	}
     
