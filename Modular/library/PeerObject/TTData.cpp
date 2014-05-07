@@ -52,7 +52,6 @@ mRampFunction(kTTSym_none),
 mRampStatus(NO),
 mDataspace(kTTSym_none),
 mDataspaceUnit(kTTSym_none),
-mDataspaceConverter(NULL),
 mService(kTTSymEmpty)
 {
 	if (arguments.size() == 1)
@@ -121,8 +120,6 @@ mService(kTTSymEmpty)
 	addMessageProperty(WriteAsText, hidden, YES);
 	
 	mIsSending = NO;
-	
-	mRamper = NULL;
     
     commandMethod = (TTMethodValue)&TTData::GenericCommand;
     
@@ -136,11 +133,7 @@ mService(kTTSymEmpty)
 
 TTData::~TTData()
 {
-	if (mRamper)
-        TTObjectBaseRelease(TTObjectBaseHandle(&mRamper));
-	
-	if (mDataspaceConverter)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mDataspaceConverter));
+    ;
 }
 
 TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
@@ -397,10 +390,10 @@ TTErr TTData::setRampFunction(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mRampFunction = value;
 	
-	if (mRamper && mRampFunction != kTTSym_none) {
+	if (mRampFunction != kTTSym_none) {
 		
 		// set the function of the ramper
-		mRamper->setAttributeValue(kTTSym_function, mRampFunction);
+		mRamper.set(kTTSym_function, mRampFunction);
 		
 		TTUInt32	i, n;
 		TTValue		names;
@@ -415,7 +408,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 		mRampFunctionParameters.clear();
 		
 		// cache the function's attribute names
-        TTRampPtr(mRamper)->mFunctionUnit->getAttributeNames(names);
+        TTRampPtr(mRamper.instance())->mFunctionUnit->getAttributeNames(names);
 		n = names.size();
 		
 		if (n) {
@@ -427,7 +420,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 					continue;										// don't publish these datas
 				
 				// extend attribute with the same name
-				this->extendAttribute(aName, TTRampPtr(mRamper)->mFunctionUnit, aName);
+				this->extendAttribute(aName, TTRampPtr(mRamper.instance())->mFunctionUnit, aName);
 				
 				mRampFunctionParameters.append(aName);
 			}
@@ -443,24 +436,22 @@ TTErr TTData::setRampFunction(const TTValue& value)
 #endif
 TTErr TTData::setDataspace(const TTValue& value)
 {
-	TTErr	err;
+	TTErr err = kTTErrGeneric;
 	TTValue v, none;
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspace = value;
 	
-	TTObjectBaseInstantiate(TTSymbol("dataspace"),  &mDataspaceConverter, none);
-	mDataspaceConverter->setAttributeValue(TTSymbol("dataspace"), mDataspace);
+	mDataspaceConverter = TTObject("dataspace");
+	mDataspaceConverter.set("dataspace", mDataspace);
 	
 	// If there is already a unit defined, then we try to use that
-	// Otherwise we use the default (neutral) unit.
-	err = kTTErrGeneric;
-	if (mDataspaceUnit)
-		err = mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), mDataspaceUnit);
+    err = mDataspaceConverter.set("outputUnit", mDataspaceUnit);
 
+    // Otherwise we use the default (neutral) unit.
 	if (err) {
-		mDataspaceConverter->getAttributeValue(TTSymbol("outputUnit"), v);
+		mDataspaceConverter.get("outputUnit", v);
 		mDataspaceUnit = v[0];
-		mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), mDataspaceUnit);
+		mDataspaceConverter.set("outputUnit", mDataspaceUnit);
 	}
 	
 	this->notifyObservers(kTTSym_dataspace, n);
@@ -472,8 +463,7 @@ TTErr TTData::setDataspaceUnit(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspaceUnit = value;
     
-	if (mDataspaceConverter)
-		mDataspaceConverter->setAttributeValue(TTSymbol("outputUnit"), mDataspaceUnit);
+    mDataspaceConverter.set("outputUnit", mDataspaceUnit);
 	
 	this->notifyObservers(kTTSym_dataspaceUnit, n);
 	return kTTErrNone;
@@ -499,34 +489,22 @@ TTErr TTData::setPriority(const TTValue& value)
 
 TTErr TTData::RampSet(const TTValue& inputValue, TTValue& outputValue)
 {
-    if (mRamper)
-        return mRamper->sendMessage(TTSymbol("Set"), inputValue, outputValue);
-    
-    return kTTErrGeneric;
+    return mRamper.send("Set", inputValue, outputValue);
 }
 
 TTErr TTData::RampTarget(const TTValue& inputValue, TTValue& outputValue)
 {
-    if (mRamper)
-        return mRamper->sendMessage(TTSymbol("Target"), inputValue, outputValue);
-    
-    return kTTErrGeneric;
+    return mRamper.send("Target", inputValue, outputValue);
 }
 
 TTErr TTData::RampGo(const TTValue& inputValue, TTValue& outputValue)
 {
-    if (mRamper)
-        return mRamper->sendMessage(kTTSym_Go, inputValue, outputValue);
-    
-    return kTTErrGeneric;
+    return mRamper.send(kTTSym_Go, inputValue, outputValue);
 }
 
 TTErr TTData::RampSlide(const TTValue& inputValue, TTValue& outputValue)
 {
-    if (mRamper)
-        return mRamper->sendMessage(TTSymbol("Slide"), inputValue, outputValue);
-    
-    return kTTErrGeneric;
+    return mRamper.send("Slide", inputValue, outputValue);
 }
 
 TTErr TTData::rampSetup()
@@ -535,9 +513,8 @@ TTErr TTData::rampSetup()
     TTErr   err;
     
 	// 1. destroy the old ramp object
-	if (mRamper != NULL) {
-		TTObjectBaseRelease(TTObjectBaseHandle(&mRamper));
-		mRamper = NULL;
+	if (mRamper.valid()) {
+		mRamper = TTObject();
         externalRampTime = 0;
 	}
 	
@@ -555,15 +532,11 @@ TTErr TTData::rampSetup()
         args.append((TTPtr)&TTDataRampCallback);
         args.append((TTPtr)this); // we have to store this as a pointer
         
-		err = TTObjectBaseInstantiate(TTSymbol("Ramp"), TTObjectBaseHandle(&mRamper), args);
-        
-        if (!err)
-            mRamper->setAttributeValue(TTSymbol("scheduler"), mRampDrive);
-        else
-            mRamper = NULL;
+		mRamper = TTObject("Ramp", args);
+        mRamper.set("scheduler", mRampDrive);
     }
 	
-	if (mRamper == NULL)
+	if (!mRamper.valid())
 		return kTTErrGeneric;
 #ifndef TT_NO_DSP	
 	// 3. reset the ramp function
@@ -574,10 +547,7 @@ TTErr TTData::rampSetup()
 
 TTErr TTData::convertUnit(const TTValue& inputValue, TTValue& outputValue)
 {
-	if (mDataspaceConverter)
-		return mDataspaceConverter->sendMessage(TTSymbol("convert"), inputValue, outputValue);
-
-	return kTTErrNone;
+    return mDataspaceConverter.send("convert", inputValue, outputValue);
 }
 
 TTErr TTData::notifyObservers(TTSymbol attrName, const TTValue& value)
@@ -818,14 +788,14 @@ void TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 	aData->setAttributeValue(kTTSym_value, rampedValue);
     
 	// update the ramp status attribute
-    aData->mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+    aData->mRamper.get("running", isRunning);
 	if (aData->mRampStatus != isRunning) {
         
 		aData->mRampStatus = isRunning;
         
 		// stop the ramp
 		if (!aData->mRampStatus)
-			aData->mRamper->sendMessage(kTTSym_Stop);
+			aData->mRamper.send(kTTSym_Stop);
         
 		aData->notifyObservers(kTTSym_rampStatus, aData->mRampStatus);
 	}
