@@ -47,10 +47,10 @@ private:
 	
 	TTNodeDirectoryPtr	mDirectory;						///< an explorer depends on a directory
 	
-	TTCallbackPtr		mAddressObserver;				///< an address life cycle observer
-	TTCallbackPtr		mApplicationObserver;			///< an application life cycle observer
-	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this explorer
-	TTCallbackPtr		mReturnSelectionCallback;		///< a way to return back selection to the owner of this explorer
+	TTObject            mAddressObserver;				///< an address life cycle observer
+	TTObject            mApplicationObserver;			///< an application life cycle observer
+	TTObject            mReturnValueCallback;			///< a way to return back value to the owner of this explorer
+	TTObject            mReturnSelectionCallback;		///< a way to return back selection to the owner of this explorer
 	TTHashPtr			mFilterBank;					///< a hash table containing TTDictionaryBasePtr to store filters
 	TTListPtr			mFilterList;					///< a list containing TTSymbol to retreive filters in the filter bank
 	

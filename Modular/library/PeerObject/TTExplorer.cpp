@@ -28,16 +28,12 @@ mUpdate(YES),
 mSort(kTTSym_alphabetic),
 mDepth(0),
 mDirectory(NULL),
-mAddressObserver(NULL),
-mApplicationObserver(NULL),
-mReturnValueCallback(NULL),
-mReturnSelectionCallback(NULL),
 mFilterList(NULL),
 mTempNode(NULL),
 mResult(NULL)
 {
 	if(arguments.size() >= 1)
-		mReturnValueCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
+		mReturnValueCallback = arguments[0];
 	
 	// It is possible to pass a default filter bank
 	if(arguments.size() >= 2)
@@ -46,7 +42,7 @@ mResult(NULL)
 		mFilterBank = new TTHash();
 	
 	if(arguments.size() >= 3)
-		mReturnSelectionCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
+		mReturnSelectionCallback = arguments[2];
 	
 	addAttributeWithSetter(Namespace, kTypeSymbol);
 	
@@ -77,9 +73,6 @@ TTExplorer::~TTExplorer()
 {
 	unbindAddress();	
 	unbindApplication();
-	
-	if (mReturnValueCallback)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
 	
 	delete mFilterBank;
 	delete mFilterList;
@@ -189,8 +182,6 @@ TTErr TTExplorer::setDepth(const TTValue& value)
 
 TTErr TTExplorer::bindAddress() 
 {
-    TTValue     none;
-	
 	// it works only for absolute address
 	if (mAddress.getType() == kAddressAbsolute) {
 		
@@ -198,11 +189,10 @@ TTErr TTExplorer::bindAddress()
 		if (mUpdate && mAddress != kTTAdrsEmpty) {
 			
 			// observe any creation or destruction below the address
-			mAddressObserver = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
-			
-			mAddressObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
-			mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
+			mAddressObserver = TTObject("callback");
+			// TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+			mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+			mAddressObserver.set(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
 			
 			if (mDepth)
 				mDirectory->addObserverForNotifications(mAddress, mAddressObserver, mDepth);
@@ -219,11 +209,10 @@ TTErr TTExplorer::bindAddress()
 TTErr TTExplorer::unbindAddress() 
 {
 	// delete the old observer
-	if (mDirectory && mAddressObserver && mAddress != kTTSymEmpty) {
+	if (mDirectory && mAddressObserver.valid() && mAddress != kTTSymEmpty) {
 		
 		mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
-		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
-		mAddressObserver = NULL;
+		mAddressObserver = TTObject();
 		
 		return kTTErrNone;
 	}
@@ -233,15 +222,12 @@ TTErr TTExplorer::unbindAddress()
 
 TTErr TTExplorer::bindApplication()
 {
-    TTValue     none;
-	
-	if (!mApplicationObserver) {
+	if (!mApplicationObserver.valid()) {
 		
-		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), none);
+		mApplicationObserver = TTObject("callback");
 		
-		mApplicationObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
-		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
+		mApplicationObserver.set(kTTSym_baton, TTObjectBasePtr(this));
+		mApplicationObserver.set(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
 	}
@@ -253,11 +239,11 @@ TTErr TTExplorer::unbindApplication()
 {
 	TTErr err;
 	
-	if (mApplicationObserver) {
+	if (mApplicationObserver.valid()) {
 		
 		err = TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
 		
-		TTObjectBaseRelease(TTObjectBaseHandle(&mApplicationObserver));
+		mApplicationObserver = TTObject();
 	}
 	
 	mDirectory = NULL;
@@ -271,7 +257,7 @@ TTErr TTExplorer::Explore()
 	TTSymbol	attributeName;
 	TTList		aNodeList, internalFilterList, allObjectNodes;
 	TTNodePtr	aNode;
-	TTObjectBasePtr	o;
+	TTObject	o;
 	TTValue		v, args, none;
 	TTErr		err;
 	
@@ -294,9 +280,9 @@ TTErr TTExplorer::Explore()
 		if (mOutput == kTTSym_attributes) {
 			
 			o = mTempNode->getObject();
-			if (o) {
+			if (o.valid()) {
 				v.clear();
-				o->getAttributeNames(v);
+				o.attributes(v);
 				
 				// memorized the result in a hash table
 				for (TTUInt32 i = 0; i < v.size(); i++) {
@@ -373,7 +359,7 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 	TTAddressItemPtr    anItem = NULL;
 	TTAddress           itemSymbol;
 	TTInt32				i, number;
-	TTBoolean			state;
+	TTBoolean			state = NO;
 	
 	if (aSelection && inputValue.size()) {
 		
@@ -724,7 +710,7 @@ TTErr TTExplorer::returnResultBack()
 	TTBoolean			found;
 	
 	// Return the value result back
-	if (mReturnValueCallback) {
+	if (mReturnValueCallback.valid()) {
 		
 		// sort keys if needed
 		if (mSort == kTTSym_alphabetic)
@@ -808,7 +794,7 @@ TTErr TTExplorer::returnResultBack()
 			
 
 			mLastResult = result;
-			mReturnValueCallback->notify(result, dummy);
+			mReturnValueCallback.send("notify", result, dummy);
 			
 			returnSelectionBack();
 		}
@@ -852,7 +838,7 @@ TTErr TTExplorer::returnSelectionBack()
 		TTValue dummy;
 		
 		
-		return mReturnSelectionCallback->notify(selection, dummy);
+		return mReturnSelectionCallback.send("notify", selection, dummy);
 	}
 	
 	return kTTErrGeneric;
@@ -867,22 +853,22 @@ TTErr TTExplorerDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
 	TTValue			keys;
 	TTValue			t, v;
+    TTObject        o, anObserver;
 	TTExplorerPtr	anExplorer;
 	TTAddress       anAddress, relativeAddress;
 	TTSymbol		key;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
-	TTCallbackPtr	anObserver;
-	TTObjectBasePtr	o;
 		
 	// Unpack baton
-    anExplorer = TTExplorerPtr((TTObjectBasePtr)baton[0]);
+    o = baton[0];
+    anExplorer = (TTExplorerPtr)o.instance();
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
 	aNode = TTNodePtr((TTPtr)data[1]);
 	flag = data[2];
-	anObserver = TTCallbackPtr((TTObjectBasePtr)data[3]);
+	anObserver = data[3];
 	
 	// get attributes names
 	if (anExplorer->mOutput == kTTSym_attributes) {
@@ -892,8 +878,8 @@ TTErr TTExplorerDirectoryCallback(const TTValue& baton, const TTValue& data)
 			anExplorer->mResult->clear();
 			
 			o = aNode->getObject();
-			if (o)
-				o->getAttributeNames(keys);
+			if (o.valid())
+				o.attributes(keys);
 		}
 	}
 	
@@ -967,18 +953,20 @@ TTErr TTExplorerDirectoryCallback(const TTValue& baton, const TTValue& data)
 
 TTErr TTExplorerApplicationManagerCallback(const TTValue& baton, const TTValue& data)
 {
+    TTObject        o;
 	TTExplorerPtr	anExplorer;
 	TTSymbol		anApplicationName;
-	TTApplicationPtr anApplication;
+	TTObject        anApplication;
 	TTValue			v;
 	TTUInt8			flag;
 	
-	// unpack baton (a TTExplorerPtr)
-	anExplorer = TTExplorerPtr((TTObjectBasePtr)baton[0]);
+	// unpack baton (a TTExplorer)
+    o = baton[0];
+	anExplorer = (TTExplorerPtr)o.instance();
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];
-    anApplication = TTApplicationPtr((TTObjectBasePtr)data[1]);
+    anApplication = data[1];
 	flag = data[2];
 	
 	switch (flag) {
