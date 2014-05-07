@@ -21,10 +21,6 @@
 #define thisTTClassTags		"ramp"
 
 TT_MODULAR_CONSTRUCTOR,
-mSchedulerUnit(NULL),
-#ifndef TT_NO_DSP
-mFunctionUnit(NULL),
-#endif
 mScheduler(kTTSymEmpty),
 #ifndef TT_NO_DSP
 mFunction(kTTSymEmpty),
@@ -79,14 +75,8 @@ currentValue(NULL)
 
 TTRamp::~TTRamp()
 {
-    if (mSchedulerUnit) {
-        mSchedulerUnit->sendMessage(kTTSym_Stop);
-        TTObjectBaseRelease(&mSchedulerUnit);
-    }
-#ifndef TT_NO_DSP
-    if (mFunctionUnit)
-        TTObjectBaseRelease(&mFunctionUnit);
-#endif
+    mSchedulerUnit.send(kTTSym_Stop);
+
 	delete [] currentValue;
 	delete [] targetValue;
 	delete [] startValue;
@@ -94,17 +84,11 @@ TTRamp::~TTRamp()
 
 TTErr TTRamp::getRunning(TTValue& value)
 {
-    if (mSchedulerUnit)
-        mSchedulerUnit->getAttributeValue(TTSymbol("running"), value);
-    else
-        value = NO;
-    
-    return kTTErrNone;
+    return mSchedulerUnit.get("running", value);
 }
 
 TTErr TTRamp::setScheduler(const TTValue& inputValue)
 {
-	TTErr		err = kTTErrNone;
 	TTSymbol	newSchedulerName;
     TTValue     args;
 	
@@ -115,25 +99,19 @@ TTErr TTRamp::setScheduler(const TTValue& inputValue)
 	
 	mScheduler = newSchedulerName;
     
-    if (mSchedulerUnit)
-        TTObjectBaseRelease(&mSchedulerUnit);
+    if (mSchedulerUnit.valid())
+        mSchedulerUnit = TTObject();
     
     if (mScheduler != kTTSymEmpty && mScheduler != kTTSym_none) {
         
         args.append((TTPtr)&TTRampSchedulerCallback);
         args.append((TTPtr)this); // we have to store this as a pointer
         
-        err = TTObjectBaseInstantiate(mScheduler, TTObjectBaseHandle(&mSchedulerUnit), args);
-        
-        if (err) {
-            mSchedulerUnit = NULL;
-            
-            // théo : Mute the following error log while the default scheduler is set to "Max" in TTData::setType
-            //logError("TTRamp failed to load the requested Scheduler\n");
-        }
+        mSchedulerUnit = TTObject(mScheduler, args);
+        return kTTErrNone;
     }
     
-	return err;
+    return kTTErrGeneric;
 }
 
 TTErr TTRamp::getSchedulerLibrary(TTValue& value)
@@ -144,7 +122,7 @@ TTErr TTRamp::getSchedulerLibrary(TTValue& value)
 
 TTErr TTRamp::getSchedulerParameters(TTValue& value)
 {
-    mSchedulerUnit->getAttributeValue(TTSymbol("parameterNames"), value);
+    mSchedulerUnit.get("parameterNames", value);
 	return kTTErrNone;
 }
 
@@ -158,7 +136,7 @@ TTErr TTRamp::getSchedulerParameterValue(TTValue& value)
             
             parameterName = value[0];
     
-            return mSchedulerUnit->getAttributeValue(parameterName, value);
+            return mSchedulerUnit.get(parameterName, value);
         }
     }
     
@@ -177,7 +155,7 @@ TTErr TTRamp::setSchedulerParameterValue(const TTValue& value)
             parameterName = value[0];
             newValue.copyFrom(value, 1);
     
-            return mSchedulerUnit->setAttributeValue(parameterName, newValue);
+            return mSchedulerUnit.set(parameterName, newValue);
         }
     }
     
@@ -186,7 +164,6 @@ TTErr TTRamp::setSchedulerParameterValue(const TTValue& value)
 #ifndef TT_NO_DSP
 TTErr TTRamp::setFunction(const TTValue& inputValue)
 {
-	TTErr		err;
 	TTSymbol	newFunctionName;
 	
 	newFunctionName = inputValue[0];
@@ -199,14 +176,11 @@ TTErr TTRamp::setFunction(const TTValue& inputValue)
 	
 	mFunction = newFunctionName;
     
-    if (mFunctionUnit)
-        TTObjectBaseRelease(&mFunctionUnit);
+    if (mFunctionUnit.valid())
+        mFunctionUnit = TTObject();
     
-    err = TTObjectBaseInstantiate(mFunction, TTObjectBaseHandle(&mFunctionUnit), 1); // for 1 channel only
-	if (err)
-		logError("TTRamp failed to load the requested Function");
-    
-	return err;
+    mFunctionUnit = TTObject(mFunction, 1); // for 1 channel only
+    return kTTErrNone;
 }
 
 TTErr TTRamp::getFunctionLibrary(TTValue& value)
@@ -220,7 +194,7 @@ TTErr TTRamp::getFunctionParameters(TTValue& value)
     TTValue     names;
     TTSymbol    aName;
     
-	mFunctionUnit->getAttributeNames(names);
+	mFunctionUnit.attributes(names);
     
     value.clear();
     for (TTUInt32 i = 0; i < names.size(); i++) {
@@ -246,7 +220,7 @@ TTErr TTRamp::getFunctionParameterValue(TTValue& value)
             
             parameterName = value[0];
             
-            return mFunctionUnit->getAttributeValue(parameterName, value);
+            return mFunctionUnit.get(parameterName, value);
         }
     }
     
@@ -265,7 +239,7 @@ TTErr TTRamp::setFunctionParameterValue(const TTValue& value)
             parameterName = value[0];
             newValue.copyFrom(value, 1);
             
-            return mFunctionUnit->setAttributeValue(parameterName, newValue);
+            return mFunctionUnit.set(parameterName, newValue);
         }
     }
     
@@ -276,8 +250,7 @@ TTErr TTRamp::Set(const TTValue& inputValue, TTValue& outputValue)
 {
     TTUInt32 i;
 	
-    if (mSchedulerUnit)
-        mSchedulerUnit->sendMessage(kTTSym_Stop);
+    mSchedulerUnit.Send(kTTSym_Stop);
     
     mNumValues = inputValue.size();
     
@@ -293,8 +266,7 @@ TTErr TTRamp::Target(const TTValue& inputValue, TTValue& outputValue)
 {
     TTUInt32 i;
 	
-    if (mSchedulerUnit)
-        mSchedulerUnit->sendMessage(kTTSym_Stop);
+    mSchedulerUnit.Send(kTTSym_Stop);
     
     if (mNumValues == inputValue.size()) {
         
@@ -314,16 +286,13 @@ TTErr TTRamp::Target(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTRamp::Go(const TTValue& inputValue, TTValue& outputValue)
 {
-    if (mSchedulerUnit) {
+    if (inputValue.size() == 1) {
         
-        if (inputValue.size() == 1) {
+        mRampTime = inputValue[0];
         
-            mRampTime = inputValue[0];
-            
-            mSchedulerUnit->setAttributeValue(TTSymbol("duration"), mRampTime);
-            
-            return mSchedulerUnit->sendMessage(kTTSym_Go);
-        }
+        mSchedulerUnit.set("duration", mRampTime);
+        
+        return mSchedulerUnit.send(kTTSym_Go);
     }
     
     return kTTErrGeneric;
@@ -345,22 +314,13 @@ TTErr TTRamp::Slide(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTRamp::Tick()
 {
-    if (mSchedulerUnit)
-        return mSchedulerUnit->sendMessage(kTTSym_Tick);
-    
-    return kTTErrGeneric;
+    return mSchedulerUnit.send(kTTSym_Tick);
 }
 
 TTErr TTRamp::Stop()
 {
-    if (mSchedulerUnit) {
-        
-        mRampTime = 0.;
-        
-        return mSchedulerUnit->sendMessage(kTTSym_Stop);
-    }
-    
-    return kTTErrGeneric;
+    mRampTime = 0.;
+    return mSchedulerUnit.send(kTTSym_Stop);
 }
 
 void TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 realTime)
@@ -373,9 +333,9 @@ void TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 real
 	TTFloat64	*start = aRamp->startValue;
     
 #ifndef TT_NO_DSP     
-	if (aRamp->mFunctionUnit) {
+	if (aRamp->mFunctionUnit.valid()) {
        
-		aRamp->mFunctionUnit->calculate(progression, mapped);
+		TTAudioObjectBasePtr(aRamp->mFunctionUnit.instance())->calculate(progression, mapped);
 
 		for (i = 0; i <  aRamp->mNumValues; i++)
 			current[i] = start[i] + ((target[i] - start[i]) * mapped);
