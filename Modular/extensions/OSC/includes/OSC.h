@@ -33,7 +33,7 @@ private:
 	PROTOCOL_PARAMETER(Ip);                             ///< PROTOCOL PARAMETER : each registered application have to setup its ip
 	PROTOCOL_PARAMETER(Port);                           ///< PROTOCOL PARAMETER : each registered application have to setup its port
 	
-	TTObjectBasePtr			mLocalApplicationOscReceiver;
+	TTObject                mLocalApplicationOscReceiver;
     
     TTHash                  mDistantApplicationOscReceivers;
 	
@@ -205,7 +205,7 @@ private:
     
     
     
-    friend TTErr TT_EXTENSION_EXPORT OSCReceiveMessageCallback(TTPtr baton, TTValue& data);
+    friend TTErr TT_EXTENSION_EXPORT OSCReceiveMessageCallback(const TTValue& baton, const TTValue& data);
 	
 };
 typedef OSC* OSCPtr;
@@ -214,6 +214,6 @@ typedef OSC* OSCPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT OSCReceiveMessageCallback(TTPtr baton, TTValue& message);
+TTErr TT_EXTENSION_EXPORT OSCReceiveMessageCallback(const TTValue& baton, const TTValue& data);
 
 #endif // __OSC_H__
