@@ -78,7 +78,6 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Minuit(void)
 }
 
 PROTOCOL_CONSTRUCTOR,
-mOscReceive(NULL),
 mWaitThread(NULL),
 mAnswerManager(NULL),
 mSenderManager(NULL)
@@ -116,7 +115,7 @@ TTErr Minuit::Scan()
  */
 TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTValue     args, v;
+    TTValue     v;
     TTUInt16    port;
 	TTErr       err;
     
@@ -129,9 +128,9 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
 		mAnswerManager = new MinuitAnswerManager((MinuitPtr)this);
         mSenderManager = new MinuitSenderManager();
 		
-		err = TTObjectBaseInstantiate(TTSymbol("osc.receive"), &mOscReceive, args);
+		mOscReceive = TTObject("osc.receive");
         
-		if (!err) {
+		if (mOscReceive.valid()) {
             
             TTObject minuitProtocol(this);
             
@@ -140,22 +139,22 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
             minuitProtocol.get("port", v);
             port = v[0];
             
-            err = mOscReceive->setAttributeValue(TTSymbol("port"), v);
+            err = mOscReceive.set("port", v);
             
             if (!err) {
                 
-                mOscReceive->registerObserverForNotifications(minuitProtocol);			// using our 'receivedMessage' method
+                mOscReceive.registerObserverForNotifications(minuitProtocol);			// using our 'receivedMessage' method
                 
                 // wait to avoid strange crash when run and stop are called to quickly
                 mWaitThread->sleep(1);
                 
                 mRunning = YES;
+                
+                return kTTErrNone;
             }
             else
                 TTLogError("unable to connect to port %ld", port);
 		}
-		
-		return err;
 	}
 	
 	return kTTErrGeneric;
@@ -176,7 +175,7 @@ TTErr Minuit::Stop(const TTValue& inputValue, TTValue& outputValue)
 		delete mAnswerManager;
         delete mSenderManager;
         
-		TTObjectBaseRelease(&mOscReceive);
+		mOscReceive = TTObject();
         
         // wait to avoid strange crash when run and stop are called to quickly
         mWaitThread->sleep(1);

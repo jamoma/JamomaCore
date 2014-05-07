@@ -77,7 +77,7 @@ private:
     PROTOCOL_PARAMETER(Ip);						///< PROTOCOL PARAMETER : each registered application have to setup its ip
 	PROTOCOL_PARAMETER(Port);					///< PROTOCOL PARAMETER : each registered application have to setup its port
     
-	TTObjectBasePtr			mOscReceive;
+	TTObject                mOscReceive;
     TTThreadPtr             mWaitThread;                // a thread used to wait in some case
 	
 	MinuitAnswerManagerPtr	mAnswerManager;
