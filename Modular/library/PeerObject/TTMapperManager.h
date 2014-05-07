@@ -40,7 +40,7 @@ public:
 
 private:
 	
-	TTListPtr			mMapperList;					///< a list containing <TTMapperPtr>
+	TTList		mMapperList;					///< a list containing <TTMapperPtr>
 	
 public:
 	
