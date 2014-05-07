@@ -510,7 +510,6 @@ TTErr TTData::RampSlide(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTData::rampSetup()
 {
     TTValue args;
-    TTErr   err;
     
 	// 1. destroy the old ramp object
 	if (mRamper.valid()) {
@@ -565,12 +564,15 @@ TTErr TTData::notifyObservers(TTSymbol attrName, const TTValue& value)
 
 TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTTextHandlerPtr aTextHandler;
+    TTObject o = inputValue[0];
+	TTTextHandlerPtr aTextHandler = (TTTextHandlerPtr)o.instance();
+    if (!aTextHandler)
+		return kTTErrGeneric;
+    
 	TTString		*buffer;
 	TTValue			toString;
 	TTString		line;
-	
-	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
+
 	buffer = aTextHandler->mWriter;
 	
 	// Type
