@@ -13,6 +13,7 @@
 
 
 /**	A convenience macro to be used by subclasses for registering messages.
+	@ingroup macros
 	@param	name	The name of the message, and also the name of the classes' method to be called.
 */
 #define addMessage(name)					registerMessage(#name, (TTMethod)& thisTTClass ::name , kTTMessagePassNone )
@@ -20,6 +21,7 @@
 
 
 /**	A convenience macro to be used by subclasses for registering messages.
+	@ingroup macros
 	@param	name	The name of the message, and also the name of the classes' method to be called.
 */
 #define addMessageWithArguments(name)		registerMessage(#name, (TTMethod)& thisTTClass ::name )
@@ -30,12 +32,14 @@
  This assumes that the property is one that has been explicitly supported by TTMessage through the definition of accessor methods.
  If you are adding a custom property then you must define your own accessor methods and register the property by calling the
  TTObjectBase::registerMessageProperty() method directly.
+ @ingroup macros
  */
 #define addMessageProperty(messageName, propertyName, initialValue)		registerMessageProperty(#messageName, #propertyName, initialValue, (TTGetterMethod)& TTMessage::get##propertyName , (TTSetterMethod)& TTMessage::set##propertyName )
 
 
 /**	An 'update' is a message sent to a subclass instance from its parent class.
 	For example, to update the sample rate of the subclass when the parent's sample rate attribute has changed.
+ @ingroup macros
  */
 #define addUpdates(updateName)	addMessageWithArguments(update##updateName); addMessageProperty(update##updateName, hidden, YES);
 

@@ -1,10 +1,16 @@
-/* 
- * Pass an input signal to the output unchanged.
- * Copyright © 2011, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief #TTThru pass an input signal to the output unchanged.
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2011, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTThru.h"
 
