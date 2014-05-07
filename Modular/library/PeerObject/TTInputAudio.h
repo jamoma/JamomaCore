@@ -38,24 +38,24 @@ public:
 	 */
 	TTSampleValue* getVector()
 	{
-		return TTAudioSignalPtr(mSignalOut)->mSampleVectors[0];
+		return TTAudioSignalPtr(mSignalOut.instance())->mSampleVectors[0];
 	}
 	
 	/**	Used e.g. by the dsp method in j.in~
 	 */
 	void setupAudioSignals(TTUInt16 aVectorSize)
 	{
-		mSignalIn->setAttributeValue(kTTSym_numChannels, 1);
-		mSignalOut->setAttributeValue(kTTSym_numChannels, 1);
-        mSignalZero->setAttributeValue(kTTSym_numChannels, 1);
+		mSignalIn.set(kTTSym_numChannels, 1);
+		mSignalOut.set(kTTSym_numChannels, 1);
+        mSignalZero.set(kTTSym_numChannels, 1);
         
-		mSignalIn->setAttributeValue(kTTSym_vectorSize, aVectorSize);
-		mSignalOut->setAttributeValue(kTTSym_vectorSize, aVectorSize);
-        mSignalZero->setAttributeValue(kTTSym_vectorSize, aVectorSize);
+		mSignalIn.set(kTTSym_vectorSize, aVectorSize);
+		mSignalOut.set(kTTSym_vectorSize, aVectorSize);
+        mSignalZero.set(kTTSym_vectorSize, aVectorSize);
 		
-		mSignalOut->sendMessage(kTTSym_alloc);
-        mSignalZero->sendMessage(kTTSym_alloc);
-        mSignalZero->sendMessage(kTTSym_clear);
+		mSignalOut.send(kTTSym_alloc);
+        mSignalZero.send(kTTSym_alloc);
+        mSignalZero.send(kTTSym_clear);
 	}
 };
 
