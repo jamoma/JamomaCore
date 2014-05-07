@@ -28,15 +28,17 @@ class TTMutesolo : public TTAudioObjectBase {
 
 protected:
 
-	TTBoolean		mInterpolated;	///< Flag indicating whether interpolation will be applied when gain is changed.
+	TTBoolean		mInterpolated;				///< Flag indicating whether interpolation will be applied when gain is changed.
 	
-	TTSampleVector	mChannelSolo;			///< solo status for each channel. Soloing takes presedence over muting.
+	TTChannelCount	mStoredStateNumChannels;	///< The number of channels that mute and solo states are currently stored for. This might be higher than #mMaxNumChannels.
 	
-	TTSampleVector	mChannelMute;			///< mute status for each channel
+	TTSampleVector	mChannelSolo;				///< solo status for each channel. Soloing takes presedence over muting.
 	
-	TTSampleVector	gain;			///< Gain value for each channel, depends on current settings for mute and solo
+	TTSampleVector	mChannelMute;				///< mute status for each channel
 	
-	TTSampleVector	oldGain;			///< Previous gain value for each channel, used when interpolating to new settings.
+	TTSampleVector	gain;						///< Gain value for each channel, depends on current settings for mute and solo
+	
+	TTSampleVector	oldGain;					///< Previous gain value for each channel, used when interpolating to new settings.
 	
 	
 	/**	Clear all current mute and solo settings
@@ -96,6 +98,14 @@ protected:
 	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&);
+	
+	
+	/** If there is a need to store mute/solo information for a channel that is not yet tracked, the number of channels that information need to be stored for is increased.
+	 @details #mStoredStateNumChannels can increase over the run of the application, but once expanded it will never decrease. This is needed in roder to be able to store the states for channels that the audio processing do not yet know of.
+	 @param aDesiredChannel		The channel that it is desired to store information.
+	 @return					#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr increaseStoredStateNumChannels(TTChannelCount aDesiredChannel);
 	
 	
 	/**	A standard audio processing method as used by TTBlue objects.	*/
