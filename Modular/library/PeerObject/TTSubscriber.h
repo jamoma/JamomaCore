@@ -48,7 +48,7 @@ public:
 
 private:
     
-    TTObjectBasePtr				mObject;					///< the object to subscribe
+    TTObject                    mObject;					///< the object to subscribe
 	
 	TTAddress					mRelativeAddress;			///< the address of this subscriber relative to the Context node
 	

@@ -209,6 +209,8 @@ TTErr TTApplication::getCachedAttributes(TTValue& value)
         return kTTErrGeneric;
     
     mCachedAttributes.getKeys(value);
+    
+    return kTTErrNone;
 }
 
 TTErr TTApplication::setCachedAttributes(const TTValue& value)
@@ -544,7 +546,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 	TTAddress			whereToListen;
 	TTList				aNodeList;
 	TTNodePtr			nodeToListen;
-	TTObjectBasePtr		anObject, returnValueCallback;
+	TTObjectBasePtr		anObject;
 	TTAttributePtr		anAttribute;
 	TTValue				cacheElement, none;
 	TTErr				err;
@@ -578,12 +580,12 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 					
 					if (!err) {
 						// prepare a callback based on ProtocolAttributeCallback
-						TTObject* returnValueCallback = new TTObject("callback");
+						TTObject returnValueCallback = TTObject("callback");
 						
-						returnValueCallback->set(kTTSym_baton, inputValue);
-						returnValueCallback->set(kTTSym_function, TTPtr(&ProtocolAttributeCallback));
+						returnValueCallback.set(kTTSym_baton, inputValue);
+						returnValueCallback.set(kTTSym_function, TTPtr(&ProtocolAttributeCallback));
 						
-						anAttribute->registerObserverForNotifications(*returnValueCallback);
+						anAttribute->registerObserverForNotifications(returnValueCallback);
 						
 						// we have now passed the returnValueCallback pointer to the callback
 						// it will be fetched back out to free the object in removeAttributeListener()
@@ -645,10 +647,11 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 					err = anObject->findAttribute(whereToListen.getAttribute(), &anAttribute);
 					
 					if (!err) {
-                        TTObject* returnValueCallback = (TTObject*)TTPtr(cacheElement[i]);
+                        
+                        TTObject returnValueCallback = cacheElement[i];
 						
-						anAttribute->unregisterObserverForNotifications(*returnValueCallback);
-						delete returnValueCallback;
+						anAttribute->unregisterObserverForNotifications(returnValueCallback);
+						
 						i++;
 					}
 				}
@@ -669,7 +672,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 	TTSymbol	type, protocolName;;
     TTList      aNodeList;
     TTNodePtr   aNode;
-    TTObjectBasePtr aMirror;
+    TTObject    aMirror;
     ProtocolPtr aProtocol;
     TTErr       err;
 	
@@ -693,16 +696,9 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
             appendMirrorObject(aProtocol, whereComesFrom, type);
 	}
     
-    // if the node exists
-	else if (!err) {
-       
-        aMirror = aNode->getObject();
-        
-        if (aMirror)
-            TTObjectBaseRelease(TTObjectBaseHandle(&aMirror));
-        
+    // if the node exists : remove it
+	else if (!err)
         mDirectory->TTNodeRemove(whereComesFrom);
-    }
 	
 	return kTTErrGeneric;
 }
@@ -755,7 +751,7 @@ TTErr TTApplication::ObjectRegister(const TTValue& inputValue, TTValue& outputVa
             TTNodePtr node;
             TTBoolean newInstanceCreated;
             
-            TTErr err = mDirectory->TTNodeCreate(address, object.instance(), context, &node, &newInstanceCreated);
+            TTErr err = mDirectory->TTNodeCreate(address, object, context, &node, &newInstanceCreated);
             
             // return the effective address
             if (!err) {
@@ -1429,7 +1425,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
 
 TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName)
 {
-    TTMirrorPtr     aMirror = NULL;
+    TTObject        aMirror;
     TTNodePtr		aNode;
 	TTBoolean		newInstanceCreated, allowGetRequest, allowSetRequest, allowListenRequest;
 	TTObjectBasePtr	getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
@@ -1495,56 +1491,44 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         else
             args.append(NULL);
         
-        TTObjectBaseInstantiate(kTTSym_Mirror, TTObjectBaseHandle(&aMirror), args);
+        aMirror = TTObject(kTTSym_Mirror, args);
         
         // register object into the directory
-        this->mDirectory->TTNodeCreate(anAddress, (TTObjectBasePtr)aMirror, NULL, &aNode, &newInstanceCreated);
+        this->mDirectory->TTNodeCreate(anAddress, aMirror, NULL, &aNode, &newInstanceCreated);
     }
     
-    return (TTObjectBasePtr)aMirror;
+    return aMirror.instance();
 }
 
 TTObjectBasePtr TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service)
 {
-    TTDataPtr       aData = NULL;
-    TTNodePtr		aNode;
-	TTBoolean		newInstanceCreated;
-	TTObjectBasePtr	valueAttributeCallback;
-    TTValue         args, baton, none;
+    TTObject    aData;
+    TTNodePtr   aNode;
+	TTBoolean	newInstanceCreated;
     
-    valueAttributeCallback = NULL;
-    TTObjectBaseInstantiate(TTSymbol("callback"), &valueAttributeCallback, none);
-    // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
-    baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
-    valueAttributeCallback->setAttributeValue(kTTSym_baton, baton);
-    valueAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTApplicationProxyDataValueCallback));
-    args.append(valueAttributeCallback);
+    aData = TTObject(kTTSym_Data, service);
     
-    args.append(service);
-    
-    TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(&aData), args);
+    aData.set(kTTSym_baton, baton);
+    aData.set(kTTSym_function, TTPtr(&TTApplicationProxyDataValueCallback));
     
     // register object into the directory
-    this->mDirectory->TTNodeCreate(anAddress, (TTObjectBasePtr)aData, NULL, &aNode, &newInstanceCreated);
+    this->mDirectory->TTNodeCreate(anAddress, aData, NULL, &aNode, &newInstanceCreated);
     
-    return (TTObjectBasePtr)aData;
+    return aData.instance();
 }
 
 TTObjectBasePtr TTApplication::appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress)
 {
-    TTContainerPtr  aContainer = NULL;
+    TTContainerPtr  aContainer;
     TTNodePtr		aNode;
 	TTBoolean		newInstanceCreated;
-    TTValue         args;
     
-    // TODO : pass callbacks ? 
-    
-    TTObjectBaseInstantiate(kTTSym_Container, TTObjectBaseHandle(&aContainer), args);
+    aContainer = TTObject(kTTSym_Container);
     
     // register object into the directory
-    this->mDirectory->TTNodeCreate(anAddress, (TTObjectBasePtr)aContainer, NULL, &aNode, &newInstanceCreated);
+    this->mDirectory->TTNodeCreate(anAddress, aContainer, NULL, &aNode, &newInstanceCreated);
     
-    return (TTObjectBasePtr)aContainer;
+    return aContainer.instance();
 }
 
 #if 0

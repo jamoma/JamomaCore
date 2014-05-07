@@ -21,7 +21,6 @@
 #define thisTTClassTags		"node, subscriber"
 
 TT_MODULAR_CONSTRUCTOR,
-mObject(NULL),
 mRelativeAddress(kTTAdrsEmpty),
 mNodeAddress(kTTAdrsEmpty),
 mContextAddress(kTTAdrsEmpty),
@@ -74,7 +73,7 @@ TTErr TTSubscriber::Subscribe(const TTValue& inputValue, TTValue& outputValue)
 	TTPtr				ourContext, hisContext;
 	TTList				aNodeList;
 	TTNodePtr			aNode, aContextNode;
-	TTObjectBasePtr		hisObject;
+	TTObject            hisObject;
 	TTErr				err;
     
     mNewInstanceCreated = NO;
@@ -106,19 +105,19 @@ TTErr TTSubscriber::Subscribe(const TTValue& inputValue, TTValue& outputValue)
                 
                 // if the node doesn't exist, create it
                 if (err) {
-                    if (mObject)
+                    if (mObject.valid())
                         aDirectory->TTNodeCreate(absoluteAddress, mObject, ourContext,  &aNode, &this->mNewInstanceCreated);
                     else
                         return kTTErrGeneric;
                 }
                 // else the node already exists
-                else if (mObject) {
+                else if (mObject.valid()) {
                     
                     // Get his refered object
                     hisObject = aNode->getObject();
                     
                     // if there is no refered object
-                    if (!hisObject) {
+                    if (hisObject.valid()) {
                         
                         // set our object instead
                         aNode->setObject(mObject);
@@ -365,12 +364,10 @@ TTNodePtr TTSubscriber::registerContextList(TTListPtr aContextList)
 	return contextNode;
 }
 
-TTErr TTSubscriber::exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName, TTDataPtr *returnedData)
+TTErr TTSubscriber::exposeMessage(TTObject anObject, TTSymbol messageName, TTObject& returnedData)
 {
     TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
-	TTValue             args, baton, v, none;
-	TTDataPtr           aData;
-	TTCallbackPtr       returnValueCallback;
+	TTValue             baton, v;
 	TTAddress           nameToAddress, dataAddress;
 	TTNodePtr           aNode;
 	TTBoolean           nodeCreated;
@@ -379,31 +376,23 @@ TTErr TTSubscriber::exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName
     aDirectory->getTTNode(mNodeAddress, &aNode);
     if (aNode) {
         
-        // prepare arguments
-        returnValueCallback = NULL;			// without this, TTObjectInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-        TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&returnValueCallback), none);
+        // Create TTData
+        returnedData = TTObject(kTTSym_Data, kTTSym_message);
+        
         baton = TTValue(TTObjectBasePtr(this), messageName);
-        returnValueCallback->setAttributeValue(kTTSym_baton, baton);
-        returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTSubscriberMessageReturnValueCallback));
-        args.append(returnValueCallback);
-        
-        args.append(kTTSym_message);
-        
-        aData = NULL;
-        TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(&aData), args);
+        returnedData.set(kTTSym_baton, baton);
+        returnedData.set(kTTSym_function, TTPtr(&TTSubscriberMessageReturnValueCallback));
         
         // register TTData into the local tree
         convertUpperCasedNameInAddress(messageName, nameToAddress);
         dataAddress = mNodeAddress.appendAddress(nameToAddress);
         aContext = aNode->getContext();
-        accessApplicationLocalDirectory->TTNodeCreate(dataAddress, aData, aContext, &aNode, &nodeCreated);
+        accessApplicationLocalDirectory->TTNodeCreate(dataAddress, returnedData, aContext, &aNode, &nodeCreated);
         
         // store TTData and given object
-        v = TTValue((TTObjectBasePtr)aData);
+        v = TTValue(returnedData);
         v.append(anObject);
         mExposedMessages->append(messageName, v);
-        
-        *returnedData = aData;
         
         return kTTErrNone;
     }
@@ -411,13 +400,11 @@ TTErr TTSubscriber::exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName
     return kTTErrGeneric;
 }
 
-TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attributeName, TTSymbol service, TTDataPtr *returnedData)
+TTErr TTSubscriber::exposeAttribute(TTObject anObject, TTSymbol attributeName, TTSymbol service, TTObject& returnedData)
 {
     TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
 	TTValue             args, baton, v, none;
-	TTDataPtr           aData;
-	TTObject*			returnValueCallback = NULL;			// to set the object attribute when data changed
-	TTObject*			observeValueCallback = NULL;		// to set the data when an object attribute changed
+	TTObject			observeValueCallback;                               // to set the data when an object attribute changed
 	TTAttributePtr      anAttribute = NULL;
 	TTAddress           nameToAddress, dataAddress;
 	TTNodePtr           aNode;
@@ -430,16 +417,12 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
 
         if (service == kTTSym_parameter || service == kTTSym_return) {
 
-            returnValueCallback = new TTObject("callback");
-
-            baton = TTValue(TTObjectBasePtr(this), attributeName);
-            returnValueCallback->set(kTTSym_baton, baton);
-            returnValueCallback->set(kTTSym_function, TTPtr(&TTSubscriberAttributeReturnValueCallback));
-            args.append(returnValueCallback);
-            args.append(service);
+            // Create TTData
+            returnedData = TTObject(kTTSym_Data, service);
             
-            aData = NULL;
-            TTObjectBaseInstantiate(kTTSym_Data, TTObjectBaseHandle(&aData), args);
+            baton = TTValue(TTObjectBasePtr(this), attributeName);
+            returnedData.set(kTTSym_baton, baton);
+            returnedData.set(kTTSym_function, TTPtr(&TTSubscriberMessageReturnValueCallback));
             
             // register TTData into the local tree
             convertUpperCasedNameInAddress(attributeName, nameToAddress);
@@ -451,21 +434,19 @@ TTErr TTSubscriber::exposeAttribute(TTObjectBasePtr anObject, TTSymbol attribute
             err = anObject->findAttribute(attributeName, &anAttribute);
             if (!err) {
 
-                observeValueCallback = new TTObject("callback");
+                observeValueCallback = TTObject("callback");
                 
 				baton = TTValue(TTObjectBasePtr(this), attributeName);
-                observeValueCallback->set(kTTSym_baton, baton);
-                observeValueCallback->set(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
+                observeValueCallback.set(kTTSym_baton, baton);
+                observeValueCallback.set(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
                 
-                anAttribute->registerObserverForNotifications(*observeValueCallback);
+                anAttribute->registerObserverForNotifications(observeValueCallback);
             }
             
             // store TTData and given object
-            v = TTValue((TTObjectBasePtr)aData);
+            v = TTValue(returnedData);
             v.append(anObject);
             mExposedAttributes->append(attributeName, v);
-            
-            *returnedData = aData;
             
             return kTTErrNone;
         }
@@ -478,18 +459,13 @@ TTErr TTSubscriber::unexposeMessage(TTSymbol messageName)
 	TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
 	TTValue				storedObject;
 	TTAddress           objectAddress, nameToAddress;
-	TTObjectBasePtr		anObject;
 	
 	if (!mExposedMessages->lookup(messageName, storedObject)) {
-		anObject = storedObject[0];
 		
 		convertUpperCasedNameInAddress(messageName, nameToAddress);
 		objectAddress = mNodeAddress.appendAddress(nameToAddress);
 		
 		aDirectory->TTNodeRemove(objectAddress);
-		
-		if (anObject)
-			TTObjectBaseRelease(&anObject);
 		
 		mExposedMessages->remove(messageName);
 		
@@ -504,18 +480,13 @@ TTErr TTSubscriber::unexposeAttribute(TTSymbol attributeName)
 	TTNodeDirectoryPtr	aDirectory = accessApplicationLocalDirectory;		// only subscribes into local directory
 	TTValue				storedObject;
 	TTAddress           objectAddress, nameToAddress;
-	TTObjectBasePtr		anObject;
 	
 	if (!mExposedAttributes->lookup(attributeName, storedObject)) {
-		anObject = storedObject[0];
 		
 		convertUpperCasedNameInAddress(attributeName, nameToAddress);
 		objectAddress = mNodeAddress.appendAddress(nameToAddress);
 		
 		aDirectory->TTNodeRemove(objectAddress);
-		
-		if (anObject)
-			TTObjectBaseRelease(&anObject);
 		
 		mExposedAttributes->remove(attributeName);
 		
@@ -532,14 +503,15 @@ TTErr TTSubscriber::unexposeAttribute(TTSymbol attributeName)
 
 TTErr TTSubscriberMessageReturnValueCallback(const TTValue& baton, const TTValue& data)
 {
+    TTObject        o, anObject;
 	TTSubscriberPtr aSubscriber;
-	TTObjectBasePtr	anObject;
 	TTSymbol		messageName;
 	TTValue			v, none;
 	TTErr			err;
 	
 	// unpack baton (a TTSubscriber)
-	aSubscriber = TTSubscriberPtr((TTObjectBasePtr)baton[0]);
+    o = baton[0]
+	aSubscriber = (TTSubscriberPtr)o.instance();
 	messageName = baton[1];
 	
 	// get the exposed TTObjectBase
@@ -552,7 +524,7 @@ TTErr TTSubscriberMessageReturnValueCallback(const TTValue& baton, const TTValue
 		v = data;
 		
 		// send data
-		anObject->sendMessage(messageName, data, none);
+		anObject.send(messageName, data, none);
 		
 		return kTTErrNone;
 	}
@@ -562,14 +534,15 @@ TTErr TTSubscriberMessageReturnValueCallback(const TTValue& baton, const TTValue
 
 TTErr TTSubscriberAttributeReturnValueCallback(const TTValue& baton, const TTValue& data)
 {
+    TTObject        o, anObject;
 	TTSubscriberPtr aSubscriber;
-	TTObjectBasePtr	anObject;
 	TTSymbol		attributeName;
 	TTValue			v;
 	TTErr			err;
 	
 	// unpack baton (a TTSubscriber)
-	aSubscriber = TTSubscriberPtr((TTObjectBasePtr)baton[0]);
+    o = baton[0]
+	aSubscriber = (TTSubscriberPtr)o.instance();
 	attributeName = baton[1];
 	
 	// get the exposed TTObjectBase
@@ -582,7 +555,7 @@ TTErr TTSubscriberAttributeReturnValueCallback(const TTValue& baton, const TTVal
 		v = data;
 		
 		// send data
-		anObject->setAttributeValue(attributeName, data);
+		anObject.set(attributeName, data);
 		
 		return kTTErrNone;
 	}
@@ -592,27 +565,28 @@ TTErr TTSubscriberAttributeReturnValueCallback(const TTValue& baton, const TTVal
 
 TTErr TTSubscriberAttributeObserveValueCallback(const TTValue& baton, const TTValue& data)
 {
+    TTObject        o, aData;
 	TTSubscriberPtr aSubscriber;
-	TTObjectBasePtr	aData;
 	TTSymbol		attributeName;
 	TTValue			v;
 	TTErr			err;
 	
 	// unpack baton (a TTSubscriber)
-	aSubscriber = TTSubscriberPtr((TTObjectBasePtr)baton[0]);
+    o = baton[0]
+	aSubscriber = (TTSubscriberPtr)o.instance();
 	attributeName = baton[1];
 	
 	// get the TTData which expose the attribute
 	err = aSubscriber->mExposedAttributes->lookup(attributeName, v);
 	
 	if (!err) {
-		aData = TTDataPtr((TTObjectBasePtr)v[0]);
+		aData = v[0];
 		
 		// protect data
 		v = data;
 		
 		// set data
-		aData->setAttributeValue(kTTSym_value, data);
+		aData.set(kTTSym_value, data);
 		
 		return kTTErrNone;
 	}
