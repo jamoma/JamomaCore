@@ -34,75 +34,66 @@ extern "C" void TTOutputAudio::registerClass()
 TTOutputAudio::TTOutputAudio(const TTValue& arguments) :
 TTOutput(arguments)
 {
-	TTValue				args;
+	TTValue args;
 	
 	mType = "audio";
 
 	// the only argument is the owner, which is used as a baton to hand to the callback
 	if (arguments.size())
-		mReturnSignalCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
+		mReturnSignalCallback = arguments[0];
 	if (arguments.size() > 1)
-		mReturnLinkCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
+		mReturnLinkCallback = arguments[1];
 	
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &mSignalIn, 1);
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &mSignalOut, 1);
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &mSignalTemp, 1);
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &mSignalZero, 1);
+	mSignalIn = TTObject(kTTSym_audiosignal, 1);
+	mSignalOut = TTObject(kTTSym_audiosignal, 1);
+	mSignalTemp = TTObject(kTTSym_audiosignal, 1);
+	mSignalZero = TTObject(kTTSym_audiosignal, 1);
     
-	TTObjectBaseInstantiate(TTSymbol("crossfade"), &mMixUnit, 1);
-	if (mMixUnit)
-        mMixUnit->setAttributeValue(TTSymbol("position"), 1.0);
+	mMixUnit = TTObject("crossfade", 1);
+    mMixUnit.set("position", 1.0);
 	
-    TTObjectBaseInstantiate(TTSymbol("gain"), &mGainUnit, 1);
-    if (mGainUnit)
-        mGainUnit->setAttributeValue(TTSymbol("linearGain"), 1.0);
+    mGainUnit = TTObject("gain", 1);
+    mGainUnit.set("linearGain", 1.0);
     
-	TTObjectBaseInstantiate(TTSymbol("ramp"), &mRampMixUnit, 1);
-	TTObjectBaseInstantiate(TTSymbol("ramp"), &mRampGainUnit, 1);
+	mRampMixUnit = TTObject(TTSymbol("ramp"), 1);
+	mRampGainUnit = TTObject(TTSymbol("ramp"), 1);
 }
 
 
 TTOutputAudio::~TTOutputAudio()
 {
-	TTObjectBaseRelease(&mSignalIn);
-	TTObjectBaseRelease(&mSignalOut);
-	TTObjectBaseRelease(&mSignalTemp);
-	TTObjectBaseRelease(&mSignalZero);
-	TTObjectBaseRelease(&mMixUnit);
-	TTObjectBaseRelease(&mGainUnit);
-	TTObjectBaseRelease(&mRampMixUnit);
-	TTObjectBaseRelease(&mRampGainUnit);
+    ;
 }
 
 
 void TTOutputAudio::process(TTSampleValue* anInputSampleVector, TTSampleValue* anOutputSampleVector, TTUInt16 aVectorSize)
 {
 	// Store the audio vector as a proper audio signal
-	TTAudioSignalPtr(mSignalIn)->setVector64Copy(0, aVectorSize, anInputSampleVector);
+	TTAudioSignalPtr(mSignalIn.instance())->setVector64Copy(0, aVectorSize, anInputSampleVector);
 	
 	// if the output signal is muted
 	if (mMute)
-		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalZero), *TTAudioSignalPtr(mSignalOut));
+		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalZero.instance()), *TTAudioSignalPtr(mSignalOut));
 	
 	// if input signal exists
-	else if (mInputObject) {
+	else if (mInputObject.instance()) {
 		
 		// if input signal is bypassed : copy input (in Temp)
-		if (mInputObject->mBypass)
-			TTAudioSignal::copy(*TTAudioSignalPtr(mInputObject->mSignalIn), *TTAudioSignalPtr(mSignalTemp));
+		if (TTInputPtr(mInputObject.instance())->mBypass)
+			TTAudioSignal::copy(*TTAudioSignalPtr(TTInputPtr(mInputObject.instance())->mSignalIn.instance()), *TTAudioSignalPtr(mSignalTemp.instance()));
 		
 		// otherwise mix input and output signals (in Temp)
 		else
-			TTAudioObjectBasePtr(mMixUnit)->process(TTAudioSignalPtr(mInputObject->mSignalOut), TTAudioSignalPtr(mSignalIn), TTAudioSignalPtr(mSignalTemp));
+			TTAudioObjectBasePtr(mMixUnit.instance())->process(TTAudioSignalPtr(TTInputPtr(mInputObject.instance())->mSignalOut.instance()), TTAudioSignalPtr(mSignalIn.instance()), TTAudioSignalPtr(mSignalTemp.instance()));
 		
 		// then perform gain control (from Temp)
-		TTAudioObjectBasePtr(mGainUnit)->process(TTAudioSignalPtr(mSignalTemp), TTAudioSignalPtr(mSignalOut));
+		TTAudioObjectBasePtr(mGainUnit.instance())->process(TTAudioSignalPtr(mSignalTemp.instance()), TTAudioSignalPtr(mSignalOut.instance()));
 	}
 	// otherwise just perform gain control
 	else
-		TTAudioObjectBasePtr(mGainUnit)->process(TTAudioSignalPtr(mSignalIn), TTAudioSignalPtr(mSignalOut));
+		TTAudioObjectBasePtr(mGainUnit.instance())->process(TTAudioSignalPtr(mSignalIn.instance()), TTAudioSignalPtr(mSignalOut.instance()));
 	
 	// Send the input on to the outlets for the algorithm
-	TTAudioSignalPtr(mSignalOut)->getVectorCopy(0, aVectorSize, anOutputSampleVector);
+	TTAudioSignalPtr(mSignalOut.instance())->getVectorCopy(0, aVectorSize, anOutputSampleVector);
 }
 
