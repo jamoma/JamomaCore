@@ -516,14 +516,14 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
         // Ultimately though, we actually want to convert the units after the ramping,
         // for example to perform a sweep that is linear vs logarithmic
         ////////////////////////////////////////////////////////////////
-        if (mDataspaceConverter) {
+        if (mDataspaceConverter.valid()) {
             
             if (!command->lookup(kTTSym_unit, v)) {
                 
                 TTValue convertedValue;
                 
                 v.get(0, unit);
-                mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
+                mDataspaceConverter.set(kTTSym_inputUnit, unit);
                 convertUnit(aValue, convertedValue);
                 aValue = convertedValue;
             }
@@ -696,14 +696,14 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
         // Ultimately though, we actually want to convert the units after the ramping,
         // for example to perform a sweep that is linear vs logarithmic
         ////////////////////////////////////////////////////////////////
-        if (mDataspaceConverter) {
+        if (mDataspaceConverter.valid()) {
             
             if (!command->lookup(kTTSym_unit, v)) {
                 
                 TTValue convertedValue;
                 
                 unit = v[0];
-                mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
+                mDataspaceConverter.set(kTTSym_inputUnit, unit);
                 convertUnit(aValue, convertedValue);
                 aValue = convertedValue;
             }
@@ -881,14 +881,14 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
         // Ultimately though, we actually want to convert the units after the ramping,
         // for example to perform a sweep that is linear vs logarithmic
         ////////////////////////////////////////////////////////////////
-        if (mDataspaceConverter) {
+        if (mDataspaceConverter.valid()) {
             
             if (!command->lookup(kTTSym_unit, v)) {
                 
                 TTValue convertedValue;
                 
                 v.get(0, unit);
-                mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
+                mDataspaceConverter.set(kTTSym_inputUnit, unit);
                 convertUnit(aValue, convertedValue);
                 aValue = convertedValue;
             }
