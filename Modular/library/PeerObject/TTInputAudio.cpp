@@ -55,14 +55,12 @@ void TTInputAudio::process(TTSampleValue* anInputSampleVector, TTSampleValue* an
 	TTAudioSignalPtr(mSignalIn.instance())->setVector64Copy(0, aVectorSize, anInputSampleVector);
     
     // Sum signal from j.send~ objects
-    if (mSignalCache) {
+    for (mSignalCache.begin(); mSignalCache.end(); mSignalCache.next()) {
+        TTObject o = mSignalCache.current()[0];
+        TTAudioSignalPtr sentSignal = TTAudioSignalPtr(o.instance());
         
-        for (mSignalCache.begin(); mSignalCache.end(); mSignalCache.next()) {
-            TTAudioSignalPtr sentSignal = TTAudioSignalPtr((TTObjectBasePtr)mSignalCache.current()[0]);
-            
-            if (sentSignal)
-                *TTAudioSignalPtr(mSignalIn.instance()) += *sentSignal;
-        }
+        if (sentSignal)
+            *TTAudioSignalPtr(mSignalIn.instance()) += *sentSignal;
     }
 	
 	// if signal is bypassed or muted, send a zero signal to the algorithm
