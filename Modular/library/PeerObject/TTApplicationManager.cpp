@@ -1188,22 +1188,6 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 			}
 		}
 		
-		// get the application version 
-		xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("version"));
-		aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
-        
-        if (inputValue.size() == 1)
-            if (v[0].type() == kTypeSymbol)
-                version = v[0];
-        
-        // get the application type
-		xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("type"));
-		aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
-        
-        if (inputValue.size() == 1)
-            if (v[0].type() == kTypeSymbol)
-                type = v[0];
-		
 		// if the application exists : get it
 		if (!mApplications.lookup(applicationName, v))
 			mApplicationCurrent = v[0];
@@ -1212,15 +1196,11 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		else {
 			mApplicationCurrent = TTObject(kTTSym_Application);
 			mApplicationCurrent.set("name", applicationName);
-			mApplicationCurrent.set("version", version);
-			mApplicationCurrent.set("type", type);
 		}
 		
         // if the node is empty : don't use it
         if (aXmlHandler->mXmlNodeIsEmpty)
             mApplicationCurrent = TTObject();
-		
-		return kTTErrNone;
 	}
 	
 	if (mApplicationCurrent.valid()) {

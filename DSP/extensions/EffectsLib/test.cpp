@@ -1,10 +1,16 @@
-//
-//  main.cpp
-//  JamomaTest
-//
-//  Created by Timothy Place on 7/3/13.
-//
-//
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief Default unit test for classes in the #dspEffectsLib.
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2013, Timothy Place @n
+ * License: This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
+
 
 #include <iostream>
 #include "TTFoundationAPI.h"

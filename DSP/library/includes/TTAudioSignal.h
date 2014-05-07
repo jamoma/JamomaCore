@@ -74,17 +74,18 @@ public:
 	
 	
 	/** Assigns a vector of sample values to a channel in this signal.
-	 *	The vector member of this class simply holds a pointer, not a copy of the data.  This makes the 
-	 *	operation of this method (and others) fast, but also means that care should be taken to ensure
-	 *	that the data being pointed to by this signal is valid, and does not become invalid during the
-	 *	lifetime of the signal.
-	 *
-	 *	It is the responsibility of the user of this method to ensure that the sample-rate and vector-size
-	 *	are also set correctly.
-	 *	@param		channel			The channel number (zero-based) to assign the vector to.
-	 *	@param		vectorSize		The number of samples in the vector.
-	 *	@param		newVector		A pointer to the first sample in a vector of samples.
-	 *	@result		An error code.																 */
+	 @details The vector member of this class simply holds a pointer, not a copy of the data.  This makes the
+	 operation of this method (and others) fast, but also means that care should be taken to ensure
+	 that the data being pointed to by this signal is valid, and does not become invalid during the
+	 lifetime of the signal.
+	 
+	 It is the responsibility of the user of this method to ensure that the sample-rate and vector-size
+	 are also set correctly.
+	 @param		channel			The channel number (zero-based) to assign the vector to.
+	 @param		vectorSize		The number of samples in the vector.
+	 @param		newVector		A pointer to the first sample in a vector of samples.
+	 @result		An error code.																 
+	 */
 	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector);
 //	TTErr setVector64(const TTValue& v, TTValue&);	// A version of the above used by the message passing interface.
 	TTErr setVector64Copy(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector);

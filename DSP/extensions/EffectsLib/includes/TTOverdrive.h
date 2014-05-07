@@ -1,10 +1,16 @@
-/*
- * Overdrive / Soft Saturation Effect
- * Copyright © 2008, Timothy Place
+/** @file
  *
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html
+ * @ingroup dspEffectsLib
+ *
+ * @brief #TTOverdrive is a soft saturation distortion effect.
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_OVERDRIVE_H__
 #define __TT_OVERDRIVE_H__

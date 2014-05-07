@@ -562,7 +562,7 @@ TTErr Minuit::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& ar
 				
 				err = anOscSender.send("send", message, none);
             
-				if (mActivity) {
+				if (!err && mActivity) {
 					v = arguments;
 					v.prepend(header);
 					ActivityOutMessage(v);

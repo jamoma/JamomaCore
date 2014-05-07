@@ -1,10 +1,16 @@
-/* 
- * simple waveshaper
- * Copyright © 2011, Nils Peters
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief #TTWaveshaper distorts the signal by applying a waveshaper distortion
+ *
+ * @authors Nils Peters, Trond Lossius
+ *
+ * @copyright Copyright © 2011, Nils Peters @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTWaveshaper.h"
 
