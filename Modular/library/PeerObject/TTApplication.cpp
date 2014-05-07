@@ -1425,11 +1425,11 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
 
 TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName)
 {
-    TTObject        aMirror;
-    TTNodePtr		aNode;
-	TTBoolean		newInstanceCreated, allowGetRequest, allowSetRequest, allowListenRequest;
-	TTObjectBasePtr	getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
-	TTValue         baton;
+    TTObject    aMirror;
+    TTNodePtr   aNode;
+	TTBoolean   newInstanceCreated, allowGetRequest, allowSetRequest, allowListenRequest;
+	TTObject    getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
+	TTValue     baton;
     
     if (objectName != kTTSymEmpty && objectName != kTTSym_none) {
         
@@ -1439,12 +1439,11 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         
         if (allowGetRequest) {
             
-            getAttributeCallback = NULL;
-            TTObjectBaseInstantiate(TTSymbol("callback"), &getAttributeCallback, none);
+            getAttributeCallback = TTObject("callback");
             // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
-            getAttributeCallback->setAttributeValue(kTTSym_baton, baton);
-            getAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolGetAttributeCallback));
+            getAttributeCallback.set(kTTSym_baton, baton);
+            getAttributeCallback.set(kTTSym_function, TTPtr(&ProtocolGetAttributeCallback));
             args.append(getAttributeCallback);
         }
         else
@@ -1454,20 +1453,18 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         
         if (allowSetRequest) {
             
-            setAttributeCallback = NULL;
-            TTObjectBaseInstantiate(TTSymbol("callback"), &setAttributeCallback, none);
+            setAttributeCallback = TTObject("callback");
             // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
-            setAttributeCallback->setAttributeValue(kTTSym_baton, baton);
-            setAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSetAttributeCallback));
+            setAttributeCallback.set(kTTSym_baton, baton);
+            setAttributeCallback.set(kTTSym_function, TTPtr(&ProtocolSetAttributeCallback));
             args.append(setAttributeCallback);
             
-            sendMessageCallback = NULL;
-            TTObjectBaseInstantiate(TTSymbol("callback"), &sendMessageCallback, none);
+            sendMessageCallback = TTObject("callback");
             // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
-            sendMessageCallback->setAttributeValue(kTTSym_baton, baton);
-            sendMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolSendMessageCallback));
+            sendMessageCallback.set(kTTSym_baton, baton);
+            sendMessageCallback.set(kTTSym_function, TTPtr(&ProtocolSendMessageCallback));
             args.append(sendMessageCallback);
         }
         else {
@@ -1480,12 +1477,11 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         
         if (allowListenRequest) {
             
-            listenAttributeCallback = NULL;
-            TTObjectBaseInstantiate(TTSymbol("callback"), &listenAttributeCallback, none);
+            listenAttributeCallback = TTObject("callback");
             // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
-            listenAttributeCallback->setAttributeValue(kTTSym_baton, baton);
-            listenAttributeCallback->setAttributeValue(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
+            listenAttributeCallback.set(kTTSym_baton, baton);
+            listenAttributeCallback.set(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
             args.append(listenAttributeCallback);
         }
         else
@@ -1503,11 +1499,13 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
 TTObjectBasePtr TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service)
 {
     TTObject    aData;
+    TTValue     baton;
     TTNodePtr   aNode;
 	TTBoolean	newInstanceCreated;
     
     aData = TTObject(kTTSym_Data, service);
     
+    baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
     aData.set(kTTSym_baton, baton);
     aData.set(kTTSym_function, TTPtr(&TTApplicationProxyDataValueCallback));
     
@@ -1519,9 +1517,9 @@ TTObjectBasePtr TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress 
 
 TTObjectBasePtr TTApplication::appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress)
 {
-    TTContainerPtr  aContainer;
-    TTNodePtr		aNode;
-	TTBoolean		newInstanceCreated;
+    TTObject    aContainer;
+    TTNodePtr   aNode;
+	TTBoolean   newInstanceCreated;
     
     aContainer = TTObject(kTTSym_Container);
     
