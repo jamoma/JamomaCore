@@ -66,14 +66,14 @@ private:
 #endif
     TTUInt32            mRamp;                      ///< ATTRIBUTE : a ramp time to pass to the output data
 	
-	TTReceiverPtr		mReceiver;					///< the receiver which binds on In data(s)
-	TTSenderPtr			mSender;					///< the sender which binds on Out data(s)
+	TTObject            mReceiver;					///< the receiver which binds on In data(s)
+	TTObject            mSender;					///< the sender which binds on Out data(s)
 	
-	TTReceiverPtr		mInputObserver;				///< the receiver which observe the input address creation/destruction
-	TTReceiverPtr		mOutputObserver;			///< the receiver which observe the output address creation/destruction
+	TTObject            mInputObserver;				///< the receiver which observe the input address creation/destruction
+	TTObject            mOutputObserver;			///< the receiver which observe the output address creation/destruction
 	
-	TTReceiverPtr		mInputRangeObserver;		///< the receiver which observe the input rangeBounds attribute
-	TTReceiverPtr		mOutputRangeObserver;		///< the receiver which observe the output rangeBounds attribute
+	TTObject            mInputRangeObserver;		///< the receiver which observe the input rangeBounds attribute
+	TTObject            mOutputRangeObserver;		///< the receiver which observe the output rangeBounds attribute
 	TTBoolean			mObserveInputRange;			///< do observe Input rangeBounds attribute ?
 													///< Set to true if there are a setting Input address
 													///< Set to false if there are a setting of Input Min/Max value
@@ -81,17 +81,17 @@ private:
 													///< Set to true if there are a setting Output address
 													///< Set to false if there are a setting of Output Min/Max value
 	
-	TTCallbackPtr		mReturnValueCallback;		///< a way to return back value to the owner of this mapper
+	TTObject            mReturnValueCallback;		///< a way to return back value to the owner of this mapper
     
-    TTCallbackPtr		mReturnInputGoingDownCallback;///< a way to return back if the input value is lower than or equal to the down threshold
-    TTCallbackPtr		mReturnInputGoingUpCallback;///< a way to return back if the input value is greater than or equal to the up threshold
+    TTObject            mReturnInputGoingDownCallback;///< a way to return back if the input value is lower than or equal to the down threshold
+    TTObject            mReturnInputGoingUpCallback;///< a way to return back if the input value is greater than or equal to the up threshold
     
-    TTCallbackPtr		mReturnOutputGoingDownCallback;///< a way to return back if the output value is lower than or equal to the down threshold
-    TTCallbackPtr		mReturnOutputGoingUpCallback;///< a way to return back if the output value is greater than or equal to the up threshold
+    TTObject            mReturnOutputGoingDownCallback;///< a way to return back if the output value is lower than or equal to the down threshold
+    TTObject            mReturnOutputGoingUpCallback;///< a way to return back if the output value is greater than or equal to the up threshold
 	
 	TTFloat64			mA, mB, mC, mD;				//< Coefficients used for normalizing input(A, B) and output (C, D)
 #ifndef TT_NO_DSP
-	TTAudioObjectBasePtr mFunctionUnit;
+	TTObject            mFunctionUnit;
 	TTBoolean			mValid;						//< true if the functionUnit can be used
 #endif
 	
