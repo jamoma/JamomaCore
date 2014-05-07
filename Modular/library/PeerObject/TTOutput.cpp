@@ -2,7 +2,7 @@
  *
  * @ingroup modularLibrary
  *
- * @brief TTObjectBase to handle any signal output
+ * @brief Handles any signal output
  *
  * @details
  *
@@ -27,49 +27,32 @@ mMute(NO),
 mMix(100.),
 mGain(100.),
 mFreeze(NO),
-mSignalIn(NULL),
-mSignalOut(NULL),
-mSignalTemp(NULL),
-mSignalZero(NULL),
-mMixUnit(NULL),
-mGainUnit(NULL),
-mRampMixUnit(NULL),
-mRampGainUnit(NULL),
-mInputObject(NULL),
-mReturnSignalCallback(NULL),
-mReturnLinkCallback(NULL),
-mLast(NULL),
-mAddressObserver(NULL),
-mSignal(kTTValNONE),
 mSignalAttr(NULL)
 {
 	TT_ASSERT("Correct number of arguments to instantiate TTOutput", arguments.size() > 0);
 	
-    if (arguments.size() > 0)
-        mType = arguments[0];
+    if (arguments.size() > 0) {
+        mReturnSignalCallback = arguments[0];
+        TT_ASSERT("Return Signal Callback passed to TTOutput is valid", mReturnSignalCallback).valid();
+    }
     
     if (arguments.size() > 1) {
-        mReturnSignalCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
-        TT_ASSERT("Return Signal Callback passed to TTOutput is not NULL", mReturnSignalCallback);
-    }
-    
-    if (arguments.size() > 2) {
-        mReturnLinkCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
-        TT_ASSERT("Return Link Callback passed to TTOutput is not NULL", mReturnLinkCallback);
+        mReturnLinkCallback = arguments[1];
+        TT_ASSERT("Return Link Callback passed to TTOutput is valid", mReturnLinkCallback.valid());
     }
 	
-	if (arguments.size() > 3) {
-		mSignalIn = arguments[3];
-		mSignalOut = arguments[4];
-		mSignalTemp = arguments[5];
-		mSignalZero = arguments[6];
+	if (arguments.size() > 2) {
+		mSignalIn = arguments[2];
+		mSignalOut = arguments[3];
+		mSignalTemp = arguments[4];
+		mSignalZero = arguments[5];
 	}
 	
-	if (arguments.size() > 7) {
-		mMixUnit = arguments[7];
-		mGainUnit = arguments[8];
-		mRampMixUnit = arguments[9];
-		mRampGainUnit = arguments[10];
+	if (arguments.size() > 6) {
+		mMixUnit = arguments[6];
+		mGainUnit = arguments[7];
+		mRampMixUnit = arguments[8];
+		mRampGainUnit = arguments[9];
 	}
 	
 	addAttribute(Type, kTypeSymbol);
@@ -109,50 +92,16 @@ mSignalAttr(NULL)
 
 TTOutput::~TTOutput()
 {
-	if (mReturnSignalCallback)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnSignalCallback));
-	
-	if (mReturnLinkCallback)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnLinkCallback));
-	
-	if (mSignalIn)
-		TTObjectBaseRelease(&mSignalIn);
-	
-	if (mSignalOut)
-		TTObjectBaseRelease(&mSignalOut);
-	
-	if (mSignalTemp)
-		TTObjectBaseRelease(&mSignalTemp);
-	
-	if (mSignalZero)
-		TTObjectBaseRelease(&mSignalZero);
-	
-	if (mMixUnit)
-		TTObjectBaseRelease(&mMixUnit);
-	
-	if (mGainUnit)
-		TTObjectBaseRelease(&mGainUnit);
-	
-	if (mRampMixUnit)
-		TTObjectBaseRelease(&mMixUnit);
-	
-	if (mRampGainUnit)
-		TTObjectBaseRelease(&mGainUnit);
-	
-	if (mAddressObserver) {
-        
-		if (mInputAddress != kTTSymEmpty)
-			accessApplicationLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
-        
-		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
-	}
+    if (mInputAddress != kTTSymEmpty)
+        accessApplicationLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
 }
 
 TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTErr err;
+    TTValue none;
     
-    if (!mReturnSignalCallback)
+    if (!mReturnSignalCallback.valid())
         return kTTErrGeneric;
 	
 	if (mMute)
@@ -160,13 +109,13 @@ TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 	
 	else if (mFreeze) {
 		
-		err = mReturnSignalCallback->deliver(mLast);
+		err = mReturnSignalCallback.send("notify", mLast, none);
 		
 		notifySignalObserver(mLast);
 	}
 	else {
 		
-		err = mReturnSignalCallback->deliver(inputValue);
+		err = mReturnSignalCallback.send("notify", inputValue, none);
 		
 		notifySignalObserver(inputValue);
 	}
@@ -186,54 +135,46 @@ TTErr TTOutput::SendBypassed(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
 {
-	mInputObject = TTInputPtr((TTObjectBasePtr)inputValue[0]);
+	mInputObject = inputValue[0];
 	
-	if (mReturnLinkCallback)
-		return mReturnLinkCallback->deliver(1);
-	else
-		return kTTErrNone;
+    return mReturnLinkCallback.send("notify", 1, none);
 }
 
 TTErr TTOutput::Unlink()
 {
-	mInputObject = NULL;
+	mInputObject = TTObject();
 	
-	if (mReturnLinkCallback)
-		return mReturnLinkCallback->deliver(0);
-	else
-		return kTTErrNone;
+	return mReturnLinkCallback->deliver(0);
 }
 
 TTErr TTOutput::setInputAddress(const TTValue& value)
 {
-	TTValue			args;
-	TTAddress       newAddress;
-	TTNodePtr		aNode;
-	TTObjectBasePtr	o;
-	TTValue			none, n = value;		// use new value to protect the attribute
+	TTValue		args;
+	TTAddress   newAddress;
+	TTNodePtr	aNode;
+	TTObject	o;
+	TTValue		none, n = value;		// use new value to protect the attribute
     
 	newAddress = value[0];
 	
 	if (!accessApplicationLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
 		o = aNode->getObject();
-		if (o)
-			if (o->getName() == kTTSym_Input|| o->getName() == kTTSym_InputAudio)
+		if (o.valid())
+			if (o.name() == kTTSym_Input|| o.name() == kTTSym_InputAudio)
 				Link(o, none);
 	}
 
-	if (!mAddressObserver) {
+	if (!mAddressObserver.valid()) {
 		
 		// prepare arguments
-		mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
-		
-		mAddressObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
-		mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTOutputDirectoryCallback));
-		mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTOutput"));		// this is usefull only to debug
+		mAddressObserver = TTObject("callback");
+        // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+		mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+		mAddressObserver.set(kTTSym_function, TTPtr(&TTOutputDirectoryCallback));
 	}
 	
-	if (mAddressObserver) {
+	if (mAddressObserver.valid()) {
 		if (mInputAddress != kTTAdrsEmpty)
 			accessApplicationLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
 		
@@ -249,25 +190,17 @@ TTErr TTOutput::setMute(const TTValue& value)
 {
 	mMute = value;
 	
-	if (mGainUnit) {
-		
-		if (mMute)
-			return mGainUnit->setAttributeValue(TTSymbol("linearGain"), 0.0);
-		else 
-			return mGainUnit->setAttributeValue(TTSymbol("midiGain"), mGain);
-	}
-	
-	return kTTErrNone;
+    if (mMute)
+        return mGainUnit.set("linearGain", 0.0);
+    else
+        return mGainUnit.set("midiGain", mGain);
 }
 
 TTErr TTOutput::setMix(const TTValue& value)
 {
 	mMix = value;
 	
-	if (mMixUnit)
-		return mMixUnit->setAttributeValue(TTSymbol("position"), mMix * 0.01);
-	
-	return kTTErrNone;
+    return mMixUnit.set("position", mMix * 0.01);
 }
 
 TTErr TTOutput::Mix(const TTValue& inputValue, TTValue& outputValue)
@@ -279,10 +212,7 @@ TTErr TTOutput::setGain(const TTValue& value)
 {
 	mGain = value;
 	
-	if (mGainUnit)
-		return mGainUnit->setAttributeValue(TTSymbol("midiGain"), mGain);
-	
-	return kTTErrNone;
+	return mGainUnit.set("midiGain", mGain);
 }
 
 TTErr TTOutput::notifySignalObserver(const TTValue& value)
@@ -301,14 +231,16 @@ TTErr TTOutput::notifySignalObserver(const TTValue& value)
 
 TTErr TTOutputDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
+    TTObject        o;
 	TTOutputPtr		anOutput;
 	TTSymbol		anAddress;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
-	TTObjectBasePtr		o;
+    TTValue         none;
 	
-	// unpack baton (an OutputPtr)
-	anOutput = TTOutputPtr((TTObjectBasePtr)baton[0]);
+	// unpack baton (a TTOutput)
+    o = baton[0]
+	anOutput = (TTOutputPtr)o.instance();
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -316,15 +248,14 @@ TTErr TTOutputDirectoryCallback(const TTValue& baton, const TTValue& data)
 	flag = data[2];
 	
 	o = aNode->getObject();
-	if (o) {
-		if (o->getName() == kTTSym_Input || o->getName() == kTTSym_InputAudio) {
+	if (o.valid()) {
+		if (o.name() == kTTSym_Input || o.name() == kTTSym_InputAudio) {
 			
 			switch (flag) {
 					
 				case kAddressCreated :
 				{
-					TTValue unused;
-					anOutput->Link(o, unused);
+					anOutput->Link(o, none);
 					break;
 				}
 					
