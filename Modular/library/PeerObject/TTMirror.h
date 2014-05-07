@@ -76,10 +76,10 @@ private:
 	TTSymbol					mType;							///< ATTRIBUTE : the type of the object binded by the mirror
     TTBoolean                   mIsListening;                   ///< to not forget to disable listening when the Mirror will be destroyed
 	
-	TTCallbackPtr				mGetAttributeCallback;			///< a way to get the attribute value
-	TTCallbackPtr				mSetAttributeCallback;			///< a way to set the attribute value
-	TTCallbackPtr				mSendMessageCallback;			///< a way to send a message
-	TTCallbackPtr				mListenAttributeCallback;		///< a way to listen the attribute value
+	TTObject                    mGetAttributeCallback;			///< a way to get the attribute value
+	TTObject                    mSetAttributeCallback;			///< a way to set the attribute value
+	TTObject                    mSendMessageCallback;			///< a way to send a message
+	TTObject                    mListenAttributeCallback;		///< a way to listen the attribute value
     
     TTHash                      mAttributeValueCache;           ///< a hash table to cache attribute value (if no mGetAttributeCallback)
 	

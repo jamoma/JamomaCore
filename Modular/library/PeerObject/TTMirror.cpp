@@ -21,11 +21,7 @@
 #define thisTTClassTags		"mirror"
 
 TT_MODULAR_CONSTRUCTOR,
-mType(kTTSymEmpty),
-mGetAttributeCallback(NULL),
-mSetAttributeCallback(NULL),
-mSendMessageCallback(NULL),
-mListenAttributeCallback(NULL)
+mType(kTTSymEmpty)
 {	
 	TTValue				attributeNames, messageNames, args, none;
 	TTSymbol			name;
@@ -42,33 +38,31 @@ mListenAttributeCallback(NULL)
     if (mType != kTTSymEmpty) {
         
         if (arguments.size() >= 2)
-            mGetAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
+            mGetAttributeCallback = arguments[1];
         
         if (arguments.size() >= 3)
-            mSetAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
+            mSetAttributeCallback = arguments[2];
         
         if (arguments.size() >= 4)
-            mSendMessageCallback = TTCallbackPtr((TTObjectBasePtr)arguments[3]);
+            mSendMessageCallback = arguments[3];
         
         if (arguments.size() >= 5)
-            mListenAttributeCallback = TTCallbackPtr((TTObjectBasePtr)arguments[4]);
-        
+            mListenAttributeCallback = arguments[4];
         
         // instantiate a temp object to copy visible attributes and messages
-        TTObjectBasePtr anObject = NULL;
         args.resize(32);
-        err = TTObjectBaseInstantiate(mType,  &anObject, args);
+        TTObject anObject = TTObject(mType, args);
         
-        if (!err) {
+        if (anObject.valid()) {
             
-            anObject->getAttributeNames(attributeNames);
+            anObject.attributes(attributeNames);
             for (TTUInt32 i = 0; i < attributeNames.size(); i++) {
                 
                 anAttribute = NULL;
                 name = attributeNames[i];
-                anObject->getAttribute(name, &anAttribute);
+                anObject.instance()->getAttribute(name, &anAttribute);
                 
-                if (mGetAttributeCallback)
+                if (mGetAttributeCallback.valid())
                     addMirrorAttribute(name, anAttribute->type);
                 
                 // else cache the attribute value
@@ -86,18 +80,16 @@ mListenAttributeCallback(NULL)
                 //addMirrorAttributeProperty(name, readOnly, anAttribute->readOnly);
             }
             
-            anObject->getMessageNames(messageNames);
+            anObject.messages(messageNames);
             for (TTUInt32 i = 0; i < messageNames.size(); i++) {
                 
                 name = messageNames[i];
-                anObject->getMessage(name, &aMessage);
+                anObject.instance()->getMessage(name, &aMessage);
                 
                 addMirrorMessage(name, aMessage->flags);
                 
                 // TODO : addMirrorMessageProperty
             }
-            
-            TTObjectBaseRelease(&anObject);
         }
     }
     
@@ -195,7 +187,7 @@ TTErr TTMirror::AttributeUncache(const TTValue& inputValue, TTValue& outputValue
 
 TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 {
-	if (mGetAttributeCallback) {
+	if (mGetAttributeCallback.valid()) {
         
         TTValue data, none;
 		
@@ -203,7 +195,7 @@ TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 		data.append((TTPtr)&value);
 		
 		return mGetAttributeCallback->deliver(data);
-		mGetAttributeCallback->notify(data, none);
+		mGetAttributeCallback.send("notify", data, none);
         
         if (value.size() > 0)
             return kTTErrNone;
@@ -214,18 +206,18 @@ TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 
 TTErr TTMirror::setMirrorAttribute(TTAttribute& anAttribute, const TTValue& value)
 {
-	TTValue data;
+	TTValue data, none;
 	TTErr	err = kTTErrNone;
 	
-	if (mSetAttributeCallback) {
+	if (mSetAttributeCallback.valid()) {
 		
 		data.append(anAttribute.name);
 		data.append((TTPtr)&value);
 		
-		err = mSetAttributeCallback->deliver(data);
+		err = mSetAttributeCallback.send("notify", data, none);
         
         // if the mirror cannot listen value : notify observers ourself
-        if (!mListenAttributeCallback)
+        if (!mListenAttributeCallback.valid())
             anAttribute.sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
 	}
 	 
@@ -252,10 +244,10 @@ TTErr TTMirror::getMirrorCachedAttribute(TTAttribute& anAttribute, TTValue& valu
 
 TTErr TTMirror::setMirrorCachedAttribute(TTAttribute& anAttribute, const TTValue& value)
 {
-	TTValue data, cached;
+	TTValue data, cached, none;
 	TTErr	err = kTTErrNone;
 	
-	if (mSetAttributeCallback) {
+	if (mSetAttributeCallback.valid()) {
 		
 		data.append(anAttribute.name);
 		data.append((TTPtr)&value);
@@ -266,7 +258,7 @@ TTErr TTMirror::setMirrorCachedAttribute(TTAttribute& anAttribute, const TTValue
             mAttributeValueCache.append(anAttribute.name, value);
         }
 		
-		err = mSetAttributeCallback->deliver(data);
+		err = mSetAttributeCallback.send("notify", data, none);
         
         // if the mirror cannot listen value : notify observers ourself
         if (!mListenAttributeCallback)
@@ -278,15 +270,15 @@ TTErr TTMirror::setMirrorCachedAttribute(TTAttribute& anAttribute, const TTValue
 
 TTErr TTMirror::sendMirrorMessage(const TTSymbol* messageName, const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue data;
+	TTValue data, none;
     TTErr   err = kTTErrNone;
 	
-	if (mSendMessageCallback) {
+	if (mSendMessageCallback.valid()) {
 		
 		data.append(messageName);
 		data.append((TTPtr)&inputValue);
 		
-		err = mSetAttributeCallback->deliver(data);
+		err = mSetAttributeCallback.send("notify", data, none);
 	}
 	
 	return err;
@@ -300,7 +292,7 @@ TTErr TTMirror::updateAttributeValue(const TTSymbol attributeName, TTValue& valu
 	err = this->findAttribute(attributeName, &anAttribute);
     
     // if attributes are cached
-    if (!mGetAttributeCallback) {
+    if (!mGetAttributeCallback.valid()) {
         
         TTValue cached;
         
@@ -319,21 +311,16 @@ TTErr TTMirror::updateAttributeValue(const TTSymbol attributeName, TTValue& valu
 
 TTErr TTMirror::enableListening(const TTAttribute& anAttribute, TTBoolean enable)
 {	
-	TTValue data;
+	TTValue data, none;
     TTErr   err = kTTErrNone;
 	
-	if (mListenAttributeCallback) {
+	if (mListenAttributeCallback.valid()) {
 		
 		data.append(anAttribute.name);
 		data.append(enable);
 		
-		err = mListenAttributeCallback->deliver(data);
+		err = mListenAttributeCallback.send("notify", data, none);
 	}
 	
 	return err;
 }
-
-#if 0
-#pragma mark -
-#pragma mark Some Methods
-#endif
