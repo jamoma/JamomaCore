@@ -206,7 +206,7 @@ TTErr TTSubscriber::Unsubscribe()
                     // notify
                     aDirectory->notifyObservers(mNodeAddress, aNode, kAddressDestroyed);
                     
-                    // set NULL object
+                    // set empty object
                     aNode->setObject();
                 }
             }
@@ -370,7 +370,7 @@ TTErr TTSubscriber::exposeMessage(TTObject anObject, TTSymbol messageName, TTObj
         // Create TTData
         returnedData = TTObject(kTTSym_Data, kTTSym_message);
         
-        baton = TTValue(TTObject(TTObjectBasePtr(this)), messageName);
+        baton = TTValue(TTObject(this), messageName);
         returnedData.set(kTTSym_baton, baton);
         returnedData.set(kTTSym_function, TTPtr(&TTSubscriberMessageReturnValueCallback));
         
@@ -411,7 +411,7 @@ TTErr TTSubscriber::exposeAttribute(TTObject anObject, TTSymbol attributeName, T
             // Create TTData
             returnedData = TTObject(kTTSym_Data, service);
             
-            baton = TTValue(TTObject(TTObjectBasePtr(this)), attributeName);
+            baton = TTValue(TTObject(this), attributeName);
             returnedData.set(kTTSym_baton, baton);
             returnedData.set(kTTSym_function, TTPtr(&TTSubscriberMessageReturnValueCallback));
             
@@ -427,7 +427,7 @@ TTErr TTSubscriber::exposeAttribute(TTObject anObject, TTSymbol attributeName, T
 
                 observeValueCallback = TTObject("callback");
                 
-				baton = TTValue(TTObject(TTObjectBasePtr(this)), attributeName);
+				baton = TTValue(TTObject(this), attributeName);
                 observeValueCallback.set(kTTSym_baton, baton);
                 observeValueCallback.set(kTTSym_function, TTPtr(&TTSubscriberAttributeObserveValueCallback));
                 

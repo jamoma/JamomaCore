@@ -191,7 +191,7 @@ TTErr TTExplorer::bindAddress()
 			// observe any creation or destruction below the address
 			mAddressObserver = TTObject("callback");
 			
-			mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+			mAddressObserver.set(kTTSym_baton, TTObject(this));
 			mAddressObserver.set(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
 			
 			if (mDepth)
@@ -226,7 +226,7 @@ TTErr TTExplorer::bindApplication()
 		
 		mApplicationObserver = TTObject("callback");
 		
-		mApplicationObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+		mApplicationObserver.set(kTTSym_baton, TTObject(this));
 		mApplicationObserver.set(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
@@ -1005,7 +1005,7 @@ TTErr TTExplorerApplicationManagerCallback(const TTValue& baton, const TTValue& 
 TTBoolean TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2) 
 {
 	TTNodePtr	n1, n2;
-	TTObjectBasePtr o1, o2;
+	TTObject    o1, o2;
 	TTValue		v;
 	TTInt32		p1 = 0;
 	TTInt32		p2 = 0;
@@ -1015,8 +1015,8 @@ TTBoolean TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2)
 	if (n1) {
 		o1 = n1->getObject();
 		
-		if (o1)
-			if (!o1->getAttributeValue(kTTSym_priority, v))
+		if (o1.valid())
+			if (!o1.get(kTTSym_priority, v))
 				p1 = v[0];
 	}
 	
@@ -1025,8 +1025,8 @@ TTBoolean TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2)
 	if (n2) {
 		o2 = n2->getObject();
 		
-		if (o2)
-			if (!o2->getAttributeValue(kTTSym_priority, v))
+		if (o2.valid())
+			if (!o2.get(kTTSym_priority, v))
 				p2 = v[0];
 	}
 	

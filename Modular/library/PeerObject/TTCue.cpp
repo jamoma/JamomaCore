@@ -576,14 +576,14 @@ TTErr TTCue::Update(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCue::processUpdate(TTObject aScript)
 {
-	TTListPtr		lines;
+	TTListPtr	lines;
 	TTDictionaryBasePtr	aLine;
-    TTAddress       anAddress;
-    TTNodePtr       aNode;
-	TTObjectBasePtr	anObject;
-    TTSymbol        service;
-	TTValue			v;
-    TTErr           err;
+    TTAddress   anAddress;
+    TTNodePtr   aNode;
+	TTObject    anObject;
+    TTSymbol    service;
+	TTValue		v;
+    TTErr       err;
 	
 	aScript.get("flattenedLines", v);
 	lines = TTListPtr((TTPtr)v[0]);
@@ -603,19 +603,19 @@ TTErr TTCue::processUpdate(TTObject aScript)
                 
                 anObject = aNode->getObject();
                 
-                if (anObject) {
+                if (anObject.valid()) {
                     
-                    if (anObject->getName() == kTTSym_Data) {
+                    if (anObject.name() == kTTSym_Data) {
                         
                         // get his service attribute value
-                        anObject->getAttributeValue(kTTSym_service, v);
+                        anObject.get(kTTSym_service, v);
                         service = v[0];
                         
                         // update only parameters
                         if (service == kTTSym_parameter) {
                             
                             // get his current value
-                            err = anObject->getAttributeValue(kTTSym_value, v);
+                            err = anObject.get(kTTSym_value, v);
                             
                             if (!err) {
                                 

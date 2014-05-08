@@ -272,7 +272,7 @@ TTErr TTReceiver::bindAddress()
 					if (!err) {
 						TTObject newObserver = TTObject("callback");
 						
-						baton = TTValue(TTObject(TTObjectBasePtr(this)));
+						baton = TTValue(TTObject(this));
 						aNode->getAddress(anAddress);
 						baton.append(anAddress.appendAttribute(mAddress.getAttribute()));
 						
@@ -309,7 +309,7 @@ TTErr TTReceiver::bindAddress()
 	// observe any creation or destruction below the attr_name address
 	mAddressObserver = TTObject("callback");
 	
-	mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+	mAddressObserver.set(kTTSym_baton, TTObject(this));
 	mAddressObserver.set(kTTSym_function, TTPtr(&TTReceiverDirectoryCallback));
 	
 	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
@@ -385,7 +385,7 @@ TTErr TTReceiver::bindApplication()
 		
 		mApplicationObserver = TTObject("callback");
 		
-		mApplicationObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+		mApplicationObserver.set(kTTSym_baton, TTObject(this));
 		mApplicationObserver.set(kTTSym_function, TTPtr(&TTReceiverApplicationManagerCallback));
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);

@@ -183,7 +183,7 @@ TTErr TTSender::bindAddress()
 	// 3. Observe any creation or destruction below the address
 	mAddressObserver = TTObject("callback");
 	
-	mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+	mAddressObserver.set(kTTSym_baton, TTObject(this));
 	mAddressObserver.set(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
 
 	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
@@ -217,7 +217,7 @@ TTErr TTSender::bindApplication()
 		
 		mApplicationObserver = TTObject("callback");
 		
-		mApplicationObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+		mApplicationObserver.set(kTTSym_baton, TTObject(this));
 		mApplicationObserver.set(kTTSym_function, TTPtr(&TTSenderApplicationManagerCallback));
 
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);

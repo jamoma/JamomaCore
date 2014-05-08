@@ -122,13 +122,12 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			xmlTextWriterWriteAttribute((xmlTextWriterPtr)mWriter, BAD_CAST "xsi:schemaLocation", BAD_CAST mXmlSchemaLocation.c_str());
 			
 			// Write data for each given object (which have to implement a WriteAsXml message)
-            v = TTObject(this);
             for (i = 0; i < objectValue.size(); i++) {
                 
                 if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
                 
                     anObject = objectValue[i];
-                    errValue[i] = anObject.send("WriteAsXml", v, none);
+                    errValue[i] = anObject.send("WriteAsXml", TTObject(this), none);
                     
                     if (!(errValue[i] == kTTErrNone))
                         err = kTTErrGeneric;
@@ -156,13 +155,12 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else write data for each given object (which have to implement a WriteAsXml message)
-    v = TTObject(this);
     for (i = 0; i < objectValue.size(); i++) {
         
         if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
             
             anObject = objectValue[i];
-            errValue[i] = anObject.send("WriteAsXml", v, none);
+            errValue[i] = anObject.send("WriteAsXml", TTObject(this), none);
         }
         
         if (!(errValue[i] == kTTErrNone))
@@ -183,14 +181,14 @@ TTErr TTXmlHandler::WriteAgain()
 
 TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 {
-	TTUInt8				xType;
-	const xmlChar		*xName = 0;
-	const xmlChar		*xValue = 0;
-	TTObject            anObject;
-	TTSymbol			lastNodeName;
-	TTValue				v, objectValue, errValue, none;
-	int					ret;
-    TTUInt32            i;
+	TTUInt8			xType;
+	const xmlChar	*xName = 0;
+	const xmlChar	*xValue = 0;
+	TTObject        anObject;
+	TTSymbol		lastNodeName;
+	TTValue			v, objectValue, errValue, none;
+	int				ret;
+    TTUInt32        i;
 	
 	// at least an object have to be selected
 	if (mObject.size() == 0)
@@ -296,13 +294,12 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						}	
 						
                         // Read data for each given object (which have to implement a ReadFromXml message)
-                        v = TTObject(this);
                         for (i = 0; i < objectValue.size(); i++) {
                             
                             if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
                                 
                                 anObject = objectValue[i];
-                                errValue[i] = anObject.send("ReadFromXml", v, none);
+                                errValue[i] = anObject.send("ReadFromXml", TTObject(this), none);
                             }
                         }
 					}
@@ -329,7 +326,6 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else read data for each given object (which have to implement a ReadFromXml message)
-    v = TTObject(this);
     for (i = 0; i < objectValue.size(); i++) {
         
         if (objectValue[i].type() == kTypeObject) {
@@ -337,7 +333,7 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
             if (objectValue[i].type() == kTypeObject && errValue[i] == kTTErrNone) {
                 
                 anObject = objectValue[i];
-                errValue[i] = anObject.send("ReadFromXml", v, none);
+                errValue[i] = anObject.send("ReadFromXml", TTObject(this), none);
             }
         }
     }

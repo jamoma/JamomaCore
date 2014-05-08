@@ -126,7 +126,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 		// prepare arguments
 		mAddressObserver = TTObject("callback");
         
-		mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+		mAddressObserver.set(kTTSym_baton, TTObject(this));
 		mAddressObserver.set(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
 	}
 	

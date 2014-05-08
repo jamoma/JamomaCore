@@ -246,11 +246,11 @@ TTErr TTContainer::Init()
 
 TTErr TTContainer::initNode(TTNodePtr aNode)
 {
-	TTList          nodeList;
-	TTNodePtr       aChild;
-    TTObjectBasePtr anObject;
-    TTSymbol        service;
-    TTValue         v;
+	TTList      nodeList;
+	TTNodePtr   aChild;
+    TTObject    anObject;
+    TTSymbol    service;
+    TTValue     v;
     
     
     // Init nodes below
@@ -270,18 +270,18 @@ TTErr TTContainer::initNode(TTNodePtr aNode)
         // Send Init message to node's object
         anObject = aChild->getObject();
         
-        if (anObject) {
+        if (anObject.valid()) {
             
             // Send an Init message to all Data service parameter
-            if (anObject->getName() == kTTSym_Data) {
+            if (anObject.name() == kTTSym_Data) {
                 
-                anObject->getAttributeValue(kTTSym_service, v);
+                anObject.get(kTTSym_service, v);
                 service = v[0];
                 if (service == kTTSym_parameter)
-                    anObject->sendMessage(kTTSym_Init);
+                    anObject.send(kTTSym_Init);
             }
-            else if (anObject->getName() == kTTSym_Container)
-                anObject->sendMessage(kTTSym_Init);
+            else if (anObject.name() == kTTSym_Container)
+                anObject.send(kTTSym_Init);
         }
         
         initNode(aChild);
@@ -527,7 +527,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		// create a activity Attribute observer on it
 		anObject.instance()->findAttribute(kTTSym_activity, &anAttribute);
 				
-		baton = TTValue(TTObjectBasePtr(this), aRelativeAddress);
+		baton = TTValue(TTObject(this), aRelativeAddress);
 		
 		activityObserver.set(kTTSym_baton, baton);
 		activityObserver.set(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));

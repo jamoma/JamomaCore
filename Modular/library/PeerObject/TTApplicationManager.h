@@ -195,26 +195,26 @@ private:
 	TTErr ApplicationDiscoverAll(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Get a value from an attribute of an object at an address in an application
-     @param inputValue      <TTSymbol whereToGet,  TTsymbolPtr attributeToGet, TTValuePtr returnedValue>
+     @param inputValue      <TTSymbol whereToGet, TTSymbol attributeToGet, TTValuePtr returnedValue>
      @param outputValue     nothing
      @return #TTErr error code */
 	TTErr ApplicationGet(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Set a value from an attribute of an object at an address in an application
-     @param inputValue      <TTSymbol whereToSet, TTsymbolPtr attributeToSet, TTValuePtr newValue>
+     @param inputValue      <TTSymbol whereToSet, TTSymbol attributeToSet, TTValuePtr newValue>
      @param outputValue     nothing
      @return #TTErr error code */
 	TTErr ApplicationSet(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Listen for value changes from an attribute of an object at an address in an application or for creation/destruction under an address.
-     @param inputValue      <TTObjectBasePtr appToNotify, TTSymbol whereToListen, TTSymbol attribute, TTBoolean enable>
+     @param inputValue      <TTSymbol protocolName, TTSymbol applicationToNotify, TTSymbol whereToListen, TTBoolean enableListening>
      @param outputValue     nothing
      @return #TTErr error code */
 	TTErr ApplicationListen(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Update value changes of an attribute of an object at an address in an application or for creation/destruction under an address.
 	 @details this is usually the answer of distant namespace or #TTMirror attribute listening
-     @param inputValue      <TTObjectBasePtr appAnswering, TTSymbol whereComesFrom, TTSymbol attribute, TTValuePtr newValue>
+     @param inputValue      <TTSymbol appAnswering, TTSymbol whereComesFrom, TTValuePtr newValue>
      @param outputValue     nothing
      @return #TTErr error code */
 	TTErr ApplicationListenAnswer(const TTValue& inputValue, TTValue& outputValue);

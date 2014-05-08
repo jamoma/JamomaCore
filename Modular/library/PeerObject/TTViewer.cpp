@@ -73,12 +73,12 @@ mActive(YES)
     TTValue args;
     
     TTObject returnAddressCallback = TTObject("callback");
-	returnAddressCallback.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+	returnAddressCallback.set(kTTSym_baton, TTObject(this));
 	returnAddressCallback.set(kTTSym_function, TTPtr(&TTViewerReceiveAddressCallback));
 	args.append(returnAddressCallback);
 	
 	TTObject returnValueCallback = TTObject("callback");
-	returnValueCallback.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+	returnValueCallback.set(kTTSym_baton, TTObject(this));
 	returnValueCallback.set(kTTSym_function, TTPtr(&TTViewerReceiveValueCallback));
 	args.append(returnValueCallback);
     
@@ -89,7 +89,7 @@ mActive(YES)
     args.append(NULL);
 	
 	TTObject returnDataspaceCallback = TTObject("callback");
-	returnDataspaceCallback.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+	returnDataspaceCallback.set(kTTSym_baton, TTObject(this));
 	returnDataspaceCallback.set(kTTSym_function, TTPtr(&TTViewerDataspaceCallback));
 	args.append(returnDataspaceCallback);
 	
@@ -100,7 +100,7 @@ mActive(YES)
     args.append(NULL);
 	
 	TTObject returnDataspaceUnitCallback = TTObject("callback");
-	returnDataspaceUnitCallback.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+	returnDataspaceUnitCallback.set(kTTSym_baton, TTObject(this));
 	returnDataspaceUnitCallback.set(kTTSym_function, TTPtr(&TTViewerDataspaceUnitCallback));
 	args.append(returnDataspaceUnitCallback);
 	

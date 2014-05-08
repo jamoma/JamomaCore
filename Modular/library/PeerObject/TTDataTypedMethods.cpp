@@ -48,7 +48,7 @@ TTErr TTData::setType(const TTValue& value)
 			mValueStepsize = TTValue(1);
 			mRangeBounds.set(0, TTUInt16(0));
 			mRangeBounds.set(1, TTUInt16(1));
-            mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
+            mRampDrive = mRampDriveDefault;
 		}
 		else if (mType == kTTSym_decimal) {
             commandMethod = (TTMethodValue)&TTData::DecimalCommand;
@@ -61,7 +61,7 @@ TTErr TTData::setType(const TTValue& value)
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
-            mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
+            mRampDrive = mRampDriveDefault;
 		}
 		else if (mType == kTTSym_string) {
             commandMethod = (TTMethodValue)&TTData::StringCommand;
@@ -99,7 +99,7 @@ TTErr TTData::setType(const TTValue& value)
 			mValueStepsize = TTValue(0.1);
 			mRangeBounds.set(0, 0.);
 			mRangeBounds.set(1, 1.);
-            mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
+            mRampDrive = mRampDriveDefault;
 		}
 		else if (mType == kTTSym_none) {
             commandMethod = (TTMethodValue)&TTData::NoneCommand;
