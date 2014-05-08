@@ -47,7 +47,7 @@ Gear2D::~Gear2D()
 TTErr Gear2D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
+	TTChannelCount		numOutputChannels = out.getNumChannelsAsInt();
 	
 	if (numOutputChannels != 2) {
 		TTValue v = 2;		

@@ -104,8 +104,8 @@ TTErr TTPanorama::processLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTAudioSignal&	in				= inputs->getSignal(0);
 	TTAudioSignal&	out				= outputs->getSignal(0);
 	TTUInt16		vs				= in.getVectorSizeAsInt();
-	TTUInt16		numOutChannels	= out.getNumChannelsAsInt();
-	TTUInt16		numInChannels	= in.getNumChannelsAsInt();
+	TTChannelCount	numOutChannels	= out.getNumChannelsAsInt();
+	TTChannelCount	numInChannels	= in.getNumChannelsAsInt();
 	
 	if (numOutChannels < 2)
 		out.setMaxNumChannels(2);
@@ -138,8 +138,8 @@ TTErr TTPanorama::processEqualPowerLookup(TTAudioSignalArrayPtr inputs, TTAudioS
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs = in.getVectorSizeAsInt();
 	int				index= (int)(mScaledPosition * 510.0);
-	TTUInt16		numOutChannels	= out.getNumChannelsAsInt();
-	TTUInt16		numInChannels	= in.getNumChannelsAsInt();
+	TTChannelCount	numOutChannels	= out.getNumChannelsAsInt();
+	TTChannelCount	numInChannels	= in.getNumChannelsAsInt();
 	
 	if (numOutChannels < 2)
 		out.setMaxNumChannels(2);	
@@ -172,8 +172,8 @@ TTErr TTPanorama::processSquareRootLookup(TTAudioSignalArrayPtr inputs, TTAudioS
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs = in.getVectorSizeAsInt();
 	int				index= (int)(mScaledPosition * 510.0);
-	TTUInt16		numOutChannels	= out.getNumChannelsAsInt();
-	TTUInt16		numInChannels	= in.getNumChannelsAsInt();
+	TTChannelCount	numOutChannels	= out.getNumChannelsAsInt();
+	TTChannelCount	numInChannels	= in.getNumChannelsAsInt();
 	
 	if (numOutChannels < 2)
 		out.setMaxNumChannels(2);	
@@ -207,8 +207,8 @@ TTErr TTPanorama::processEqualPowerCalc(TTAudioSignalArrayPtr inputs, TTAudioSig
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs = in.getVectorSizeAsInt();	
 	TTFloat64		radPosition = mScaledPosition * kTTHalfPi;	
-	TTUInt16		numOutChannels	= out.getNumChannelsAsInt();
-	TTUInt16		numInChannels	= in.getNumChannelsAsInt();
+	TTChannelCount	numOutChannels	= out.getNumChannelsAsInt();
+	TTChannelCount	numInChannels	= in.getNumChannelsAsInt();
 	
 	if (numOutChannels < 2)
 		out.setMaxNumChannels(2);	
@@ -239,8 +239,8 @@ TTErr TTPanorama::processSquareRootCalc(TTAudioSignalArrayPtr inputs, TTAudioSig
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs = in.getVectorSizeAsInt();
-	TTUInt16		numOutChannels	= out.getNumChannelsAsInt();
-	TTUInt16		numInChannels	= in.getNumChannelsAsInt();
+	TTChannelCount	numOutChannels	= out.getNumChannelsAsInt();
+	TTChannelCount	numInChannels	= in.getNumChannelsAsInt();
 	
 	if (numOutChannels < 2)
 		out.setMaxNumChannels(2);	

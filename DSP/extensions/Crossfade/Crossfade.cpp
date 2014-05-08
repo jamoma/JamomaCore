@@ -1,8 +1,15 @@
-/* 
- * TTBlue Signal Crossfader Object
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspCrossfadeLib
+ *
+ * @brief #TTCrossfade - signal cross fading
+ *
+ * @details
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -20,9 +27,9 @@ static TTSampleValue zeroVector2[2048]; //TODO: make this dynamically sized
 static TTSampleValue zeroVector3[2048]; //TODO: make this dynamically sized
 
 
-/**	TTCrossfade in an audio processor that crossfades between two input signals.	
+/**	Crossfade between two input signals.	
  
- In fact, this processor can work on a number of channels, provided that the number of input
+ @details In fact, this processor can work on a number of channels, provided that the number of input
  channels is twice the number of output channels.  In this case the first N/2 input channels are
  considered as the A source and the last N/2 input channels are considered the B source.
  */
@@ -138,8 +145,8 @@ TTErr TTCrossfade::processLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTSampleValue	*inSampleA,
 	*inSampleB,
 	*outSample;
-	TTUInt16		numchannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
+	TTChannelCount	numchannels = out.getNumChannelsAsInt();
+	TTChannelCount		channel;
 	
 	if (inputs->numAudioSignals > 1) {
 		TTAudioSignal&	in2 = inputs->getSignal(1);
@@ -197,8 +204,8 @@ TTErr TTCrossfade::processEqualPowerLookup(TTAudioSignalArrayPtr inputs, TTAudio
 	TTSampleValue	*inSampleA,
 	*inSampleB,
 	*outSample;
-	TTUInt16		numchannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
+	TTChannelCount	numchannels = out.getNumChannelsAsInt();
+	TTChannelCount	channel;
 	int				index;
 	
 	if (inputs->numAudioSignals > 1) {
@@ -257,8 +264,8 @@ TTErr TTCrossfade::processSquareRootLookup(TTAudioSignalArrayPtr inputs, TTAudio
 	TTSampleValue	*inSampleA,
 	*inSampleB,
 	*outSample;
-	TTUInt16		numchannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
+	TTChannelCount	numchannels = out.getNumChannelsAsInt();
+	TTChannelCount	channel;
 	int				index;
 	
 	if (inputs->numAudioSignals > 1) {
@@ -320,8 +327,8 @@ TTErr TTCrossfade::processEqualPowerCalc(TTAudioSignalArrayPtr inputs, TTAudioSi
 	TTSampleValue	*inSampleA,
 	*inSampleB,
 	*outSample;
-	TTUInt16		numchannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
+	TTChannelCount	numchannels = out.getNumChannelsAsInt();
+	TTChannelCount	channel;
 	TTFloat64		radPosition;
 	
 	if (inputs->numAudioSignals > 1) {
@@ -370,8 +377,8 @@ TTErr TTCrossfade::processSquareRootCalc(TTAudioSignalArrayPtr inputs, TTAudioSi
 	TTSampleValue	*inSampleA,
 	*inSampleB,
 	*outSample;
-	TTUInt16		numchannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
+	TTChannelCount	numchannels = out.getNumChannelsAsInt();
+	TTChannelCount	channel;
 	
 	if (inputs->numAudioSignals > 1) {
 		TTAudioSignal&	in2 = inputs->getSignal(1);

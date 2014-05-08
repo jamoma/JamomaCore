@@ -44,7 +44,7 @@ TTErr TTStaircase::processDownsample(TTAudioSignalArrayPtr inputs, TTAudioSignal
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt	channel;
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() / 2;
 	
@@ -71,7 +71,7 @@ TTErr TTStaircase::processUpsample(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt	channel;
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() * 2;
 	TTErr			err;

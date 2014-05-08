@@ -152,7 +152,7 @@ void TTTestLog(const char *fmtstring, ...)
 	strncpy(fullstr, "		", 4095);
 	strncat(fullstr, str, 4095);
 	strncat(fullstr, "\n", 4095);
-//	TTLogMessage(fullstr);
+	TTLogMessage(fullstr);
 }
 
 

@@ -25,8 +25,8 @@ class TTAudioGraphPick : public TTAudioObjectBase {
 	
 protected:
 	
-	std::vector<TTUInt16>	mPickChannels;	///< The specific channels we want to pick
-	TTUInt16			mNumPickChannels; ///< The number of channels we pick
+	std::vector<TTChannelCount>	mPickChannels;	///< The specific channels we want to pick
+	TTChannelCount		mNumPickChannels; ///< The number of channels we pick
 	TTBoolean			outputNeedsResize;
 	
 	TTErr setPicks(const TTValueRef args)
@@ -37,7 +37,7 @@ protected:
 			outputNeedsResize = true;
 		}
 				
-		for (TTUInt16 i=0; i<mNumPickChannels; i++) {
+		for (TTChannelCount i=0; i<mNumPickChannels; i++) {
 			mPickChannels[i] = args[i]; //substracting offset (channel 1 is JAG-channel 0)
 			mPickChannels[i] = mPickChannels[i] - 1;
 		}
@@ -47,7 +47,7 @@ protected:
 	TTErr getPicks(TTValueRef args)
 	{
 		args.resize(mNumPickChannels);
-		for (TTUInt16 i=0; i<mNumPickChannels; i++)
+		for (TTChannelCount i=0; i<mNumPickChannels; i++)
 			args[i] = mPickChannels[i] + 1; //re-adding offset
 		return kTTErrNone;
 	}
@@ -57,9 +57,9 @@ protected:
 		TTAudioSignal&	in = inputs->getSignal(0);
 		TTAudioSignal&	out = outputs->getSignal(0);
 		TTSampleValuePtr	inSample, outSample;
-		TTUInt16		inputChannelCount = in.getNumChannelsAsInt();		
+		TTChannelCount	inputChannelCount = in.getNumChannelsAsInt();
 		TTUInt16		vs = out.getVectorSizeAsInt();
-		TTUInt16		currentPick; 
+		TTChannelCount	currentPick;
 		
 		if (outputNeedsResize){
 		out.setMaxNumChannels(mNumPickChannels);
@@ -67,7 +67,7 @@ protected:
 		outputNeedsResize = false;
 		}
 		
-		for (TTUInt16 i=0; i < mNumPickChannels; i++) {
+		for (TTChannelCount i=0; i < mNumPickChannels; i++) {
 			outSample = out.mSampleVectors[i];
 			//n = vs;
 			currentPick = mPickChannels[i];

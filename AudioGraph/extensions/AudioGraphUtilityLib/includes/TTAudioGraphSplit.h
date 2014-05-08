@@ -26,7 +26,7 @@ class TTAudioGraphSplit : public TTAudioObjectBase {
 	
 protected:
 	
-	std::vector<TTUInt16>	mSplitChannels;	///< The number of channels in each of N groups of signals
+	std::vector<TTChannelCount>	mSplitChannels;	///< The number of channels in each of N groups of signals
 	
 	TTErr setGroups(const TTValueRef args)
 	{
@@ -51,13 +51,13 @@ protected:
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
 		TTAudioSignal&	in = inputs->getSignal(0);
-		TTUInt16		inputChannelCount = in.getNumChannelsAsInt();
-		TTUInt16		channelOffset = 0;
-		TTUInt16		channelBound = 0;
+		TTChannelCount		inputChannelCount = in.getNumChannelsAsInt();
+		TTChannelCount		channelOffset = 0;
+		TTChannelCount		channelBound = 0;
 		
 		for (TTUInt16 i=0; i < outputs->numAudioSignals; i++) {
 			TTAudioSignal&	out = outputs->getSignal(i);
-			TTUInt16		numChannels = mSplitChannels[i];
+			TTChannelCount		numChannels = mSplitChannels[i];
 			
 			// TODO: we don't really want to alloc this memory every time!
 			out.setMaxNumChannels(numChannels);

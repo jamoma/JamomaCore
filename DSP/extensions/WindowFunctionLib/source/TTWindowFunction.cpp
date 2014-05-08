@@ -177,8 +177,8 @@ TTErr WindowFunction::processApply(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTSampleValuePtr	inSample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16			channel;
+	TTChannelCount		numChannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount		channel;
 	
 	// In 'apply' mode we automatically update the lookup table size to the vector size
 	// This is slow, but hopefully only happens once (if ever)

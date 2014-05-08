@@ -53,7 +53,7 @@ TTErr TTLowpassFunction::updateMaxNumChannels(const TTValue& oldMaxNumChannels, 
 
 TTErr TTLowpassFunction::clear()
 {
-	for (TTUInt16 channel=0; channel<mMaxNumChannels; channel++)
+	for (TTChannelCount channel=0; channel<mMaxNumChannels; channel++)
 		mFeedback[channel] = 0.0;
 	return kTTErrNone;
 }

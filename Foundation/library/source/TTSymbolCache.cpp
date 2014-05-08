@@ -12,15 +12,19 @@
 
 TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
 
+// osc namespace
 TTFOUNDATION_EXPORT TTSymbol		kTTSymEmpty						((""));
 TTFOUNDATION_EXPORT TTSymbol		kTTSymSlash						(("/"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSymDot						(("."));
 TTFOUNDATION_EXPORT TTSymbol		kTTSymColon						((":"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSymStar						(("*"));
+
+// vectors
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_setVector32				(("setVector32"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_getVector32				(("getVector32"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_setVector64				(("setVector64"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_getVector64				(("getVector64"));
+
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_alloc					(("alloc"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_attribute				(("attribute"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_audioEngineWillProcess	(("audioEngineWillProcess"));
@@ -61,8 +65,12 @@ TTFOUNDATION_EXPORT TTSymbol		kTTSym_value					(("value"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_vectorSize				(("vectorSize"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_sampleRate				(("sampleRate"));
 TTFOUNDATION_EXPORT TTSymbol        kTTSym_schema                   (("schema"));
+
+// networking
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_tcp						(("tcp"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_udp						(("udp"));
+
+// waveforms
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_sine						(("sine"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_sineMod					(("sineMod"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_cosine					(("cosine"));
@@ -75,6 +83,8 @@ TTFOUNDATION_EXPORT TTSymbol		kTTSym_ramp						(("ramp"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_rampMod					(("rampMod"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_sawtooth					(("sawtooth"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_sawtoothMod				(("sawtoothMod"));
+
+// object names
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_adsr						(("adsr"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_audiosignal				(("audiosignal"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_audiosignalarray			(("audiosignalarray"));
@@ -82,6 +92,8 @@ TTFOUNDATION_EXPORT TTSymbol		kTTSym_dcblock					(("dcblock"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_gain						(("gain"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_operator					(("operator"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_phasor					(("phasor"));
+
+// matrix related
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_matrix					(("matrix"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_matrixarray				(("matrixarray"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_dimensions				(("dimensions"));
@@ -89,6 +101,8 @@ TTFOUNDATION_EXPORT TTSymbol		kTTSym_type						(("type"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_elementCount				(("elementCount"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_samplematrix				(("samplematrix"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_buffer                   (("buffer"));
+
+// data types - 3 defined above: none, object, value
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_float32					(("float32"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_float64					(("float64"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_int8						(("int8"));

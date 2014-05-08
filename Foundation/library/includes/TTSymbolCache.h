@@ -14,12 +14,14 @@
 
 extern TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
 
+// osc namespace
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymEmpty;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymSlash;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymDot;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymColon;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymStar;
 
+// vectors
 extern TTFOUNDATION_EXPORT TTSymbol kTTSym_setVector32;
 extern TTFOUNDATION_EXPORT TTSymbol kTTSym_getVector32;
 extern TTFOUNDATION_EXPORT TTSymbol kTTSym_setVector64;
@@ -65,6 +67,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_vectorSize;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_sampleRate;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_schema;
 
+// networking
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_tcp;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_udp;
 

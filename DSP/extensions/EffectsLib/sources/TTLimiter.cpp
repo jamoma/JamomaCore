@@ -36,7 +36,7 @@ TT_AUDIO_CONSTRUCTOR,
 	maxBufferSize(512),
 	attrMode(TT("exponential"))
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 	
 	// register our attributes
 	registerAttribute(TT("preamp"),		kTypeFloat64,	NULL,			(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
@@ -85,8 +85,8 @@ TTLimiter::~TTLimiter()
 // TODO: These message receiver args should be reversed -- this is a change that should be applied throughout TTBlue
 TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	TTUInt16	channel;
-	TTUInt16	numChannels = oldMaxNumChannels;
+	TTChannelCount	channel;
+	TTChannelCount	numChannels = oldMaxNumChannels;
 
 	if (lookaheadBuffer) {
 		for (channel=0; channel<numChannels; channel++)

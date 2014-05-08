@@ -39,10 +39,10 @@ TTErr TTSpatBaseRenderer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSign
 	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTSampleValuePtr	inSample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numInputChannels = in.getNumChannelsAsInt();
-	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
-	TTUInt16			outChannel;
-	TTUInt16			inChannel;
+	TTChannelCount		numInputChannels = in.getNumChannelsAsInt();
+	TTChannelCount		numOutputChannels = out.getNumChannelsAsInt();
+	TTChannelCount		outChannel;
+	TTChannelCount		inChannel;
     TTSampleValue       gainValue;
 	
 	TTInt16				sourceCount = mMixerMatrixCoefficients->getRowCount();

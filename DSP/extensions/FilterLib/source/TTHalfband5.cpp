@@ -31,7 +31,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mR0("allpass.1a"),
 	mR1("allpass.1a")
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
 	addMessage(clear);
@@ -236,7 +236,7 @@ TTErr TTHalfband5::processDownsample(TTAudioSignalArrayPtr inputs, TTAudioSignal
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt	channel;
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() / 2;
 	//TTErr			err;
@@ -267,7 +267,7 @@ TTErr TTHalfband5::processUpsample(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt	channel;
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() * 2;
 	TTErr			err;

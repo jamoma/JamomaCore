@@ -23,7 +23,7 @@
 TT_AUDIO_CONSTRUCTOR,
 	dcBlockerUnit(kTTSym_dcblock)
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 	
 	// Register Attributes
 	addAttributeWithSetter(Drive,				kTypeFloat64);
@@ -128,8 +128,8 @@ TTErr TTOverdrive::processMode0(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channel;
 	TTSampleValue	temp,
 					sign;
 
@@ -169,8 +169,8 @@ TTErr TTOverdrive::processMode1(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	short			vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channel;
 	TTSampleValue	temp;
 #ifdef TT_PLATFORM_WIN
 	TTSampleValue	sign;

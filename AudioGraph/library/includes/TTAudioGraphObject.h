@@ -105,7 +105,7 @@ public:
 	/** Get the number of channels for an outlet.
 	 @param forOutletNumber		The outlet that we want to retrieve informaiton about.
 	 */
-	TTUInt16 getOutputNumChannels(TTUInt16 forOutletNumber)
+	TTChannelCount getOutputNumChannels(TTUInt16 forOutletNumber)
 	{
 		if (forOutletNumber < mAudioOutlets.size())
 			return mAudioOutlets[forOutletNumber].mBufferedOutput->getNumChannelsAsInt();
@@ -118,7 +118,7 @@ public:
 	 @param forOutletNumber		The outlet that we want to set information for.
 	 @param numChannels			The number of channels that the audio signal from this outlet is to have.
 	 */
-	void setOutputNumChannels(TTUInt16 forOutletNumber, TTUInt16 numChannels)
+	void setOutputNumChannels(TTUInt16 forOutletNumber, TTChannelCount numChannels)
 	{
 		sSharedMutex->lock();
 
