@@ -24,9 +24,10 @@
 /**	The TTValue class represents a composite value that can be passed around to methods in Jamoma.
 	It may be composed of a single element or many elements.  
 	The types of the elements are defined in the TTDataType enumeration.
+    It is a subclass of the C++ vector class
 */
 class TTValue : public TTElementVector {
-
+    
 public:
 
 	/** Constructor for an empty value */
@@ -75,10 +76,11 @@ public:
 
 	// force the destructor to be non-virtual
 	// we don't want subclasses of TTValue so it won't be a problem, and this solves linking snafus in some edge cases
+    /** Destructor */
 	~TTValue()
 	{;}
 	
-	
+    
 private:
 	/** Internal method used by the constructors. */
 	void init();
@@ -86,34 +88,28 @@ private:
 	/** Performs a deep copy of the object */
 	inline void copy(const TTValue& obj);
 
+
 public:
 
+    /** Clear all values from the vector, leaving with size of 0 */
 	void clear() {
 		TTElementVector::clear();
 	}
 	
-	/** Return the number of values of this instance. 
-		@deprecated instead, please call the size() method
-	 */
+	/** @deprecated instead, please call the size() method */
 	TT_DEPRECATED( TTUInt16 getSize() const )
 	{
 		return size();
 	}
 	
-	/** @deprecated instead, please call the resize() method @n Set the number of values, and allocate any needed memory.
-     
-	 */
+	/** @deprecated instead, please call the resize() method */
 	TT_DEPRECATED( void setSize(const TTUInt16 arg) )
 	{
 		resize(arg);
 	}
 	
 	
-	/** Get the type of an element.
-		DEPRECATED -- now call type() on the element itself, e.g.
-		TTValue v(1,2,3);
-		TTDataType thetype = v[1].type();
-	 */
+	/** @deprecated instead, please call type() on the element itself, e.g. @n TTValue v(1,2,3); @n TTDataType thetype = v[1].type(); */
 	TT_DEPRECATED( TTDataType getType(const TTUInt16 index=0) const )
 	{
 		return at(index).type();
