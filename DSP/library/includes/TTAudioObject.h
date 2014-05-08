@@ -59,13 +59,13 @@ public:
 	}
 	
 	
-	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector)
+	TTErr setVector(const TTChannelCount channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector)
 	{
 		return instance()->setVector(channel, vectorSize, newVector);
 	}
 	
 	
-	TTErr getVectorCopy(const TTUInt16 channel, const TTUInt16 theVectorSize, TTSampleValue* returnedVector)
+	TTErr getVectorCopy(const TTChannelCount channel, const TTUInt16 theVectorSize, TTSampleValue* returnedVector)
 	{
 		return instance()->getVectorCopy(channel, theVectorSize, returnedVector);
 	}
