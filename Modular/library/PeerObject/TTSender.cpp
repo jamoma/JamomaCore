@@ -21,11 +21,8 @@
 #define thisTTClassTags		"node, sender"
 
 TT_MODULAR_CONSTRUCTOR,
-mSignal(NULL),
 mAddress(kTTAdrsEmpty),
-mDirectory(NULL),
-mAddressObserver(NULL),
-mApplicationObserver(NULL)
+mDirectory(NULL)
 {
 	TT_ASSERT("Correct number of arguments to instantiate TTSender", arguments.size() <= 1);
 	
@@ -49,9 +46,6 @@ mApplicationObserver(NULL)
 
 TTSender::~TTSender()
 {
-	if (mSignal)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mSignal));
-	
 	unbindAddress();
 	unbindApplication();
 }
@@ -88,7 +82,7 @@ TTErr TTSender::getObjectCache(TTValue& value)
 
 TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 {
-	TTObjectBasePtr	anObject;
+	TTObject        anObject;
 	TTValue			aCacheElement, v, c, none;
 	TTAttributePtr	anAttribute;
 	TTSymbol		ttAttributeName;
@@ -116,15 +110,15 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 				// then his object
 				anObject = aCacheElement[0];
 				
-				if (anObject) {
+				if (anObject.valid()) {
 					// DATA CASE for value attribute
-					if (anObject->getName() == kTTSym_Data && ttAttributeName == kTTSym_value) {
+					if (anObject.name() == kTTSym_Data && ttAttributeName == kTTSym_value) {
 						
 						// set the value attribute using a command
-						anObject->sendMessage(kTTSym_Command, valueToSend, none);
+						anObject.send(kTTSym_Command, valueToSend, none);
 					}
 					// CONTAINER CASE for value attribute
-					else if (anObject->getName() == kTTSym_Container && ttAttributeName == kTTSym_value) {
+					else if (anObject.name() == kTTSym_Container && ttAttributeName == kTTSym_value) {
 						
                         if (valueToSend.size() >= 1 ) {
                             if (valueToSend[0].type() == kTypeSymbol) {
@@ -135,7 +129,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
                                 v.append((TTPtr*)&c);
                                 
                                 // send the value
-                                anObject->sendMessage(kTTSym_Send, v, none);
+                                anObject.send(kTTSym_Send, v, none);
                             }
                             else
                                 err = kTTErrGeneric;
@@ -144,19 +138,19 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
                             err = kTTErrGeneric;
 						
 					}
-					else if ((anObject->getName() == kTTSym_Input || anObject->getName() == kTTSym_InputAudio) && ttAttributeName == kTTSym_signal) {
+					else if ((anObject.name() == kTTSym_Input || anObject.name() == kTTSym_InputAudio) && ttAttributeName == kTTSym_signal) {
 						
 						// send the value
-						anObject->sendMessage(kTTSym_Send, valueToSend, none);
+						anObject.send(kTTSym_Send, valueToSend, none);
 					}
 					// DEFAULT CASE
 					// Look for attribute and set it
-					else if (!anObject->findAttribute(ttAttributeName, &anAttribute))
-						anObject->setAttributeValue(ttAttributeName, valueToSend);
+					else if (!anObject.instance()->findAttribute(ttAttributeName, &anAttribute))
+						anObject.set(ttAttributeName, valueToSend);
 					
 					// Or look for message and send it
-					else if (!anObject->findMessage(ttAttributeName, &aMessage))
-						anObject->sendMessage(ttAttributeName, valueToSend, none);
+					else if (!anObject.instance()->findMessage(ttAttributeName, &aMessage))
+						anObject.send(ttAttributeName, valueToSend, none);
 				}
 			}
 		}
@@ -171,10 +165,10 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 TTErr TTSender::bindAddress()
 {
 	TTNodePtr	aNode;
-	TTObjectBasePtr	anObject;
+	TTObject	anObject;
 	TTValue		aCacheElement;
 	TTList		aNodeList;
-	TTValue		v, baton, none;
+	TTValue		v, baton;
 	
 	// 1. Look for the node(s) into the directory
 	mDirectory->Lookup(mAddress, aNodeList, &aNode);
@@ -183,19 +177,15 @@ TTErr TTSender::bindAddress()
 	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
 		aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
 		anObject = aNode->getObject();
-		aCacheElement = TTValue(anObject);
-		mObjectCache.append(aCacheElement);
+		mObjectCache.append(anObject);
 	}
 	
 	// 3. Observe any creation or destruction below the address
-	mAddressObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
+	mAddressObserver = TTObject("callback");
 	
-	mAddressObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
-	mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
-	
-	mAddressObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTSender"));		// this is usefull only to debug
-	
+	mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+	mAddressObserver.set(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
+
 	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	
 	return kTTErrNone;
@@ -210,12 +200,11 @@ TTErr TTSender::unbindAddress()
         mObjectCache.clear();
 		
 		// stop life cycle observation
-		if(mAddressObserver && mDirectory) {
+		if(mAddressObserver.valid() && mDirectory) {
 			
 			err = mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
 			
-			if(!err)
-				TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
+			mAddressObserver = TTObject();
 		}
 	}
 	
@@ -224,18 +213,13 @@ TTErr TTSender::unbindAddress()
 
 TTErr TTSender::bindApplication() 
 {
-    TTValue     none;
-	
-	if (!mApplicationObserver) {
+	if (!mApplicationObserver.valid()) {
 		
-		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), none);
+		mApplicationObserver = TTObject("callback");
 		
-		mApplicationObserver->setAttributeValue(kTTSym_baton, TTObjectBasePtr(this));
-		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTSenderApplicationManagerCallback));
-		
-		mApplicationObserver->setAttributeValue(TTSymbol("owner"), TTSymbol("TTSender"));		// this is usefull only to debug
-		
+		mApplicationObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+		mApplicationObserver.set(kTTSym_function, TTPtr(&TTSenderApplicationManagerCallback));
+
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
 	}
 	
@@ -245,11 +229,11 @@ TTErr TTSender::bindApplication()
 TTErr TTSender::unbindApplication() 
 {
 	
-	if (mApplicationObserver) {
+	if (mApplicationObserver.valid()) {
 		
 		TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
 
-		TTObjectBaseRelease(TTObjectBaseHandle(&mApplicationObserver));
+		mApplicationObserver = TTObject();
 	}
 	
 	mDirectory = NULL;
@@ -262,13 +246,14 @@ TTErr TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data)
 	TTValue			aCacheElement;
 	TTSenderPtr		aSender;
 	TTNodePtr		aNode;
-	TTObjectBasePtr	anObject, aCacheObject;
+	TTObject        o, anObject, aCacheObject;
 	TTAddress		anAddress;
 	TTValue			v;
 	TTUInt8			flag;
 
-	// unpack baton (a TTSenderPtr)
-	aSender = TTSenderPtr((TTObjectBasePtr)baton[0]);
+	// unpack baton (a #TTSender)
+    o = baton[0];
+	aSender = (TTSenderPtr)o.instance();
 
 	// Unpack data (address, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -280,10 +265,9 @@ TTErr TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data)
 		case kAddressCreated :
 		{
 			anObject = aNode->getObject();
-			if (anObject) {
-				aCacheElement = anObject;
-				aSender->mObjectCache.appendUnique(aCacheElement);
-			}
+			if (anObject.valid())
+				aSender->mObjectCache.appendUnique(anObject);
+			
 			break;
 		}
 			
@@ -314,18 +298,20 @@ TTErr TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data)
 
 TTErr TTSenderApplicationManagerCallback(const TTValue& baton, const TTValue& data)
 {
+    TTObject        o;
 	TTSenderPtr		aSender;
 	TTSymbol		anApplicationName;
-	TTApplicationPtr anApplication;
+	TTObject        anApplication;
 	TTValue			v;
 	TTUInt8			flag;
 	
-	// unpack baton (a TTSenderPtr)
-	aSender = TTSenderPtr((TTObjectBasePtr)baton[0]);
+	// unpack baton (a #TTSender)
+    o = baton[0];
+	aSender = (TTSenderPtr)o.instance();
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];
-	anApplication = TTApplicationPtr((TTObjectBasePtr)data[1]);
+	anApplication = data[1];
 	flag = data[2];
 	
 	switch (flag) {

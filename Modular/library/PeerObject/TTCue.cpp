@@ -267,7 +267,7 @@ TTErr TTCue::processRamp(TTObject aScript, TTUInt32 ramp)
 	
 	r = TTValue((int)ramp);
 	
-	aScript.get(TTSymbol("flattenedLines"), v);
+	aScript.get("flattenedLines", v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -585,7 +585,7 @@ TTErr TTCue::processUpdate(TTObject aScript)
 	TTValue			v;
     TTErr           err;
 	
-	aScript.get(TTSymbol("flattenedLines"), v);
+	aScript.get("flattenedLines", v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -789,7 +789,7 @@ TTErr TTCue::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
     if (!aXmlHandler)
 		return kTTErrGeneric;
     
-	TTValue			v;
+	TTValue v;
 	
 	// use WriteAsXml of the script
 	v = TTValue(mScript);
@@ -806,7 +806,7 @@ TTErr TTCue::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
     if (!aXmlHandler)
 		return kTTErrGeneric;
     
-	TTValue			v, parsedLine;
+	TTValue v, parsedLine;
 	
 	// Cue node : append a cue flag with the name
 	if (aXmlHandler->mXmlNodeName == TTSymbol("cue")) {
@@ -836,7 +836,7 @@ TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
     if (!aTextHandler)
 		return kTTErrGeneric;
 
-	TTValue				v;
+	TTValue	v;
 	
 	/* get the address of the script
 	mScript.get(kTTSym_address, v);

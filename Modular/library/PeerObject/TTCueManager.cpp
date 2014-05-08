@@ -294,8 +294,7 @@ TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValu
         // get the namespace
         aSelection = getNamespace();
         
-        v = TTValue((TTPtr)aSelection);
-        mCurrentCue.send("Select", v, none);
+        mCurrentCue.send("Select", (TTPtr)aSelection, none);
         
         // refresh all namespace handlers (TTExplorer only)
         aSelection->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
@@ -310,22 +309,14 @@ TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValu
 
 TTErr TTCueManager::Clear()
 {
-	TTObject	oldCue;
-	TTSymbol    cueName;
-	TTValue		v, names;
-	
-	mCues.getKeys(names);
-	if (names.size()) {
+    mCues.clear();
+    mCurrentCue = TTObject();
+    mCurrent = kTTSymEmpty;
+    mCurrentPosition = 0;
+    mNames.clear();
 		
-		mCues.clear();
-		mCurrentCue = TTObject();
-		mCurrent = kTTSymEmpty;
-		mCurrentPosition = 0;
-		mNames.clear();
-		
-		notifyNamesObservers();
-	}
-	
+    notifyNamesObservers();
+
 	return kTTErrNone;
 }
 

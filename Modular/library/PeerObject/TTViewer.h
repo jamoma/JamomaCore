@@ -29,7 +29,7 @@ typedef TTSender* TTSenderPtr;
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-class TTMODULAR_EXPORT TTViewer : public TTObjectBase
+class TTMODULAR_EXPORT TTViewer : public TTCallback
 {
 	TTCLASS_SETUP(TTViewer)
 	
@@ -44,17 +44,15 @@ private:
 	
 	TTSymbol					mDataspace;					///< ATTRIBUTE : The dataspace that this view uses (default is 'none')
 	TTSymbol					mDataspaceUnit;				///< ATTRIBUTE : The unit within the dataspace.
-	TTObjectBasePtr				mDataspaceConverter;		///< Performs conversions from data unit to the view unit
-	TTReceiverPtr				mDataspaceObserver;			///< the receiver which observe the data's dataspace attribute
-	TTReceiverPtr				mDataspaceUnitObserver;		///< the receiver which observe the data's unit attribute
+	TTObject                    mDataspaceConverter;		///< Performs conversions from data unit to the view unit
+	TTObject                    mDataspaceObserver;			///< Observes the data's dataspace attribute
+	TTObject                    mDataspaceUnitObserver;		///< Observes the data's unit attribute
 	
 	TTBoolean					mActive;					///< ATTRIBUTE : if false, received data won't be output
 	TTValue						mReturnedValue;				///< ATTRIBUTE : a local value to allow observation of this viewer
 	
-	TTReceiverPtr				mReceiver;					///< the receiver which binds on our data
-	TTSenderPtr					mSender;					///< the sender which binds on our data
-	
-	TTCallbackPtr				mReturnValueCallback;		///< a way to return back value to the owner of this viewer
+	TTObject                    mReceiver;					///< Binds to our data
+	TTObject                    mSender;					///< Binds to our data
 	
 	/** set the address */
 	TTErr setAddress(const TTValue& value);
@@ -83,13 +81,6 @@ private:
     /** Ask the value and use the outputValue to return it.
      This method is not relevant with address containing wildcards */
 	TTErr Grab(const TTValue& inputValue, TTValue& outputValue);
-	
-	/** */
-	TTErr bind();
-	TTErr refresh();
-	TTErr convertUnit(const TTValue& inputValue, TTValue& outputValue);
-	TTErr observeDataspace();
-	TTErr observeDataspaceUnit();
 	
 	friend TTErr TTMODULAR_EXPORT TTViewerReceiveAddressCallback(const TTValue& baton, const TTValue& data);
 	friend TTErr TTMODULAR_EXPORT TTViewerReceiveValueCallback(const TTValue& baton, const TTValue& data);

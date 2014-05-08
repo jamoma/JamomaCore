@@ -23,8 +23,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
 mAddress(kTTAdrsEmpty),
-mDirectory(NULL),
-mScript(NULL)
+mDirectory(NULL)
 {
 	TT_ASSERT("Correct number of arguments to instantiate TTPreset", arguments.size() == 0 || arguments.size() == 1);
 	
@@ -48,15 +47,12 @@ mScript(NULL)
 	addMessageWithArguments(ReadFromText);
 	addMessageProperty(ReadFromText, hidden, YES);
 	
-	TTObjectBaseInstantiate(kTTSym_Script, TTObjectBaseHandle(&mScript), arguments);
+	mScript = TTObject(kTTSym_Script, arguments);
 }
 
 TTPreset::~TTPreset()
 {
-    if (mScript) {
-        TTObjectBaseRelease(TTObjectBaseHandle(&mScript));
-        mScript = NULL;
-    }
+    ;
 }
 
 TTErr TTPreset::setAddress(const TTValue& value)
@@ -68,7 +64,7 @@ TTErr TTPreset::setAddress(const TTValue& value)
 	
 	if (mDirectory) {
 		
-		mScript->setAttributeValue(kTTSym_address, mAddress);
+		mScript.set(kTTSym_address, mAddress);
 		return kTTErrNone;
 	}
 	else
@@ -88,13 +84,12 @@ TTErr TTPreset::Store()
 	if (mDirectory) {
 		
 		// 1. Append a preset flag with the name
-		v = TTValue(TTSymbol("preset"));
-		v.append(mName);
-		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
+		v = TTValue("preset", mName);
+		mScript.send("AppendFlag", v, parsedLine);
 		
 		// 2. Append a comment line
-		v = TTValue(TTSymbol("edit a comment"));
-		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
+		v = TTValue("edit a comment");
+		mScript.send("AppendComment", v, parsedLine);
 		
 		// 3. Look for all Objects under the address into the directory
 		mDirectory->Lookup(mAddress, aNodeList, &aNode);
@@ -127,7 +122,7 @@ TTErr TTPreset::Store()
 						continue;
 					
 					v.prepend(aRelativeAddress);
-					mScript->sendMessage(TTSymbol("AppendCommand"), v, parsedLine);
+					mScript.send("AppendCommand", v, parsedLine);
 				}
 			}
 		}
@@ -140,33 +135,33 @@ TTErr TTPreset::Store()
 
 TTErr TTPreset::Clear()
 {
-	return mScript->sendMessage(TTSymbol("Clear"));
+	return mScript.send("Clear");
 }
 
 TTErr TTPreset::Recall(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTAddress       anAddress = kTTAdrsRoot;
-    TTBoolean       flattened;
-    TTValue         v, none;
+    TTAddress  anAddress = kTTAdrsRoot;
+    TTBoolean  flattened;
+    TTValue    v, none;
     
     if (inputValue.size() == 1)
         if (inputValue[0].type() == kTypeSymbol)
             anAddress = inputValue[0];
     
     // is the cue already flattened ?
-    mScript->getAttributeValue(kTTSym_flattened, v);
+    mScript.get(kTTSym_flattened, v);
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, mAddress, none);
+        mScript.send(kTTSym_Flatten, mAddress, none);
 
     // if an address is passed, run the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript->sendMessage(TTSymbol("RunCommand"), inputValue, none);
+        return mScript.send("RunCommand", inputValue, none);
         
     // else run all the script
     else
-        return mScript->sendMessage(kTTSym_Run, mAddress, none);
+        return mScript.send(kTTSym_Run, mAddress, none);
 }
 
 TTErr TTPreset::Output(const TTValue& inputValue, TTValue& outputValue)
@@ -180,31 +175,30 @@ TTErr TTPreset::Output(const TTValue& inputValue, TTValue& outputValue)
             anAddress = inputValue[0];
     
     // is the preset already flattened ?
-    mScript->getAttributeValue(kTTSym_flattened, v);
+    mScript.get(kTTSym_flattened, v);
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, kTTAdrsRoot, none);
+        mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
     
     // if an address is passed, dump the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript->sendMessage(TTSymbol("DumpLine"), inputValue, none);
+        return mScript.send("DumpLine", inputValue, none);
     
     // else dump all the script
     else
-        return mScript->sendMessage(kTTSym_Dump, inputValue, none);
+        return mScript.send(kTTSym_Dump, inputValue, none);
 }
 
 TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTXmlHandlerPtr		aXmlHandler = NULL;
-	TTValue				v;
-	
-	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
+	TTObject o = inputValue[0];
+	TTXmlHandlerPtr aXmlHandler = (TTXmlHandlerPtr)o.instance();
+    if (!aXmlHandler)
+		return kTTErrGeneric;
 	
 	// use WriteAsXml of the script
-	v = TTValue(mScript);
-	aXmlHandler->setAttributeValue(kTTSym_object, v);
+	aXmlHandler->setAttributeValue(kTTSym_object, mScript);
 	aXmlHandler->sendMessage(TTSymbol("Write"));
 	
 	return kTTErrNone;
@@ -212,10 +206,12 @@ TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTXmlHandlerPtr		aXmlHandler = NULL;
-	TTValue				v, parsedLine;
-	
-	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
+	TTObject o = inputValue[0];
+	TTXmlHandlerPtr aXmlHandler = (TTXmlHandlerPtr)o.instance();
+    if (!aXmlHandler)
+		return kTTErrGeneric;
+    
+	TTValue	v, parsedLine;
 	
 	// Preset node : append a preset flag with the name
 	if (aXmlHandler->mXmlNodeName == TTSymbol("preset")) {
@@ -223,16 +219,14 @@ TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 		if (!aXmlHandler->mXmlNodeStart)
 			return kTTErrNone;
 		
-		v = TTValue(TTSymbol("preset"));
-		v.append(mName);
-		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
+		v = TTValue("preset", mName);
+		mScript.send("AppendFlag", v, parsedLine);
 		
 		return kTTErrNone;
 	}
 	
 	// use ReadFromXml of the script
-	v = TTValue(mScript);
-	aXmlHandler->setAttributeValue(kTTSym_object, v);
+	aXmlHandler->setAttributeValue(kTTSym_object, mScript);
 	aXmlHandler->sendMessage(TTSymbol("Read"));
 	
 	return kTTErrNone;
@@ -240,14 +234,13 @@ TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTTextHandlerPtr aTextHandler;
-	TTValue	v;
-	
-	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
+	TTObject o = inputValue[0];
+	TTTextHandlerPtr aTextHandler = (TTTextHandlerPtr)o.instance();
+    if (!aTextHandler)
+		return kTTErrGeneric;
 	
 	// use WriteAsBuffer of the script
-	v = TTValue(mScript);
-	aTextHandler->setAttributeValue(kTTSym_object, v);
+	aTextHandler->setAttributeValue(kTTSym_object, mScript);
 	aTextHandler->sendMessage(TTSymbol("Write"));
 	
 	return kTTErrNone;
@@ -255,18 +248,17 @@ TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTTextHandlerPtr aTextHandler;
-	TTValue	v;
-	
-	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
-	
+	TTObject o = inputValue[0];
+	TTTextHandlerPtr aTextHandler = (TTTextHandlerPtr)o.instance();
+    if (!aTextHandler)
+		return kTTErrGeneric;
+
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
 		Clear();
 	
 	// use ReadAsbuffer of the script
-	v = TTValue(mScript);
-	aTextHandler->setAttributeValue(kTTSym_object, v);
+	aTextHandler->setAttributeValue(kTTSym_object, mScript);
 	aTextHandler->sendMessage(TTSymbol("Read"));
 	
 	return kTTErrNone;
@@ -279,17 +271,17 @@ TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 
 TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 {
-	TTObjectBasePtr o;
+	TTObject    o;
 	TTValue		v;
 	TTSymbol    s;
 
 	// Here we decide to keep nodes which binds on :
 	//		- Data with @service == parameter
 	o = node->getObject();
-	if (o) {
+	if (o.valid()) {
 		
-		if (o->getName() == kTTSym_Data) {
-			o->getAttributeValue(kTTSym_service, v);
+		if (o.name() == kTTSym_Data) {
+			o.get(kTTSym_service, v);
 			s = v[0];
 			return s == kTTSym_parameter;
 		}
@@ -298,31 +290,31 @@ TTBoolean TTPresetTestObject(TTNodePtr node, TTPtr args)
 	return NO;
 }
 
-TTErr TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 position)
+TTErr TTPresetInterpolate(TTObject preset1, TTObject preset2, TTFloat64 position)
 {
     TTBoolean   flattened1, flattened2;
     TTValue     v, none;
     
     // is the preset1 already flattened ?
-    preset1->mScript->getAttributeValue(kTTSym_flattened, v);
+    TTPresetPtr(preset1.instance())->mScript.get(kTTSym_flattened, v);
     flattened1 = v[0];
     
     if (!flattened1)
-        preset1->mScript->sendMessage(kTTSym_Flatten, preset1->mAddress, none);
+        TTPresetPtr(preset1.instance())->mScript.send(kTTSym_Flatten, TTPresetPtr(preset1.instance())->mAddress, none);
     
     // is the preset2 already flattened ?
-    preset2->mScript->getAttributeValue(kTTSym_flattened, v);
+    TTPresetPtr(preset2.instance())->mScript.get(kTTSym_flattened, v);
     flattened2 = v[0];
     
     if (!flattened2)
-        preset2->mScript->sendMessage(kTTSym_Flatten, preset2->mAddress, none);
+        TTPresetPtr(preset2.instance())->mScript.send(kTTSym_Flatten, TTPresetPtr(preset2.instance())->mAddress, none);
     
-	return TTScriptInterpolate(preset1->mScript, preset2->mScript, position);
+	return TTScriptInterpolate(TTPresetPtr(preset1.instance())->mScript, TTPresetPtr(preset2.instance())->mScript, position);
 }
 
 TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
 {
-	TTPresetPtr aPreset;
+	TTObject    aPreset;
 	TTValue		scripts;
     TTBoolean   flattened;
     TTValue     v, none;
@@ -330,28 +322,26 @@ TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
 	
 	for (i = 0; i < presets.size(); i++) {
         
-		aPreset = TTPresetPtr((TTObjectBasePtr)presets[i]);
+		aPreset = presets[i];
         
         // is the preset1 already flattened ?
-        aPreset->mScript->getAttributeValue(kTTSym_flattened, v);
+        TTPresetPtr(aPreset.instance())->mScript.get(kTTSym_flattened, v);
         flattened = v[0];
         
         if (!flattened)
-            aPreset->mScript->sendMessage(kTTSym_Flatten, aPreset->mAddress, none);
+            TTPresetPtr(aPreset.instance())->mScript.send(kTTSym_Flatten, TTPresetPtr(aPreset.instance())->mAddress, none);
         
-		scripts.append(aPreset->mScript);
+		scripts.append(TTPresetPtr(aPreset.instance())->mScript);
 	}
 	
 	return TTScriptMix(scripts, factors);
 }
 
 
-TTErr TTPresetCopy(TTPreset* aPresetToCopy, TTPreset* aPresetCopy)
+TTErr TTPresetCopy(TTObject aPresetToCopy, TTObject aPresetCopy)
 {
-	TTValue v, args;
-	
-	aPresetCopy->mName = aPresetToCopy->mName;
-	aPresetCopy->mAddress = aPresetToCopy->mAddress;
-	aPresetCopy->mDirectory = aPresetToCopy->mDirectory;
-	return TTScriptCopy(aPresetToCopy->mScript, aPresetCopy->mScript);
+	TTPresetPtr(aPresetCopy.instance())->mName = TTPresetPtr(aPresetToCopy.instance())->mName;
+	TTPresetPtr(aPresetCopy.instance())->mAddress = TTPresetPtr(aPresetToCopy.instance())->mAddress;
+	TTPresetPtr(aPresetCopy.instance())->mDirectory = TTPresetPtr(aPresetToCopy.instance())->mDirectory;
+	return TTScriptCopy(TTPresetPtr(aPresetToCopy.instance())->mScript, TTPresetPtr(aPresetCopy.instance())->mScript);
 }

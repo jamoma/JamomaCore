@@ -236,7 +236,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	args.append(NULL);
 	
 	returnValueCallback = TTObject("callback");
-    // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+    
 	returnValueCallback.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
 	returnValueCallback.set(kTTSym_function, TTPtr(&TTMapperReceiveValueCallback));
 	args.append(returnValueCallback);
@@ -287,7 +287,7 @@ TTErr TTMapper::observeInput()
 	
 	// Make a TTReceiver object
 	returnInputCreationCallback = TTObject("callback");
-    // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+    
 	returnInputCreationCallback.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
 	returnInputCreationCallback.set(kTTSym_function, TTPtr(&TTMapperInputCreationCallback));
 	args.append(returnInputCreationCallback);
@@ -313,7 +313,7 @@ TTErr TTMapper::observeInputRange()
 	args.append(NULL);
 	
 	returnInputRangeCallback = TTObject("callback");
-    // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+    
 	returnInputRangeCallback.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
 	returnInputRangeCallback.set(kTTSym_function, TTPtr(&TTMapperInputRangeCallback));
 	args.append(returnInputRangeCallback);
@@ -386,7 +386,7 @@ TTErr TTMapper::observeOutput()
 	
 	// Make a TTReceiver object
 	returnOutputCreationCallback = TTObject("callback");
-    // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+    
 	returnOutputCreationCallback.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
 	returnOutputCreationCallback.set(kTTSym_function, TTPtr(&TTMapperOutputCreationCallback));
 	args.append(returnOutputCreationCallback);
@@ -412,7 +412,7 @@ TTErr TTMapper::observeOutputRange()
 	args.append(NULL);
 	
 	returnOutputRangeCallback = TTObject("callback");
-	returnOutputRangeCallback.set(kTTSym_baton, TTObjectBasePtr(this));
+	returnOutputRangeCallback.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
 	returnOutputRangeCallback.set(kTTSym_function, TTPtr(&TTMapperOutputRangeCallback));
 	args.append(returnOutputRangeCallback);
 	

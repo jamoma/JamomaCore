@@ -1440,7 +1440,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         if (allowGetRequest) {
             
             getAttributeCallback = TTObject("callback");
-            // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+            // TODO: How to use TTObject instead of TTObjectBasePtr here ?
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
             getAttributeCallback.set(kTTSym_baton, baton);
             getAttributeCallback.set(kTTSym_function, TTPtr(&ProtocolGetAttributeCallback));
@@ -1454,14 +1454,14 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         if (allowSetRequest) {
             
             setAttributeCallback = TTObject("callback");
-            // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+            // TODO: How to use TTObject instead of TTObjectBasePtr here ?
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
             setAttributeCallback.set(kTTSym_baton, baton);
             setAttributeCallback.set(kTTSym_function, TTPtr(&ProtocolSetAttributeCallback));
             args.append(setAttributeCallback);
             
             sendMessageCallback = TTObject("callback");
-            // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+            // TODO: How to use TTObject instead of TTObjectBasePtr here ?
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
             sendMessageCallback.set(kTTSym_baton, baton);
             sendMessageCallback.set(kTTSym_function, TTPtr(&ProtocolSendMessageCallback));
@@ -1478,7 +1478,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         if (allowListenRequest) {
             
             listenAttributeCallback = TTObject("callback");
-            // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+            // TODO: How to use TTObject instead of TTObjectBasePtr here ?
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
             listenAttributeCallback.set(kTTSym_baton, baton);
             listenAttributeCallback.set(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));

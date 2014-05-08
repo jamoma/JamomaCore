@@ -408,7 +408,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 		mRampFunctionParameters.clear();
 		
 		// cache the function's attribute names
-        TTRampPtr(mRamper.instance())->mFunctionUnit->getAttributeNames(names);
+        TTRampPtr(mRamper.instance())->mFunctionUnit.attributes(names);
 		n = names.size();
 		
 		if (n) {
@@ -420,7 +420,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 					continue;										// don't publish these datas
 				
 				// extend attribute with the same name
-				this->extendAttribute(aName, TTRampPtr(mRamper.instance())->mFunctionUnit, aName);
+				this->extendAttribute(aName, TTRampPtr(mRamper.instance())->mFunctionUnit.instance(), aName);
 				
 				mRampFunctionParameters.append(aName);
 			}

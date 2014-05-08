@@ -41,10 +41,10 @@ private:
 	TTSymbol			mCurrent;						///< ATTRIBUTE : the current preset name
 	TTUInt32			mCurrentPosition;				///< ATTRIBUTE : the current cue position
 
-	TTHashPtr			mPresets;						///< a hash table containing <name, TTPresetPtr>
-	TTPresetPtr			mCurrentPreset;					///< the current preset
+	TTHash              mPresets;						///< a hash table containing <name, TTPresetPtr>
+	TTObject			mCurrentPreset;					///< the current preset
     
-    TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this presetmanager
+    TTObject            mReturnLineCallback;			///< Callback to return back cue lines to the owner of this presetmanager
 	
 	/** */
 	TTErr	setAddress(const TTValue& value);
