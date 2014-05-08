@@ -30,7 +30,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mInputChannelSignal(NULL),
 	mOutputChannelSignal(NULL)
 {
-	TTUInt16 initialMaxNumChannels = arguments;
+	TTChannelCount initialMaxNumChannels = arguments;
 
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &mInputChannelSignal, 1);
 	TTObjectBaseInstantiate(kTTSym_audiosignal, &mOutputChannelSignal, 1);
@@ -157,10 +157,10 @@ TTErr TTAudioObjectBaseArray::processAudio(TTAudioSignalArrayPtr inputs, TTAudio
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		channelCount = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channelCount = TTAudioSignal::getMinChannelCount(in, out);
 	TTUInt16		vs = in.getVectorSizeAsInt();
 
-	for (TTUInt16 channel=0; channel<channelCount; channel++) {
+	for (TTChannelCount channel=0; channel<channelCount; channel++) {
 		mInputChannelSignal->setVector(0, vs, in.mSampleVectors[channel]);
 		mOutputChannelSignal->setVector(0, vs, out.mSampleVectors[channel]);
 		mInstances[channel]->process(mInputChannelSignal, mOutputChannelSignal);
