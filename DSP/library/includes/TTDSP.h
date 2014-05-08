@@ -47,25 +47,6 @@
 #include "TTAudioObject.h"
 
 
-// Typedefs
-
-/** Data type used when counting the number of channels in multi-channel audio signals and processes.
- @ingroup typedefs
- */
-typedef TTUInt16 TTChannelCount;
-
-
-
-// Constants
-
-/** @ingroup consts
- The maximum number of audio channels that Jamoma DSP (and AudioGraph) is able to deal with.
- @details This depends on the #TTChannelCount type used to store the number of channels.
- 
- */
-TTDSP_EXPORT extern const TTChannelCount kTTMaxChannelsPossible;
-
-
 
 // Macros
 

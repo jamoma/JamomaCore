@@ -42,7 +42,7 @@ protected:
 	TTSampleMatrixPtr		mBecomingActiveMatrix;		///< pointer to TTSampleMatrix that is being prepared internally for a future checkOutMatrix()
 	
 	// internal method used for initializing the TTBuffer and mActiveMatrix for use
-	TTErr init(TTUInt16	channelCount, TTSymbol name);
+	TTErr init(TTChannelCount	channelCount, TTSymbol name);
 
 	// internal method used for disposing of a no-longer used matrix
 	TTErr chuckMatrix(TTSampleMatrixPtr oldMatrix);

@@ -31,7 +31,7 @@ TT_OBJECT_CONSTRUCTOR,
 	mSampleRate(0),
 	mSampleVectors(NULL)
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 	
 	addAttributeWithSetter(	VectorSize, kTypeUInt16);
 	addAttributeWithSetter(	NumChannels, kTypeUInt16);
@@ -87,10 +87,10 @@ TTErr TTAudioSignal::setMaxNumChannels(const TTValue& newValue)
 {
 	TTUInt32	i;
 	TTBoolean	wasLocallyOwned = mIsLocallyOwned;
-	TTUInt16	newMaxNumChannels = newValue;
+	TTChannelCount	newMaxNumChannels = newValue;
 
-	TTLimitMin<TTUInt16>(newMaxNumChannels, 1);
-	if (TTUInt16(newMaxNumChannels) != mMaxNumChannels) {
+	TTLimitMin<TTChannelCount>(newMaxNumChannels, 1);
+	if (TTChannelCount(newMaxNumChannels) != mMaxNumChannels) {
 		chuck();
 		mMaxNumChannels = newMaxNumChannels;
 		if (mMaxNumChannels) {
@@ -105,13 +105,13 @@ TTErr TTAudioSignal::setMaxNumChannels(const TTValue& newValue)
 }
 
 
-TTUInt16 TTAudioSignal::getMaxNumChannelsAsInt()
+TTChannelCount TTAudioSignal::getMaxNumChannelsAsInt()
 {
 	return mMaxNumChannels;
 }
 
 
-TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorSize, const TTSampleValuePtr newVector)
+TTErr TTAudioSignal::setVector(const TTChannelCount channel, const TTUInt16 newVectorSize, const TTSampleValuePtr newVector)
 {
 	TTUInt32	i;
 	
@@ -134,7 +134,7 @@ TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorS
 /*
 TTErr TTAudioSignal::setVector64(const TTValue& v, TTValue&)
 {
-	TTUInt16		channel;
+	TTChannelCount	channel;
 	TTUInt16		newVectorSize;
 	TTPtr			newVector;
 	
@@ -151,7 +151,7 @@ TTErr TTAudioSignal::setVector64(const TTValue& v, TTValue&)
 }
  */
 
-TTErr TTAudioSignal::setVector64Copy(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector)
+TTErr TTAudioSignal::setVector64Copy(const TTChannelCount channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector)
 {   
 	if (mBitdepth != 64 || !mIsLocallyOwned || vectorSize != mVectorSize) {
 		mBitdepth = 64;
@@ -175,7 +175,7 @@ TTErr TTAudioSignal::setVector64Copy(const TTUInt16 channel, const TTUInt16 vect
 	If we passed the vs in to this method, we could avoid having to realloc the memory every single time.
 	This would probably be a very good idea.
 */
-TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorSize, const TTFloat32* newVector)
+TTErr TTAudioSignal::setVector(const TTChannelCount channel, const TTUInt16 newVectorSize, const TTFloat32* newVector)
 {
 	TTUInt32	i;
 	
@@ -196,7 +196,7 @@ TTErr TTAudioSignal::setVector(const TTUInt16 channel, const TTUInt16 newVectorS
 }
 
 
-TTErr TTAudioSignal::getVectorCopy(const TTUInt16 channel, const TTUInt16 theVectorSize, TTSampleValue* returnedVector)
+TTErr TTAudioSignal::getVectorCopy(const TTChannelCount channel, const TTUInt16 theVectorSize, TTSampleValue* returnedVector)
 {
 	TTUInt16 i;
 	
@@ -207,7 +207,7 @@ TTErr TTAudioSignal::getVectorCopy(const TTUInt16 channel, const TTUInt16 theVec
 
 
 
-TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 theVectorSize, TTFloat32* returnedVector)
+TTErr TTAudioSignal::getVector(const TTChannelCount channel, const TTUInt16 theVectorSize, TTFloat32* returnedVector)
 {
 	TTUInt16 i;
 	
@@ -237,12 +237,12 @@ TTErr TTAudioSignal::alloc()
 }
 
 
-TTErr TTAudioSignal::allocWithNewChannelCount(TTUInt16 newChannelCount)
+TTErr TTAudioSignal::allocWithNewChannelCount(TTChannelCount newChannelCount)
 {
 	if (newChannelCount < mMaxNumChannels)			// we don't both allocating memory for fewer channels, only when more channels are requested
 		return kTTErrNone;
 
-	TTLimitMin<TTUInt16>(newChannelCount, 1);		// limit minimum number of channels to 1
+	TTLimitMin<TTChannelCount>(newChannelCount, 1);		// limit minimum number of channels to 1
 	
 	// Alloc new memory for the array of channels
 	TTSampleValue** newSampleVectors = (TTSampleValue**)TTMalloc16(sizeof(TTSampleValue*) * newChannelCount);
@@ -308,15 +308,15 @@ TTErr TTAudioSignal::reference(const TTAudioSignal& source, TTAudioSignal& dest)
 }
 
 
-TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset)
+TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTChannelCount channelOffset)
 {
 	TTUInt16		vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
-	TTUInt16		maxDestChannels = dest.mMaxNumChannels;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(source, dest);
-	TTUInt16		additionalOutputChannels = dest.mNumChannels - numchannels;
-	TTUInt16		channel;
+	TTChannelCount	maxDestChannels = dest.mMaxNumChannels;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(source, dest);
+	TTChannelCount	additionalOutputChannels = dest.mNumChannels - numchannels;
+	TTChannelCount	channel;
 	
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = source.mSampleVectors[channel];
@@ -338,14 +338,14 @@ TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUI
 }
 
 
-TTErr TTAudioSignal::copyDirty(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset)
+TTErr TTAudioSignal::copyDirty(const TTAudioSignal& source, TTAudioSignal& dest, TTChannelCount channelOffset)
 {
 	TTUInt16		vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
-	TTUInt16		maxDestChannels = dest.mMaxNumChannels;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(source, dest);
-	TTUInt16		channel;
+	TTChannelCount	maxDestChannels = dest.mMaxNumChannels;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(source, dest);
+	TTChannelCount	channel;
 	
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = source.mSampleVectors[channel];
@@ -359,13 +359,13 @@ TTErr TTAudioSignal::copyDirty(const TTAudioSignal& source, TTAudioSignal& dest,
 }
 
 
-TTErr TTAudioSignal::copySubset(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 startingChannel, TTUInt16 endingChannel)
+TTErr TTAudioSignal::copySubset(const TTAudioSignal& source, TTAudioSignal& dest, TTChannelCount startingChannel, TTChannelCount endingChannel)
 {
 	TTUInt16		vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
-	TTUInt16		sourceChannel;
-	TTUInt16		destChannel;
+	TTChannelCount	sourceChannel;
+	TTChannelCount	destChannel;
 	
 	for (sourceChannel=startingChannel, destChannel=0; sourceChannel<=endingChannel; sourceChannel++, destChannel++) {
 		inSample = source.mSampleVectors[sourceChannel];
@@ -378,7 +378,7 @@ TTErr TTAudioSignal::copySubset(const TTAudioSignal& source, TTAudioSignal& dest
 	return kTTErrNone;
 }
 
-TTUInt16 TTAudioSignal::getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2)
+TTChannelCount TTAudioSignal::getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2)
 {
 	if (signal1.mNumChannels < signal2.mNumChannels)
 		return signal2.mNumChannels;
@@ -386,9 +386,9 @@ TTUInt16 TTAudioSignal::getMaxChannelCount(const TTAudioSignal& signal1, const T
 		return signal1.mNumChannels;
 }
 
-TTUInt16 TTAudioSignal::getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3)
+TTChannelCount TTAudioSignal::getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3)
 {
-	TTUInt16	numChannels = signal1.mNumChannels;
+	TTChannelCount	numChannels = signal1.mNumChannels;
 	
 	if (signal2.mNumChannels > numChannels)
 		numChannels = signal2.mNumChannels;
@@ -399,7 +399,7 @@ TTUInt16 TTAudioSignal::getMaxChannelCount(const TTAudioSignal& signal1, const T
 }
 
 
-TTUInt16 TTAudioSignal::getNumChannels(const TTAudioSignal& signal)
+TTChannelCount TTAudioSignal::getNumChannels(const TTAudioSignal& signal)
 {
 	return signal.mNumChannels;
 }
