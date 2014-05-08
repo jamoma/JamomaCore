@@ -58,7 +58,7 @@ TTErr Lissajous2D::setA(const TTValue& newValue)
 TTErr Lissajous2D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
+	TTChannelCount		numOutputChannels = out.getNumChannelsAsInt();
 	
 	if (numOutputChannels != 2) {
 		TTValue v = 2;		
