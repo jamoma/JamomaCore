@@ -18,7 +18,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mResamplingFilter(NULL),
 	mDirection(TT("Down"))
 {	
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 	
 	addAttributeWithSetter(Direction, kTypeSymbol);
 	addAttributeWithSetter(Mode, kTypeSymbol);
