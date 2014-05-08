@@ -1,10 +1,18 @@
-/* 
- * Jamoma DSP FFT Object
- * Copyright © 2010, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFftLib
+ *
+ * @brief ##TTfft - Fast Fourier Transforms
+ *
+ * @details If a channel is simultaneously muted and soloed, soloing takes presedence.
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_FFT_H__
 #define __TT_FFT_H__

@@ -73,8 +73,8 @@ TTErr PlugtasticOutput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignal
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 	*outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channel;
 	
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];

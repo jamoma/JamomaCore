@@ -54,14 +54,14 @@ TTErr TTAudioGraphOffset::processAudioNegativeOffset(TTAudioSignalArrayPtr input
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValuePtr	inSample, outSample;
-	TTUInt16		inputChannelCount = in.getNumChannelsAsInt();		
+	TTChannelCount		inputChannelCount = in.getNumChannelsAsInt();
 	TTUInt16		vs = out.getVectorSizeAsInt();
 
 	if (inputChannelCount+mOffset >= 1){
 		out.setMaxNumChannels(inputChannelCount+mOffset); //mOffset is negative here
 		out.setNumChannels(inputChannelCount+mOffset);
 		
-		for (TTUInt16 i=0; i < inputChannelCount+mOffset; i++) {
+		for (TTChannelCount i=0; i < inputChannelCount+mOffset; i++) {
 			outSample = out.mSampleVectors[i];
 			inSample = in.mSampleVectors[i-mOffset];					
 			memcpy(outSample, inSample, sizeof(TTSampleValue) * vs);
@@ -75,7 +75,7 @@ TTErr TTAudioGraphOffset::processAudioPositiveOffset(TTAudioSignalArrayPtr input
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValuePtr	inSample, outSample;
-	TTUInt16		inputChannelCount = in.getNumChannelsAsInt();		
+	TTChannelCount	inputChannelCount = in.getNumChannelsAsInt();
 	TTUInt16		vs = out.getVectorSizeAsInt();
 	
 	//TODO: make sure inputChannelCount+mOffset doesn't exeed JAG channel limit  
@@ -89,7 +89,7 @@ TTErr TTAudioGraphOffset::processAudioPositiveOffset(TTAudioSignalArrayPtr input
 		memset(outSample, 0, sizeof(TTSampleValue) * vs);
 	}
 	
-	for (TTUInt16 i=0; i < inputChannelCount; i++) {
+	for (TTChannelCount i=0; i < inputChannelCount; i++) {
 		outSample = out.mSampleVectors[mOffset+i];
 		inSample = in.mSampleVectors[i];					
 		memcpy(outSample, inSample, sizeof(TTSampleValue) * vs);
@@ -103,13 +103,13 @@ TTErr TTAudioGraphOffset::processAudioBypass(TTAudioSignalArrayPtr inputs, TTAud
 	TTAudioSignal&	in = inputs->getSignal(0);
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValuePtr	inSample, outSample;
-	TTUInt16		inputChannelCount = in.getNumChannelsAsInt();		
+	TTChannelCount	inputChannelCount = in.getNumChannelsAsInt();
 	TTUInt16		vs = out.getVectorSizeAsInt();
 	
 	out.setMaxNumChannels(inputChannelCount);
 	out.setNumChannels(inputChannelCount);
 	
-	for (TTUInt16 i=0; i < inputChannelCount; i++) {
+	for (TTChannelCount i=0; i < inputChannelCount; i++) {
 		outSample = out.mSampleVectors[i];
 		inSample = in.mSampleVectors[i];					
 		memcpy(outSample, inSample, sizeof(TTSampleValue) * vs);

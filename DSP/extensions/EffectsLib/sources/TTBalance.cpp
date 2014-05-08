@@ -26,7 +26,7 @@
 
 TT_AUDIO_CONSTRUCTOR
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 	
 	// register attributes
 	addAttributeWithSetter(Frequency, kTypeFloat64);
@@ -113,8 +113,8 @@ TTErr TTBalance::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 					absTempxB,
 					tempyA,
 					tempyB;											
-	TTUInt16		channel;
-	TTUInt16		numChannels;
+	TTChannelCount	channel;
+	TTChannelCount	numChannels;
 
 	// Twice as many input channels are expected as output channels
 	numChannels = TTAudioSignal::getNumChannels(in) / 2;

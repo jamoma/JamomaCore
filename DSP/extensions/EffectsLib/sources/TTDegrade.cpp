@@ -24,7 +24,7 @@
 
 TT_AUDIO_CONSTRUCTOR
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 	
 	// register attributes
 	addAttributeWithSetter(Bitdepth,	kTypeUInt8);
@@ -72,8 +72,8 @@ TTErr TTDegrade::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channel;
 	long			l;
 
 	for (channel=0; channel<numchannels; channel++) {

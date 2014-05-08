@@ -28,8 +28,8 @@ protected:
 
 	TTAudioObjectBasePtr	mSpatFunctionObject;
 	TTSymbol			mSpatFunction;	
-	TTUInt16			mSourceCount;			///< The number of sources
-	TTUInt16			mSinkCount;				///< The number of destinations
+	TTChannelCount		mSourceCount;			///< The number of sources
+	TTChannelCount		mSinkCount;				///< The number of destinations
 		
 	/**	Set what spatialisation function to use.
 	 @param aSpatFunction			The SpatLib renderer to use.

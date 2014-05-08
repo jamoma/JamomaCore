@@ -18,6 +18,9 @@
 
 static bool TTDSPHasInitialized = false;
 
+const TTChannelCount kTTMaxChannelsPossible = 65535;
+
+
 
 void TTDSPRegisterInternalClasses();
 

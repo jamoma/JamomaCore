@@ -56,7 +56,7 @@ TTErr Epitrochoid2D::setA(const TTValue& newValue)
 TTErr Epitrochoid2D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
+	TTChannelCount		numOutputChannels = out.getNumChannelsAsInt();
 	
 	if (numOutputChannels != 2) {
 		TTValue v = 2;		
@@ -65,7 +65,7 @@ TTErr Epitrochoid2D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 	}
 	
 	TTAudioSignal&		in0 = inputs->getSignal(0);
-	TTUInt16			 vs = in0.getVectorSizeAsInt();
+	TTUInt16			vs  = in0.getVectorSizeAsInt();
 	
 	TTSampleValuePtr	inSampleX			= in0.mSampleVectors[0];
 	TTSampleValuePtr	outSampleX    		= out.mSampleVectors[0];

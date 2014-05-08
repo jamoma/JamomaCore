@@ -99,7 +99,7 @@ TTErr TTPowerFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalA
 	TTUInt16		vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt	channel;
 	
 	for (channel=0; channel<numchannels; channel++) {

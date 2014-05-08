@@ -42,7 +42,7 @@ protected:
 	
 	TTSymbol			mMode;		///< Attribute: what color is the noise?
 	TTFloat64			mGain;		///< Gain stage
-	TTUInt16			mNumChannels; ///< Sets the number of noise channels
+	TTChannelCount			mNumChannels; ///< Sets the number of noise channels
 	TTUInt32			accum;		///< Accumulator for the noise generation
 	TTSampleVector		mb0;		///< Internal coefficient used to keep track of past values. Used for some noise algorithms.
 	TTSampleVector		mb1;		///< Internal coefficient used to keep track of past values. Used for some noise algorithms.
@@ -115,7 +115,7 @@ protected:
 	 @param newNumChannels	The number of channels to process.
 	 @return				#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setNumChannels(const TTUInt16 newNumChannels);
+	TTErr setNumChannels(const TTChannelCount newNumChannels);
 	
 	
 	/** Get the current value used for scaling overall gain level of the generated noise signal.

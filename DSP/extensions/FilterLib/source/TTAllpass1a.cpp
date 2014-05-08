@@ -27,7 +27,7 @@
 TT_AUDIO_CONSTRUCTOR,
 	mAlpha(0)
 {
-	TTUInt16 initialMaxNumChannels = arguments;
+	TTChannelCount initialMaxNumChannels = arguments;
 
 	addAttribute(Alpha, kTypeFloat64);
 	

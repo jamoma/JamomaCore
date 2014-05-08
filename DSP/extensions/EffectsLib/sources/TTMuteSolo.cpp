@@ -22,7 +22,10 @@
 TT_AUDIO_CONSTRUCTOR,
 mInterpolated(0)
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
+	
+	// Initially we have no information stored for any channels
+	mStoredStateNumChannels = 0;
 	
 	// Register our attributes
 	addAttribute(Interpolated,		kTypeBoolean);
@@ -52,8 +55,8 @@ TTMutesolo::~TTMutesolo()
 
 TTErr TTMutesolo::clear()
 {
-	mChannelMute.assign(mMaxNumChannels, 0.0);
-	mChannelSolo.assign(mMaxNumChannels, 0.0);
+	mChannelMute.assign(mStoredStateNumChannels, 0.0);
+	mChannelSolo.assign(mStoredStateNumChannels, 0.0);
 	updateGains();
 	return kTTErrNone;
 }
@@ -61,17 +64,17 @@ TTErr TTMutesolo::clear()
 
 TTErr TTMutesolo::updateGains()
 {	
-	TTUInt16 numSoloedChannels = 0;
+	TTChannelCount numSoloedChannels = 0;
 	
 	// Mute channels, and count the number of soloed channels
-	for (TTUInt16 i=0; i<mMaxNumChannels; i++) {
+	for (TTChannelCount i=0; i<mStoredStateNumChannels; i++) {
 		gain[i] = 1.0 - mChannelMute[i];
 		if (mChannelSolo[i])
 			numSoloedChannels++;
 	}
 	// If at least one channel is soloed, soloing takes presedence over muting
 	if (numSoloedChannels>0) {
-		for (TTUInt16 i=0; i<mMaxNumChannels; i++) {
+		for (TTChannelCount i=0; i<mStoredStateNumChannels; i++) {
 			gain[i] = mChannelSolo[i];
 		}
 	}
@@ -84,15 +87,20 @@ TTErr TTMutesolo::updateGains()
 
 
 
-TTErr TTMutesolo::setChannelMute(const TTValue& aValue, TTValue& output)
+TTErr TTMutesolo::setChannelMute(const TTValue& aValue, TTValue&)
 {
-	TTUInt16 channel;
+	TTChannelCount channel;
 	
 	if (aValue.size() < 2)
 		return kTTErrWrongNumValues;
 	else {
 		channel = aValue[0];
-		if (aValue[1] == 0.)
+		
+		// It might be necessary to increase the number of channels tracked (channels count from 0, so adding 1)
+		increaseStoredStateNumChannels(channel+1);
+		
+		// Need to test for floating point as well as integer
+		if ((aValue[1] == 0.) || (aValue[1] == 0))
 			mChannelMute[channel] = 0.;
 		else
 			mChannelMute[channel] = 1.;
@@ -104,13 +112,18 @@ TTErr TTMutesolo::setChannelMute(const TTValue& aValue, TTValue& output)
 
 TTErr TTMutesolo::setChannelSolo(const TTValue& aValue, TTValue&)
 {
-	TTUInt16 channel;
+	TTChannelCount channel;
 	
 	if (aValue.size() < 2)
 		return kTTErrWrongNumValues;
 	else {
 		channel = aValue[0];
-		if (aValue[1] == 0.)
+		
+		// It might be necessary to increase the number of channels tracked (channels count from 0, so adding 1)
+		increaseStoredStateNumChannels(channel+1);
+		
+		// Need to test for floating point as well as integer
+		if ((aValue[1] == 0.) || (aValue[1] == 0))
 			mChannelSolo[channel] = 0.;
 		else
 			mChannelSolo[channel] = 1.;
@@ -122,9 +135,10 @@ TTErr TTMutesolo::setChannelSolo(const TTValue& aValue, TTValue&)
 
 TTErr TTMutesolo::getChannelMute(const TTValue&, TTValue& aMuteValues)
 {
-	aMuteValues.resize(mMaxNumChannels);
+	// Report the state for all channels, even if not all of them cureently are being processed.
+	aMuteValues.resize(mStoredStateNumChannels);
 	
-	for (TTUInt16 i=0; i<mMaxNumChannels; i++) {
+	for (TTChannelCount i=0; i<mStoredStateNumChannels; i++) {
 		aMuteValues[i] = mChannelMute[i];
 	}
 	return kTTErrNone;
@@ -133,9 +147,10 @@ TTErr TTMutesolo::getChannelMute(const TTValue&, TTValue& aMuteValues)
 
 TTErr TTMutesolo::getChannelSolo(const TTValue&, TTValue& aSoloValues)
 {
-	aSoloValues.resize(mMaxNumChannels);
+	// Report the state for all channels, even if not all of them cureently are being processed.
+	aSoloValues.resize(mStoredStateNumChannels);
 	
-	for (TTUInt16 i=0; i<mMaxNumChannels; i++) {
+	for (TTChannelCount i=0; i<mStoredStateNumChannels; i++) {
 		aSoloValues[i] = mChannelSolo[i];
 	}
 	return kTTErrNone;
@@ -144,20 +159,28 @@ TTErr TTMutesolo::getChannelSolo(const TTValue&, TTValue& aSoloValues)
 
 TTErr TTMutesolo::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	mChannelMute.resize(mMaxNumChannels);
-	mChannelSolo.resize(mMaxNumChannels);
-	
-	gain.resize(mMaxNumChannels);
-	oldGain.resize(mMaxNumChannels);
-	
-	// Reset mutes and solos, and recalculate gains
-	// TODO: Is it possible to keep current values when resizing?
-	clear();
-	
-	// Overwrite old gain values
-	for (TTUInt16 i=0; i<mMaxNumChannels; i++)
-		oldGain[i] = gain[i];
-	
+	// mStoredStateNumChannels might need to be increased.
+	return increaseStoredStateNumChannels(mMaxNumChannels);
+}
+
+
+TTErr TTMutesolo::increaseStoredStateNumChannels(TTChannelCount aDesiredChannel)
+{
+	// Only resize if the vector size need to be increased
+	// In the AudioGraph Max implementation (j.mutesolo=) this permits channel solo and mute values to be set before audio/AudioGraph has processed (and hence before the object knows how many channels are to be process).
+	if (aDesiredChannel > mStoredStateNumChannels) {
+		
+		mStoredStateNumChannels = aDesiredChannel;
+		
+		// The resize() method maintains all pre-existing values
+		mChannelMute.resize(mStoredStateNumChannels, 0.);
+		mChannelSolo.resize(mStoredStateNumChannels, 0.);
+		
+		gain.resize(mStoredStateNumChannels, 0.);
+		oldGain.resize(mStoredStateNumChannels, 0.);
+		
+		updateGains();
+	}
 	return kTTErrNone;
 }
 
@@ -168,8 +191,8 @@ TTErr TTMutesolo::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample, *outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channel;
 	
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];
@@ -188,8 +211,8 @@ TTErr TTMutesolo::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAudio
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs = in.getVectorSizeAsInt();
 	TTSampleValue	*inSample, *outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channel;
 	TTFloat64		increment, temp;
 	
 	for (channel=0; channel<numchannels; channel++) {

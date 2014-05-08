@@ -30,7 +30,7 @@ TT_AUDIO_CONSTRUCTOR,
 mMaxInterval(2000),
 mInterval(100)
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
     
 	addAttributeWithSetter(Mode,			kTypeSymbol); //absolute, bipolar, rms
 	addAttributeWithSetter(MaxInterval,		kTypeInt64);
@@ -151,7 +151,7 @@ TTAudioSignal&		out = anOutputs->getSignal(0); \
 TTUInt16			vs; \
 TTSampleValue*		inSample; \
 TTSampleValue*		outSample; \
-TTUInt16			numchannels = TTAudioSignal::getMinChannelCount(in, out); \
+TTChannelCount			numchannels = TTAudioSignal::getMinChannelCount(in, out); \
 TTPtrSizedInt		channel; \
 TTDelayBufferPtr	buffer; \
 \

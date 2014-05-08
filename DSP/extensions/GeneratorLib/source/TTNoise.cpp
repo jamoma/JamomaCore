@@ -48,7 +48,7 @@ TTNoise::~TTNoise()
 }
 
 
-TTErr TTNoise::setNumChannels(const TTUInt16 newNumChannels)
+TTErr TTNoise::setNumChannels(const TTChannelCount newNumChannels)
 {  
 	mNumChannels = newNumChannels;
 	mb0.resize(mNumChannels);
@@ -111,8 +111,8 @@ TTErr TTNoise::processWhiteNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
 	TTSampleValuePtr	outSample;
-	TTUInt16		numChannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
+	TTChannelCount	numChannels = out.getNumChannelsAsInt();
+	TTChannelCount	channel;
 	TTUInt16		vs = out.getVectorSizeAsInt();
 	
 	if (numChannels != mNumChannels)
@@ -140,8 +140,8 @@ TTErr TTNoise::processPinkNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
 	TTSampleValuePtr	outSample;
-	TTUInt16		numChannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
+	TTChannelCount	numChannels = out.getNumChannelsAsInt();
+	TTChannelCount	channel;
 	TTUInt16		vs = out.getVectorSizeAsInt();
 
 	if (numChannels != mNumChannels)
@@ -181,8 +181,8 @@ TTErr TTNoise::processBrownNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
 	TTSampleValuePtr	outSample;
-	TTUInt16		numChannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
+	TTChannelCount	numChannels = out.getNumChannelsAsInt();
+	TTChannelCount	channel;
 	TTUInt16		vs = out.getVectorSizeAsInt();
 	
 	if (numChannels != mNumChannels)
@@ -219,8 +219,8 @@ TTErr TTNoise::processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
 	TTSampleValuePtr	outSample;
-	TTUInt16		numChannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
+	TTChannelCount	numChannels = out.getNumChannelsAsInt();
+	TTChannelCount	channel;
 	TTUInt16		vs = out.getVectorSizeAsInt();
 	
 	if (numChannels != mNumChannels)
@@ -255,8 +255,8 @@ TTErr TTNoise::processGauss(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr 
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValuePtr	outSample;
-	TTUInt16		numChannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
+	TTChannelCount	numChannels = out.getNumChannelsAsInt();
+	TTChannelCount	channel;
 	TTUInt16		vs = out.getVectorSizeAsInt();
 	
 	if (numChannels != mNumChannels)
