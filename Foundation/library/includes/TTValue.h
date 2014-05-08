@@ -386,7 +386,8 @@ public:
 	
 // deprecated functions
     
-    /** @deprecated instead, please call the size() method */
+    /** @fn TTUInt16 getSize() const
+     @deprecated instead, please call the size() method */
 	TT_DEPRECATED( TTUInt16 getSize() const )
 	{
 		return size();
