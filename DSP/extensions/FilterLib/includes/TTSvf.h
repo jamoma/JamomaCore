@@ -74,7 +74,7 @@ protected:
 	TTErr setResonance(const TTValue& newValue);
 
 	/**	Performs the actual SVF calculations. */
-	void tick(TTSampleValue value, TTUInt16 channel);
+	void tick(TTSampleValue value, TTChannelCount channel);
 	
 	
 	/**	Unit Tests
