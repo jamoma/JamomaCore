@@ -135,7 +135,7 @@ public:
 		return *this;
 	}
 	
-	
+	/**	Test equality of two values */
 	friend bool operator == (const TTValue& a, const TTValue& b)
 	{
 		if (a.size() == b.size()) {
@@ -179,7 +179,7 @@ public:
 			return kTTSymEmpty;
 	}
 	
-
+    /** Insert a single TTElement at the end */
 	template<class T>
 	void append(const T& anElementValueToAppend)
 	{
@@ -188,6 +188,7 @@ public:
 		push_back(e);
 	}
 	
+    /** Insert entire TTValue at the end */
 	void append(const TTValue& aValueToAppend)
 	{
 		TTUInt32 appendingElementCount = aValueToAppend.size();
@@ -203,40 +204,40 @@ public:
 		}
 	}
 
-	
+	/** Clip numerical values between low and high boundaries */
 	void clip(const TTFloat64& aLowBound, const TTFloat64& aHighBound)
 	{
 		for (TTElementIter i = this->begin(); i != this->end(); i++)
 			i->clip(aLowBound, aHighBound);
 	}
 	
-	
+	/** Clip numerical values below a specified boundary */
 	void cliplow(const TTFloat64& aLowBound)
 	{
 		for (TTElementIter i = this->begin(); i != this->end(); i++)
 			i->cliplow(aLowBound);
 	}
 	
-	
+	/** Clip numerical values above a specified boundary */
 	void cliphigh(const TTFloat64& aHighBound)
 	{
 		for (TTElementIter i = this->begin(); i != this->end(); i++)
 			i->cliphigh(aHighBound);
 	}
 	
-	
+	/** Round numerical values to the nearest whole number */
 	void round()
 	{
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::round));
 	}
 
-	
+	/** Truncate numerical values so that only whole number remains */
 	void truncate()
 	{
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::truncate));
 	}
 	
-	
+	/** Booleanize all elements */
 	void booleanize()
 	{
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::booleanize));
