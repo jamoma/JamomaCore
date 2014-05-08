@@ -28,7 +28,7 @@ protected:
 
 	TTAudioObjectBasePtr	mSpatFunctionObject;
 	TTSymbol			mSpatFunction;	
-	TTchannelCount		mSourceCount;			///< The number of sources
+	TTChannelCount		mSourceCount;			///< The number of sources
 	TTChannelCount		mSinkCount;				///< The number of destinations
 		
 	/**	Set what spatialisation function to use.
