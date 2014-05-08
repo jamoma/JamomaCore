@@ -173,7 +173,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 		
 		// prepare arguments
 		mAddressObserver = TTObject("callback");
-        // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+        
 		mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
 		mAddressObserver.set(kTTSym_function, TTPtr(&TTOutputDirectoryCallback));
 	}

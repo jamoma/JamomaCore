@@ -190,7 +190,7 @@ TTErr TTExplorer::bindAddress()
 			
 			// observe any creation or destruction below the address
 			mAddressObserver = TTObject("callback");
-			// TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+			
 			mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
 			mAddressObserver.set(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
 			
@@ -226,7 +226,7 @@ TTErr TTExplorer::bindApplication()
 		
 		mApplicationObserver = TTObject("callback");
 		
-		mApplicationObserver.set(kTTSym_baton, TTObjectBasePtr(this));
+		mApplicationObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
 		mApplicationObserver.set(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);

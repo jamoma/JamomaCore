@@ -1225,7 +1225,7 @@ TTApplicationPtr TTApplicationManager::findApplication(TTSymbol applicationName)
     
     if (!mApplications.lookup(applicationName, v)) {
         
-        // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+        // TODO: How to use TTObject instead of TTObjectBasePtr here ?
         TTObject anApplication = v[0];
         return TTApplicationPtr(anApplication.instance());
     }
@@ -1238,7 +1238,7 @@ TTApplicationPtr TTApplicationManager::findApplication(TTSymbol applicationName)
 
 TTApplicationPtr TTApplicationManager::getApplicationLocal()
 {
-    // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+    // TODO: How to use TTObject instead of TTObjectBasePtr here ?
     return TTApplicationPtr(mApplicationLocal.instance());
 }
 
@@ -1248,7 +1248,7 @@ TTApplicationPtr TTApplicationManager::findApplicationFrom(TTAddress anAddress)
     
     if (applicationName == NO_DIRECTORY)
         
-        // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+        // TODO: How to use TTObject instead of TTObjectBasePtr here ?
         return TTApplicationPtr(mApplicationLocal.instance());
     
     else
@@ -1290,7 +1290,7 @@ ProtocolPtr TTApplicationManager::findProtocol(TTSymbol protocolName)
     TTValue v;
     
     if (!mProtocols.lookup(protocolName, v)) {
-        // TODO: Jamomacore #282 : Use TTObject instead of TTObjectBasePtr
+        // TODO: How to use TTObject instead of TTObjectBasePtr here ?
         TTObject aProtocol = v[0];
         return ProtocolPtr(aProtocol.instance());
     }

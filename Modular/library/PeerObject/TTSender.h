@@ -30,7 +30,7 @@ class TTMODULAR_EXPORT TTSender : public TTObjectBase
 
 public:	// use public for quick acces during signal processing
 	
-	TTObjectBasePtr				mSignal;					///< any data structure to send complex signal
+	TTObject                    mSignal;					///< any data structure to send complex signal
 	
 private:
 	
@@ -38,8 +38,8 @@ private:
 	TTNodeDirectoryPtr			mDirectory;					///< a sender depends on a directory
 	TTBoolean					mIsSending;					///< a flag to lock the object in case of infinite loop
 	TTList                      mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
-	TTCallbackPtr				mAddressObserver;			///< an address life cycle observer
-	TTCallbackPtr				mApplicationObserver;		///< an application life cycle observer
+	TTObject                    mAddressObserver;			///< an address life cycle observer
+	TTObject                    mApplicationObserver;		///< an application life cycle observer
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);

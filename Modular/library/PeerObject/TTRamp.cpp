@@ -250,7 +250,7 @@ TTErr TTRamp::Set(const TTValue& inputValue, TTValue& outputValue)
 {
     TTUInt32 i;
 	
-    mSchedulerUnit.Send(kTTSym_Stop);
+    mSchedulerUnit.send(kTTSym_Stop);
     
     mNumValues = inputValue.size();
     
@@ -266,7 +266,7 @@ TTErr TTRamp::Target(const TTValue& inputValue, TTValue& outputValue)
 {
     TTUInt32 i;
 	
-    mSchedulerUnit.Send(kTTSym_Stop);
+    mSchedulerUnit.send(kTTSym_Stop);
     
     if (mNumValues == inputValue.size()) {
         

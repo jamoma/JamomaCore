@@ -85,10 +85,10 @@ private:
 public:
 	
 	/** Expose a message of any TTObjectBase as TTData in the same context than subscribed object */
-	TTErr exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName, TTDataPtr *returnedData);
+	TTErr exposeMessage(TTObject anObject, TTSymbol messageName, TTObject& returnedData);
 	
 	/** Expose an attribute of any TTObjectBase as TTData (parameter or return) in the same context than subscribed object */
-	TTErr exposeAttribute(TTObjectBasePtr anObject, TTSymbol attributeName, TTSymbol service, TTDataPtr *returnedData);
+	TTErr exposeAttribute(TTObject anObject, TTSymbol attributeName, TTSymbol service, TTObject& returnedData);
 	
 	/** Remove message exposition */
 	TTErr unexposeMessage(TTSymbol messageName);

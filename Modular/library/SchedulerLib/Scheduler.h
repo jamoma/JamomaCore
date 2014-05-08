@@ -124,9 +124,7 @@ typedef Scheduler* SchedulerPtr;
 
 class TT_EXTENSION_EXPORT SchedulerLib {
 public:
-	/** Instantiate a Scheduler by name */
-	static TTErr createScheduler(const TTSymbol SchedulerName, SchedulerPtr *returnedScheduler, SchedulerProgressionCallback aCallback, TTPtr aBaton);
-	
+
 	/**	Return a list of all available Schedulers. */
 	static void getSchedulerNames(TTValue& SchedulerNames);
 };

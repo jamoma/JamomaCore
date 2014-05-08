@@ -30,7 +30,7 @@ class TTMODULAR_EXPORT TTReceiver : public TTObjectBase
 	
 public:	// use public for quick acces during signal processing
 	
-	TTObjectBasePtr				mSignal;					///< any data structure to receive complex signal
+	TTObject                    mSignal;					///< any data structure to receive complex signal
 	
 private:
 	
@@ -38,10 +38,10 @@ private:
 	TTBoolean					mActive;					///< ATTRIBUTE : if false, received data won't be output without unregister the attribute observer (default true).
 	
 	TTNodeDirectoryPtr			mDirectory;					///< a receiver depends on a directory
-	TTCallbackPtr				mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
-	TTCallbackPtr				mReturnValueCallback;		///< a way to return received value to the owner of this receiver
-	TTCallbackPtr				mAddressObserver;			///< an address life cycle observer
-	TTCallbackPtr				mApplicationObserver;		///< an application life cycle observer
+	TTObject                    mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
+	TTObject                    mReturnValueCallback;		///< a way to return received value to the owner of this receiver
+	TTObject                    mAddressObserver;			///< an address life cycle observer
+	TTObject                    mApplicationObserver;		///< an application life cycle observer
 	TTList                      mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
 	TTList                      mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
 	
