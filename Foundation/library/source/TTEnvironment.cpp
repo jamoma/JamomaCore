@@ -251,8 +251,9 @@ TTErr TTEnvironment::createInstance(const TTSymbol className, TTObjectBasePtr* a
 
 TTObjectBasePtr TTEnvironment::referenceInstance(TTObjectBasePtr anObject)
 {
-	// TODO: make sure that anObject is valid or wrap with an exception?
-	anObject->referenceCount++;
+	if (anObject)
+        anObject->referenceCount++;
+    
 	return anObject;
 }
 
