@@ -117,7 +117,7 @@ public:
 	/** Set the object of the node
         @param anObject                 the object to reference
         @return #TTErr                  always returns #kTTErrNone */
-	TTErr			setObject(TTObject anObject);
+	TTErr			setObject(TTObject anObject = TTObject());
 
 	/** Set the context of the node
         @param aContext                 any pointer usefull to precise a context
