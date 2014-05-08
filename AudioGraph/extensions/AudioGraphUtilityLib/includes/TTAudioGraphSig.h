@@ -36,11 +36,11 @@ protected:
 	{
 		TTAudioSignal&		out			= outputs->getSignal(0);
 		TTSampleValuePtr	outSample;
-		TTUInt16			numChannels = out.getNumChannelsAsInt();
+		TTChannelCount		numChannels = out.getNumChannelsAsInt();
 		TTUInt16			vs			= out.getVectorSizeAsInt();
 		TTUInt16			n;
 		
-		for (TTUInt16 channel=0; channel < numChannels; channel++) {
+		for (TTChannelCount channel=0; channel < numChannels; channel++) {
 			outSample = out.mSampleVectors[channel];
 			n = vs;
 			while (n--)

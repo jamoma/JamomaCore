@@ -30,12 +30,12 @@ protected:
 	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		TTUInt16		numSignals = inputs->numAudioSignals;
-		TTUInt16		numAccumulatedChannels = 0;
+		TTChannelCount	numSignals = inputs->numAudioSignals;
+		TTChannelCount	numAccumulatedChannels = 0;
 		TTAudioSignal&	out = outputs->getSignal(0);
 		
 		// 1. figure out our total number of channels
-		for (TTUInt16 i=0; i<numSignals; i++) {
+		for (TTChannelCount i=0; i<numSignals; i++) {
 			TTAudioSignal&	in = inputs->getSignal(i);
 			numAccumulatedChannels += in.getNumChannelsAsInt(); 
 		}
@@ -47,7 +47,7 @@ protected:
 				
 		// 3. copy the data to the output buffer
 		numAccumulatedChannels = 0;
-		for (TTUInt16 i=0; i<numSignals; i++) {
+		for (TTChannelCount i=0; i<numSignals; i++) {
 			TTAudioSignal&	in = inputs->getSignal(i);
 			TTAudioSignal::copyDirty(in, out, numAccumulatedChannels);
 			numAccumulatedChannels += in.getNumChannelsAsInt();
