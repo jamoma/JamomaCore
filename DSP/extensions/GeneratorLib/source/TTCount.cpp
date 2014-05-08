@@ -45,8 +45,8 @@ TTErr TTCount::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr 
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
-	TTUInt16		numchannels = out.getNumChannelsAsInt();
-	TTUInt16		channel;
+	TTChannelCount	numchannels = out.getNumChannelsAsInt();
+	TTChannelCount	channel;
 	TTUInt16		vs;
 	TTFloat64		thisVectorCount;
 

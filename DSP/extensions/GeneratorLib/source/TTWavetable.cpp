@@ -28,7 +28,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mInternalBuffer(1,1),
 	mWavetable(NULL)
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 
 	addAttributeWithSetter(Frequency,		kTypeFloat64);
 	addAttributeWithSetter(Mode,			kTypeSymbol);
@@ -137,8 +137,8 @@ TTErr TTWavetable::processAsLFO(TTAudioSignalArrayPtr, TTAudioSignalArrayPtr out
 	TTSampleValue		tempSample;
 	TTUInt16			vs = out.getVectorSizeAsInt();
 	TTUInt16			i=0;
-	TTUInt16			numChannels = out.getNumChannelsAsInt();
-	TTUInt16			channel;
+	TTChannelCount		numChannels = out.getNumChannelsAsInt();
+	TTChannelCount		channel;
 	TTUInt64			p1 = (TTUInt64)mIndex;						// playback index
 	
 	// Move the play head
@@ -180,8 +180,8 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAu
 	TTSampleValue		tempSample;
 	TTUInt16			vs = out.getVectorSizeAsInt();
 	TTUInt16			i=0;
-	TTUInt16			numChannels = out.getNumChannelsAsInt();
-	TTUInt16			channel;
+	TTChannelCount		numChannels = out.getNumChannelsAsInt();
+	TTChannelCount		channel;
 	TTBoolean			hasModulation = true;
 	
 	// If the input and output signals are the same, then there really isn't an input signal
@@ -239,8 +239,8 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, 
 	TTSampleValue		tempSample;
 	TTUInt16			vs = out.getVectorSizeAsInt();
 	TTUInt16			i=0;
-	TTUInt16			numChannels = out.getNumChannelsAsInt();
-	TTUInt16			channel;
+	TTChannelCount		numChannels = out.getNumChannelsAsInt();
+	TTChannelCount		channel;
 	TTBoolean			hasModulation = true;
 
 	// If the input and output signals are the same, then there really isn't an input signal
