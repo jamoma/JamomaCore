@@ -1005,13 +1005,13 @@ void TTContainer::dataHeading(TTString *buffer)
 	*buffer += "\t\t\t<td> type </td>";
 	*buffer += "\t\t\t<td> bounds </td>";
 	*buffer += "\t\t\t<td> clipmode </td>";
-	*buffer += "\t\t\t<td> ramp_drive </td>";
+	*buffer += "\t\t\t<td> ramp/drive </td>";
 #ifndef TT_NO_DSP    
-	*buffer += "\t\t\t<td> ramp_function </td>";
+	*buffer += "\t\t\t<td> ramp/function </td>";
 #endif
 	*buffer += "\t\t\t<td> dataspace </td>";
-	*buffer += "\t\t\t<td> unit </td>";
-	*buffer += "\t\t\t<td> repetitions_filter </td>";
+	*buffer += "\t\t\t<td> dataspace/unit </td>";
+	*buffer += "\t\t\t<td> repetitions/filter </td>";
 	*buffer += "\t\t\t<td> description </td>";
 	*buffer += "\t\t<tr>";
 }
