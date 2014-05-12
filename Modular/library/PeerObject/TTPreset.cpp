@@ -25,8 +25,6 @@ mName(kTTSymEmpty),
 mAddress(kTTAdrsEmpty),
 mDirectory(NULL)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTPreset", arguments.size() == 0 || arguments.size() == 1);
-	
 	addAttribute(Name, kTypeSymbol);
 	addAttributeWithSetter(Address, kTypeSymbol);
 	

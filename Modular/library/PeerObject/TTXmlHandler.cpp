@@ -35,8 +35,6 @@ mXmlNodeName(kTTSymEmpty),
 mIsWriting(false),
 mIsReading(false)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTXmlHandler", arguments.size() == 0);
-	
 	addAttributeWithSetter(Object, kTypeLocalValue);
 
 	addAttribute(HeaderNodeName, kTypeSymbol);

@@ -24,10 +24,8 @@ TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
 mDirectory(NULL)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTSender", arguments.size() <= 1);
-	
 	// a Sender can handle a signal
-	if (arguments.size() >= 1)
+	if (arguments.size() == 1)
 		mSignal = arguments[0];
 		
 	addAttributeWithSetter(Address, kTypeSymbol);

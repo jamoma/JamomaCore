@@ -25,8 +25,6 @@ mAddress(kTTAdrsEmpty),
 mActive(YES),
 mDirectory(NULL)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTReceiver", arguments.size() == 2 || arguments.size() == 3);
-	
 	if (arguments.size() >= 1)
 		mReturnAddressCallback = arguments[0];
 	

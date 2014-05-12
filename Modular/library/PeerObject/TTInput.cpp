@@ -27,10 +27,8 @@ mMute(NO),
 mBypass(NO),
 mSignalAttr(NULL)
 {
-    if (arguments.size() > 0) {
+    if (arguments.size() > 0)
         mReturnSignalCallback = arguments[0];
-        TT_ASSERT("Return Signal Callback passed to TTInput is valid", mReturnSignalCallback.valid());
-    }
 	
 	if (arguments.size() > 1) {
 		mSignalIn = arguments[1];

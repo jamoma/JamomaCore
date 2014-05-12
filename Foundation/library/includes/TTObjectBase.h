@@ -130,7 +130,7 @@ protected:
 	/** Constructor.
 		@param arguments					Arguments to the constructor.
 	 */
-	TTObjectBase(TTValue arguments);
+	TTObjectBase(const TTValue arguments);
 public:
 	/** Destructor.
 	 */

@@ -29,9 +29,7 @@ mNewContextInstanceCreated(NO),
 mSubscribed(NO),
 mExposedMessages(NULL),
 mExposedAttributes(NULL)
-{	
-	TT_ASSERT("Correct number of arguments to instantiate TTSubscriber", arguments.size() == 2);
-	
+{
 	mObject = arguments[0];
 	mRelativeAddress = arguments[1];
 	

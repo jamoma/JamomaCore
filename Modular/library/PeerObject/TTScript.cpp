@@ -26,12 +26,8 @@
 TT_MODULAR_CONSTRUCTOR,
 mFlattened(NO)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTScript", arguments.size() == 0 || arguments.size() == 1);
-	
 	if (arguments.size() == 1)
 		mReturnLineCallback = arguments[0];
-	
-	TT_ASSERT("Return Line Callback passed to TTScript is valid", mReturnLineCallback.valid());
 
     addAttribute(Flattened, kTypeBoolean);
     addAttributeProperty(Flattened, readOnly, YES);

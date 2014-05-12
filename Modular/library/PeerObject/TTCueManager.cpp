@@ -30,12 +30,8 @@ mNamespace(kTTSym_none),
 mAddress(kTTAdrsRoot),
 mDefaultNamespace(NULL)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTCueManager", (arguments.size() == 0 || arguments.size() == 1));
-	
 	if (arguments.size() == 1)
 		mReturnLineCallback = arguments[0];
-	
-	TT_ASSERT("Return Line Callback passed to TTCueManager is valid", mReturnLineCallback.valid());
 	
 	addAttribute(Names, kTypeLocalValue);
     addAttributeProperty(Names, readOnly, YES);

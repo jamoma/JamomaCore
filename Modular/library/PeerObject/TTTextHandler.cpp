@@ -31,8 +31,6 @@ mLastLine(NO),
 mIsWriting(NO),
 mIsReading(NO)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTTextHandler", arguments.size() == 0);
-	
 	addAttribute(Object, kTypeObject);
 	addAttribute(SpaceNumberForTab, kTypeInt8);
 	
