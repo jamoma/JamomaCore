@@ -254,7 +254,7 @@ TTObjectBasePtr TTEnvironment::referenceInstance(TTObjectBasePtr anObject)
 {
 	if (anObject) {
         anObject->referenceCount++;
-        if (anObject->valid) { // Théo : this is avoiding the reference count made when the object is stored in a TTValue for objectFreeing notification (see in TTEnvironment::releaseInstance)
+        if (anObject->valid) { // Théo : this is avoiding the log of the reference count when the object is stored in a TTValue for objectFreeing notification (see in TTEnvironment::releaseInstance)
             TTLogDebug("TTEnvironment::referenceInstance : \t%p is referenced %d times\n", anObject, anObject->referenceCount);
         }
     }
