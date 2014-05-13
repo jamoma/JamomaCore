@@ -236,6 +236,7 @@ TTErr TTEnvironment::createInstance(const TTSymbol className, TTObjectBasePtr* a
 
 		(*anObject)->classPtr = theClass;
 		(*anObject)->valid = true;
+        TTLogDebug("TTEnvironment::createInstance : \t%p is a %s instance\n", (*anObject), (*anObject)->getName().c_str());
 	}
 
 	//TODO: Add instance tracking.  For each instance of a class, we push the instance onto a linked list of instances for that class
@@ -251,8 +252,12 @@ TTErr TTEnvironment::createInstance(const TTSymbol className, TTObjectBasePtr* a
 
 TTObjectBasePtr TTEnvironment::referenceInstance(TTObjectBasePtr anObject)
 {
-	if (anObject)
+	if (anObject) {
         anObject->referenceCount++;
+        if (anObject->valid) { // Théo : this is avoiding the reference count made when the object is stored in a TTValue for objectFreeing notification (see in TTEnvironment::releaseInstance)
+            TTLogDebug("TTEnvironment::referenceInstance : \t%p is referenced %d times\n", anObject, anObject->referenceCount);
+        }
+    }
     
 	return anObject;
 }
@@ -270,6 +275,8 @@ TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 	TT_ASSERT("can only release a valid instance", *anObject && (*anObject)->valid == 1 && (*anObject)->referenceCount);
 
 	(*anObject)->referenceCount--;
+    TTLogDebug("TTEnvironment::releaseInstance : \t%p is referenced %d times\n", *anObject, (*anObject)->referenceCount);
+    
 	if ((*anObject)->referenceCount < 1) {
 
 		(*anObject)->valid = false;
@@ -280,8 +287,9 @@ TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 		// delete the object.
 		{
 			TTValue v = TTObject(*anObject);
-			(*anObject)->observers->iterateObjectsSendingMessage("objectFreeing", v);
+			(*anObject)->observers.iterateObjectsSendingMessage("objectFreeing", v);
 		}
+        TTLogDebug("TTEnvironment::releaseInstance : \t%p is not a %s instance anymore\n", *anObject, (*anObject)->getName().c_str());
 		delete *anObject;
 		*anObject = NULL;
 		sFreeInProgress = NO;
