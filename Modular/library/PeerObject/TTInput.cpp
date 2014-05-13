@@ -27,10 +27,8 @@ mMute(NO),
 mBypass(NO),
 mSignalAttr(NULL)
 {
-    if (arguments.size() > 0) {
+    if (arguments.size() > 0)
         mReturnSignalCallback = arguments[0];
-        TT_ASSERT("Return Signal Callback passed to TTInput is valid", mReturnSignalCallback.valid());
-    }
 	
 	if (arguments.size() > 1) {
 		mSignalIn = arguments[1];
@@ -126,7 +124,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 		// prepare arguments
 		mAddressObserver = TTObject("callback");
         
-		mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+		mAddressObserver.set(kTTSym_baton, TTObject(this));
 		mAddressObserver.set(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
 	}
 	

@@ -114,7 +114,7 @@ private:
 	TTHash*				messages;			///< The collection of all messages for this object, keyed on the message name.
 	TTHash*				attributes;			///< The collection of all attributes for this object, keyed on the attribute name.
 protected:
-	TTList*				observers;			///< List of all objects watching this object for life-cycle and other changes.
+	TTList				observers;			///< List of all objects watching this object for life-cycle and other changes.
 private:
 	TTList*				messageObservers;	///< List of all objects watching this object for messages sent to it.
 	TTList*				attributeObservers;	///< List of all objects watching this object for changes to attribute values.
@@ -130,7 +130,7 @@ protected:
 	/** Constructor.
 		@param arguments					Arguments to the constructor.
 	 */
-	TTObjectBase(TTValue arguments);
+	TTObjectBase(const TTValue arguments);
 public:
 	/** Destructor.
 	 */

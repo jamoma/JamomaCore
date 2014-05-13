@@ -44,7 +44,7 @@ private:
 	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
 	TTSymbol			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
     TTAddress           mAddress;						///< ATTRIBUTE : an address to make the mangment relative to
-	TTHash              mCues;							///< ATTRIBUTE : a hash table containing <name, TTCuePtr>
+	TTHash              mCues;							///< ATTRIBUTE : a hash table containing <name, #TTCue>
 	
 	TTObject			mCurrentCue;					///< the current cue
 	TTAddressItemPtr    mDefaultNamespace;				///< an internal default namespace

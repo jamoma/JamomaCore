@@ -29,8 +29,6 @@ mType(kTTSymEmpty)
 	TTAttributeFlags	attributeFlags = kTTAttrPassObject;
 	TTMessagePtr		aMessage;
 	
-	TT_ASSERT("Correct number of arguments to instantiate TTMirror", arguments.size() == 5);
-    
 	if (arguments.size() >= 1)
 		mType = arguments[0];
     

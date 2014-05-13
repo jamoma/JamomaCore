@@ -48,6 +48,7 @@ private:
 
     
 	TTSymbol		mRampDrive;					///< ATTRIBUTE: ramp mode // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
+    TTSymbol		mRampDriveDefault;			///< ATTRIBUTE: default ramp mode to set when the type change
 #ifndef TT_NO_DSP    
 	TTSymbol		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 #endif

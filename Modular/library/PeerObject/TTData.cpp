@@ -46,6 +46,7 @@ mRangeClipmode(kTTSym_none),
 mDynamicInstances(NO),
 mInstanceBounds(0, -1),
 mRampDrive(kTTSym_none),
+mRampDriveDefault(TTSymbol("System")),
 #ifndef TT_NO_DSP
 mRampFunction(kTTSym_none),
 #endif
@@ -83,6 +84,8 @@ mService(kTTSymEmpty)
 	addAttributeProperty(InstanceBounds, hidden, YES);
 	
 	addAttributeWithSetter(RampDrive, kTypeSymbol);
+    addAttribute(RampDriveDefault, kTypeSymbol);
+    addAttributeProperty(RampDriveDefault, hidden, YES);
 #ifndef TT_NO_DSP    
 	addAttributeWithSetter(RampFunction, kTypeSymbol);
 #endif

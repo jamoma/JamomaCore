@@ -25,8 +25,6 @@ mName(kTTSymEmpty),
 mAddress(kTTAdrsEmpty),
 mDirectory(NULL)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTPreset", arguments.size() == 0 || arguments.size() == 1);
-	
 	addAttribute(Name, kTypeSymbol);
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
@@ -73,11 +71,11 @@ TTErr TTPreset::setAddress(const TTValue& value)
 
 TTErr TTPreset::Store()
 {
-	TTNodePtr		aNode;
-	TTObjectBasePtr	anObject;
-	TTList			aNodeList, allObjectNodes;
-	TTAddress       aRelativeAddress;
-	TTValue			v, parsedLine;					
+	TTNodePtr	aNode;
+	TTObject	anObject;
+	TTList		aNodeList, allObjectNodes;
+	TTAddress   aRelativeAddress;
+	TTValue     v, parsedLine;
 	
 	Clear();
 	
@@ -110,13 +108,13 @@ TTErr TTPreset::Store()
 			anObject = aNode->getObject();
 			
 			// append command line
-			if (anObject) {
+			if (anObject.valid()) {
 				
 				// DATA case
-				if (anObject->getName() == kTTSym_Data) {
+				if (anObject.name() == kTTSym_Data) {
 					
 					v.clear();
-					anObject->getAttributeValue(kTTSym_value, v);
+					anObject.get(kTTSym_value, v);
 					
 					if (v.empty())
 						continue;

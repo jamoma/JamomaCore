@@ -2,7 +2,7 @@
  *
  * @ingroup modularLibrary
  *
- * @brief A contextual subscriber to register TTObjectBase as TTNode in a TTNodeDirectory
+ * @brief A contextual subscriber to register #TTObject as #TTNode in a #TTNodeDirectory
  *
  * @details TODO: Add more info
  *
@@ -25,7 +25,7 @@
  to create each upper nodes to make a path to this node in the tree structure.
  To do that we need :
 	
-	- the TTObjectBase to subscribe.
+	- the #TTObject to subscribe.
 	- a Context : a pointer to a structural element of our environnement which contains the subscriber (e.g. a Max patcher, a Pd patcher, a html page, ...).
 	- a relative address of the subscriber in this Context to get the name and the instance (but this could be ommited and be generated automatically).
 	- a way to share the node which refers on that Context with other suscribers inside.
@@ -84,10 +84,10 @@ private:
 	
 public:
 	
-	/** Expose a message of any TTObjectBase as TTData in the same context than subscribed object */
+	/** Expose a message of any #TTObject as #TTData in the same context than subscribed object */
 	TTErr exposeMessage(TTObject anObject, TTSymbol messageName, TTObject& returnedData);
 	
-	/** Expose an attribute of any TTObjectBase as TTData (parameter or return) in the same context than subscribed object */
+	/** Expose an attribute of any #TTObject as #TTData (parameter or return) in the same context than subscribed object */
 	TTErr exposeAttribute(TTObject anObject, TTSymbol attributeName, TTSymbol service, TTObject& returnedData);
 	
 	/** Remove message exposition */

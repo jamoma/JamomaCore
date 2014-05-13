@@ -28,10 +28,6 @@ mAddress(kTTAdrsEmpty),
 mCurrent(kTTSymEmpty),
 mCurrentPosition(0)
 {
-	TTValue v;
-    
-    TT_ASSERT("Correct number of arguments to instantiate TTPresetManager", arguments.size() == 0 || arguments.size() == 1);
-	
 	if (arguments.size() == 1)
 		mReturnLineCallback = arguments[0];
     

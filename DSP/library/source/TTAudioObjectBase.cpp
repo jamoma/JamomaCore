@@ -64,7 +64,7 @@ TTAudioObjectBase::~TTAudioObjectBase()
 
 TTErr TTAudioObjectBase::setMaxNumChannels(const TTValue& newValue)
 {
-	TTUInt16 newNumChannels = newValue;
+	TTChannelCount newNumChannels = newValue;
 
 	if (newNumChannels < 1)
 		newNumChannels = 1;
@@ -93,7 +93,7 @@ TTErr TTAudioObjectBase::setSr(const TTValue& newValue)
 
 TTErr TTAudioObjectBase::bypassProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	for (TTUInt16 i=0; i<outputs->numAudioSignals; i++) {
+	for (TTChannelCount i=0; i<outputs->numAudioSignals; i++) {
 		TTAudioSignal& out = outputs->getSignal(i);
 
 		if (i<inputs->numAudioSignals) {
@@ -117,7 +117,7 @@ TTErr TTAudioObjectBase::bypassCalculate(const TTFloat64& x, TTFloat64& y, TTPtr
 
 TTErr TTAudioObjectBase::muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	for (TTUInt16 i=0; i<outputs->numAudioSignals; i++)
+	for (TTChannelCount i=0; i<outputs->numAudioSignals; i++)
 		(outputs->getSignal(i)).clear();
 	return kTTErrNone;
 }
@@ -271,7 +271,7 @@ TTErr TTAudioObjectBase::calculateProcess(TTAudioSignalArrayPtr inputs, TTAudioS
 	TTUInt16		vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt	channel;
 	
 	for (channel=0; channel<numchannels; channel++) {

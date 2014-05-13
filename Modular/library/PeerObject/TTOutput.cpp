@@ -29,17 +29,11 @@ mGain(100.),
 mFreeze(NO),
 mSignalAttr(NULL)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTOutput", arguments.size() > 0);
-	
-    if (arguments.size() > 0) {
+    if (arguments.size() > 0)
         mReturnSignalCallback = arguments[0];
-        TT_ASSERT("Return Signal Callback passed to TTOutput is valid", mReturnSignalCallback.valid());
-    }
     
-    if (arguments.size() > 1) {
+    if (arguments.size() > 1)
         mReturnLinkCallback = arguments[1];
-        TT_ASSERT("Return Link Callback passed to TTOutput is valid", mReturnLinkCallback.valid());
-    }
 	
 	if (arguments.size() > 2) {
 		mSignalIn = arguments[2];
@@ -174,7 +168,7 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 		// prepare arguments
 		mAddressObserver = TTObject("callback");
         
-		mAddressObserver.set(kTTSym_baton, TTObject(TTObjectBasePtr(this)));
+		mAddressObserver.set(kTTSym_baton, TTObject(this));
 		mAddressObserver.set(kTTSym_function, TTPtr(&TTOutputDirectoryCallback));
 	}
 	

@@ -513,12 +513,12 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 	returnedChildren = TTValuePtr((TTPtr)outputValue[1]);
 	returnedAttributes = TTValuePtr((TTPtr)outputValue[2]);
 	
-	TTList				nodeList, childList;
-	TTNodePtr			firstNode, aNode;
-	TTAddress			nodeAddress;
-	TTSymbol			objectType;
-	TTObjectBasePtr		anObject;
-	TTErr				err;
+	TTList		nodeList, childList;
+	TTNodePtr	firstNode, aNode;
+	TTAddress	nodeAddress;
+	TTSymbol	objectType;
+	TTObject	anObject;
+	TTErr		err;
 	
 	directory = accessApplicationDirectoryFrom(whereToDiscover);
 	if (!directory)
@@ -535,16 +535,16 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
         
         // check if there is an object
 		anObject = firstNode->getObject();
-		if (anObject) {
+		if (anObject.valid()) {
             
             // fill returned type
-            objectType = anObject->getName();
+            objectType = anObject.name();
             
             if (objectType != kTTSymEmpty)
                 *returnedType = objectType;
             
             // fill returned attributes
-			anObject->getAttributeNames(*returnedAttributes);
+			anObject.attributes(*returnedAttributes);
         }
         
         // sort children by priority
@@ -597,9 +597,9 @@ TTErr TTApplicationManager::ApplicationGet(const TTValue& inputValue, TTValue& o
 	
 	whereToGet = inputValue[0];
 	
-	TTNodePtr			nodeToGet;
-	TTObjectBasePtr		anObject;
-	TTErr				err;
+	TTNodePtr	nodeToGet;
+	TTObject	anObject;
+	TTErr		err;
 	
 	directory = accessApplicationDirectoryFrom(whereToGet);
 	if (!directory)
@@ -611,8 +611,8 @@ TTErr TTApplicationManager::ApplicationGet(const TTValue& inputValue, TTValue& o
 	if (!err) {
 		
 		anObject = nodeToGet->getObject();
-		if (anObject)
-			return anObject->getAttributeValue(whereToGet.getAttribute(), outputValue);
+		if (anObject.valid())
+			return anObject.get(whereToGet.getAttribute(), outputValue);
 	}
 
 	return kTTErrGeneric;
@@ -627,12 +627,12 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 	whereToSet = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);
 	
-	TTList				aNodeList;
-	TTNodePtr			nodeToSet;
-	TTSymbol			objectType;
-	TTObjectBasePtr		anObject;
-    TTValue             none;
-	TTErr				err;
+	TTList		aNodeList;
+	TTNodePtr	nodeToSet;
+	TTSymbol	objectType;
+	TTObject	anObject;
+    TTValue     none;
+	TTErr       err;
 	
 	directory = accessApplicationDirectoryFrom(whereToSet);
 	if (!directory)
@@ -651,20 +651,20 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 			
 			anObject = nodeToSet->getObject();
             
-            if (anObject) {
+            if (anObject.valid()) {
                 
-                objectType = anObject->getName();
+                objectType = anObject.name();
 			
                 // TTData case : for value attribute use Command message
                 if (objectType == kTTSym_Data) {
 				
                     if (whereToSet.getAttribute() == kTTSym_value)
-                        err = anObject->sendMessage(kTTSym_Command, *newValue, none);
+                        err = anObject.send(kTTSym_Command, *newValue, none);
                     else
-                        err = anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
+                        err = anObject.set(whereToSet.getAttribute(), *newValue);
                 }
                 else
-                    err = anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
+                    err = anObject.set(whereToSet.getAttribute(), *newValue);
             }
             
             if (err)

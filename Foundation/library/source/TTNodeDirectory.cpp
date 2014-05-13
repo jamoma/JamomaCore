@@ -12,14 +12,17 @@
 #include <algorithm>
 
 TTNodeDirectory::TTNodeDirectory(TTSymbol aName) :
-	root(NULL),	
-	directory(NULL),
-	aliases(NULL),
-	observers(NULL),
+	root(NULL),
 	mutex(NULL)
 {	
 	// set the name of the tree
 	name = aName;
+    
+    // protect lifeCycleObservers from multithreading access
+    // why ? because observers could disappear when they know an address is destroyed
+    observers.setThreadProtection(true);
+    
+    mutex = new TTMutex(true);
 
 	init();
 }
@@ -27,38 +30,23 @@ TTNodeDirectory::TTNodeDirectory(TTSymbol aName) :
 TTNodeDirectory::~TTNodeDirectory()
 {
 	delete root;
-	delete directory;
-	delete aliases;
-	delete observers;
 }
 
 TTErr TTNodeDirectory::init()
 {
-	TTBoolean nodeCreated = NO;
-	
-	if (root) delete root;
-	if (directory) delete directory;
-	if (aliases) delete aliases;
+	TTBoolean   nodeCreated = NO;
+    TTObject    empty;
 	
 	// create a new directory
-	directory = new TTHash();
+	directory.clear();
 	
 	// create a new aliases table
-	aliases = new TTHash();
+	aliases.clear();
 	
-	// if there are observers keep them
-	if (!observers) {
-		
-		// create a lifeCycleObservers and protect it from multithreading access
-		// why ? because observers could disappear when they know an address is destroyed
-		this->observers = new TTHash();
-		this->observers->setThreadProtection(true);
-	}
+	// don't clear observers !
 	
-	mutex = new TTMutex(true);
-	
-	// create a root
-	return TTNodeCreate(kTTAdrsRoot, NULL, this, &this->root, &nodeCreated);
+	// create a root with no object
+	return TTNodeCreate(kTTAdrsRoot, empty, this, &this->root, &nodeCreated);
 }
 
 TTErr TTNodeDirectory::setName(TTSymbol aName)
@@ -79,7 +67,7 @@ TTNodePtr	TTNodeDirectory::getRoot()
 
 TTHashPtr	TTNodeDirectory::getDirectory()
 {
-	return directory;
+	return &directory;
 }
 
 TTErr TTNodeDirectory::getTTNode(const char* anAddress, TTNodePtr* returnedTTNode)
@@ -92,12 +80,9 @@ TTErr TTNodeDirectory::getTTNode(TTAddress anAddress, TTNodePtr* returnedTTNode)
 	TTAddress	noAlias;
 	TTErr		err;
 	TTValue		found;
-
-	if (!directory) 
-		return kTTErrGeneric;
 	
 	// look into the hashtab to check if the address exist in the tree
-	err = directory->lookup(anAddress.normalize(), found);
+	err = directory.lookup(anAddress.normalize(), found);
 	
 	// if the address exists : return the TTNode
 	if (err != kTTErrValueNotFound) {
@@ -114,20 +99,18 @@ TTErr TTNodeDirectory::getTTNode(TTAddress anAddress, TTNodePtr* returnedTTNode)
 
 TTErr TTNodeDirectory::getAlias(TTAddress anAddress, TTAddress& returnedAlias)
 {
-	TTValue	 v, ak;
-	TTAddress				alias;
-	TTAddress				aliasAddress;
+	TTValue     v, ak;
+	TTAddress	alias;
+	TTAddress	aliasAddress;
 	TTAddressComparisonFlag	comp;
-	TTInt8 d;
-	
-//	returnedAlias = NULL;
+	TTInt8      d;
 	
 	// Retrieve the alias binding on this address
-	aliases->getKeys(ak);
-	for (int i=0; i < aliases->getKeys(ak); i++) {
+	aliases.getKeys(ak);
+	for (int i=0; i < aliases.getKeys(ak); i++) {
 		
 		alias = ak[i];
-		aliases->lookup(*alias, v);
+		aliases.lookup(*alias, v);
 		aliasAddress = v[1];
 		comp = anAddress.compare(aliasAddress, d);
 		
@@ -136,9 +119,6 @@ TTErr TTNodeDirectory::getAlias(TTAddress anAddress, TTAddress& returnedAlias)
 			break;
 		}
 	}
-	
-//	if (*returnedAlias == NULL)
-//		return kTTErrGeneric;
 	
 	return kTTErrNone;
 }
@@ -155,7 +135,7 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
     TTAddressComparisonFlag	comp;
 	
 	// if this address doesn't exist look into aliases
-	this->aliases->getKeys(ak);
+	this->aliases.getKeys(ak);
 	s = ak.size();
 	if (s == 0)
 		return kTTErrGeneric;
@@ -168,7 +148,7 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 		
 		// if the address is an alias : return the TTNode
 		if (comp == kAddressEqual) {
-			aliases->lookup(alias, found);
+			aliases.lookup(alias, found);
 			aliasAddress = found[1];
 			
 			anAddress = aliasAddress;
@@ -178,7 +158,7 @@ TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 		// the address is under an alias : 
 		// get the address of the alias and join anAddress (without the alias part)
 		if (comp == kAddressLower) {
-			aliases->lookup(alias, found);
+			aliases.lookup(alias, found);
 			aliasAddress = found[1];
 			c = found[2];
 			
@@ -253,7 +233,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTAddress& anAddress, TTObject newObject, vo
     normalizedAddress = anAddress.normalize();
     
     // is there a TTNode with this address in the tree ?
-    err = directory->lookup(normalizedAddress, found);
+    err = directory.lookup(normalizedAddress, found);
     
     // if it's the first at this address
     if (err == kTTErrValueNotFound) {
@@ -298,7 +278,7 @@ TTErr TTNodeDirectory::TTNodeCreate(TTAddress& anAddress, TTObject newObject, vo
     
     // 3. Add the effective address (with the generated instance) to the global hashtab
     newTTNode->getAddress(effectiveAddress);
-    directory->append(effectiveAddress, newTTNode);
+    directory.append(effectiveAddress, newTTNode);
     
     // 4. Notify observers that a node have been created AFTER the creation
     this->notifyObservers(effectiveAddress, newTTNode, kAddressCreated);
@@ -315,7 +295,7 @@ TTErr TTNodeDirectory::TTNodeRemove(TTAddress& anAddress)
 	TTNodePtr		oldNode, parentNode;
 	TTList			childrenList;
 	TTValue			v;
-	TTObjectBasePtr		obj;
+	TTObject		obj;
 	TTAddress		parentAddress;
 
 	// can't destroy the root (use the TTNodeDirectory destructor)
@@ -330,7 +310,7 @@ TTErr TTNodeDirectory::TTNodeRemove(TTAddress& anAddress)
 			this->notifyObservers(anAddress, oldNode, kAddressDestroyed);
 
 			// Remove his address
-			err = directory->remove(anAddress);
+			err = directory.remove(anAddress);
 
 			// Get parent node
 			parentNode = oldNode->getParent();
@@ -339,11 +319,11 @@ TTErr TTNodeDirectory::TTNodeRemove(TTAddress& anAddress)
 			if (!err)
 				delete oldNode;
 
-			// If parent node have no more child and refers to NULL object : destroy
+			// If parent node have no more child and refers to a none valid object : destroy
 			parentNode->getChildren(S_WILDCARD, S_WILDCARD, childrenList);
 			obj = parentNode->getObject();
 
-			if (childrenList.isEmpty() && !obj) {
+			if (childrenList.isEmpty() && !obj.valid()) {
 				// find the TTNode in the directory
 				parentNode->getAddress(parentAddress);
 				TTNodeRemove(parentAddress);
@@ -377,7 +357,7 @@ TTErr TTNodeDirectory::AliasCreate(TTAddress alias, TTAddress anAddress)
 		v.append(anAddress);
 		v.append(alias.countSeparator());
 		
-		err = aliases->append(alias, v);
+		err = aliases.append(alias, v);
 		
 		if (!err)
 			// notify observers that an address has been created
@@ -404,7 +384,7 @@ TTErr TTNodeDirectory::AliasRemove(TTAddress alias)
 			return kTTErrGeneric;
 		
 		// remove the alias from the directory
-		err = aliases->remove(alias);
+		err = aliases.remove(alias);
 		
 		if (!err)
 			// notify observers that an address has been removed
@@ -608,14 +588,14 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTObject
 		o.append(maxDepthDifference);
 
 	// is the key already exists ?
-	err = this->observers->lookup(adrs, lk);
+	err = this->observers.lookup(adrs, lk);
 
 	// create a new observers list for this address
 	if (err == kTTErrValueNotFound){
 		lk_o = new TTList();
 		lk_o->appendUnique(o);
 
-		this->observers->append(adrs, lk_o);
+		this->observers.append(adrs, lk_o);
 	}
 	// add it to the existing list
 	else {
@@ -643,7 +623,7 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTObj
 	adrs = anAddress.normalize();
 
 	// is the key exists ?
-	err = this->observers->lookup(adrs, lk);
+	err = this->observers.lookup(adrs, lk);
 
 	if (err != kTTErrValueNotFound){
         
@@ -659,7 +639,7 @@ TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTObj
 		if (lk_o->isEmpty()) {
             
 			// remove the key
-			this->observers->remove(adrs);
+			this->observers.remove(adrs);
 
             // delete the list
             delete lk_o;
@@ -684,12 +664,12 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
 	TTBoolean			foundObsv = NO;
 
 	// if there are observers
-	if (!this->observers->isEmpty()) {
+	if (!this->observers.isEmpty()) {
 		
 		// enable observers protection
 		mutex->lock();
 		
-		this->observers->getKeys(hk);
+		this->observers.getKeys(hk);
 		
 		// don't look at attribute and address
 		adrs = anAddress.normalize();
@@ -719,7 +699,7 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
 			if ((comp == kAddressEqual) || (comp == kAddressLower)) {
 				
 				// get the Observers list
-				if (!this->observers->lookup(key, lk)) {
+				if (!this->observers.lookup(key, lk)) {
                     
                     lk_o = NULL;
                     lk_o = TTListPtr((TTPtr)lk[0]);
@@ -772,12 +752,12 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
 
 TTBoolean testNodeObjectType(TTNodePtr n, TTPtr args)
 {
-	TTObjectBasePtr o;
+	TTObject o;
 
 	o = n->getObject();
 
-	if (o)
-		return o->getName().rawpointer() == args;
+	if (o.valid())
+		return o.name().rawpointer() == args;
 	else
 		return NO;
 }
@@ -812,7 +792,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	TTSymbol		aFilterName;
 	TTSymbol		filterMode;
 	TTDictionaryBasePtr aFilter;
-	TTObjectBasePtr		anObject;
+	TTObject		anObject;
 	TTAddress		anAddress;
 	TTValue			v;
 	TTBoolean		resultFilter, result;
@@ -874,10 +854,10 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					objectFilter = v[0];
 					
 					// a node without object can be selected using the none symbol
-					if (!anObject)
+					if (!anObject.valid())
 						resultObject = objectFilter == kTTSym_none;
 					else
-						resultObject = objectFilter == anObject->getName();
+						resultObject = objectFilter == anObject.name();
 				}
 				
 				// test attribute name
@@ -888,13 +868,13 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					attributeFilter = v[0];
 					
 					// a node without object have no attribute
-					if (!anObject) {
+					if (!anObject.valid()) {
 						resultAttribute = NO;
 						resultValue = NO;
 					}
 					else {
 						
-						err = anObject->getAttributeValue(attributeFilter, v);
+						err = anObject.get(attributeFilter, v);
 						
 						// the existence of the attribute is also a way to filter nodes
 						resultAttribute = err == kTTErrNone;
@@ -1032,7 +1012,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 {
 	TTNodePtr	n1, n2;
-	TTObjectBasePtr o1, o2;
+	TTObject    o1, o2;
 	TTValue		v;
     TTValue    name1;
     TTValue    name2;
@@ -1049,8 +1029,8 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
         instance1 = n1->getInstance();
 		o1 = n1->getObject();
 		
-		if (o1)
-			if (!o1->getAttributeValue(kTTSym_priority, v))
+		if (o1.valid())
+			if (!o1.get(kTTSym_priority, v))
 				p1 = v[0];
 	}
 	
@@ -1062,8 +1042,8 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
         instance2 = n2->getInstance();
 		o2 = n2->getObject();
 		
-		if (o2)
-			if (!o2->getAttributeValue(kTTSym_priority, v))
+		if (o2.valid())
+			if (!o2.get(kTTSym_priority, v))
 				p2 = v[0];
 	}
 	

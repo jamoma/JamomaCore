@@ -26,12 +26,8 @@
 TT_MODULAR_CONSTRUCTOR,
 mFlattened(NO)
 {
-	TT_ASSERT("Correct number of arguments to instantiate TTScript", arguments.size() == 0 || arguments.size() == 1);
-	
 	if (arguments.size() == 1)
 		mReturnLineCallback = arguments[0];
-	
-	TT_ASSERT("Return Line Callback passed to TTScript is valid", mReturnLineCallback.valid());
 
     addAttribute(Flattened, kTypeBoolean);
     addAttributeProperty(Flattened, readOnly, YES);
@@ -152,7 +148,7 @@ TTErr TTScript::Flatten(const TTValue& inputValue, TTValue& outputValue)
     // else start to flatten this script
     if (!aScriptToFlatten.valid()) {
         Unflatten();
-        aScriptToFlatten = TTObject(TTObjectBasePtr(this));
+        aScriptToFlatten = TTObject(this);
         mFlattened = YES;
     }
 	
@@ -1187,8 +1183,7 @@ TTErr TTScript::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
                 this->AppendScript(v, parsedLine);
                 
                 // set this as parent script of the subscript
-                v = TTObject(TTObjectBasePtr(this));
-                mSubScript.set("parentScript", v);
+                mSubScript.set("parentScript", TTObject(this));
             }
 		}
 		
@@ -1324,8 +1319,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			mSubScript = v[0];
 			
 			// set this as parent script of the subscript
-			v = TTObject(TTObjectBasePtr(this));
-			mSubScript.set("parentScript", v);
+			mSubScript.set("parentScript", TTObject(this));
 			
 			// increment the tab count to indent lines
 			aTextHandler->mTabCount++;
@@ -1387,8 +1381,7 @@ TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 		aTextHandler->mTabCount--;
 		
 		// set this as parent script of the subscript
-		v = TTObject(TTObjectBasePtr(this));
-		mSubScript.set("parentScript", v);
+		mSubScript.set("parentScript", TTObject(this));
 		
 		// use ReadFromText of the sub script
 		aTextHandler->setAttributeValue(kTTSym_object, mSubScript);

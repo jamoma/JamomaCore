@@ -19,5 +19,15 @@ class TTObjectTest : public TTDataObjectBase {
 	virtual TTErr test(TTValue& returnedTestInfo);
 };
 
+/** Declare a Test class for TTObjectTestAsClassMemberAndObjectFreeing */
+class Test
+{
+    public :
+    TTObject mObject;
+    
+    Test(int& errorCount, int& testAssertionCount);
+    
+    ~Test();
+};
 
 #endif // __TT_OBJECT_TEST_H__
