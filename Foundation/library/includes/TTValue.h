@@ -423,7 +423,7 @@ public:
 	
 	
 	/** @brief DEPRECATED
-     @deprecated instead, please call type() on the element itself, e.g. @n TTValue v(1,2,3); @n TTDataType thetype = v[1].type(); */
+     @deprecated instead, please call TTElement::type() on the element itself, e.g. @n TTValue v(1,2,3); @n TTDataType thetype = v[1].type(); */
 	TT_DEPRECATED( TTDataType getType(const TTUInt16 index=0) const )
 	{
 		return at(index).type();
