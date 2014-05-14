@@ -384,6 +384,26 @@ public:
 		delete[] cStr;
 		return kTTErrNone;
 	}
+    
+// inherited functions from Vector class
+    
+#ifdef _DOXY_
+    
+    /** @breif Report the number of elements 
+     @details Inherited from the C++ standard library's <a href="http://www.cplusplus.com/reference/vector/vector/">vector class</a>
+     @param     none
+     @return    number of elements currently in #TTValue
+     */
+    size_type size() const noexcept;
+    
+    /** @breif Change the number of elements
+     @details Inherited from the C++ standard library's <a href="http://www.cplusplus.com/reference/vector/vector/">vector class</a>
+     @param     n   number of elements for resulting #TTValue
+     @return    void
+     */
+    void resize (size_type n);
+    
+#endif
 	
 // deprecated functions
     
