@@ -265,15 +265,17 @@ TTObjectBasePtr TTEnvironment::referenceInstance(TTObjectBasePtr anObject)
 // TODO: find a better way to avoid the problem of infinite feedback from
 // objects duplicating to provide notification
 // This current technique is not threadsafe (for example, if we are deleting objects on the non-main thread).
-static TTBoolean sFreeInProgress = NO;
+//static TTBoolean sFreeInProgress = NO;
+#include <unordered_map>
+static std::unordered_map<TTObjectBasePtr, TTBoolean> sFreeInProgress;
 
 TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 {
-	if (sFreeInProgress)
+	if (sFreeInProgress[*anObject])
 		return kTTErrNone;
 	
 	TT_ASSERT("can only release a valid instance", *anObject && (*anObject)->valid == 1 && (*anObject)->referenceCount);
-
+		
 	(*anObject)->referenceCount--;
     TTLogDebug("TTEnvironment::releaseInstance : \t%p is referenced %d times\n", *anObject, (*anObject)->referenceCount);
     
@@ -281,7 +283,7 @@ TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 
 		(*anObject)->valid = false;
 		waitForLock(); // in case an object is processing a vector of audio in another thread or something...
-		sFreeInProgress = YES;
+		sFreeInProgress[*anObject] = YES;
 		
 		// the following must happen in a block so that 'v' will go out of scope before we
 		// delete the object.
@@ -291,8 +293,8 @@ TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 		}
         TTLogDebug("TTEnvironment::releaseInstance : \t%p is not a %s instance anymore\n", *anObject, (*anObject)->getName().c_str());
 		delete *anObject;
+		sFreeInProgress.erase(*anObject);
 		*anObject = NULL;
-		sFreeInProgress = NO;
 	}
 	return kTTErrNone;
 }
