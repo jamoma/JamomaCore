@@ -172,23 +172,28 @@ extern TTFOUNDATION_EXPORT TTEnvironment* ttEnvironment;
 
 // Public Interface -- REPLACED BY TTOBJECT
 
-/** @deprecated Instead, please use the @n #TTObject constructor as detailed in @ref chapter_usingobjects_lifecycle */
+/** @brief DEPRECATED
+ @deprecated Instead, please use the @n #TTObject constructor as detailed in @ref chapter_usingobjects_lifecycle */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTValue arguments) );
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments) );
 
-/** @deprecated Instead, most uses can be handled via the @n #TTObject and its = operator */
+/** @brief DEPRECATED
+ @deprecated Instead, most uses can be handled via the @n #TTObject and its = operator */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTObjectBasePtr TTObjectBaseReference(TTObjectBasePtr anObject) );
 
-/** @deprecated Instead, please use the @n #TTObject destructor via the delete operator as detailed in @ref chapter_usingobjects_lifecycle */
+/** @brief DEPRECATED
+ @deprecated Instead, please use the @n #TTObject destructor via the delete operator as detailed in @ref chapter_usingobjects_lifecycle */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject) );
 
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
 
-/** @deprecated Instead, please use @n TTObject::GetRegisteredClassNames */
+/** @brief DEPRECATED
+ @deprecated Instead, please use @n TTObject::GetRegisteredClassNames */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames) );
 
-/** @deprecated Instead, please use @n TTObject::GetRegisteredClassNamesForTags */
+/** @brief DEPRECATED
+ @deprecated Instead, please use @n TTObject::GetRegisteredClassNamesForTags */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags) );
 
 #endif // __TT_ENVIRONMENT_H__

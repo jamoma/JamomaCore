@@ -387,29 +387,31 @@ public:
 	
 // deprecated functions
     
-    /** @fn TTUInt16 getSize() const
+    /** @brief DEPRECATED
      @deprecated instead, please call the size() method */
 	TT_DEPRECATED( TTUInt16 getSize() const )
 	{
 		return size();
 	}
 	
-	/** @deprecated instead, please call the resize() method */
+	/** @brief DEPRECATED
+     @deprecated instead, please call the resize() method */
 	TT_DEPRECATED( void setSize(const TTUInt16 arg) )
 	{
 		resize(arg);
 	}
 	
 	
-	/** @deprecated instead, please call type() on the element itself, e.g. @n TTValue v(1,2,3); @n TTDataType thetype = v[1].type(); */
+	/** @brief DEPRECATED
+     @deprecated instead, please call type() on the element itself, e.g. @n TTValue v(1,2,3); @n TTDataType thetype = v[1].type(); */
 	TT_DEPRECATED( TTDataType getType(const TTUInt16 index=0) const )
 	{
 		return at(index).type();
 	}
     
     
-    /** DEPRECATED / OLD
-     To make an assignment you now use standard C array syntax.  For example, instead of:
+    /** @brief DEPRECATED
+     @deprecated instead, please make an assignment using standard C array syntax.  For example, instead of:
      TTValue v;
      v.set(0, 3.14);
      you now do:
@@ -422,8 +424,8 @@ public:
 		at(index) = anElementValue;
 	}
     
-	/** DEPRECATED / OLD
-	 To fetch the value of an element you now use standard C array syntax.  For example, instead of:
+	/** @brief DEPRECATED
+	 @deprecated instead, please fetch the value of an element using standard C array syntax.  For example, instead of:
 	 TTValue	v(3.14);
 	 TTFloat64	mypi;
 	 v.get(0, mypi);
@@ -459,31 +461,44 @@ public:
     
 	
     // inlined for speed (e.g. for use in the matrix)
-	TT_DEPRECATED( TTFloat64 getUInt8(TTUInt16 index = 0) const )
+    /** @brief DEPRECATED
+	 @deprecated needs more info here
+     */
+    TT_DEPRECATED( TTFloat64 getUInt8(TTUInt16 index = 0) const )
 	{
 		return TTUInt8(at(index));
 	}
 	
 	// inlined for speed (e.g. for use in the matrix)
+    /** @brief DEPRECATED
+	 @deprecated needs more info here
+     */
 	TT_DEPRECATED( TTFloat64 getInt32(TTUInt16 index = 0) const )
 	{
 		return TTInt32(at(index));
 	}
 	
 	// inlined for speed (e.g. for use in the matrix)
+    /** @brief DEPRECATED
+	 @deprecated needs more info here
+     */
 	TT_DEPRECATED( TTFloat64 getFloat32(TTUInt16 index = 0) const )
 	{
 		return TTFloat32(at(index));
 	}
 	
 	// inlined for speed (e.g. for use in the dataspace lib)
+    /** @brief DEPRECATED
+	 @deprecated needs more info here
+     */
 	TT_DEPRECATED( TTFloat64 getFloat64(TTUInt16 index = 0) const )
 	{
 		return TTFloat64(at(index));
 	}
     
     
-	/**
+	/** @brief DEPRECATED
+	 @deprecated needs more info here
 	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
 	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
 	 */
@@ -497,10 +512,9 @@ public:
 	}
 	
 	
-	/**
-	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
-	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
-	 */
+	/** @brief DEPRECATED
+	 @deprecated needs more info here, maybe copydoc
+     */
 	TT_DEPRECATED( void getArray(TTInt32* arrayToFill, TTUInt16 maxSize) const )
 	{
 		for (size_t i=0; i<size(); i++) {
@@ -511,10 +525,9 @@ public:
 	}
 	
 	
-	/**
-	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
-	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
-	 */
+	/** @brief DEPRECATED
+	 @deprecated needs more info here, maybe copydoc
+     */
 	TT_DEPRECATED( void getArray(TTFloat32* arrayToFill, TTUInt16 maxSize) const )
 	{
 		for (size_t i=0; i<size(); i++) {
@@ -525,10 +538,9 @@ public:
 	}
 	
 	
-	/**
-	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
-	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
-	 */
+	/** @brief DEPRECATED
+	 @deprecated needs more info here, maybe copydoc
+     */
 	TT_DEPRECATED( void getArray(TTFloat64* arrayToFill, TTUInt16 maxSize) const )
 	{
 		for (size_t i=0; i<size(); i++) {
