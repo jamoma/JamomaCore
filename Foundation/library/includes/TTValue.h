@@ -4,7 +4,8 @@
  *
  * @brief Jamoma Foundation class for representing values
  *
- * @details
+ * @details #TTValue is a subclass of the C++ standard library's <a href="http://www.cplusplus.com/reference/vector/vector/">vector class</a> and it may therefore be composed of a single element or many elements. This class also inherits familiar functions such as size() and from its parent class.
+ @n@n Individual items in the #TTValue are defined by the #TTElement class. These individual elements may be one of the defined types in the #TTDataType enumeration.
  *
  * @authors Tim Place, Théo de la Hogue, Nathan Wolek, Julien Rabin, Nils Peters, Trond Lossius
  *
@@ -22,9 +23,7 @@
 
 
 /**	Provides a common way of representing composite values so that they can be easily passed to and from methods in Jamoma Core.
-	#TTValue is a subclass of the C++ standard library's <a href="http://www.cplusplus.com/reference/vector/vector/">vector class</a> and it may therefore be composed of a single element or many elements. This class also inherits familiar functions such as size() and from its parent class.
-    @n@n Individual items in the #TTValue are defined by the #TTElement class. These individual elements may be one of the defined types in the #TTDataType enumeration.
- 
+	@copydetails TTValue.h
 */
 class TTValue : public TTElementVector {
     
