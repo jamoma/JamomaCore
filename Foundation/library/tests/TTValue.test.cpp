@@ -578,9 +578,24 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 	TTInt32		i;
 	TTFloat32	f;
 	
-	// TODO: test toString()
+	// test toString()
+    v = TTValue("victor","bravo",74,0.6);
+    v.toString();
+    aString = TTString("victor bravo 74 0.600000");
+    
+    TTTestAssertion("4 element TTValue is converted into a single TTString",
+					v[0].type() == kTypeString &&
+					v.size() == 1,
+					testAssertionCount,
+					errorCount);
+    
+    TTTestAssertion("new TTString has the expected value",
+					v == aString,
+					testAssertionCount,
+					errorCount);
 	
 	// test fromString()
+    v.clear();
 	aString = TTString("0");
 	v = aString;
 	v.fromString();
@@ -677,9 +692,35 @@ void TTValueTestStringConversion(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 	
-	v.clear();
-	
-	// TODO: test transformCSVStringToSymbolArray()
+	// test transformCSVStringToSymbolArray()
+    v.clear();
+	aString = TTString("tango,wilco,1977");
+	v = aString;
+	v.transformCSVStringToSymbolArray();
+    
+    TTTestAssertion("\"tango,wilco,1977\" CSV string is converted into a 3 symbols",
+					v[0].type() == kTypeSymbol &&
+					v[1].type() == kTypeSymbol &&
+					v[2].type() == kTypeSymbol &&
+					v.size() == 3,
+					testAssertionCount,
+					errorCount);
+    
+    /*
+    // TODO: test values after transformCSVStringToSymbolArray()
+    aSymbol = v[0];
+    
+    TTTestAssertion("3 new TTSymbols have expected values",
+					aSymbol == TT("tango") &&
+					//v[1] == TT("wilco") &&
+					//v[2] == TT("1977") &&
+					v.size() == 3,
+					testAssertionCount,
+					errorCount);
+    */
+    
+    v.clear();
+    
 }	
 
 
