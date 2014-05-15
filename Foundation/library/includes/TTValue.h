@@ -157,7 +157,8 @@ public:
 	}
 
 #ifndef TT_PLATFORM_WIN
-    // No doxygen, function overload ==(a,b)
+    /** @overload
+     */
 	template<class T>
 	friend bool operator == (const TTValue& a, const T b)
 	{
@@ -178,8 +179,9 @@ public:
 			return T(0);
 	}
 
-    // No doxygen, function overload T()
-	// TTSymbol needs to be manually wrapped to avoid ambiguity as interpretted by the clang compiler
+    // TTSymbol needs to be manually wrapped to avoid ambiguity as interpretted by the clang compiler
+    /** @overload
+     */
 	operator TTSymbol() const
 	{
 		if (size())
@@ -527,7 +529,7 @@ public:
 	
     // inlined for speed (e.g. for use in the matrix)
     /** @brief DEPRECATED
-	 @deprecated needs more info here
+	 @deprecated inlined function formerly used by #TTMatrix or @ref foundationDataspaceLib
      */
     TT_DEPRECATED( TTFloat64 getUInt8(TTUInt16 index = 0) const )
 	{
@@ -535,38 +537,29 @@ public:
 	}
 	
 	// inlined for speed (e.g. for use in the matrix)
-    /** @brief DEPRECATED
-	 @deprecated needs more info here
+    /** @copydoc getUInt8()
      */
 	TT_DEPRECATED( TTFloat64 getInt32(TTUInt16 index = 0) const )
 	{
 		return TTInt32(at(index));
 	}
 	
-	// inlined for speed (e.g. for use in the matrix)
-    /** @brief DEPRECATED
-	 @deprecated needs more info here
+	/** @copydoc getUInt8()
      */
 	TT_DEPRECATED( TTFloat64 getFloat32(TTUInt16 index = 0) const )
 	{
 		return TTFloat32(at(index));
 	}
 	
-	// inlined for speed (e.g. for use in the dataspace lib)
-    /** @brief DEPRECATED
-	 @deprecated needs more info here
+	/** @copydoc getUInt8()
      */
 	TT_DEPRECATED( TTFloat64 getFloat64(TTUInt16 index = 0) const )
 	{
 		return TTFloat64(at(index));
 	}
     
-    
-	/** @brief DEPRECATED
-	 @deprecated needs more info here
-	 @param	arrayToFill	An already alloc'd array whose values will be filled-in upon return.
-	 @param	maxSize		The number of items alloc'd to the #arrayToFill parameter
-	 */
+	/** @copydoc getUInt8()
+     */
 	TT_DEPRECATED( void getArray(TTUInt8* arrayToFill, TTUInt16 maxSize) const )
 	{
 		for (size_t i=0; i<size(); i++) {
@@ -577,8 +570,7 @@ public:
 	}
 	
 	
-	/** @brief DEPRECATED
-	 @deprecated needs more info here, maybe copydoc
+	/** @overload
      */
 	TT_DEPRECATED( void getArray(TTInt32* arrayToFill, TTUInt16 maxSize) const )
 	{
@@ -590,8 +582,7 @@ public:
 	}
 	
 	
-	/** @brief DEPRECATED
-	 @deprecated needs more info here, maybe copydoc
+	/** @overload
      */
 	TT_DEPRECATED( void getArray(TTFloat32* arrayToFill, TTUInt16 maxSize) const )
 	{
@@ -603,8 +594,7 @@ public:
 	}
 	
 	
-	/** @brief DEPRECATED
-	 @deprecated needs more info here, maybe copydoc
+	/** @overload
      */
 	TT_DEPRECATED( void getArray(TTFloat64* arrayToFill, TTUInt16 maxSize) const )
 	{
