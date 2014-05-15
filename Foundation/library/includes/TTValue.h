@@ -274,9 +274,10 @@ public:
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::booleanize));
 	}
 	
-	/** Edit the content of the value as a string
-     @param returnString        optionnal argument to not fill the value with the result 
-     @return the content of the value as a string */
+	/** @brief Return the content as a single string with spaces between elements
+     @param     none
+     @return    #TTString that contains the content of all elements in the #TTValue
+     */
 	TTString toString() const
 	{
 		TTString temp;
@@ -290,7 +291,9 @@ public:
         return temp;
 	}
     
-    /** Edit the content of the value as a string and replace the content */
+    // TODO: Could this be DRYer?
+    /** @overload
+     */
 	void toString()
 	{
 		TTString temp;
@@ -306,11 +309,15 @@ public:
         append(temp);
 	}
 	
+    /** @breif Convert a single string into individual elements using space to divide items
+     @param     numberAsSymbol  optional #TTBoolean determines whether method leaves numbers as symbols, default is NO
+     @return    none
+     */
 	void fromString(TTBoolean numberAsSymbol = NO)
 	{
-		if (at(0).type() != kTypeString) {
-			clear();
-			return;
+		if (at(0).type() != kTypeString) { // if the first element isn't a string
+			clear(); // clear the contents of the value
+			return; // and do nothing else
 		}
 					
 		TTUInt32					n = 0;
@@ -380,8 +387,8 @@ public:
 	}
 		
 
-	/**	In-place method that converts the internal value, if it is a TTString, 
-		from a comma-separated-value string into an array of TTSymbols.  
+	/**	@breif Convert a comma-separated-value string into an array of TTSymbols.
+     @return    kTTErrInvalidType if first item is not kTypeString, else kTTErrNone
 	 */
 	TTErr transformCSVStringToSymbolArray()
 	{
