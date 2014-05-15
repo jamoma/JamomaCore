@@ -30,13 +30,13 @@ class TTValue : public TTElementVector {
     
 public:
 
-	/** Constructor for an empty value */
+	/** @brief Constructor for an empty value */
 	TTValue()
 	{
 		reserve(1);
 	}
 	
-	/** Constructor with a single initial element. */
+	/** @brief Constructor with a single initial element. */
 	template<class T>
 	TTValue(const T& anInitialValue)
 	{
@@ -44,7 +44,7 @@ public:
 		at(0) = anInitialValue;
 	}
 		
-	/** Constructor with two initial elements. */
+	/** @brief Constructor with two initial elements. */
 	template <class T, class U>
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue)
 	{
@@ -53,7 +53,7 @@ public:
 		at(1) = aSecondElementInitialValue;
 	}
 	
-	/** Constructor with three initial elements. */
+	/** @brief Constructor with three initial elements. */
 	template <class T, class U, class V>
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue, const V& aThirdElementInitialValue)
 	{
@@ -63,7 +63,7 @@ public:
 		at(2) = aThirdElementInitialValue;
 	}
 
-	/** Constructor with four initial elements. */
+	/** @brief Constructor with four initial elements. */
 	template <class T, class U, class V, class W>
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue, const V& aThirdElementInitialValue, const W& aFourthElementInitialValue)
 	{
@@ -76,28 +76,28 @@ public:
 
 	// force the destructor to be non-virtual
 	// we don't want subclasses of TTValue so it won't be a problem, and this solves linking snafus in some edge cases
-    /** Destructor */
+    /** @brief Destructor */
 	~TTValue()
 	{;}
 	
     
 private:
-	/** Internal method used by the constructors. */
+	/** @brief Internal method used by the constructors. */
 	void init();
 	
-	/** Performs a deep copy of the object */
+	/** @brief Performs a deep copy of the object */
 	inline void copy(const TTValue& obj);
 
 
 public:
 
-    /** Clear all values from the vector, leaving with size of 0 */
+    /** @brief Clear all values from the vector, leaving with size of 0 */
 	void clear() {
 		TTElementVector::clear();
 	}
 
     
-	/** Copy a value starting from an index until another index */
+	/** @brief Copy a value starting from an index until another index */
 	void copyRange(const TTValue& obj, TTUInt16 startIndex, TTUInt16 endIndex)
 	{
 		resize(endIndex - startIndex);
@@ -106,14 +106,14 @@ public:
 	}
 	
 	
-	/** Copy a value starting at index */
+	/** @brief Copy a value starting from an index until the last element */
 	void copyFrom(const TTValue& obj, TTUInt16 index)
 	{
 		copyRange(obj, index, obj.size());
 	}
 	
 	
-	/** Insert another TTValue before the first element.
+	/** @brief Insert another TTValue before the first element.
      @details
      The following example code would result in TTValue b having elements ordered <1, 2, 3, ga, bu, zo, meu>:
      @code{.cpp}
@@ -131,7 +131,9 @@ public:
 	}
 
 	
-	/**	Assign a value to TTValue */
+	/**	@brief Assign a value to TTValue.
+     @details Overwrites current elements.
+     */
 	template<class T>
 	TTValue& operator = (T value)
 	{
@@ -140,7 +142,7 @@ public:
 		return *this;
 	}
 	
-	/**	Test equality of two values */
+	/**	@brief Test equality of two values */
 	friend bool operator == (const TTValue& a, const TTValue& b)
 	{
 		if (a.size() == b.size()) {
@@ -155,6 +157,7 @@ public:
 	}
 
 #ifndef TT_PLATFORM_WIN
+    // No doxygen, function overload ==(a,b)
 	template<class T>
 	friend bool operator == (const TTValue& a, const T b)
 	{
@@ -165,7 +168,7 @@ public:
 	}
 #endif
 
-	/** Get a value from TTValue */
+	/** @brief Get a value from TTValue */
 	template<class T>
 	operator T() const
 	{
@@ -175,6 +178,7 @@ public:
 			return T(0);
 	}
 
+    // No doxygen, function overload T()
 	// TTSymbol needs to be manually wrapped to avoid ambiguity as interpretted by the clang compiler
 	operator TTSymbol() const
 	{
@@ -184,7 +188,7 @@ public:
 			return kTTSymEmpty;
 	}
 	
-    /** Insert a single TTElement at the end */
+    /** @brief Insert a single TTElement at the end */
 	template<class T>
 	void append(const T& anElementValueToAppend)
 	{
@@ -193,7 +197,7 @@ public:
 		push_back(e);
 	}
 	
-    /** Insert another TTValue after the last element.
+    /** @brief Insert another TTValue after the last element.
      @details
      The following example code would result in TTValue b having elements ordered <ga, bu, zo, meu, 1, 2, 3>:
      @code{.cpp}
@@ -217,7 +221,11 @@ public:
 		}
 	}
 
-	/** Clip numerical values between low and high boundaries */
+	/** Clip numerical values between low and high boundaries
+     @param[in] aLowBound
+     @param[in] aHighBound
+     @return    none
+     */
 	void clip(const TTFloat64& aLowBound, const TTFloat64& aHighBound)
 	{
 		for (TTElementIter i = this->begin(); i != this->end(); i++)
@@ -250,7 +258,7 @@ public:
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::truncate));
 	}
 	
-	/** Booleanize all elements */
+	/** Booleanize numerical elements */
 	void booleanize()
 	{
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::booleanize));
