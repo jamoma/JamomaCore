@@ -223,9 +223,9 @@ public:
 		}
 	}
 
-	/** Clip numerical values between low and high boundaries
-     @param[in] aLowBound
-     @param[in] aHighBound
+	/** @brief Clip numerical values between low and high boundaries
+     @param[in] aLowBound   Lowest value that should be preserved. Anything lower will be set to this value.
+     @param[in] aHighBound  Highest value that should be preserved. Anything higher will be set to this value.
      @return    none
      */
 	void clip(const TTFloat64& aLowBound, const TTFloat64& aHighBound)
@@ -234,33 +234,41 @@ public:
 			i->clip(aLowBound, aHighBound);
 	}
 	
-	/** Clip numerical values below a specified boundary */
+	/** @brief Clip numerical values below a specified boundary
+     @param[in] aLowBound   Lowest value that should be preserved. Anything lower will be set to this value.
+     @return    none
+     */
 	void cliplow(const TTFloat64& aLowBound)
 	{
 		for (TTElementIter i = this->begin(); i != this->end(); i++)
 			i->cliplow(aLowBound);
 	}
 	
-	/** Clip numerical values above a specified boundary */
+	/** @brief Clip numerical values above a specified boundary
+     @param[in] aHighBound  Highest value that should be preserved. Anything higher will be set to this value.
+     @return    none
+     */
 	void cliphigh(const TTFloat64& aHighBound)
 	{
 		for (TTElementIter i = this->begin(); i != this->end(); i++)
 			i->cliphigh(aHighBound);
 	}
 	
-	/** Round numerical values to the nearest whole number */
+	/** @brief Round float & double elements to the nearest whole number */
 	void round()
 	{
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::round));
 	}
 
-	/** Truncate numerical values so that only whole number remains */
+	/** @brief Truncate float & double elements so that only whole number remains */
 	void truncate()
 	{
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::truncate));
 	}
 	
-	/** Booleanize numerical elements */
+	/** @brief Booleanize numerical elements
+     @details Sets all non-zero numerical elements to true, while those that are zero will be set to false. Changes the #TTDataType of these elements to kTypeBoolean.
+     */
 	void booleanize()
 	{
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::booleanize));
@@ -412,7 +420,7 @@ public:
     
 #ifdef _DOXY_
     
-    /** @breif Report the number of elements 
+    /** @breif Return the number of elements
      @details Inherited from the C++ standard library's <a href="http://www.cplusplus.com/reference/vector/vector/">vector class</a>
      @param     none
      @return    number of elements currently in #TTValue
