@@ -327,7 +327,7 @@ DemoApp::Execute(std::string command)
     TTValue v = TTString(command);
     v.fromString();
     
-    // a command have to start by a symbol
+    // a command has to start with a symbol
     if (v.size() > 1) {
         
         if (v[0].type() == kTypeSymbol) {
