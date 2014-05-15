@@ -113,9 +113,14 @@ public:
 	}
 	
 	
-	/** Perform a copy of a value before and copy ourself after.
-		For example, given a TTValue a <1, 2, 3> and another TTValue b <ga, bu, zo, meu>
-		b.prepend(a) will be <1, 2, 3, ga, bu, zo, meu>
+	/** Insert another TTValue before the first element.
+     @details
+     The following example code would result in TTValue b having elements ordered <1, 2, 3, ga, bu, zo, meu>:
+     @code{.cpp}
+     TTValue a(1, 2, 3); 
+     TTValue b(ga, bu, zo, meu);
+     b.prepend(a);
+     @endcode
 	 */
 	void prepend(const TTValue& aValueToPrepend)
 	{
@@ -188,7 +193,15 @@ public:
 		push_back(e);
 	}
 	
-    /** Insert entire TTValue at the end */
+    /** Insert another TTValue after the last element.
+     @details
+     The following example code would result in TTValue b having elements ordered <ga, bu, zo, meu, 1, 2, 3>:
+     @code{.cpp}
+     TTValue a(1, 2, 3);
+     TTValue b(ga, bu, zo, meu);
+     b.append(a);
+     @endcode
+	 */
 	void append(const TTValue& aValueToAppend)
 	{
 		TTUInt32 appendingElementCount = aValueToAppend.size();
@@ -423,7 +436,19 @@ public:
 	
 	
 	/** @brief DEPRECATED
-     @deprecated instead, please call TTElement::type() on the element itself, e.g. @n TTValue v(1,2,3); @n TTDataType thetype = v[1].type(); */
+     @deprecated instead, please call TTElement::type() on the element itself. 
+     @details
+     Old syntax:
+     @code{.cpp}
+     TTValue v(1,2,3);
+     TTDataType thetype = v.getType(1);
+     @endcode
+     New syntax:
+     @code{.cpp}
+     TTValue v(1,2,3);
+     TTDataType thetype = v[1].type(); 
+     @endcode
+     */
 	TT_DEPRECATED( TTDataType getType(const TTUInt16 index=0) const )
 	{
 		return at(index).type();
@@ -431,12 +456,18 @@ public:
     
     
     /** @brief DEPRECATED
-     @deprecated instead, please make an assignment using standard C array syntax.  For example, instead of:
+     @deprecated instead, please make an assignment using standard C array syntax.
+     @details
+     Old syntax:
+     @code{.cpp}
      TTValue v;
      v.set(0, 3.14);
-     you now do:
+     @endcode
+     New syntax:
+     @code{.cpp}
      TTValue v;
      v[0] = 3.14;
+     @endcode
 	 */
 	template<class T>
 	TT_DEPRECATED ( void set(const TTUInt16 index, const T& anElementValue) )
@@ -445,14 +476,20 @@ public:
 	}
     
 	/** @brief DEPRECATED
-	 @deprecated instead, please fetch the value of an element using standard C array syntax.  For example, instead of:
+	 @deprecated instead, please fetch the value of an element using standard C array syntax.
+     @details
+     Old syntax:
+     @code{.cpp}
 	 TTValue	v(3.14);
 	 TTFloat64	mypi;
 	 v.get(0, mypi);
-	 you now do:
+	 @endcode
+     New syntax:
+     @code{.cpp}
 	 TTValue v(3.14);
 	 TTFloat64	mypi;
 	 mypi = v[0];
+     @endcode
 	 */
 	template<class T>
 	TT_DEPRECATED ( void get(const TTUInt16 index, T& returnedElementValue) const )
