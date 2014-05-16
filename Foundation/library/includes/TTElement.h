@@ -586,7 +586,11 @@ public:
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRId32, mValue.int32);
 				break;
 			case kTypeUInt32:
+#if defined(TT_PLATFORM_LINUX)
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu32 "u", mValue.uint32);
+#else
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu32, mValue.uint32);
+#endif
 				break;
 			case kTypeInt64:
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRId64, mValue.int64);
