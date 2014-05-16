@@ -65,7 +65,7 @@ TTAudioSignal&	out = outputs->getSignal(0); \
 TTUInt16		vs; \
 TTSampleValue*	inSample; \
 TTSampleValue*	outSample; \
-TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out); \
+TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out); \
 TTPtrSizedInt	channel; \
 \
 for (channel=0; channel<numchannels; channel++) { \
@@ -98,7 +98,7 @@ protected:
 	TTUInt32				sr;							///< Current sample rate being used by this object
 	TTFloat64				srInv;						///< 1.0 over the current sample rate (inverse)
 	TTFloat64				srMill;						///< 1/1000 of the current sample rate (samples per millisecond)
-	TTUInt16				mMaxNumChannels;			///< This is the maximum number of channels that can be guaranteed to work
+	TTChannelCount			mMaxNumChannels;			///< This is the maximum number of channels that can be guaranteed to work
 	TTBoolean				unused;						///< Old var that is not used anymore, but we want to keep the struct size the same
 	TTBoolean				attrBypass;					///< Are we bypassing the processMethod?
 	TTBoolean				attrMute;					///< Mute the processMethod.
@@ -160,7 +160,7 @@ public:
 	/**	Increase the maxNumChannels attribute, if neccessary.
 	 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr adaptMaxNumChannels(const TTUInt16 newMaxNumChannels)
+	TTErr adaptMaxNumChannels(const TTChannelCount newMaxNumChannels)
 	{
 		if (newMaxNumChannels > mMaxNumChannels)
 			return setAttributeValue(kTTSym_maxNumChannels, newMaxNumChannels);

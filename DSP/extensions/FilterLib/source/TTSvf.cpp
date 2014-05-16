@@ -151,7 +151,7 @@ void TTSvf::calculateCoefficients()
 }
 
 
-void TTSvf::tick(TTSampleValue value, TTUInt16 channel)
+void TTSvf::tick(TTSampleValue value, TTChannelCount channel)
 {
 	// UNROLLED (oversampling) FOR LOOP FOR SPEED
 	mNotch_output[channel]		= value - mDamp * mBandpass_output[channel];

@@ -29,8 +29,8 @@ protected:
 	TTMatrixPtr		mGainMatrix;					///< A NxM matrix of mixing coefficients.
 	TTBoolean		mInterpolated;					///< A flag determine if we will be interpolating towards new matrix values whenever a gain value is being updated.
 	TTMatrixPtr		oldGainMatrix, tempGainMatrix;	///< These matrixes are required for the process of resizing when changing the number of inputs or outputs.
-	TTUInt16		mNumInputs;						///< The number of audio inputs.
-	TTUInt16		mNumOutputs;					///< The number of audio outputs.
+	TTChannelCount	mNumInputs;						///< The number of audio inputs.
+	TTChannelCount	mNumOutputs;					///< The number of audio outputs.
 	
 	///// Attributes ///
 	
@@ -51,7 +51,7 @@ protected:
 	 @param y						The current number of audio output signals
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr checkMatrixSize(const TTUInt16 x, const TTUInt16 y);
+	TTErr checkMatrixSize(const TTChannelCount x, const TTChannelCount y);
 	
 	//TTErr setInterpolated(const TTValue& newValue);
 	

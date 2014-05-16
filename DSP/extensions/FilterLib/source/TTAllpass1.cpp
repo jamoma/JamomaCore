@@ -30,7 +30,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mDelayInSamples(0), 
 	mDelayMaxInSamples(0)
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 
 	addAttributeWithSetter(Delay,				kTypeFloat64);
 	addAttributeWithSetter(DelayInSamples,		kTypeInt64);
@@ -134,7 +134,7 @@ TTErr TTAllpass1::setDelay(const TTValue& newValue)
 	/*
 	delay = TTClip<TTFloat64>(newValue, 0.0, delayMax);
 	delayInSamples = long(delay * (sr / 1000.0));
-	for (TTUInt16 channel=0; channel<mMaxNumChannels; channel++) {
+	for (TTChannelCount channel=0; channel<mMaxNumChannels; channel++) {
 		ffEndPtr[channel] = feedforward[channel] + delayInSamples;
 		fbEndPtr[channel] = feedback[channel] + delayInSamples;	
 	}
@@ -235,7 +235,7 @@ TTErr TTAllpass1::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 	TTUInt16			vs;
 	TTSampleValue*		inSample;
 	TTSampleValue*		outSample;
-	TTUInt16			numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt		channel;
 	TTDelayBufferPtr	buffers[2];
 		

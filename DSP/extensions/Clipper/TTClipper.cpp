@@ -3,6 +3,9 @@
  * Extension Class for Jamoma DSP
  * Copyright © 2008, Timothy Place
  * 
+ *
+ * This is the simplest possible example of an extention, and can be used as a template for creating new extentions.
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */

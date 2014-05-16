@@ -1,10 +1,18 @@
-/* 
- * Jamoma DSP FFT Object
- * Copyright © 2010, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspFftLib
+ *
+ * @brief ##TTfft - Fast Fourier Transforms
+ *
+ * @details If a channel is simultaneously muted and soloed, soloing takes presedence.
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTFFT.h"
 
@@ -140,8 +148,8 @@ TTErr TTfft::processComplexOoura(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTAudioSignal&		in = inputs->getSignal(0);
 	TTAudioSignal&		out = outputs->getSignal(0);
 	TTUInt16			vs = in.getVectorSizeAsInt();
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	TTFFT_PROCESS_UPDATE_CHANNELCOUNT
 	TTFFT_PROCESS_UPDATE_VECTORSIZE
@@ -178,8 +186,8 @@ TTErr TTfft::processRealOoura(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	TTAudioSignal&		in = inputs->getSignal(0);
 	TTAudioSignal&		out = outputs->getSignal(0);
 	TTUInt16			vs = in.getVectorSizeAsInt();
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	TTFFT_PROCESS_UPDATE_CHANNELCOUNT
 	TTFFT_PROCESS_UPDATE_VECTORSIZE
@@ -216,8 +224,8 @@ TTErr TTfft::processComplexMayer(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTAudioSignal&		in = inputs->getSignal(0);
 	TTAudioSignal&		out = outputs->getSignal(0);
 	TTUInt16			vs = in.getVectorSizeAsInt();
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	TTFFT_PROCESS_UPDATE_CHANNELCOUNT
 	TTFFT_PROCESS_UPDATE_VECTORSIZE	
@@ -254,8 +262,8 @@ TTErr TTfft::processRealMayer(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	TTAudioSignal&		in = inputs->getSignal(0);
 	TTAudioSignal&		out = outputs->getSignal(0);
 	TTUInt16			vs = in.getVectorSizeAsInt();
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	TTFFT_PROCESS_UPDATE_CHANNELCOUNT
 	TTFFT_PROCESS_UPDATE_VECTORSIZE

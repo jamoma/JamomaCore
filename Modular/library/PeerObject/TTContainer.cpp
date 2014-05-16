@@ -1003,8 +1003,8 @@ void TTContainer::dataHeading(TTString *buffer)
 	*buffer += "\t\t<tr class=\"tableHeading2\">";
 	*buffer += "\t\t\t<td> name </td>";
 	*buffer += "\t\t\t<td> type </td>";
-	*buffer += "\t\t\t<td> range/bounds </td>";
-	*buffer += "\t\t\t<td> range/clipmode </td>";
+	*buffer += "\t\t\t<td> bounds </td>";
+	*buffer += "\t\t\t<td> clipmode </td>";
 	*buffer += "\t\t\t<td> ramp/drive </td>";
 #ifndef TT_NO_DSP    
 	*buffer += "\t\t\t<td> ramp/function </td>";

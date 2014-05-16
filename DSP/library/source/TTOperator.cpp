@@ -206,8 +206,8 @@ TTErr TTOperator::processAddSignal(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 	TTSampleValuePtr	in1Sample;
 	TTSampleValuePtr	in2Sample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	if (in2.getNumChannelsAsInt() == 1) {				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in1.getNumChannelsAsInt();		
@@ -256,8 +256,8 @@ TTErr TTOperator::processSubtractSignal(TTAudioSignalArrayPtr inputs, TTAudioSig
 	TTSampleValuePtr	in1Sample;
 	TTSampleValuePtr	in2Sample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	if (in2.getNumChannelsAsInt() == 1) {				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in1.getNumChannelsAsInt();
@@ -305,8 +305,8 @@ TTErr TTOperator::processMultiplySignal(TTAudioSignalArrayPtr inputs, TTAudioSig
 	TTSampleValuePtr	in1Sample;
 	TTSampleValuePtr	in2Sample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	if (in2.getNumChannelsAsInt() == 1) {				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in1.getNumChannelsAsInt();
@@ -355,8 +355,8 @@ TTErr TTOperator::processDivideSignal(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	TTSampleValuePtr	in1Sample;
 	TTSampleValuePtr	in2Sample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	if (in2.getNumChannelsAsInt() == 1) {				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in1.getNumChannelsAsInt();
@@ -410,8 +410,8 @@ TTErr TTOperator::processEqualSignal(TTAudioSignalArrayPtr inputs, TTAudioSignal
 	TTSampleValuePtr	in1Sample;
 	TTSampleValuePtr	in2Sample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	if (in2.getNumChannelsAsInt() == 1) {				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in1.getNumChannelsAsInt();
@@ -463,8 +463,8 @@ TTErr TTOperator::processNotEqualSignal(TTAudioSignalArrayPtr inputs, TTAudioSig
 	TTSampleValuePtr	in1Sample;
 	TTSampleValuePtr	in2Sample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	if (in2.getNumChannelsAsInt() == 1) {				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in1.getNumChannelsAsInt();
@@ -517,8 +517,8 @@ TTErr TTOperator::processGreaterEqualSignal(TTAudioSignalArrayPtr inputs, TTAudi
 	TTSampleValuePtr	in1Sample;
 	TTSampleValuePtr	in2Sample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	if (in2.getNumChannelsAsInt() == 1) {				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in1.getNumChannelsAsInt();
@@ -570,8 +570,8 @@ TTErr TTOperator::processGreaterSignal(TTAudioSignalArrayPtr inputs, TTAudioSign
 	TTSampleValuePtr	in1Sample;
 	TTSampleValuePtr	in2Sample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	if (in2.getNumChannelsAsInt() == 1) {				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in1.getNumChannelsAsInt();
@@ -624,8 +624,8 @@ TTErr TTOperator::processSmallerEqualSignal(TTAudioSignalArrayPtr inputs, TTAudi
 	TTSampleValuePtr	in1Sample;
 	TTSampleValuePtr	in2Sample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	if (in2.getNumChannelsAsInt() == 1) {				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in1.getNumChannelsAsInt();
@@ -677,8 +677,8 @@ TTErr TTOperator::processSmallerSignal(TTAudioSignalArrayPtr inputs, TTAudioSign
 	TTSampleValuePtr	in1Sample;
 	TTSampleValuePtr	in2Sample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	
 	if (in2.getNumChannelsAsInt() == 1) {				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in1.getNumChannelsAsInt();
@@ -725,8 +725,8 @@ TTErr TTOperator::processModuloSignal(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	TTSampleValuePtr	in1Sample;
 	TTSampleValuePtr	in2Sample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numChannels;
-	TTUInt16			channel;
+	TTChannelCount		numChannels;
+	TTChannelCount		channel;
 	TTUInt64			temp;
 	TTUInt64			intOperand;
 	

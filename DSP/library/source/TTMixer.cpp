@@ -73,7 +73,7 @@ TTMixer::~TTMixer()
 
 TTErr TTMixer::setNumInputs(const TTValue& newValue)
 {
-	TTUInt16	numInputs = newValue;
+	TTChannelCount	numInputs = newValue;
 	TTValue		v(numInputs, mNumOutputs);
 	
 	if (numInputs != mNumInputs) {
@@ -91,7 +91,7 @@ TTErr TTMixer::setNumInputs(const TTValue& newValue)
 
 TTErr TTMixer::setNumOutputs(const TTValue& newValue)
 {
-	TTUInt16	numOutputs = newValue;
+	TTChannelCount	numOutputs = newValue;
 	TTValue		v(mNumInputs, numOutputs);
 	
 	if (numOutputs != mNumOutputs) {
@@ -110,14 +110,14 @@ TTErr TTMixer::restoreMatrix()
 {
 	TTValue dim;
 	TTFloat64 tempValue; 	
-	TTUInt16 xx, yy;
+	TTChannelCount xx, yy;
 	tempGainMatrix->getDimensions(dim);
 	dim.get(0,xx);
 	dim.get(1,yy);
-	TTLimit(xx,(TTUInt16) 1, mNumInputs); // in case xx or yy is greater than the current mGainMatrix ...
-	TTLimit(yy,(TTUInt16) 1, mNumOutputs);
-	for (TTUInt16 y=0; y < yy; y++) {
-		for (TTUInt16 x=0; x < xx; x++) {
+	TTLimit(xx,(TTChannelCount) 1, mNumInputs); // in case xx or yy is greater than the current mGainMatrix ...
+	TTLimit(yy,(TTChannelCount) 1, mNumOutputs);
+	for (TTChannelCount y=0; y < yy; y++) {
+		for (TTChannelCount x=0; x < xx; x++) {
 			tempGainMatrix->get2d(x, y, tempValue);
 			mGainMatrix->set2d(   x, y, tempValue);
 			oldGainMatrix->set2d( x, y, tempValue);
@@ -134,7 +134,7 @@ TTErr TTMixer::clear()
 	return kTTErrNone;
 }
 
-TTErr TTMixer::checkMatrixSize(TTUInt16 x, TTUInt16 y)
+TTErr TTMixer::checkMatrixSize(TTChannelCount x, TTChannelCount y)
 //this function will resize mGainMatrix if necessary while preserving its content 
 {	
 	if (x > (mNumInputs-1)){
@@ -154,8 +154,8 @@ TTErr TTMixer::checkMatrixSize(TTUInt16 x, TTUInt16 y)
 
 TTErr TTMixer::setGain(const TTValue& newValue, TTValue&)
 {
-	TTUInt16	x;
-	TTUInt16	y;
+	TTChannelCount	x;
+	TTChannelCount	y;
 	TTFloat64	gainValue;
 	
 	if (newValue.size() != 3)
@@ -177,8 +177,8 @@ TTErr TTMixer::setGain(const TTValue& newValue, TTValue&)
 
 TTErr TTMixer::setLinearGain(const TTValue& newValue, TTValue&)
 {
-	TTUInt16	x;
-	TTUInt16	y;
+	TTChannelCount	x;
+	TTChannelCount	y;
 	TTFloat64	gainValue;
 	
 	if (newValue.size() != 3)
@@ -199,8 +199,8 @@ TTErr TTMixer::setLinearGain(const TTValue& newValue, TTValue&)
 
 TTErr TTMixer::setMidiGain(const TTValue& newValue, TTValue&)
 {
-	TTUInt16	x;
-	TTUInt16	y;
+	TTChannelCount	x;
+	TTChannelCount	y;
 	TTFloat64	gainValue;
 	
 	if (newValue.size() != 3)
@@ -228,10 +228,10 @@ TTErr TTMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr 
 	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTSampleValuePtr	inSample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numInputChannels = in.getNumChannelsAsInt();
-	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
-	TTUInt16			outChannel;
-	TTUInt16			inChannel;
+	TTChannelCount		numInputChannels = in.getNumChannelsAsInt();
+	TTChannelCount		numOutputChannels = out.getNumChannelsAsInt();
+	TTChannelCount		outChannel;
+	TTChannelCount		inChannel;
     TTSampleValue       gainValue;
 
 	if (numInputChannels > mNumInputs) {
@@ -273,10 +273,10 @@ TTErr TTMixer::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAudioSig
 	TTUInt16			vs = in.getVectorSizeAsInt();
 	TTSampleValuePtr	inSample;
 	TTSampleValuePtr	outSample;
-	TTUInt16			numInputChannels = in.getNumChannelsAsInt();
-	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
-	TTUInt16			outChannel;
-	TTUInt16			inChannel;
+	TTChannelCount		numInputChannels = in.getNumChannelsAsInt();
+	TTChannelCount		numOutputChannels = out.getNumChannelsAsInt();
+	TTChannelCount		outChannel;
+	TTChannelCount		inChannel;
     TTSampleValue       gainValue, increment;
 
 	if (numInputChannels > mNumInputs) {

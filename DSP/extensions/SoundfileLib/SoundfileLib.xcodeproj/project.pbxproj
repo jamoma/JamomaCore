@@ -7,86 +7,74 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A72B9527191B79C40094EC11 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		A72B9528191B79C40094EC11 /* TTResample.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTResample.cpp; sourceTree = "<group>"; };
-		A72B9529191B79C40094EC11 /* TTStaircase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTStaircase.cpp; sourceTree = "<group>"; };
-		A72B952A191B79C40094EC11 /* TTResample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTResample.h; sourceTree = "<group>"; };
-		A72B952B191B79C40094EC11 /* TTStaircase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTStaircase.h; sourceTree = "<group>"; };
-		A72B952C191B79C40094EC11 /* ResamplingLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = ResamplingLib.yml; sourceTree = "<group>"; };
+		A72B9541191B7AC40094EC11 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
+		A72B9542191B7AC40094EC11 /* sources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sources; sourceTree = "<group>"; };
+		A72B9543191B7AC40094EC11 /* tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tests; sourceTree = "<group>"; };
+		A72B9544191B7AD50094EC11 /* libsndfile */ = {isa = PBXFileReference; lastKnownFileType = folder; path = libsndfile; sourceTree = "<group>"; };
+		A72B9545191B7AD50094EC11 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		A72B9546191B7AD50094EC11 /* SoundfileLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SoundfileLib.cpp; sourceTree = "<group>"; };
+		A72B9547191B7AD50094EC11 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		A72B9548191B7AD50094EC11 /* SoundfileLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = SoundfileLib.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		A72B951C191B797B0094EC11 = {
+		A72B952F191B7A550094EC11 = {
 			isa = PBXGroup;
 			children = (
-				A72B9527191B79C40094EC11 /* Makefile */,
-				A72B952D191B79CC0094EC11 /* include */,
-				A72B952E191B79D30094EC11 /* sources */,
-				A72B952C191B79C40094EC11 /* ResamplingLib.yml */,
+				A72B9548191B7AD50094EC11 /* SoundfileLib.yml */,
+				A72B9545191B7AD50094EC11 /* Makefile */,
+				A72B9546191B7AD50094EC11 /* SoundfileLib.cpp */,
+				A72B9547191B7AD50094EC11 /* test.cpp */,
+				A72B9541191B7AC40094EC11 /* includes */,
+				A72B9542191B7AC40094EC11 /* sources */,
+				A72B9543191B7AC40094EC11 /* tests */,
+				A72B9544191B7AD50094EC11 /* libsndfile */,
 			);
-			sourceTree = "<group>";
-		};
-		A72B952D191B79CC0094EC11 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				A72B952A191B79C40094EC11 /* TTResample.h */,
-				A72B952B191B79C40094EC11 /* TTStaircase.h */,
-			);
-			name = include;
-			sourceTree = "<group>";
-		};
-		A72B952E191B79D30094EC11 /* sources */ = {
-			isa = PBXGroup;
-			children = (
-				A72B9528191B79C40094EC11 /* TTResample.cpp */,
-				A72B9529191B79C40094EC11 /* TTStaircase.cpp */,
-			);
-			name = sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		A72B9521191B797B0094EC11 /* ResamplingLib */ = {
+		A72B9534191B7A550094EC11 /* SoundfileLib */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = "$(ACTION)";
-			buildConfigurationList = A72B9524191B797B0094EC11 /* Build configuration list for PBXLegacyTarget "ResamplingLib" */;
+			buildConfigurationList = A72B9537191B7A550094EC11 /* Build configuration list for PBXLegacyTarget "SoundfileLib" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
 			dependencies = (
 			);
-			name = ResamplingLib;
+			name = SoundfileLib;
 			passBuildSettingsInEnvironment = 1;
-			productName = ResamplingLib;
+			productName = SoundfileLib;
 		};
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
-		A72B951D191B797B0094EC11 /* Project object */ = {
+		A72B9530191B7A550094EC11 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = org.jamoma;
 			};
-			buildConfigurationList = A72B9520191B797B0094EC11 /* Build configuration list for PBXProject "ResamplingLib" */;
+			buildConfigurationList = A72B9533191B7A550094EC11 /* Build configuration list for PBXProject "SoundfileLib" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = A72B951C191B797B0094EC11;
+			mainGroup = A72B952F191B7A550094EC11;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A72B9521191B797B0094EC11 /* ResamplingLib */,
+				A72B9534191B7A550094EC11 /* SoundfileLib */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin XCBuildConfiguration section */
-		A72B9522191B797B0094EC11 /* Debug */ = {
+		A72B9535191B7A550094EC11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -124,7 +112,7 @@
 			};
 			name = Debug;
 		};
-		A72B9523191B797B0094EC11 /* Release */ = {
+		A72B9536191B7A550094EC11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -156,7 +144,7 @@
 			};
 			name = Release;
 		};
-		A72B9525191B797B0094EC11 /* Debug */ = {
+		A72B9538191B7A550094EC11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUGGING_SYMBOLS = YES;
@@ -168,7 +156,7 @@
 			};
 			name = Debug;
 		};
-		A72B9526191B797B0094EC11 /* Release */ = {
+		A72B9539191B7A550094EC11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				OTHER_CFLAGS = "";
@@ -180,25 +168,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A72B9520191B797B0094EC11 /* Build configuration list for PBXProject "ResamplingLib" */ = {
+		A72B9533191B7A550094EC11 /* Build configuration list for PBXProject "SoundfileLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A72B9522191B797B0094EC11 /* Debug */,
-				A72B9523191B797B0094EC11 /* Release */,
+				A72B9535191B7A550094EC11 /* Debug */,
+				A72B9536191B7A550094EC11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A72B9524191B797B0094EC11 /* Build configuration list for PBXLegacyTarget "ResamplingLib" */ = {
+		A72B9537191B7A550094EC11 /* Build configuration list for PBXLegacyTarget "SoundfileLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A72B9525191B797B0094EC11 /* Debug */,
-				A72B9526191B797B0094EC11 /* Release */,
+				A72B9538191B7A550094EC11 /* Debug */,
+				A72B9539191B7A550094EC11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A72B951D191B797B0094EC11 /* Project object */;
+	rootObject = A72B9530191B7A550094EC11 /* Project object */;
 }

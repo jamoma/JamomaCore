@@ -71,7 +71,7 @@ public:
 
 	// Audio Signal Access Methods
 
-	TTUInt16 getNumOutputChannels()
+	TTChannelCount getNumOutputChannels()
 	{
 		return mBufferedOutput->getNumChannelsAsInt();
 	}

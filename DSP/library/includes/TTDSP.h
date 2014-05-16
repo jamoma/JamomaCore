@@ -46,6 +46,8 @@
 #include "TTAudioSignalArray.h"
 #include "TTAudioObject.h"
 
+
+
 // Macros
 
 #define TT_AUDIO_CONSTRUCTOR \
@@ -70,7 +72,8 @@ thisTTClass :: thisTTClass (const TTValue& arguments) : TTAudioObjectBase(argume
 	TT_AUDIO_CONSTRUCTOR
 
 
-/** A macro for setting up the class binding to the library in extension classes. 
+/** A macro for setting up the class binding to the library in extension classes.
+ @ingroup macros
  @param strname		A C-string that names the object as it should be listed in the environment.
  @param tags		The tags associated with the class.
  @param className	The name of the class.

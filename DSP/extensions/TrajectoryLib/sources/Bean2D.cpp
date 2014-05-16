@@ -43,7 +43,7 @@ Bean2D::~Bean2D()
 TTErr Bean2D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
+	TTChannelCount		numOutputChannels = out.getNumChannelsAsInt();
 	
 	if (numOutputChannels != 2) {
 		TTValue v = 2;		
@@ -52,7 +52,7 @@ TTErr Bean2D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr o
 	}
 	
 	TTAudioSignal&		in0 = inputs->getSignal(0);
-	TTUInt16			 vs = in0.getVectorSizeAsInt();
+	TTUInt16			vs  = in0.getVectorSizeAsInt();
 	
 	TTSampleValuePtr	inSampleX			= in0.mSampleVectors[0];
 	TTSampleValuePtr	outSampleX    		= out.mSampleVectors[0];

@@ -54,7 +54,7 @@ TTErr Lissajous3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 {
 	
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
+	TTChannelCount		numOutputChannels = out.getNumChannelsAsInt();
 	
 	if (numOutputChannels != 3) {
 		TTValue v = 3;		
