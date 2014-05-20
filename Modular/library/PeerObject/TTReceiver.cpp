@@ -472,7 +472,7 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
                             
 							TTObject newObserver = TTObject("callback");
 							
-							b = TTValue(aReceiver);
+							b = TTObject(aReceiver);
 							b.append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));
 							
 							newObserver.set(kTTSym_baton, b);
