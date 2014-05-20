@@ -120,7 +120,8 @@ break;\
 /****************************************************************************************************/
 // Class Specification
 
-
+/** Individual items found in a #TTValue
+ */
 class TTFOUNDATION_EXPORT TT_ALIGN_16 TTElement {
 	friend class TTDictionary;
 	
