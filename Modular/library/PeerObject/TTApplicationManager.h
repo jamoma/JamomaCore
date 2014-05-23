@@ -135,7 +135,7 @@ private:
 	TTErr ApplicationRelease(const TTValue& inputValue, TTValue& outputValue);
     
     /** Rename an application passing its old name and a new name
-     @details : this method is hidden because it is only internally by #TTApplication::setName
+     @details : this method is hidden because it is only used internally by #TTApplication::setName
      @param inputValue      application old name and a new name
      @param outputValue     nothing
      @return #TTErr error code */

@@ -402,8 +402,8 @@ TTErr ProtocolDirectoryCallback(const TTValue& baton, const TTValue& data)
 	
     if (flag == kAddressCreated) {
         
-        if (aNode->getObject())
-            v.append(aNode->getObject()->getName());
+        if (aNode->getObject().valid())
+            v.append(aNode->getObject().name());
         else
             v.append(kTTSym_none);
     }

@@ -145,6 +145,8 @@ TTErr TTApplication::setName(const TTValue& value)
 	mName = value;
 	mDirectory->setName(mName);
     
+    TTModularApplicationManager->sendMessage("ApplicationRename", args, none);
+    
     return kTTErrNone;
 }
 

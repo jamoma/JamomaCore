@@ -44,6 +44,10 @@ mApplicationObserversMutex(NULL)
     // application messages
 	addMessageWithArguments(ApplicationInstantiateLocal);
     addMessageWithArguments(ApplicationInstantiateDistant);
+    
+    addMessageWithArguments(ApplicationRename);
+    addMessageProperty(ApplicationRename, hidden, YES);
+    
 	addMessageWithArguments(ApplicationRelease);
     addMessageWithArguments(ApplicationFind);
 	
@@ -294,8 +298,6 @@ TTErr TTApplicationManager::ApplicationRename(const TTValue& inputValue, TTValue
             if (!mApplications.lookup(oldApplicationName, v)) {
                 
                 TTObject anApplication = v[0];
-                
-                anApplication.set(kTTSym_name, newApplicationName);
                 
                 // notify applications observer that an application will be removed
                 notifyApplicationObservers(oldApplicationName, anApplication, kApplicationReleased);

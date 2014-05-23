@@ -149,8 +149,8 @@ public:
 	TTErr			getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstance);
 	
 	/** Get the object binded by this node. It return also NULL when the object is not valid 
-        @return #TTObjectBasePtr        a pointer to the refrenced object */
-	TTObjectBasePtr	getObject();
+        @return #TTObject               the referenced object */
+	TTObject&       getObject();
 	
 	/** Get a pointer to the context of this node 
         @return #TTPtr                  the context pointer */
