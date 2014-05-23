@@ -531,9 +531,6 @@ TTErr TTData::rampSetup()
         if (mRampDrive == kTTSym_external || mRampDrive == kTTSym_none)
             return kTTErrNone;
         
-        if (SchedulerLib::isSchedulerNameAvailable(mRampDrive))
-            return kTTErrGeneric;
-        
         args.append((TTPtr)&TTDataRampCallback);
         args.append((TTPtr)this); // we have to store this as a pointer
         
