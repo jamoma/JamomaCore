@@ -45,8 +45,10 @@ protected:
 	TTAudioGraphOutletVector	mAudioOutlets;		///< The outlets that processed audio sampled will be passed to.
 	TTUInt32					mNumAudioInlets;	///< Attribute: The number of inputs for this object.
 	TTUInt32					mNumAudioOutlets;	///< Attribute: The number of outlets for this object.
-	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
-	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it.
+//	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
+//	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it.
+	TTAudioArray				mInputSignals;		///< The buffered input for processing audio with our object.
+	TTAudioArray				mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it.
 	TTUInt16					mVectorSize;		///< The most recent vector size info passed from the terminal object during a preprocess.
 	TTUInt64					mSampleStamp;		///< The current time in samples, as determined from the pulling of this object.
 	static TTMutexPtr			sSharedMutex;		///< A critical region shared by all TTAudioGraphObjectBases to prevent changes to the graph while processing.
@@ -70,10 +72,11 @@ protected:
 	
 public:
 
-	/** TODO
+	/** ...
 	 */
 	TTAudioObject getUnitGenerator()
 	{
+//TODO: is this casting or errantly calling a copy constuctor or ??? see https://github.com/jamoma/JamomaMax/issues/642
 		return TTAudioObject(mKernel);
 	}
 	

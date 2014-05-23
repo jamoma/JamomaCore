@@ -81,20 +81,16 @@ TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
 
 TTAudioGraphObjectBase::~TTAudioGraphObjectBase()
 {
-	delete (TTObject*)mInputSignals;
-	delete (TTObject*)mOutputSignals;
 }
 
 
 TTErr TTAudioGraphObjectBase::setNumAudioInlets(const TTValue& newNumInlets)
 {
 	// TODO: if the number of inlets or outlets changes on the fly then we will leak memory!
-	mInputSignals = (TTAudioSignalArrayPtr) new TTObject(kTTSym_audiosignalarray, newNumInlets);
 	TTUInt16	inletCount = newNumInlets;
-
+	
+	mInputSignals.setStreamCount(inletCount);
 	mAudioInlets.resize(inletCount);
-	mInputSignals->setMaxNumAudioSignals(inletCount);
-	mInputSignals->numAudioSignals = inletCount;			// TODO: this array num signals access is kind of clumsy and inconsistent [tap]
 	mNumAudioInlets = inletCount;
 	return kTTErrNone;
 }
@@ -103,12 +99,10 @@ TTErr TTAudioGraphObjectBase::setNumAudioInlets(const TTValue& newNumInlets)
 TTErr TTAudioGraphObjectBase::setNumAudioOutlets(const TTValue& newNumOutlets)
 {
 	// TODO: if the number of inlets or outlets changes on the fly then we will leak memory!
-	mOutputSignals = (TTAudioSignalArrayPtr) new TTObject(kTTSym_audiosignalarray, newNumOutlets);
 	TTUInt16	outletCount = newNumOutlets;
 
 	mAudioOutlets.resize(outletCount);
-	mOutputSignals->setMaxNumAudioSignals(outletCount);
-	mOutputSignals->numAudioSignals = outletCount;
+	mOutputSignals.setStreamCount(outletCount);
 	mNumAudioOutlets = outletCount;
 	return kTTErrNone;
 }
@@ -209,22 +203,22 @@ TTErr TTAudioGraphObjectBase::preprocess(const TTAudioGraphPreprocessData& initD
 		for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
 			inlet->preprocess(initData);
 			audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
-			mInputSignals->setSignal(index, audioSignal);
+			mInputSignals.setStream(index, audioSignal);
 			index++;
 		}
 		
 		index = 0;
 		for (TTAudioGraphOutletIter outlet = mAudioOutlets.begin(); outlet != mAudioOutlets.end(); outlet++) {
 			audioSignal = outlet->getBuffer();
-			mOutputSignals->setSignal(index, audioSignal);
+			mOutputSignals.setStream(index, audioSignal);
 			index++;
 		}
 
 		if (mAudioFlags & kTTAudioGraphGenerator) {
 			if (mVectorSize != initData.vectorSize) {
 				mVectorSize = initData.vectorSize;					
-				mOutputSignals->allocAllWithVectorSize(initData.vectorSize);
-				mInputSignals->setMaxNumAudioSignals(0);
+				mOutputSignals.allocAllWithVectorSize(initData.vectorSize);
+				mInputSignals.setStreamCount(0);
 			}			
 		}
 	}
@@ -238,7 +232,7 @@ TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64
 	lock();
 	
 	if (sampleStamp == mSampleStamp) // we have already processed this slice of time!
-		returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+		returnedSignal = &mOutputSignals.getSignal(forOutletNumber);
 	else {
 		mSampleStamp = sampleStamp;	// update our notion of time and proceed
 		
@@ -272,20 +266,20 @@ TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64
 					int index = 0;
 					for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
 						TTAudioSignalPtr audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
-						mInputSignals->setSignal(index, audioSignal);
+						mInputSignals.setStream(index, audioSignal);
 						index++;
 					}
 									
 					if (!(mAudioFlags & kTTAudioGraphNonAdapting)) {
 						// examples of non-adapting objects are join≈ and matrix≈
 						// non-adapting in this case means channel numbers -- vector sizes still adapt
-						mOutputSignals->matchNumChannels(mInputSignals);
+						mOutputSignals.matchNumChannels(mInputSignals);
 					}
-					mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
+					mOutputSignals.allocAllWithVectorSize(mInputSignals.getVectorSize());
 					
 					// adapt ugen based on the input we are going to process
-					getUnitGenerator().adaptMaxChannelCount(mInputSignals->getMaxNumChannels());
-					getUnitGenerator().setSampleRate(mInputSignals->getSignal(0).getSampleRate());
+					getUnitGenerator().adaptMaxChannelCount(mInputSignals.getMaxChannelCount());
+					getUnitGenerator().setSampleRate(mInputSignals.getSignal(0).getSampleRate());
 							
 					// finally, process the audio
 					getUnitGenerator().process(mInputSignals, mOutputSignals);
@@ -293,7 +287,7 @@ TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64
 				
 				// These two lines should be equivalent
 				//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
-				returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+				returnedSignal = &mOutputSignals.getSignal(forOutletNumber);
 							
 				mStatus = kTTAudioGraphProcessComplete;
 				break;
@@ -302,14 +296,14 @@ TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64
 			case kTTAudioGraphProcessComplete:
 				// These two lines should be equivalent
 				//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
-				returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+				returnedSignal = &mOutputSignals.getSignal(forOutletNumber);
 				break;
 			
 			// to prevent feedback / infinite loops, we just hand back the last calculated output here
 			case kTTAudioGraphProcessingCurrently:
 				// These two lines should be equivalent
 				//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
-				returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+				returnedSignal = &mOutputSignals.getSignal(forOutletNumber);
 				break;
 			
 			// we should never get here

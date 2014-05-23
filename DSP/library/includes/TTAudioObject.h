@@ -28,7 +28,7 @@ public:
 	TTObject(kTTSym_audiosignal, aChannelCount)
 	{}
 	
-	TTAudioSignalPtr instance()
+	TTAudioSignalPtr instance() const
 	{
 		return (TTAudioSignalPtr)mObjectInstance;
 	}
@@ -81,6 +81,63 @@ public:
 		instance()->clear();
 	}
 	
+};
+
+
+/** Wrap TTAudioSignalArray instances for convenience. */
+class TTAudioArray : public TTObject {
+public:
+	TTAudioArray(int aChannelCount):
+	TTObject(kTTSym_audiosignalarray, aChannelCount)
+	{}
+	
+	TTAudioSignalArrayPtr instance()
+	{
+		return (TTAudioSignalArrayPtr)mObjectInstance;
+	}
+	
+	void setStreamCount(TTInt32 newStreamCount)
+	{
+		instance()->setMaxNumAudioSignals(newStreamCount);
+		instance()->numAudioSignals = newStreamCount;
+	}
+	
+	TTErr setStream(TTChannelCount index, const TTAudio& aStream)
+	{
+		instance()->setSignal(index, aStream.instance());
+		return kTTErrNone;
+	}
+
+	TTErr setStream(TTChannelCount index, const TTAudioSignalPtr aSignal)
+	{
+		instance()->setSignal(index, aSignal);
+		return kTTErrNone;
+	}
+	
+	TTAudioSignal& getSignal(TTChannelCount index)
+	{
+		return instance()->getSignal(index);
+	}
+	
+	void allocAllWithVectorSize(TTUInt16 vs)
+	{
+		instance()->allocAllWithVectorSize(vs);
+	}
+	
+	TTUInt16 getVectorSize()
+	{
+		return instance()->getVectorSize();
+	}
+	
+	TTChannelCount getMaxChannelCount()
+	{
+		return instance()->getMaxNumChannels();
+	}
+	
+	void matchNumChannels(TTAudioArray& anotherArray)
+	{
+		instance()->matchNumChannels(anotherArray.instance());
+	}
 };
 
 
@@ -144,6 +201,11 @@ public:
 	TTErr process(TTAudio* in, TTAudio* out)
 	{
 		return TTAudioObjectBasePtr(mObjectInstance)->process(in->instance(), out->instance());
+	}
+	
+	TTErr process(TTAudioArray& in, TTAudioArray& out)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->process(in.instance(), out.instance());
 	}
 	
 	
