@@ -440,7 +440,7 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 			{
 				// return the address
                 v = aReceiver->mAddress.removeAttribute();
-                aReceiver->mReturnAddressCallback.send("notifiy", v, none);
+                aReceiver->mReturnAddressCallback.send("notify", v, none);
 			}
 			else if (ttAttributeName != kTTSym_destroyed)
 			{
@@ -584,10 +584,10 @@ TTErr TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data)
             v = anAddress;
 		
 		// return address to the owner of #TTReceiver
-        aReceiver->mReturnAddressCallback.send("notifiy", v, none);
+        aReceiver->mReturnAddressCallback.send("notify", v, none);
 		
 		// return the value to the owner of #TTReceiver
-        aReceiver->mReturnValueCallback.send("notifiy", data, none);
+        aReceiver->mReturnValueCallback.send("notify", data, none);
 	}
 	
 	return kTTErrNone;
