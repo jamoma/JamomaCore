@@ -127,6 +127,9 @@ public:
 
 	/**	Return a list of all available Schedulers. */
 	static void getSchedulerNames(TTValue& SchedulerNames);
+    
+    /**	Return if a scheduler name is available */
+	static TTErr isSchedulerNameAvailable(TTSymbol aSchedulerName);
 };
 
 #endif	//__SCHEDULERLIB_H__

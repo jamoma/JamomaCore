@@ -152,3 +152,11 @@ void SchedulerLib::getSchedulerNames(TTValue& SchedulerNames)
 	SchedulerNames.append(TTSymbol("System"));
 }
 
+TTErr SchedulerLib::isSchedulerNameAvailable(TTSymbol aSchedulerName)
+{
+    if (aSchedulerName == TTSymbol("Max") || aSchedulerName == TTSymbol("System"))
+        return kTTErrNone;
+    else
+        return kTTErrValueNotFound;
+}
+

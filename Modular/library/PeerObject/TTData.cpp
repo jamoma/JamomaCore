@@ -393,7 +393,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mRampFunction = value;
 	
-	if (mRampFunction != kTTSym_none) {
+	if (mRampFunction != kTTSym_none && mRamper.valid()) {
 		
 		// set the function of the ramper
 		mRamper.set(kTTSym_function, mRampFunction);
@@ -531,6 +531,9 @@ TTErr TTData::rampSetup()
         if (mRampDrive == kTTSym_external || mRampDrive == kTTSym_none)
             return kTTErrNone;
         
+        if (SchedulerLib::isSchedulerNameAvailable(mRampDrive))
+            return kTTErrGeneric;
+        
         args.append((TTPtr)&TTDataRampCallback);
         args.append((TTPtr)this); // we have to store this as a pointer
         
@@ -538,13 +541,12 @@ TTErr TTData::rampSetup()
         mRamper.set("scheduler", mRampDrive);
     }
 	
-	if (!mRamper.valid())
-		return kTTErrGeneric;
 #ifndef TT_NO_DSP	
 	// 3. reset the ramp function
-	setRampFunction(mRampFunction);
+	return setRampFunction(mRampFunction);
+#else
+	return kTTErrNone;
 #endif
-	return kTTErrNone;	
 }
 
 TTErr TTData::convertUnit(const TTValue& inputValue, TTValue& outputValue)
