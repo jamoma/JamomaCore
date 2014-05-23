@@ -1427,6 +1427,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
     TTNodePtr   aNode;
 	TTBoolean   newInstanceCreated, allowGetRequest, allowSetRequest, allowListenRequest;
 	TTObject    getAttributeCallback, setAttributeCallback, sendMessageCallback, listenAttributeCallback;
+    TTObject    empty;
 	TTValue     baton;
     
     if (objectName != kTTSymEmpty && objectName != kTTSym_none) {
@@ -1445,7 +1446,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
             args.append(getAttributeCallback);
         }
         else
-            args.append(NULL);
+            args.append(empty);
         
         aProtocol->getAttributeValue(TTSymbol("set"), allowSetRequest);
         
@@ -1467,8 +1468,8 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         }
         else {
             
-            args.append(NULL);
-            args.append(NULL);
+            args.append(empty);
+            args.append(empty);
         }
         
         aProtocol->getAttributeValue(TTSymbol("listen"), allowListenRequest);
@@ -1483,7 +1484,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
             args.append(listenAttributeCallback);
         }
         else
-            args.append(NULL);
+            args.append(empty);
         
         aMirror = TTObject(kTTSym_Mirror, args);
         

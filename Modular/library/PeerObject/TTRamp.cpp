@@ -75,7 +75,8 @@ currentValue(NULL)
 
 TTRamp::~TTRamp()
 {
-    mSchedulerUnit.send(kTTSym_Stop);
+    if (mSchedulerUnit.valid())
+        mSchedulerUnit.send(kTTSym_Stop);
 
 	delete [] currentValue;
 	delete [] targetValue;

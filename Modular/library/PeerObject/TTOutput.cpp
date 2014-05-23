@@ -31,23 +31,6 @@ mSignalAttr(NULL)
 {
     if (arguments.size() > 0)
         mReturnSignalCallback = arguments[0];
-    
-    if (arguments.size() > 1)
-        mReturnLinkCallback = arguments[1];
-	
-	if (arguments.size() > 2) {
-		mSignalIn = arguments[2];
-		mSignalOut = arguments[3];
-		mSignalTemp = arguments[4];
-		mSignalZero = arguments[5];
-	}
-	
-	if (arguments.size() > 6) {
-		mMixUnit = arguments[6];
-		mGainUnit = arguments[7];
-		mRampMixUnit = arguments[8];
-		mRampGainUnit = arguments[9];
-	}
 	
 	addAttribute(Type, kTypeSymbol);
 	addAttributeProperty(Type, readOnly, YES);
@@ -132,8 +115,7 @@ TTErr TTOutput::Link(const TTValue& inputValue, TTValue& outputValue)
     TTValue none;
     
 	mInputObject = inputValue[0];
-	
-    return mReturnLinkCallback.send("notify", 1, none);
+	return kTTErrNone;
 }
 
 TTErr TTOutput::Unlink()
@@ -141,8 +123,7 @@ TTErr TTOutput::Unlink()
     TTValue none;
     
 	mInputObject = TTObject();
-	
-	return mReturnLinkCallback.send("notify", 0, none);
+	return kTTErrNone;
 }
 
 TTErr TTOutput::setInputAddress(const TTValue& value)

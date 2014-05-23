@@ -455,7 +455,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	TTValue			cacheElement, baton, v, none;
 	TTAddress       aRelativeAddress;
 	TTSymbol		service;
-    TTObject        anObject;
+    TTObject        anObject, empty;
 	TTAttributePtr	anAttribute = NULL;
     TTErr           err;
     
@@ -541,13 +541,13 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
     // Special case for PresetManager : do nothing ?
 	else if (anObject.name() == kTTSym_PresetManager) {
 		
-		// 1 : cache NULL
-		cacheElement.append(NULL);
+		// 1 : cache empty object
+		cacheElement.append(empty);
 	}
 	
 	else
-		// 1 : cache NULL
-		cacheElement.append(NULL);
+		// 1 : cache empty object
+		cacheElement.append(empty);
 
 	// 2 : cache the node too (used during alias creation/destruction)
 	cacheElement.append((TTPtr)aNode);

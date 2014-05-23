@@ -41,8 +41,6 @@ TTOutput(arguments)
 	// the only argument is the owner, which is used as a baton to hand to the callback
 	if (arguments.size())
 		mReturnSignalCallback = arguments[0];
-	if (arguments.size() > 1)
-		mReturnLinkCallback = arguments[1];
 	
 	mSignalIn = TTObject(kTTSym_audiosignal, 1);
 	mSignalOut = TTObject(kTTSym_audiosignal, 1);

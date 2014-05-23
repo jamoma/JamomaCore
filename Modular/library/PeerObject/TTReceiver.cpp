@@ -185,10 +185,12 @@ TTErr TTReceiver::Get()
                             else
                                 v = anAddress;
                             
-                            mReturnAddressCallback.send("notify", v, none);
+                            if (mReturnAddressCallback.valid())
+                                mReturnAddressCallback.send("notify", v, none);
                             
                             // return the value
-                            mReturnValueCallback.send("notify", data, none);
+                            if (mReturnValueCallback.valid())
+                                mReturnValueCallback.send("notify", data, none);
                         }
                         else
                             return kTTErrGeneric;
@@ -297,7 +299,8 @@ TTErr TTReceiver::bindAddress()
                         else
                             v = anAddress;
                         
-                        mReturnAddressCallback.send("notify", v, none);
+                        if (mReturnAddressCallback.valid())
+                            mReturnAddressCallback.send("notify", v, none);
 					}
 				}
 			}
@@ -440,7 +443,9 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 			{
 				// return the address
                 v = aReceiver->mAddress.removeAttribute();
-                aReceiver->mReturnAddressCallback.send("notify", v, none);
+                
+                if (aReceiver->mReturnAddressCallback.valid())
+                    aReceiver->mReturnAddressCallback.send("notify", v, none);
 			}
 			else if (ttAttributeName != kTTSym_destroyed)
 			{
@@ -505,7 +510,9 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 			{
 				// return the address
                 v = aReceiver->mAddress.removeAttribute();
-                aReceiver->mReturnAddressCallback.send("notify", v, none);
+                
+                if (aReceiver->mReturnAddressCallback.valid())
+                    aReceiver->mReturnAddressCallback.send("notify", v, none);
 			}
 			else if (ttAttributeName != kTTSym_created)
 			{
@@ -584,10 +591,12 @@ TTErr TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data)
             v = anAddress;
 		
 		// return address to the owner of #TTReceiver
-        aReceiver->mReturnAddressCallback.send("notify", v, none);
+        if (aReceiver->mReturnAddressCallback.valid())
+            aReceiver->mReturnAddressCallback.send("notify", v, none);
 		
 		// return the value to the owner of #TTReceiver
-        aReceiver->mReturnValueCallback.send("notify", data, none);
+        if (aReceiver->mReturnValueCallback.valid())
+            aReceiver->mReturnValueCallback.send("notify", data, none);
 	}
 	
 	return kTTErrNone;
