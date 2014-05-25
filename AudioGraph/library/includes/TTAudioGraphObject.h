@@ -72,10 +72,9 @@ public:
 
 	/** ...
 	 */
-	TTAudioObject getUnitGenerator()
+	TTAudioObject& getUnitGenerator()
 	{
-//TODO: is this casting or errantly calling a copy constuctor or ??? see https://github.com/jamoma/JamomaMax/issues/642
-		return TTAudioObject(mKernel);
+		return (TTAudioObject&)mKernel;
 	}
 	
 	
