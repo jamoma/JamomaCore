@@ -59,8 +59,8 @@ TTAudioGraphSource::~TTAudioGraphSource()
 
 void TTAudioGraphSource::create()
 {
-	mCallbackHandler.set(TT("function"), TTPtr(&TTAudioGraphSourceObserverCallback));
-	mCallbackHandler.set(TT("baton"), TTPtr(this));
+	mCallbackHandler.set("function", TTPtr(&TTAudioGraphSourceObserverCallback));
+	mCallbackHandler.set("baton", TTPtr(this));
 }
 
 

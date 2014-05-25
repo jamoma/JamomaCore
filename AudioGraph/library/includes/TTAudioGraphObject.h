@@ -45,8 +45,6 @@ protected:
 	TTAudioGraphOutletVector	mAudioOutlets;		///< The outlets that processed audio sampled will be passed to.
 	TTUInt32					mNumAudioInlets;	///< Attribute: The number of inputs for this object.
 	TTUInt32					mNumAudioOutlets;	///< Attribute: The number of outlets for this object.
-//	TTAudioSignalArrayPtr		mInputSignals;		///< The buffered input for processing audio with our object.
-//	TTAudioSignalArrayPtr		mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it.
 	TTAudioArray				mInputSignals;		///< The buffered input for processing audio with our object.
 	TTAudioArray				mOutputSignals;		///< The results of processing audio with our object, buffered for objects requesting it.
 	TTUInt16					mVectorSize;		///< The most recent vector size info passed from the terminal object during a preprocess.

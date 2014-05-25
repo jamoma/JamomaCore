@@ -45,8 +45,7 @@ protected:
 	
 public:
 
-	/** Constructor
-	 */
+	/** Constructor */
 	TTAudioGraphSource();
 	
 	
