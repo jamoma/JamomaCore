@@ -45,8 +45,8 @@ TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
 	TTGraphObjectBase(arguments),
 	mStatus(kTTAudioGraphProcessUnknown),
 	mAudioFlags(kTTAudioGraphProcessor), 
-	mInputSignals(NULL), 
-	mOutputSignals(NULL), 
+	mInputSignals(1),
+	mOutputSignals(1),
 	mVectorSize(0),
 	mSampleStamp(-1)
 {
