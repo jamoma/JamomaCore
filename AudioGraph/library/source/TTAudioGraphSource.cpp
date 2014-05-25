@@ -47,6 +47,25 @@ TTAudioGraphSource::TTAudioGraphSource() :
 }
 
 
+TTAudioGraphSource::TTAudioGraphSource(const TTAudioGraphSource& original) :
+	mSourceObject(NULL),
+	mOutletNumber(0),
+	mCallbackHandler("callback"),
+	mOwner(NULL)
+{
+	create();
+	mOwner = original.mOwner;
+	
+	// NOTE: See notes below in TTAudioGraphInlet copy constructor...
+	// NOTE: When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
+	// NOTE: Are we ever called after connecting?  If so, then we need to set up the connection...
+	
+	if (original.mSourceObject)
+		connect(original.mSourceObject, original.mOutletNumber);
+}
+
+
+
 TTAudioGraphSource::~TTAudioGraphSource()
 {
 	if (mSourceObject)

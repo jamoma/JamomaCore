@@ -49,8 +49,11 @@ public:
 	TTAudioGraphSource();
 	
 	
-	/** Destructor
-	 */
+	/** Copy Constructor */
+	TTAudioGraphSource(const TTAudioGraphSource& original);
+
+	
+	/** Destructor */
 	~TTAudioGraphSource();
 	
 	
@@ -81,25 +84,6 @@ public:
 	void setOwner(TTAudioGraphInletPtr theOwningInlet)
 	{
 		mOwner = theOwningInlet;
-	}
-	
-	// Copying Functions -- critical due to use by std::vector 
-	
-	TTAudioGraphSource(const TTAudioGraphSource& original) :
-		mSourceObject(NULL),
-		mOutletNumber(0),
-		mCallbackHandler(NULL),
-		mOwner(NULL)
-	{
-		create();
-		mOwner = original.mOwner;
-		
-		// NOTE: See notes below in TTAudioGraphInlet copy constructor...
-		// NOTE: When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
-		// NOTE: Are we ever called after connecting?  If so, then we need to set up the connection...
-		
-		if (original.mSourceObject)
-			connect(original.mSourceObject, original.mOutletNumber);
 	}
 	
 	
