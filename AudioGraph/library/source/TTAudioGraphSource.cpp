@@ -83,6 +83,38 @@ void TTAudioGraphSource::create()
 }
 
 
+void TTAudioGraphSource::setOwner(TTAudioGraphInletPtr theOwningInlet)
+{
+	mOwner = theOwningInlet;
+}
+
+
+TTAudioGraphSource& TTAudioGraphSource::operator=(const TTAudioGraphSource& original)
+{
+	mSourceObject = NULL;
+	mOutletNumber = 0;
+	mCallbackHandler = NULL;
+	mOwner = NULL;
+	
+	// TODO: We're probably leaking memory here, because mCallbackHandler is potentially never freed...
+	// However, if we don't NULL the mCallbackHandler
+	// then we end up with crashes when we do something like close a Max patcher after editing connections while running.
+	
+	create();
+	mOwner = original.mOwner;
+	
+	// TODO: evaluate if this is doing the correct thing:
+	// - we can copy the owner ptr for sure
+	// - we definitely can not copy the mCallbackHandler pointer
+	// - not certain about the mSourceObject
+	
+	if (original.mSourceObject && original.mSourceObject->valid)
+		connect(original.mSourceObject, original.mOutletNumber);
+	
+	return *this;
+}
+
+
 void TTAudioGraphSource::connect(TTAudioGraphObjectBasePtr anObject, TTUInt16 fromOutletNumber)
 {
 	mSourceObject = anObject;
