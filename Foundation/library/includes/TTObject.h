@@ -189,6 +189,9 @@ public:
 /** Compare two objects for equality. */
 bool TTFOUNDATION_EXPORT operator == (const TTObject& anObject, const TTObject& anotherObject);
 
+/** Compare two objects for inequality. */
+bool TTFOUNDATION_EXPORT operator != (const TTObject& anObject, const TTObject& anotherObject);
+
 
 /** Macro to access the actual C++ class that is contained inside of the #TTObject as a pointer.
 	@details In general we want to avoid using casting to access C++ class member directly rather than through their dynamic interface, but there might be some exceptions. E.g., this macro is used in the DSP #TTFilterLib where we have a number of complex filters that are constructed of smaller building-block filters (examples are #TTHalfband3, #TTHalfband5, #TTHalfband9, #TTHilbert9, #TTHilbert33, #TTMirror5 and #TTMirrorBandpass10). The smaller building block filters are full citizen objects, but to call them through the usual calculate methods for each and every sample is incredibly inefficient when compared to using C++ calls that the compiler can inline.
