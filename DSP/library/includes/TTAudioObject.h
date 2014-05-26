@@ -104,13 +104,17 @@ public:
 	
 	TTErr setStream(TTChannelCount index, const TTAudio& aStream)
 	{
-		instance()->setSignal(index, (TTAudioSignalPtr)TTObjectBaseReference((TTObjectBasePtr)aStream.instance()));
+		//instance()->setSignal(index, (TTAudioSignalPtr)TTObjectBaseReference((TTObjectBasePtr)aStream.instance()));
+		// above reference incrementing now moved into the setSignal() method below
+		instance()->setSignal(index, aStream.instance());
 		return kTTErrNone;
 	}
 
 	TTErr setStream(TTChannelCount index, const TTAudioSignalPtr aSignal)
 	{
-		instance()->setSignal(index, (TTAudioSignalPtr)TTObjectBaseReference((TTObjectBasePtr)aSignal));
+		//instance()->setSignal(index, (TTAudioSignalPtr)TTObjectBaseReference((TTObjectBasePtr)aSignal));
+		// above reference incrementing now moved into the setSignal() method below
+		instance()->setSignal(index, aSignal);
 		return kTTErrNone;
 	}
 	

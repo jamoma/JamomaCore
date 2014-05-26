@@ -82,7 +82,10 @@ public:
 	
 	inline TTErr setSignal(TTChannelCount index, const TTAudioSignalPtr aSignal)
 	{
-		mAudioSignals[index] = aSignal;
+		if (mAudioSignals[index] != aSignal) {
+			TTObjectBaseRelease((TTObjectBase**)&mAudioSignals[index]);
+			mAudioSignals[index] = (TTAudioSignal*)TTObjectBaseReference(aSignal);
+		}
 		return kTTErrNone;
 	}
 	
