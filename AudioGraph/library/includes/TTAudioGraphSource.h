@@ -41,7 +41,7 @@ protected:
 	TTAudioGraphObjectBasePtr	mSourceObject;		///< The object from which we pull samples
 	TTUInt16					mOutletNumber;		///< The outlet of the upstream object that we pull samples from. This is zero-based.
 	TTObject					mCallbackHandler;	///< TODO
-	TTAudioGraphInletPtr		mOwner;				///< The owning inlet
+	TTAudioGraphInlet*			mOwner;				///< The owning inlet
 	
 public:
 
@@ -81,7 +81,7 @@ public:
 	/** Set the owning inlet of this source.
 	 @param theOwningInlet		The inlet that will be owning this source (link).
 	 */
-	void setOwner(TTAudioGraphInletPtr theOwningInlet);
+	void setOwner(TTAudioGraphInlet* theOwningInlet);
 	
 	
 	/** This operator is called, for example, on the Mac when dropping a source and the vector has to be re-arranged.

@@ -73,6 +73,9 @@ private:
 public:
 	TTSampleValue**	mSampleVectors;		///< An array of pointers to the first sample in each vector. Declared Public for fast access.
 
+	/** Copy constructor. */
+	TTAudioSignal(const TTAudioSignal& original);
+	
 private:
 	/**	Internal method for freeing the vectors. */
 	void chuck();

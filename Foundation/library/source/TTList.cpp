@@ -96,7 +96,7 @@ TTErr TTList::getIndex(TTUInt32 index, TTValue& returnedValue)
 	TTUInt32	i=0;
 	
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		if (i==index) {
 			err = kTTErrNone;
 			returnedValue = *iter;
@@ -135,7 +135,7 @@ void TTList::insert(TTUInt32 index, const TTValue& newValue)
 	TTUInt32	i=0;
 	
 	lock();
-	for (iter = theList.begin(); iter != theList.end(); iter++) {
+	for (iter = theList.begin(); iter != theList.end(); ++iter) {
 		if (i==index) {
 			break;
 		}
@@ -175,7 +175,7 @@ TTErr TTList::find(TTFunctionMatch aMatchFunction, TTPtr aBaton, TTValue& return
 	TTBoolean	found = NO;
 	
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		TTValue& v = *iter;
 		
 		aMatchFunction(v, aBaton, found);
@@ -195,7 +195,7 @@ TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundVal
 	TTErr err = kTTErrValueNotFound;
 	
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		if ((*iter) == valueToCompareAgainst) {
 			foundValue = *iter;
 			err = kTTErrNone;
@@ -208,12 +208,14 @@ TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundVal
 }
 
 
-void TTList::remove(const TTValue& value)
+void TTList::remove(const TTValue& aValue)
 {
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
-		if ((*iter) == value) {
-			theList.remove(*iter);
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
+		TTValue v = *iter;
+		
+		if (v == aValue) {
+			theList.remove(v);
 			break;
 		}
 	}
@@ -258,7 +260,7 @@ void TTList::assignToValue(TTValue& value)
 	value.clear();
 	
 	lock();
-	for (iter = theList.begin(); iter != theList.end(); iter++) {
+	for (iter = theList.begin(); iter != theList.end(); ++iter) {
 		value.append(*iter);
 	}
 	unlock();	
@@ -267,8 +269,11 @@ void TTList::assignToValue(TTValue& value)
 
 TTErr TTList::iterate(const TTObjectBasePtr target, const TTFunctionWithBatonAndValue callback)
 {
+	if (theList.empty())
+		return kTTErrNone;
+
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		callback(target, *iter);
 	}
 	unlock();
@@ -278,8 +283,11 @@ TTErr TTList::iterate(const TTObjectBasePtr target, const TTFunctionWithBatonAnd
 
 TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol messageName)
 {
+	if (theList.empty())
+		return kTTErrNone;
+
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		TTValue v;
 		target->sendMessage(messageName, *iter, v);
 	}
@@ -290,8 +298,11 @@ TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol messageName)
 
 TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName)
 {
+	if (theList.empty())
+		return kTTErrNone;
+
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 #ifdef OLD
 		TTObjectBasePtr obj = NULL;
 		
@@ -313,8 +324,11 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName)
 
 TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName, TTValue& aValue)
 {
+	if (theList.empty())
+		return kTTErrNone;
+	
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 #ifdef OLD
 		TTObjectBasePtr obj = NULL;
 		

@@ -83,7 +83,7 @@ void TTAudioGraphSource::create()
 }
 
 
-void TTAudioGraphSource::setOwner(TTAudioGraphInletPtr theOwningInlet)
+void TTAudioGraphSource::setOwner(TTAudioGraphInlet* theOwningInlet)
 {
 	mOwner = theOwningInlet;
 }
