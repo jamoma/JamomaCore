@@ -531,8 +531,17 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 				else
 					return anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
 			}
-			else 
-				return anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
+			else {
+                
+                // try to set an attribute
+				err = anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
+                
+                // try to use a message
+                if (err == kTTErrInvalidAttribute)
+                    err = anObject->sendMessage(whereToSet.getAttribute(), *newValue, none);
+                
+                return err;
+            }
 		}
 	}
 	
