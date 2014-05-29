@@ -69,8 +69,8 @@ class TTMODULAR_EXPORT TTApplicationManager : public TTObjectBase
 	
 private:
 
-	TTHash              mApplications;						///< hash table containing <TTSymbol applicationName, #TTApplication anApplication>
-	TTHash              mProtocols;							///< hash table containing <TTSymbol protocolName, #Protocol aProtocol>
+	TTHash              mApplications;						///< hash table containing <#TTSymbol applicationName, #TTApplication anApplication>
+	TTHash              mProtocols;							///< hash table containing <#TTSymbol protocolName, #Protocol aProtocol>
 		
 	TTObject            mApplicationLocal;					///< the local application
 	TTObject            mApplicationCurrent;				///< used for ReadFromXml mechanism
