@@ -43,7 +43,8 @@ private:
 	TTObject                    mAddressObserver;			///< an address life cycle observer
 	TTObject                    mApplicationObserver;		///< an application life cycle observer
 	TTList                      mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
-	TTList                      mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
+    // TODO JamomaCore #305 : TTList : allow to register as none pointer members
+	TTListPtr                   mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);

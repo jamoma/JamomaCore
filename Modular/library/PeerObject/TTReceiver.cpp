@@ -48,7 +48,9 @@ mDirectory(NULL)
 	addMessageProperty(Grab, hidden, YES);
 	
     mNodesObserversCache.setThreadProtection(true);
-    mObjectCache.setThreadProtection(true);
+    
+    mObjectCache = new TTList();
+    mObjectCache->setThreadProtection(true);
 }
 
 TTReceiver::~TTReceiver()
@@ -58,6 +60,8 @@ TTReceiver::~TTReceiver()
     
 	unbindAddress();
 	unbindApplication();
+    
+    delete mObjectCache;
 }
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
@@ -291,7 +295,7 @@ TTErr TTReceiver::bindAddress()
 						mNodesObserversCache.appendUnique(newElement);
 						
 						// cache the object for quick access
-						mObjectCache.appendUnique(o);
+						mObjectCache->appendUnique(o);
                         
                         // notify that the address exists
                         if (anAddress.getAttribute() == kTTSym_value)
@@ -366,7 +370,7 @@ TTErr TTReceiver::unbindAddress()
         mNodesObserversCache.clear();
 		
         // clear object cache
-        mObjectCache.clear();
+        mObjectCache->clear();
 		
 		// stop life cycle observation
 		if (mAddressObserver.valid() && mDirectory) {
@@ -495,7 +499,7 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 							aReceiver->mNodesObserversCache.appendUnique(newCouple);
 							
 							// cache the object for quick access
-							aReceiver->mObjectCache.appendUnique(o);
+							aReceiver->mObjectCache->appendUnique(o);
 						}
 					}
 				}
@@ -557,7 +561,7 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 					aReceiver->mNodesObserversCache.remove(c);
 					
 					// forget the object
-					aReceiver->mObjectCache.remove(o);
+					aReceiver->mObjectCache->remove(o);
 				}
 			}
 			break;

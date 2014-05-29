@@ -43,10 +43,11 @@ class TTMODULAR_EXPORT TTScript : public TTObjectBase
 	
 private:
 	
-    TTBoolean           mFlattened;               ///< ATTRIBUTE : is the script ready for quick operation process or not ?
-    
-	TTList              mLines;					///< a linked list containing all lines of the script
-    TTList              mFlattenedLines;		///< a linked list containing all lines of the script and the subscripts flattened for quick access
+    TTBoolean           mFlattened;             ///< ATTRIBUTE : is the script ready for quick operation process or not ?
+    // TODO JamomaCore #305 : TTList : allow to register as none pointer members
+	TTListPtr           mLines;					///< a linked list containing all lines of the script
+    // TODO JamomaCore #305 : TTList : allow to register as none pointer members
+    TTListPtr           mFlattenedLines;		///< a linked list containing all lines of the script and the subscripts flattened for quick access
 	
 	TTObject            mSubScript;				///< the current sub script to manage
 	TTObject            mParentScript;			///< the current parent script to manage (usefull for ReadFrom method)

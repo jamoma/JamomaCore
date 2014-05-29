@@ -37,7 +37,8 @@ private:
 	TTAddress                   mAddress;					///< ATTRIBUTE: the address to bind
 	TTNodeDirectoryPtr			mDirectory;					///< a sender depends on a directory
 	TTBoolean					mIsSending;					///< a flag to lock the object in case of infinite loop
-	TTList                      mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
+    // TODO JamomaCore #305 : TTList : allow to register as none pointer members
+	TTListPtr                   mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
 	TTObject                    mAddressObserver;			///< an address life cycle observer
 	TTObject                    mApplicationObserver;		///< an application life cycle observer
 	
