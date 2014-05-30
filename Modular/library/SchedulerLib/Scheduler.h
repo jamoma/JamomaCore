@@ -34,7 +34,7 @@ mStretchable = TTSymbol(thisSchedulerStretchable); \
 registerAttribute(TTSymbol("parameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
 /*addAttributeProperty(ParameterNames, readOnly, YES); \ */
 
-typedef void (*SchedulerProgressionCallback)(TTPtr, TTFloat64, TTFloat64);
+typedef void (*SchedulerPositionCallback)(TTPtr, TTFloat64, TTFloat64);
 
 /****************************************************************************************************/
 // Class Specification
@@ -59,10 +59,10 @@ protected:
     
     TTBoolean                       mRunning;               ///< ATTRIBUTE : is the scheduler running right now ?
     TTBoolean                       mPaused;                ///< ATTRIBUTE : is the scheduler paused right now ?
-    TTFloat64                       mProgression;           ///< ATTRIBUTE : the progression of the scheduler [0. :: 1.]
-    TTFloat64                       mRealTime;              ///< ATTRIBUTE : how many time the scheduler is running (without no speed factor consideration) ?
+    TTFloat64                       mPosition;              ///< ATTRIBUTE : the progression of the scheduler between the beginning and the end [0. :: 1.]
+    TTFloat64                       mDate;                  ///< ATTRIBUTE : how many time the scheduler is running (without no speed factor consideration)
     
-    SchedulerProgressionCallback    mCallback;              ///< the callback to use for each step
+    SchedulerPositionCallback       mCallback;              ///< the callback to use for each step
     TTPtr                           mBaton;                 ///< the baton to use for each step
     
 public:
@@ -125,7 +125,7 @@ typedef Scheduler* SchedulerPtr;
 class TT_EXTENSION_EXPORT SchedulerLib {
 public:
 	/** Instantiate a Scheduler by name */
-	static TTErr createScheduler(const TTSymbol SchedulerName, SchedulerPtr *returnedScheduler, SchedulerProgressionCallback aCallback, TTPtr aBaton);
+	static TTErr createScheduler(const TTSymbol SchedulerName, SchedulerPtr *returnedScheduler, SchedulerPositionCallback aCallback, TTPtr aBaton);
 	
 	/**	Return a list of all available Schedulers. */
 	static void getSchedulerNames(TTValue& SchedulerNames);

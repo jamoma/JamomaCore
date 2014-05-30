@@ -70,14 +70,14 @@ TTErr System::Go()
         
         mRunning = NO;
         mPaused = NO;
-        mProgression = 0.;
-        mRealTime = 0.;
+        mPosition = 0.;
+        mDate = 0.;
         
-        (mCallback)(mBaton, mProgression, mRealTime);
+        (mCallback)(mBaton, mPosition, mDate);
         
         // notify each observers
         sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
     }
     // if the thread is not running
     else if (mThread == NULL) {
@@ -109,8 +109,8 @@ TTErr System::Stop()
     
     // reset all time info
     mOffset = 0.;
-    mProgression = 0.;
-    mRealTime = 0.;
+    mPosition = 0.;
+    mDate = 0.;
     
     return kTTErrNone;
 }
@@ -122,27 +122,27 @@ TTErr System::Tick()
     if (mPaused)
         return kTTErrNone;
     
-    mProgression += delta / mDuration;
-    mRealTime += delta;
+    mPosition += delta / mDuration;
+    mDate += delta;
     
-    if (mProgression < 1.) {
+    if (mPosition < 1.) {
         
         // notify the owner
-        (mCallback)(mBaton, mProgression, mRealTime);
+        (mCallback)(mBaton, mPosition, mDate);
         
         // notify each observers
-        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
     }
     else {
         
-        // forcing progression to 1. to allow filtering
-        mProgression = 1.;
+        // forcing position to 1. to allow filtering
+        mPosition = 1.;
         
         // notify the owner
-        (mCallback)(mBaton, mProgression, mRealTime);
+        (mCallback)(mBaton, mPosition, mDate);
         
         // notify each observers
-        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
         
         // if the scheduler is still running : stop it
         // note : because it  is possible another thread stop the scheduler before
