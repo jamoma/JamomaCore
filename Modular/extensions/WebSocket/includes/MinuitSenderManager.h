@@ -17,10 +17,10 @@
 #ifndef MINUIT_SENDER_MANAGER
 #define MINUIT_SENDER_MANAGER
 
-#include "Minuit.h"
+#include "WebSocket.h"
 
-class Minuit;
-typedef Minuit* MinuitPtr;
+class WebSocket;
+typedef WebSocket* WebSocketPtr;
 
 class MinuitSenderManager {
 	
@@ -34,7 +34,7 @@ public:
 	
     // check if the parameter are still the same and change the parameter if not
     // if the sender doesn't exist it adds a sender
-    TTObject     lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
+    TTObject    lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
     
 private:
     // add a new sender for an application

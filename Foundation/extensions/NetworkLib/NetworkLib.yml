@@ -1,3 +1,5 @@
+defines:
+  - USE_WEBSOCKET
 
 sources:
   - NetworkLib.cpp		
@@ -7,6 +9,9 @@ sources:
   - source/TTNetReceive.cpp
   - source/TTNetSocket.cpp
   - source/TTOscSend.cpp
+  - source/TTWebSend.cpp
+  - source/TTWebReceive.cpp
+  - source/TTWebSocket.cpp
   - NetworkCommunication/ip/IpEndpointName.cpp
   - NetworkCommunication/ip/NetworkingUtils.cpp
   - NetworkCommunication/ip/UdpSocket.cpp
@@ -14,12 +19,14 @@ sources:
   - NetworkCommunication/osc/OscPrintReceivedElements.cpp	
   - NetworkCommunication/osc/OscReceivedElements.cpp		
   - NetworkCommunication/osc/OscTypes.cpp
+  - NetworkCommunication/civetweb/source/civetweb.cpp
     
 includes:
   - "."
   - "includes"
   - "NetworkCommunication/ip"
   - "NetworkCommunication/osc"
+  - "NetworkCommunication/civetweb/includes"
   - "../../../Foundation/library/includes"
 
 libraries:

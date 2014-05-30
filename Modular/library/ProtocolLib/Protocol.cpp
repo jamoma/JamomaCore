@@ -542,6 +542,7 @@ void ProtocolLib::getProtocolNames(TTValue& protocolNames)
 	protocolNames.clear();
 	protocolNames.append(TTSymbol("Minuit"));
 	protocolNames.append(TTSymbol("OSC"));
+    protocolNames.append(TTSymbol("WebSocket"));
     /*
 	protocolNames.append(TTSymbol("MIDI"));
 	protocolNames.append(TTSymbol("CopperLan"));

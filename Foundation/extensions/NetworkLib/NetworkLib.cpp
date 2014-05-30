@@ -17,6 +17,9 @@
 #include "TTOscReceive.h"
 #include "TTOscSend.h"
 
+#include "TTWebReceive.h"
+#include "TTWebSend.h"
+
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_NetworkLib(void)
 {
@@ -29,6 +32,9 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_NetworkLib(void)
 	
 	TTOscReceive::registerClass();
 	TTOscSend::registerClass();
+    
+    TTWebReceive::registerClass();
+	TTWebSend::registerClass();
 	
 	return kTTErrNone;
 }

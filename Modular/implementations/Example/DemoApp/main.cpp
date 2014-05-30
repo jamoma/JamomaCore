@@ -101,7 +101,7 @@ DemoApp::Setup()
     ////////////////////////////////////////////////////////////////////////////////
     
     // Create a local application called "demo" and get it back
-    err = mApplicationManager.send("ApplicationInstantiateLocal", "demo", out);
+    err = mApplicationManager.send("ApplicationInstantiateLocal", "DemoApp", out);
     
     if (err) {
         TTLogError("Error : can't create myDemoApp application \n");
@@ -112,7 +112,7 @@ DemoApp::Setup()
     
     
     // Create a distant application called "i-score" and get it back
-    err = mApplicationManager.send("ApplicationInstantiateDistant", "i-score", out);
+    err = mApplicationManager.send("ApplicationInstantiateDistant", "telecommande", out);
     
     if (err) {
         TTLogError("Error : can't create myRemoteApp application \n");
@@ -129,62 +129,62 @@ DemoApp::Setup()
     }
     
 
-    TTLogMessage("\n*** Enable Minuit communication ***\n");
-    ////////////////////////////////////////////////////////////////////////
+//    TTLogMessage("\n*** Enable Minuit communication ***\n");
+//    ////////////////////////////////////////////////////////////////////////
+//    
+//    // Create a Minuit protocol unit
+//    err = mApplicationManager.send("ProtocolInstantiate", "Minuit", out);
+//    
+//    if (err) {
+//        TTLogError("Error : can't create Minuit protocol unit \n");
+//        return;
+//    }
+//    else
+//        mProtocolMinuit = out[0];
+//    
+//    // Get Minuit Protocol attribute names and types
+//    mProtocolMinuit.get("parameterNames", out);
+//    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
+//        TTSymbol name = TTElement(*it);
+//        TTSymbol type = mProtocolMinuit.attributeType(name);
+//        TTLogMessage("Minuit %s parameter is a %s \n", name.c_str(), type.c_str());
+//    }
+//    
+//    // Register myDemoApp and myRemoteApp to the Minuit protocol
+//    mProtocolMinuit.send("ApplicationRegister", "demo", out);
+//    mProtocolMinuit.send("ApplicationRegister", "i-score", out);
+//    
+//    // Select myDemoApp to set its protocol parameters
+//    mProtocolMinuit.send("ApplicationSelect", "demo", out);
+//    mProtocolMinuit.set("port", 9998);
+//    mProtocolMinuit.set("ip", "127.0.0.1");
+//    
+//    // Select myRemoteApp to set its protocol parameters
+//    mProtocolMinuit.send("ApplicationSelect", "i-score", out);
+//    mProtocolMinuit.set("port", 13579);
+//    mProtocolMinuit.set("ip", "127.0.0.1");
+//    
+//    // Get Minuit parameters for each registered application
+//    mProtocolMinuit.get("applicationNames", out);
+//    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
+//        TTSymbol name = TTElement(*it);
+//        
+//        mProtocolMinuit.send("ApplicationSelect", name, out);
+//        TTLogMessage("Minuit setup for %s application : \n", name.c_str());
+//        
+//        mProtocolMinuit.get("ip", v);
+//        TTSymbol ip = v[0];
+//        TTLogMessage("- ip = %s \n", ip.c_str());
+//        
+//        mProtocolMinuit.get("port", v);
+//        TTUInt16 port = v[0];
+//        TTLogMessage("- port = %d \n", port);
+//    }
+//    
+//    // Enable Minuit communication
+//    mProtocolMinuit.send("Run");
     
-    // Create a Minuit protocol unit
-    err = mApplicationManager.send("ProtocolInstantiate", "Minuit", out);
-    
-    if (err) {
-        TTLogError("Error : can't create Minuit protocol unit \n");
-        return;
-    }
-    else
-        mProtocolMinuit = out[0];
-    
-    // Get Minuit Protocol attribute names and types
-    mProtocolMinuit.get("parameterNames", out);
-    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
-        TTSymbol name = TTElement(*it);
-        TTSymbol type = mProtocolMinuit.attributeType(name);
-        TTLogMessage("Minuit %s parameter is a %s \n", name.c_str(), type.c_str());
-    }
-    
-    // Register myDemoApp and myRemoteApp to the Minuit protocol
-    mProtocolMinuit.send("ApplicationRegister", "demo", out);
-    mProtocolMinuit.send("ApplicationRegister", "i-score", out);
-    
-    // Select myDemoApp to set its protocol parameters
-    mProtocolMinuit.send("ApplicationSelect", "demo", out);
-    mProtocolMinuit.set("port", 9998);
-    mProtocolMinuit.set("ip", "127.0.0.1");
-    
-    // Select myRemoteApp to set its protocol parameters
-    mProtocolMinuit.send("ApplicationSelect", "i-score", out);
-    mProtocolMinuit.set("port", 13579);
-    mProtocolMinuit.set("ip", "127.0.0.1");
-    
-    // Get Minuit parameters for each registered application
-    mProtocolMinuit.get("applicationNames", out);
-    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
-        TTSymbol name = TTElement(*it);
-        
-        mProtocolMinuit.send("ApplicationSelect", name, out);
-        TTLogMessage("Minuit setup for %s application : \n", name.c_str());
-        
-        mProtocolMinuit.get("ip", v);
-        TTSymbol ip = v[0];
-        TTLogMessage("- ip = %s \n", ip.c_str());
-        
-        mProtocolMinuit.get("port", v);
-        TTUInt16 port = v[0];
-        TTLogMessage("- port = %d \n", port);
-    }
-    
-    // Enable Minuit communication
-    mProtocolMinuit.send("Run");
-    
-/*
+
     TTLogMessage("\n*** Enable WebSocket communication ***\n");
     ////////////////////////////////////////////////////////////////////////
     
@@ -199,27 +199,29 @@ DemoApp::Setup()
         mProtocolWebSocket = out[0];
     
     // Get WebSocket Protocol attribute names and types
-    mProtocolMinuit.get("parameterNames", out);
+    mProtocolWebSocket.get("parameterNames", out);
     for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
         TTSymbol name = TTElement(*it);
         TTLogMessage("WebSocket::%s is a %s \n", name.c_str(), mProtocolWebSocket.attributeType(name).c_str());
     }
     
     // Register myDemoApp and myRemoteApp to the WebSocket protocol
-    mProtocolWebSocket.send("ApplicationRegister", "demo", out);
-    mProtocolWebSocket.send("ApplicationRegister", "i-score", out);
+    mProtocolWebSocket.send("ApplicationRegister", "DemoApp", out);
+    mProtocolWebSocket.send("ApplicationRegister", "telecommande", out);
     
     // Select myDemoApp to set its protocol parameters
-    mProtocolWebSocket.send("ApplicationSelect", "demo", out);
-    mProtocolWebSocket.set("???", none);
+    mProtocolWebSocket.send("ApplicationSelect", "DemoApp", out);
+    mProtocolWebSocket.set("port", 9001);
+    mProtocolWebSocket.set("ip", "127.0.0.1");
     
     // Select myRemoteApp to set its protocol parameters
-    mProtocolWebSocket.send("ApplicationSelect", "i-score", out);
-    mProtocolWebSocket.set("???", none);
+    mProtocolWebSocket.send("ApplicationSelect", "telecommande", out);
+    mProtocolWebSocket.set("port", 9000);
+    mProtocolWebSocket.set("ip", "127.0.0.1");
     
     // Enable WebSocket communication
     mProtocolWebSocket.send("Run");
-*/
+
     
     TTLogMessage("\n*** Current Protocol Setup ***\n");
     // Get protocol names
@@ -376,14 +378,14 @@ DemoApp::Quit()
     ///////////////////////////////////////////////
     
     mApplicationManager.send("ProtocolRelease", "Minuit", out);
-    //mApplicationManager.send("ProtocolRelease", "WebSocket", out);
+    mApplicationManager.send("ProtocolRelease", "WebSocket", out);
     
     
     TTLogMessage("\n*** Release applications ***\n");
     //////////////////////////////////////////////////
     
-    mApplicationManager.send("ApplicationRelease", "i-score", out);
-    mApplicationManager.send("ApplicationRelease", "demo", out);
+    mApplicationManager.send("ApplicationRelease", "telecommande", out);
+    mApplicationManager.send("ApplicationRelease", "DemoApp", out);
 }
 
 TTErr
