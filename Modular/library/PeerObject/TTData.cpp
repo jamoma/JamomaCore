@@ -370,7 +370,7 @@ TTErr TTData::setInstanceBounds(const TTValue& value)
 	TTValue n;				// use new value to protect the attribute
 	TTInt16 vmin, vmax;
 	vmin = value[0];
-	value.get(1, vmax);
+	vmax = value[1];
 	mInstanceBounds[0] = vmin;
 	mInstanceBounds[1] = vmax;
 	
@@ -693,7 +693,7 @@ TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue)
 			// or is the last element is a unit symbol ?
 			else if (commandValue[0].type() != kTypeSymbol && commandValue[2].type() == kTypeSymbol) {
 				hasUnit = true;
-				commandValue.get(2, unit);
+				unit = commandValue[2];
 			}
 			
 			break;	
