@@ -595,7 +595,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	else
 		*buffer += "\t\t\t<td class = \"instructionRangeBounds\"> N/A </td>";
 
-	// range/clipmode
+	// clipmode
 	*buffer += "\t\t\t<td class =\"instructionRangeClipmode\">";
 	*buffer += this->mRangeClipmode.c_str();
 	*buffer += "</td>";
