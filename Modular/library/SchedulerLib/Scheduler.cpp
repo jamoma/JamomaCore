@@ -27,12 +27,12 @@ mOffset(0.),
 mSpeed(1.),
 mRunning(NO),
 mPaused(NO),
-mProgression(0.),
-mRealTime(0.),
+mPosition(0.),
+mDate(0.),
 mCallback(NULL),
 mBaton(NULL)
 {
-    mCallback = SchedulerProgressionCallback((TTPtr)arguments[0]);
+    mCallback = SchedulerPositionCallback((TTPtr)arguments[0]);
     mBaton = arguments[1];
 	
 	addAttribute(Name, kTypeSymbol);
@@ -57,11 +57,11 @@ mBaton(NULL)
     addAttribute(Paused, kTypeBoolean);
     addAttributeProperty(Paused, readOnly, YES);
     
-    addAttribute(Progression, kTypeFloat64);
-    addAttributeProperty(Progression, readOnly, YES);
+    addAttribute(Position, kTypeFloat64);
+    addAttributeProperty(Position, readOnly, YES);
     
-    addAttribute(RealTime, kTypeFloat64);
-    addAttributeProperty(RealTime, readOnly, YES);
+    addAttribute(Date, kTypeFloat64);
+    addAttributeProperty(Date, readOnly, YES);
 
 	addMessage(Go);
 	addMessage(Stop);
@@ -91,8 +91,8 @@ TTErr Scheduler::setDuration(const TTValue& value)
                 sendNotification(TTSymbol("SchedulerOffsetChanged"), mOffset);
             }
             
-            mProgression = mOffset / mDuration;
-            mRealTime = mOffset;
+            mPosition = mOffset / mDuration;
+            mDate = mOffset;
             
             sendNotification(TTSymbol("SchedulerDurationChanged"), mDuration);
             
@@ -110,8 +110,8 @@ TTErr Scheduler::setOffset(const TTValue& value)
         if (value[0].type() == kTypeFloat64) {
             
             mOffset = value[0];
-            mProgression = mOffset / mDuration;
-            mRealTime = mOffset;
+            mPosition = mOffset / mDuration;
+            mDate = mOffset;
             
             sendNotification(TTSymbol("SchedulerOffsetChanged"), mOffset);
             

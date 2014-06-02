@@ -63,13 +63,13 @@ TTErr Max::Go()
         
         mRunning = NO;
         mPaused = NO;
-        mProgression = 0.;
-        mRealTime = 0.;
-        (mCallback)(mBaton, mProgression, mRealTime);
+        mPosition = 0.;
+        mDate = 0.;
+        (mCallback)(mBaton, mPosition, mDate);
         
         // notify each observers
         sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
     }
     else {
         
@@ -79,13 +79,13 @@ TTErr Max::Go()
         
         mRunning = YES;
         mPaused = NO;
-        mProgression = 0.;
-        mRealTime = 0.;
-        (mCallback)(mBaton, mProgression, mRealTime);
+        mPosition = 0.;
+        mDate = 0.;
+        (mCallback)(mBaton, mPosition, mDate);
         
         // notify each observers
         sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
+        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
         
         // schedule first tick
         setclock_fdelay(NULL, clock, mGranularity);
@@ -136,24 +136,24 @@ TTErr Max::Tick()
             
             mRunning = NO;
             mPaused = NO;
-			mProgression = 1.0;
-            mRealTime = mDuration;
+			mPosition = 1.0;
+            mDate = mDuration;
             
-            (mCallback)(mBaton, mProgression, mRealTime);
+            (mCallback)(mBaton, mPosition, mDate);
             
             // notify each observers
             sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-            sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
+            sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
         }
 		else {
             
-			mProgression += stepSize;
-            mRealTime = mDuration * mProgression;
+			mPosition += stepSize;
+            mDate = mDuration * mPosition;
             
-            (mCallback)(mBaton, mProgression, mRealTime);
+            (mCallback)(mBaton, mPosition, mDate);
             
             // notify each observers
-            sendNotification(TTSymbol("SchedulerTicked"), TTValue(mProgression, mRealTime));
+            sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
             
             // Set the clock to fire again
             setclock_fdelay(NULL, clock, mGranularity);

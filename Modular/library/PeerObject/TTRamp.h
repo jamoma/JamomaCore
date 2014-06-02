@@ -95,7 +95,7 @@ public: ///< It is public in order to be able to extend scheduler or function un
 #ifndef TT_NO_DSP
 
 #endif
-    friend void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 realTime);
+    friend void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 position, TTFloat64 date);
 };
 typedef TTRamp* TTRampPtr;
 
@@ -103,6 +103,6 @@ typedef TTRamp* TTRampPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 realTime);
+void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 position, TTFloat64 date);
 
 #endif // __TT_RAMP_H__
