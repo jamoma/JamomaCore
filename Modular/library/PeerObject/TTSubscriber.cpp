@@ -115,7 +115,7 @@ TTErr TTSubscriber::Subscribe(const TTValue& inputValue, TTValue& outputValue)
                     hisObject = aNode->getObject();
                     
                     // if there is no refered object
-                    if (hisObject.valid()) {
+                    if (!hisObject.valid()) {
                         
                         // set our object instead
                         aNode->setObject(mObject);
