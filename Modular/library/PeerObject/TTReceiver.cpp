@@ -23,7 +23,8 @@
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
 mActive(YES),
-mDirectory(NULL)
+mDirectory(NULL),
+mObjectCache(NULL)
 {
 	if (arguments.size() >= 1)
 		mReturnAddressCallback = arguments[0];
@@ -37,7 +38,7 @@ mDirectory(NULL)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Active, kTypeBoolean);
 	
-	addAttributeWithGetter(ObjectCache, kTypePointer);
+	addAttribute(ObjectCache, kTypePointer);
 	addAttributeProperty(ObjectCache, hidden, YES);
 	addAttributeProperty(ObjectCache, readOnly, YES);
 	
@@ -131,13 +132,6 @@ TTErr TTReceiver::setActive(const TTValue& newValue)
     }
 	
 	return kTTErrNone;
-}
-
-TTErr TTReceiver::getObjectCache(TTValue& value)
-{
-    value = TTPtr(&mObjectCache);
-    
-    return kTTErrNone;
 }
 
 #if 0

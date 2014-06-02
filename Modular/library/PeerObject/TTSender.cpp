@@ -22,7 +22,8 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
-mDirectory(NULL)
+mDirectory(NULL),
+mObjectCache(NULL)
 {
 	// a Sender can handle a signal
 	if (arguments.size() == 1)
@@ -30,7 +31,7 @@ mDirectory(NULL)
 		
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
-	addAttributeWithGetter(ObjectCache, kTypePointer);
+	addAttribute(ObjectCache, kTypePointer);
 	addAttributeProperty(ObjectCache, hidden, YES);
 	addAttributeProperty(ObjectCache, readOnly, YES);
 	
@@ -67,13 +68,6 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 		return bindAddress();
 	else 
 		return bindApplication();
-}
-
-TTErr TTSender::getObjectCache(TTValue& value)
-{
-    value = TTPtr(&mObjectCache);
-    
-    return kTTErrNone;
 }
 
 #if 0
