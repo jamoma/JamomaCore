@@ -621,13 +621,13 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 					err = anAttribute->unregisterObserverForNotifications(anObserver);
 			}
 		}
+        
+        // remove cacheData
+        err = mObjectsObserversCache.remove(aRelativeAddress);
+        
+        updateContent();
 	}
 	
-	// remove cacheData
-	err =  mObjectsObserversCache.remove(aRelativeAddress);
-    
-    updateContent();
-    
     return err;
 }
 
