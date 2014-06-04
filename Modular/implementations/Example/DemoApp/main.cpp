@@ -324,31 +324,11 @@ void
 DemoApp::Execute(std::string command)
 {
     // parse the command : address value
-    TTValue v = TTString(command);
+    TTValue out, v = TTString(command);
     v.fromString();
     
-    // a command has to start with a symbol
-    if (v.size() > 1) {
-        
-        if (v[0].type() == kTypeSymbol) {
-            
-            TTSymbol    address = v[0];
-            TTValue     args, out, none;
-            
-            args.copyFrom(v, 1);
-            
-            // Retreive a data object
-            TTErr err = mApplicationDemo.send("ObjectRetreive", address, out);
-            
-            if (!err) {
-                
-                TTObject aData = out[0];
-                
-                // Set data's value and check his validity
-                aData.send("Command", args, none);
-            }
-        }
-    }
+    // Send the command to the object at the given address
+    mApplicationDemo.send("ObjectSend", v, out);
 }
 
 void
