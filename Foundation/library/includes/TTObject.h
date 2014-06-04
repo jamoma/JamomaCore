@@ -183,6 +183,11 @@ public:
 		@return If ready returns #YES otherwise #NO.
 	 */
 	TTBoolean valid() const;
+    
+    /**	Enable/Disable reference count tracking of the instance
+     @param newTrackingValue        #YES to enable the tracking, #NO to disable it
+	 */
+	void track(TTBoolean newTrackingValue);
 };
 
 

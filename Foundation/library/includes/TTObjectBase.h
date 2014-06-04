@@ -122,9 +122,11 @@ private:
 	TTUInt16			referenceCount;		///< Reference count for this instance.
 public:
 	TTBoolean			valid;				///< If the object isn't completely built, or is in the process of freeing, this will be false.
+    TTBoolean			track;				///< enable the print of a log message to ease the track of reference counting mechanism on an instance
+                                            ///< @see 
 private:
 	TTPtrSizedInt		reserved1;			///< Reserved -- May be used for something in the future without changing the size of the struct.
-	TTPtrSizedInt		reserved2;			///< Reserved -- May be used for something in the future without changing the size of the struct.
+	//TTPtrSizedInt		reserved2;			///< Reserved -- May be used for something in the future without changing the size of the struct.
 
 protected:
 	/** Constructor.
