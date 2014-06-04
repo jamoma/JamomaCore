@@ -34,6 +34,7 @@ private:
 	WebSocketPtr   mProtocol;
 	
 	TTHashPtr   mDiscoverAnswers;
+    TTHashPtr   mDiscoverAllAnswers;
 	TTHashPtr   mGetAnswers;
 	
 public:
@@ -46,7 +47,10 @@ public:
 	int		CheckDiscoverAnswer(TTSymbol from, TTAddress address, TTValue& value);
 	TTErr	ParseDiscoverAnswer(const TTValue& answer, TTSymbol& returnedType, TTValue& returnedChildren, TTValue& returnedAttributes);
 				
+    void	AddDiscoverAllAnswer(TTSymbol from, TTAddress address, int timeOutInMs = DEFAULT_TIMEOUT);
     TTErr	ReceiveDiscoverAllAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error = kTTErrNone);
+    int		CheckDiscoverAllAnswer(TTSymbol from, TTAddress address, TTValue& value);
+	TTErr	ParseDiscoverAllAnswer(const TTValue& answer, TTNodePtr node);
     
 	void	AddGetAnswer(TTSymbol from, TTAddress address, int timeOutInMs = DEFAULT_TIMEOUT);
 	TTErr	ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error = kTTErrNone);

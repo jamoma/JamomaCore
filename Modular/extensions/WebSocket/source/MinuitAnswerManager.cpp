@@ -21,12 +21,14 @@ MinuitAnswerManager::MinuitAnswerManager(WebSocketPtr aMinuitProtocol)
 	mProtocol = aMinuitProtocol;
     
     mDiscoverAnswers = new TTHash();
+    mDiscoverAllAnswers = new TTHash();
     mGetAnswers = new TTHash();
 }
 
 MinuitAnswerManager::~MinuitAnswerManager()
 {
 	delete mDiscoverAnswers;
+    delete mDiscoverAllAnswers;
 	delete mGetAnswers;
 }
 
@@ -173,11 +175,67 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTSymbol& 
 	return kTTErrNone;
 }
 
+void MinuitAnswerManager::AddDiscoverAllAnswer(TTSymbol from, TTAddress address, int timeOutInMs)
+{
+	TTString key = from.string();
+    key += address.string();
+    
+    MinuitAnswerPtr anAnswer = new MinuitAnswer();
+    anAnswer->setTimeOut(timeOutInMs);
+    
+    mDiscoverAllAnswers->append(TTSymbol(key), (TTPtr)anAnswer);
+}
+
 TTErr MinuitAnswerManager::ReceiveDiscoverAllAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error)
 {
     // TODO : implement it
     
+    
 	return kTTErrGeneric;
+}
+
+int MinuitAnswerManager::CheckDiscoverAllAnswer(TTSymbol from, TTAddress address, TTValue& value)
+{
+	int             state;
+    TTValue         v;
+	TTString        key;
+    MinuitAnswerPtr anAnswer;
+    TTErr           err;
+    
+    key = from.string();
+    key += address.string();
+	
+	// Looking for a MinuitDiscoverAllAnswer object at the given address
+	err = mDiscoverAllAnswers->lookup(TTSymbol(key), v);
+    
+    if (!err) {
+        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+        
+        // wait
+        anAnswer->wait();
+        
+		state = anAnswer->getState();
+		
+		// if an answer is received
+		if(state != NO_ANSWER)
+		{
+			// get the answer
+			anAnswer->getAnswer(value);
+			mDiscoverAllAnswers->remove(TTSymbol(key));
+            delete anAnswer;
+		}
+		
+		return state;
+	}
+	else
+		return REQUEST_NOT_SENT;
+}
+
+TTErr MinuitAnswerManager::ParseDiscoverAllAnswer(const TTValue& answer, TTNodePtr node)
+{
+	
+	
+	return kTTErrNone;
 }
 
 void MinuitAnswerManager::AddGetAnswer(TTSymbol from, TTAddress address, int timeOutInMs)

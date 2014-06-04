@@ -26,6 +26,10 @@
 #define thisProtocolDiscover	YES
 #define thisProtocolDiscoverAll	YES
 
+void addChildToJson(JSONNode* jsonNode, TTSymbol childName, TTValue value);
+void addAttributeToJson(TTObjectBasePtr param, JSONNode* jsonNode, TTSymbol attrName);
+void parseChildren(JSONNode* jsonNode, TTNodePtr ttNode, TTBoolean isFirstParsing);
+
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_WebSocket(void)
 {
 	TTFoundationInit();
@@ -166,19 +170,22 @@ TTErr WebSocket::SendDiscoverRequest(TTSymbol to, TTAddress address,
                                   TTValue& returnedAttributes,
                                   TTUInt8 tryCount)
 {
-	TTValue		arguments, answer;
+	TTValue		answer;
 	TTString	localAppName, operation;
 	TTInt32		state;
     JSONNode*   jsonNode;
+    
+    // create JSonNode
+    jsonNode = new JSONNode(JSON_NODE);
 	
 	// edit local app name and operation
 	localAppName = mLocalApplicationName.c_str();
 	operation = WEBSOCKET_REQUEST_DISCOVER;
-	
-	// edit arguments <WEBSOCKET_JSON_ADDRESS, address>
-	arguments = TTValue(WEBSOCKET_JSON_ADDRESS);
-    arguments.append(TTSymbol(address));
-	
+    
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+    jsonNode->push_back(JSONNode(address.c_str(), NULL));
+    
 	if (!sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode)) {
 		
 #ifdef TT_PROTOCOL_DEBUG
@@ -219,7 +226,46 @@ TTErr WebSocket::SendDiscoverAllRequest(TTSymbol to, TTAddress address,
                              TTNodePtr node,
                              TTUInt8 tryCount)
 {
-    return kTTErrGeneric;
+    TTValue		answer;
+	TTString	localAppName, operation;
+	TTInt32		state;
+    JSONNode*   jsonNode;
+    
+    // create JSonNode
+    jsonNode = new JSONNode(JSON_NODE);
+	
+	// edit local app name and operation
+	localAppName = mLocalApplicationName.c_str();
+	operation = WEBSOCKET_REQUEST_DISCOVER_ALL;
+    
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+    jsonNode->push_back(JSONNode(address.c_str(), NULL));
+    
+	if (!sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode)) {
+		
+#ifdef TT_PROTOCOL_DEBUG
+		std::cout << "WebSocket : applicationSendDiscoverRequest " << std::endl;
+#endif
+		
+		// Wait for an answer
+		mAnswerManager->AddDiscoverAllAnswer(to, address);
+		
+		state = NO_ANSWER;
+		do
+		{
+			state = mAnswerManager->CheckDiscoverAllAnswer(to, address, answer);
+		}
+		while (state == NO_ANSWER);
+		
+		if (state == ANSWER_RECEIVED)
+			return mAnswerManager->ParseDiscoverAllAnswer(answer, node);
+        
+        else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
+            return SendDiscoverAllRequest(to, address, node, tryCount+1);
+	}
+	
+	return kTTErrGeneric;
 }
 
 /*!
@@ -239,15 +285,19 @@ TTErr WebSocket::SendGetRequest(TTSymbol to, TTAddress address,
 	TTString	localAppName, operation;
 	TTInt32		state;
     JSONNode*   jsonNode;
+    
+    // create JSonNode
+    jsonNode = new JSONNode(JSON_NODE);
 	
 	// edit local app name and operation
 	localAppName = mLocalApplicationName.c_str();
 	operation = WEBSOCKET_REQUEST_GET;
+    
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+    jsonNode->push_back(JSONNode(address.c_str(), NULL));
 	
-	// edit arguments <WEBSOCKET_JSON_ADDRESS, address>
-	arguments = TTValue(WEBSOCKET_JSON_ADDRESS);
-    arguments.append(TTSymbol(address));
-	
+    // TODO : add possibility to get several attributes
 	if (!sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode)) {
         
 #ifdef TT_PROTOCOL_DEBUG
@@ -291,31 +341,22 @@ TTErr WebSocket::SendSetRequest(TTSymbol to, TTAddress address,
     TTString	localAppName, operation;
     JSONNode*   jsonNode;
     
+    // create JSonNode
+    jsonNode = new JSONNode(JSON_NODE);
+    
     // edit local app name and operation
     localAppName = mLocalApplicationName.c_str();
 	operation = WEBSOCKET_REQUEST_SET;
     
-    // edit arguments <WEBSOCKET_JSON_ADDRESS, address>
-	arguments = TTValue(WEBSOCKET_JSON_ADDRESS);
-    arguments.append(TTSymbol(address));
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+    addChildToJson(jsonNode, address.c_str(), value);
 		
 #ifdef TT_PROTOCOL_DEBUG
 		std::cout << "WebSocket : applicationSendSetRequest " << std::endl;
 #endif
-
-    if (value.size() == 1)
-    {
-        arguments.append(TTSymbol(WEBSOCKET_JSON_VALUE));
-        arguments.append(value[0]);
-    }
-    else
-    {
-        for (TTUInt32 i = 0; i < value.size(); i += 2) {
-            arguments.append(value[i]);
-            arguments.append(value[i+1]);
-        }
-    }
     
+    // TODO : add possibility to set several attributes
     return sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode);
 }
 
@@ -335,24 +376,16 @@ TTErr WebSocket::SendListenRequest(TTSymbol to, TTAddress address,
     TTString	localAppName, operation;
     JSONNode*   jsonNode;
     
+    // create JSonNode
+    jsonNode = new JSONNode(JSON_NODE);
+    
     // edit local app name and operation
     localAppName = mLocalApplicationName.c_str();
 	operation = WEBSOCKET_REQUEST_LISTEN;
     
-    // edit arguments <WEBSOCKET_JSON_ADDRESS, address>
-	arguments = TTValue(WEBSOCKET_JSON_ADDRESS);
-    arguments.append(TTSymbol(address));
-	
-	if (enable)
-    {
-        arguments.append(TTSymbol("enable"));
-        arguments.append(TTSymbol(WEBSOCKET_REQUEST_LISTEN_ENABLE));
-    }
-	else
-    {
-        arguments.append(TTSymbol("enable"));
-        arguments.append(TTSymbol(WEBSOCKET_REQUEST_LISTEN_DISABLE));
-    }
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+    jsonNode->push_back(JSONNode(address.c_str(), enable));
 	
 #ifdef TT_PROTOCOL_DEBUG
 		std::cout << "WebSocket : applicationSendListenRequest " << std::endl;
@@ -445,222 +478,6 @@ TTErr WebSocket::SendDiscoverAnswer(TTSymbol to, TTAddress address,
 #endif
 	
 		return sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode);
-}
-
-void addAttributeToJson(TTObjectBasePtr param, JSONNode* jsonNode, TTSymbol attrName)
-{
-	TTValue         v;
-	TTString        s;
-    TTSymbol		addressValue;
-    TTSymbol		symValue;
-    TTString        stringValue;
-    TTInt32			intValue;
-    TTFloat64		floatValue;
-    TTDataType		valueType;
-    TTBoolean       boolValue;
-    
-	// get the Value of an attribute
-	v.clear();
-	param->getAttributeValue(attrName, v);
-    
-    // add this attribute in json tree
-    valueType = v[0].type();
-    
-    if (attrName == TTSymbol("rangeBounds"))
-    {
-        valueType = kTypeSymbol;
-        v.toString();
-        v.get(0, stringValue);
-    }
-    
-    if (valueType == kTypeSymbol && attrName == TTSymbol("rangeBounds")) {
-//        std::cout << attrName.c_str() << " " << stringValue.data() << std::endl;
-        jsonNode->push_back(JSONNode(attrName.c_str(), stringValue.data()));
-    }
-    else if (valueType == kTypeSymbol && attrName != TTSymbol("rangeBounds")) {
-        symValue = v[0];
-//        std::cout << attrName.c_str() << " " << symValue.c_str() << std::endl;
-        jsonNode->push_back(JSONNode(attrName.c_str(), symValue.c_str()));
-    }
-    else if (valueType == kTypeBoolean) {
-        boolValue = v[0];
-//       std::cout << attrName.c_str() << " " << boolValue << std::endl;
-        jsonNode->push_back(JSONNode(attrName.c_str(), boolValue));
-    }
-    else if (valueType == kTypeUInt8 || valueType == kTypeUInt16 || valueType == kTypeUInt32 || valueType == kTypeUInt64) {
-        intValue = v[0];
-//        std::cout << attrName.c_str() << " " << intValue << std::endl;
-        jsonNode->push_back(JSONNode(attrName.c_str(), intValue));
-    }
-    else if (valueType == kTypeInt8 || valueType == kTypeInt16 || valueType == kTypeInt32 || valueType == kTypeInt64) {
-        intValue = v[0];
-//        std::cout << attrName.c_str() << " " << intValue << std::endl;
-        jsonNode->push_back(JSONNode(attrName.c_str(), intValue));
-    }
-    else if (valueType == kTypeFloat32 || valueType == kTypeFloat64) {
-        floatValue = v[0];
-//        std::cout << attrName.c_str() << " " << floatValue << std::endl;
-        jsonNode->push_back(JSONNode(attrName.c_str(), (float)floatValue));
-    }
-}
-
-void addChildToJson(JSONNode* jsonNode, TTSymbol childName, TTValue value)
-{
-	TTString        s;
-    TTSymbol		addressValue;
-    TTSymbol		symValue;
-    TTString        stringValue;
-    TTInt32			intValue;
-    TTFloat64		floatValue;
-    TTDataType		valueType;
-    TTBoolean       boolValue;
-    
-    // check value type and add it in json tree
-    valueType = value[0].type();
-    
-    if (childName == TTSymbol("rangeBounds"))
-    {
-        valueType = kTypeSymbol;
-        value.toString();
-        value.get(0, stringValue);
-    }
-    
-    if (valueType == kTypeSymbol && childName == TTSymbol("rangeBounds")) {
-        //        std::cout << childName.c_str() << " " << stringValue.data() << std::endl;
-        jsonNode->push_back(JSONNode(childName.c_str(), stringValue.data()));
-    }
-    else if (valueType == kTypeSymbol && childName != TTSymbol("rangeBounds")) {
-        symValue = value[0];
-        //        std::cout << childName.c_str() << " " << symValue.c_str() << std::endl;
-        jsonNode->push_back(JSONNode(childName.c_str(), symValue.c_str()));
-    }
-    else if (valueType == kTypeBoolean) {
-        boolValue = value[0];
-        //        std::cout << childName.c_str() << " " << boolValue << std::endl;
-        jsonNode->push_back(JSONNode(childName.c_str(), boolValue));
-    }
-    else if (valueType == kTypeUInt8 || valueType == kTypeUInt16 || valueType == kTypeUInt32 || valueType == kTypeUInt64) {
-        intValue = value[0];
-        //        std::cout << childName.c_str() << " " << intValue << std::endl;
-        jsonNode->push_back(JSONNode(childName.c_str(), intValue));
-    }
-    else if (valueType == kTypeInt8 || valueType == kTypeInt16 || valueType == kTypeInt32 || valueType == kTypeInt64) {
-        intValue = value[0];
-        //        std::cout << childName.c_str() << " " << intValue << std::endl;
-        jsonNode->push_back(JSONNode(childName.c_str(), intValue));
-    }
-    else if (valueType == kTypeFloat32 || valueType == kTypeFloat64) {
-        floatValue = value[0];
-        //        std::cout << childName.c_str() << " " << floatValue << std::endl;
-        jsonNode->push_back(JSONNode(childName.c_str(), (float)floatValue));
-    }
-}
-
-// method to extract a substring safely
-char *str_sub (const char *s, unsigned int start, unsigned int end)
-{
-    char *new_s = NULL;
-    
-    if (s != NULL && start < end) {
-        new_s = (char*) malloc (sizeof (*new_s) * (end - start + 2));
-        if (new_s != NULL) {
-            unsigned int i;
-            
-            for (i = start; i <= end; i++) {
-                new_s[i-start] = s[i];
-            }
-            new_s[i-start] = '\0';
-        }
-        else {
-            fprintf (stderr, "Memoire insuffisante\n");
-            exit (EXIT_FAILURE);
-        }
-    }
-    return new_s;
-}
-
-void parseChildren(JSONNode* jsonNode, TTNodePtr ttNode, TTBoolean isFirstParsing)
-{
-	TTAddress   OSCaddress;
-	TTValue		v, attributeNames;
-	TTList		childList;
-	TTNodePtr	p_node;
-	TTString	s;
-	
-	ttNode->getAddress(OSCaddress);
-	ttNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
-	
-	const char* address = OSCaddress.c_str();
-	char* nodeName;
-	
-    JSONNode* childNode = new JSONNode(JSON_NODE);
-	
-	// don't write the first node AppName in xml because already written in application xml header
-	// don't write the node name if is an instance, don't want it in xml file, replaced by dynamic instances attribute
-    if (strrchr(address, '.') == NULL)
-    {
-		// get the substring representing the last node name
-        
-        // address is only the root ("/")
-        if (strcmp(address, "/") == 0)
-        {
-            nodeName = (char*)address;
-        }
-        // address is only the first node ("/firstNode")
-        else if (strlen(address) > 1 && strrchr(address, '/')-address == 0)
-        {
-            nodeName = (char*)address;
-        }
-        // address is not only the root ("/firstNode/secondNode/...")
-		else if (strlen(address) > 1)
-        {
-			const char* c = strrchr(address, '/');
-			int start = c-address+1;
-			int end = strlen(address)-1;
-			nodeName = str_sub(address, start, end);
-		}
-        
-        if (isFirstParsing)
-        {
-            childNode = jsonNode;
-            childNode->set_name(nodeName);
-        }
-        
-		if (childList.isEmpty())
-        {
-			// get the Data object of the Node
-			TTObjectBasePtr param = ttNode->getObject();
-			
-			if (param != NULL)
-            {
-				addAttributeToJson(param, childNode, kTTSym_type);
-				addAttributeToJson(param, childNode, TTSymbol("valueDefault"));
-				addAttributeToJson(param, childNode, TTSymbol("rangeBounds"));
-				addAttributeToJson(param, childNode, TTSymbol("valueStepsize"));
-                addAttributeToJson(param, childNode, TTSymbol("description"));
-//				addAttributeToJson(param, childNode, TTSymbol("dynamicInstances"));
-//				addAttributeToJson(param, childNode, TTSymbol("instanceBounds"));
-//				addAttributeToJson(param, childNode, kTTSym_priority);
-//				addAttributeToJson(param, childNode, TTSymbol("readonly"));
-			}
-		}
-	}
-	
-	// repeat recursively for each child
-	for (childList.begin(); childList.end(); childList.next()) {
-		childList.current().get(0,(TTPtr*)&p_node);
-		parseChildren(childNode, p_node, false);
-	}
-    
-    // when json node is pushed_back, it is copied into json tree so has to be modified before
-    if(!isFirstParsing)
-    {
-        childNode->set_name(nodeName);
-        jsonNode->push_back(*childNode);
-        
-        childNode->clear();
-        delete childNode;
-    }
 }
 
 /*!
@@ -1117,4 +934,221 @@ TTErr WebSocket::receivedMessage(const TTValue& message, TTValue& outputValue)
 	} // end else
 	
 	return kTTErrNone;
+}
+
+
+void addChildToJson(JSONNode* jsonNode, TTSymbol childName, TTValue value)
+{
+	TTString        s;
+    TTSymbol		addressValue;
+    TTSymbol		symValue;
+    TTString        stringValue;
+    TTInt32			intValue;
+    TTFloat64		floatValue;
+    TTDataType		valueType;
+    TTBoolean       boolValue;
+    
+    // check value type and add it in json tree
+    valueType = value[0].type();
+    
+    if (childName == TTSymbol("rangeBounds"))
+    {
+        valueType = kTypeSymbol;
+        value.toString();
+        value.get(0, stringValue);
+    }
+    
+    if (valueType == kTypeSymbol && childName == TTSymbol("rangeBounds")) {
+        //        std::cout << childName.c_str() << " " << stringValue.data() << std::endl;
+        jsonNode->push_back(JSONNode(childName.c_str(), stringValue.data()));
+    }
+    else if (valueType == kTypeSymbol && childName != TTSymbol("rangeBounds")) {
+        symValue = value[0];
+        //        std::cout << childName.c_str() << " " << symValue.c_str() << std::endl;
+        jsonNode->push_back(JSONNode(childName.c_str(), symValue.c_str()));
+    }
+    else if (valueType == kTypeBoolean) {
+        boolValue = value[0];
+        //        std::cout << childName.c_str() << " " << boolValue << std::endl;
+        jsonNode->push_back(JSONNode(childName.c_str(), boolValue));
+    }
+    else if (valueType == kTypeUInt8 || valueType == kTypeUInt16 || valueType == kTypeUInt32 || valueType == kTypeUInt64) {
+        intValue = value[0];
+        //        std::cout << childName.c_str() << " " << intValue << std::endl;
+        jsonNode->push_back(JSONNode(childName.c_str(), intValue));
+    }
+    else if (valueType == kTypeInt8 || valueType == kTypeInt16 || valueType == kTypeInt32 || valueType == kTypeInt64) {
+        intValue = value[0];
+        //        std::cout << childName.c_str() << " " << intValue << std::endl;
+        jsonNode->push_back(JSONNode(childName.c_str(), intValue));
+    }
+    else if (valueType == kTypeFloat32 || valueType == kTypeFloat64) {
+        floatValue = value[0];
+        //        std::cout << childName.c_str() << " " << floatValue << std::endl;
+        jsonNode->push_back(JSONNode(childName.c_str(), (float)floatValue));
+    }
+}
+
+void addAttributeToJson(TTObjectBasePtr param, JSONNode* jsonNode, TTSymbol attrName)
+{
+	TTValue         v;
+	TTString        s;
+    TTSymbol		addressValue;
+    TTSymbol		symValue;
+    TTString        stringValue;
+    TTInt32			intValue;
+    TTFloat64		floatValue;
+    TTDataType		valueType;
+    TTBoolean       boolValue;
+    
+	// get the Value of an attribute
+	v.clear();
+	param->getAttributeValue(attrName, v);
+    
+    // add this attribute in json tree
+    valueType = v[0].type();
+    
+    if (attrName == TTSymbol("rangeBounds"))
+    {
+        valueType = kTypeSymbol;
+        v.toString();
+        v.get(0, stringValue);
+    }
+    
+    if (valueType == kTypeSymbol && attrName == TTSymbol("rangeBounds")) {
+        //        std::cout << attrName.c_str() << " " << stringValue.data() << std::endl;
+        jsonNode->push_back(JSONNode(attrName.c_str(), stringValue.data()));
+    }
+    else if (valueType == kTypeSymbol && attrName != TTSymbol("rangeBounds")) {
+        symValue = v[0];
+        //        std::cout << attrName.c_str() << " " << symValue.c_str() << std::endl;
+        jsonNode->push_back(JSONNode(attrName.c_str(), symValue.c_str()));
+    }
+    else if (valueType == kTypeBoolean) {
+        boolValue = v[0];
+        //       std::cout << attrName.c_str() << " " << boolValue << std::endl;
+        jsonNode->push_back(JSONNode(attrName.c_str(), boolValue));
+    }
+    else if (valueType == kTypeUInt8 || valueType == kTypeUInt16 || valueType == kTypeUInt32 || valueType == kTypeUInt64) {
+        intValue = v[0];
+        //        std::cout << attrName.c_str() << " " << intValue << std::endl;
+        jsonNode->push_back(JSONNode(attrName.c_str(), intValue));
+    }
+    else if (valueType == kTypeInt8 || valueType == kTypeInt16 || valueType == kTypeInt32 || valueType == kTypeInt64) {
+        intValue = v[0];
+        //        std::cout << attrName.c_str() << " " << intValue << std::endl;
+        jsonNode->push_back(JSONNode(attrName.c_str(), intValue));
+    }
+    else if (valueType == kTypeFloat32 || valueType == kTypeFloat64) {
+        floatValue = v[0];
+        //        std::cout << attrName.c_str() << " " << floatValue << std::endl;
+        jsonNode->push_back(JSONNode(attrName.c_str(), (float)floatValue));
+    }
+}
+
+// method to extract a substring safely
+char *str_sub (const char *s, unsigned int start, unsigned int end)
+{
+    char *new_s = NULL;
+    
+    if (s != NULL && start < end) {
+        new_s = (char*) malloc (sizeof (*new_s) * (end - start + 2));
+        if (new_s != NULL) {
+            unsigned int i;
+            
+            for (i = start; i <= end; i++) {
+                new_s[i-start] = s[i];
+            }
+            new_s[i-start] = '\0';
+        }
+        else {
+            fprintf (stderr, "Memoire insuffisante\n");
+            exit (EXIT_FAILURE);
+        }
+    }
+    return new_s;
+}
+
+void parseChildren(JSONNode* jsonNode, TTNodePtr ttNode, TTBoolean isFirstParsing)
+{
+	TTAddress   OSCaddress;
+	TTValue		v, attributeNames;
+	TTList		childList;
+	TTNodePtr	p_node;
+	TTString	s;
+	
+	ttNode->getAddress(OSCaddress);
+	ttNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
+	
+	const char* address = OSCaddress.c_str();
+	char* nodeName;
+	
+    JSONNode* childNode = new JSONNode(JSON_NODE);
+	
+	// don't write the first node AppName in xml because already written in application xml header
+	// don't write the node name if is an instance, don't want it in xml file, replaced by dynamic instances attribute
+    if (strrchr(address, '.') == NULL)
+    {
+		// get the substring representing the last node name
+        
+        // address is only the root ("/")
+        if (strcmp(address, "/") == 0)
+        {
+            nodeName = (char*)address;
+        }
+        // address is only the first node ("/firstNode")
+        else if (strlen(address) > 1 && strrchr(address, '/')-address == 0)
+        {
+            nodeName = (char*)address;
+        }
+        // address is not only the root ("/firstNode/secondNode/...")
+		else if (strlen(address) > 1)
+        {
+			const char* c = strrchr(address, '/');
+			int start = c-address+1;
+			int end = strlen(address)-1;
+			nodeName = str_sub(address, start, end);
+		}
+        
+        if (isFirstParsing)
+        {
+            childNode = jsonNode;
+            childNode->set_name(nodeName);
+        }
+        
+		if (childList.isEmpty())
+        {
+			// get the Data object of the Node
+			TTObjectBasePtr param = ttNode->getObject();
+			
+			if (param != NULL)
+            {
+				addAttributeToJson(param, childNode, kTTSym_type);
+				addAttributeToJson(param, childNode, TTSymbol("valueDefault"));
+				addAttributeToJson(param, childNode, TTSymbol("rangeBounds"));
+				addAttributeToJson(param, childNode, TTSymbol("valueStepsize"));
+                addAttributeToJson(param, childNode, TTSymbol("description"));
+                //				addAttributeToJson(param, childNode, TTSymbol("dynamicInstances"));
+                //				addAttributeToJson(param, childNode, TTSymbol("instanceBounds"));
+                //				addAttributeToJson(param, childNode, kTTSym_priority);
+                //				addAttributeToJson(param, childNode, TTSymbol("readonly"));
+			}
+		}
+	}
+	
+	// repeat recursively for each child
+	for (childList.begin(); childList.end(); childList.next()) {
+		childList.current().get(0,(TTPtr*)&p_node);
+		parseChildren(childNode, p_node, false);
+	}
+    
+    // when json node is pushed_back, it is copied into json tree so has to be modified before
+    if(!isFirstParsing)
+    {
+        childNode->set_name(nodeName);
+        jsonNode->push_back(*childNode);
+        
+        childNode->clear();
+        delete childNode;
+    }
 }
