@@ -580,7 +580,7 @@ TTErr TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data)
 	aReceiver = (TTReceiverPtr)o.instance();
 	anAddress = baton[1];
 	
-	if(aReceiver->mActive) {
+	if (aReceiver->mActive) {
 		
 		// return the address
         if (anAddress.getAttribute() == kTTSym_value)
