@@ -91,6 +91,9 @@ mTempAddress(kTTAdrsRoot)
     
     addMessageWithArguments(ObjectRetreive);
     addMessageProperty(RetreiveObject, hidden, YES);
+    
+    addMessageWithArguments(ObjectSend);
+    addMessageProperty(RetreiveObject, hidden, YES);
 	
 	// symbol conversion
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
@@ -800,22 +803,95 @@ TTErr TTApplication::ObjectRetreive(const TTValue& inputValue, TTValue& outputVa
         
         if (inputValue[0].type() == kTypeSymbol) {
             
-            TTAddress address = inputValue[0];
+            TTAddress   address = inputValue[0];
+            TTList		aNodeList;
+            TTNodePtr	aNode;
             
-            // retreive the node
-            TTNodePtr node;
+            // allow to use wilcards
+            TTErr err = mDirectory->Lookup(address, aNodeList, &aNode);
             
-            if (!mDirectory->getTTNode(address, &node)) {
+            if (!err) {
                 
-                // return the object
-                // TODO: WHEN THIS FUNCTION GETS UPDATED FOR THE NEWER API THEN THE FOLLOWING WILL NOT
-                // NEED TO MAKE AN EXTRA COPY OF THE OBJECT BEFORE ASSIGNING IT TO OUTPUT VALUE
-                // THE OUTPUT VALUE MUST BE ASSIGNED FROM A TTOBJECT THOUGH, NOT FROM A POINTER
-                // OR ELSE IT WILL FAIL ON THE RECEIVING END BECAUSE THE VALUE WONT UNDERSTAND HOW TO HANDLE IT
-                outputValue = TTObject(node->getObject());
+                for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
+                {
+                    // get a node from the selection
+                    aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
+                    
+                    TTObject anObject = aNode->getObject();
+                    
+                    if (anObject.valid()) {
+                        
+                        // return the object
+                        outputValue.append(anObject);
+                    }
+                }
                 
                 return kTTErrNone;
             }
+            
+            return err;
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
+{
+    // get address
+    if (inputValue.size() >= 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            TTAddress   address = inputValue[0];
+            TTList		aNodeList;
+            TTNodePtr	aNode;
+            
+            // allow to use wilcards
+            TTErr err = mDirectory->Lookup(address, aNodeList, &aNode);
+            
+            if (!err) {
+                
+                TTValue valueToSend, none;
+                
+                // remove the address part to get the value to send
+                valueToSend.copyFrom(inputValue, 1);
+                
+                for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
+                {
+                    // get a node from the selection
+                    aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
+                    
+                    TTObject anObject = aNode->getObject();
+                    
+                    if (anObject.valid()) {
+                        
+                        // TTData case : for value attribute use Command message
+                        if (anObject.name() == kTTSym_Data) {
+                            
+                            if (address.getAttribute() == kTTSym_value)
+                                err = anObject.send(kTTSym_Command, valueToSend, none);
+                            else
+                                err = anObject.set(address.getAttribute(), valueToSend);
+                        }
+                        else {
+                            // try to set an attribute
+                            err = anObject.set(address.getAttribute(), valueToSend);
+                            
+                            // try to use a message
+                            if (err == address)
+                                err = anObject.send(address.getAttribute(), valueToSend, none);
+                        }
+                    }
+                    
+                    if (err)
+                        break;
+                }
+                
+                return kTTErrNone;
+            }
+            
+            return err;
         }
     }
     

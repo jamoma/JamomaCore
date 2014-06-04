@@ -211,6 +211,12 @@ private:
      @param outputValue     the registered object
      @return #TTErr error code */
 	TTErr ObjectRetreive(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Send any value to a registered object into the application directory at an address
+     @param inputValue      an address:attribute followed by any value
+     @param outputValue     nothing
+     @return #TTErr error code */
+    TTErr ObjectSend(const TTValue& inputValue, TTValue& outputValue);
 
 #if 0
 #pragma mark -
