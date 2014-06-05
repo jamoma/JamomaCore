@@ -121,6 +121,10 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
         return 1;
     }
     
+    std::string s1 = data;
+    std::string s2 = "set";
+    std::size_t found = s1.find(s2);
+
     if (flags & 0x80) {
         flags &= 0x7f;
         switch (flags) {
@@ -131,6 +135,14 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
                 fprintf(stderr, "websocket receive : %-.*s\n", (int)data_len, data);
                 // store this connection to send back data
                 mLastConnection = conn;
+                
+                // if it is a set message, send to the other clients
+                if (found != std::string::npos)
+                    for(i=0; i < CONNECTIONS; ++i) {
+                        if (ws_conn[i].conn)
+                            mg_websocket_write(ws_conn[i].conn, WEBSOCKET_OPCODE_TEXT, data, data_len);
+                    }
+                
                 // send received datas to JamomaModular WebSocket plugin
                 receivedMessage = TTSymbol(data);
                 ((TTWebSocketPtr)(mg_get_request_info(conn)->user_data))->mOwner->sendMessage(TTSymbol("WebSocketReceive"), receivedMessage, kTTValNONE);
