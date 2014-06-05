@@ -52,15 +52,15 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("quaternion"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(90.0));
-        v.set(1, TTFloat64(45.0));
-        v.set(2, TTFloat64(-45.0));
+        v[0] = TTFloat64(90.0);
+        v[1] = TTFloat64(45.0);
+        v[2] = TTFloat64(-45.0);
         
         expected.resize(4);
-        expected.set(0, TTFloat64(0.0));
-        expected.set(1, TTFloat64(-0.5));
-        expected.set(2, TTFloat64(-0.7071067811865475));
-        expected.set(3, TTFloat64(0.5));
+        expected[0] = TTFloat64(0.0);
+        expected[1] = TTFloat64(-0.5);
+        expected[2] = TTFloat64(-0.7071067811865475);
+        expected[3] = TTFloat64(0.5);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -75,17 +75,17 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("quaternion"));    
         
         v.resize(4); 
-        v.set(0, TTFloat64(0.0));
-        v.set(1, TTFloat64(-0.5773502691896258));
-        v.set(2, TTFloat64(-0.8164965809277260));	
-        v.set(3, TTFloat64(120.0));
+        v[0] = TTFloat64(0.0);
+        v[1] = TTFloat64(-0.5773502691896258);
+        v[2] = TTFloat64(-0.8164965809277260);
+        v[3] = TTFloat64(120.0);
 
         
         expected.resize(4);
-        expected.set(0, TTFloat64(0.0));
-        expected.set(1, TTFloat64(-0.5));
-        expected.set(2, TTFloat64(-0.7071067811865475));
-        expected.set(3, TTFloat64(0.5));
+        expected[0] = TTFloat64(0.0);
+        expected[1] = TTFloat64(-0.5);
+        expected[2] = TTFloat64(-0.7071067811865475);
+        expected[3] = TTFloat64(0.5);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -107,15 +107,15 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("euler"));    
         
         v.resize(4);
-        v.set(0, TTFloat64(0.0));
-        v.set(1, TTFloat64(-0.5));    
-        v.set(2, TTFloat64(-0.7071067811865475));
-        v.set(3, TTFloat64(0.5));
+        v[0] = TTFloat64(0.0);
+        v[1] = TTFloat64(-0.5);   
+        v[2] = TTFloat64(-0.7071067811865475);
+        v[3] = TTFloat64(0.5);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(90));
-        expected.set(1, TTFloat64(45));
-        expected.set(2, TTFloat64(-45));
+        expected[0] = TTFloat64(90);
+        expected[1] = TTFloat64(45);
+        expected[2] = TTFloat64(-45);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -130,16 +130,16 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("axis"));    
         
         v.resize(4);
-        v.set(0, TTFloat64(0.0));
-        v.set(1, TTFloat64(-0.5));
-        v.set(2, TTFloat64(-0.7071067811865475));	
-        v.set(3, TTFloat64(0.5));	
+        v[0] = TTFloat64(0.0);
+        v[1] = TTFloat64(-0.5);
+        v[2] = TTFloat64(-0.7071067811865475);
+        v[3] = TTFloat64(0.5);
         
         expected.resize(4); 
-        expected.set(0, TTFloat64(0.0));
-        expected.set(1, TTFloat64(-0.5773502691896258));
-        expected.set(2, TTFloat64(-0.8164965809277260));
-        expected.set(3, TTFloat64(120.0));
+        expected[0] = TTFloat64(0.0);
+        expected[1] = TTFloat64(-0.5773502691896258);
+        expected[2] = TTFloat64(-0.8164965809277260);
+        expected[3] = TTFloat64(120.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -158,15 +158,15 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("axis"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(90.0));
-        v.set(1, TTFloat64(45.0));
-        v.set(2, TTFloat64(-45.0));
+        v[0] = TTFloat64(90.0);
+        v[1] = TTFloat64(45.0);
+        v[2] = TTFloat64(-45.0);
         
         expected.resize(4);
-        expected.set(0, TTFloat64(0.0));
-        expected.set(1, TTFloat64(-0.5773502691896258));
-        expected.set(2, TTFloat64(-0.8164965809277260));
-        expected.set(3, TTFloat64(120.0));
+        expected[0] = TTFloat64(0.0);
+        expected[1] = TTFloat64(-0.5773502691896258);
+        expected[2] = TTFloat64(-0.8164965809277260);
+        expected[3] = TTFloat64(120.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -186,15 +186,15 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
         
         //yaw
         v.resize(3);
-        v.set(0, TTFloat64(45.0));
-        v.set(1, TTFloat64(0.0));
-        v.set(2, TTFloat64(0.0));
+        v[0] = TTFloat64(45.0);
+        v[1] = TTFloat64(0.0);
+        v[2] = TTFloat64(0.0);
         
         expected.resize(4);
-        expected.set(0, TTFloat64(0.0));
-        expected.set(1, TTFloat64(0.0));
-        expected.set(2, TTFloat64(-1.0));
-        expected.set(3, TTFloat64(45.0));
+        expected[0] = TTFloat64(0.0);
+        expected[1] = TTFloat64(0.0);
+        expected[2] = TTFloat64(-1.0);
+        expected[3] = TTFloat64(45.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -202,14 +202,14 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
                         TTTestFloat64ArrayEquivalence(v, expected),
                         testAssertionCount, errorCount);
         //pitch
-        v.set(0, TTFloat64(0.0));
-        v.set(1, TTFloat64(45.0));
-        v.set(2, TTFloat64(0.0));
+        v[0] = TTFloat64(0.0);
+        v[1] = TTFloat64(45.0);
+        v[2] = TTFloat64(0.0);
         
-        expected.set(0, TTFloat64(1.0));
-        expected.set(1, TTFloat64(0.0));
-        expected.set(2, TTFloat64(0.0));
-        expected.set(3, TTFloat64(45.0));
+        expected[0] = TTFloat64(1.0);
+        expected[1] = TTFloat64(0.0);
+        expected[2] = TTFloat64(0.0);
+        expected[3] = TTFloat64(45.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -218,14 +218,14 @@ TTErr OrientationDataspace::test(TTValue& returnedTestInfo)
                         testAssertionCount, errorCount);
         
         //roll
-        v.set(0, TTFloat64(0.0));
-        v.set(1, TTFloat64(0.0));
-        v.set(2, TTFloat64(45.0));
+        v[0] = TTFloat64(0.0);
+        v[1] = TTFloat64(0.0);
+        v[2] = TTFloat64(45.0);
         
-        expected.set(0, TTFloat64(0.0));
-        expected.set(1, TTFloat64(1.0));
-        expected.set(2, TTFloat64(0.0));
-        expected.set(3, TTFloat64(45.0));
+        expected[0] = TTFloat64(0.0);
+        expected[1] = TTFloat64(1.0);
+        expected[2] = TTFloat64(0.0);
+        expected[3] = TTFloat64(45.0);
         
         myDataspace.send(TT("convert"), v, v);
         

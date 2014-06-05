@@ -21,6 +21,7 @@ sources:
   - tests/TTDictionary.test.cpp
   - source/TTHash.cpp
   - source/TTList.cpp
+  - tests/TTList.test.cpp
   - source/TTMatrix.cpp
   - source/TTMatrixBase.cpp
   - source/TTMatrixObject.cpp

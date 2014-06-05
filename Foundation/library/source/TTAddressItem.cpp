@@ -305,16 +305,14 @@ TTErr TTAddressItem::copy(TTAddressItemPtr *anItemCopy)
 	return kTTErrNone;
 }
 
-void TTAddressItem::registerHandler(TTObjectBase& anObject)
+void TTAddressItem::registerHandler(TTObject& anObject)
 {
-	TTValue v = TTValue(anObject);
-	this->handlers.appendUnique(v);
+	this->handlers.appendUnique(anObject);
 }
 
-void TTAddressItem::unregisterHandler(TTObjectBase& anObject)
+void TTAddressItem::unregisterHandler(TTObject& anObject)
 {
-	TTValue v = TTValue(anObject);
-	this->handlers.remove(v);
+	this->handlers.remove(anObject);
 }
 
 void TTAddressItem::iterateHandlersSendingMessage(TTSymbol messageName)

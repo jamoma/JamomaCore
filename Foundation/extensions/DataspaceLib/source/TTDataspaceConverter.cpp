@@ -49,7 +49,7 @@ TTErr TTDataspaceConverter::setDataspace(const TTValue& newValue)
 	TTErr			err;
 	TTString		objectName = "dataspace.";
 	
-	newValue.get(0, name);
+	name = newValue[0];
 	
 	// TODO: validate the name provided before proceeding
 	objectName += name.c_str();
@@ -137,7 +137,7 @@ TTErr TTDataspaceConverter::getAvailableDataspaces(const TTValue& anUnusedInputV
 			//TTString	str;
 			const char* cStr;
 			
-			dataspaceNames.get(i, s);
+			s = dataspaceNames[i];
 			/* 
 			str = s->getString();	// this causes crashes on Windows, need to use C string instead
 			str.erase(0, 10);

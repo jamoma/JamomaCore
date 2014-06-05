@@ -60,7 +60,6 @@ public:	// use public for quick acces during signal processing
 protected:
 	
 	TTObject                    mReturnSignalCallback;		///< a way to return back signal to the owner of this output
-	TTObject                    mReturnLinkCallback;		///< a way to return back the input link status to the owner of this output
 	TTValue						mLast;						///< keep a copy of the last sent signal for each index -- for e.g. freezing
 	TTObject                    mAddressObserver;			///< to observe mInputAddress creation/destruction
 	

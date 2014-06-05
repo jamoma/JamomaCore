@@ -22,7 +22,8 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
-mDirectory(NULL)
+mDirectory(NULL),
+mObjectCache(NULL)
 {
 	// a Sender can handle a signal
 	if (arguments.size() == 1)
@@ -30,7 +31,7 @@ mDirectory(NULL)
 		
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
-	addAttributeWithGetter(ObjectCache, kTypePointer);
+	addAttribute(ObjectCache, kTypePointer);
 	addAttributeProperty(ObjectCache, hidden, YES);
 	addAttributeProperty(ObjectCache, readOnly, YES);
 	
@@ -39,13 +40,16 @@ mDirectory(NULL)
 	
 	mIsSending = false;
     
-    mObjectCache.setThreadProtection(true);
+    mObjectCache = new TTList();
+    mObjectCache->setThreadProtection(true);
 }
 
 TTSender::~TTSender()
 {
 	unbindAddress();
 	unbindApplication();
+    
+    delete mObjectCache;
 }
 
 TTErr TTSender::setAddress(const TTValue& newValue)
@@ -64,13 +68,6 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 		return bindAddress();
 	else 
 		return bindApplication();
-}
-
-TTErr TTSender::getObjectCache(TTValue& value)
-{
-    value = TTPtr(&mObjectCache);
-    
-    return kTTErrNone;
 }
 
 #if 0
@@ -96,14 +93,14 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 		// lock
 		mIsSending = true;
 		
-		if (!mObjectCache.isEmpty()) {
+		if (!mObjectCache->isEmpty()) {
 			
 			ttAttributeName = ToTTName(mAddress.getAttribute());
 			
 			// send data to each node of the selection
-			for (mObjectCache.begin(); mObjectCache.end(); mObjectCache.next()) {
+			for (mObjectCache->begin(); mObjectCache->end(); mObjectCache->next()) {
 				
-				aCacheElement = mObjectCache.current();
+				aCacheElement = mObjectCache->current();
 								
 				// then his object
 				anObject = aCacheElement[0];
@@ -175,7 +172,7 @@ TTErr TTSender::bindAddress()
 	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
 		aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
 		anObject = aNode->getObject();
-		mObjectCache.append(anObject);
+		mObjectCache->append(anObject);
 	}
 	
 	// 3. Observe any creation or destruction below the address
@@ -195,7 +192,7 @@ TTErr TTSender::unbindAddress()
 	
 	if (mAddress != kTTAdrsEmpty) {
         
-        mObjectCache.clear();
+        mObjectCache->clear();
 		
 		// stop life cycle observation
 		if(mAddressObserver.valid() && mDirectory) {
@@ -264,7 +261,7 @@ TTErr TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data)
 		{
 			anObject = aNode->getObject();
 			if (anObject.valid())
-				aSender->mObjectCache.appendUnique(anObject);
+				aSender->mObjectCache->appendUnique(anObject);
 			
 			break;
 		}
@@ -274,13 +271,13 @@ TTErr TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data)
 			anObject = aNode->getObject();
 			
 			// find the object in the cache and remove it
-			for (aSender->mObjectCache.begin(); aSender->mObjectCache.end(); aSender->mObjectCache.next()) {
+			for (aSender->mObjectCache->begin(); aSender->mObjectCache->end(); aSender->mObjectCache->next()) {
 				
 				// get a node
-				aCacheObject = aSender->mObjectCache.current()[0];
+				aCacheObject = aSender->mObjectCache->current()[0];
 				
 				if (aCacheObject == anObject) {
-					aSender->mObjectCache.remove(aSender->mObjectCache.current());
+					aSender->mObjectCache->remove(aSender->mObjectCache->current());
 					break;
 				}
 			}

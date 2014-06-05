@@ -99,10 +99,10 @@ public:
 	TTErr						copy(TTAddressItemPtr *anItemCopy);
 	
 	/** Register a TTObjectBase handler */
-	void						registerHandler(TTObjectBase& anObject);
+	void						registerHandler(TTObject& anObject);
 	
 	/** Unregister a TTObjectBase handler */
-	void						unregisterHandler(TTObjectBase& anObject);
+	void						unregisterHandler(TTObject& anObject);
 	
 	/** Send a message to all handlers */
 	void						iterateHandlersSendingMessage(TTSymbol messageName);

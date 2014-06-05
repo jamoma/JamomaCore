@@ -84,13 +84,14 @@ TTExplorer::~TTExplorer()
 
 TTErr TTExplorer::setNamespace(const TTValue& value)
 {
-	TTAddressItemPtr aSelection;
+	TTAddressItemPtr    aSelection;
+    TTObject            thisObject(this);
 	
 	// unregister from the former namespace
 	aSelection = TTModularSelectionLookup(mNamespace);
 	
 	if (aSelection)
-		aSelection->unregisterHandler(*this);
+		aSelection->unregisterHandler(thisObject);
 	
 	// get new namespace
 	mNamespace = value;
@@ -99,7 +100,7 @@ TTErr TTExplorer::setNamespace(const TTValue& value)
 	aSelection = TTModularSelectionLookup(mNamespace);
 	
 	if (aSelection)
-		aSelection->registerHandler(*this);
+		aSelection->registerHandler(thisObject);
 	
 	return kTTErrNone;
 }

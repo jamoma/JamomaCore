@@ -162,6 +162,12 @@ bool operator == (const TTObject& anObject, const TTObject& anotherObject)
 }
 
 
+bool operator != (const TTObject& anObject, const TTObject& anotherObject)
+{
+	return (anObject.instance() != anotherObject.instance());
+}
+
+
 TTBoolean TTObject::valid() const
 {
 	if (mObjectInstance && mObjectInstance->valid)

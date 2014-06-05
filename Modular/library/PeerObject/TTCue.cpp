@@ -24,8 +24,7 @@ TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
 mDescription(kTTSym_none),
 mRamp(0),
-mAddress(kTTAdrsRoot),
-mScript(NULL)
+mAddress(kTTAdrsRoot)
 {
 	addAttributeWithGetterAndSetter(Name, kTypeSymbol);
 	addAttributeWithGetterAndSetter(Description, kTypeSymbol);
@@ -94,7 +93,7 @@ TTErr TTCue::getName(TTValue& value)
 TTErr TTCue::setName(const TTValue& value)
 {
 	TTListPtr			lines;
-	TTDictionaryBasePtr		aLine;
+	TTDictionaryBasePtr aLine;
 	TTSymbol			name;
 	TTValue				v;
 	

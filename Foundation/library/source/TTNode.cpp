@@ -519,9 +519,9 @@ TTErr TTNode::getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstan
 	return kTTErrNone;
 }
 
-TTObjectBasePtr TTNode::getObject()
+TTObject& TTNode::getObject()
 {
-	return this->object.instance();
+	return this->object;
 }
 
 TTPtr TTNode::getContext()

@@ -37,6 +37,8 @@
 		2A42395B169CF3BC002D05D9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		466CD3A91782BF6100D96BC6 /* TTDictionary.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTDictionary.test.cpp; sourceTree = "<group>"; };
 		466CD3AA1782BF6100D96BC6 /* TTDictionary.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTDictionary.test.h; sourceTree = "<group>"; };
+		4685EEA119374D4800629514 /* TTList.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTList.test.cpp; sourceTree = "<group>"; };
+		4685EEA219374D4800629514 /* TTList.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTList.test.h; sourceTree = "<group>"; };
 		A74EAA491666353D004E1097 /* TTInterpolate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTInterpolate.h; sourceTree = "<group>"; };
 		A74EAA4B16665778004E1097 /* TTInterpolate.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTInterpolate.test.cpp; sourceTree = "<group>"; };
 		A74EAA5516665CD9004E1097 /* TTInterpolate.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTInterpolate.test.h; sourceTree = "<group>"; };
@@ -287,6 +289,8 @@
 				466CD3A91782BF6100D96BC6 /* TTDictionary.test.cpp */,
 				A74EAA5516665CD9004E1097 /* TTInterpolate.test.h */,
 				A74EAA4B16665778004E1097 /* TTInterpolate.test.cpp */,
+				4685EEA219374D4800629514 /* TTList.test.h */,
+				4685EEA119374D4800629514 /* TTList.test.cpp */,
 				D2F097EA14A0E03400EC0396 /* TTMatrix.test.cpp */,
 				D2F097EC14A0E03400EC0396 /* TTNodeLib.test.h */,
 				D2F097EB14A0E03400EC0396 /* TTNodeLib.test.cpp */,

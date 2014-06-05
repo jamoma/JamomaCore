@@ -222,7 +222,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 {
 	TTValue		args, v, min, max, none;
 	TTNodePtr	aNode;
-	TTObject	returnValueCallback, anObject;
+	TTObject	returnValueCallback, anObject, empty;
 	TTErr		err;
 	
 	if (mReceiver.valid())
@@ -233,7 +233,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 	mObserveInputRange = true;
 	
 	// Make a TTReceiver object
-	args.append(NULL);
+	args.append(empty);
 	
 	returnValueCallback = TTObject("callback");
     
@@ -280,7 +280,7 @@ TTErr TTMapper::setInput(const TTValue& value)
 TTErr TTMapper::observeInput()
 {
 	TTValue     args;
-	TTObject	returnInputCreationCallback;
+	TTObject	returnInputCreationCallback, empty;
 	
 	if (mInputObserver.valid())
 		mInputObserver = TTObject();
@@ -292,7 +292,7 @@ TTErr TTMapper::observeInput()
 	returnInputCreationCallback.set(kTTSym_function, TTPtr(&TTMapperInputCreationCallback));
 	args.append(returnInputCreationCallback);
 	
-	args.append(NULL);
+	args.append(empty);
 	
 	mInputObserver = TTObject(kTTSym_Receiver, args);
 	
@@ -304,13 +304,13 @@ TTErr TTMapper::observeInput()
 TTErr TTMapper::observeInputRange()
 {
 	TTValue     args;
-	TTObject    returnInputRangeCallback;
+	TTObject    returnInputRangeCallback, empty;
 	
 	if (mInputRangeObserver.valid())
 		mInputRangeObserver = TTObject();
 	
 	// Make a TTReceiver object
-	args.append(NULL);
+	args.append(empty);
 	
 	returnInputRangeCallback = TTObject("callback");
     
@@ -379,7 +379,7 @@ TTErr TTMapper::setOutput(const TTValue& value)
 TTErr TTMapper::observeOutput()
 {
 	TTValue		args;
-	TTObject    returnOutputCreationCallback;
+	TTObject    returnOutputCreationCallback, empty;
 	
 	if (mOutputObserver.valid())
 		mOutputObserver = TTObject();
@@ -391,7 +391,7 @@ TTErr TTMapper::observeOutput()
 	returnOutputCreationCallback.set(kTTSym_function, TTPtr(&TTMapperOutputCreationCallback));
 	args.append(returnOutputCreationCallback);
 	
-	args.append(NULL);
+	args.append(empty);
 	
 	mOutputObserver = TTObject(kTTSym_Receiver, args);
 	
@@ -403,13 +403,13 @@ TTErr TTMapper::observeOutput()
 TTErr TTMapper::observeOutputRange()
 {
 	TTValue		args;
-	TTObject    returnOutputRangeCallback;
+	TTObject    returnOutputRangeCallback, empty;
 	
 	if (mOutputRangeObserver.valid())
 		mOutputRangeObserver = TTObject();
 	
 	// Make a TTReceiver object
-	args.append(NULL);
+	args.append(empty);
 	
 	returnOutputRangeCallback = TTObject("callback");
 	returnOutputRangeCallback.set(kTTSym_baton, TTObject(this));

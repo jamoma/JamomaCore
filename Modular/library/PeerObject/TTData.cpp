@@ -370,7 +370,7 @@ TTErr TTData::setInstanceBounds(const TTValue& value)
 	TTValue n;				// use new value to protect the attribute
 	TTInt16 vmin, vmax;
 	vmin = value[0];
-	value.get(1, vmax);
+	vmax = value[1];
 	mInstanceBounds[0] = vmin;
 	mInstanceBounds[1] = vmax;
 	
@@ -393,7 +393,7 @@ TTErr TTData::setRampFunction(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mRampFunction = value;
 	
-	if (mRampFunction != kTTSym_none) {
+	if (mRampFunction != kTTSym_none && mRamper.valid()) {
 		
 		// set the function of the ramper
 		mRamper.set(kTTSym_function, mRampFunction);
@@ -538,13 +538,12 @@ TTErr TTData::rampSetup()
         mRamper.set("scheduler", mRampDrive);
     }
 	
-	if (!mRamper.valid())
-		return kTTErrGeneric;
 #ifndef TT_NO_DSP	
 	// 3. reset the ramp function
-	setRampFunction(mRampFunction);
+	return setRampFunction(mRampFunction);
+#else
+	return kTTErrNone;
 #endif
-	return kTTErrNone;	
 }
 
 TTErr TTData::convertUnit(const TTValue& inputValue, TTValue& outputValue)
@@ -596,7 +595,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	else
 		*buffer += "\t\t\t<td class = \"instructionRangeBounds\"> N/A </td>";
 
-	// range/clipmode
+	// clipmode
 	*buffer += "\t\t\t<td class =\"instructionRangeClipmode\">";
 	*buffer += this->mRangeClipmode.c_str();
 	*buffer += "</td>";
@@ -694,7 +693,7 @@ TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue)
 			// or is the last element is a unit symbol ?
 			else if (commandValue[0].type() != kTypeSymbol && commandValue[2].type() == kTypeSymbol) {
 				hasUnit = true;
-				commandValue.get(2, unit);
+				unit = commandValue[2];
 			}
 			
 			break;	

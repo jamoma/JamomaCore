@@ -115,7 +115,7 @@ TTErr TTSubscriber::Subscribe(const TTValue& inputValue, TTValue& outputValue)
                     hisObject = aNode->getObject();
                     
                     // if there is no refered object
-                    if (hisObject.valid()) {
+                    if (!hisObject.valid()) {
                         
                         // set our object instead
                         aNode->setObject(mObject);
@@ -316,7 +316,7 @@ TTNodePtr TTSubscriber::registerContextList(TTListPtr aContextList)
                 else if (relativeContextAddress.getInstance() == lowerContextNode->getInstance()) {
                     
                     // if there is no registered object
-                    if (!lowerContextNode->getObject()) {
+                    if (!lowerContextNode->getObject().valid()) {
                         found = true;
                         break;
                     }

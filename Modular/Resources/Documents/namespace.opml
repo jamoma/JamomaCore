@@ -26,8 +26,8 @@
       <outline text=":/range/bounds.1 0 1 etc...."/>
       <outline text=":/range/bounds [0 1] [0 127] [-50 50]"/>
       <outline text=":/range/bounds/high" Type="Property" Implemented="No" Getimplemented="No"/>
-      <outline text=":/range/clipmode/low" Type="Property" Implemented="No" Getimplemented="No"/>
-      <outline text=":/range/clipmode/high" Type="Property" Implemented="No" Getimplemented="No"/>
+      <outline text=":/clipmode/low" Type="Property" Implemented="No" Getimplemented="No"/>
+      <outline text=":/clipmode/high" Type="Property" Implemented="No" Getimplemented="No"/>
     </outline>
     <outline text="Ramping">
       <outline text=":/ramp/drive" Type="Property" Implemented="Yes" Getimplemented="Yes"/>

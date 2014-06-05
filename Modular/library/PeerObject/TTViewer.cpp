@@ -70,7 +70,8 @@ mActive(YES)
     mSender = TTObject(kTTSym_Sender);
     
     // create receiver
-    TTValue args;
+    TTValue     args;
+    TTObject    empty;
     
     TTObject returnAddressCallback = TTObject("callback");
 	returnAddressCallback.set(kTTSym_baton, TTObject(this));
@@ -86,7 +87,7 @@ mActive(YES)
     
     // create dataspace observer
     args.clear();
-    args.append(NULL);
+    args.append(empty);
 	
 	TTObject returnDataspaceCallback = TTObject("callback");
 	returnDataspaceCallback.set(kTTSym_baton, TTObject(this));
@@ -97,7 +98,7 @@ mActive(YES)
     
     // create dataspace unit observer
     args.clear();
-    args.append(NULL);
+    args.append(empty);
 	
 	TTObject returnDataspaceUnitCallback = TTObject("callback");
 	returnDataspaceUnitCallback.set(kTTSym_baton, TTObject(this));

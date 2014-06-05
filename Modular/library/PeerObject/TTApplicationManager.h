@@ -69,8 +69,8 @@ class TTMODULAR_EXPORT TTApplicationManager : public TTObjectBase
 	
 private:
 
-	TTHash              mApplications;						///< hash table containing <TTSymbol applicationName, #TTApplication anApplication>
-	TTHash              mProtocols;							///< hash table containing <TTSymbol protocolName, #Protocol aProtocol>
+	TTHash              mApplications;						///< hash table containing <#TTSymbol applicationName, #TTApplication anApplication>
+	TTHash              mProtocols;							///< hash table containing <#TTSymbol protocolName, #Protocol aProtocol>
 		
 	TTObject            mApplicationLocal;					///< the local application
 	TTObject            mApplicationCurrent;				///< used for ReadFromXml mechanism
@@ -135,6 +135,7 @@ private:
 	TTErr ApplicationRelease(const TTValue& inputValue, TTValue& outputValue);
     
     /** Rename an application passing its old name and a new name
+     @details : this method is hidden because it is only used internally by #TTApplication::setName
      @param inputValue      application old name and a new name
      @param outputValue     nothing
      @return #TTErr error code */

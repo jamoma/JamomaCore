@@ -23,7 +23,8 @@
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
 mActive(YES),
-mDirectory(NULL)
+mDirectory(NULL),
+mObjectCache(NULL)
 {
 	if (arguments.size() >= 1)
 		mReturnAddressCallback = arguments[0];
@@ -37,7 +38,7 @@ mDirectory(NULL)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeWithSetter(Active, kTypeBoolean);
 	
-	addAttributeWithGetter(ObjectCache, kTypePointer);
+	addAttribute(ObjectCache, kTypePointer);
 	addAttributeProperty(ObjectCache, hidden, YES);
 	addAttributeProperty(ObjectCache, readOnly, YES);
 	
@@ -48,7 +49,9 @@ mDirectory(NULL)
 	addMessageProperty(Grab, hidden, YES);
 	
     mNodesObserversCache.setThreadProtection(true);
-    mObjectCache.setThreadProtection(true);
+    
+    mObjectCache = new TTList();
+    mObjectCache->setThreadProtection(true);
 }
 
 TTReceiver::~TTReceiver()
@@ -58,6 +61,8 @@ TTReceiver::~TTReceiver()
     
 	unbindAddress();
 	unbindApplication();
+    
+    delete mObjectCache;
 }
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
@@ -129,13 +134,6 @@ TTErr TTReceiver::setActive(const TTValue& newValue)
 	return kTTErrNone;
 }
 
-TTErr TTReceiver::getObjectCache(TTValue& value)
-{
-    value = TTPtr(&mObjectCache);
-    
-    return kTTErrNone;
-}
-
 #if 0
 #pragma mark -
 #pragma mark Some Methods
@@ -185,10 +183,12 @@ TTErr TTReceiver::Get()
                             else
                                 v = anAddress;
                             
-                            mReturnAddressCallback.send("notify", v, none);
+                            if (mReturnAddressCallback.valid())
+                                mReturnAddressCallback.send("notify", v, none);
                             
                             // return the value
-                            mReturnValueCallback.send("notify", data, none);
+                            if (mReturnValueCallback.valid())
+                                mReturnValueCallback.send("notify", data, none);
                         }
                         else
                             return kTTErrGeneric;
@@ -289,7 +289,7 @@ TTErr TTReceiver::bindAddress()
 						mNodesObserversCache.appendUnique(newElement);
 						
 						// cache the object for quick access
-						mObjectCache.appendUnique(o);
+						mObjectCache->appendUnique(o);
                         
                         // notify that the address exists
                         if (anAddress.getAttribute() == kTTSym_value)
@@ -297,7 +297,8 @@ TTErr TTReceiver::bindAddress()
                         else
                             v = anAddress;
                         
-                        mReturnAddressCallback.send("notify", v, none);
+                        if (mReturnAddressCallback.valid())
+                            mReturnAddressCallback.send("notify", v, none);
 					}
 				}
 			}
@@ -363,7 +364,7 @@ TTErr TTReceiver::unbindAddress()
         mNodesObserversCache.clear();
 		
         // clear object cache
-        mObjectCache.clear();
+        mObjectCache->clear();
 		
 		// stop life cycle observation
 		if (mAddressObserver.valid() && mDirectory) {
@@ -440,7 +441,9 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 			{
 				// return the address
                 v = aReceiver->mAddress.removeAttribute();
-                aReceiver->mReturnAddressCallback.send("notifiy", v, none);
+                
+                if (aReceiver->mReturnAddressCallback.valid())
+                    aReceiver->mReturnAddressCallback.send("notify", v, none);
 			}
 			else if (ttAttributeName != kTTSym_destroyed)
 			{
@@ -472,7 +475,7 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
                             
 							TTObject newObserver = TTObject("callback");
 							
-							b = TTValue(aReceiver);
+							b = TTObject(aReceiver);
 							b.append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));
 							
 							newObserver.set(kTTSym_baton, b);
@@ -490,7 +493,7 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 							aReceiver->mNodesObserversCache.appendUnique(newCouple);
 							
 							// cache the object for quick access
-							aReceiver->mObjectCache.appendUnique(o);
+							aReceiver->mObjectCache->appendUnique(o);
 						}
 					}
 				}
@@ -505,7 +508,9 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 			{
 				// return the address
                 v = aReceiver->mAddress.removeAttribute();
-                aReceiver->mReturnAddressCallback.send("notify", v, none);
+                
+                if (aReceiver->mReturnAddressCallback.valid())
+                    aReceiver->mReturnAddressCallback.send("notify", v, none);
 			}
 			else if (ttAttributeName != kTTSym_created)
 			{
@@ -550,7 +555,7 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 					aReceiver->mNodesObserversCache.remove(c);
 					
 					// forget the object
-					aReceiver->mObjectCache.remove(o);
+					aReceiver->mObjectCache->remove(o);
 				}
 			}
 			break;
@@ -584,10 +589,12 @@ TTErr TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data)
             v = anAddress;
 		
 		// return address to the owner of #TTReceiver
-        aReceiver->mReturnAddressCallback.send("notifiy", v, none);
+        if (aReceiver->mReturnAddressCallback.valid())
+            aReceiver->mReturnAddressCallback.send("notify", v, none);
 		
 		// return the value to the owner of #TTReceiver
-        aReceiver->mReturnValueCallback.send("notifiy", data, none);
+        if (aReceiver->mReturnValueCallback.valid())
+            aReceiver->mReturnValueCallback.send("notify", data, none);
 	}
 	
 	return kTTErrNone;

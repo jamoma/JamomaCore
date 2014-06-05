@@ -47,14 +47,14 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("rgb"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(124.2));
-        v.set(1, TTFloat64(162.9));
-        v.set(2, TTFloat64(13.163));
+        v[0] = TTFloat64(124.2);
+        v[1] = TTFloat64(162.9);
+        v[2] = TTFloat64(13.163);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(124.2));
-        expected.set(1, TTFloat64(162.9));
-        expected.set(2, TTFloat64(13.163));
+        expected[0] = TTFloat64(124.2);
+        expected[1] = TTFloat64(162.9);
+        expected[2] = TTFloat64(13.163);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -70,14 +70,14 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("rgb"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(255.));
-        v.set(1, TTFloat64(127.5));
-        v.set(2, TTFloat64(0.));
+        v[0] = TTFloat64(255.);
+        v[1] = TTFloat64(127.5);
+        v[2] = TTFloat64(0.);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(0.));
-        expected.set(1, TTFloat64(0.5));
-        expected.set(2, TTFloat64(1.0));
+        expected[0] = TTFloat64(0.);
+        expected[1] = TTFloat64(0.5);
+        expected[2] = TTFloat64(1.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -93,14 +93,14 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("rgb"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(120.));
-        v.set(1, TTFloat64(100.));
-        v.set(2, TTFloat64(50.));
+        v[0] = TTFloat64(120.);
+        v[1] = TTFloat64(100.);
+        v[2] = TTFloat64(50.);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(0.));
-        expected.set(1, TTFloat64(1.0));
-        expected.set(2, TTFloat64(0.));
+        expected[0] = TTFloat64(0.);
+        expected[1] = TTFloat64(1.0);
+        expected[2] = TTFloat64(0.);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -116,14 +116,14 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("rgb"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(255.));
-        v.set(1, TTFloat64(127.5));
-        v.set(2, TTFloat64(0.));
+        v[0] = TTFloat64(255.);
+        v[1] = TTFloat64(127.5);
+        v[2] = TTFloat64(0.);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(1.));
-        expected.set(1, TTFloat64(0.5));
-        expected.set(2, TTFloat64(0.0));
+        expected[0] = TTFloat64(1.);
+        expected[1] = TTFloat64(0.5);
+        expected[2] = TTFloat64(0.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -139,14 +139,14 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("rgb"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(120.));
-        v.set(1, TTFloat64(100.));
-        v.set(2, TTFloat64(100.));
+        v[0] = TTFloat64(120.);
+        v[1] =TTFloat64(100.);
+        v[2] = TTFloat64(100.);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(0.));
-        expected.set(1, TTFloat64(1.0));
-        expected.set(2, TTFloat64(0.));
+        expected[0] = TTFloat64(0.);
+        expected[1] = TTFloat64(1.0);
+        expected[2] = TTFloat64(0.);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -170,14 +170,14 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("cmy"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(0.));
-        v.set(1, TTFloat64(0.5));
-        v.set(2, TTFloat64(1.));
+        v[0] = TTFloat64(0.);
+        v[1] = TTFloat64(0.5);
+        v[2] = TTFloat64(1.);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(255.));
-        expected.set(1, TTFloat64(127.5));
-        expected.set(2, TTFloat64(0.0));
+        expected[0] = TTFloat64(255.);
+        expected[1] = TTFloat64(127.5);
+        expected[2] = TTFloat64(0.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -193,14 +193,14 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("hsl"));    
 
         v.resize(3);
-        v.set(0, TTFloat64(0.));
-        v.set(1, TTFloat64(1.));
-        v.set(2, TTFloat64(0.));
+        v[0] = TTFloat64(0.);
+        v[1] = TTFloat64(1.);
+        v[2] = TTFloat64(0.);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(120.));
-        expected.set(1, TTFloat64(100.0));
-        expected.set(2, TTFloat64(50.));
+        expected[0] = TTFloat64(120.);
+        expected[1] = TTFloat64(100.0);
+        expected[2] = TTFloat64(50.);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -216,14 +216,14 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("rgb8"));    
 
         v.resize(3);
-        v.set(0, TTFloat64(1.));
-        v.set(1, TTFloat64(0.5));
-        v.set(2, TTFloat64(0.));
+        v[0] = TTFloat64(1.);
+        v[1] = TTFloat64(0.5);
+        v[2] = TTFloat64(0.);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(255.));
-        expected.set(1, TTFloat64(127.5));
-        expected.set(2, TTFloat64(0.0));
+        expected[0] = TTFloat64(255.);
+        expected[1] = TTFloat64(127.5);
+        expected[2] = TTFloat64(0.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -239,14 +239,14 @@ TTErr ColorDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("hsv"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(0.));
-        v.set(1, TTFloat64(1.));
-        v.set(2, TTFloat64(0.));
+        v[0] = TTFloat64(0.);
+        v[1] = TTFloat64(1.);
+        v[2] = TTFloat64(0.);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(120.));
-        expected.set(1, TTFloat64(100.0));
-        expected.set(2, TTFloat64(100.));
+        expected[0] = TTFloat64(120.);
+        expected[1] = TTFloat64(100.0);
+        expected[2] = TTFloat64(100.);
         
         myDataspace.send(TT("convert"), v, v);
         

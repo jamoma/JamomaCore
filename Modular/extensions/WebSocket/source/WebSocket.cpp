@@ -170,44 +170,44 @@ TTErr WebSocket::SendDiscoverRequest(TTSymbol to, TTAddress address,
                                   TTValue& returnedAttributes,
                                   TTUInt8 tryCount)
 {
-	TTValue		answer;
-	TTString	localAppName, operation;
-	TTInt32		state;
-    JSONNode*   jsonNode;
-    
-    // create JSonNode
-    jsonNode = new JSONNode(JSON_NODE);
-	
-	// edit local app name and operation
-	localAppName = mLocalApplicationName.c_str();
-	operation = WEBSOCKET_REQUEST_DISCOVER;
-    
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
-    jsonNode->push_back(JSONNode(address.c_str(), NULL));
-    
-	if (!sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode)) {
-		
-#ifdef TT_PROTOCOL_DEBUG
-		std::cout << "WebSocket : applicationSendDiscoverRequest " << std::endl;
-#endif
-		
-		// Wait for an answer
-		mAnswerManager->AddDiscoverAnswer(to, address);
-		
-		state = NO_ANSWER;
-		do
-		{
-			state = mAnswerManager->CheckDiscoverAnswer(to, address, answer);
-		}
-		while (state == NO_ANSWER);
-		
-		if (state == ANSWER_RECEIVED)
-			return mAnswerManager->ParseDiscoverAnswer(answer, returnedType, returnedChildren, returnedAttributes);
-        
-        else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
-            return SendDiscoverRequest(to, address, returnedType, returnedChildren, returnedAttributes, tryCount+1);
-	}
+//	TTValue		answer;
+//	TTString	localAppName, operation;
+//	TTInt32		state;
+//    JSONNode*   jsonNode;
+//    
+//    // create JSonNode
+//    jsonNode = new JSONNode(JSON_NODE);
+//	
+//	// edit local app name and operation
+//	localAppName = mLocalApplicationName.c_str();
+//	operation = WEBSOCKET_REQUEST_DISCOVER;
+//    
+//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+//    jsonNode->push_back(JSONNode(address.c_str(), NULL));
+//    
+//	if (!sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode)) {
+//		
+//#ifdef TT_PROTOCOL_DEBUG
+//		std::cout << "WebSocket : applicationSendDiscoverRequest " << std::endl;
+//#endif
+//		
+//		// Wait for an answer
+//		mAnswerManager->AddDiscoverAnswer(to, address);
+//		
+//		state = NO_ANSWER;
+//		do
+//		{
+//			state = mAnswerManager->CheckDiscoverAnswer(to, address, answer);
+//		}
+//		while (state == NO_ANSWER);
+//		
+//		if (state == ANSWER_RECEIVED)
+//			return mAnswerManager->ParseDiscoverAnswer(answer, returnedType, returnedChildren, returnedAttributes);
+//        
+//        else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
+//            return SendDiscoverRequest(to, address, returnedType, returnedChildren, returnedAttributes, tryCount+1);
+//	}
 	
 	return kTTErrGeneric;
 }
@@ -226,44 +226,44 @@ TTErr WebSocket::SendDiscoverAllRequest(TTSymbol to, TTAddress address,
                              TTNodePtr node,
                              TTUInt8 tryCount)
 {
-    TTValue		answer;
-	TTString	localAppName, operation;
-	TTInt32		state;
-    JSONNode*   jsonNode;
-    
-    // create JSonNode
-    jsonNode = new JSONNode(JSON_NODE);
-	
-	// edit local app name and operation
-	localAppName = mLocalApplicationName.c_str();
-	operation = WEBSOCKET_REQUEST_DISCOVER_ALL;
-    
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
-    jsonNode->push_back(JSONNode(address.c_str(), NULL));
-    
-	if (!sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode)) {
-		
-#ifdef TT_PROTOCOL_DEBUG
-		std::cout << "WebSocket : applicationSendDiscoverRequest " << std::endl;
-#endif
-		
-		// Wait for an answer
-		mAnswerManager->AddDiscoverAllAnswer(to, address);
-		
-		state = NO_ANSWER;
-		do
-		{
-			state = mAnswerManager->CheckDiscoverAllAnswer(to, address, answer);
-		}
-		while (state == NO_ANSWER);
-		
-		if (state == ANSWER_RECEIVED)
-			return mAnswerManager->ParseDiscoverAllAnswer(answer, node);
-        
-        else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
-            return SendDiscoverAllRequest(to, address, node, tryCount+1);
-	}
+//    TTValue		answer;
+//	TTString	localAppName, operation;
+//	TTInt32		state;
+//    JSONNode*   jsonNode;
+//    
+//    // create JSonNode
+//    jsonNode = new JSONNode(JSON_NODE);
+//	
+//	// edit local app name and operation
+//	localAppName = mLocalApplicationName.c_str();
+//	operation = WEBSOCKET_REQUEST_DISCOVER_ALL;
+//    
+//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+//    jsonNode->push_back(JSONNode(address.c_str(), NULL));
+//    
+//	if (!sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode)) {
+//		
+//#ifdef TT_PROTOCOL_DEBUG
+//		std::cout << "WebSocket : applicationSendDiscoverRequest " << std::endl;
+//#endif
+//		
+//		// Wait for an answer
+//		mAnswerManager->AddDiscoverAllAnswer(to, address);
+//		
+//		state = NO_ANSWER;
+//		do
+//		{
+//			state = mAnswerManager->CheckDiscoverAllAnswer(to, address, answer);
+//		}
+//		while (state == NO_ANSWER);
+//		
+//		if (state == ANSWER_RECEIVED)
+//			return mAnswerManager->ParseDiscoverAllAnswer(answer, node);
+//        
+//        else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
+//            return SendDiscoverAllRequest(to, address, node, tryCount+1);
+//	}
 	
 	return kTTErrGeneric;
 }
@@ -281,46 +281,46 @@ TTErr WebSocket::SendGetRequest(TTSymbol to, TTAddress address,
 							 TTValue& returnedValue,
                              TTUInt8 tryCount)
 {
-	TTValue		v, arguments;
-	TTString	localAppName, operation;
-	TTInt32		state;
-    JSONNode*   jsonNode;
-    
-    // create JSonNode
-    jsonNode = new JSONNode(JSON_NODE);
-	
-	// edit local app name and operation
-	localAppName = mLocalApplicationName.c_str();
-	operation = WEBSOCKET_REQUEST_GET;
-    
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
-    jsonNode->push_back(JSONNode(address.c_str(), NULL));
-	
-    // TODO : add possibility to get several attributes
-	if (!sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode)) {
-        
-#ifdef TT_PROTOCOL_DEBUG
-        std::cout << "WebSocket : applicationSendGetRequest " << std::endl;
-#endif
-        
-        // Wait for an answer
-        mAnswerManager->AddGetAnswer(to, address);
-        
-        state = ANSWER_RECEIVED;
-        do
-        {
-            state = mAnswerManager->CheckGetAnswer(to, address, returnedValue);
-        }
-        while(state == NO_ANSWER);
-        
-        if (state == ANSWER_RECEIVED)
-            return kTTErrNone;
-        
-        else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
-            return SendGetRequest(to, address, returnedValue, tryCount+1);
-        
-    }
+//	TTValue		v, arguments;
+//	TTString	localAppName, operation;
+//	TTInt32		state;
+//    JSONNode*   jsonNode;
+//    
+//    // create JSonNode
+//    jsonNode = new JSONNode(JSON_NODE);
+//	
+//	// edit local app name and operation
+//	localAppName = mLocalApplicationName.c_str();
+//	operation = WEBSOCKET_REQUEST_GET;
+//    
+//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+//    jsonNode->push_back(JSONNode(address.c_str(), NULL));
+//	
+//    // TODO : add possibility to get several attributes
+//	if (!sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode)) {
+//        
+//#ifdef TT_PROTOCOL_DEBUG
+//        std::cout << "WebSocket : applicationSendGetRequest " << std::endl;
+//#endif
+//        
+//        // Wait for an answer
+//        mAnswerManager->AddGetAnswer(to, address);
+//        
+//        state = ANSWER_RECEIVED;
+//        do
+//        {
+//            state = mAnswerManager->CheckGetAnswer(to, address, returnedValue);
+//        }
+//        while(state == NO_ANSWER);
+//        
+//        if (state == ANSWER_RECEIVED)
+//            return kTTErrNone;
+//        
+//        else if (state == TIMEOUT_EXCEEDED && tryCount < MAX_TRY)
+//            return SendGetRequest(to, address, returnedValue, tryCount+1);
+//        
+//    }
 	
 	return kTTErrGeneric;
 }
@@ -337,27 +337,29 @@ TTErr WebSocket::SendSetRequest(TTSymbol to, TTAddress address,
 							 TTValue& value,
                              TTUInt8 tryCount)
 {
-    TTValue		arguments;
-    TTString	localAppName, operation;
-    JSONNode*   jsonNode;
+//    TTValue		arguments;
+//    TTString	localAppName, operation;
+//    JSONNode*   jsonNode;
+//    
+//    // create JSonNode
+//    jsonNode = new JSONNode(JSON_NODE);
+//    
+//    // edit local app name and operation
+//    localAppName = mLocalApplicationName.c_str();
+//	operation = WEBSOCKET_REQUEST_SET;
+//    
+//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+//    addChildToJson(jsonNode, address.c_str(), value);
+//		
+//#ifdef TT_PROTOCOL_DEBUG
+//		std::cout << "WebSocket : applicationSendSetRequest " << std::endl;
+//#endif
+//    
+//    // TODO : add possibility to set several attributes
+//    return sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode);
     
-    // create JSonNode
-    jsonNode = new JSONNode(JSON_NODE);
-    
-    // edit local app name and operation
-    localAppName = mLocalApplicationName.c_str();
-	operation = WEBSOCKET_REQUEST_SET;
-    
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
-    addChildToJson(jsonNode, address.c_str(), value);
-		
-#ifdef TT_PROTOCOL_DEBUG
-		std::cout << "WebSocket : applicationSendSetRequest " << std::endl;
-#endif
-    
-    // TODO : add possibility to set several attributes
-    return sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode);
+    return kTTErrGeneric;
 }
 
 /*!
@@ -372,26 +374,28 @@ TTErr WebSocket::SendListenRequest(TTSymbol to, TTAddress address,
 								TTBoolean enable,
                                 TTUInt8 tryCount)
 {
-	TTValue		arguments;
-    TTString	localAppName, operation;
-    JSONNode*   jsonNode;
+//	TTValue		arguments;
+//    TTString	localAppName, operation;
+//    JSONNode*   jsonNode;
+//    
+//    // create JSonNode
+//    jsonNode = new JSONNode(JSON_NODE);
+//    
+//    // edit local app name and operation
+//    localAppName = mLocalApplicationName.c_str();
+//	operation = WEBSOCKET_REQUEST_LISTEN;
+//    
+//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+//    jsonNode->push_back(JSONNode(address.c_str(), enable));
+//	
+//#ifdef TT_PROTOCOL_DEBUG
+//		std::cout << "WebSocket : applicationSendListenRequest " << std::endl;
+//#endif
+//	
+//	return sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode);
     
-    // create JSonNode
-    jsonNode = new JSONNode(JSON_NODE);
-    
-    // edit local app name and operation
-    localAppName = mLocalApplicationName.c_str();
-	operation = WEBSOCKET_REQUEST_LISTEN;
-    
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
-    jsonNode->push_back(JSONNode(address.c_str(), enable));
-	
-#ifdef TT_PROTOCOL_DEBUG
-		std::cout << "WebSocket : applicationSendListenRequest " << std::endl;
-#endif
-	
-	return sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode);
+    return kTTErrGeneric;
 }
 
 
@@ -669,9 +673,6 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
 				
                 // send message
 				err = aWebSender.send(TTSymbol("send"), message, none);
-                
-                if (err)
-                    std::cout << "ko" << std::endl;
             
 				if (!err && mActivity) {
                     header = mLocalApplicationName.c_str();
@@ -689,11 +690,9 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
 
 TTErr WebSocket::parseJSON(const JSONNode &n, TTString address, TTValue& value)
 {
-    cout << n.write_formatted() << endl;
-    
-    if (n == NULL)
+   if (n == NULL)
     {
-        std::cout << "Invalid JSON Node" << std::endl;
+//        std::cout << "Invalid JSON Node" << std::endl;
         return kTTErrGeneric;
     }
     
@@ -703,7 +702,7 @@ TTErr WebSocket::parseJSON(const JSONNode &n, TTString address, TTValue& value)
     {
         if (*i == NULL)
         {
-            std::cout << "Invalid JSON Node" << std::endl;
+//            std::cout << "Invalid JSON Node" << std::endl;
             return kTTErrGeneric;
         }
         
@@ -714,13 +713,11 @@ TTErr WebSocket::parseJSON(const JSONNode &n, TTString address, TTValue& value)
         {
             // add sender id as first arg
             value = TTSymbol(i->as_string());
-            std::cout << "sender : " << i->as_string() << std::endl;
         }
         else if (node_name == WEBSOCKET_JSON_OPERATION)
         {
             // append command id as second arg
             value.append(TTSymbol(i->as_string()));
-            std::cout << "operation : " << i->as_string() << std::endl;
         }
         else
         {
@@ -742,31 +739,24 @@ TTErr WebSocket::parseJSON(const JSONNode &n, TTString address, TTValue& value)
             {
                 // parsing finished, append built osc-like address and append value
                 
-                std::cout << "address : " << address << std::endl;
-                std::cout << "value : " << i->as_string() << std::endl;
-                
                 // append address as third arg
                 value.append(TTSymbol(address));
                 
                 // append value as fourth arg
                 if (i->type() == JSON_STRING)
                 {
-                    std::cout << "type : JSON_STRING" << std::endl;
                     value.append(TTSymbol(i->as_string()));
                 }
                 else if(i->type() == JSON_NUMBER)
                 {
-                    std::cout << "type : JSON_NUMBER" << std::endl;
                     value.append(i->as_float());
                 }
                 else if(i->type() == JSON_BOOL)
                 {
-                    std::cout << "type : JSON_BOOL" << std::endl;
                     value.append(i->as_bool());
                 }
                 else if(i->type() == JSON_ARRAY)
                 {
-                    std::cout << "type : JSON_ARRAY" << std::endl;
                     value.append(i->as_array());
                 }
             }
@@ -805,7 +795,6 @@ TTErr WebSocket::receivedMessage(const TTValue& message, TTValue& outputValue)
     // parse json string
     JSONNode rootNode = libjson::parse(aSymbol.c_str());
     json_string js = rootNode.write_formatted();
-    cout << "string json : " << js << endl;
     
     parseJSON(rootNode, address, jsonContent);
     
@@ -814,20 +803,14 @@ TTErr WebSocket::receivedMessage(const TTValue& message, TTValue& outputValue)
     if (!sender)
         return kTTErrGeneric;
     
-    cout << "sender : " << sender.c_str() << endl;
-    
     // get operation
     operation = jsonContent[1];
     TTString operationString = operation;
     if (!operation)
         return kTTErrGeneric;
     
-    cout << "operation : " << operationString << endl;
-    
     // get address
     whereTo = jsonContent[2];
-    
-     cout << "whereTo : " << whereTo.c_str() << endl;
     
     if (operation == TTSymbol(WEBSOCKET_REQUEST_SET))
     {
@@ -989,7 +972,7 @@ void addChildToJson(JSONNode* jsonNode, TTSymbol childName, TTValue value)
     }
 }
 
-void addAttributeToJson(TTObjectBasePtr param, JSONNode* jsonNode, TTSymbol attrName)
+void addAttributeToJson(TTObject param, JSONNode* jsonNode, TTSymbol attrName)
 {
 	TTValue         v;
 	TTString        s;
@@ -1003,7 +986,7 @@ void addAttributeToJson(TTObjectBasePtr param, JSONNode* jsonNode, TTSymbol attr
     
 	// get the Value of an attribute
 	v.clear();
-	param->getAttributeValue(attrName, v);
+	param.get(attrName, v);
     
     // add this attribute in json tree
     valueType = v[0].type();
@@ -1119,7 +1102,7 @@ void parseChildren(JSONNode* jsonNode, TTNodePtr ttNode, TTBoolean isFirstParsin
 		if (childList.isEmpty())
         {
 			// get the Data object of the Node
-			TTObjectBasePtr param = ttNode->getObject();
+			TTObject param = ttNode->getObject();
 			
 			if (param != NULL)
             {

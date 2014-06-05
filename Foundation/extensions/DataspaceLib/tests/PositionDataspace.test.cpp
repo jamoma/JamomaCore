@@ -47,14 +47,14 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(1.0));
-        v.set(1, TTFloat64(2.0));
-        v.set(2, TTFloat64(3.0));
+        v[0] = TTFloat64(1.0);
+        v[1] = TTFloat64(2.0);
+        v[2] = TTFloat64(3.0);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(1.0));
-        expected.set(1, TTFloat64(2.0));
-        expected.set(2, TTFloat64(3.0));
+        expected[0] = TTFloat64(1.0);
+        expected[1] = TTFloat64(2.0);
+        expected[2] = TTFloat64(3.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -70,13 +70,13 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(2);
-        v.set(0, TTFloat64(1.0));
-        v.set(1, TTFloat64(-1.0));
+        v[0] = TTFloat64(1.0);
+        v[1] = TTFloat64(-1.0);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(1.0));
-        expected.set(1, TTFloat64(-1.0));
-        expected.set(2, TTFloat64(0.0));
+        expected[0] = TTFloat64(1.0);
+        expected[1] = TTFloat64(-1.0);
+        expected[2] = TTFloat64(0.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -92,14 +92,14 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(-90.0));
-        v.set(1, TTFloat64(0.0));
-        v.set(2, TTFloat64(2.0));
+        v[0] = TTFloat64(-90.0);
+        v[1] = TTFloat64(0.0);
+        v[2] = TTFloat64(2.0);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(-2.0));
-        expected.set(1, TTFloat64(0.0));
-        expected.set(2, TTFloat64(0.0));
+        expected[0] = TTFloat64(-2.0);
+        expected[1] = TTFloat64(0.0);
+        expected[2] = TTFloat64(0.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -114,14 +114,14 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(1.0));
-        v.set(1, TTFloat64(3.0));
-        v.set(2, TTFloat64(2.0));
+        v[0] = TTFloat64(1.0);
+        v[1] = TTFloat64(3.0);
+        v[2] = TTFloat64(2.0);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(1.0));
-        expected.set(1, TTFloat64(-2.0));
-        expected.set(2, TTFloat64(3.0));
+        expected[0] = TTFloat64(1.0);
+        expected[1] = TTFloat64(-2.0);
+        expected[2] = TTFloat64(3.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -135,13 +135,13 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(2);
-        v.set(0, TTFloat64(-45.0));
-        v.set(1, TTFloat64(2.0));
+        v[0] = TTFloat64(-45.0);
+        v[1] = TTFloat64(2.0);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(-sqrt(2.0)));
-        expected.set(1, TTFloat64(sqrt(2.0)));
-        expected.set(2, TTFloat64(0.0));
+        expected[0] = TTFloat64(-sqrt(2.0));
+        expected[1] = TTFloat64(sqrt(2.0));
+        expected[2] = TTFloat64(0.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -154,14 +154,14 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("xyz"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(2.0));
-        v.set(1, TTFloat64(45.0));
-        v.set(2, TTFloat64(2.0));
+        v[0] = TTFloat64(2.0);
+        v[1] = TTFloat64(45.0);
+        v[2] = TTFloat64(2.0);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(sqrt(2.0)));
-        expected.set(1, TTFloat64(sqrt(2.0)));
-        expected.set(2, TTFloat64(2.0));
+        expected[0] = TTFloat64(sqrt(2.0));
+        expected[1] = TTFloat64(sqrt(2.0));
+        expected[2] = TTFloat64(2.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -183,13 +183,13 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("xy"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(1.0));
-        v.set(1, TTFloat64(-1.0));
-        v.set(2, TTFloat64(0.0));
+        v[0] = TTFloat64(1.0);
+        v[1] = TTFloat64(-1.0);
+        v[2] = TTFloat64(0.0);
 
         expected.resize(2);
-        expected.set(0, TTFloat64(1.0));
-        expected.set(1, TTFloat64(-1.0));
+        expected[0] = TTFloat64(1.0);
+        expected[1] = TTFloat64(-1.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -204,14 +204,14 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("aed"));    
         
         expected.resize(3);
-        expected.set(0, TTFloat64(-90.0));
-        expected.set(1, TTFloat64(0.0));
-        expected.set(2, TTFloat64(2.0));
+        expected[0] = TTFloat64(-90.0);
+        expected[1] = TTFloat64(0.0);
+        expected[2] = TTFloat64(2.0);
         
         v.resize(3);
-        v.set(0, TTFloat64(-2.0));
-        v.set(1, TTFloat64(0.0));
-        v.set(2, TTFloat64(0.0));
+        v[0] = TTFloat64(-2.0);
+        v[1] = TTFloat64(0.0);
+        v[2] = TTFloat64(0.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -226,14 +226,14 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("openGL"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(1.0));
-        v.set(1, TTFloat64(-2.0));
-        v.set(2, TTFloat64(3.0));
+        v[0] = TTFloat64(1.0);
+        v[1] = TTFloat64(-2.0);
+        v[2] = TTFloat64(3.0);
         
         expected.resize(3);
-        expected.set(0, TTFloat64(1.0));
-        expected.set(1, TTFloat64(3.0));
-        expected.set(2, TTFloat64(2.0));
+        expected[0] = TTFloat64(1.0);
+        expected[1] = TTFloat64(3.0);
+        expected[2] = TTFloat64(2.0);
             
         myDataspace.send(TT("convert"), v, v);
         
@@ -247,13 +247,13 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("polar"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(-sqrt(2.0)));
-        v.set(1, TTFloat64(sqrt(2.0)));
-        v.set(2, TTFloat64(0.0));
+        v[0] = TTFloat64(-sqrt(2.0));
+        v[1] = TTFloat64(sqrt(2.0));
+        v[2] = TTFloat64(0.0);
 
         expected.resize(2);
-        expected.set(0, TTFloat64(-45.0));
-        expected.set(1, TTFloat64(2.0));
+        expected[0] = TTFloat64(-45.0);
+        expected[1] = TTFloat64(2.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -269,14 +269,14 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("daz"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(sqrt(2.0)));
-        v.set(1, TTFloat64(sqrt(2.0)));
-        v.set(2, TTFloat64(2.0));
+        v[0] = TTFloat64(sqrt(2.0));
+        v[1] = TTFloat64(sqrt(2.0));
+        v[2] = TTFloat64(2.0);
 
         expected.resize(3);
-        expected.set(0, TTFloat64(2.0));
-        expected.set(1, TTFloat64(45.0));
-        expected.set(2, TTFloat64(2.0));
+        expected[0] = TTFloat64(2.0);
+        expected[1] = TTFloat64(45.0);
+        expected[2] = TTFloat64(2.0);
         
         myDataspace.send(TT("convert"), v, v);
         
@@ -295,13 +295,13 @@ TTErr PositionDataspace::test(TTValue& returnedTestInfo)
         myDataspace.set(TT("outputUnit"), TT("xy"));    
         
         v.resize(3);
-        v.set(0, TTFloat64(2.0));
-        v.set(1, TTFloat64(45.0));
-        v.set(2, TTFloat64(10.0));
+        v[0] = TTFloat64(2.0);
+        v[1] = TTFloat64(45.0);
+        v[2] = TTFloat64(10.0);
         
         expected.resize(2);
-        expected.set(0, TTFloat64(sqrt(2.0)));
-        expected.set(1, TTFloat64(sqrt(2.0)));
+        expected[0] = TTFloat64(sqrt(2.0));
+        expected[1] = TTFloat64(sqrt(2.0));
 
         
         myDataspace.send(TT("convert"), v, v);

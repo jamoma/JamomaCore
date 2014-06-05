@@ -742,8 +742,8 @@ public:
 					if ( *a1.mValue.stringPtr != *a2.mValue.stringPtr )
 						return false;
 					break;
-				case kTypeObject: // TODO: does this actually produce the expected result?
-					if ( a1.mValue.mObject != a2.mValue.mObject )
+				case kTypeObject:
+					if ( *a1.mValue.mObject != *a2.mValue.mObject )
 						return false;
 					break;
 				case kTypePointer:
