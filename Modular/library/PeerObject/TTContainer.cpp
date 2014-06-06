@@ -79,11 +79,6 @@ TTContainer::~TTContainer()
 {
 	setAlias(kTTAdrsEmpty);
 	unbind();
-	
-	if (mObserver.valid()) {
-		if (mAddress != kTTSymEmpty)
-			accessApplicationLocalDirectory->removeObserverForNotifications(mAddress, mObserver);
-	}
 }
 
 TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
@@ -441,7 +436,7 @@ TTErr TTContainer::bind()
 	
 	// 3. Observe any creation or destruction below the address
 	mObserver = TTObject("callback");
-	baton = TTValue(TTObject(this), aContext);
+	baton = TTValue(TTPtr(this), aContext); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	mObserver.set(kTTSym_baton, baton);
 	mObserver.set(kTTSym_function, TTPtr(&TTContainerDirectoryCallback));
 	
@@ -1165,15 +1160,15 @@ void TTContainer::cssDefinition(TTString *buffer)
 TTErr TTContainerDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
 	TTValue			arg;
-	TTObject        aContainer;
+	TTContainerPtr  aContainer;
 	TTPtr			hisContext;
 	TTObject        anObserver;
 	TTNodePtr		aNode;
 	TTAddress       anAddress;
 	TTUInt8			flag;
 	
-	// unpack baton (a #TTContainer, his Context)
-	aContainer = baton[0];
+	// unpack baton (a #TTContainerPtr, his Context)
+	aContainer = TTContainerPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	hisContext = baton[1];
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
@@ -1190,7 +1185,7 @@ TTErr TTContainerDirectoryCallback(const TTValue& baton, const TTValue& data)
 		case kAddressCreated :
 		{
 			if (TTContainerTestObjectAndContext(aNode, &arg))
-				TTContainerPtr(aContainer.instance())->makeCacheElement(aNode);
+				aContainer->makeCacheElement(aNode);
 			
 			break;
 		}
@@ -1198,7 +1193,7 @@ TTErr TTContainerDirectoryCallback(const TTValue& baton, const TTValue& data)
 		case kAddressDestroyed :
 		{
 			if (TTContainerTestObjectAndContext(aNode, &arg)) 
-				TTContainerPtr(aContainer.instance())->deleteCacheElement(aNode);
+				aContainer->deleteCacheElement(aNode);
 			
 			break;
 		}
@@ -1214,7 +1209,7 @@ TTErr TTContainerValueAttributeCallback(const TTValue& baton, const TTValue& dat
 {
 	TTValue		cacheElement, v;
 	TTObject    anObject;
-	TTObject     aContainer;
+	TTObject    aContainer;
 	TTAddress   relativeAddress, relativeDataAddress;
 	TTErr		err;
 	
