@@ -178,13 +178,13 @@ public:
 	 @param observer				a #TTCallback object to add
 	 @param maxDepthDifference		precise the max depth difference to filter nodes which are below this limit
 	 @return						an error code */
-	TTErr			addObserverForNotifications(TTAddress anAddress, TTObject anObserver, TTInt8 maxDepthDifference=-1);
+	TTErr			addObserverForNotifications(TTAddress anAddress, TTObject& anObserver, TTInt8 maxDepthDifference=-1);
 	
 	/** Remove a TTCallback as a life cycle observer of all nodes below this one
 	 @param anAddress				an address
 	 @param observer				a #TTCallback object to remove
 	 @return						a kTTErrGeneric if there isn't observer */
-	TTErr			removeObserverForNotifications(TTAddress anAddress, TTObject anObserver);
+	TTErr			removeObserverForNotifications(TTAddress anAddress, TTObject& anObserver);
 	
 	/** Notify life cycle observers that something appends below this TTNode
 	 @param data					an address where something append

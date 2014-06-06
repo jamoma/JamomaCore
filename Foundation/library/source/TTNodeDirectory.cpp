@@ -569,7 +569,7 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 	return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTObject anObserver, TTInt8 maxDepthDifference)
+TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTObject& anObserver, TTInt8 maxDepthDifference)
 {
 	TTErr			err;
 	TTValue			lk;
@@ -609,7 +609,7 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTObject
 	return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTObject anObserver)
+TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTObject& anObserver)
 {
 	TTErr			err;
 	TTValue			lk, o, v;
