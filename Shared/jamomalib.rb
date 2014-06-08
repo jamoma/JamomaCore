@@ -26,28 +26,28 @@ else
 	def linux?          # test for linux platform, then return a boolean value
 		(Object::RUBY_PLATFORM =~ /linux/i) ? true : false
 	end
-
+	
 	def beagle?         # test for beagle platform, then return a boolean value
 	  if linux?
 			(`arch`.match("armv7l")) ? true : false
 	  else
-		return false
+	    return false
 	  end
 	end
 
 	def win?            # test for win platform, then return a boolean value
 		(Object::RUBY_PLATFORM =~ /mswin/i || Object::RUBY_PLATFORM =~ /mingw/i) ? true : false
 	end
-
+	
 	def win64?          # test for win64 platform, then return a boolean value
 	  if win?
-		# put test for 64-bit here OR enable a user switch for the script
-		# some promising leads for a test are here -- https://www.ruby-forum.com/topic/202173
-		# seems that RbConfig::CONFIG['host_cpu'] is promising location to find this info and would contain "x64"
-		# until that is present, we will simply...
-		return false
+	    # put test for 64-bit here OR enable a user switch for the script
+	    # some promising leads for a test are here -- https://www.ruby-forum.com/topic/202173
+	    # seems that RbConfig::CONFIG['host_cpu'] is promising location to find this info and would contain "x64"
+	    # until that is present, we will simply...
+	    return false
 	  else
-		return false
+	    return false
 	  end
 	end
 
@@ -196,7 +196,7 @@ else
 			out = stdout.read
 			err = stderr.read
 		end
-
+		
 		log_build(out)
 		log_error(err)
 
@@ -309,7 +309,7 @@ else
 		out = ""
 		err = ""
 		success = 0
-
+		
 		restore_dir = Dir.pwd
 		Dir.chdir projectdir
 	 	#`msbuild.exe /target:rebuild /p:Platform=Win32 #{toolset} #{path}/#{filename} 2>&1`
@@ -321,14 +321,14 @@ else
 			out = stdout.read
 			err = stderr.read
 		end
-
+		
 		# added to avoid invalid UTF8 argument error when building
 		out.encoding
 		out.force_encoding('binary')
 		out.encoding
 		out = out.encode('utf-8', :invalid => :replace, :undef => :replace)
 		#
-
+		
 		# let a space before "0 Erreur(s)" to avoid "Build succeeded" with "10 Erreur(s)"
 		if /( 0 error|up\-to\-date| 0 erreur| 0 Erreur)|Build succeeded\./.match(out)
 			@cur_count+=1
@@ -343,15 +343,15 @@ else
 			log_error(out)
 			log_error(err)
 		end
-
-
+		
+		
 		buildstr = "msbuild.exe #{"/target:rebuild" if clean == true} /p:Configuration=#{configuration} /p:Platform=x64 \"#{projectname}\""
 		#puts "#{buildstr}"
 		Open3.popen3(buildstr) do |stdin, stdout, stderr|
 			out = stdout.read
 			err = stderr.read
 		end
-
+		
 		# added to avoid invalid UTF8 argument error when building
 		out.encoding
 		out.force_encoding('binary')
@@ -372,7 +372,7 @@ else
 			log_error(out)
 			log_error(err)
 		end
-
+		
 		Dir.chdir restore_dir
 		return success
 	end
@@ -419,7 +419,7 @@ else
 
 
 	def generate_vcxproj_template
-
+	
 		vcxproj = Document.new '<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 			<ItemGroup Label="ProjectConfigurations">
 				<ProjectConfiguration Include="Debug|Win32">
@@ -493,7 +493,7 @@ else
 				</ImportGroup>
 
 				<PropertyGroup Label="UserMacros" />
-
+		
 				<PropertyGroup>
 					<_ProjectFileVersion>11.0.51106.1</_ProjectFileVersion>
 				</PropertyGroup>
@@ -515,8 +515,8 @@ else
 					<LinkIncremental>false</LinkIncremental>
 					<TargetExt>.x64.dll</TargetExt>
 				</PropertyGroup>
-
-
+		
+		
 				<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 				<ImportGroup Label="ExtensionTargets">
 			</ImportGroup>
@@ -548,62 +548,60 @@ else
 		end
 	end
 
-
+	
 	def remove_platform_specific_entries(array_from_yaml)
 	  ##########
-	# BEGIN remove platform specific entries
-	#
-	# We process the some arrays from yaml once to remove any platform specific paths
-	# These entries in the yaml file will begin with one of the following identifiers:
-	# mac, win, win64, linux
-	# The identifier should then be followed by a space then the filepath
-	#
-	##########
-
-	if array_from_yaml
-
-	  array_from_yaml_item=0
-
-	  array_from_yaml.each do |item_from_yaml|
-		item_from_yaml = item_from_yaml.to_s
-
-		# first set entries NOT for the current platform to nil
-		if not mac?
-		  array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^mac /
-		end
-		if not win?
-		  array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^win /
-		end
-		if not linux?
-		  array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^linux /
-		end
-
-		# and a separate test for these indentifiers because they may overlap with mac/win/linux
-		if win64? == false
-		  array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^win64 /
-		elsif beagle? == false
-		  array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^beagle /
-		end
-
-		# second remove the identifiers so that they are not processed as part of the path
-		item_from_yaml.gsub!(/mac /, '')
-		item_from_yaml.gsub!(/win /, '')
-		item_from_yaml.gsub!(/win64 /, '')
-		item_from_yaml.gsub!(/linux /, '')
-
-		array_from_yaml_item+=1
-
-	  end
-
-	  # third remove the nil entries from the array
-	  array_from_yaml.compact!
-
-	end
-
-	##########
-	# END remove platform specific entries
-	##########
-
+    # BEGIN remove platform specific entries
+    #
+    # We process the some arrays from yaml once to remove any platform specific paths
+    # These entries in the yaml file will begin with one of the following identifiers:
+    # mac, win, win64, linux
+    # The identifier should then be followed by a space then the filepath
+    #
+    ##########
+    
+    if array_from_yaml
+      
+      array_from_yaml_item=0
+      
+      array_from_yaml.each do |item_from_yaml|
+        item_from_yaml = item_from_yaml.to_s
+        
+        # first set entries NOT for the current platform to nil
+        if mac? == false
+          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^mac /
+        elsif win? == false
+          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^win /
+        elsif linux? == false
+          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^linux /
+        end
+        
+        # and a separate test for these indentifiers because they may overlap with mac/win/linux
+        if win64? == false
+          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^win64 /
+        elsif beagle? == false
+          array_from_yaml[array_from_yaml_item] = nil if item_from_yaml =~ /^beagle /
+        end
+        
+        # second remove the identifiers so that they are not processed as part of the path 
+        item_from_yaml.gsub!(/mac /, '')
+        item_from_yaml.gsub!(/win /, '')
+        item_from_yaml.gsub!(/win64 /, '')
+        item_from_yaml.gsub!(/linux /, '')
+        
+        array_from_yaml_item+=1
+        
+      end
+      
+      # third remove the nil entries from the array
+      array_from_yaml.compact!
+      
+    end
+    
+    ##########
+    # END remove platform specific entries
+    ##########
+    
 	end
 
 
@@ -614,7 +612,7 @@ else
 		max = false
 
 		foldername = projectdir.split("/").last
-
+		
 		project_type = "extension"
 		project_type = "library" if foldername == "library"
 		max = true if (projectdir.split("/")[projectdir.split("/").size-3]) == "Max" || (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
@@ -622,7 +620,7 @@ else
 		define_c74_linker_syms = false
 		path_to_moduleroot="../../.." if project_type == "implementation" && path_to_moduleroot == "../.." && mac? # too much ..\ on windows (one more)
 		path_to_moduleroot_win = path_to_moduleroot.gsub(/(\/)/,'\\')
-
+		
 		master_name = "Jamoma"
 		master_name = (projectdir.split("/")[projectdir.split("/").size-3]) if (projectdir.split("/")[projectdir.split("/").size-4] == "JamomaUserLibraries")
 
@@ -634,7 +632,7 @@ else
 		layer_name = Dir.pwd()
 		layer_name = layer_name.split("/").last
 		Dir.chdir wd
-
+		
 		if !distropath
 
 			# We are not in control the binary application that calls us.
@@ -642,14 +640,14 @@ else
 			# We cannot determine @executable_path adequately for all executable binaries.	Ruby is very different than Ableton Live.
 			# So we can only provide a single install_name and it must be @loader_path.
 			#
-			# For this example, we have a Max external as the client.
+			# For this example, we have a Max external as the client.	
 			# It must link from the external's binary (deep inside a Mac bundle) to the Jamoma libs.
 			# Thus, the install_name must be
 			#	 "@loader_path/../../../../support"
 			#
-			# However, the extensions too must link to these libraries.
+			# However, the extensions too must link to these libraries.	
 			# If we wish to not re-compile the libraries with a different install_path,
-			# then we must either modify the paths in the extension binary after the build,
+			# then we must either modify the paths in the extension binary after the build, 
 			# or put the extensions in a location with the same relative location to the libraries.
 			# e.g.
 			#	 support
@@ -677,7 +675,7 @@ else
 			#	 	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 169.3.0)
 			#
 			# To change the paths for Foundation and DSP, we do this:
-			#
+			#	 
 			#	 $ install_name_tool -change @loader_path/../../../../support/JamomaFoundation.dylib @loader_path/JamomaFoundation.dylib AnalysisLib.ttdylib
 			#	 $ install_name_tool -change @loader_path/../../../../support/JamomaDSP.dylib @loader_path/JamomaDSP.dylib AnalysisLib.ttdylib
 			#
@@ -691,7 +689,7 @@ else
 			#	 	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 169.3.0)
 			#
 			#
-			# But, there's another problem:
+			# But, there's another problem: 
 			# It's not just the extensions that need to have the referenced install_names rewritten -- it's the libs too.
 			# For example, AnalysisLib reference JamomaDSP and JamomaFoundation.	We've already rewritten those references, so we're good.
 			# Except that JamomaDSP *also* JamomaFoundation.	So JamomaDSP needs to have its reference rewritten as well.
@@ -703,14 +701,14 @@ else
 			#	 if project_type == "library" || project_type == "extension"
 			#		 for each library macro (e.g. FOUNDATION, DSP, AUDIOGRAPH, ... )
 			#			 add an install_name_tool invocation in the "lipo" phase
-
+			
 
 			# By default, assume all libs and extensions are in the same folder as the binary and as each other
 			distropath = "@loader_path"
 
 			# Max externals are bundles, and they expect the libs to be in different location
 			distropath = "@loader_path/../../../../support" if project_type == "library"
-
+		
 		end
 
 		if ($g_use_yaml_project_files && File.exist?("#{projectdir}/#{projectname}.yml"))
@@ -806,19 +804,19 @@ else
 			if win?
 				vcproj = generate_vcxproj_template
 				vcproj_root = vcproj.root
-
+				
 				vcproj_debug32 = Element.new "ItemDefinitionGroup"
 				vcproj_debug32.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Debug|Win32'"
 				vcproj_root.add_element(vcproj_debug32)
-
+				
 				vcproj_release32 = Element.new "ItemDefinitionGroup"
 				vcproj_release32.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Release|Win32'"
 				vcproj_root.add_element(vcproj_release32)
-
+				
 				vcproj_debug64 = Element.new "ItemDefinitionGroup"
 				vcproj_debug64.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Debug|x64'"
 				vcproj_root.add_element(vcproj_debug64)
-
+				
 				vcproj_release64 = Element.new "ItemDefinitionGroup"
 				vcproj_release64.attributes["Condition"] = "'$(Configuration)|$(Platform)'=='Release|x64'"
 				vcproj_root.add_element(vcproj_release64)
@@ -924,7 +922,7 @@ else
 				makefile.write("#########################################\n\n")
 				i=0
 				includes.each do |include_file|
-
+					
 					if (include_file == "C74-INCLUDES")
 						if max
 							include_file = "#{path_to_moduleroot}/../Implementations/Max/source/c74support/max-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/msp-includes -I#{path_to_moduleroot}/../Implementations/Max/source/c74support/jit-includes -I#{path_to_moduleroot}/../Implementations/Max/library/includes"
@@ -1017,7 +1015,7 @@ else
 				vcproj_release32_compiler = Element.new "ClCompile"
 				vcproj_release32_compiler.add_element Element.new "Optimization"
 				vcproj_release32_compiler.elements["Optimization"].text = "MaxSpeed"
-
+				
 				vcproj_release32_compiler.add_element Element.new "InlineFunctionExpansion"
 				vcproj_release32_compiler.elements["InlineFunctionExpansion"].text = "AnySuitable"
 				vcproj_release32_compiler.add_element Element.new "IntrinsicFunctions"
@@ -1029,10 +1027,10 @@ else
 				vcproj_release32_compiler.add_element Element.new "WholeProgramOptimization"
 				vcproj_release32_compiler.elements["WholeProgramOptimization"].text = "true"
 				vcproj_release32_compiler.add_element Element.new "StringPooling"
-				vcproj_release32_compiler.elements["StringPooling"].text = "true"
+				vcproj_release32_compiler.elements["StringPooling"].text = "true"			 
 				vcproj_release32_compiler.add_element Element.new "EnableEnhancedInstructionSet"
 				vcproj_release32_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
-
+				
 				vcproj_release32_compiler.add_element Element.new "MinimalRebuild"
 				vcproj_release32_compiler.elements["MinimalRebuild"].text = "true"
 				vcproj_release32_compiler.add_element Element.new "ExceptionHandling"
@@ -1125,7 +1123,7 @@ else
 				vcproj_release64_compiler = Element.new "ClCompile"
 				vcproj_release64_compiler.add_element Element.new "Optimization"
 				vcproj_release64_compiler.elements["Optimization"].text = "MaxSpeed"
-
+				
 				vcproj_release64_compiler.add_element Element.new "InlineFunctionExpansion"
 				vcproj_release64_compiler.elements["InlineFunctionExpansion"].text = "AnySuitable"
 				vcproj_release64_compiler.add_element Element.new "IntrinsicFunctions"
@@ -1138,7 +1136,7 @@ else
 				vcproj_release64_compiler.elements["WholeProgramOptimization"].text = "true"
 				vcproj_release64_compiler.add_element Element.new "EnableEnhancedInstructionSet"
 				vcproj_release64_compiler.elements["EnableEnhancedInstructionSet"].text = "AdvancedVectorExtensions"
-
+				
 				vcproj_release64_compiler.add_element Element.new "MinimalRebuild"
 				vcproj_release64_compiler.elements["MinimalRebuild"].text = "true"
 				vcproj_release64_compiler.add_element Element.new "ExceptionHandling"
@@ -1183,22 +1181,17 @@ else
 
 			else
 
-		# now we are ready to write the relevant entries to the makefile
+        # now we are ready to write the relevant entries to the makefile
 				makefile.write("#########################################\n\n")
 				i=0
 
 				if !libraries
 					# makefile.write("LIBS = ''")
 				else
-					if linux?
-						makefile.write("LIB_INCLUDES += -L/usr/local/lib/jamoma/lib\n")
-					end
-
-
 					libraries.each do |lib|
 						if mac?
 							lib = lib.to_s
-
+							
 							if (i==0)
 								makefile.write("LIBS = ")
 							else
@@ -1232,23 +1225,55 @@ else
 							lib = lib.to_s
 
 							if (lib == "FOUNDATION")
-								makefile.write("LIBS += -lJamomaFoundation\n")
+								if (i == 0)
+									makefile.write("LIBS = -lJamomaFoundation\n")
+									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Foundation/library/build\n")
+								else
+									makefile.write("LIBS += -lJamomaFoundation\n")
+									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Foundation/library/build\n")
+								end
 							elsif (lib == "DSP")
-								makefile.write("LIBS += -lJamomaDSP\n")
+								if (i == 0)
+									makefile.write("LIBS = -lJamomaDSP\n")
+									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/DSP/library/build\n")
+								else
+									makefile.write("LIBS += -lJamomaDSP\n")
+									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/DSP/library/build\n")
+								end
 							elsif (lib == "MODULAR")
-								makefile.write("LIBS += -lJamomaModular\n")
+								if (i == 0)
+									makefile.write("LIBS = -lJamomaModular\n")
+									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Modular/library/build\n")
+								else
+									makefile.write("LIBS += -lJamomaModular\n")
+									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Modular/library/build\n")
+								end
 							elsif (lib == "GRAPH")
-								makefile.write("LIBS += -lJamomaGraph\n")
+								if (i == 0)
+									makefile.write("LIBS = -lJamomaGraph\n")
+									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Graph/library/build\n")
+								else
+									makefile.write("LIBS += -lJamomaGraph\n")
+									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Graph/library/build\n")
+								end
 							elsif (lib == "AUDIOGRAPH")
-								makefile.write("LIBS += -lJamomaAudioGraph\n")
+								if (i == 0)
+									makefile.write("LIBS = -lJamomaAudioGraph\n")
+									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/AudioGraph/library/build\n")
+								else
+									makefile.write("LIBS += -lJamomaAudioGraph\n")
+									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/AudioGraph/library/build\n")
+								end
 							else
-								if (lib.include?("/"))
-									makefile.write("LIBS += #{lib}\n")
-								else # case -lxml2 for instance
+								lib_dir = lib.split "/"
+								if (i == 0)
+									makefile.write("LIBS = -l#{lib}\n")
+									makefile.write("LIB_INCLUDES = -L#{lib_dir}\n")
+								else
 									makefile.write("LIBS += -l#{lib}\n")
+									makefile.write("LIB_INCLUDES += -L#{lib_dir}\n")
 								end
 							end
-
 						end
 
 						makefile.write("\n")
@@ -1282,7 +1307,7 @@ else
 				else
 					libraries.each do |lib|
 						lib = lib.to_s
-
+						
 						# not confident the next 2 lines are needed
 						next if lib =~/RELEASE /
 						lib.gsub!(/DEBUG /, '')
@@ -1328,7 +1353,7 @@ else
 
 					libraries.each do |lib|
 						lib = lib.to_s
-
+						
 						# not confident the next 2 lines are needed
 						next if lib =~/DEBUG /
 						lib.gsub!(/RELEASE /, '')
@@ -1406,9 +1431,9 @@ else
 				vcproj_debug32_linker.add_element Element.new "AdditionalLibraryDirectories"
 				vcproj_debug32_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_debug}"
 				vcproj_debug32_linker.add_element Element.new "AdditionalDependencies"
-				vcproj_debug32_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_debug}%(AdditionalDependencies)"
+				vcproj_debug32_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_debug}%(AdditionalDependencies)"					 
 				vcproj_debug32.add_element vcproj_debug32_linker
-
+			
 				vcproj_release32_linker = Element.new "Link"
 				vcproj_release32_linker.add_element Element.new "OutputFile"
 				vcproj_release32_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName)#{extension_suffix}"
@@ -1441,9 +1466,9 @@ else
 				vcproj_release32_linker.add_element Element.new "AdditionalLibraryDirectories"
 				vcproj_release32_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_release}"
 				vcproj_release32_linker.add_element Element.new "AdditionalDependencies"
-				vcproj_release32_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release}%(AdditionalDependencies)"
+				vcproj_release32_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release}%(AdditionalDependencies)"					 
 				vcproj_release32.add_element vcproj_release32_linker
-
+			
 				vcproj_debug64_linker = Element.new "Link"
 				vcproj_debug64_linker.add_element Element.new "OutputFile"
 				vcproj_debug64_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName)#{extension_suffix}"
@@ -1474,9 +1499,9 @@ else
 				vcproj_debug64_linker.add_element Element.new "AdditionalLibraryDirectories"
 				vcproj_debug64_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_debug}"
 				vcproj_debug64_linker.add_element Element.new "AdditionalDependencies"
-				vcproj_debug64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_debug}%(AdditionalDependencies)"
+				vcproj_debug64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_debug}%(AdditionalDependencies)"					 
 				vcproj_debug64.add_element vcproj_debug64_linker
-
+			
 				vcproj_release64_linker = Element.new "Link"
 				vcproj_release64_linker.add_element Element.new "OutputFile"
 				vcproj_release64_linker.elements["OutputFile"].text = "$(OutDir)$(ProjectName)#{extension_suffix}"
@@ -1505,13 +1530,13 @@ else
 				vcproj_release64_linker.add_element Element.new "SuppressStartupBanner"
 				vcproj_release64_linker.elements["SuppressStartupBanner"].text = "true"
 				vcproj_release64_linker.add_element Element.new "OptimizeReferences"
-				vcproj_release64_linker.elements["OptimizeReferences"].text = "true"
+				vcproj_release64_linker.elements["OptimizeReferences"].text = "true"						 
 				vcproj_release64_linker.add_element Element.new "AdditionalLibraryDirectories"
 				vcproj_release64_linker.elements["AdditionalLibraryDirectories"].text = "#{concatenated_lib_dirs_release}"
 				vcproj_release64_linker.add_element Element.new "AdditionalDependencies"
-				vcproj_release64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release}%(AdditionalDependencies)"
+				vcproj_release64_linker.elements["AdditionalDependencies"].text = "#{concatenated_libs_release}%(AdditionalDependencies)"					 
 				vcproj_release64.add_element vcproj_release64_linker
-
+				
 				# add post build commands to copy dll in Max support folder
 				# do this only for 32bits version
 				# todo : add a case if we finally want a 32 or 64 bits dll in support folder
@@ -1525,33 +1550,33 @@ else
 					command.gsub!(/(\/)/,'\\')
 					command.gsub!(/(\r)/,'')
 					command.gsub!(/(\n)/,'')
-
+					
 					vcproj_debug32_postbuild = Element.new "PostBuildEvent"
 					vcproj_debug32_postbuild.add_element Element.new "Command"
 					vcproj_debug32_postbuild.elements["Command"].text = command
 					vcproj_debug32.add_element vcproj_debug32_postbuild
-
+					
 					# vcproj_debug64_postbuild = Element.new "PostBuildEvent"
 					# vcproj_debug64_postbuild.add_element Element.new "Command"
 					# vcproj_debug64_postbuild.elements["Command"].text = "#{command}"
 					# vcproj_debug64.add_element vcproj_debug64_postbuild
-
+					
 					vcproj_release32_postbuild = Element.new "PostBuildEvent"
 					vcproj_release32_postbuild.add_element Element.new "Command"
 					vcproj_release32_postbuild.elements["Command"].text = command
 					vcproj_release32.add_element vcproj_release32_postbuild
-
+					
 					# vcproj_release64_postbuild = Element.new "PostBuildEvent"
 					# vcproj_release64_postbuild.add_element Element.new "Command"
 					# vcproj_release64_postbuild.elements["Command"].text = "#{command}"
 					# vcproj_release64.add_element vcproj_release64_postbuild
-
+					
 				# else
 					# cp les modules dans externals et les renommer en mxe
-
+					
 				end
-
-
+				
+				
 			else
 
 				makefile.write("#########################################\n\n")
@@ -1564,7 +1589,7 @@ else
 					if beagle?
 						makefile.write("OPTIONS = -shared -g\n")
 					else
-						makefile.write("OPTIONS = -shared -msse3 -mfpmath=sse -fPIC -g\n")
+						makefile.write("OPTIONS = -shared -msse3 -mfpmath=sse -g\n")
 					end
 				end
 
@@ -1600,7 +1625,7 @@ else
 					makefile.write("LDFLAGS =  -shared -mfpmath=sse $(OPTIONS) $(DEFINES) $(LIBS) $(WARNINGS)\n")
 					makefile.write("LDFLAGS += -install_name \"#{distropath}/$(NAME).dylib\" \n") if project_type == "library"
 				end
-				makefile.write("LDFLAGS =  -fPIC -shared $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g\n") if linux?
+				makefile.write("LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS) -g\n") if linux?
 				makefile.write("LDFLAGS += -fPIC\n") if beagle?
 				if define_c74_linker_syms
 					if mac?
@@ -1634,7 +1659,7 @@ else
 					makefile.write("Debug: OPTIMIZATION_FLAGS = $(OPTIMIZATION_DEBUG)\n")
 					makefile.write("Debug: createdirs install\n")
 					makefile.write("\n")
-
+				  
 					makefile.write("DebugWithoutTests: OPTIMIZATION_FLAGS = $(OPTIMIZATION_DEBUG)\n")
 					makefile.write("DebugWithoutTests: createdirs notest\n")
 					makefile.write("\n")
@@ -1680,14 +1705,14 @@ else
 					makefile.write("\n")
 
 					if linux?
-						makefile.write("link: compile\n")
+						makefile.write("link: compile | $(SRC)' \n\n")
 					else
 						makefile.write("link: #{'i386' if (arch == 'i386' || arch == 'default')} #{'x64' if (arch == 'x86_64' || arch == 'default')} | #{'$(SRC32)' if (arch =='i386' || arch == 'default')} #{'$(SRC64)' if (arch == 'x86_64' || arch == 'default')}\n\n")
 					end
 
 					if linux?
 						makefile.write("compile: $(SRC)\n")
-						makefile.write("\t$(CC) $(LDFLAGS) $(OPTIMIZATION_FLAGS) -o #{build_temp}/lib$(NAME)#{extension_suffix} $(SRC)\n")
+						makefile.write("\t$(CC) $(LDFLAGS) $(OPTIMIZATION_FLAGS) -o #{build_temp}/$(NAME)#{extension_suffix} $(SRC)\n")
 					else
 						if (arch == 'i386' || arch == 'default')
 							makefile.write("i386: $(SRC32)\n")
@@ -1706,7 +1731,9 @@ else
 
 					makefile.write("lipo: | link\n")
 
-					if mac?
+					if linux?
+						makefile.write("\tcp #{build_temp}/$(NAME)#{extension_suffix} #{build_temp}/$(NAME)#{extension_suffix}\n")
+					else # mac?
 						# not a universal binary, just copy it
 						if (arch == 'i386')
 							makefile.write("\tcp #{build_temp}/$(NAME)-i386#{extension_suffix} #{build_temp}/$(NAME)#{extension_suffix}\n")
@@ -1725,83 +1752,67 @@ else
 					makefile.write("\trm -f $(SRC32) $(SRC64)\n")
 					makefile.write("\trm -rf #{build_temp}\n")
 					makefile.write("\n")
-
+					  
 					##########
 					# BEGIN test.cpp handling (also known as "build_and_test")
 					#
 					# The following section is used initiate testing during building whenever a "test.cpp" file is present within a Core project.
 					# This testing procedure was developed as an alternative to testing within the Ruby implementation.
-					#
+					# 
 					##########
-
+			  
 					# build_and_test is currently not used in implementations, so we can skip if that is the project_type
 					if project_type != "implementation"
-
-						# build_and_test will often be dependent on other libraries within Jamoma or third party libraries.
-						# we pull this information from the project's YAML file, under the section heading for "libraries".
-						# macros are defined here for FOUNDATION, DSP, MODULAR, GRAPH, & AUDIOGRAPH.
-						# third party libraries should be listed in the YAML file by their path relative to the current project.
-						test_dependencies = ""
-
-						# we need a slightly different paths depending on if the project is an extension or library
-						extra_level = ""
+					  
+					  # build_and_test will often be dependent on other libraries within Jamoma or third party libraries.
+					  # we pull this information from the project's YAML file, under the section heading for "libraries".
+					  # macros are defined here for FOUNDATION, DSP, MODULAR, GRAPH, & AUDIOGRAPH.
+					  # third party libraries should be listed in the YAML file by their path relative to the current project.
+					  test_dependencies = ""
+					  
+					  # we need a slightly different paths depending on if the project is an extension or library
+					  extra_level = ""
 						extra_level = "../" if project_type == "extension"
+					  
+            if !libraries
+    						# nothing to do!
+  					else
+  						libraries.each do |lib|
+  					 		lib = lib.to_s
+		      			if (lib == "FOUNDATION")
+          					test_dependencies += extra_level + "../../Foundation/library/build/libJamomaFoundation.a "
+        				elsif (lib == "DSP")
+        					test_dependencies += extra_level + "../../DSP/library/build/libJamomaDSP.a "
+        				elsif (lib == "MODULAR")
+        					test_dependencies += extra_level + "../../Modular/library/build/libJamomaModular.a "
+        				elsif (lib == "GRAPH")
+        					test_dependencies += extra_level + "../../Graph/library/build/libJamomaGraph.a "
+        				elsif (lib == "AUDIOGRAPH")
+        					test_dependencies += extra_level + "../../AudioGraph/library/build/libJamomaAudioGraph.a "
+        				else
+        					test_dependencies += lib + " "
+        				end
+      				end
+            end
+            			
+						# write the necessary entries into the makefile
+						makefile.write("build_and_test: | lipo \n")
+						makefile.write("\techo Testing 32-bit \n")
+						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
+						makefile.write("\tif [ -f build/test32 ]; then build/test32 ; fi \n")
+						makefile.write("\techo Testing 64-bit \n")
+						makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
+						makefile.write("\tif [ -f build/test64 ]; then build/test64 ; fi \n")
+						makefile.write("\n")
 
-						if libraries
-								libraries.each do |lib|
-									lib = lib.to_s
-								if (lib == "FOUNDATION")
-									test_dependencies += extra_level + "../../Foundation/library/build/libJamomaFoundation.a "
-								elsif (lib == "DSP")
-									test_dependencies += extra_level + "../../DSP/library/build/libJamomaDSP.a "
-								elsif (lib == "MODULAR")
-									test_dependencies += extra_level + "../../Modular/library/build/libJamomaModular.a "
-								elsif (lib == "GRAPH")
-									test_dependencies += extra_level + "../../Graph/library/build/libJamomaGraph.a "
-								elsif (lib == "AUDIOGRAPH")
-									test_dependencies += extra_level + "../../AudioGraph/library/build/libJamomaAudioGraph.a "
-								else
-									if mac?
-										test_dependencies += lib + " "
-									elsif linux?
-										test_dependencies += "-l" + lib + " "
-									end
-								end
-							end
-						end
-
-						if mac?
-							# write the necessary entries into the makefile
-							makefile.write("build_and_test: | lipo \n")
-							makefile.write("\techo Testing 32-bit \n")
-							makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
-							makefile.write("\tif [ -f build/test32 ]; then build/test32 ; fi \n")
-							makefile.write("\techo Testing 64-bit \n")
-							makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
-							makefile.write("\tif [ -f build/test64 ]; then build/test64 ; fi \n")
-							makefile.write("\n")
-
-							makefile.write("notest: | lipo \n")
-						  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
-						  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
-							makefile.write("\techo Skipping Tests \n")
-							makefile.write("\n")
-						elsif linux?
-							# write the necessary entries into the makefile
-							makefile.write("build_and_test: | lipo \n")
-							#makefile.write("\tif [ -f test.cpp ];   then rm -f build/test; $(CC) test.cpp -g -std=c++11 -DTT_PLATFORM_LINUX ${INCLUDES} build/lib$(NAME).so #{test_dependencies} -o build/test ; fi \n")
-							#makefile.write("\tif [ -f build/test64 ]; then build/test64 ; fi \n")
-							#makefile.write("\n")
-
-							makefile.write("notest: | lipo \n")
-						  	#makefile.write("\tif [ -f test.cpp ];   then rm -f build/test; $(CC) test.cpp -g -std=c++11 -DTT_PLATFORM_LINUX ${INCLUDES} build/lib$(NAME).so #{test_dependencies} -o build/test ; fi \n")
-							#makefile.write("\techo Skipping Tests \n")
-							#makefile.write("\n")
-						end
-
-
+						makefile.write("notest: | lipo \n")
+					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test32; $(CC_32) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test32 ; fi \n")
+					  	makefile.write("\tif [ -f test.cpp ];   then rm -f build/test64; $(CC_64) test.cpp -g -std=c++11 -stdlib=libc++ -DTT_PLATFORM_MAC ${INCLUDES} build/lib$(NAME).a #{test_dependencies} -o build/test64 ; fi \n")
+						makefile.write("\techo Skipping Tests \n")
+						makefile.write("\n")
+						
 					end
-
+			  
 					##########
 					# END test.cpp handling (also known as "build_and_test")
 					##########
@@ -1818,7 +1829,7 @@ else
 
 					if project_type != "implementation"
 						if linux?
-						  makefile.write("\tsudo cp -f #{build_temp}/lib$(NAME)#{extension_suffix} #{extension_dest}/\n")
+						  makefile.write("\tsudo cp #{build_temp}/$(NAME)#{extension_suffix} #{extension_dest}\n")
 						elsif mac?
 							if projectname == "JamomaMax"
 								makefile.write("\t#{path_to_moduleroot}/../../Core/Shared/jamoma_copy.sh build/$(NAME)#{extension_suffix} #{path_to_moduleroot}/Jamoma/support\n")
@@ -2014,7 +2025,7 @@ else
 	def find_and_build_project(projectdir, configuration, clean, forcedCompiler, distropath)
 
 		foldername = projectdir.split("/").last
-
+		
 		use_make = generate_makefile(projectdir, foldername, forcedCompiler)
 
 		# First look for a YAML project config file
