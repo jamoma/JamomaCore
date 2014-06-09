@@ -125,6 +125,9 @@ mTempAddress(kTTAdrsRoot)
 	
 	addMessageWithArguments(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
+    
+    // note : this a temporary message to allow proxy data creation
+    addMessageWithArguments(ProxyDataInstantiate);
 	
 	mDirectory = new TTNodeDirectory(mName);
 	mDirectory->getRoot()->setObject(TTObjectBasePtr(this));
@@ -1356,6 +1359,36 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
     // when a node ends : keep the parent address for next nodes
     else
         mTempAddress = mTempAddress.getParent();
+}
+
+TTErr TTApplication::ProxyDataInstantiate(const TTValue& inputValue, TTValue& outputValue)
+{
+    // for proxy application only
+    if (mType == kTTSym_proxy) {
+        
+        // a distant application should have one protocol
+        TTValue protocolNames = getApplicationProtocols(mName);
+        TTSymbol protocolName = protocolNames[0];
+        
+        ProtocolPtr aProtocol = (ProtocolPtr)getProtocol(protocolName);
+        if (aProtocol) {
+            
+            if (inputValue.size() == 2) {
+                
+                if (inputValue[0].type() == kTypeSymbol && inputValue[1].type() == kTypeSymbol) {
+                    
+                    TTAddress address = inputValue[0];
+                    TTSymbol service = inputValue[1];
+                    
+                    // instantiate a proxy data object
+                    outputValue = appendProxyData(aProtocol, address.normalize(), service);
+                    return kTTErrNone;
+                }
+            }
+        }
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName)
