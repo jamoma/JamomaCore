@@ -296,7 +296,10 @@ TTErr TTContainer::setAddress(const TTValue& value)
 	unbind();
 	mAddress = value[0];
 	
-	return bind();
+    if (mAddress != kTTAdrsEmpty)
+        return bind();
+    else
+        return kTTErrNone;
 }
 
 TTErr TTContainer::setAlias(const TTValue& value)
@@ -645,9 +648,7 @@ TTErr TTContainer::unbind()
 	TTValue			cacheElement;
     TTObject        anObject;
 	TTObject		aValueObserver;
-	TTObject		aCommandObserver;
 	TTAttributePtr	anAttribute;
-	TTMessagePtr	aMessage;
 	TTSymbol		key;
 	TTUInt8			i;
 	TTErr			err;
@@ -672,15 +673,7 @@ TTErr TTContainer::unbind()
                 err = anObject.instance()->findAttribute(kTTSym_value, &anAttribute);
                 
                 if (!err)
-                    err = anAttribute->unregisterObserverForNotifications(aValueObserver);
-                
-                // unregister Command observer
-                aCommandObserver = cacheElement[2];
-                aMessage = NULL;
-                err = anObject.instance()->findMessage(kTTSym_Command, &aMessage);
-                
-                if (!err)
-                    err = aMessage->unregisterObserverForNotifications(aCommandObserver);
+                    anAttribute->unregisterObserverForNotifications(aValueObserver);
             }
         }
     }
