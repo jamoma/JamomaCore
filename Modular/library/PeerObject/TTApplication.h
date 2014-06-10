@@ -271,6 +271,13 @@ private:
      @param aXmlHandler     a xml handler object
      @seealso ReadFromXml */
     void readNodeFromXml(TTXmlHandlerPtr aXmlHandler);
+
+	/* Instantiate and register a #TTData object
+     note : this a temporary message to allow proxy data creation
+     @param inputValue      an address, service of the data
+     @param outputValue     the new object 
+	 @return #TTErr error code */
+    TTErr ProxyDataInstantiate(const TTValue& inputValue, TTValue& outputValue);
     
     /**  Convenient method used to create a mirror object
      @param aProtocol       a protocol object
