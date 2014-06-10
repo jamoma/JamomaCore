@@ -574,13 +574,13 @@ public:
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRId8, mValue.int8);
 				break;
 			case kTypeUInt8:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu8, mValue.uint8);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu8 "u", mValue.uint8);
 				break;
 			case kTypeInt16:
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRId16, mValue.int16);
 				break;
 			case kTypeUInt16:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu16, mValue.uint16);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu16 "u", mValue.uint16);
 				break;
 			case kTypeInt32:
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRId32, mValue.int32);
@@ -592,7 +592,7 @@ public:
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRId64, mValue.int64);
 				break;
 			case kTypeUInt64:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu64, mValue.uint64);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%" PRIu64 "u", mValue.uint64);
 				break;
 			case kTypeBoolean:
 				if (mValue.boolean)
