@@ -32,6 +32,7 @@ mType(kTTSym_local),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
 mActivity(NO),
+mLearn(NO),
 mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
 mAppToTT(NULL),
@@ -61,6 +62,8 @@ mTempAddress(kTTAdrsRoot)
 	addAttribute(Debug, kTypeBoolean);
 	
 	addAttributeWithSetter(Activity, kTypeBoolean);
+    
+    addAttribute(Learn, kTypeBoolean);
 	
     registerAttribute(TTSymbol("activityIn"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getActivityIn, (TTSetterMethod)& TTApplication::setActivityIn);
     this->findAttribute(TTSymbol("activityIn"), &anAttribute);
@@ -128,6 +131,7 @@ mTempAddress(kTTAdrsRoot)
     
     // note : this a temporary message to allow proxy data creation
     addMessageWithArguments(ProxyDataInstantiate);
+    addMessageProperty(ProxyDataInstantiate, hidden, YES);
 	
 	mDirectory = new TTNodeDirectory(mName);
 	mDirectory->getRoot()->setObject(TTObjectBasePtr(this));
@@ -708,7 +712,11 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 	whereComesFrom = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);
 	
-	newValue->get(0, type);
+    // in learn mode we can only create Data
+    if (mLearn)
+        type = kTTSym_Data;
+    else
+        newValue->get(0, type);
     
     err = mDirectory->Lookup(whereComesFrom, aNodeList, &aNode);
 	
@@ -720,13 +728,22 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
         protocolNames.get(0, protocolName);
         
         aProtocol = (ProtocolPtr)getProtocol(protocolName);
-        if (aProtocol)
-            // instantiate Mirror object for distant application
-            appendMirrorObject(aProtocol, whereComesFrom, type);
+        if (aProtocol) {
+            
+            if (mType == kTTSym_mirror)
+                // instantiate Mirror object for distant application
+                appendMirrorObject(aProtocol, whereComesFrom, type);
+            
+            if (mType == kTTSym_proxy)
+                // instantiate proxy Data object for distant application
+                appendProxyData(aProtocol, whereComesFrom, kTTSym_parameter);
+            
+            return kTTErrNone;
+        }
 	}
     
     // if the node exists
-	else if (!err) {
+	else if (!err && type == TTSymbol("delete")) {
        
         aMirror = aNode->getObject();
         
@@ -746,6 +763,9 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	TTValuePtr			newValue;
 	TTObjectBasePtr		anObject;
 	TTErr				err;
+    
+    if (mLearn)
+        return UpdateDirectory(inputValue, outputValue);
 	
 	whereComesFrom = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);

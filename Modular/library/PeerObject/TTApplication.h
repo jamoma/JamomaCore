@@ -89,6 +89,7 @@ private:
 	TTSymbol					mAuthor;			///< ATTRIBUTE : the author of the application
 	
 	TTBoolean					mActivity;			///< ATTRIBUTE : enable the activity mechanism
+    TTBoolean					mLearn;             ///< ATTRIBUTE : enable the learning mechanism (see in UpdateAttribute)
     
     TTHash                      mCachedAttributes;  ///< ATTRIBUTE : all attribute names which need to be cached by a mirror application to reduce the number of network requests
 	
