@@ -201,9 +201,9 @@ if @projectName == "Max"
   end
 
   #j.js_systeminfo
-  file_path = "#{@svn_root}/Max/library/javascript/j.js_systeminfo.js"
-  `cp "#{@svn_root}/Max/library/javascript/j.js_systeminfo.template.js" "#{file_path}"` if mac?
-  `copy "#{@svn_root}/Max/library/javascript/j.js_systeminfo.template.js" "#{file_path}"` if win?
+  file_path = "#{@svn_root}/Jamoma/javascript/j.js_systeminfo.js"
+  `cp "#{@svn_root}/Jamoma/javascript/j.js_systeminfo.template.js" "#{file_path}"` if mac?
+  `copy "#{@svn_root}/Jamoma/javascript/j.js_systeminfo.template.js" "#{file_path}"` if win?
 
 
   if FileTest.exist?(file_path)
