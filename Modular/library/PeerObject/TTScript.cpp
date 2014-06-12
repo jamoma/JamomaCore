@@ -455,18 +455,18 @@ TTErr TTScript::RunFlattened()
             
             anObject = aNode->getObject();
             
-            // DEBUG : check if the object is still valid
-            if (!anObject->valid) {
-                
-                // DEBUG : this means there is a bad tree managment : we need to trace this
-                std::cout << "TTScript::RunFlattened -- object at " << (const char*)address.c_str() << " is not valid" << std::endl;
-                
-                // DEBUG : we have to exit because it's going to crash
-                return kTTErrGeneric;
-            }
-            
             // check object type
             if (anObject) {
+                
+                // DEBUG : check if the object is still valid
+                if (!anObject->valid) {
+                    
+                    // DEBUG : this means there is a bad tree managment : we need to trace this
+                    std::cout << "TTScript::RunFlattened -- object at " << (const char*)address.c_str() << " is not valid" << std::endl;
+                    
+                    // DEBUG : we have to exit because it's going to crash
+                    return kTTErrGeneric;
+                }
                 
                 // default attribute is value attribute
                 if (address.getAttribute() == kTTSymEmpty)
@@ -538,18 +538,18 @@ TTErr TTScript::RunCommand(const TTValue& inputValue, TTValue& outputValue)
                     
                     anObject = aNode->getObject();
                     
-                    // DEBUG : check if the object is still valid
-                    if (!anObject->valid) {
-                        
-                        // DEBUG : this means there is a bad tree managment : we need to trace this
-                        std::cout << "TTScript::RunCommand -- object at " << (const char*)address.c_str() << " is not valid" << std::endl;
-                        
-                        // DEBUG : we have to exit because it's going to crash
-                        return kTTErrGeneric;
-                    }
-                    
                     // check object type
                     if (anObject) {
+                        
+                        // DEBUG : check if the object is still valid
+                        if (!anObject->valid) {
+                            
+                            // DEBUG : this means there is a bad tree managment : we need to trace this
+                            std::cout << "TTScript::RunCommand -- object at " << (const char*)address.c_str() << " is not valid" << std::endl;
+                            
+                            // DEBUG : we have to exit because it's going to crash
+                            return kTTErrGeneric;
+                        }
                         
                         // default attribute is value attribute
                         if (address.getAttribute() == kTTSymEmpty)
