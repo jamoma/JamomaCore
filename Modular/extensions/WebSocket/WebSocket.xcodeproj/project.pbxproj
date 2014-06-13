@@ -8,22 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		B5CCAFB6188400AC00193AA8 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5F3D25B1811915900B91813 /* WebSocket.cpp */; };
-		B5CCAFB7188400AC00193AA8 /* MinuitAnswer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5CD3B5818117BB0008CB133 /* MinuitAnswer.cpp */; };
-		B5CCAFB8188400AC00193AA8 /* MinuitAnswerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5CD3B5918117BB0008CB133 /* MinuitAnswerManager.cpp */; };
-		B5CCAFB9188400AC00193AA8 /* MinuitSenderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5CD3B5A18117BB0008CB133 /* MinuitSenderManager.cpp */; };
+		B5CCAFB7188400AC00193AA8 /* WebSocketAnswer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5CD3B5818117BB0008CB133 /* WebSocketAnswer.cpp */; };
+		B5CCAFB8188400AC00193AA8 /* WebSocketAnswerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5CD3B5918117BB0008CB133 /* WebSocketAnswerManager.cpp */; };
+		B5CCAFB9188400AC00193AA8 /* WebSocketSenderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5CD3B5A18117BB0008CB133 /* WebSocketSenderManager.cpp */; };
 		B5CCAFBA188400B100193AA8 /* Protocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D26DFB7714B208E000417FFE /* Protocol.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		22AD15D716596523002FD7E3 /* WebSocket.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = WebSocket.yml; sourceTree = "<group>"; };
 		B5CCAFAC1884002800193AA8 /* WebSocketPlugin-doc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "WebSocketPlugin-doc"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5CD3B5318117BA8008CB133 /* MinuitAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinuitAnswer.h; sourceTree = "<group>"; };
-		B5CD3B5418117BA8008CB133 /* MinuitAnswerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinuitAnswerManager.h; sourceTree = "<group>"; };
-		B5CD3B5618117BA8008CB133 /* MinuitSenderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinuitSenderManager.h; sourceTree = "<group>"; };
+		B5CD3B5318117BA8008CB133 /* WebSocketAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketAnswer.h; sourceTree = "<group>"; };
+		B5CD3B5418117BA8008CB133 /* WebSocketAnswerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketAnswerManager.h; sourceTree = "<group>"; };
+		B5CD3B5618117BA8008CB133 /* WebSocketSenderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketSenderManager.h; sourceTree = "<group>"; };
 		B5CD3B5718117BA8008CB133 /* Time2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Time2.hpp; sourceTree = "<group>"; };
-		B5CD3B5818117BB0008CB133 /* MinuitAnswer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinuitAnswer.cpp; sourceTree = "<group>"; };
-		B5CD3B5918117BB0008CB133 /* MinuitAnswerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinuitAnswerManager.cpp; sourceTree = "<group>"; };
-		B5CD3B5A18117BB0008CB133 /* MinuitSenderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MinuitSenderManager.cpp; sourceTree = "<group>"; };
+		B5CD3B5818117BB0008CB133 /* WebSocketAnswer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebSocketAnswer.cpp; sourceTree = "<group>"; };
+		B5CD3B5918117BB0008CB133 /* WebSocketAnswerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebSocketAnswerManager.cpp; sourceTree = "<group>"; };
+		B5CD3B5A18117BB0008CB133 /* WebSocketSenderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebSocketSenderManager.cpp; sourceTree = "<group>"; };
 		B5F3D2591811914E00B91813 /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocket.h; sourceTree = "<group>"; };
 		B5F3D25A1811914E00B91813 /* WebSocketInclude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketInclude.h; sourceTree = "<group>"; };
 		B5F3D25B1811915900B91813 /* WebSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebSocket.cpp; sourceTree = "<group>"; };
@@ -85,9 +85,9 @@
 			children = (
 				B5F3D2591811914E00B91813 /* WebSocket.h */,
 				B5F3D25A1811914E00B91813 /* WebSocketInclude.h */,
-				B5CD3B5318117BA8008CB133 /* MinuitAnswer.h */,
-				B5CD3B5418117BA8008CB133 /* MinuitAnswerManager.h */,
-				B5CD3B5618117BA8008CB133 /* MinuitSenderManager.h */,
+				B5CD3B5318117BA8008CB133 /* WebSocketAnswer.h */,
+				B5CD3B5418117BA8008CB133 /* WebSocketAnswerManager.h */,
+				B5CD3B5618117BA8008CB133 /* WebSocketSenderManager.h */,
 				B5CD3B5718117BA8008CB133 /* Time2.hpp */,
 			);
 			path = includes;
@@ -97,9 +97,9 @@
 			isa = PBXGroup;
 			children = (
 				B5F3D25B1811915900B91813 /* WebSocket.cpp */,
-				B5CD3B5818117BB0008CB133 /* MinuitAnswer.cpp */,
-				B5CD3B5918117BB0008CB133 /* MinuitAnswerManager.cpp */,
-				B5CD3B5A18117BB0008CB133 /* MinuitSenderManager.cpp */,
+				B5CD3B5818117BB0008CB133 /* WebSocketAnswer.cpp */,
+				B5CD3B5918117BB0008CB133 /* WebSocketAnswerManager.cpp */,
+				B5CD3B5A18117BB0008CB133 /* WebSocketSenderManager.cpp */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -174,9 +174,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5CCAFBA188400B100193AA8 /* Protocol.cpp in Sources */,
-				B5CCAFB9188400AC00193AA8 /* MinuitSenderManager.cpp in Sources */,
-				B5CCAFB8188400AC00193AA8 /* MinuitAnswerManager.cpp in Sources */,
-				B5CCAFB7188400AC00193AA8 /* MinuitAnswer.cpp in Sources */,
+				B5CCAFB9188400AC00193AA8 /* WebSocketSenderManager.cpp in Sources */,
+				B5CCAFB8188400AC00193AA8 /* WebSocketAnswerManager.cpp in Sources */,
+				B5CCAFB7188400AC00193AA8 /* WebSocketAnswer.cpp in Sources */,
 				B5CCAFB6188400AC00193AA8 /* WebSocket.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,6 +322,7 @@
 				B5CCAFB41884002800193AA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

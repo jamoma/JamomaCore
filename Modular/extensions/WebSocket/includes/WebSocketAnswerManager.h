@@ -1,6 +1,6 @@
 /** @file
  *
- * @ingroup modularMinuit
+ * @ingroup modularWebSocket
  *
  * @brief A Protocol interface
  *
@@ -14,12 +14,12 @@
  */
 
 
-#ifndef MINUIT_ANSWER_MANAGER
-#define MINUIT_ANSWER_MANAGER
+#ifndef WEBSOCKET_ANSWER_MANAGER
+#define WEBSOCKET_ANSWER_MANAGER
 
 #include "WebSocket.h"
 #include "WebSocketInclude.h"
-#include "MinuitAnswer.h"
+#include "WebSocketAnswer.h"
 
 #include <string>
 #include <vector>
@@ -27,7 +27,7 @@
 class WebSocket;
 typedef WebSocket* WebSocketPtr;
 
-class MinuitAnswerManager {
+class WebSocketAnswerManager {
 	
 private:
 	
@@ -39,8 +39,8 @@ private:
 	
 public:
 
-	MinuitAnswerManager(WebSocketPtr aMinuitProtocol);
-	virtual ~MinuitAnswerManager();
+	WebSocketAnswerManager(WebSocketPtr aMinuitProtocol);
+	virtual ~WebSocketAnswerManager();
 	
 	void	AddDiscoverAnswer(TTSymbol from, TTAddress address, int timeOutInMs = DEFAULT_TIMEOUT);
 	TTErr	ReceiveDiscoverAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error = kTTErrNone);
@@ -56,6 +56,6 @@ public:
 	TTErr	ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error = kTTErrNone);
 	int		CheckGetAnswer(TTSymbol from, TTAddress address, TTValue& value);
 };
-typedef MinuitAnswerManager* MinuitAnswerManagerPtr;
+typedef WebSocketAnswerManager* WebSocketAnswerManagerPtr;
 
-#endif // MINUIT_ANSWER_MANAGER
+#endif // WEBSOCKET_ANSWER_MANAGER

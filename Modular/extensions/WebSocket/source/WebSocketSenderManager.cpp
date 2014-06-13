@@ -1,12 +1,12 @@
 /** @file
  *
- * @ingroup modularMinuit
+ * @ingroup modularWebSocket
  *
- * @brief A OSC send object manager
+ * @brief A WebSocket send object manager
  *
  * @details
  *
- * @authors Théo de la Hogue
+ * @authors Théo de la Hogue, Laurent Garnier
  *
  * @copyright Copyright © 2013, Théo de la Hogue @n
  * This code is licensed under the terms of the "New BSD License" @n
@@ -14,15 +14,15 @@
  */
 
 
-#include "MinuitSenderManager.h"
+#include "WebSocketSenderManager.h"
 
-MinuitSenderManager::MinuitSenderManager()
+WebSocketSenderManager::WebSocketSenderManager()
 {}
 
-MinuitSenderManager::~MinuitSenderManager()
+WebSocketSenderManager::~WebSocketSenderManager()
 {}
 
-TTObject MinuitSenderManager::lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
+TTObject WebSocketSenderManager::lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
 {
     TTValue  last, v;
     TTObject lastObject;
@@ -58,7 +58,7 @@ TTObject MinuitSenderManager::lookup(TTSymbol applicationName, TTSymbol ip, TTUI
     return lastObject;
 }
 
-TTObject MinuitSenderManager::add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
+TTObject WebSocketSenderManager::add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
 {
     TTValue     v;
     TTObject    anObject("web.send");

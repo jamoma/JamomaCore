@@ -14,41 +14,41 @@
  */
 
 
-#include "MinuitAnswerManager.h"
+#include "WebSocketAnswerManager.h"
 
-MinuitAnswerManager::MinuitAnswerManager(WebSocketPtr aMinuitProtocol)
+WebSocketAnswerManager::WebSocketAnswerManager(WebSocketPtr aWebSocketProtocol)
 {
-	mProtocol = aMinuitProtocol;
+	mProtocol = aWebSocketProtocol;
     
     mDiscoverAnswers = new TTHash();
     mDiscoverAllAnswers = new TTHash();
     mGetAnswers = new TTHash();
 }
 
-MinuitAnswerManager::~MinuitAnswerManager()
+WebSocketAnswerManager::~WebSocketAnswerManager()
 {
 	delete mDiscoverAnswers;
     delete mDiscoverAllAnswers;
 	delete mGetAnswers;
 }
 
-void MinuitAnswerManager::AddDiscoverAnswer(TTSymbol from, TTAddress address, int timeOutInMs)
+void WebSocketAnswerManager::AddDiscoverAnswer(TTSymbol from, TTAddress address, int timeOutInMs)
 {
 	TTString key = from.string();
     key += address.string();
     
-    MinuitAnswerPtr anAnswer = new MinuitAnswer();
+    WebSocketAnswerPtr anAnswer = new WebSocketAnswer();
     anAnswer->setTimeOut(timeOutInMs);
     
     mDiscoverAnswers->append(TTSymbol(key), (TTPtr)anAnswer);
 }
 
-TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error)
+TTErr WebSocketAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error)
 {
-    TTValue         v;
-	TTString        key;
-    MinuitAnswerPtr anAnswer;
-    TTErr           err;
+    TTValue             v;
+	TTString            key;
+    WebSocketAnswerPtr  anAnswer;
+    TTErr               err;
     
     key = from.string();
     key += address.string();
@@ -56,7 +56,7 @@ TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress addres
 	err = mDiscoverAnswers->lookup(TTSymbol(key), v);
     
     if (!err) {
-        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+        anAnswer = WebSocketAnswerPtr((TTPtr)v[0]);
         
 		if (anAnswer->getState() != TIMEOUT_EXCEEDED) {
 			anAnswer->setAnswer(value, error);
@@ -64,27 +64,27 @@ TTErr MinuitAnswerManager::ReceiveDiscoverAnswer(TTSymbol from, TTAddress addres
 		}
 	}
 	else
-		cout << "MinuitAnswerManager::ReceiveDiscoverAnswer can't find a request at " << key << endl;
+		cout << "WebSocketAnswerManager::ReceiveDiscoverAnswer can't find a request at " << key << endl;
 	
 	return kTTErrGeneric;
 }
 
-int MinuitAnswerManager::CheckDiscoverAnswer(TTSymbol from, TTAddress address, TTValue& value)
+int WebSocketAnswerManager::CheckDiscoverAnswer(TTSymbol from, TTAddress address, TTValue& value)
 {
-	int             state;
-    TTValue         v;
-	TTString        key;
-    MinuitAnswerPtr anAnswer;
-    TTErr           err;
+	int                 state;
+    TTValue             v;
+	TTString            key;
+    WebSocketAnswerPtr  anAnswer;
+    TTErr               err;
     
     key = from.string();
     key += address.string();
 	
-	// Looking for a MinuitDiscoverAnswer object at the given address
+	// Looking for a WebSocketDiscoverAnswer object at the given address
 	err = mDiscoverAnswers->lookup(TTSymbol(key), v);
     
     if (!err) {
-        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+        anAnswer = WebSocketAnswerPtr((TTPtr)v[0]);
         
         // wait
         anAnswer->wait();
@@ -106,7 +106,7 @@ int MinuitAnswerManager::CheckDiscoverAnswer(TTSymbol from, TTAddress address, T
 		return REQUEST_NOT_SENT;
 }
 
-TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTSymbol& returnedType, TTValue& returnedChildren, TTValue& returnedAttributes)
+TTErr WebSocketAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTSymbol& returnedType, TTValue& returnedChildren, TTValue& returnedAttributes)
 {
 	TTSymbol    toParse, parsed;
 	TTBoolean	endFlagFound;
@@ -175,18 +175,18 @@ TTErr MinuitAnswerManager::ParseDiscoverAnswer(const TTValue& answer, TTSymbol& 
 	return kTTErrNone;
 }
 
-void MinuitAnswerManager::AddDiscoverAllAnswer(TTSymbol from, TTAddress address, int timeOutInMs)
+void WebSocketAnswerManager::AddDiscoverAllAnswer(TTSymbol from, TTAddress address, int timeOutInMs)
 {
 	TTString key = from.string();
     key += address.string();
     
-    MinuitAnswerPtr anAnswer = new MinuitAnswer();
+    WebSocketAnswerPtr anAnswer = new WebSocketAnswer();
     anAnswer->setTimeOut(timeOutInMs);
     
     mDiscoverAllAnswers->append(TTSymbol(key), (TTPtr)anAnswer);
 }
 
-TTErr MinuitAnswerManager::ReceiveDiscoverAllAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error)
+TTErr WebSocketAnswerManager::ReceiveDiscoverAllAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error)
 {
     // TODO : implement it
     
@@ -194,13 +194,13 @@ TTErr MinuitAnswerManager::ReceiveDiscoverAllAnswer(TTSymbol from, TTAddress add
 	return kTTErrGeneric;
 }
 
-int MinuitAnswerManager::CheckDiscoverAllAnswer(TTSymbol from, TTAddress address, TTValue& value)
+int WebSocketAnswerManager::CheckDiscoverAllAnswer(TTSymbol from, TTAddress address, TTValue& value)
 {
-	int             state;
-    TTValue         v;
-	TTString        key;
-    MinuitAnswerPtr anAnswer;
-    TTErr           err;
+	int                 state;
+    TTValue             v;
+	TTString            key;
+    WebSocketAnswerPtr  anAnswer;
+    TTErr               err;
     
     key = from.string();
     key += address.string();
@@ -209,7 +209,7 @@ int MinuitAnswerManager::CheckDiscoverAllAnswer(TTSymbol from, TTAddress address
 	err = mDiscoverAllAnswers->lookup(TTSymbol(key), v);
     
     if (!err) {
-        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+        anAnswer = WebSocketAnswerPtr((TTPtr)v[0]);
         
         // wait
         anAnswer->wait();
@@ -231,30 +231,30 @@ int MinuitAnswerManager::CheckDiscoverAllAnswer(TTSymbol from, TTAddress address
 		return REQUEST_NOT_SENT;
 }
 
-TTErr MinuitAnswerManager::ParseDiscoverAllAnswer(const TTValue& answer, TTNodePtr node)
+TTErr WebSocketAnswerManager::ParseDiscoverAllAnswer(const TTValue& answer, TTNodePtr node)
 {
 	
 	
 	return kTTErrNone;
 }
 
-void MinuitAnswerManager::AddGetAnswer(TTSymbol from, TTAddress address, int timeOutInMs)
+void WebSocketAnswerManager::AddGetAnswer(TTSymbol from, TTAddress address, int timeOutInMs)
 {	
 	TTString key = from.string();
     key += address.string();
     
-    MinuitAnswerPtr anAnswer = new MinuitAnswer();
+    WebSocketAnswerPtr anAnswer = new WebSocketAnswer();
     anAnswer->setTimeOut(timeOutInMs);
     
     mGetAnswers->append(TTSymbol(key), (TTPtr)anAnswer);
 }
 
-TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error)
+TTErr WebSocketAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, const TTValue& value, TTErr error)
 {
-    TTValue         v;
-	TTString        key;
-    MinuitAnswerPtr anAnswer;
-    TTErr           err;
+    TTValue             v;
+	TTString            key;
+    WebSocketAnswerPtr  anAnswer;
+    TTErr               err;
     
     key = from.string();
     key += address.string();
@@ -262,7 +262,7 @@ TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, co
 	err = mGetAnswers->lookup(TTSymbol(key), v);
     
     if (!err) {
-        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+        anAnswer = WebSocketAnswerPtr((TTPtr)v[0]);
 	
 		if (anAnswer->getState() != TIMEOUT_EXCEEDED) {
 			anAnswer->setAnswer(value, error);
@@ -270,27 +270,27 @@ TTErr MinuitAnswerManager::ReceiveGetAnswer(TTSymbol from, TTAddress address, co
 		}
 	}
 	else
-		cout << "MinuitAnswerManager::ReceiveGetAnswer can't find a request at " << key << endl;
+		cout << "WebSocketAnswerManager::ReceiveGetAnswer can't find a request at " << key << endl;
 	
 	return kTTErrGeneric;
 }
 
-int MinuitAnswerManager::CheckGetAnswer(TTSymbol from, TTAddress address, TTValue& value)
+int WebSocketAnswerManager::CheckGetAnswer(TTSymbol from, TTAddress address, TTValue& value)
 {
-    int             state;
-    TTValue         v;
-	TTString        key;
-    MinuitAnswerPtr anAnswer;
-    TTErr           err;
+    int                 state;
+    TTValue             v;
+	TTString            key;
+    WebSocketAnswerPtr  anAnswer;
+    TTErr               err;
     
     key = from.string();
     key += address.string();
 	
-	// Looking for a MinuitDiscoverAnswer object at the given address
+	// Looking for a WebSocketDiscoverAnswer object at the given address
 	err = mGetAnswers->lookup(TTSymbol(key), v);
     
     if (!err) {
-        anAnswer = MinuitAnswerPtr((TTPtr)v[0]);
+        anAnswer = WebSocketAnswerPtr((TTPtr)v[0]);
         
         // wait
         anAnswer->wait();

@@ -4,9 +4,9 @@ defines:
 sources:
   - ../../library/ProtocolLib/Protocol.cpp
   - source/WebSocket.cpp
-  - source/MinuitAnswer.cpp
-  - source/MinuitAnswerManager.cpp
-  - source/MinuitSenderManager.cpp
+  - source/WebSocketAnswer.cpp
+  - source/WebSocketAnswerManager.cpp
+  - source/WebSocketSenderManager.cpp
   - libjson/_internal/Source/internalJSONNode.cpp
   - libjson/_internal/Source/JSONAllocator.cpp
   - libjson/_internal/Source/JSONChildren.cpp

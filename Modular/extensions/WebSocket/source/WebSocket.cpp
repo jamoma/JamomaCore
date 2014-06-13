@@ -84,8 +84,8 @@ TTErr WebSocket::Run(const TTValue& inputValue, TTValue& outputValue)
 	
 	if (!mRunning) {
 
-		mAnswerManager = new MinuitAnswerManager((WebSocketPtr)this);
-        mSenderManager = new MinuitSenderManager();
+		mAnswerManager = new WebSocketAnswerManager((WebSocketPtr)this);
+        mSenderManager = new WebSocketSenderManager();
 		
 		mWebSocketReceive = TTObject("web.receive");
         
@@ -125,7 +125,7 @@ TTErr WebSocket::Run(const TTValue& inputValue, TTValue& outputValue)
  */
 TTErr WebSocket::Stop(const TTValue& inputValue, TTValue& outputValue)
 {
-    // Minuit doesn't need a thread per application
+    // WebSocket doesn't need a thread per application
     if (inputValue.size())
         return kTTErrGeneric;
     

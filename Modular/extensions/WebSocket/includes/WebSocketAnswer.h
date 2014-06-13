@@ -1,8 +1,8 @@
 /** @file
  *
- * @ingroup modularMinuit
+ * @ingroup modularWebSocket
  *
- * @brief Minuit Answer
+ * @brief WebSocket Answer
  *
  * @details
  *
@@ -14,12 +14,12 @@
  */
 
 
-#ifndef MINUITANSWER_HPP_
-#define MINUITANSWER_HPP_
+#ifndef WEBSOCKETANSWER_HPP_
+#define WEBSOCKETANSWER_HPP_
 
 #include "WebSocketInclude.h"
 
-class MinuitAnswer
+class WebSocketAnswer
 {
 	TTThreadPtr mThread;              // a thread used to wait an answer
     
@@ -31,8 +31,8 @@ private:
 	int			mTimeOutInMs;
 	
 public:
-	MinuitAnswer();
-	virtual     ~MinuitAnswer();
+	WebSocketAnswer();
+	virtual     ~WebSocketAnswer();
 
 	void		setAnswer(const TTValue& value, TTErr error = kTTErrNone);
 	void		getAnswer(TTValue& value);
@@ -44,6 +44,6 @@ public:
 	int			getState();
 };
 
-typedef MinuitAnswer* MinuitAnswerPtr;
+typedef WebSocketAnswer* WebSocketAnswerPtr;
 
-#endif /*MINUITANSWER_HPP_*/
+#endif /*WEBSOCKETANSWER_HPP_*/

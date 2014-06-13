@@ -17,14 +17,14 @@
 
 #include "Protocol.h"
 #include "WebSocketInclude.h"
-#include "MinuitAnswerManager.h"
-#include "MinuitSenderManager.h"
+#include "WebSocketAnswerManager.h"
+#include "WebSocketSenderManager.h"
 
-class MinuitAnswerManager;
-typedef MinuitAnswerManager* MinuitAnswerManagerPtr;
+class WebSocketAnswerManager;
+typedef WebSocketAnswerManager* WebSocketAnswerManagerPtr;
 
-class MinuitSenderManager;
-typedef MinuitSenderManager* MinuitSenderManagerPtr;
+class WebSocketSenderManager;
+typedef WebSocketSenderManager* WebSocketSenderManagerPtr;
 
 /**	
  * Create a web socket plugin.
@@ -42,8 +42,8 @@ private:
 	TTObject                mWebSocketReceive;
     TTThreadPtr             mWaitThread;        ///< a thread used to wait in some case
 	
-	MinuitAnswerManagerPtr	mAnswerManager;
-    MinuitSenderManagerPtr	mSenderManager;
+	WebSocketAnswerManagerPtr	mAnswerManager;
+    WebSocketSenderManagerPtr	mSenderManager;
     
 	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol localApplicationName, TTSymbol operation, JSONNode* jsonNode);
 	TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
