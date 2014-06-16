@@ -77,9 +77,6 @@ TTExplorer::~TTExplorer()
 	delete mFilterBank;
 	delete mFilterList;
 	delete mResult;
-	
-	// unregister from the namespace
-	setNamespace(kTTSymEmpty);
 }
 
 TTErr TTExplorer::setNamespace(const TTValue& value)
