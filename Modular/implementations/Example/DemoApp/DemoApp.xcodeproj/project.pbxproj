@@ -202,7 +202,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CONFIGURATION_BUILD_DIR = Debug;
 				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_MAC;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TT_PLATFORM_MAC,
+					TT_PROTOCOL_DEBUG,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -228,7 +231,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CONFIGURATION_BUILD_DIR = Release;
 				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_MAC;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TT_PLATFORM_MAC,
+					TT_PROTOCOL_DEBUG,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,

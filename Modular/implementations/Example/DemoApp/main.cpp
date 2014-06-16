@@ -295,7 +295,7 @@ DemoApp::Setup()
     
     // Register the message data into myDemoApp at an address
     args = TTValue("/myMessage", mDataDemoMessage);
-    mApplicationDemo.send("ObjectRegister", args, out);
+    err = mApplicationDemo.send("ObjectRegister", args, out);
     
     if (err)
         TTLogError("Error : can't register data at /myMessage address \n");
@@ -319,7 +319,7 @@ DemoApp::Setup()
     
     // Register the return data into myDemoApp at an address
     args = TTValue("/myReturn", mDataDemoReturn);
-    mApplicationDemo.send("ObjectRegister", args, out);
+    err = mApplicationDemo.send("ObjectRegister", args, out);
     
     if (err)
         TTLogError("Error : can't register data at /myReturn address \n");
