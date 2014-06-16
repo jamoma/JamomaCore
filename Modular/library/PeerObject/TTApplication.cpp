@@ -1506,10 +1506,10 @@ TTErr TTApplication::ProxyDataInstantiate(const TTValue& inputValue, TTValue& ou
     if (mType == kTTSym_proxy) {
         
         // a distant application should have one protocol
-        TTValue protocolNames = getApplicationProtocols(mName);
+        TTValue protocolNames = accessApplicationProtocolNames(mName);
         TTSymbol protocolName = protocolNames[0];
         
-        ProtocolPtr aProtocol = (ProtocolPtr)getProtocol(protocolName);
+        ProtocolPtr aProtocol = accessProtocol(protocolName);
         if (aProtocol) {
             
             if (inputValue.size() == 2) {
