@@ -59,15 +59,12 @@ TTReceiver::~TTReceiver()
     // disable reception to avoid crash
     mActive = NO;
     
-	unbindAddress();
-	unbindApplication();
-    
     delete mObjectCache;
 }
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
 {
-    TTErr       err;
+    TTErr       err = kTTErrGeneric;
     TTBoolean   memoActive = mActive;
     
     // disable reception to avoid crash
@@ -77,16 +74,19 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
 	unbindApplication();
 	
 	mAddress = newValue[0];
-	
-	// default attribute to bind is value
-	if (mAddress.getAttribute() == NO_ATTRIBUTE)
-		mAddress = mAddress.appendAttribute(kTTSym_value);
-	
-	mDirectory = accessApplicationDirectoryFrom(mAddress);
-	if (mDirectory)
-		err = bindAddress();
-	else
-		err = bindApplication();
+    
+    if (mAddress != kTTAdrsEmpty) {
+        
+        // default attribute to bind is value
+        if (mAddress.getAttribute() == NO_ATTRIBUTE)
+            mAddress = mAddress.appendAttribute(kTTSym_value);
+        
+        mDirectory = accessApplicationDirectoryFrom(mAddress);
+        if (mDirectory)
+            err = bindAddress();
+        else
+            err = bindApplication();
+    }
     
     // enable reception
     mActive = memoActive;

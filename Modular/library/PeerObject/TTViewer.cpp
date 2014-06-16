@@ -85,10 +85,25 @@ TTErr TTViewer::setAddress(const TTValue& value)
     // if no address : delete sender, receiver and observers
 	if (mAddress == kTTAdrsEmpty) {
         
-        mSender = TTObject();
-        mReceiver = TTObject();
-        mDataspaceObserver = TTObject();
-        mDataspaceUnitObserver = TTObject();
+        if (mSender.valid()) {
+            mSender.set(kTTSym_address, kTTAdrsEmpty);
+            mSender = TTObject();
+        }
+        
+        if (mReceiver.valid()) {
+            mReceiver.set(kTTSym_address, kTTAdrsEmpty);
+            mReceiver = TTObject();
+        }
+        
+        if (mDataspaceObserver.valid()) {
+            mDataspaceObserver.set(kTTSym_address, kTTAdrsEmpty);
+            mDataspaceObserver = TTObject();
+        }
+        
+        if (mDataspaceUnitObserver.valid()) {
+            mDataspaceUnitObserver.set(kTTSym_address, kTTAdrsEmpty);
+            mDataspaceUnitObserver = TTObject();
+        }
         
 		return kTTErrGeneric;
     }

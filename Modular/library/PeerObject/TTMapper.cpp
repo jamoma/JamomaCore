@@ -231,9 +231,21 @@ TTErr TTMapper::setInput(const TTValue& value)
     
     if (mInput == kTTAdrsEmpty) {
         
-        mReceiver = TTObject();
-        mInputObserver = TTObject();
-        mInputRangeObserver = TTObject();
+        if (mReceiver.valid()) {
+            mReceiver.set(kTTSym_address, kTTAdrsEmpty);
+            mReceiver = TTObject();
+        }
+        
+        if (mInputObserver.valid()) {
+            mInputObserver.set(kTTSym_address, kTTAdrsEmpty);
+            mInputObserver = TTObject();
+        }
+        
+        if (mInputRangeObserver.valid()) {
+            mInputRangeObserver.set(kTTSym_address, kTTAdrsEmpty);
+            mInputRangeObserver = TTObject();
+        }
+        
         return kTTErrGeneric;
     }
     
@@ -352,9 +364,21 @@ TTErr TTMapper::setOutput(const TTValue& value)
     
     if (mOutput == kTTAdrsEmpty) {
         
-        mSender = TTObject();
-        mOutputObserver = TTObject();
-        mOutputRangeObserver = TTObject();
+        if (mSender.valid()) {
+            mSender.set(kTTSym_address, kTTAdrsEmpty);
+            mSender = TTObject();
+        }
+        
+        if (mOutputObserver.valid()) {
+            mOutputObserver.set(kTTSym_address, kTTAdrsEmpty);
+            mOutputObserver = TTObject();
+        }
+        
+        if (mOutputRangeObserver.valid()) {
+            mOutputRangeObserver.set(kTTSym_address, kTTAdrsEmpty);
+            mOutputRangeObserver = TTObject();
+        }
+        
         return kTTErrGeneric;
     }
 		

@@ -58,16 +58,21 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 	unbindApplication();
 	
 	mAddress = newValue[0];
-	
-	// default attribute to bind is value
-	if (mAddress.getAttribute() == NO_ATTRIBUTE)
-		mAddress = mAddress.appendAttribute(kTTSym_value);
-	
-	mDirectory = accessApplicationDirectoryFrom(mAddress);
-	if (mDirectory)
-		return bindAddress();
-	else 
-		return bindApplication();
+    
+    if (mAddress != kTTAdrsEmpty) {
+        
+        // default attribute to bind is value
+        if (mAddress.getAttribute() == NO_ATTRIBUTE)
+            mAddress = mAddress.appendAttribute(kTTSym_value);
+        
+        mDirectory = accessApplicationDirectoryFrom(mAddress);
+        if (mDirectory)
+            return bindAddress();
+        else 
+            return bindApplication();
+    }
+    
+    return kTTErrGeneric;
 }
 
 #if 0
