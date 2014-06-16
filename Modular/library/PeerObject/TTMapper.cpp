@@ -220,28 +220,39 @@ TTErr TTMapper::getFunctionSamples(TTValue& value)
 #endif
 TTErr TTMapper::setInput(const TTValue& value)
 {
-	TTValue		args, v, min, max, none;
+	TTValue		v, min, max, none;
 	TTNodePtr	aNode;
-	TTObject	returnValueCallback, anObject, empty;
+	TTObject	returnValueCallback, anObject;
 	TTErr		err;
-	
-	if (mReceiver.valid())
-		mReceiver = TTObject();
-	
+    
 	mInput = value[0];
 	
-	mObserveInputRange = true;
-	
-	// Make a TTReceiver object
-	args.append(empty);
-	
-	returnValueCallback = TTObject("callback");
+	mObserveInputRange = YES;
     
-	returnValueCallback.set(kTTSym_baton, TTObject(this));
-	returnValueCallback.set(kTTSym_function, TTPtr(&TTMapperReceiveValueCallback));
-	args.append(returnValueCallback);
-	
-	mReceiver = TTObject(kTTSym_Receiver, args);
+    if (mInput == kTTAdrsEmpty) {
+        
+        mReceiver = TTObject();
+        mInputObserver = TTObject();
+        mInputRangeObserver = TTObject();
+        return kTTErrGeneric;
+    }
+    
+    // create a receiver if needed
+    if (!mReceiver.valid()) {
+		
+        TTValue     args;
+        TTObject    empty;
+        
+        args.append(empty);
+        
+        returnValueCallback = TTObject("callback");
+        
+        returnValueCallback.set(kTTSym_baton, TTObject(this));
+        returnValueCallback.set(kTTSym_function, TTPtr(&TTMapperReceiveValueCallback));
+        args.append(returnValueCallback);
+        
+        mReceiver = TTObject(kTTSym_Receiver, args);
+    }
 	
 	mReceiver.set(kTTSym_address, mInput.appendAttribute(kTTSym_value));
 	
@@ -279,22 +290,24 @@ TTErr TTMapper::setInput(const TTValue& value)
 
 TTErr TTMapper::observeInput()
 {
-	TTValue     args;
-	TTObject	returnInputCreationCallback, empty;
+	TTObject returnInputCreationCallback;
 	
-	if (mInputObserver.valid())
-		mInputObserver = TTObject();
-	
-	// Make a TTReceiver object
-	returnInputCreationCallback = TTObject("callback");
-    
-	returnInputCreationCallback.set(kTTSym_baton, TTObject(this));
-	returnInputCreationCallback.set(kTTSym_function, TTPtr(&TTMapperInputCreationCallback));
-	args.append(returnInputCreationCallback);
-	
-	args.append(empty);
-	
-	mInputObserver = TTObject(kTTSym_Receiver, args);
+    // create a receiver if needed
+	if (!mInputObserver.valid()) {
+        
+        TTValue     args;
+        TTObject    empty;
+		
+        returnInputCreationCallback = TTObject("callback");
+        
+        returnInputCreationCallback.set(kTTSym_baton, TTObject(this));
+        returnInputCreationCallback.set(kTTSym_function, TTPtr(&TTMapperInputCreationCallback));
+        args.append(returnInputCreationCallback);
+        
+        args.append(empty);
+        
+        mInputObserver = TTObject(kTTSym_Receiver, args);
+    }
 	
 	mInputObserver.set(kTTSym_address, mInput.appendAttribute(kTTSym_created));
 
@@ -303,22 +316,23 @@ TTErr TTMapper::observeInput()
 
 TTErr TTMapper::observeInputRange()
 {
-	TTValue     args;
-	TTObject    returnInputRangeCallback, empty;
+	TTObject returnInputRangeCallback;
 	
-	if (mInputRangeObserver.valid())
-		mInputRangeObserver = TTObject();
+	if (!mInputRangeObserver.valid()) {
+		
+        TTValue     args;
+        TTObject    empty;
+        
+        args.append(empty);
 	
-	// Make a TTReceiver object
-	args.append(empty);
-	
-	returnInputRangeCallback = TTObject("callback");
+        returnInputRangeCallback = TTObject("callback");
     
-	returnInputRangeCallback.set(kTTSym_baton, TTObject(this));
-	returnInputRangeCallback.set(kTTSym_function, TTPtr(&TTMapperInputRangeCallback));
-	args.append(returnInputRangeCallback);
+        returnInputRangeCallback.set(kTTSym_baton, TTObject(this));
+        returnInputRangeCallback.set(kTTSym_function, TTPtr(&TTMapperInputRangeCallback));
+        args.append(returnInputRangeCallback);
 	
-	mInputRangeObserver = TTObject(kTTSym_Receiver, args);
+        mInputRangeObserver = TTObject(kTTSym_Receiver, args);
+    }
 	
 	mInputRangeObserver.set(kTTSym_address, mInput.appendAttribute(kTTSym_rangeBounds));
 	
@@ -332,15 +346,21 @@ TTErr TTMapper::setOutput(const TTValue& value)
 	TTObject    anObject;
 	TTErr		err;
 	
-	if (mSender.valid())
-		mSender = TTObject();
-	
 	mOutput = value[0];
 	
-	mObserveOutputRange = true;
+	mObserveOutputRange = YES;
+    
+    if (mOutput == kTTAdrsEmpty) {
+        
+        mSender = TTObject();
+        mOutputObserver = TTObject();
+        mOutputRangeObserver = TTObject();
+        return kTTErrGeneric;
+    }
 		
-	// Make a TTSender object
-	mSender = TTObject(kTTSym_Sender);
+	// Make a sender if needed
+    if (!mSender.valid())
+        mSender = TTObject(kTTSym_Sender);
 	
 	mSender.set(kTTSym_address, mOutput.appendAttribute(kTTSym_value));
 	
@@ -378,22 +398,23 @@ TTErr TTMapper::setOutput(const TTValue& value)
 
 TTErr TTMapper::observeOutput()
 {
-	TTValue		args;
-	TTObject    returnOutputCreationCallback, empty;
+	TTObject returnOutputCreationCallback;
 	
-	if (mOutputObserver.valid())
-		mOutputObserver = TTObject();
-	
-	// Make a TTReceiver object
-	returnOutputCreationCallback = TTObject("callback");
+	if (!mOutputObserver.valid()) {
+		
+        TTValue     args;
+        TTObject    empty;
+        
+        returnOutputCreationCallback = TTObject("callback");
     
-	returnOutputCreationCallback.set(kTTSym_baton, TTObject(this));
-	returnOutputCreationCallback.set(kTTSym_function, TTPtr(&TTMapperOutputCreationCallback));
-	args.append(returnOutputCreationCallback);
+        returnOutputCreationCallback.set(kTTSym_baton, TTObject(this));
+        returnOutputCreationCallback.set(kTTSym_function, TTPtr(&TTMapperOutputCreationCallback));
+        args.append(returnOutputCreationCallback);
 	
-	args.append(empty);
+        args.append(empty);
 	
-	mOutputObserver = TTObject(kTTSym_Receiver, args);
+        mOutputObserver = TTObject(kTTSym_Receiver, args);
+    }
 	
 	mOutputObserver.set(kTTSym_address, mOutput.appendAttribute(kTTSym_created));
 	
@@ -402,21 +423,22 @@ TTErr TTMapper::observeOutput()
 
 TTErr TTMapper::observeOutputRange()
 {
-	TTValue		args;
-	TTObject    returnOutputRangeCallback, empty;
+	TTObject returnOutputRangeCallback;
 	
-	if (mOutputRangeObserver.valid())
-		mOutputRangeObserver = TTObject();
+	if (!mOutputRangeObserver.valid()) {
+		
+        TTValue     args;
+        TTObject    empty;
+        
+        args.append(empty);
 	
-	// Make a TTReceiver object
-	args.append(empty);
+        returnOutputRangeCallback = TTObject("callback");
+        returnOutputRangeCallback.set(kTTSym_baton, TTObject(this));
+        returnOutputRangeCallback.set(kTTSym_function, TTPtr(&TTMapperOutputRangeCallback));
+        args.append(returnOutputRangeCallback);
 	
-	returnOutputRangeCallback = TTObject("callback");
-	returnOutputRangeCallback.set(kTTSym_baton, TTObject(this));
-	returnOutputRangeCallback.set(kTTSym_function, TTPtr(&TTMapperOutputRangeCallback));
-	args.append(returnOutputRangeCallback);
-	
-	mOutputRangeObserver = TTObject(kTTSym_Receiver, args);
+        mOutputRangeObserver = TTObject(kTTSym_Receiver, args);
+    }
 	
 	mOutputRangeObserver.set(kTTSym_address, mOutput.appendAttribute(kTTSym_rangeBounds));
 	
