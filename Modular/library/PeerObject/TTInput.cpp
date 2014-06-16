@@ -124,7 +124,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 		// prepare arguments
 		mAddressObserver = TTObject("callback");
         
-		mAddressObserver.set(kTTSym_baton, TTObject(this));
+		mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 		mAddressObserver.set(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
 	}
 	
@@ -163,9 +163,8 @@ TTErr TTInputDirectoryCallback(const TTValue& baton, const TTValue& data)
 	TTUInt8			flag;
 	TTValue         none;
 	
-	// unpack baton (a TTInput)
-    o = baton[0];
-	anInput = (TTInputPtr)o.instance();
+	// unpack baton (a #TTInputPtr)
+	anInput = TTInputPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];

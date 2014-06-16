@@ -178,7 +178,7 @@ TTErr TTSender::bindAddress()
 	// 3. Observe any creation or destruction below the address
 	mAddressObserver = TTObject("callback");
 	
-	mAddressObserver.set(kTTSym_baton, TTObject(this));
+	mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	mAddressObserver.set(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
 
 	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
@@ -241,14 +241,13 @@ TTErr TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data)
 	TTValue			aCacheElement;
 	TTSenderPtr		aSender;
 	TTNodePtr		aNode;
-	TTObject        o, anObject, aCacheObject;
+	TTObject        anObject, aCacheObject;
 	TTAddress		anAddress;
 	TTValue			v;
 	TTUInt8			flag;
 
-	// unpack baton (a #TTSender)
-    o = baton[0];
-	aSender = (TTSenderPtr)o.instance();
+	// unpack baton (a #TTSenderPtr)
+	aSender = TTSenderPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 
 	// Unpack data (address, aNode, flag, anObserver)
 	anAddress = data[0];

@@ -308,7 +308,7 @@ TTErr TTReceiver::bindAddress()
 	// observe any creation or destruction below the attr_name address
 	mAddressObserver = TTObject("callback");
 	
-	mAddressObserver.set(kTTSym_baton, TTObject(this));
+	mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	mAddressObserver.set(kTTSym_function, TTPtr(&TTReceiverDirectoryCallback));
 	
 	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
@@ -421,9 +421,8 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 	TTValue			newCouple, none;
 	TTErr			err;
 	
-	// unpack baton (a #TTReceiver)
-    o = baton[0];
-	aReceiver = (TTReceiverPtr)o.instance();
+	// unpack baton (a #TTReceiverPtr)
+	aReceiver = TTReceiverPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -580,7 +579,7 @@ TTErr TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data)
 	aReceiver = (TTReceiverPtr)o.instance();
 	anAddress = baton[1];
 	
-	if(aReceiver->mActive) {
+	if (aReceiver->mActive) {
 		
 		// return the address
         if (anAddress.getAttribute() == kTTSym_value)

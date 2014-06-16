@@ -175,3 +175,9 @@ TTBoolean TTObject::valid() const
 	else
 		return NO;
 }
+
+void TTObject::track(TTBoolean newTrackingValue)
+{
+    if (mObjectInstance && mObjectInstance->valid)
+        mObjectInstance->track = newTrackingValue;
+}
