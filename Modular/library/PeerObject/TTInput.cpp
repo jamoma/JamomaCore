@@ -111,6 +111,13 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	TTObject    o;
 
 	newAddress = value[0];
+    
+    if (newAddress == kTTAdrsEmpty) {
+        
+        mAddressObserver.set(kTTSym_address, kTTAdrsEmpty);
+        mAddressObserver = TTObject();
+        return kTTErrGeneric;
+    }
 	
 	if (!accessApplicationLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
@@ -119,6 +126,7 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
             Link(o, none);
 	}
 	
+    //create a receiver if needed
 	if (!mAddressObserver.valid()) {
         
 		// prepare arguments
@@ -128,12 +136,10 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 		mAddressObserver.set(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
 	}
 	
-	if (mAddressObserver.valid()) {
-		if (mOutputAddress != kTTAdrsEmpty)
-			accessApplicationLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
+    if (mOutputAddress != kTTAdrsEmpty)
+        accessApplicationLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
 		
-		accessApplicationLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
-	}
+    accessApplicationLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	
 	mOutputAddress = newAddress;
 	

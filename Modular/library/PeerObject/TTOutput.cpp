@@ -135,6 +135,13 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	TTValue		none, n = value;		// use new value to protect the attribute
     
 	newAddress = value[0];
+    
+    if (newAddress == kTTAdrsEmpty) {
+        
+        mAddressObserver.set(kTTSym_address, kTTAdrsEmpty);
+        mAddressObserver = TTObject();
+        return kTTErrGeneric;
+    }
 	
 	if (!accessApplicationLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
@@ -143,7 +150,8 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 			if (o.name() == kTTSym_Input|| o.name() == kTTSym_InputAudio)
 				Link(o, none);
 	}
-
+    
+    // create receiver if needed
 	if (!mAddressObserver.valid()) {
 		
 		// prepare arguments
@@ -153,12 +161,11 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 		mAddressObserver.set(kTTSym_function, TTPtr(&TTOutputDirectoryCallback));
 	}
 	
-	if (mAddressObserver.valid()) {
-		if (mInputAddress != kTTAdrsEmpty)
-			accessApplicationLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
-		
-		accessApplicationLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
-	}
+    // update directory observation
+    if (mInputAddress != kTTAdrsEmpty)
+        accessApplicationLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
+    
+    accessApplicationLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	
 	mInputAddress = newAddress;
 	
