@@ -169,10 +169,15 @@ TTErr TTOutput::setMute(const TTValue& value)
 {
 	mMute = value;
 	
-    if (mMute)
-        return mGainUnit.set("linearGain", 0.0);
+    if (mGainUnit.valid()) {
+        
+        if (mMute)
+            return mGainUnit.set("linearGain", 0.0);
+        else
+            return mGainUnit.set("midiGain", mGain);
+    }
     else
-        return mGainUnit.set("midiGain", mGain);
+        return kTTErrGeneric;
 }
 
 TTErr TTOutput::setMix(const TTValue& value)
@@ -191,7 +196,10 @@ TTErr TTOutput::setGain(const TTValue& value)
 {
 	mGain = value;
 	
-	return mGainUnit.set("midiGain", mGain);
+    if (mGainUnit.valid())
+        return mGainUnit.set("midiGain", mGain);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr TTOutput::notifySignalObserver(const TTValue& value)
