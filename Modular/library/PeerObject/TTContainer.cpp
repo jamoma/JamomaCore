@@ -484,7 +484,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 
         TTObject valueObserver = TTObject("callback");
 				
-        // create a Value Attribute observer on it
+        // create a value Attribute observer on it
         anObject.instance()->findAttribute(kTTSym_value, &anAttribute);
         
         baton = TTValue(TTObject(this), aRelativeAddress);
@@ -601,7 +601,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 				// unregistrer returnedValue observer
 				anObserver = cacheElement[1];
 				anAttribute = NULL;
-				err = anObject.instance()->findAttribute(kTTSym_value, &anAttribute);
+				err = anObject.instance()->findAttribute(kTTSym_returnedValue, &anAttribute);
 				
 				if (!err)
 					err = anAttribute->unregisterObserverForNotifications(anObserver);
@@ -664,13 +664,35 @@ TTErr TTContainer::unbind()
 		
         if (anObject.valid()) {
             
+            // Théo -- the code below is partly the same than deleteCacheElement
+            
             // is it a Data ?
             if (anObject.name() == kTTSym_Data) {
                 
-                // unregister Value observer
+                // unregister value observer
                 aValueObserver = cacheElement[1];
                 anAttribute = NULL;
                 err = anObject.instance()->findAttribute(kTTSym_value, &anAttribute);
+                
+                if (!err)
+                    anAttribute->unregisterObserverForNotifications(aValueObserver);
+            }
+            else if (anObject.name() == kTTSym_Viewer) {
+                
+                // unregister returnedValue observer
+                aValueObserver = cacheElement[1];
+                anAttribute = NULL;
+                err = anObject.instance()->findAttribute(kTTSym_returnedValue, &anAttribute);
+                
+                if (!err)
+                    anAttribute->unregisterObserverForNotifications(aValueObserver);
+            }
+            else if (anObject.name() == kTTSym_Container) {
+                
+                // unregister activity observer
+                aValueObserver = cacheElement[1];
+                anAttribute = NULL;
+                err = anObject.instance()->findAttribute(kTTSym_activity, &anAttribute);
                 
                 if (!err)
                     anAttribute->unregisterObserverForNotifications(aValueObserver);
