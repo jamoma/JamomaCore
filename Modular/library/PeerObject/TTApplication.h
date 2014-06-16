@@ -63,6 +63,7 @@ private:
 	
 	TTBoolean					mActivity;			///< ATTRIBUTE : enable the activity mechanism
     TTBoolean					mDebug;				///< ATTRIBUTE : to enable the debug mode for the application (default : NO)
+	TTBoolean					mLearn;             ///< ATTRIBUTE : enable the learning mechanism (see in UpdateAttribute)
 
 	TTHash                      mCachedAttributes;  ///< ATTRIBUTE : all attribute names which need to be cached by a mirror application to reduce the number of network requests
     

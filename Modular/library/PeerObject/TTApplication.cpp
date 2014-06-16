@@ -31,6 +31,7 @@ mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
 mActivity(NO),
 mDebug(NO),
+mLearn(NO),
 mTempAddress(kTTAdrsRoot)
 {
 	addAttributeWithSetter(Name, kTypeSymbol);
@@ -39,6 +40,8 @@ mTempAddress(kTTAdrsRoot)
 	addAttribute(Author, kTypeSymbol);
 	addAttribute(Debug, kTypeBoolean);
 	addAttributeWithSetter(Activity, kTypeBoolean);
+    
+    addAttribute(Learn, kTypeBoolean);
 	
     TTAttributePtr anAttribute;
     
@@ -119,6 +122,7 @@ mTempAddress(kTTAdrsRoot)
     
     // note : this a temporary message to allow proxy data creation
     addMessageWithArguments(ProxyDataInstantiate);
+    addMessageProperty(ProxyDataInstantiate, hidden, YES);
 	
     // create a TTNodeDirectory to handle the application namespace
 	mDirectory = new TTNodeDirectory(mName);
@@ -683,7 +687,11 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 	whereComesFrom = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);
 	
-	type = newValue[0];
+    // in learn mode we can only create Data
+    if (mLearn)
+        type = kTTSym_Data;
+    else
+        type = newValue[0];
     
     err = mDirectory->Lookup(whereComesFrom, aNodeList, &aNode);
 	
@@ -695,13 +703,22 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 		protocolName = protocolNames[0];
         
         aProtocol = accessProtocol(protocolName);
-        if (aProtocol)
-            // instantiate Mirror object for distant application
-            appendMirrorObject(aProtocol, whereComesFrom, type);
+        if (aProtocol) {
+            
+            if (mType == kTTSym_mirror)
+                // instantiate Mirror object for distant application
+                appendMirrorObject(aProtocol, whereComesFrom, type);
+            
+            if (mType == kTTSym_proxy)
+                // instantiate proxy Data object for distant application
+                appendProxyData(aProtocol, whereComesFrom, kTTSym_parameter);
+            
+            return kTTErrNone;
+        }
 	}
     
     // if the node exists : remove it
-	else if (!err)
+	else if (!err && type == TTSymbol("delete"))
         mDirectory->TTNodeRemove(whereComesFrom);
 	
 	return kTTErrGeneric;
@@ -714,6 +731,9 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	TTValuePtr	newValue;
 	TTObject	anObject;
 	TTErr		err;
+
+	if (mLearn)
+        return UpdateDirectory(inputValue, outputValue);
 	
 	whereComesFrom = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);
@@ -1459,8 +1479,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                 xmlTextReaderMoveToFirstAttribute((xmlTextReaderPtr)aXmlHandler->mReader);
                                 
                                 // get all object attributes and their value
-                                while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
-                                    
+                               do {
                                     // get attribute name
                                     aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
                                     
@@ -1481,7 +1500,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                             anObject.set(attributeName, v);
                                         }
                                     }
-                                }
+                               } while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1);
                             }
                         }
                     }
