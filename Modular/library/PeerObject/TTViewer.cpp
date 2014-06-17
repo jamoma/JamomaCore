@@ -248,7 +248,10 @@ TTErr TTViewer::Send(const TTValue& inputValue, TTValue& outputValue)
     if (valueToSend.size() > 0 && mDataspaceUnit != kTTSym_none)
         valueToSend.append(mDataspaceUnit);
     
-    return mSender.send(kTTSym_Send, valueToSend, none);
+    if (mSender.valid())
+        return mSender.send(kTTSym_Send, valueToSend, none);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr TTViewer::Grab(const TTValue& inputValue, TTValue& outputValue)
