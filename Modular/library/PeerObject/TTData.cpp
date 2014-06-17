@@ -439,13 +439,22 @@ TTErr TTData::setRampFunction(const TTValue& value)
 #endif
 TTErr TTData::setDataspace(const TTValue& value)
 {
-	TTErr err = kTTErrGeneric;
-	TTValue v, none;
+	TTErr   err;
+	TTValue v;
 	TTValue n = value;				// use new value to protect the attribute
+    
 	mDataspace = value;
 	
-	mDataspaceConverter = TTObject("dataspace");
-	mDataspaceConverter.set("dataspace", mDataspace);
+    if (!mDataspaceConverter.valid())
+        mDataspaceConverter = TTObject("dataspace");
+    
+	err = mDataspaceConverter.set("dataspace", mDataspace);
+    
+    if (err) {
+        
+        mDataspace = kTTSym_none;
+        return err;
+    }
 	
 	// If there is already a unit defined, then we try to use that
     err = mDataspaceConverter.set("outputUnit", mDataspaceUnit);
@@ -466,10 +475,15 @@ TTErr TTData::setDataspaceUnit(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspaceUnit = value;
     
-    mDataspaceConverter.set("outputUnit", mDataspaceUnit);
+    if (mDataspaceConverter.valid()) {
+        
+        mDataspaceConverter.set("outputUnit", mDataspaceUnit);
 	
-	this->notifyObservers(kTTSym_dataspaceUnit, n);
-	return kTTErrNone;
+        this->notifyObservers(kTTSym_dataspaceUnit, n);
+        return kTTErrNone;
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTData::setDescription(const TTValue& value)
