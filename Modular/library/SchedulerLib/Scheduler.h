@@ -56,6 +56,7 @@ protected:
     TTFloat64                       mDuration;              ///< ATTRIBUTE : the time (in ms) the scheduler will run at normal speed factor
     TTFloat64                       mOffset;                ///< ATTRIBUTE : the date (in ms) the sheduler will run from
     TTFloat64                       mSpeed;                 ///< ATTRIBUTE : the speed factor of the scheduler
+    TTBoolean                       mExternalTick;          ///< ATTRIBUTE : if true the Tick message comes from an external source
     
     TTBoolean                       mRunning;               ///< ATTRIBUTE : is the scheduler running right now ?
     TTBoolean                       mPaused;                ///< ATTRIBUTE : is the scheduler paused right now ?

@@ -32,6 +32,7 @@ mType(kTTSym_local),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
 mActivity(NO),
+mLearn(NO),
 mDirectoryListenersCache(NULL),
 mAttributeListenersCache(NULL),
 mAppToTT(NULL),
@@ -61,6 +62,8 @@ mTempAddress(kTTAdrsRoot)
 	addAttribute(Debug, kTypeBoolean);
 	
 	addAttributeWithSetter(Activity, kTypeBoolean);
+    
+    addAttribute(Learn, kTypeBoolean);
 	
     registerAttribute(TTSymbol("activityIn"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getActivityIn, (TTSetterMethod)& TTApplication::setActivityIn);
     this->findAttribute(TTSymbol("activityIn"), &anAttribute);
@@ -125,6 +128,10 @@ mTempAddress(kTTAdrsRoot)
 	
 	addMessageWithArguments(ReadFromXml);
 	addMessageProperty(ReadFromXml, hidden, YES);
+    
+    // note : this a temporary message to allow proxy data creation
+    addMessageWithArguments(ProxyDataInstantiate);
+    addMessageProperty(ProxyDataInstantiate, hidden, YES);
 	
 	mDirectory = new TTNodeDirectory(mName);
 	mDirectory->getRoot()->setObject(TTObjectBasePtr(this));
@@ -705,7 +712,11 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 	whereComesFrom = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);
 	
-	newValue->get(0, type);
+    // in learn mode we can only create Data
+    if (mLearn)
+        type = kTTSym_Data;
+    else
+        newValue->get(0, type);
     
     err = mDirectory->Lookup(whereComesFrom, aNodeList, &aNode);
 	
@@ -717,13 +728,22 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
         protocolNames.get(0, protocolName);
         
         aProtocol = (ProtocolPtr)getProtocol(protocolName);
-        if (aProtocol)
-            // instantiate Mirror object for distant application
-            appendMirrorObject(aProtocol, whereComesFrom, type);
+        if (aProtocol) {
+            
+            if (mType == kTTSym_mirror)
+                // instantiate Mirror object for distant application
+                appendMirrorObject(aProtocol, whereComesFrom, type);
+            
+            if (mType == kTTSym_proxy)
+                // instantiate proxy Data object for distant application
+                appendProxyData(aProtocol, whereComesFrom, kTTSym_parameter);
+            
+            return kTTErrNone;
+        }
 	}
     
     // if the node exists
-	else if (!err) {
+	else if (!err && type == TTSymbol("delete")) {
        
         aMirror = aNode->getObject();
         
@@ -743,6 +763,9 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	TTValuePtr			newValue;
 	TTObjectBasePtr		anObject;
 	TTErr				err;
+    
+    if (mLearn)
+        return UpdateDirectory(inputValue, outputValue);
 	
 	whereComesFrom = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);
@@ -1317,8 +1340,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                 xmlTextReaderMoveToFirstAttribute((xmlTextReaderPtr)aXmlHandler->mReader);
                                 
                                 // get all object attributes and their value
-                                while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
-                                    
+                               do {
                                     // get attribute name
                                     aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
                                     
@@ -1339,7 +1361,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                             anObject->setAttributeValue(attributeName, v);
                                         }
                                     }
-                                }
+                               } while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1);
                             }
                         }
                     }
@@ -1356,6 +1378,36 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
     // when a node ends : keep the parent address for next nodes
     else
         mTempAddress = mTempAddress.getParent();
+}
+
+TTErr TTApplication::ProxyDataInstantiate(const TTValue& inputValue, TTValue& outputValue)
+{
+    // for proxy application only
+    if (mType == kTTSym_proxy) {
+        
+        // a distant application should have one protocol
+        TTValue protocolNames = getApplicationProtocols(mName);
+        TTSymbol protocolName = protocolNames[0];
+        
+        ProtocolPtr aProtocol = (ProtocolPtr)getProtocol(protocolName);
+        if (aProtocol) {
+            
+            if (inputValue.size() == 2) {
+                
+                if (inputValue[0].type() == kTypeSymbol && inputValue[1].type() == kTypeSymbol) {
+                    
+                    TTAddress address = inputValue[0];
+                    TTSymbol service = inputValue[1];
+                    
+                    // instantiate a proxy data object
+                    outputValue = appendProxyData(aProtocol, address.normalize(), service);
+                    return kTTErrNone;
+                }
+            }
+        }
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName)

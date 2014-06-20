@@ -455,18 +455,18 @@ TTErr TTScript::RunFlattened()
             
             anObject = aNode->getObject();
             
-            // DEBUG : check if the object is still valid
-            if (!anObject->valid) {
-                
-                // DEBUG : this means there is a bad tree managment : we need to trace this
-                std::cout << "TTScript::RunFlattened -- object at " << (const char*)address.c_str() << " is not valid" << std::endl;
-                
-                // DEBUG : we have to exit because it's going to crash
-                return kTTErrGeneric;
-            }
-            
             // check object type
             if (anObject) {
+                
+                // DEBUG : check if the object is still valid
+                if (!anObject->valid) {
+                    
+                    // DEBUG : this means there is a bad tree managment : we need to trace this
+                    std::cout << "TTScript::RunFlattened -- object at " << (const char*)address.c_str() << " is not valid" << std::endl;
+                    
+                    // DEBUG : we have to exit because it's going to crash
+                    return kTTErrGeneric;
+                }
                 
                 // default attribute is value attribute
                 if (address.getAttribute() == kTTSymEmpty)
@@ -538,18 +538,18 @@ TTErr TTScript::RunCommand(const TTValue& inputValue, TTValue& outputValue)
                     
                     anObject = aNode->getObject();
                     
-                    // DEBUG : check if the object is still valid
-                    if (!anObject->valid) {
-                        
-                        // DEBUG : this means there is a bad tree managment : we need to trace this
-                        std::cout << "TTScript::RunCommand -- object at " << (const char*)address.c_str() << " is not valid" << std::endl;
-                        
-                        // DEBUG : we have to exit because it's going to crash
-                        return kTTErrGeneric;
-                    }
-                    
                     // check object type
                     if (anObject) {
+                        
+                        // DEBUG : check if the object is still valid
+                        if (!anObject->valid) {
+                            
+                            // DEBUG : this means there is a bad tree managment : we need to trace this
+                            std::cout << "TTScript::RunCommand -- object at " << (const char*)address.c_str() << " is not valid" << std::endl;
+                            
+                            // DEBUG : we have to exit because it's going to crash
+                            return kTTErrGeneric;
+                        }
                         
                         // default attribute is value attribute
                         if (address.getAttribute() == kTTSymEmpty)
@@ -615,9 +615,15 @@ TTErr TTScript::RemoveCommand(const TTValue& inputValue, TTValue& outputValue)
                 linesToRemove.append(mFlattenedLines->current());
         }
         
-        // remove each lines from the flattened line list
-        for (linesToRemove.begin(); linesToRemove.end(); linesToRemove.next())
+        // remove each lines from the the line list and flattened line list and delete it
+        for (linesToRemove.begin(); linesToRemove.end(); linesToRemove.next()) {
+            
+            mLines->remove(linesToRemove.current());
             mFlattenedLines->remove(linesToRemove.current());
+            
+            aLine = TTDictionaryBasePtr((TTPtr)linesToRemove.current()[0]);
+            delete aLine;
+        }
         
         return kTTErrNone;
     }
@@ -2128,7 +2134,7 @@ TTErr TTScriptOptimize(TTScriptPtr aScriptToOptimize, TTScriptPtr aScript, TTScr
 TTErr TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy)
 {
 	TTScriptPtr			aSubScriptToCopy, aSubScriptCopy;
-	TTDictionaryBasePtr		aLine, aLineCopy;
+	TTDictionaryBasePtr aLine, aLineCopy;
 	TTValue				v, args;
 	
 	// copy each line of the script
@@ -2167,7 +2173,7 @@ TTErr TTScriptCopy(TTScriptPtr scriptTocopy, TTScriptPtr aScriptCopy)
 
 void TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found)
 {
-	TTDictionaryBasePtr		aLine;
+	TTDictionaryBasePtr aLine;
 	TTAddress			address;
 	TTValue				v;
 	
@@ -2181,7 +2187,7 @@ void TTScriptFindAddress(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBo
 
 void TTScriptFindTarget(const TTValue& lineValue, TTPtr addressPtrToMatch, TTBoolean& found)
 {
-	TTDictionaryBasePtr		aLine;
+	TTDictionaryBasePtr aLine;
 	TTAddress			address;
 	TTValue				v;
 	

@@ -25,6 +25,7 @@ TTObjectBase(arguments),
 mDuration(0.),
 mOffset(0.),
 mSpeed(1.),
+mExternalTick(NO),
 mRunning(NO),
 mPaused(NO),
 mPosition(0.),
@@ -47,6 +48,7 @@ mBaton(NULL)
     addAttributeWithSetter(Duration, kTypeFloat64);
     addAttributeWithSetter(Offset, kTypeFloat64);
     addAttributeWithSetter(Speed, kTypeFloat64);
+    addAttribute(ExternalTick, kTypeBoolean);
 
 	addAttribute(Stretchable, kTypeBoolean);
 	addAttributeProperty(Stretchable, readOnly, YES);

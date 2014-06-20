@@ -89,6 +89,7 @@ private:
 	TTSymbol					mAuthor;			///< ATTRIBUTE : the author of the application
 	
 	TTBoolean					mActivity;			///< ATTRIBUTE : enable the activity mechanism
+    TTBoolean					mLearn;             ///< ATTRIBUTE : enable the learning mechanism (see in UpdateAttribute)
     
     TTHash                      mCachedAttributes;  ///< ATTRIBUTE : all attribute names which need to be cached by a mirror application to reduce the number of network requests
 	
@@ -198,6 +199,12 @@ private:
 		read a directory description */
 	TTErr ReadFromOpml(const TTValue& inputValue, TTValue& outputValue);
     
+    /* Instantiate and register a #TTData object
+     note : this a temporary message to allow proxy data creation
+     @param inputValue      an address, service of the data
+     @param outputValue     the new object */
+    TTErr ProxyDataInstantiate(const TTValue& inputValue, TTValue& outputValue);
+
     TTObjectBasePtr     appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName);
     TTObjectBasePtr     appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service);
     TTObjectBasePtr     appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress);

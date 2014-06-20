@@ -79,6 +79,20 @@ TTErr System::Go()
         sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
         sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
     }
+    else if (mExternalTick) {
+        
+        // reset timing informations
+        mRunning = YES;
+        mPaused = NO;
+        mLastTime = 0.;
+        
+        // notify each observers
+        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+        
+        // launch a first tick if the duration is valid
+        if (mDuration > 0.)
+            Tick();
+    }
     // if the thread is not running
     else if (mThread == NULL) {
         
