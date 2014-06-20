@@ -95,9 +95,10 @@ TTErr Protocol::setApplicationManager(const TTValue& value)
 
 TTErr Protocol::ApplicationRegister(const TTValue& inputValue, TTValue& outputValue)
 {
+    TTObject    application;
 	TTSymbol	parameterName;
 	TTHashPtr	applicationParameters;
-	TTValue		v, parameterNames, none;
+	TTValue		v, parameterNames, out, none;
 	TTErr		err;
     
     // update local application name
@@ -110,23 +111,43 @@ TTErr Protocol::ApplicationRegister(const TTValue& inputValue, TTValue& outputVa
             
             mSelectedApplication = inputValue[0];
             
-            // Check the application is not already registered
-            err = mApplicationParameters.lookup(mSelectedApplication, v);
+            // check if the application is registered into the application manager
+            err = mApplicationManager.send("ApplicationFind", mSelectedApplication, out);
             
-            if (err) {
+            if (!err) {
                 
-                applicationParameters = new TTHash();
+                application = out[0];
                 
-                // prepare parameters table
-                this->getParameterNames(parameterNames);
-                for (TTUInt32 i = 0; i < parameterNames.size(); i++) {
-                    parameterName = parameterNames[i];
-                    applicationParameters->append(parameterName, none);
+                // Check the application is not already registered
+                err = mApplicationParameters.lookup(mSelectedApplication, v);
+                
+                if (err) {
+                    
+                    applicationParameters = new TTHash();
+                    
+                    // prepare parameters table
+                    this->getParameterNames(parameterNames);
+                    for (TTUInt32 i = 0; i < parameterNames.size(); i++) {
+                        parameterName = parameterNames[i];
+                        applicationParameters->append(parameterName, none);
+                    }
+                    
+                    // add the parameters table into mApplicationParameters
+                    v = TTValue((TTPtr)applicationParameters);
+                    mApplicationParameters.append(mSelectedApplication, v);
+                    
+                    // for none local application
+                    if (mSelectedApplication != mLocalApplicationName) {
+                        
+                        // setup the application type depending of the discovering feature of the protocol
+                        if (mDiscover || mDiscoverAll)
+                            application.set("type", kTTSym_mirror);
+                        else
+                            application.set("type", kTTSym_proxy);
+                    }
+                    
+                    return kTTErrNone;
                 }
-                
-                // add the parameters table into mApplicationParameters
-                v = TTValue((TTPtr)applicationParameters);
-                return mApplicationParameters.append(mSelectedApplication, v);
             }
         }
     }
