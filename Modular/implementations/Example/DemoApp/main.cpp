@@ -314,6 +314,9 @@ DemoApp::Setup()
     // Explore the namespace of the i-score application (i-score have to be opened and configured with a Minuit "demo" device)
     //mApplicationRemote.send("DirectoryBuild");
     
+    TTLogMessage("\n*** Control of i-score ***\n");
+    /////////////////////////////////////////////////////////
+    
     v = TTValue("/Main:externalTick", 1);
     mApplicationRemote.send("ObjectSend", v, out);
 }
