@@ -131,6 +131,12 @@ public:
 
 	/**	A message-bound version of getClassNamesWithTags()	*/
 	TTErr getClassNamesForTags(const TTValue& anInputValue, TTValue &anOutputValue);
+    
+    /**	Check if a class is registered
+     @param className			the name of a class
+     @return					#TTErr error code if the class is not registered, else #kTTErrNone.
+	 */
+	TTErr isClassRegistered(const TTSymbol& className);
 	
 	
 	/**	Create a new instance of a registered #TTObjectBase class.

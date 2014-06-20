@@ -209,6 +209,13 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 }
 
 
+TTErr TTEnvironment::isClassRegistered(const TTSymbol& className)
+{
+    TTValue v;
+    return classes->lookup(className, v);
+}
+
+
 TTErr TTEnvironment::createInstance(const TTSymbol className, TTObjectBasePtr* anObject, const TTValue& anArgument)
 {
 	TTValue		v;
