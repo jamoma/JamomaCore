@@ -913,6 +913,24 @@ TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
                 
                 return kTTErrNone;
             }
+            // distant application case : try to send the message even if it is not in the directory
+            else if (this != accessApplicationLocal) {
+                
+                TTSymbol	protocolName;
+                ProtocolPtr aProtocol;
+                TTValue		valueToSend, protocolNames;
+                
+                // remove the address part to get the value to send
+                valueToSend.copyFrom(inputValue, 1);
+                
+                // a distant application should have one protocol
+                protocolNames = accessApplicationProtocolNames(mName);
+                protocolName = protocolNames[0];
+                
+                aProtocol = accessProtocol(protocolName);
+                if (aProtocol)
+                    return aProtocol->SendSetRequest(mName, address, valueToSend);
+            }
             
             return err;
         }
