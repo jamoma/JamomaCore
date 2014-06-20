@@ -46,49 +46,56 @@ mType(kTTSymEmpty)
         if (arguments.size() >= 5)
             mListenAttributeCallback = arguments[4];
         
-        // instantiate a temp object to copy visible attributes and messages
-        args.resize(32);
-        TTObject anObject = TTObject(mType, args);
-        
-        if (anObject.valid()) {
+        // if the class exist
+        if (!ttEnvironment->isClassRegistered(mType)) {
             
-            anObject.attributes(attributeNames);
-            for (TTUInt32 i = 0; i < attributeNames.size(); i++) {
+            // instantiate a temp object to copy visible attributes and messages
+            args.resize(32);
+            TTObject anObject = TTObject(mType, args);
+            
+            if (anObject.valid()) {
                 
-                anAttribute = NULL;
-                name = attributeNames[i];
-                anObject.instance()->getAttribute(name, &anAttribute);
-                
-                if (mGetAttributeCallback.valid())
-                    addMirrorAttribute(name, anAttribute->type);
-                
-                // else cache the attribute value
-                else {
+                anObject.attributes(attributeNames);
+                for (TTUInt32 i = 0; i < attributeNames.size(); i++) {
                     
-                    addMirrorCachedAttribute(name, anAttribute->type);
+                    anAttribute = NULL;
+                    name = attributeNames[i];
+                    anObject.instance()->getAttribute(name, &anAttribute);
                     
-                    mAttributeValueCache.append(name, none);
+                    if (mGetAttributeCallback.valid())
+                        addMirrorAttribute(name, anAttribute->type);
+                    
+                    // else cache the attribute value
+                    else {
+                        
+                        addMirrorCachedAttribute(name, anAttribute->type);
+                        
+                        mAttributeValueCache.append(name, none);
+                    }
+                    
+                    setAttributeGetterFlags(name, attributeFlags);
+                    setAttributeSetterFlags(name, attributeFlags);
+                    
+                    // TODO : addMirrorAttributeProperty
+                    //addMirrorAttributeProperty(name, readOnly, anAttribute->readOnly);
                 }
                 
-                setAttributeGetterFlags(name, attributeFlags);
-                setAttributeSetterFlags(name, attributeFlags);
-                
-                // TODO : addMirrorAttributeProperty
-                //addMirrorAttributeProperty(name, readOnly, anAttribute->readOnly);
-            }
-            
-            anObject.messages(messageNames);
-            for (TTUInt32 i = 0; i < messageNames.size(); i++) {
-                
-                name = messageNames[i];
-                anObject.instance()->getMessage(name, &aMessage);
-                
-                addMirrorMessage(name, aMessage->flags);
-                
-                // TODO : addMirrorMessageProperty
+                anObject.messages(messageNames);
+                for (TTUInt32 i = 0; i < messageNames.size(); i++) {
+                    
+                    name = messageNames[i];
+                    anObject.instance()->getMessage(name, &aMessage);
+                    
+                    addMirrorMessage(name, aMessage->flags);
+                    
+                    // TODO : addMirrorMessageProperty
+                }
             }
         }
     }
+    
+    addMessageWithArguments(AttributesInstantiate);
+    addMessageWithArguments(MessagesInstantiate);
     
     addMessageWithArguments(AttributeCache);
     addMessageWithArguments(AttributeUncache);
@@ -102,6 +109,54 @@ TTMirror::~TTMirror()
 TTSymbol TTMirror::getName()
 {
     return mType;
+}
+
+TTErr TTMirror::AttributesInstantiate(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTAttributeFlags attributeFlags = kTTAttrPassObject;
+    TTValue none;
+    
+    for (TTUInt32 i = 0; i < inputValue.size(); i++) {
+        
+        if (inputValue[i].type() == kTypeSymbol) {
+            
+            TTSymbol name = inputValue[i];
+            
+            if (mGetAttributeCallback.valid())
+                addMirrorAttribute(name, kTypeLocalValue);
+            
+            // else cache the attribute value
+            else {
+                
+                addMirrorCachedAttribute(name, kTypeLocalValue);
+                
+                mAttributeValueCache.append(name, none);
+            }
+            
+            setAttributeGetterFlags(name, attributeFlags);
+            setAttributeSetterFlags(name, attributeFlags);
+        }
+    }
+    
+    return kTTErrNone;
+}
+
+TTErr TTMirror::MessagesInstantiate(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTMessageFlags messageFlags = kTTMessageDefaultFlags;
+    TTValue none;
+    
+    for (TTUInt32 i = 0; i < inputValue.size(); i++) {
+        
+        if (inputValue[i].type() == kTypeSymbol) {
+            
+            TTSymbol name = inputValue[i];
+            
+            addMirrorMessage(name, messageFlags);
+        }
+    }
+    
+    return kTTErrNone;
 }
 
 TTErr TTMirror::AttributeCache(const TTValue& inputValue, TTValue& outputValue)

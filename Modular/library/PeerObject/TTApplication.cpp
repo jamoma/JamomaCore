@@ -380,7 +380,7 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
     TTObject    anObject;
     TTErr       err;
     
-    err = aProtocol->SendDiscoverRequest(mName, anAddress, returnedType, returnedChildren, returnedAttributes); // to - the returnedAttributes field is useless !
+    err = aProtocol->SendDiscoverRequest(mName, anAddress, returnedType, returnedChildren, returnedAttributes);
     
     if (!err) {
         
@@ -391,7 +391,7 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
                 TTSymbol    cachedAttribute;
                 TTValue     attributesToCache, v, args, none;
                 
-                anObject = appendMirrorObject(aProtocol, anAddress, returnedType);
+                anObject = appendMirrorObject(aProtocol, anAddress, returnedType, returnedAttributes);
                 
                 if (anObject.valid()) {
                     
@@ -676,7 +676,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 {
 	TTAddress	whereComesFrom;
 	TTValuePtr	newValue;
-    TTValue     protocolNames;
+    TTValue     protocolNames, none;
 	TTSymbol	type, protocolName;;
     TTList      aNodeList;
     TTNodePtr   aNode;
@@ -707,7 +707,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
             
             if (mType == kTTSym_mirror)
                 // instantiate Mirror object for distant application
-                appendMirrorObject(aProtocol, whereComesFrom, type);
+                appendMirrorObject(aProtocol, whereComesFrom, type, none);
             
             if (mType == kTTSym_proxy)
                 // instantiate proxy Data object for distant application
@@ -1384,7 +1384,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                             if (mType == kTTSym_mirror) {
                                 
                                 // instantiate a mirror object
-                                anObject = appendMirrorObject(aProtocol, address, objectName);
+                                anObject = appendMirrorObject(aProtocol, address, objectName, none);
                                 
                             }
                             // for proxy appplication
@@ -1549,7 +1549,7 @@ TTErr TTApplication::ProxyDataInstantiate(const TTValue& inputValue, TTValue& ou
     return kTTErrGeneric;
 }
 
-TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName)
+TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName, TTValue& attributesName)
 {
     TTObject    aMirror;
     TTNodePtr   aNode;
@@ -1560,7 +1560,7 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
     
     if (objectName != kTTSymEmpty && objectName != kTTSym_none) {
         
-        TTValue none, args = objectName;
+        TTValue none, v, args = objectName;
         
         aProtocol->getAttributeValue(TTSymbol("get"), allowGetRequest);
         
@@ -1615,6 +1615,11 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
             args.append(empty);
         
         aMirror = TTObject(kTTSym_Mirror, args);
+        
+        // if the Mirror cannot instantiate attributes
+        aMirror.attributes(v);
+        if (v.size() == 0)
+            aMirror.send("AttributesInstantiate", attributesName, none);
         
         // register object into the directory
         this->mDirectory->TTNodeCreate(anAddress, aMirror, NULL, &aNode, &newInstanceCreated);

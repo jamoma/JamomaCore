@@ -284,9 +284,10 @@ private:
      @param aProtocol       a protocol object
      @param anAddress       where to register the mirror object
      @param objectName      object type to mirror
+     @param attributesName  attributes of the object to mirror
      @return #TTObjectBasePtr
      @seealso readNodeFromXml */
-    TTObjectBasePtr appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName);
+    TTObjectBasePtr appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName, TTValue& attributesName);
     
     /**  Convenient method used to create a data object
      @param aProtocol       a protocol object
