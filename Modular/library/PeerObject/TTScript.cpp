@@ -1275,7 +1275,6 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTAddress           address;
 	TTSymbol			name;
 	TTString			aString;
-    TTBoolean           addQuote;
 	TTUInt8				i;
 	TTValue				v;
 	
@@ -1297,6 +1296,9 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		
 		// Write script line depending on his schema
 		if (aLine->getSchema() == kTTSym_flag) {
+            
+            TTBoolean oneSymbol = NO;
+            TTBoolean addQuote = NO;
 			
 			// get flag name
 			aLine->lookup(kTTSym_name, v);
@@ -1305,11 +1307,16 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			// get flag arguments value if exists
 			if (!aLine->getValue(v)) {
                 
-                // if the value is an unique symbol : add quote
-                addQuote = v.size() == 1 && v[0].type() == kTypeSymbol;
-                    
+                // if the value is an unique symbol with out quote : add quote
+                if (v.size() == 1)
+                    if (v[0].type() == kTypeSymbol)
+                        oneSymbol = YES;
+
 				v.toString();
 				aString = TTString(v[0]);
+                
+                if (oneSymbol)
+                    addQuote = aString[0] != '"' && aString[aString.size()-1] != '"';
 			}
 			else aString = "";
 			
