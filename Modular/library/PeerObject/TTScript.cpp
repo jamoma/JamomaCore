@@ -1027,7 +1027,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			
 			// else get flag arguments value
 			aLine->getValue(v);
-			v.toString();
+			v.toString(NO); // no quotes
 			aString = TTString(v[0]);
 			
 			// write flag name and arguments as an Element
@@ -1298,7 +1298,6 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		if (aLine->getSchema() == kTTSym_flag) {
             
             TTBoolean oneSymbol = NO;
-            TTBoolean addQuote = NO;
 			
 			// get flag name
 			aLine->lookup(kTTSym_name, v);
@@ -1307,16 +1306,12 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			// get flag arguments value if exists
 			if (!aLine->getValue(v)) {
                 
-                // if the value is an unique symbol with out quote : add quote
                 if (v.size() == 1)
                     if (v[0].type() == kTypeSymbol)
                         oneSymbol = YES;
 
-				v.toString();
+				v.toString(NO); // no quotes
 				aString = TTString(v[0]);
-                
-                if (oneSymbol)
-                    addQuote = aString[0] != '"' && aString[aString.size()-1] != '"';
 			}
 			else aString = "";
 			
@@ -1324,9 +1319,12 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			*buffer += "- ";
 			*buffer += name.c_str();
 			*buffer += " ";
-            if (addQuote) *buffer += "\"";
+            
+            // if the value is an unique symbol : add quotes
+            if (oneSymbol) *buffer += "\"";
 			*buffer += aString.data();
-            if (addQuote) *buffer += "\"";
+            if (oneSymbol) *buffer += "\"";
+            
 			*buffer += "\n";
 		}	
 		if (aLine->getSchema() == kTTSym_comment) {
