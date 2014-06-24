@@ -55,6 +55,7 @@ mSignalAttr(NULL)
 	addAttribute(Type, kTypeSymbol);
 	
 	addAttributeWithSetter(OutputAddress, kTypeSymbol);
+    addAttributeProperty(OutputAddress, hidden, YES);
 	
 	addAttribute(Mute, kTypeBoolean);
     

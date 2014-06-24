@@ -76,6 +76,7 @@ mSignalAttr(NULL)
 	addAttribute(Type, kTypeSymbol);
 	
 	addAttributeWithSetter(InputAddress, kTypeSymbol);
+    addAttributeProperty(InputAddress, hidden, YES);
 	
 	addAttributeWithSetter(Mute, kTypeBoolean);
 	addAttributeWithSetter(Mix, kTypeFloat64);
