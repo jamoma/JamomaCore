@@ -53,7 +53,6 @@ mSignalAttr(NULL)
 	}
 	
 	addAttribute(Type, kTypeSymbol);
-	addAttributeProperty(Type, readOnly, YES);
 	
 	addAttributeWithSetter(OutputAddress, kTypeSymbol);
 	
