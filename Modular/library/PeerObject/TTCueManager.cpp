@@ -1055,10 +1055,14 @@ TTErr TTCueManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 		
 		cueName = mNames[i];
 		if (!mCues.lookup(cueName, v)) {
+            
+            TTValue name = cueName;
+            name.toString(NO); //no quotes
+            TTString s = TTString(name[0]);
 			
 			// start to write a cue
 			xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "cue");
-			xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST cueName.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST s.c_str());
 			
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
 			aXmlHandler->sendMessage(TTSymbol("Write"));

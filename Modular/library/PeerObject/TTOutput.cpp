@@ -33,9 +33,9 @@ mSignalAttr(NULL)
         mReturnSignalCallback = arguments[0];
 	
 	addAttribute(Type, kTypeSymbol);
-	addAttributeProperty(Type, readOnly, YES);
 	
 	addAttributeWithSetter(InputAddress, kTypeSymbol);
+    addAttributeProperty(InputAddress, hidden, YES);
 	
 	addAttributeWithSetter(Mute, kTypeBoolean);
 	addAttributeWithSetter(Mix, kTypeFloat64);

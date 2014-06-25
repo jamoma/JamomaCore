@@ -257,7 +257,7 @@ TTErr TTAddressBase::parse()
 		end = s_toParse.end();
         
         // directory:/ case
-        if (s_toParse[0] == C_SEPARATOR && s_toParse.length() == 2) {
+        if (s_toParse[0] == C_SEPARATOR && s_toParse[1] == '\0') {
             
             this->directory = TTSymbol(s_directory);
             this->parent = NO_PARENT.getBasePointer();

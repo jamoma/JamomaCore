@@ -278,13 +278,13 @@ public:
      @param     none
      @return    #TTString that contains the content of all elements in the #TTValue
      */
-	TTString toString() const
+	TTString toString(TTBoolean quotes = YES) const
 	{
 		TTString temp;
 	
 		for (size_t i=0; i<size(); i++) {
-			at(i).string(temp);		// get a string for each item
-			if (i < (size()-1))		// add a space between each item, but no space at the end
+			at(i).string(temp, quotes);		// get a string for each item
+			if (i < (size()-1))				// add a space between each item, but no space at the end
 				temp.append(" ");
 		}
 		
@@ -299,8 +299,8 @@ public:
 		TTString temp;
         
 		for (size_t i=0; i<size(); i++) {
-			at(i).string(temp);		// get a string for each item
-			if (i < (size()-1))		// add a space between each item, but no space at the end
+			at(i).string(temp, quotes);		// get a string for each item
+			if (i < (size()-1))             // add a space between each item, but no space at the end
 				temp.append(" ");
 		}
 		

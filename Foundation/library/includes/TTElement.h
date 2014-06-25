@@ -600,7 +600,7 @@ public:
 	
 #define TTELEMENT_TEMP_STRINGLEN 32
 	
-	void string(TTString& aString) const
+	void string(TTString& aString, TTBoolean quotes = YES) const
 	{
 		char		temp[TTELEMENT_TEMP_STRINGLEN];
 		TTBoolean	addQuotes;
@@ -654,7 +654,7 @@ public:
 					aString.append("0");
 				break;
 			case kTypeSymbol:
-				addQuotes = strchr(mValue.mSymbol->c_str(), ' ') != 0;
+				addQuotes = quotes && strchr(mValue.mSymbol->c_str(), ' ') != 0;
 				if (addQuotes)
 					aString.append("\"");
 				aString.append(mValue.mSymbol->c_str());

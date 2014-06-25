@@ -37,9 +37,9 @@ mSignalAttr(NULL)
 	}
 	
 	addAttribute(Type, kTypeSymbol);
-	addAttributeProperty(Type, readOnly, YES);
 	
 	addAttributeWithSetter(OutputAddress, kTypeSymbol);
+    addAttributeProperty(OutputAddress, hidden, YES);
 	
 	addAttribute(Mute, kTypeBoolean);
     
