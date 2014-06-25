@@ -272,7 +272,6 @@ TTErr TTContainer::initNode(TTNodePtr aNode)
     TTSymbol        service;
     TTValue         v;
     
-    
     // Init nodes below
     aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
     
@@ -283,23 +282,22 @@ TTErr TTContainer::initNode(TTNodePtr aNode)
     {
         aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
         
-        // only children from the same context
-        if (aChild->getContext() != aNode->getContext())
-            continue;
-        
-        // Send Init message to node's object
         anObject = aChild->getObject();
         
         if (anObject) {
             
-            // Send an Init message to all Data service parameter
+            // Send an Init message to all Data service parameter which are in the same context
             if (anObject->getName() == kTTSym_Data) {
+                
+                if (aChild->getContext() != aNode->getContext())
+                    continue;
                 
                 anObject->getAttributeValue(kTTSym_service, v);
                 service = v[0];
                 if (service == kTTSym_parameter)
                     anObject->sendMessage(kTTSym_Init);
             }
+            // Send an Init message to all Container
             else if (anObject->getName() == kTTSym_Container)
                 anObject->sendMessage(kTTSym_Init);
         }
