@@ -290,24 +290,6 @@ public:
 		
         return temp;
 	}
-    
-    // TODO: Could this be DRYer?
-    /** @overload
-     */
-	void toString()
-	{
-		TTString temp;
-        
-		for (size_t i=0; i<size(); i++) {
-			at(i).string(temp, quotes);		// get a string for each item
-			if (i < (size()-1))             // add a space between each item, but no space at the end
-				temp.append(" ");
-		}
-		
-		// now set the value to the new string
-        clear();
-        append(temp);
-	}
 	
     /** @breif Convert a single string into individual elements using space to divide items
      @param     numberAsSymbol  optional #TTBoolean determines whether method leaves numbers as symbols, default is NO
