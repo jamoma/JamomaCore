@@ -1352,30 +1352,45 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
             
             v = TTValue(mCurrentCue);
             aTextHandler->setAttributeValue(kTTSym_object, v);
-            aTextHandler->sendMessage(TTSymbol("Read"));
+            return aTextHandler->sendMessage(TTSymbol("Read"));
+        }
+    }
+    
+    // if it is the last line : bind on the first cue
+    if (aTextHandler->mLastLine) {
+        
+        // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
+        // but we should review all the #TTCue and #TTScript architecture to improve this
+        for (TTUInt32 i = 0; i < mNames.size(); i++) {
+            
+            TTSymbol cueName = mNames[i];
+            
+            if (!mCues->lookup(cueName, v)) {
+                
+                TTCuePtr aCue = TTCuePtr((TTObjectBasePtr)v[0]);
+                TTValue none;
+                aCue->sendMessage("ReadFromText", inputValue, none);
+            }
         }
         
-        // if it is the last line : bind on the first cue
-        if (aTextHandler->mLastLine) {
+        // try to set the former current as current
+        mCurrent = mLastCurrent;
+        if (!mCues->lookup(mCurrent, v))
+            mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
+        
+        // else bind on the first cue
+        else if (mNames.size()) {
             
-            // try to set the former current as current
-            mCurrent = mLastCurrent;
+            mCurrent = mNames[0];
             if (!mCues->lookup(mCurrent, v))
                 mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
-            
-            // else bind on the first cue
-            else if (mNames.size()) {
-                
-                mCurrent = mNames[0];
-                if (!mCues->lookup(mCurrent, v))
-                    mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
-            }
-            
-            notifyNamesObservers();
         }
+        
+        notifyNamesObservers();
         
         return kTTErrNone;
     }
+
 	
 	return kTTErrGeneric;
 }

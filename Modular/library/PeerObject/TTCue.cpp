@@ -358,6 +358,10 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		
 		// 5. Process ramp
 		if (mRamp) setRamp(mRamp);
+        
+        // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
+        // but we should review all the #TTCue and #TTScript architecture to improve this
+        mScript->sendMessage("Flatten");
 		
 		return kTTErrNone;
 	}
@@ -847,6 +851,10 @@ TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer += mAddress->getCString();
 	*buffer += "\n";
 	*/
+    
+    // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
+    // but we should review all the #TTCue and #TTScript architecture to improve this
+    mScript->sendMessage("Flatten");
 	
 	// use WriteAsText of the script
 	v = TTValue(mScript);
@@ -871,6 +879,11 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	v = TTValue(mScript);
 	aTextHandler->setAttributeValue(kTTSym_object, v);
 	aTextHandler->sendMessage(TTSymbol("Read"));
+    
+    // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
+    // but we should review all the #TTCue and #TTScript architecture to improve this
+    if (aTextHandler->mLastLine)
+        mScript->sendMessage("Flatten");
 	
 	return kTTErrNone;
 }
