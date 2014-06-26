@@ -1751,7 +1751,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 	TTDictionaryBasePtr line1, line2;
     TTAddress       adrs1, adrs2;
     TTValue			v1, v2, v, newValue;
-	TTSymbol		attribute, type, function;
+	TTSymbol		schema1, schema2, attribute, type, function;
     TTNodePtr       aNode;
     TTObjectBasePtr aData;
 	TTValue			found, none;
@@ -1763,6 +1763,16 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 		
         line1 = TTDictionaryBasePtr((TTPtr)script1->mFlattenedLines->current()[0]);
         line2 = TTDictionaryBasePtr((TTPtr)script2->mFlattenedLines->current()[0]);
+        
+        // get the line schema
+        line1->lookup(kTTSym_schema, v);
+        schema1 = v[0];
+        
+        line2->lookup(kTTSym_schema, v);
+        schema2 = v[0];
+        
+        if (schema1 != kTTSym_command && schema2 != kTTSym_command)
+            continue;
 		
         // get the target address
         line1->lookup(kTTSym_target, v);
@@ -1861,7 +1871,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 	TTDictionaryBasePtr firstScriptLine, aLine;
     TTAddress       firstAdrs, adrs;
     TTValue			v, valueToMix, mixedValue, found;
-    TTSymbol		type;
+    TTSymbol		schema, type;
     TTNodePtr       aNode;
     TTObjectBasePtr anObject;
     TTFloat64		sumFactors;
@@ -1886,6 +1896,13 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
     for (; firstScript->mFlattenedLines->end(); firstScript->mFlattenedLines->next()) {
 		
 		firstScriptLine = TTDictionaryBasePtr((TTPtr)firstScript->mFlattenedLines->current()[0]);
+        
+        // get the line schema
+        firstScriptLine->lookup(kTTSym_schema, v);
+        schema = v[0];
+        
+        if (schema != kTTSym_command)
+            continue;
         
 		// get the target address
         firstScriptLine->lookup(kTTSym_target, v);
