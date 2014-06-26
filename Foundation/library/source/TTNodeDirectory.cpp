@@ -974,8 +974,34 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 						if (!err) {
 							
 							// test value
-							if (!aFilter->lookup(kTTSym_value, valueFilter))
-								resultValue = valueFilter == v;
+							if (!aFilter->lookup(kTTSym_value, valueFilter)) {
+                                
+                                // special case for tag attribute : just check if one element of the value to filter exist in the tag
+                                if (attributeFilter == kTTSym_tag) {
+                                    
+                                    for (TTUInt32 i = 0; i < valueFilter.size(); i++) {
+                                        
+                                        TTSymbol tagFilter = valueFilter[i];
+                                        
+                                        for (TTUInt32 j = 0; j < v.size(); j++) {
+                                            
+                                            TTSymbol aTag = v[j];
+                                            
+                                            resultValue = aTag == tagFilter;
+                                            
+                                            if (resultValue)
+                                                break;
+                                        }
+                                        
+                                        if (resultValue)
+                                            break;
+                                    }
+                                }
+                                
+                                // compare the whole value
+                                else
+                                    resultValue = valueFilter == v;
+                            }
 						}
 					}
 				}
