@@ -142,8 +142,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 			
 			mFilePath = args[0];
 			
-			/*
-			std::ifstream file(mFilePath->getCString());
+			std::ifstream file(mFilePath.c_str());
 			
 			if (!file.is_open()) {
 				TT_ASSERT("TTTextHandler: Error opening the text file\n", true);
@@ -158,17 +157,26 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 			while (!file.eof()) {
 				
 				// parse line
-				getline(file, line);
-				mLine = new TTValue(line);
+                char c_line[1024];
+				file.getline(c_line, 1024);
+                
+                TTString s_line = TTString(c_line);
+				mLine = new TTValue(s_line);
 				mLine->fromString();
 				
-				if (file.eof()) mLastLine = YES;
+				aTTObject->sendMessage("ReadFromText", v, none);
 				
-				aTTObject->sendMessage(TTSymbol("ReadFromText"), v, none);
-				
-				if (mFirstLine) mFirstLine = NO;
+				if (mFirstLine)
+                    mFirstLine = NO;
+                
+                delete mLine;
 			}
-			 */
+            
+            // Close the reading
+            mLine = new TTValue();
+            mLastLine = YES;
+            aTTObject->sendMessage("ReadFromText", v, none);
+            delete mLine;
 		}
 		
 		// if the first argument is kTypePointer : get the text to read
