@@ -22,6 +22,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
+mDescription("something about this preset"),
 mAddress(kTTAdrsEmpty),
 mDirectory(NULL),
 mScript(NULL)
@@ -29,6 +30,7 @@ mScript(NULL)
 	TT_ASSERT("Correct number of args to create TTPreset", arguments.size() == 0 || arguments.size() == 1);
 	
 	addAttribute(Name, kTypeSymbol);
+    addAttribute(Description, kTypeSymbol);
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
 	addMessage(Clear);
@@ -86,24 +88,37 @@ TTErr TTPreset::Store()
 	Clear();
 	
 	if (mDirectory) {
+        
+        // 0. Append a comment line
+		v = TTValue(TTSymbol("###########################################"));
+		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
 		
 		// 1. Append a preset flag with the name
 		v = TTValue(TTSymbol("preset"));
 		v.append(mName);
 		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
+        
+        // 2. Append a description flag with the description
+		v = TTValue(TTSymbol("description"));
+		v.append(mDescription);
+		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
 		
-		// 2. Append a comment line
-		v = TTValue(TTSymbol("edit a comment"));
+		// 3. Append a comment line
+		v = TTValue(TTSymbol("###########################################"));
+		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
+        
+        // 4. Append an empty comment line
+        v.clear();
 		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
 		
-		// 3. Look for all Objects under the address into the directory
+		// 5. Look for all Objects under the address into the directory
 		mDirectory->Lookup(mAddress, aNodeList, &aNode);
 		mDirectory->LookFor(&aNodeList, &TTPresetTestObject, NULL, allObjectNodes, &aNode);
 		
-		// 4. Sort the NodeList using object priority order
+		// 6. Sort the NodeList using object priority order
 		allObjectNodes.sort(&compareNodePriorityThenNameThenInstance);
 		
-		// 5. Append a script line for each object found
+		// 7. Append a script line for each object found
 		for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 			
 			aNode = TTNodePtr((TTPtr)allObjectNodes.current()[0]);
@@ -256,6 +271,7 @@ TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
+    TTDictionaryBasePtr line;
 	TTValue	v;
 	
 	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
@@ -263,8 +279,40 @@ TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
 		Clear();
+    
+    if (inputValue.size() == 0)
+        return kTTErrGeneric;
+    
+    // if needed : parse the buffer line into TTDictionary
+    if ((*(aTextHandler->mLine))[0].type() != kTypePointer) {
+        
+        line = TTScriptParseLine(*(aTextHandler->mLine));
 	
-	// use ReadAsbuffer of the script
+        if (line)
+		
+            // replace the buffer line value by the parsed line dictionary
+            aTextHandler->mLine = new TTValue((TTPtr)line);
+    }
+    else
+        line = TTDictionaryBasePtr((TTPtr)aTextHandler->mLine[0]);
+    
+    // match description or tag flag lines :
+    if (line->getSchema() == kTTSym_flag) {
+        
+        line->lookup(kTTSym_name, v);
+        TTSymbol flagName = v[0];
+        
+        if (flagName == TTSymbol("description")) {
+            
+            // get description
+            if (!line->getValue(v)) {
+                
+                mDescription = v[0];
+            }
+        }
+    }
+
+	// use ReadFromText of the script
 	v = TTValue(mScript);
 	aTextHandler->setAttributeValue(kTTSym_object, v);
 	aTextHandler->sendMessage(TTSymbol("Read"));

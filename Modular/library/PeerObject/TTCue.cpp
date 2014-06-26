@@ -22,7 +22,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
-mDescription(kTTSym_none),
+mDescription("something about this cue"),
 mRamp(0),
 mAddress(kTTAdrsRoot),
 mScript(NULL)
@@ -335,6 +335,10 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 	if (aNamespace) {
 		
 		Clear();
+        
+        // 0. Append a comment line
+		v = TTValue(TTSymbol("###########################################"));
+		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
 		
 		// 1. Append a cue flag with the name
 		v = TTValue(TTSymbol("cue"));
@@ -345,8 +349,12 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		v = TTValue(TTSymbol("description"));
 		v.append(mDescription);
 		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
+        
+        // 3. Append a comment line
+		v = TTValue(TTSymbol("###########################################"));
+		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
 		
-		// 3. Process namespace storage from the mAddress
+		// 4. Process namespace storage from the mAddress
         // (but others directories are handled too. see in processStore)
         if (mAddress != kTTAdrsRoot)
             if (aNamespace->find(mAddress, &aNamespace))
@@ -867,6 +875,7 @@ TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
+    TTDictionaryBasePtr line;
 	TTValue	v;
 	
 	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
@@ -874,6 +883,38 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
 		Clear();
+    
+    if (inputValue.size() == 0)
+        return kTTErrGeneric;
+    
+    // if needed : parse the buffer line into TTDictionary
+    if ((*(aTextHandler->mLine))[0].type() != kTypePointer) {
+        
+        line = TTScriptParseLine(*(aTextHandler->mLine));
+        
+        if (line)
+            
+            // replace the buffer line value by the parsed line dictionary
+            aTextHandler->mLine = new TTValue((TTPtr)line);
+    }
+    else
+        line = TTDictionaryBasePtr((TTPtr)aTextHandler->mLine[0]);
+    
+    // match description or tag flag lines :
+    if (line->getSchema() == kTTSym_flag) {
+        
+        line->lookup(kTTSym_name, v);
+        TTSymbol flagName = v[0];
+        
+        if (flagName == TTSymbol("description")) {
+            
+            // get description
+            if (!line->getValue(v)) {
+                
+                mDescription = v[0];
+            }
+        }
+    }
 	
 	// use ReadFromText of the script
 	v = TTValue(mScript);

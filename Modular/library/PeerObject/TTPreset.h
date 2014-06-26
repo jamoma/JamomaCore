@@ -34,6 +34,7 @@ class TTMODULAR_EXPORT TTPreset : public TTDataObjectBase
 private :
 	
 	TTSymbol					mName;							///< ATTRIBUTE : the name of the preset
+    TTSymbol					mDescription;                   ///< ATTRIBUTE : the description of the preset
 	TTAddress                   mAddress;						///< ATTRIBUTE : the parent address from where to search object to store
 	
 	TTNodeDirectoryPtr			mDirectory;						///< a preset depends on a directory

@@ -1276,11 +1276,11 @@ TTErr TTCueManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		
 		cueName = mNames[i];
 		if (!mCues->lookup(cueName, v)) {
-			
-			*buffer += "\n";
-			
+
 			aTextHandler->setAttributeValue(kTTSym_object, v);
 			aTextHandler->sendMessage(TTSymbol("Write"));
+            
+			*buffer += "\n";
 		}
 	}
 	

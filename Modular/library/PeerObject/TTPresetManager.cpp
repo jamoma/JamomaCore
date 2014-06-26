@@ -863,10 +863,10 @@ TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputVal
 		presetName = mNames[i];
 		if (!mPresets->lookup(presetName, v)) {
 			
-			*buffer += "\n";
-			
 			aTextHandler->setAttributeValue(kTTSym_object, v);
 			aTextHandler->sendMessage(TTSymbol("Write"));
+            
+            *buffer += "\n";
 		}
 	}
 	
