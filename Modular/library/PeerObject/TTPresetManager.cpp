@@ -57,13 +57,13 @@ mReturnLineCallback(NULL)
 	
 	addMessage(Clear);
 	
-	addMessageWithArguments(Store);
+	addMessageWithArguments(New);
 	addMessageWithArguments(Recall);
     addMessageWithArguments(Output);
 	addMessageWithArguments(Interpolate);
 	addMessageWithArguments(Mix);
 	addMessageWithArguments(Move);
-	addMessageWithArguments(Remove);
+	addMessageWithArguments(Delete);
     addMessageWithArguments(Order);
 	addMessageWithArguments(Rename);
 	addMessageWithArguments(Copy);
@@ -158,7 +158,7 @@ TTErr TTPresetManager::Clear()
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTPresetManager::New(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue     v, args, out;
     TTErr       err;
@@ -494,7 +494,7 @@ TTErr TTPresetManager::Move(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTPresetManager::Delete(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbol name;
 	TTValue	 v, newNames;
