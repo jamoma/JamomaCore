@@ -35,6 +35,7 @@ mScript(NULL)
 	
 	addMessage(Clear);
 	addMessage(Store);
+    addMessage(Update);
 	addMessageWithArguments(Recall);
     addMessageWithArguments(Output);
 	
@@ -151,6 +152,80 @@ TTErr TTPreset::Store()
 	}
 	else
 		return kTTErrGeneric;
+}
+
+TTErr TTPreset::Update()
+{
+    TTValue     v, none;
+    TTBoolean   flattened;
+    
+    // is the preset already flattened ?
+    mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened = v[0];
+    
+    if (!flattened)
+        mScript->sendMessage(kTTSym_Flatten, mAddress, none);
+	
+	return processUpdate(mScript);
+}
+
+TTErr TTPreset::processUpdate(TTObjectBasePtr aScript)
+{
+	TTListPtr		lines;
+	TTDictionaryBasePtr	aLine;
+    TTAddress       anAddress;
+    TTNodePtr       aNode;
+	TTObjectBasePtr	anObject;
+    TTSymbol        service;
+	TTValue			v;
+    TTErr           err;
+	
+	aScript->getAttributeValue(TTSymbol("flattenedLines"), v);
+	lines = TTListPtr((TTPtr)v[0]);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		aLine = TTDictionaryBasePtr((TTPtr)lines->current()[0]);
+        
+        // if it is a Data object
+        if (!aLine->lookup(kTTSym_target, v)) {
+            
+            anAddress = v[0];
+            err = getDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
+            
+            if (!err) {
+                
+                anObject = aNode->getObject();
+                
+                if (anObject) {
+                    
+                    if (anObject->getName() == kTTSym_Data) {
+                        
+                        // get his service attribute value
+                        anObject->getAttributeValue(kTTSym_service, v);
+                        service = v[0];
+                        
+                        // update only parameters
+                        if (service == kTTSym_parameter) {
+                            
+                            // get his current value
+                            err = anObject->getAttributeValue(kTTSym_value, v);
+                            
+                            if (!err) {
+                                
+                                // replace the former value
+                                aLine->remove(kTTSym_value);
+                                aLine->append(kTTSym_value, v);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+	}
+	
+	return kTTErrNone;
 }
 
 TTErr TTPreset::Clear()

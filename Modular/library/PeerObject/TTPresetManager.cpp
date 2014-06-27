@@ -58,6 +58,7 @@ mReturnLineCallback(NULL)
 	addMessage(Clear);
 	
 	addMessageWithArguments(New);
+    addMessageWithArguments(Update);
 	addMessageWithArguments(Recall);
     addMessageWithArguments(Output);
 	addMessageWithArguments(Interpolate);
@@ -215,6 +216,50 @@ TTErr TTPresetManager::New(const TTValue& inputValue, TTValue& outputValue)
     }
 	
 	return err;
+}
+
+TTErr TTPresetManager::Update(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTValue		v, none;
+
+    if (inputValue.size() >= 1) {
+        
+        // get cue name
+        if (inputValue[0].type() == kTypeSymbol) {
+            mCurrent = inputValue[0];
+            
+            TTSymbol name;
+            for (TTInt32 i = 0; i < mNames.size(); i++) {
+                name = mNames[i];
+                if (name == mCurrent) {
+                    mCurrentPosition = i+1;
+                    break;
+                }
+            }
+        }
+        
+        // get cue at position
+        if (inputValue[0].type() == kTypeInt32) {
+            
+            mCurrentPosition = inputValue[0];
+            
+            if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
+                mCurrent = mNames[mCurrentPosition-1];
+            else
+                return kTTErrGeneric;
+        }
+    }
+    
+	// if preset exists
+	if (!mPresets->lookup(mCurrent, v)) {
+		
+		mCurrentPreset = TTPresetPtr((TTObjectBasePtr)v[0]);
+		
+		if (mCurrentPreset)
+            return mCurrentPreset->sendMessage(kTTSym_Update);
+	}
+	
+	return kTTErrGeneric;
 }
 
 TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)

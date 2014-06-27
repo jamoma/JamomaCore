@@ -60,6 +60,9 @@ private:
 	
 	/** */
 	TTErr	New(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** */
+    TTErr   Update(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
