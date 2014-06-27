@@ -291,7 +291,7 @@ TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 	TTValue				v;
 	
 	aXmlHandler = TTXmlHandlerPtr((TTObjectBasePtr)inputValue[0]);
-	
+    
 	// use WriteAsXml of the script
 	v = TTValue(mScript);
 	aXmlHandler->setAttributeValue(kTTSym_object, v);
@@ -331,9 +331,21 @@ TTErr TTPreset::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTTextHandlerPtr aTextHandler;
+    TTBoolean flattened;
 	TTValue	v;
 	
 	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
+    
+    // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
+    // but we should review all the #TTCue and #TTScript architecture to improve this
+    // so here we need to unflatten the script before to write it ...
+    
+    // is the preset already flattened ?
+    mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened = v[0];
+    
+    if (flattened)
+        mScript->sendMessage("Unflatten");
 	
 	// use WriteAsBuffer of the script
 	v = TTValue(mScript);
