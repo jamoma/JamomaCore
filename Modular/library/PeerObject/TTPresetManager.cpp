@@ -968,33 +968,33 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 				}
 			}
 		}
-		
-		// edit the current preset with the line
-		if (mCurrentPreset) {
-			
-			v = TTValue(mCurrentPreset);
-			aTextHandler->setAttributeValue(kTTSym_object, v);
-			aTextHandler->sendMessage(TTSymbol("Read"));
-		}
-		
-		// if it is the last line : bind on the first preset
-		if (aTextHandler->mLastLine) {
-			
-            if (mNames.size()) {
-                
-                mCurrent = mNames[0];
-                if (!mPresets->lookup(mCurrent, v))
-                    mCurrentPreset = TTPresetPtr((TTObjectBasePtr)v[0]);
-            }
-			
-			notifyNamesObservers();
-            notifyValueObservers();
-		}
-		
-		return kTTErrNone;
+        
+        // edit the current preset with the line
+        if (mCurrentPreset) {
+            
+            v = TTValue(mCurrentPreset);
+            aTextHandler->setAttributeValue(kTTSym_object, v);
+            return aTextHandler->sendMessage(TTSymbol("Read"));
+        }
     }
 	
-	return kTTErrGeneric;
+    // if it is the last line : bind on the first preset
+    if (aTextHandler->mLastLine) {
+        
+        if (mNames.size()) {
+            
+            mCurrent = mNames[0];
+            if (!mPresets->lookup(mCurrent, v))
+                mCurrentPreset = TTPresetPtr((TTObjectBasePtr)v[0]);
+        }
+        
+        notifyNamesObservers();
+        notifyValueObservers();
+        
+        return kTTErrNone;
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTPresetManager::notifyValueObservers()
