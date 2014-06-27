@@ -39,6 +39,9 @@ mIsReading(NO)
 	
 	addMessageWithArguments(Write);
 	addMessageWithArguments(Read);
+    
+    addMessage(WriteAgain);
+	addMessage(ReadAgain);
 }
 
 TTTextHandler::~TTTextHandler()
@@ -116,6 +119,15 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 	// else
 	v.append(TTObjectBasePtr(this));
 	return aTTObject->sendMessage(TTSymbol("WriteAsText"), v, none);
+}
+
+TTErr TTTextHandler::WriteAgain()
+{
+	TTValue args;
+	TTValue dummy;
+	
+	args.append(mFilePath);
+	return Write(args, dummy);
 }
 
 TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
@@ -251,4 +263,13 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 	// else
 	v.append(TTObjectBasePtr(this));
 	return aTTObject->sendMessage(TTSymbol("ReadFromText"), v, none);
+}
+
+TTErr TTTextHandler::ReadAgain()
+{
+	TTValue args;
+	TTValue dummy;
+	
+	args.append(mFilePath);
+	return Read(args, dummy);
 }
