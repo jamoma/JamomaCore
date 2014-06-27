@@ -66,7 +66,7 @@ mReturnLineCallback(NULL)
 	
 	addMessage(Clear);
 	
-	addMessageWithArguments(Store);
+	addMessageWithArguments(New);
     addMessageWithArguments(Update);
     addMessageWithArguments(Append);
 	addMessageWithArguments(Recall);
@@ -74,7 +74,7 @@ mReturnLineCallback(NULL)
 	addMessageWithArguments(Interpolate);
 	addMessageWithArguments(Mix);
 	addMessageWithArguments(Move);
-	addMessageWithArguments(Remove);
+	addMessageWithArguments(Delete);
     addMessageWithArguments(Order);
 	addMessageWithArguments(Rename);
 	addMessageWithArguments(Copy);
@@ -379,7 +379,7 @@ TTErr TTCueManager::Clear()
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTCueManager::New(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue v, args, out;
     TTErr   err;
@@ -837,7 +837,7 @@ TTErr TTCueManager::Move(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTCueManager::Delete(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbol    name;
 	TTValue     v, newNames;
