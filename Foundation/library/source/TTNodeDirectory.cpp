@@ -423,8 +423,12 @@ TTErr TTNodeDirectory::Lookup(TTAddress anAddress, TTList& returnedTTNodes, TTNo
 	// Make sure we are dealing with an absolute address
 	if (anAddress.getType() != kAddressAbsolute)
 		return kTTErrGeneric;
+    
+    // lonely wilcard case : * equals *.*
+    if (anAddress.getName() == S_WILDCARD && anAddress.getInstance() == kTTSymEmpty)
+        return Lookup(anAddress.appendInstance(S_WILDCARD), returnedTTNodes, firstReturnedTTNode);
 
-	// Is there a wild card ?
+	// Is there a wild card anywhere else ?
 	if (strrchr(anAddress.c_str(), C_WILDCARD)) {
 		
 		// Here is a recursive call to the TTNodeDirectory Lookup to get all TTNodes at upper levels
