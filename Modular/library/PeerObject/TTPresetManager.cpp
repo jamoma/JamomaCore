@@ -910,8 +910,6 @@ TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputVal
 			
 			aTextHandler->setAttributeValue(kTTSym_object, v);
 			aTextHandler->sendMessage(TTSymbol("Write"));
-            
-            *buffer += "\n";
 		}
 	}
 	

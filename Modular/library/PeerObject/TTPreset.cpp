@@ -90,10 +90,6 @@ TTErr TTPreset::Store()
 	
 	if (mDirectory) {
         
-        // 0. Append a comment line
-		v = TTValue(TTSymbol("###########################################"));
-		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
-		
 		// 1. Append a preset flag with the name
 		v = TTValue(TTSymbol("preset"));
 		v.append(mName);
@@ -104,7 +100,7 @@ TTErr TTPreset::Store()
 		v.append(mDescription);
 		mScript->sendMessage(TTSymbol("AppendFlag"), v, parsedLine);
 		
-		// 3. Append a comment line
+		// 3. Append a comment line at the beginning
 		v = TTValue(TTSymbol("###########################################"));
 		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
         
@@ -147,6 +143,14 @@ TTErr TTPreset::Store()
 				}
 			}
 		}
+        
+        // 8. Append an empty comment line
+        v.clear();
+		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
+        
+        // 9. Append a comment line at the end
+		v = TTValue(TTSymbol("###########################################"));
+		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
 		
 		return kTTErrNone;
 	}
