@@ -335,11 +335,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 	if (aNamespace) {
 		
 		Clear();
-        
-        // 0. Append a comment line
-		v = TTValue(TTSymbol("###########################################"));
-		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
-		
+
 		// 1. Append a cue flag with the name
 		v = TTValue(TTSymbol("cue"));
 		v.append(mName);
@@ -363,8 +359,16 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
         getDirectoryFrom(mAddress)->getTTNode(mAddress, &aNode);
         
         processStore(mScript, aNamespace, aNode);
+        
+        // 5. Append an empty comment line
+        v.clear();
+		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
+        
+        // 6. Append a comment line at the end
+		v = TTValue(TTSymbol("###########################################"));
+		mScript->sendMessage(TTSymbol("AppendComment"), v, parsedLine);
 		
-		// 5. Process ramp
+		// 7. Process ramp
 		if (mRamp) setRamp(mRamp);
         
         // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
@@ -884,7 +888,7 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 	if (aTextHandler->mFirstLine)
 		Clear();
     
-    if (inputValue.size() == 0)
+    if (aTextHandler->mLine->size() == 0)
         return kTTErrGeneric;
     
     // if needed : parse the buffer line into TTDictionary
