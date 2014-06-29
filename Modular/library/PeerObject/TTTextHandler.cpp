@@ -234,11 +234,13 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 						found = found < size ? found : size;
 					}
 					
-					// else set last line flag on
-					else  
-						mLastLine = YES;
+					// else set last line flag on to close the reading
+					else {
+                        mLine = new TTValue();
+                        mLastLine = YES;
+                    }
 
-					// send the line
+					// send the line (even an empty line for the last)
 					if (mLine) {
 						
 						aTTObject->sendMessage(TTSymbol("ReadFromText"), v, none);
