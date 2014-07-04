@@ -388,17 +388,20 @@ TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
         line = TTDictionaryBasePtr((TTPtr)aTextHandler->mLine[0]);
     
     // match description or tag flag lines :
-    if (line->getSchema() == kTTSym_flag) {
+    if (line) {
         
-        line->lookup(kTTSym_name, v);
-        TTSymbol flagName = v[0];
-        
-        if (flagName == TTSymbol("description")) {
+        if (line->getSchema() == kTTSym_flag) {
             
-            // get description
-            if (!line->getValue(v)) {
+            line->lookup(kTTSym_name, v);
+            TTSymbol flagName = v[0];
+            
+            if (flagName == TTSymbol("description")) {
                 
-                mDescription = v[0];
+                // get description
+                if (!line->getValue(v)) {
+                    
+                    mDescription = v[0];
+                }
             }
         }
     }
