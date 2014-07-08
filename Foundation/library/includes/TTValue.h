@@ -189,6 +189,17 @@ public:
 		else
 			return kTTSymEmpty;
 	}
+    
+    // TTObject needs to be manually wrapped to avoid ambiguity as interpretted by the clang compiler
+    /** @overload
+     */
+	operator TTObject() const
+	{
+		if (size())
+			return at(0);
+		else
+			return TTObject();
+	}
 	
     /** @brief Insert a single TTElement at the end */
 	template<class T>
