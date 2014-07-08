@@ -130,7 +130,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 	size_t		found, last, size;
 	TTUInt8		i;
 	TTString	line;
-	TTValue		v, none;
+	TTValue		none;
 	
 	// an object have to be selected
 	if (!mObject.valid())
@@ -169,7 +169,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 				mLine = new TTValue(s_line);
 				mLine->fromString();
 				
-				aTTObject.send("ReadFromText", v, none);
+				aTTObject.send("ReadFromText", TTObject(this), none);
 				
 				if (mFirstLine)
                     mFirstLine = NO;
@@ -180,7 +180,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
             // Close the reading
             mLine = new TTValue();
             mLastLine = YES;
-            aTTObject.send("ReadFromText", v, none);
+            aTTObject.send("ReadFromText", TTObject(this), none);
             delete mLine;
 		}
 		
