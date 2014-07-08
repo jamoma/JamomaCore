@@ -50,13 +50,14 @@ mCurrentPosition(0)
 	
 	addMessage(Clear);
 	
-	addMessageWithArguments(Store);
+	addMessageWithArguments(New);
+    addMessageWithArguments(Update);
 	addMessageWithArguments(Recall);
     addMessageWithArguments(Output);
 	addMessageWithArguments(Interpolate);
 	addMessageWithArguments(Mix);
 	addMessageWithArguments(Move);
-	addMessageWithArguments(Remove);
+	addMessageWithArguments(Delete);
     addMessageWithArguments(Order);
 	addMessageWithArguments(Rename);
 	addMessageWithArguments(Copy);
@@ -117,7 +118,7 @@ TTErr TTPresetManager::Clear()
 	return kTTErrNone;
 }
 
-TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTPresetManager::New(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue     v, out;
     TTErr       err;
@@ -169,6 +170,50 @@ TTErr TTPresetManager::Store(const TTValue& inputValue, TTValue& outputValue)
     }
 	
 	return err;
+}
+
+TTErr TTPresetManager::Update(const TTValue& inputValue, TTValue& outputValue)
+{
+    TTValue		v, none;
+
+    if (inputValue.size() >= 1) {
+        
+        // get cue name
+        if (inputValue[0].type() == kTypeSymbol) {
+            mCurrent = inputValue[0];
+            
+            TTSymbol name;
+            for (TTInt32 i = 0; i < mNames.size(); i++) {
+                name = mNames[i];
+                if (name == mCurrent) {
+                    mCurrentPosition = i+1;
+                    break;
+                }
+            }
+        }
+        
+        // get cue at position
+        if (inputValue[0].type() == kTypeInt32) {
+            
+            mCurrentPosition = inputValue[0];
+            
+            if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
+                mCurrent = mNames[mCurrentPosition-1];
+            else
+                return kTTErrGeneric;
+        }
+    }
+    
+	// if preset exists
+	if (!mPresets->lookup(mCurrent, v)) {
+		
+		mCurrentPreset = TTPresetPtr((TTObjectBasePtr)v[0]);
+		
+		if (mCurrentPreset)
+            return mCurrentPreset->sendMessage(kTTSym_Update);
+	}
+	
+	return kTTErrGeneric;
 }
 
 TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
@@ -439,7 +484,7 @@ TTErr TTPresetManager::Move(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTPresetManager::Remove(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTPresetManager::Delete(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbol name;
 	TTValue	 v, newNames;
@@ -803,8 +848,6 @@ TTErr TTPresetManager::WriteAsText(const TTValue& inputValue, TTValue& outputVal
 		presetName = mNames[i];
 		if (!mPresets.lookup(presetName, v)) {
 			
-			*buffer += "\n";
-			
 			aTextHandler->setAttributeValue(kTTSym_object, v);
 			aTextHandler->sendMessage(TTSymbol("Write"));
 		}
@@ -860,32 +903,32 @@ TTErr TTPresetManager::ReadFromText(const TTValue& inputValue, TTValue& outputVa
 				}
 			}
 		}
-		
-		// edit the current preset with the line
-		if (mCurrentPreset.valid()) {
-			
-			aTextHandler->setAttributeValue(kTTSym_object, mCurrentPreset);
-			aTextHandler->sendMessage(TTSymbol("Read"));
-		}
-		
-		// if it is the last line : bind on the first preset
-		if (aTextHandler->mLastLine) {
-			
-            if (mNames.size()) {
-                
-                mCurrent = mNames[0];
-                if (!mPresets.lookup(mCurrent, v))
-                    mCurrentPreset = v[0];
-            }
-			
-			notifyNamesObservers();
-            notifyValueObservers();
-		}
-		
-		return kTTErrNone;
+        
+        // edit the current preset with the line
+        if (mCurrentPreset.valid()) {
+            
+            aTextHandler->setAttributeValue(kTTSym_object, mCurrentPreset);
+            return aTextHandler->sendMessage(TTSymbol("Read"));
+        }
     }
 	
-	return kTTErrGeneric;
+    // if it is the last line : bind on the first preset
+    if (aTextHandler->mLastLine) {
+        
+        if (mNames.size()) {
+            
+            mCurrent = mNames[0];
+            if (!mPresets.lookup(mCurrent, v))
+                mCurrentPreset = v[0];
+        }
+        
+        notifyNamesObservers();
+        notifyValueObservers();
+        
+        return kTTErrNone;
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTPresetManager::notifyValueObservers()

@@ -85,10 +85,10 @@ private:
 	/** */
 	TTErr	Clear();
 	
-	/** Store a cue : 
+	/** New a cue :
 		name/id : create a new cue.
 		nothing : store into the current cue */
-	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	New(const TTValue& inputValue, TTValue& outputValue);
     
     /** Update a cue :
      name/id : update an existing cue.
@@ -122,10 +122,10 @@ private:
 	 name + position : move the cue to the given position. */
 	TTErr	Move(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** Remove a cue : 
+	/** Delete a cue :
 		name : remove the cue.
 		nothing : remove the current cue */
-	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	Delete(const TTValue& inputValue, TTValue& outputValue);
     
     /** Reorder the list */
 	TTErr	Order(const TTValue& inputValue, TTValue& outputValue);

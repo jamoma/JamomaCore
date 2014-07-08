@@ -33,7 +33,7 @@ extern "C" void TTData::registerClass()
 TTData::TTData(const TTValue& arguments) :
 TTCallback(arguments),
 mValue(TTValue(0.0)),
-mValueStepsize(TTValue(0.1)),
+mValueStepsize(TTValue(0.1)),       // this default value is expected in #TTData::setType method
 mType(kTTSym_generic),
 mTag(TTValue(kTTSym_none)),
 mPriority(0),
@@ -41,14 +41,14 @@ mDescription(kTTSym_none),
 mRepetitionsFilter(NO),
 mActive(YES),
 mInitialized(NO),
-mRangeBounds(0.0, 1.0),
+mRangeBounds(0.0, 1.0),             // this default value is expected in #TTData::setType method
 mRangeClipmode(kTTSym_none),
 mDynamicInstances(NO),
 mInstanceBounds(0, -1),
 mRampDrive(kTTSym_none),
 mRampDriveDefault(TTSymbol("System")),
 #ifndef TT_NO_DSP
-mRampFunction(kTTSym_none),
+mRampFunction(kTTSym_none),         // this default value is expected in #TTData::setType method
 #endif
 mRampStatus(NO),
 mDataspace(kTTSym_none),

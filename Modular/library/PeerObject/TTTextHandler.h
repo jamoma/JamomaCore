@@ -56,9 +56,11 @@ public:	// use public for recursive access
 
 	/** TTTextWriter could takes a file path or a string buffer pointer. */
 	TTErr Write(const TTValue& args, TTValue& outputValue);
+    TTErr WriteAgain();
 	
 	/** TTTextReader could takes a file path or a string buffer pointer. */
 	TTErr Read(const TTValue& args, TTValue& outputValue);
+    TTErr ReadAgain();
 	
 private :
 	

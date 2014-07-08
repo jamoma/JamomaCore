@@ -22,14 +22,17 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
+mDescription("something about this preset"),
 mAddress(kTTAdrsEmpty),
 mDirectory(NULL)
 {
 	addAttribute(Name, kTypeSymbol);
+    addAttribute(Description, kTypeSymbol);
 	addAttributeWithSetter(Address, kTypeSymbol);
 	
 	addMessage(Clear);
 	addMessage(Store);
+    addMessage(Update);
 	addMessageWithArguments(Recall);
     addMessageWithArguments(Output);
 	
@@ -80,23 +83,33 @@ TTErr TTPreset::Store()
 	Clear();
 	
 	if (mDirectory) {
-		
+        
 		// 1. Append a preset flag with the name
-		v = TTValue("preset", mName);
+		v = TTValue(TTSymbol("preset"));
+		v.append(mName);
+		mScript.send("AppendFlag", v, parsedLine);
+        
+        // 2. Append a description flag with the description
+		v = TTValue(TTSymbol("description"));
+		v.append(mDescription);
 		mScript.send("AppendFlag", v, parsedLine);
 		
-		// 2. Append a comment line
-		v = TTValue("edit a comment");
+		// 3. Append a comment line at the beginning
+		v = TTValue(TTSymbol("###########################################"));
+		mScript.send("AppendComment", v, parsedLine);
+        
+        // 4. Append an empty comment line
+        v.clear();
 		mScript.send("AppendComment", v, parsedLine);
 		
-		// 3. Look for all Objects under the address into the directory
+		// 5. Look for all Objects under the address into the directory
 		mDirectory->Lookup(mAddress, aNodeList, &aNode);
 		mDirectory->LookFor(&aNodeList, &TTPresetTestObject, NULL, allObjectNodes, &aNode);
 		
-		// 4. Sort the NodeList using object priority order
+		// 6. Sort the NodeList using object priority order
 		allObjectNodes.sort(&compareNodePriorityThenNameThenInstance);
 		
-		// 5. Append a script line for each object found
+		// 7. Append a script line for each object found
 		for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
 			
 			aNode = TTNodePtr((TTPtr)allObjectNodes.current()[0]);
@@ -124,11 +137,93 @@ TTErr TTPreset::Store()
 				}
 			}
 		}
+        
+        // 8. Append an empty comment line
+        v.clear();
+		mScript.send("AppendComment", v, parsedLine);
+        
+        // 9. Append a comment line at the end
+		v = TTValue(TTSymbol("###########################################"));
+		mScript.send("AppendComment", v, parsedLine);
 		
 		return kTTErrNone;
 	}
 	else
 		return kTTErrGeneric;
+}
+
+TTErr TTPreset::Update()
+{
+    TTValue     v, none;
+    TTBoolean   flattened;
+    
+    // is the preset already flattened ?
+    mScript->getAttributeValue(kTTSym_flattened, v);
+    flattened = v[0];
+    
+    if (!flattened)
+        mScript->sendMessage(kTTSym_Flatten, mAddress, none);
+	
+	return processUpdate(mScript);
+}
+
+TTErr TTPreset::processUpdate(TTObjectBasePtr aScript)
+{
+	TTListPtr		lines;
+	TTDictionaryBasePtr	aLine;
+    TTAddress       anAddress;
+    TTNodePtr       aNode;
+	TTObjectBasePtr	anObject;
+    TTSymbol        service;
+	TTValue			v;
+    TTErr           err;
+	
+	aScript->getAttributeValue(TTSymbol("flattenedLines"), v);
+	lines = TTListPtr((TTPtr)v[0]);
+	
+	// lookat each line of the script
+	for (lines->begin(); lines->end(); lines->next()) {
+		
+		aLine = TTDictionaryBasePtr((TTPtr)lines->current()[0]);
+        
+        // if it is a Data object
+        if (!aLine->lookup(kTTSym_target, v)) {
+            
+            anAddress = v[0];
+            err = getDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
+            
+            if (!err) {
+                
+                anObject = aNode->getObject();
+                
+                if (anObject) {
+                    
+                    if (anObject->getName() == kTTSym_Data) {
+                        
+                        // get his service attribute value
+                        anObject->getAttributeValue(kTTSym_service, v);
+                        service = v[0];
+                        
+                        // update only parameters
+                        if (service == kTTSym_parameter) {
+                            
+                            // get his current value
+                            err = anObject->getAttributeValue(kTTSym_value, v);
+                            
+                            if (!err) {
+                                
+                                // replace the former value
+                                aLine->remove(kTTSym_value);
+                                aLine->append(kTTSym_value, v);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+	}
+	
+	return kTTErrNone;
 }
 
 TTErr TTPreset::Clear()
@@ -236,6 +331,18 @@ TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTTextHandlerPtr aTextHandler = (TTTextHandlerPtr)o.instance();
     if (!aTextHandler)
 		return kTTErrGeneric;
+    
+    // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
+    // but we should review all the #TTCue and #TTScript architecture to improve this
+    // so here we need to unflatten the script before to write it ...
+	TTBoolean flattened;
+    
+    // is the preset already flattened ?
+    mScript.get(kTTSym_flattened, v);
+    flattened = v[0];
+    
+    if (flattened)
+        mScript.send("Unflatten");
 	
 	// use WriteAsBuffer of the script
 	aTextHandler->setAttributeValue(kTTSym_object, mScript);
@@ -251,11 +358,49 @@ TTErr TTPreset::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
     if (!aTextHandler)
 		return kTTErrGeneric;
 
+	TTDictionaryBasePtr line;
+	TTValue	v;
+
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
 		Clear();
+    
+    if (inputValue.size() == 0)
+        return kTTErrGeneric;
+    
+    // if needed : parse the buffer line into TTDictionary
+    if ((*(aTextHandler->mLine))[0].type() != kTypePointer) {
+        
+        line = TTScriptParseLine(*(aTextHandler->mLine));
 	
-	// use ReadAsbuffer of the script
+        if (line)
+		
+            // replace the buffer line value by the parsed line dictionary
+            aTextHandler->mLine = new TTValue((TTPtr)line);
+    }
+    else
+        line = TTDictionaryBasePtr((TTPtr)aTextHandler->mLine[0]);
+    
+    // match description or tag flag lines :
+    if (line) {
+        
+        if (line->getSchema() == kTTSym_flag) {
+            
+            line->lookup(kTTSym_name, v);
+            TTSymbol flagName = v[0];
+            
+            if (flagName == TTSymbol("description")) {
+                
+                // get description
+                if (!line->getValue(v)) {
+                    
+                    mDescription = v[0];
+                }
+            }
+        }
+    }
+
+	// use ReadFromText of the script
 	aTextHandler->setAttributeValue(kTTSym_object, mScript);
 	aTextHandler->sendMessage(TTSymbol("Read"));
 	
