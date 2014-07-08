@@ -158,27 +158,27 @@ TTErr TTPreset::Update()
     TTBoolean   flattened;
     
     // is the preset already flattened ?
-    mScript->getAttributeValue(kTTSym_flattened, v);
+    mScript.get(kTTSym_flattened, v);
     flattened = v[0];
     
     if (!flattened)
-        mScript->sendMessage(kTTSym_Flatten, mAddress, none);
+        mScript.send(kTTSym_Flatten, mAddress, none);
 	
 	return processUpdate(mScript);
 }
 
-TTErr TTPreset::processUpdate(TTObjectBasePtr aScript)
+TTErr TTPreset::processUpdate(TTObject& aScript)
 {
 	TTListPtr		lines;
 	TTDictionaryBasePtr	aLine;
     TTAddress       anAddress;
     TTNodePtr       aNode;
-	TTObjectBasePtr	anObject;
+	TTObject        anObject;
     TTSymbol        service;
 	TTValue			v;
     TTErr           err;
 	
-	aScript->getAttributeValue(TTSymbol("flattenedLines"), v);
+	aScript.get("flattenedLines", v);
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
@@ -190,25 +190,25 @@ TTErr TTPreset::processUpdate(TTObjectBasePtr aScript)
         if (!aLine->lookup(kTTSym_target, v)) {
             
             anAddress = v[0];
-            err = getDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
+            err = accessApplicationDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
             
             if (!err) {
                 
                 anObject = aNode->getObject();
                 
-                if (anObject) {
+                if (anObject.valid()) {
                     
-                    if (anObject->getName() == kTTSym_Data) {
+                    if (anObject.name() == kTTSym_Data) {
                         
                         // get his service attribute value
-                        anObject->getAttributeValue(kTTSym_service, v);
+                        anObject.get(kTTSym_service, v);
                         service = v[0];
                         
                         // update only parameters
                         if (service == kTTSym_parameter) {
                             
                             // get his current value
-                            err = anObject->getAttributeValue(kTTSym_value, v);
+                            err = anObject.get(kTTSym_value, v);
                             
                             if (!err) {
                                 
@@ -331,6 +331,8 @@ TTErr TTPreset::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTTextHandlerPtr aTextHandler = (TTTextHandlerPtr)o.instance();
     if (!aTextHandler)
 		return kTTErrGeneric;
+    
+    TTValue v;
     
     // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
     // but we should review all the #TTCue and #TTScript architecture to improve this

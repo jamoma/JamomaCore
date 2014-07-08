@@ -180,7 +180,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
             // Close the reading
             mLine = new TTValue();
             mLastLine = YES;
-            aTTObject->sendMessage("ReadFromText", v, none);
+            aTTObject.send("ReadFromText", v, none);
             delete mLine;
 		}
 		

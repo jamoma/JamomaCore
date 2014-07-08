@@ -205,12 +205,12 @@ TTErr TTPresetManager::Update(const TTValue& inputValue, TTValue& outputValue)
     }
     
 	// if preset exists
-	if (!mPresets->lookup(mCurrent, v)) {
+	if (!mPresets.lookup(mCurrent, v)) {
 		
-		mCurrentPreset = TTPresetPtr((TTObjectBasePtr)v[0]);
+		mCurrentPreset = v[0];
 		
-		if (mCurrentPreset)
-            return mCurrentPreset->sendMessage(kTTSym_Update);
+		if (mCurrentPreset.valid())
+            return mCurrentPreset.send(kTTSym_Update);
 	}
 	
 	return kTTErrGeneric;

@@ -67,7 +67,7 @@ private :
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
     
     /** a method to update each Data value */
-    TTErr   processUpdate(TTObjectBasePtr aScript);
+    TTErr   processUpdate(TTObject& aScript);
 	
 	friend TTErr TTMODULAR_EXPORT TTPresetInterpolate(TTObject preset1, TTObject preset2, TTFloat64 position);
 	friend TTErr TTMODULAR_EXPORT TTPresetMix(const TTValue& presets, const TTValue& factors);
