@@ -144,7 +144,7 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 			value = *((TTSymbol*)attribute.address);
 			return kTTErrNone;
 		case kTypeObject:
-			value = *((TTObjectBasePtr*)attribute.address);
+			value = *((TTObject*)attribute.address);
 			return kTTErrNone;
 //		case kTypeMatrix:
 //			value = *((TTMatrix*)attribute.address);
@@ -207,9 +207,9 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 		case kTypeSymbol:
 			*((TTSymbol*)attribute.address) = value;
 			return kTTErrNone;
-//		case kTypeObject:
-//			*((TTObjectBasePtr*)attribute.address) = value;
-//			return kTTErrNone;
+		case kTypeObject:
+			*((TTObject*)attribute.address) = value;
+			return kTTErrNone;
 //		case kTypeMatrix:
 //			*((TTMatrix*)attribute.address) = value;
 //			return kTTErrNone;
