@@ -412,15 +412,15 @@ public:
 	{
 		for_each(this->begin(), this->end(), std::mem_fun_ref(&TTElement::booleanize));
 	}
-
-
-	void toString()
+	
+	
+	void toString(TTBoolean quotes = YES)
 	{
 		TTString	temp;
 
 		for (size_t i=0; i<size(); i++) {
-			at(i).string(temp);		// get a string for each item
-			if (i < (size()-1))		// add a space between each item, but no space at the end
+			at(i).string(temp, quotes);		// get a string for each item
+			if (i < (size()-1))             // add a space between each item, but no space at the end
 				temp.append(" ");
 		}
 

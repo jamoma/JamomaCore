@@ -237,6 +237,9 @@ TTErr TTScript::Flatten(const TTValue& inputValue, TTValue& outputValue)
             // flatten the sub script into this script
             this->sendMessage(kTTSym_Flatten, v, none);
         }
+        // any other case : copy the line
+        else
+            this->mFlattenedLines->append((TTPtr)aLine);
 	}
 	
 	return kTTErrNone;
@@ -429,7 +432,7 @@ TTErr TTScript::RunFlattened()
     TTDictionaryBasePtr	aLine;
 	TTNodePtr		aNode;
 	TTAddress       address;
-    TTSymbol        attribute;
+    TTSymbol        attribute, schema;
 	TTObjectBasePtr	anObject;
 	TTValue			v, none;
 	TTErr			err;
@@ -439,7 +442,10 @@ TTErr TTScript::RunFlattened()
         
         aLine = TTDictionaryBasePtr((TTPtr)mFlattenedLines->current()[0]);
         
-        // note : Flattened lines are only command with absolute address
+        // in flatten mode there is no subscript so only run command line
+        schema = aLine->getSchema();
+        if (schema != kTTSym_command)
+            continue;
           
         // get the target address
         aLine->lookup(kTTSym_target, v);
@@ -1027,7 +1033,7 @@ TTErr TTScript::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 			
 			// else get flag arguments value
 			aLine->getValue(v);
-			v.toString();
+			v.toString(NO); // no quotes
 			aString = TTString(v[0]);
 			
 			// write flag name and arguments as an Element
@@ -1275,12 +1281,110 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	TTAddress           address;
 	TTSymbol			name;
 	TTString			aString;
-    TTBoolean           addQuote;
 	TTUInt8				i;
 	TTValue				v;
 	
 	aTextHandler = TTTextHandlerPtr((TTObjectBasePtr)inputValue[0]);
 	buffer = aTextHandler->mWriter;
+    
+    if (mFlattened) {
+        
+        // Write all flattened lines
+        for (mFlattenedLines->begin(); mFlattenedLines->end(); mFlattenedLines->next()) {
+            
+            aLine = TTDictionaryBasePtr((TTPtr)mFlattenedLines->current()[0]);
+            
+            // Write script line depending on his schema
+            if (aLine->getSchema() == kTTSym_flag) {
+                
+                TTBoolean oneSymbol = NO;
+                
+                // get flag name
+                aLine->lookup(kTTSym_name, v);
+                name = v[0];
+                
+                // get flag arguments value if exists
+                if (!aLine->getValue(v)) {
+                    
+                    if (v.size() == 1)
+                        if (v[0].type() == kTypeSymbol)
+                            oneSymbol = YES;
+                    
+                    v.toString(NO); // no quotes
+                    aString = TTString(v[0]);
+                }
+                else aString = "";
+                
+                // write flag name and arguments
+                *buffer += "- ";
+                *buffer += name.c_str();
+                *buffer += " ";
+                
+                // if the value is an unique symbol : add quotes
+                if (oneSymbol) *buffer += "\"";
+                *buffer += aString.data();
+                if (oneSymbol) *buffer += "\"";
+                
+                *buffer += "\n";
+            }
+            if (aLine->getSchema() == kTTSym_comment) {
+                
+                // get comment value
+                if (!aLine->getValue(v)) {
+                    v.toString();
+                    aString = TTString(v[0]);
+                }
+                else aString = "";
+                
+                // write comment
+                *buffer += "# ";
+                *buffer += aString.data();
+                *buffer += "\n";
+            }
+            else if (aLine->getSchema() == kTTSym_command) {
+                
+                // get target address
+                if (!aLine->lookup(kTTSym_target, v)) {
+                    address = v[0];
+                    
+                    // write address
+                    *buffer += address.c_str();
+                    
+                    // get and write value
+                    if (!aLine->getValue(v)) {	
+                        v.toString();
+                        aString = TTString(v[0]);
+                        
+                        *buffer += " ";
+                        *buffer += aString.data();
+                        
+                        // get and write unit
+                        if (!aLine->lookup(kTTSym_unit, v)) {
+                            v.toString();
+                            aString = TTString(v[0]);
+                            
+                            *buffer += " ";
+                            *buffer += aString.data();
+                        }
+                        
+                        // get and write ramp
+                        if (!aLine->lookup(kTTSym_ramp, v)) {
+                            v.toString();
+                            aString = TTString(v[0]);
+                            
+                            *buffer += " ramp ";
+                            *buffer += aString.data();
+                        }
+                    }
+                    
+                    *buffer += "\n";
+                }
+            }
+            // no sub script in flatten mode
+        }
+        
+        return kTTErrNone;
+    }
 	
 	// write a new line for level 0
 	if (!aTextHandler->mTabCount)
@@ -1297,6 +1401,8 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		
 		// Write script line depending on his schema
 		if (aLine->getSchema() == kTTSym_flag) {
+            
+            TTBoolean oneSymbol = NO;
 			
 			// get flag name
 			aLine->lookup(kTTSym_name, v);
@@ -1305,10 +1411,11 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			// get flag arguments value if exists
 			if (!aLine->getValue(v)) {
                 
-                // if the value is an unique symbol : add quote
-                addQuote = v.size() == 1 && v[0].type() == kTypeSymbol;
-                    
-				v.toString();
+                if (v.size() == 1)
+                    if (v[0].type() == kTypeSymbol)
+                        oneSymbol = YES;
+
+				v.toString(NO); // no quotes
 				aString = TTString(v[0]);
 			}
 			else aString = "";
@@ -1317,9 +1424,12 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			*buffer += "- ";
 			*buffer += name.c_str();
 			*buffer += " ";
-            if (addQuote) *buffer += "\"";
+            
+            // if the value is an unique symbol : add quotes
+            if (oneSymbol) *buffer += "\"";
 			*buffer += aString.data();
-            if (addQuote) *buffer += "\"";
+            if (oneSymbol) *buffer += "\"";
+            
 			*buffer += "\n";
 		}	
 		if (aLine->getSchema() == kTTSym_comment) {
@@ -1411,7 +1521,7 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		mParentScript->setAttributeValue(TTSymbol("subScript"), v);
 	}
 	
-	return kTTErrNone;	
+	return kTTErrNone;
 }
 
 TTErr TTScript::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
@@ -1641,7 +1751,7 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 	TTDictionaryBasePtr line1, line2;
     TTAddress       adrs1, adrs2;
     TTValue			v1, v2, v, newValue;
-	TTSymbol		attribute, type, function;
+	TTSymbol		schema1, schema2, attribute, type, function;
     TTNodePtr       aNode;
     TTObjectBasePtr aData;
 	TTValue			found, none;
@@ -1653,6 +1763,16 @@ TTErr TTScriptInterpolate(TTScriptPtr script1, TTScriptPtr script2, TTFloat64 po
 		
         line1 = TTDictionaryBasePtr((TTPtr)script1->mFlattenedLines->current()[0]);
         line2 = TTDictionaryBasePtr((TTPtr)script2->mFlattenedLines->current()[0]);
+        
+        // get the line schema
+        line1->lookup(kTTSym_schema, v);
+        schema1 = v[0];
+        
+        line2->lookup(kTTSym_schema, v);
+        schema2 = v[0];
+        
+        if (schema1 != kTTSym_command && schema2 != kTTSym_command)
+            continue;
 		
         // get the target address
         line1->lookup(kTTSym_target, v);
@@ -1751,7 +1871,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
 	TTDictionaryBasePtr firstScriptLine, aLine;
     TTAddress       firstAdrs, adrs;
     TTValue			v, valueToMix, mixedValue, found;
-    TTSymbol		type;
+    TTSymbol		schema, type;
     TTNodePtr       aNode;
     TTObjectBasePtr anObject;
     TTFloat64		sumFactors;
@@ -1776,6 +1896,13 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
     for (; firstScript->mFlattenedLines->end(); firstScript->mFlattenedLines->next()) {
 		
 		firstScriptLine = TTDictionaryBasePtr((TTPtr)firstScript->mFlattenedLines->current()[0]);
+        
+        // get the line schema
+        firstScriptLine->lookup(kTTSym_schema, v);
+        schema = v[0];
+        
+        if (schema != kTTSym_command)
+            continue;
         
 		// get the target address
         firstScriptLine->lookup(kTTSym_target, v);

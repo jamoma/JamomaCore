@@ -34,6 +34,7 @@ class TTMODULAR_EXPORT TTPreset : public TTDataObjectBase
 private :
 	
 	TTSymbol					mName;							///< ATTRIBUTE : the name of the preset
+    TTSymbol					mDescription;                   ///< ATTRIBUTE : the description of the preset
 	TTAddress                   mAddress;						///< ATTRIBUTE : the parent address from where to search object to store
 	
 	TTNodeDirectoryPtr			mDirectory;						///< a preset depends on a directory
@@ -48,6 +49,9 @@ private :
 	/** */
 	TTErr	Store();
     
+    /** Update the whole preset */
+    TTErr   Update();
+    
 	/** */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
     
@@ -61,6 +65,9 @@ private :
 	/**  needed to be handled by a TTTextHandler */
 	TTErr	WriteAsText(const TTValue& inputValue, TTValue& outputValue);
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** a method to update each Data value */
+    TTErr   processUpdate(TTObjectBasePtr aScript);
 	
 	friend TTErr TTMODULAR_EXPORT TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 position);
 	friend TTErr TTMODULAR_EXPORT TTPresetMix(const TTValue& presets, const TTValue& factors);

@@ -423,8 +423,12 @@ TTErr TTNodeDirectory::Lookup(TTAddress anAddress, TTList& returnedTTNodes, TTNo
 	// Make sure we are dealing with an absolute address
 	if (anAddress.getType() != kAddressAbsolute)
 		return kTTErrGeneric;
+    
+    // lonely wilcard case : * equals *.*
+    if (anAddress.getName() == S_WILDCARD && anAddress.getInstance() == kTTSymEmpty)
+        return Lookup(anAddress.appendInstance(S_WILDCARD), returnedTTNodes, firstReturnedTTNode);
 
-	// Is there a wild card ?
+	// Is there a wild card anywhere else ?
 	if (strrchr(anAddress.c_str(), C_WILDCARD)) {
 		
 		// Here is a recursive call to the TTNodeDirectory Lookup to get all TTNodes at upper levels
@@ -974,8 +978,34 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 						if (!err) {
 							
 							// test value
-							if (!aFilter->lookup(kTTSym_value, valueFilter))
-								resultValue = valueFilter == v;
+							if (!aFilter->lookup(kTTSym_value, valueFilter)) {
+                                
+                                // special case for tag attribute : just check if one element of the value to filter exist in the tag
+                                if (attributeFilter == kTTSym_tag) {
+                                    
+                                    for (TTUInt32 i = 0; i < valueFilter.size(); i++) {
+                                        
+                                        TTSymbol tagFilter = valueFilter[i];
+                                        
+                                        for (TTUInt32 j = 0; j < v.size(); j++) {
+                                            
+                                            TTSymbol aTag = v[j];
+                                            
+                                            resultValue = aTag == tagFilter;
+                                            
+                                            if (resultValue)
+                                                break;
+                                        }
+                                        
+                                        if (resultValue)
+                                            break;
+                                    }
+                                }
+                                
+                                // compare the whole value
+                                else
+                                    resultValue = valueFilter == v;
+                            }
 						}
 					}
 				}

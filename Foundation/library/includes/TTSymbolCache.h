@@ -173,7 +173,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_array;
 
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_brothers;
 
-extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_children;
+extern TTFOUNDATION_EXPORT TTSymbol kTTSym_children;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_command;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Command;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_comment;
@@ -206,15 +206,15 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_freeze;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_generic;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Get;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_global;
-extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_Go;
-extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_Grab;
+extern TTFOUNDATION_EXPORT TTSymbol kTTSym_Go;
+extern TTFOUNDATION_EXPORT TTSymbol kTTSym_Grab;
 
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_highlight;
 
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Init;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_initialized;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_inputUnit;
-extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_instances;
+extern TTFOUNDATION_EXPORT TTSymbol kTTSym_instances;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_integer;
 
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_life;

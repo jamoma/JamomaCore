@@ -39,6 +39,9 @@ mIsReading(NO)
 	
 	addMessageWithArguments(Write);
 	addMessageWithArguments(Read);
+    
+    addMessage(WriteAgain);
+	addMessage(ReadAgain);
 }
 
 TTTextHandler::~TTTextHandler()
@@ -118,6 +121,15 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 	return aTTObject->sendMessage(TTSymbol("WriteAsText"), v, none);
 }
 
+TTErr TTTextHandler::WriteAgain()
+{
+	TTValue args;
+	TTValue dummy;
+	
+	args.append(mFilePath);
+	return Write(args, dummy);
+}
+
 TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 {
 	TTObjectBasePtr	aTTObject;
@@ -142,8 +154,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 			
 			mFilePath = args[0];
 			
-			/*
-			std::ifstream file(mFilePath->getCString());
+			std::ifstream file(mFilePath.c_str());
 			
 			if (!file.is_open()) {
 				TT_ASSERT("TTTextHandler: Error opening the text file\n", true);
@@ -158,17 +169,26 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 			while (!file.eof()) {
 				
 				// parse line
-				getline(file, line);
-				mLine = new TTValue(line);
+                char c_line[1024];
+				file.getline(c_line, 1024);
+                
+                TTString s_line = TTString(c_line);
+				mLine = new TTValue(s_line);
 				mLine->fromString();
 				
-				if (file.eof()) mLastLine = YES;
+				aTTObject->sendMessage("ReadFromText", v, none);
 				
-				aTTObject->sendMessage(TTSymbol("ReadFromText"), v, none);
-				
-				if (mFirstLine) mFirstLine = NO;
+				if (mFirstLine)
+                    mFirstLine = NO;
+                
+                delete mLine;
 			}
-			 */
+            
+            // Close the reading
+            mLine = new TTValue();
+            mLastLine = YES;
+            aTTObject->sendMessage("ReadFromText", v, none);
+            delete mLine;
 		}
 		
 		// if the first argument is kTypePointer : get the text to read
@@ -214,11 +234,13 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 						found = found < size ? found : size;
 					}
 					
-					// else set last line flag on
-					else  
-						mLastLine = YES;
+					// else set last line flag on to close the reading
+					else {
+                        mLine = new TTValue();
+                        mLastLine = YES;
+                    }
 
-					// send the line
+					// send the line (even an empty line for the last)
 					if (mLine) {
 						
 						aTTObject->sendMessage(TTSymbol("ReadFromText"), v, none);
@@ -243,4 +265,13 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 	// else
 	v.append(TTObjectBasePtr(this));
 	return aTTObject->sendMessage(TTSymbol("ReadFromText"), v, none);
+}
+
+TTErr TTTextHandler::ReadAgain()
+{
+	TTValue args;
+	TTValue dummy;
+	
+	args.append(mFilePath);
+	return Read(args, dummy);
 }
