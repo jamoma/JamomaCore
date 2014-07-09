@@ -199,7 +199,7 @@ void TTFoundationLoadExternalClasses(void)
 #endif
 
 	}
-#elif TT_PLATFORM_WIN
+#elif defined(TT_PLATFORM_WIN)
 	TTString	fullpath;
 	char		temppath[4096];
 	HKEY		hKey = 0;
@@ -278,7 +278,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
     TTPathVector					paths;
     TTPathIter						i;
 
-#ifdef TT_PLATFORM_WIN
+#if defined(TT_PLATFORM_WIN)
 	TTString		windowsPathSpec = fullpath;
 					windowsPathSpec += "/*.ttdll";
 	WIN32_FIND_DATA	FindFileData;
@@ -328,15 +328,15 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 			continue;
 		TTString	fileSuffix(cFileSuffix);
 
-#ifdef TT_PLATFORM_LINUX
+#if defined(TT_PLATFORM_LINUX)
 #ifdef __ANDROID_API__
 		int dlExtSize = 3; // .so
 #else
 		int dlExtSize = 5; // .ttso
 #endif
-#elif TT_PLATFORM_MAC
+#elif defined(TT_PLATFORM_MAC)
 		int dlExtSize = 8; // .ttdylib
-#elif TT_PLATFORM_WIN
+#elif defined(TT_PLATFORM_WIN)
 		int dlExtSize = 6; // .ttdll
 #endif
 
@@ -361,7 +361,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 #endif
 			continue;
 
-#ifdef TT_PLATFORM_WIN
+#if defined(TT_PLATFORM_WIN)
 		handle = LoadLibrary(fileFullpath.c_str());
 #else
 		handle = dlopen(fileFullpath.c_str(), RTLD_LAZY);
@@ -382,7 +382,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 
 		initializerFunctionName += fileBaseName;
 
-#ifdef TT_PLATFORM_WIN
+#if defined(TT_PLATFORM_WIN)
 		initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)handle, initializerFunctionName.c_str());
 #else
 		initializer = (TTExtensionInitializationMethod)dlsym(handle, initializerFunctionName.c_str());
