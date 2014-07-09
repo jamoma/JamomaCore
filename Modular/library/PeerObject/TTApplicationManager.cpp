@@ -1239,7 +1239,7 @@ TTApplicationPtr TTApplicationManager::findApplication(TTSymbol applicationName)
     }
     else {
         
-        TTLogError("TTApplicationManager::findApplicationFrom : wrong application name");
+        TTLogError("TTApplicationManager::findApplicationFrom : wrong application name\n");
         return NULL;
     }
 }
@@ -1304,7 +1304,7 @@ ProtocolPtr TTApplicationManager::findProtocol(TTSymbol protocolName)
     }
     else {
         
-        TTLogError("TTApplicationManager::findProtocol : wrong protocol name");
+        TTLogError("TTApplicationManager::findProtocol : wrong protocol name\n");
         return NULL;
     }
 }
