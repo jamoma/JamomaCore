@@ -411,6 +411,7 @@ TTAddressComparisonFlag TTAddressBase::compare(TTAddressBase* toCompare, TTInt8&
 		// compare instances
 		cInstance = (top1->getInstance() == top2->getInstance()) || (top1->getInstance() == S_WILDCARD) || (top2->getInstance() == S_WILDCARD);
 
+
 		// don't compare attributes
 
 		// if levels are equal

@@ -601,7 +601,7 @@ public:
 					aString.append("0");
 				break;
 			case kTypeSymbol:
-				addQuotes = strchr(mValue.sym.c_str(), ' ') != 0;
+				addQuotes = quotes && strchr(mValue.sym.c_str(), ' ') != 0;
 				if (addQuotes)
 					aString.append("\"");
 				aString.append(mValue.sym.c_str());

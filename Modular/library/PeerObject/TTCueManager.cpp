@@ -66,7 +66,7 @@ mReturnLineCallback(NULL)
 	
 	addMessage(Clear);
 	
-	addMessageWithArguments(Store);
+	addMessageWithArguments(New);
     addMessageWithArguments(Update);
     addMessageWithArguments(Append);
 	addMessageWithArguments(Recall);
@@ -74,7 +74,7 @@ mReturnLineCallback(NULL)
 	addMessageWithArguments(Interpolate);
 	addMessageWithArguments(Mix);
 	addMessageWithArguments(Move);
-	addMessageWithArguments(Remove);
+	addMessageWithArguments(Delete);
     addMessageWithArguments(Order);
 	addMessageWithArguments(Rename);
 	addMessageWithArguments(Copy);
@@ -379,7 +379,7 @@ TTErr TTCueManager::Clear()
 	return kTTErrNone;
 }
 
-TTErr TTCueManager::Store(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTCueManager::New(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue v, args, out;
     TTErr   err;
@@ -837,7 +837,7 @@ TTErr TTCueManager::Move(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTCueManager::Remove(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTCueManager::Delete(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTSymbol    name;
 	TTValue     v, newNames;
@@ -1149,10 +1149,14 @@ TTErr TTCueManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
 		
 		cueName = mNames[i];
 		if (!mCues->lookup(cueName, v)) {
+            
+            TTValue name = cueName;
+            name.toString(NO); //no quotes
+            TTString s = TTString(name[0]);
 			
 			// start to write a cue
 			xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "cue");
-			xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST cueName.c_str());
+			xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "name", BAD_CAST s.c_str());
 			
 			aXmlHandler->setAttributeValue(kTTSym_object, v);
 			aXmlHandler->sendMessage(TTSymbol("Write"));
@@ -1272,11 +1276,11 @@ TTErr TTCueManager::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 		
 		cueName = mNames[i];
 		if (!mCues->lookup(cueName, v)) {
-			
-			*buffer += "\n";
-			
+
 			aTextHandler->setAttributeValue(kTTSym_object, v);
 			aTextHandler->sendMessage(TTSymbol("Write"));
+            
+			*buffer += "\n";
 		}
 	}
 	
@@ -1348,30 +1352,45 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
             
             v = TTValue(mCurrentCue);
             aTextHandler->setAttributeValue(kTTSym_object, v);
-            aTextHandler->sendMessage(TTSymbol("Read"));
+            return aTextHandler->sendMessage(TTSymbol("Read"));
+        }
+    }
+    
+    // if it is the last line : bind on the first cue
+    if (aTextHandler->mLastLine) {
+        
+        // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
+        // but we should review all the #TTCue and #TTScript architecture to improve this
+        for (TTUInt32 i = 0; i < mNames.size(); i++) {
+            
+            TTSymbol cueName = mNames[i];
+            
+            if (!mCues->lookup(cueName, v)) {
+                
+                TTCuePtr aCue = TTCuePtr((TTObjectBasePtr)v[0]);
+                TTValue none;
+                aCue->sendMessage("ReadFromText", inputValue, none);
+            }
         }
         
-        // if it is the last line : bind on the first cue
-        if (aTextHandler->mLastLine) {
+        // try to set the former current as current
+        mCurrent = mLastCurrent;
+        if (!mCues->lookup(mCurrent, v))
+            mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
+        
+        // else bind on the first cue
+        else if (mNames.size()) {
             
-            // try to set the former current as current
-            mCurrent = mLastCurrent;
+            mCurrent = mNames[0];
             if (!mCues->lookup(mCurrent, v))
                 mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
-            
-            // else bind on the first cue
-            else if (mNames.size()) {
-                
-                mCurrent = mNames[0];
-                if (!mCues->lookup(mCurrent, v))
-                    mCurrentCue = TTCuePtr((TTObjectBasePtr)v[0]);
-            }
-            
-            notifyNamesObservers();
         }
+        
+        notifyNamesObservers();
         
         return kTTErrNone;
     }
+
 	
 	return kTTErrGeneric;
 }
