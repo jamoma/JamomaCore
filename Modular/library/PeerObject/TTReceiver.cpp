@@ -310,10 +310,6 @@ TTErr TTReceiver::bindAddress()
 	
 	// observe any creation or destruction below the attr_name address
 	mAddressObserver = TTObject("callback");
-    
-    // DEBUG
-    if (mAddress.normalize() == TTAddress("/equalizer~(view)/model"))
-        mAddressObserver.track(YES);
 	
 	mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	mAddressObserver.set(kTTSym_function, TTPtr(&TTReceiverDirectoryCallback));
