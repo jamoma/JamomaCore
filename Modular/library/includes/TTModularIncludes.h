@@ -121,10 +121,10 @@ thisTTClass :: thisTTClass (const TTValue& arguments) : TTObjectBase(arguments)
 #define accessApplicationFrom(anAddress) TTModularApplicationManager->findApplicationFrom(anAddress)
 
 /** Access to an application directory using an address */
-#define	accessApplicationDirectoryFrom(anAddress) TTModularApplicationManager->findApplicationFrom(anAddress)->getDirectory()
+#define	accessApplicationDirectoryFrom(anAddress) TTModularApplicationManager->findApplicationDirectoryFrom(anAddress)
 
 /** Access to an application directory by name */
-#define accessApplicationDirectory(applicationName) TTModularApplicationManager->findApplication(applicationName)->getDirectory()
+#define accessApplicationDirectory(applicationName) TTModularApplicationManager->findApplicationDirectory(applicationName)
 
 /** Access to the local application directory */
 #define	accessApplicationLocalDirectory TTModularApplicationManager->getApplicationLocal()->getDirectory()
