@@ -557,6 +557,7 @@ public:
 
 	
 	void string(TTString& aString, TTBoolean quotes = YES)
+
 	{
 		char		temp[TTELEMENT_TEMP_STRINGLEN];
 		TTBoolean	addQuotes;

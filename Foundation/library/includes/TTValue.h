@@ -415,6 +415,7 @@ public:
 	
 	
 	void toString(TTBoolean quotes = YES)
+
 	{
 		TTString	temp;
 
