@@ -58,6 +58,7 @@ mSelectedApplication(kTTSymEmpty)
 	addAttribute(Activity, kTypeBoolean);
 
 	addMessageWithArguments(ApplicationRegister);
+    addMessageWithArguments(ApplicationRename);
 	addMessageWithArguments(ApplicationUnregister);
     addMessageWithArguments(ApplicationSelect);
     addMessage(ApplicationSelectLocal);
@@ -148,6 +149,39 @@ TTErr Protocol::ApplicationRegister(const TTValue& inputValue, TTValue& outputVa
                     
                     return kTTErrNone;
                 }
+            }
+        }
+    }
+	
+	return kTTErrGeneric;
+}
+
+TTErr Protocol::ApplicationRename(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (inputValue.size() == 2) {
+        
+        if (inputValue[0].type() == kTypeSymbol && inputValue[1].type() == kTypeSymbol) {
+            
+            TTHashPtr	applicationParameters;
+            TTValue		v, parameterNames;
+            TTErr		err;
+            
+            TTSymbol    oldApplicationName = inputValue[0];
+            TTSymbol    newApplicationName = inputValue[1];
+    
+            // Check there is application registered under the old name
+            err = mApplicationParameters.lookup(oldApplicationName, v);
+                    
+            if (!err) {
+                
+                mApplicationParameters.remove(oldApplicationName);
+                mApplicationParameters.append(newApplicationName, v);
+                
+                // update local application name
+                mApplicationManager.get("applicationLocalName", v);
+                mLocalApplicationName = v[0];
+                
+                return kTTErrNone;
             }
         }
     }
