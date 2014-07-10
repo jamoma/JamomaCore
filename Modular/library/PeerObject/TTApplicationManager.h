@@ -279,14 +279,24 @@ public:
      @return #TTApplicationPtr or NULL if the application doesn't exist */
     TTApplicationPtr findApplication(TTSymbol applicationName);
     
+    /**  Get an application directory relative to a name
+     @param applicationName #TTSymbol
+     @return #TTNodeDirectoryPtr or NULL if the application doesn't exist */
+    TTNodeDirectoryPtr findApplicationDirectory(TTSymbol applicationName);
+    
     /**  Get local application
      @return #TTApplicationPtr or NULL if the application doesn't exist */
     TTApplicationPtr getApplicationLocal();
     
     /**  Get an application relative to an address
      @param anAddress       #TTAddress
-     @return #TTApplicationPtr : mApplicationLocal for address without directory part or NULL if the directory part is not an application name) */
+     @return #TTApplicationPtr : mApplicationLocal for address without directory part or NULL if the directory part is not an application name */
     TTApplicationPtr findApplicationFrom(TTAddress anAddress);
+    
+    /**  Get an application directory relative to an address
+     @param anAddress       #TTAddress
+     @return #TTNodeDirectoryPtr : mApplicationLocal directory for address without directory part or NULL if the directory part is not an application name */
+    TTNodeDirectoryPtr findApplicationDirectoryFrom(TTAddress anAddress);
     
     /**  Get application protocol names relative to a name
      @param applicationName #TTSymbol

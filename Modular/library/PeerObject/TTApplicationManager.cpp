@@ -305,6 +305,19 @@ TTErr TTApplicationManager::ApplicationRename(const TTValue& inputValue, TTValue
                 mApplications.remove(oldApplicationName);
                 mApplications.append(newApplicationName, anApplication);
                 
+                // Rename the application into each protocol
+                TTValue protocolNames;
+                mProtocols.getKeys(protocolNames);
+                for (TTUInt16 i = 0; i < protocolNames.size(); i++) {
+                    
+                    TTSymbol protocolName = protocolNames[i];
+                    
+                    if (!mProtocols.lookup(protocolName, v)) {
+                        TTObject aProtocol = v[0];
+                        aProtocol.send("ApplicationRename", inputValue, outputValue);
+                    }
+                }
+                
                 // notify applications observer that an application has been instantiated
                 notifyApplicationObservers(newApplicationName, anApplication, kApplicationInstantiated);
                 
@@ -1244,6 +1257,16 @@ TTApplicationPtr TTApplicationManager::findApplication(TTSymbol applicationName)
     }
 }
 
+TTNodeDirectoryPtr TTApplicationManager::findApplicationDirectory(TTSymbol applicationName)
+{
+    TTApplicationPtr anApplication = findApplication(applicationName);
+    
+    if (anApplication)
+        return anApplication->getDirectory();
+    
+    return NULL;
+}
+
 TTApplicationPtr TTApplicationManager::getApplicationLocal()
 {
     // TODO: How to use TTObject instead of TTObjectBasePtr here ?
@@ -1262,6 +1285,16 @@ TTApplicationPtr TTApplicationManager::findApplicationFrom(TTAddress anAddress)
     else
         
         return findApplication(applicationName);
+}
+
+TTNodeDirectoryPtr TTApplicationManager::findApplicationDirectoryFrom(TTAddress anAddress)
+{
+    TTApplicationPtr anApplication = findApplicationFrom(anAddress);
+    
+    if (anApplication)
+        return anApplication->getDirectory();
+    
+    return NULL;
 }
 
 TTValue TTApplicationManager::getApplicationProtocolNames(TTSymbol applicationName)
