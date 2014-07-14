@@ -171,6 +171,11 @@ TTErr TTData::setType(const TTValue& value)
 			return kTTErrGeneric;
 		}
         
+        // TODO : move this very Max specific thing else where
+        if (mRampDrive == TTSymbol("Max"))
+            if (ttEnvironment->isClassRegistered("Max"))
+                mRampDrive = TTSymbol("System");
+        
 		rampSetup();
 		
 		this->notifyObservers(kTTSym_type, n);
