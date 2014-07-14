@@ -90,7 +90,19 @@ private:
 	TTErr						setMirrorCachedAttribute(TTAttribute& anAttribute, const TTValue& value);
     
 	TTErr						sendMirrorMessage(const TTSymbol* messageName, const TTValue& inputValue, TTValue& outputValue);
-	
+    
+    /** Add an attribute to cache its value and avoid the use of mGetAttributeCallback
+     @param inputValue      the name of an attribute to add to the cache, a pointer to a value to cache
+     @param outputValue     nothing
+     @return #TTErr error code */
+    TTErr						AttributeCache(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Remove an attribute to don't cache its and prefer to use mGetAttributeCallback if exist
+     @param inputValue      the name of an attribute
+     @param outputValue     nothing
+     @return #TTErr error code */
+    TTErr						AttributeUncache(const TTValue& inputValue, TTValue& outputValue);
+    
 public:
 	TTErr						updateAttributeValue(const TTSymbol attributeName, TTValue& value);
 	TTErr						enableListening(const TTAttribute& anAttribute, TTBoolean enable);

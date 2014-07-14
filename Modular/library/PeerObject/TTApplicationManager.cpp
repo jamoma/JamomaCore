@@ -531,8 +531,17 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 				else
 					return anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
 			}
-			else 
-				return anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
+			else {
+                
+                // try to set an attribute
+				err = anObject->setAttributeValue(whereToSet.getAttribute(), *newValue);
+                
+                // try to use a message
+                if (err == kTTErrInvalidAttribute)
+                    err = anObject->sendMessage(whereToSet.getAttribute(), *newValue, none);
+                
+                return err;
+            }
 		}
 	}
 	
@@ -721,7 +730,6 @@ TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, Prot
         }
     }
     
-    
     // End "protocol" xml node
     xmlTextWriterEndElement((xmlTextWriterPtr)aXmlHandler->mWriter);
     
@@ -901,22 +909,6 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 			}
 		}
 		
-		// get the application version 
-		xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("version"));
-		aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
-        
-        if (inputValue.size() == 1)
-            if (v[0].type() == kTypeSymbol)
-                version = v[0];
-        
-        // get the application type
-		xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("type"));
-		aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
-        
-        if (inputValue.size() == 1)
-            if (v[0].type() == kTypeSymbol)
-                type = v[0];
-		
 		// if the application exists : get it
 		if (!mApplications->lookup(applicationName, v))
 			mCurrentApplication = TTApplicationPtr((TTObjectBasePtr)v[0]);
@@ -926,19 +918,11 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 			mCurrentApplication = NULL;
 			args = TTValue(applicationName);
 			TTObjectBaseInstantiate(kTTSym_Application, TTObjectBaseHandle(&mCurrentApplication), args);
-			
-			args = TTValue(version);
-			mCurrentApplication->setAttributeValue(TTSymbol("version"), args);
-            
-            args = TTValue(type);
-			mCurrentApplication->setAttributeValue(TTSymbol("type"), args);
 		}
 		
         // if the node is empty : don't use it
         if (aXmlHandler->mXmlNodeIsEmpty)
             mCurrentApplication = NULL;
-		
-		return kTTErrNone;
 	}
 	
 	if (mCurrentApplication) {

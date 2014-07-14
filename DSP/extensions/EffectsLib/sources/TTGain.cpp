@@ -1,10 +1,16 @@
-/* 
- * TTBlue Gain Control Object
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief #TTGain adjusts adio gain
+ *
+ * @authors Timothy Place, Trond Lossius
+ *
+ * @copyright Copyright © 2010, Timothy Place @n
+ * License: This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTGain.h"
 
@@ -73,8 +79,8 @@ TTErr TTGain::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr o
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample, *outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channel;
 
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];
@@ -93,8 +99,8 @@ TTErr TTGain::processAudioInterpolated(TTAudioSignalArrayPtr inputs, TTAudioSign
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs = in.getVectorSizeAsInt();
 	TTSampleValue	*inSample, *outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channel;
 	TTFloat64		increment, temp;
 	increment = (mGain-oldGain)/vs;
 	TTAntiDenormal(increment);

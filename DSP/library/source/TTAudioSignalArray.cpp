@@ -29,7 +29,7 @@ TT_OBJECT_CONSTRUCTOR,
 	maxNumAudioSignals(0),
 	numAudioSignals(0)
 {
-	TTUInt16 initialMaxNumAudioSignals = arguments;
+	TTChannelCount initialMaxNumAudioSignals = arguments;
 	
 	// TT_ASSERT(audio_signal_array_has_valid arg, initialMaxNumAudioSignals > 0);
 	// Can't assert because, for example, an audio graph can have objects with no inlets
@@ -52,7 +52,7 @@ void TTAudioSignalArray::init()
 {
 	delete[] audioSignals;
 	audioSignals = new TTAudioSignalPtr[maxNumAudioSignals];
-	for (TTUInt16 i=0; i<maxNumAudioSignals ;i++)
+	for (TTChannelCount i=0; i<maxNumAudioSignals ;i++)
 		audioSignals[i] = NULL;
 	numAudioSignals = 0;
 }
@@ -60,13 +60,13 @@ void TTAudioSignalArray::init()
 
 void TTAudioSignalArray::releaseAll()
 {
-	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
+	for (TTChannelCount i=0; i<maxNumAudioSignals; i++)
 		TTObjectBaseRelease(&audioSignals[i]);
 }
 
 void TTAudioSignalArray::allocAllWithVectorSize(TTUInt16 vs)
 {
-	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
+	for (TTChannelCount i=0; i<maxNumAudioSignals; i++)
 		audioSignals[i]->allocWithVectorSize(vs);
 }
 
@@ -75,15 +75,15 @@ TTUInt16 TTAudioSignalArray::getVectorSize()
 	return audioSignals[0]->getVectorSizeAsInt();
 }
 
-void TTAudioSignalArray::setAllMaxNumChannels(TTUInt16 newMaxNumChannels)
+void TTAudioSignalArray::setAllMaxNumChannels(TTChannelCount newMaxNumChannels)
 {
-	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
+	for (TTChannelCount i=0; i<maxNumAudioSignals; i++)
 		audioSignals[i]->setMaxNumChannels(newMaxNumChannels);
 }
 
-void TTAudioSignalArray::setAllNumChannels(TTUInt16 newNumChannels)
+void TTAudioSignalArray::setAllNumChannels(TTChannelCount newNumChannels)
 {
-	for (TTUInt16 i=0; i<maxNumAudioSignals; i++)
+	for (TTChannelCount i=0; i<maxNumAudioSignals; i++)
 		audioSignals[i]->setNumChannels(newNumChannels);
 }
 

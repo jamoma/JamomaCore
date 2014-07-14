@@ -259,24 +259,24 @@ typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBool
  TTAttribute objects.																			*/
 enum TTDataType {
 	kTypeNone = 0,
-	kTypeFloat32,
-	kTypeFloat64,
-	kTypeInt8,
-	kTypeUInt8,
-	kTypeInt16,
-	kTypeUInt16,
-	kTypeInt32,
-	kTypeUInt32,
-	kTypeInt64,
-	kTypeUInt64,
-	kTypeBoolean,
-	kTypeSymbol,
-	kTypeObject,
-	kTypePointer,
-	kTypeString,
+	kTypeFloat32,		///< 32-bit floating point
+	kTypeFloat64,		///< 64-bit floating point
+	kTypeInt8,			///< 8-bit signed integer, range is -128 through 127.
+	kTypeUInt8,			///< 8-bit unsigned integer, range is 0 through 255.
+	kTypeInt16,			///< 16-bit signed integer, range is −32,768 through 32,767.
+	kTypeUInt16,		///< 16-bit unsigned integer, range is 0 through 65,535.
+	kTypeInt32,			///< 32-bit signed integer, range is -2,147,483,648 through 2,147,483,647.
+	kTypeUInt32,		///< 32-bit unsigned integer, range is 0 through 4,294,967,295.
+	kTypeInt64,			///< 64-bit signed integer, ragne is −9,223,372,036,854,775,808 through 9,223,372,036,854,775,807
+	kTypeUInt64,		///< 64-bit unsigned integer, range is 0 through 18,446,744,073,709,551,615.
+	kTypeBoolean,		///< Boolean (1/0) or (true/false) flag.
+	kTypeSymbol,		///< Symbol type
+	kTypeObject,		///< Object type
+	kTypePointer,		///< Pointer type
+	kTypeString,		///< String type
 	kTypeLocalValue,	///< This is a special type used by TTAttribute to indicate that a value is a TTValue and is locally maintained.
 	kTypeMatrix,		///< An instance of a TTMatrix object
-	kTypeDictionary,
+	kTypeDictionary,	///< Dictionary type
 	kNumTTDataTypes
 };
 

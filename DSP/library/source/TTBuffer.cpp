@@ -44,7 +44,7 @@ TTBuffer::TTBuffer(const TTValue& arguments) :
 	// By convention, the first argument for a TTAudioObjectBase is the number of channels
 	// So we'll maintain that here, and then use the second argument for the name of the buffer
 	
-	TTUInt16	channelCount = 1;
+	TTChannelCount	channelCount = 1;
 	TTSymbol	name = TTSymbol::random();
 	
 	if (arguments.size() > 0) {
@@ -83,7 +83,7 @@ TTBuffer::~TTBuffer()
 
 
 // internal method used for initializing the TTBuffer and mActiveMatrix for use
-TTErr TTBuffer::init(TTUInt16 channelCount, TTSymbol name)
+TTErr TTBuffer::init(TTChannelCount channelCount, TTSymbol name)
 {
 	TTErr err = kTTErrNone;
 	

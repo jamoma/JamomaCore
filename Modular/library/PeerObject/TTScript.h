@@ -43,7 +43,7 @@ class TTMODULAR_EXPORT TTScript : public TTDataObjectBase
 	
 private:
 	
-    TTBoolean           mFlattened;               ///< ATTRIBUTE : is the script ready for quick operation process or not ?
+    TTBoolean           mFlattened;             ///< ATTRIBUTE : is the script ready for quick operation process or not ?
     
 	TTListPtr			mLines;					///< a linked list containing all lines of the script
     TTListPtr			mFlattenedLines;		///< a linked list containing all lines of the script and the subscripts flattened for quick access

@@ -60,7 +60,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mF3("allpass.2b"),
 	mF4("allpass.2b")
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 
 	addAttributeWithSetter(Mode, kTypeSymbol);		
 	addMessage(clear);

@@ -42,7 +42,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mF3("allpass.1b"),
 	mDelay("allpass.1a")
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 	
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
@@ -100,7 +100,7 @@ TTErr TTHilbert9::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 	TTSampleValue*	inSample;
 	TTSampleValue*	outRealSample;
 	TTSampleValue*	outImaginarySample;
-	TTUInt16		numChannels = TTAudioSignal::getMinChannelCount(in, outReal, outImaginary);
+	TTChannelCount	numChannels = TTAudioSignal::getMinChannelCount(in, outReal, outImaginary);
 	TTPtrSizedInt	channel;
 	TTFloat64		temp_0;
 	TTFloat64		x;

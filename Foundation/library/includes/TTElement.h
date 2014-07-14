@@ -554,7 +554,7 @@ public:
 	
 #define TTELEMENT_TEMP_STRINGLEN 32
 	
-	void string(TTString& aString)
+	void string(TTString& aString, TTBoolean quotes = YES)
 	{
 		char		temp[TTELEMENT_TEMP_STRINGLEN];
 		TTBoolean	addQuotes;
@@ -608,7 +608,7 @@ public:
 					aString.append("0");
 				break;
 			case kTypeSymbol:
-				addQuotes = strchr(mValue.sym.c_str(), ' ') != 0;
+				addQuotes = quotes && strchr(mValue.sym.c_str(), ' ') != 0;
 				if (addQuotes)
 					aString.append("\"");
 				aString.append(mValue.sym.c_str());

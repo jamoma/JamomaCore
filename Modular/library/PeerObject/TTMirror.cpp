@@ -100,6 +100,9 @@ mListenAttributeCallback(NULL)
             TTObjectBaseRelease(&anObject);
         }
     }
+    
+    addMessageWithArguments(AttributeCache);
+    addMessageWithArguments(AttributeUncache);
 }
 
 TTMirror::~TTMirror()
@@ -112,17 +115,95 @@ TTSymbol TTMirror::getName()
     return mType;
 }
 
+TTErr TTMirror::AttributeCache(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (inputValue.size() >= 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            TTSymbol    name = inputValue[0];
+            TTValue     v;
+            TTValuePtr  valueToCache;
+            
+            // if the attribute is not already cached
+            if (mAttributeValueCache.lookup(name, v)) {
+                
+                TTAttributePtr anAttribute;
+
+                // get attribute
+                if (!this->findAttribute(name, &anAttribute)) {
+                
+                    // change getter and setter
+                    anAttribute->getter = (TTGetterMethod)& TTMirror::getMirrorCachedAttribute;
+                    anAttribute->setter = (TTSetterMethod)& TTMirror::setMirrorCachedAttribute;
+                    
+                    if (inputValue.size() == 2) {
+                        
+                        if (inputValue[1].type() == kTypePointer) {
+                            
+                            valueToCache = TTValuePtr(TTPtr(inputValue[1]));
+                            
+                            // add it as a cached attribute with the given value
+                            mAttributeValueCache.append(name, *valueToCache);
+                            
+                            return kTTErrNone;
+                        }
+                    }
+                    
+                    // add it as a cached attribute
+                    mAttributeValueCache.append(name, v);
+                    
+                    return kTTErrNone;
+                }
+            }
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTMirror::AttributeUncache(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            TTSymbol name = inputValue[0];
+            
+            // if the attribute is cached
+            if (!mAttributeValueCache.lookup(name, outputValue)) {
+                    
+                TTAttributePtr anAttribute;
+                
+                // get attribute
+                this->findAttribute(name, &anAttribute);
+                
+                // change getter and setter
+                anAttribute->getter = (TTGetterMethod)& TTMirror::getMirrorAttribute;
+                anAttribute->setter = (TTSetterMethod)& TTMirror::setMirrorAttribute;
+                
+                // remove it from the cache
+                mAttributeValueCache.remove(name);
+                
+                return kTTErrNone;
+            }
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
 TTErr TTMirror::getMirrorAttribute(TTAttribute& anAttribute, TTValue& value)
 {
-	TTValue data, aReturnWeDontCareAbout;
-	
 	if (mGetAttributeCallback) {
+        
+        TTValue data, none;
 		
 		data.append(anAttribute.name);
 		data.append((TTPtr)&value);
 		
 		return mGetAttributeCallback->deliver(data);
-		mGetAttributeCallback->notify(data, aReturnWeDontCareAbout);
+		mGetAttributeCallback->notify(data, none);
         
         if (value.size() > 0)
             return kTTErrNone;

@@ -23,6 +23,26 @@
 #include "TTValue.h"
 
 
+// Typedefs
+
+/** Data type used when counting the number of channels in multi-channel audio signals and processes.
+ @ingroup typedefs
+ */
+typedef TTUInt16 TTChannelCount;
+
+
+
+// Constants
+
+/** @ingroup consts
+ The maximum number of audio channels that Jamoma DSP (and AudioGraph) is able to deal with.
+ @details This depends on the #TTChannelCount type used to store the number of channels.
+ 
+ */
+TTDSP_EXPORT extern const TTChannelCount kTTMaxChannelsPossible;
+
+
+
 /****************************************************************************************************/
 // Class Specification
 
@@ -44,9 +64,9 @@ private:
 	};
 
 	TTBoolean		mIsLocallyOwned;
-	TTUInt16		mMaxNumChannels;	///< The number of audio channels for which memory has been allocated.
+	TTChannelCount	mMaxNumChannels;	///< The number of audio channels for which memory has been allocated.
 	TTUInt16		mVectorSize;		///< Vector Size for this signal.  Every channel in a signal must have the same vector-size.
-	TTUInt16		mNumChannels;		///< The number of audio channels that have valid sample values stored in them.
+	TTChannelCount	mNumChannels;		///< The number of audio channels that have valid sample values stored in them.
 	TTUInt8			mBitdepth;			///< Currently supported bitdepths are 32 and 64. This is set by the setVector() method.
 	TTUInt32		mSampleRate;		///< Audio signal metadata, defined in Hertz or set to 0 if not available.
 
@@ -74,41 +94,42 @@ public:
 	
 	
 	/** Assigns a vector of sample values to a channel in this signal.
-	 *	The vector member of this class simply holds a pointer, not a copy of the data.  This makes the 
-	 *	operation of this method (and others) fast, but also means that care should be taken to ensure
-	 *	that the data being pointed to by this signal is valid, and does not become invalid during the
-	 *	lifetime of the signal.
-	 *
-	 *	It is the responsibility of the user of this method to ensure that the sample-rate and vector-size
-	 *	are also set correctly.
-	 *	@param		channel			The channel number (zero-based) to assign the vector to.
-	 *	@param		vectorSize		The number of samples in the vector.
-	 *	@param		newVector		A pointer to the first sample in a vector of samples.
-	 *	@result		An error code.																 */
-	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector);
+	 @details The vector member of this class simply holds a pointer, not a copy of the data.  This makes the
+	 operation of this method (and others) fast, but also means that care should be taken to ensure
+	 that the data being pointed to by this signal is valid, and does not become invalid during the
+	 lifetime of the signal.
+	 
+	 It is the responsibility of the user of this method to ensure that the sample-rate and vector-size
+	 are also set correctly.
+	 @param		channel			The channel number (zero-based) to assign the vector to.
+	 @param		vectorSize		The number of samples in the vector.
+	 @param		newVector		A pointer to the first sample in a vector of samples.
+	 @result		An error code.																 
+	 */
+	TTErr setVector(const TTChannelCount channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector);
 //	TTErr setVector64(const TTValue& v, TTValue&);	// A version of the above used by the message passing interface.
-	TTErr setVector64Copy(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector);
+	TTErr setVector64Copy(const TTChannelCount channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector);
 	/**	This version handles vector assignments from 32-bit vectors.
 	*/
-	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTFloat32* newVector);
+	TTErr setVector(const TTChannelCount channel, const TTUInt16 vectorSize, const TTFloat32* newVector);
 //	TTErr setVector32(const TTValue& v, TTValue&);	// A version of the above used by the message passing interface.
 
-	TTFloat64 getSample64(const TTUInt16 channel, const TTUInt16 sampleNumber)
+	TTFloat64 getSample64(const TTChannelCount channel, const TTUInt16 sampleNumber)
 	{
 		return mSampleVectors[channel][sampleNumber];
 	}
 	
-	TTFloat32 getSample(const TTUInt16 channel, const TTUInt16 sampleNumber)
+	TTFloat32 getSample(const TTChannelCount channel, const TTUInt16 sampleNumber)
 	{
 		return ((TTFloat32)mSampleVectors[channel][sampleNumber]);
 	}
 
 	
-	TTErr getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTSampleValue* returnedVector);
+	TTErr getVector(const TTChannelCount channel, const TTUInt16 vectorSize, TTSampleValue* returnedVector);
 //	TTErr getVector64(TTValue&, TTValue& v);	// A version of the above used by the message passing interface.
-	TTErr getVectorCopy(const TTUInt16 channel, const TTUInt16 theVectorSize, TTSampleValue* returnedVector); // version of getVector that copies
+	TTErr getVectorCopy(const TTChannelCount channel, const TTUInt16 theVectorSize, TTSampleValue* returnedVector); // version of getVector that copies
 	
-	TTErr getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTFloat32* returnedVector);
+	TTErr getVector(const TTChannelCount channel, const TTUInt16 vectorSize, TTFloat32* returnedVector);
 //	TTErr getVector32(TTValue&, TTValue& v);	// A version of the above used by the message passing interface.
 
 protected:	
@@ -142,23 +163,23 @@ public:
 
 	TTErr setNumChannels(const TTValue& newNumChannels)
 	{
-		mNumChannels = TTClip<TTUInt16>(newNumChannels, 0, mMaxNumChannels);
+		mNumChannels = TTClip<TTChannelCount>(newNumChannels, 0, mMaxNumChannels);
 		return kTTErrNone;
 	}
 	
-	TTErr setNumChannelsWithInt(const TTUInt16 newNumChannels)
+	TTErr setNumChannelsWithInt(const TTChannelCount newNumChannels)
 	{
-		mNumChannels = TTClip<TTUInt16>(newNumChannels, 0, mMaxNumChannels);
+		mNumChannels = TTClip<TTChannelCount>(newNumChannels, 0, mMaxNumChannels);
 		return kTTErrNone;
 	}
 	
 	
-	TTUInt16 getNumChannelsAsInt() const
+	TTChannelCount getNumChannelsAsInt() const
 	{
 		return mNumChannels;
 	}
 	
-	TTUInt16 getMaxNumChannelsAsInt();
+	TTChannelCount getMaxNumChannelsAsInt();
 
 	
 	TTBoolean getIsLocallyOwned()
@@ -177,7 +198,7 @@ public:
 		DOES NOT TAKE INTO ACCOUNT THE 'LOCALLY OWNED' ATTRIBUTE BEING SET TO FALSE!
 		COULD CAUSE MEM CORRUPTION IF USED ON EXTERNAL REFERENCES!
 	 */
-	TTErr allocWithNewChannelCount(TTUInt16 newChannelCount);
+	TTErr allocWithNewChannelCount(TTChannelCount newChannelCount);
 
 	
 	/**	Allocate memory for all channels at the specified vectorsize, 
@@ -216,7 +237,7 @@ public:
 		//	But, at the moment, we implement a vector of vectors rather than a block of memory that we index as a single chunk.
 		//	So we have to iterate like this:
 		
-		for (TTUInt16 channel=0; channel<mNumChannels; channel++) {
+		for (TTChannelCount channel=0; channel<mNumChannels; channel++) {
 			for (int n=0; n<mVectorSize; n++)
 				mSampleVectors[channel][n] = aFillValue;
 		}
@@ -229,13 +250,13 @@ public:
 	static TTErr reference(const TTAudioSignal& source, TTAudioSignal& dest);
 	
 	/**	Copy the audio from one signal into another.	*/
-	static TTErr copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset=0);
+	static TTErr copy(const TTAudioSignal& source, TTAudioSignal& dest, TTChannelCount channelOffset=0);
 	
 	/**	Copy the audio from one signal into another, but not taking care to zero channels that aren't used.	*/
-	static TTErr copyDirty(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset=0);
+	static TTErr copyDirty(const TTAudioSignal& source, TTAudioSignal& dest, TTChannelCount channelOffset=0);
 
 	/**	Copy the audio from one signal into another.	*/
-	static TTErr copySubset(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 startingChannel=0, TTUInt16 endingChannel=0);
+	static TTErr copySubset(const TTAudioSignal& source, TTAudioSignal& dest, TTChannelCount startingChannel=0, TTChannelCount endingChannel=0);
 	
 	
 	
@@ -247,9 +268,9 @@ public:
 	 *	@param		signal1			The first of the two signals to be compared.
 	 *	@param		signal2			The second of the two signals to be compared.
 	 *	@return		The number of channels that are valid for both signal1 and signal2.		*/
-	//static TTUInt16 getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2);
+	//static TTChannelCount getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2);
 
-	static TTUInt16 getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2)
+	static TTChannelCount getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2)
 	{
 		if (signal1.mNumChannels > signal2.mNumChannels)
 			return signal2.mNumChannels;
@@ -265,11 +286,11 @@ public:
 	 	@param		signal2			The second of three signals to be compared.
 		@param		signal3			The third of three signals to be compared.
 	 	@return		The number of channels that are valid for all signals.		*/
-	//static TTUInt16 getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3);
+	//static TTChanelCount getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3);
 
-	static TTUInt16 getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3)
+	static TTChannelCount getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3)
 	{
-		TTUInt16	numChannels = signal1.mNumChannels;
+		TTChannelCount	numChannels = signal1.mNumChannels;
 		
 		if (signal2.mNumChannels < numChannels)
 			numChannels = signal2.mNumChannels;
@@ -279,15 +300,15 @@ public:
 		return numChannels;
 	}
 	
-	static TTUInt16 getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2);
-	static TTUInt16 getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3);
+	static TTChannelCount getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2);
+	static TTChannelCount getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3);
 	
 	/** Use this class method to determine the number of channels of an input or output signal.
 	 *	This can be useful in circumstances where input and output signals are not necsessarily expected
 	 *  or required to have the same number of channels.
 	 *	@param		signal			The signal that we want to investigate.
 	 *	@return		The number of channels of the signal.		*/
-	static TTUInt16 getNumChannels(const TTAudioSignal& signal);
+	static TTChannelCount getNumChannels(const TTAudioSignal& signal);
 	
 	
 	/**	Sum another audio signal's samples with this audio signal's samples.

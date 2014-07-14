@@ -47,7 +47,7 @@ Slinky3D::~Slinky3D()
 TTErr Slinky3D::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&		out = outputs->getSignal(0);
-	TTUInt16			numOutputChannels = out.getNumChannelsAsInt();
+	TTChannelCount		numOutputChannels = out.getNumChannelsAsInt();
 	
 	if (numOutputChannels != 3) {
 		TTValue v = 3;		

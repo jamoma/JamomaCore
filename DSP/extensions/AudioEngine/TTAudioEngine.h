@@ -44,8 +44,8 @@ class TTDSP_EXPORT TTAudioEngine : public TTObjectBase {
 	
 protected:
 
-	TTUInt16			mNumInputChannels;		///< The number of input channels
-	TTUInt16			mNumOutputChannels;		///< The number of output channels
+	TTChannelCount		mNumInputChannels;		///< The number of input channels
+	TTChannelCount		mNumOutputChannels;		///< The number of output channels
 	TTUInt16			mVectorSize;			///< Vector size (frames per buffer)
 	TTUInt32			mSampleRate;			///< Sample rate
     PaStream*			mStream;

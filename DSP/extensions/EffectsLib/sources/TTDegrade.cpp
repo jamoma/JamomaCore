@@ -1,10 +1,16 @@
-/* 
- * TTBlue Degrade Object
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief #TTDegrade distorts signal by reducing bit resolution and/or sample rate.
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTDegrade.h"
 
@@ -18,7 +24,7 @@
 
 TT_AUDIO_CONSTRUCTOR
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 	
 	// register attributes
 	addAttributeWithSetter(Bitdepth,	kTypeUInt8);
@@ -66,8 +72,8 @@ TTErr TTDegrade::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channel;
 	long			l;
 
 	for (channel=0; channel<numchannels; channel++) {

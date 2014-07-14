@@ -1,10 +1,22 @@
-/* 
- * TTBlue Limiter Object
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief #TTLimiter implements a lookahead limiter processor for controlling the dynamics of an input.
+ *
+ * @details The way this works is by buffering the input, and delaying it by N samples. That way we are able to see what the output will be some amount of time prior to actually outputting it, and adjust the gain accordingly. @n
+ * @n
+ * After some preprocessing to adjust gain and filter DC offsets on the input, we have an analysis stage. The analysis stage looks at the sample value for each channel at the input, and then uses the hottest sample to calculate the gain adjust that needs to be applied. @n
+ * @n
+ * The release attribute (specified in seconds) determines how long it takes for a gain reduction to "wear off" once the amplitude level of the input has been reduced.
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTLimiter.h"
 
@@ -24,7 +36,7 @@ TT_AUDIO_CONSTRUCTOR,
 	maxBufferSize(512),
 	attrMode(TT("exponential"))
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 	
 	// register our attributes
 	registerAttribute(TT("preamp"),		kTypeFloat64,	NULL,			(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
@@ -73,8 +85,8 @@ TTLimiter::~TTLimiter()
 // TODO: These message receiver args should be reversed -- this is a change that should be applied throughout TTBlue
 TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	TTUInt16	channel;
-	TTUInt16	numChannels = oldMaxNumChannels;
+	TTChannelCount	channel;
+	TTChannelCount	numChannels = oldMaxNumChannels;
 
 	if (lookaheadBuffer) {
 		for (channel=0; channel<numChannels; channel++)

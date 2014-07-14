@@ -1,10 +1,21 @@
-/* 
- * TTBlue Balance Signal Amplitude
- * Copyright © 2008, Trond Lossius
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief #TTBalance balance the gain level according to a side band signal.
+ *
+ * @details Based on an algorithm from Dodge & Jerse (1997): Computer Music -
+ Synthesis, Composition, and Performance. 2nd edition. Schirmer.@n
+ @n
+ In fact, this processor can work on a number of channels, provided that the number of input channels is twice the number of output channels.  In this case the first N/2 input channels are considered as the A source and the last N/2 input channels are considered the B source.
+ *
+ * @authors Trond Lossius
+ *
+ * @copyright Copyright © 2008, Trond Lossius @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_BALANCE_H__
 #define __TT_BALANCE_H__

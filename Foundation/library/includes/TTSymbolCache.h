@@ -14,12 +14,14 @@
 
 extern TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
 
+// osc namespace
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymEmpty;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymSlash;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymDot;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymColon;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSymStar;
 
+// vectors
 extern TTFOUNDATION_EXPORT TTSymbol kTTSym_setVector32;
 extern TTFOUNDATION_EXPORT TTSymbol kTTSym_getVector32;
 extern TTFOUNDATION_EXPORT TTSymbol kTTSym_setVector64;
@@ -65,6 +67,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_vectorSize;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_sampleRate;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_schema;
 
+// networking
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_tcp;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_udp;
 
@@ -170,7 +173,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_array;
 
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_brothers;
 
-extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_children;
+extern TTFOUNDATION_EXPORT TTSymbol kTTSym_children;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_command;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Command;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_comment;
@@ -203,15 +206,15 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_freeze;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_generic;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Get;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_global;
-extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_Go;
-extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_Grab;
+extern TTFOUNDATION_EXPORT TTSymbol kTTSym_Go;
+extern TTFOUNDATION_EXPORT TTSymbol kTTSym_Grab;
 
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_highlight;
 
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Init;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_initialized;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_inputUnit;
-extern TTFOUNDATION_EXPORT TTSymbol    kTTSym_instances;
+extern TTFOUNDATION_EXPORT TTSymbol kTTSym_instances;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_integer;
 
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_life;

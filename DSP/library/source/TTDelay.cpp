@@ -182,7 +182,7 @@ TTErr TTDelay::setInterpolation(const TTValue& newValue)
 	TTUInt16			vs; \
 	TTSampleValue*		inSample; \
 	TTSampleValue*		outSample; \
-	TTUInt16			numchannels = TTAudioSignal::getMinChannelCount(in, out); \
+	TTChannelCount		numchannels = TTAudioSignal::getMinChannelCount(in, out); \
 	TTPtrSizedInt		channel; \
 	TTDelayBufferPtr	buffer; \
 	\

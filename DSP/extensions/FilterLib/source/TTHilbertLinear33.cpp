@@ -36,7 +36,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mF3("allpass.2b"),
 	mF4("allpass.2b")
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 	
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
@@ -116,7 +116,7 @@ TTErr TTHilbertLinear33::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	TTSampleValue*	inSample;
 	TTSampleValue*	outRealSample;
 	TTSampleValue*	outImaginarySample;
-	TTUInt16		numChannels = TTAudioSignal::getMinChannelCount(in, outReal, outImaginary);
+	TTChannelCount	numChannels = TTAudioSignal::getMinChannelCount(in, outReal, outImaginary);
 	TTPtrSizedInt	channel;
 	TTUInt16		n;
 		

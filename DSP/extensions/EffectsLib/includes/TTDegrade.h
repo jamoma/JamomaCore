@@ -1,10 +1,16 @@
-/* 
- * TTBlue Degrade Object
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief #TTDegrade distorts signal by reducing bit resolution and/or sample rate.
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #ifndef __TT_DEGRADE_H__
 #define __TT_DEGRADE_H__

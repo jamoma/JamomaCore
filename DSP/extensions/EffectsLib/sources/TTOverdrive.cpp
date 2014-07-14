@@ -1,10 +1,16 @@
-/* 
- * Overdrive / Soft Saturation Effect 
- * Copyright © 2008, Timothy Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+/** @file
+ *
+ * @ingroup dspEffectsLib
+ *
+ * @brief #TTOverdrive is a soft saturation distortion effect.
+ *
+ * @authors Tim Place, Trond Lossius
+ *
+ * @copyright Copyright © 2008, Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
+
 
 #include "TTOverdrive.h"
 #include "TTEnvironment.h"
@@ -17,7 +23,7 @@
 TT_AUDIO_CONSTRUCTOR,
 	dcBlockerUnit(kTTSym_dcblock)
 {
-	TTUInt16	initialMaxNumChannels = arguments;
+	TTChannelCount	initialMaxNumChannels = arguments;
 	
 	// Register Attributes
 	addAttributeWithSetter(Drive,				kTypeFloat64);
@@ -122,8 +128,8 @@ TTErr TTOverdrive::processMode0(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channel;
 	TTSampleValue	temp,
 					sign;
 
@@ -163,8 +169,8 @@ TTErr TTOverdrive::processMode1(TTAudioSignalArrayPtr inputs, TTAudioSignalArray
 	short			vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
+	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTChannelCount	channel;
 	TTSampleValue	temp;
 #ifdef TT_PLATFORM_WIN
 	TTSampleValue	sign;

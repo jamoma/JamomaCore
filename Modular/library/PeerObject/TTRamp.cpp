@@ -358,7 +358,7 @@ TTErr TTRamp::Stop()
     return kTTErrGeneric;
 }
 
-void TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 realTime)
+void TTRampSchedulerCallback(TTPtr object, TTFloat64 position, TTFloat64 date)
 {
 	TTRampPtr	aRamp = (TTRampPtr)object;
     TTUInt32	i;
@@ -370,7 +370,7 @@ void TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 real
 #ifndef TT_NO_DSP     
 	if (aRamp->mFunctionUnit) {
        
-		aRamp->mFunctionUnit->calculate(progression, mapped);
+		aRamp->mFunctionUnit->calculate(position, mapped);
 
 		for (i = 0; i <  aRamp->mNumValues; i++)
 			current[i] = start[i] + ((target[i] - start[i]) * mapped);
@@ -380,7 +380,7 @@ void TTRampSchedulerCallback(TTPtr object, TTFloat64 progression, TTFloat64 real
     
 #else
     
-    mapped = progression;
+    mapped = position;
     
     for (i = 0; i <  aRamp->mNumValues; i++)
         current[i] = start[i] + ((target[i] - start[i]) * mapped);

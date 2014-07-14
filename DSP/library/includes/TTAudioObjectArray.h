@@ -37,7 +37,7 @@ protected:
 	
 	TTSymbol			mClass;					///< The name of the object we will instantiate in the array
 	TTUInt16			mSize;					///< The number of instances in the array
-	TTAudioObjectBaseVector	mInstances;				///< The actual vector containing object instance pointers
+	TTAudioObjectBaseVector	mInstances;			///< The actual vector containing object instance pointers
 	TTAudioSignalPtr	mInputChannelSignal;	///< Signal used within the process method for passing to individual instances
 	TTAudioSignalPtr	mOutputChannelSignal;	///< Signal used within the process method for passing to individual instances
 	
