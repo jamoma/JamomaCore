@@ -45,10 +45,6 @@ TTFreeHandFunction::~TTFreeHandFunction()
 
 TTErr TTFreeHandFunction::getCurveList(TTValue& value)
 {
-    TTObject    aFunction;
-    TTValue     v, attributeNames;
-    TTSymbol    aName;
-    TTUInt8     i;
     TTBoolean   firstFunction = YES;
     
     mFunctions.begin();
@@ -73,25 +69,32 @@ TTErr TTFreeHandFunction::getCurveList(TTValue& value)
         // append function info
         if (mFunctions.end()) {
             
-            aFunction = mFunctions.current()[0];
+            TTObject aFunction = mFunctions.current()[0];
             
             if (aFunction.valid()) {
                 
+                TTValue attributeNames;
+                TTUInt8 i;
+                
                 // append function name
                 value.append(aFunction.name());
-                
+
                 // for all attributes
                 aFunction.attributes(attributeNames);
                 
                 for (i = 0; i < attributeNames.size(); i++) {
                     
-                    aName = attributeNames[i];
+                    TTSymbol aName = attributeNames[i];
+                    
                     if (aName == kTTSym_bypass || aName == TTSymbol("mute") || aName == kTTSym_maxNumChannels || aName == kTTSym_sampleRate)
                         continue;										// don't publish these datas
+
+                    // append attribute name
+                    value.append(aName);
                     
-                    // append attribute name and value
+                    // append attribute value
+                    TTValue v;
                     aFunction.get(aName, v);
-                    value.append(attributeNames[i]);
                     value.append(v);
                 }
             }
@@ -99,7 +102,7 @@ TTErr TTFreeHandFunction::getCurveList(TTValue& value)
             mFunctions.next();
         }
     }
-    
+
     return kTTErrNone;
 }
 
@@ -192,7 +195,7 @@ TTErr TTFreeHandFunction::setCurveList(const TTValue& value)
     }
     
     locked = NO;
-    
+
     return err;
 }
 
