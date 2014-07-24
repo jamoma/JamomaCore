@@ -33,7 +33,7 @@ private:
 	TTUInt8				mPriority;						///< ATTRIBUTE : does this container have a priority over other containers ?
 	TTSymbol			mDescription;					///< ATTRIBUTE : a text label to describe the role of this container
     TTSymbol			mService;                       ///< ATTRIBUTE : a symbol used to type the container (this is mainly for Max to say if it is a view or a model)
-	TTValue				mTag;							///< ATTRIBUTE : tag list for this container
+	TTValue				mTags;							///< ATTRIBUTE : tag list for this container
 	TTBoolean			mInitialized;					///< ATTRIBUTE : is it initialized ?
 	TTAddress           mAddress;						///< ATTRIBUTE : the address of the container in the directory
 	TTAddress           mAlias;							///< ATTRIBUTE : an alias address to retrieve the container using another address
@@ -67,7 +67,7 @@ private:
 	/** */
 	TTErr setAlias(const TTValue& value);
 	
-	/**	Setter for mTag attribute. */
+	/**	Setter for mTags attribute. */
 	TTErr setTag(const TTValue& value);
 	
 	/**	Setter for mPriority attribute. */

@@ -24,7 +24,7 @@ TT_MODULAR_CONSTRUCTOR,
 mValue(TTValue(0.0)),
 mValueStepsize(TTValue(0.1)),       // this default value is expected in #TTData::setType method
 mType(kTTSym_generic),
-mTag(TTValue(kTTSym_none)),
+mTags(TTValue(kTTSym_none)),
 mPriority(0),
 mDescription(kTTSym_none),
 mRepetitionsFilter(NO),
@@ -326,8 +326,8 @@ TTErr TTData::setValueStepsize(const TTValue& value)
 TTErr TTData::setTag(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
-	mTag = value;
-	this->notifyObservers(kTTSym_tag, n);
+	mTags = value;
+	this->notifyObservers(kTTSym_tags, n);
 	return kTTErrNone;
 }
 

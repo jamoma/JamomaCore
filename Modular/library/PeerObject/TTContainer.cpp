@@ -24,7 +24,7 @@ TT_MODULAR_CONSTRUCTOR,
 mPriority(0), 
 mDescription(kTTSym_none),
 mService(kTTSym_none),
-mTag(TTValue(kTTSym_none)),
+mTags(TTValue(kTTSym_none)),
 mInitialized(NO),
 mAddress(kTTAdrsEmpty),
 mAlias(kTTAdrsEmpty),
@@ -418,11 +418,11 @@ TTErr TTContainer::setTag(const TTValue& value)
 	TTAttributePtr	anAttribute;
 	TTErr			err = kTTErrNone;
 	
-	mTag = value;
+	mTags = value;
 	
-	err = this->findAttribute(kTTSym_tag, &anAttribute);
+	err = this->findAttribute(kTTSym_tags, &anAttribute);
 	if (!err)
-		anAttribute->sendNotification(kTTSym_notify, mTag);	// we use kTTSym_notify because we know that observers are TTCallback
+		anAttribute->sendNotification(kTTSym_notify, mTags);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
 }
@@ -824,7 +824,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	/* 
 	 Configuration
 	 */
-    tags = mTag;
+    tags = mTags;
     tags.toString();
 	*buffer += "\t<h3> Configuration </h3>";
 	*buffer += "\t<p> Tags : <code>";

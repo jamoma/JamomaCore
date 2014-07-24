@@ -21,7 +21,7 @@
 #define thisTTClassTags		"node info"
 
 TT_MODULAR_CONSTRUCTOR,
-mTag(TTValue(kTTSym_none)),
+mTags(TTValue(kTTSym_none)),
 mPriority(0),
 mDescription(kTTSym_none)
 {
@@ -58,8 +58,8 @@ TTErr TTNodeInfo::setPriority(const TTValue& value)
 TTErr TTNodeInfo::setTag(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
-	mTag = value;
-	this->notifyObservers(kTTSym_tag, n);
+	mTags = value;
+	this->notifyObservers(kTTSym_tags, n);
 	return kTTErrNone;
 }
 

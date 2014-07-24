@@ -33,7 +33,7 @@ private:
 	TTValue			mValueStepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	
 	TTSymbol		mType;						///< ATTRIBUTE: type of this data's value
-	TTValue			mTag;						///< ATTRIBUTE: tag list for this data
+	TTValue			mTags;						///< ATTRIBUTE: tag list for this data
 	TTInt32			mPriority;					///< ATTRIBUTE: does this data have a priority over other datas ?
 	TTSymbol		mDescription;				///< ATTRIBUTE: text to describe the role of this data
 	TTBoolean		mRepetitionsFilter;			///< ATTRIBUTE: is repetitions are filtered out ?
@@ -166,7 +166,7 @@ private:
 	/**	Setter for mType attribute. */
 	TTErr       setType(const TTValue& value);
 	
-	/**	Setter for mTag attribute. */
+	/**	Setter for mTags attribute. */
 	TTErr       setTag(const TTValue& value);
 	
 	/**	Setter for mRepetitionsFilter attribute. */

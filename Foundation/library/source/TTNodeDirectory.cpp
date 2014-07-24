@@ -981,7 +981,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 							if (!aFilter->lookup(kTTSym_value, valueFilter)) {
                                 
                                 // special case for tag attribute : just check if one element of the value to filter exist in the tag
-                                if (attributeFilter == kTTSym_tag) {
+                                if (attributeFilter == kTTSym_tags) {
                                     
                                     for (TTUInt32 i = 0; i < valueFilter.size(); i++) {
                                         
