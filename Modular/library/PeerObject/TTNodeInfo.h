@@ -42,7 +42,7 @@ private:
     
     /**	Setter for mTags attribute
      @param value       new tag value */
-	TTErr       setTag(const TTValue& value);
+	TTErr       setTags(const TTValue& value);
     
     /** Notify observers of an attribute 
      @param attrName    the name of the attribute to notify

@@ -27,7 +27,7 @@ mDescription(kTTSym_none)
 {
 	TT_ASSERT("Correct number of args to create TTNodeInfo", arguments.size() == 0);
 	
-	addAttributeWithSetter(Tag, kTypeLocalValue);
+	addAttributeWithSetter(Tags, kTypeLocalValue);
 	addAttributeWithSetter(Priority, kTypeInt32);
 	addAttributeWithSetter(Description, kTypeSymbol);
 }
@@ -55,7 +55,7 @@ TTErr TTNodeInfo::setPriority(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTNodeInfo::setTag(const TTValue& value)
+TTErr TTNodeInfo::setTags(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mTags = value;

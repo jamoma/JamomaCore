@@ -167,7 +167,7 @@ private:
 	TTErr       setType(const TTValue& value);
 	
 	/**	Setter for mTags attribute. */
-	TTErr       setTag(const TTValue& value);
+	TTErr       setTags(const TTValue& value);
 	
 	/**	Setter for mRepetitionsFilter attribute. */
 	TTErr       setRepetitionsFilter(const TTValue& value);

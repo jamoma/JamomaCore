@@ -44,7 +44,7 @@ activityAttribute(NULL)
     
     addAttribute(Service, kTypeSymbol);
     
-	addAttributeWithSetter(Tag, kTypeLocalValue);
+	addAttributeWithSetter(Tags, kTypeLocalValue);
 	
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(Initialized, readOnly, YES);
@@ -413,7 +413,7 @@ TTErr TTContainer::setAlias(const TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTErr TTContainer::setTag(const TTValue& value)
+TTErr TTContainer::setTags(const TTValue& value)
 {
 	TTAttributePtr	anAttribute;
 	TTErr			err = kTTErrNone;

@@ -68,7 +68,7 @@ private:
 	TTErr setAlias(const TTValue& value);
 	
 	/**	Setter for mTags attribute. */
-	TTErr setTag(const TTValue& value);
+	TTErr setTags(const TTValue& value);
 	
 	/**	Setter for mPriority attribute. */
 	TTErr setPriority(const TTValue& value);

@@ -58,7 +58,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithGetterAndSetter(ValueStepsize, kTypeNone);
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
-	addAttributeWithSetter(Tag, kTypeLocalValue);
+	addAttributeWithSetter(Tags, kTypeLocalValue);
 	addAttributeWithSetter(Priority, kTypeInt32);
 	addAttributeWithSetter(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsFilter, kTypeBoolean);
@@ -323,7 +323,7 @@ TTErr TTData::setValueStepsize(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTData::setTag(const TTValue& value)
+TTErr TTData::setTags(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
 	mTags = value;

@@ -44,7 +44,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
-	addAttribute(Tag, kTypeSymbol);
+	addAttribute(Tags, kTypeSymbol);
 	addAttributeWithSetter(Highlight, kTypeBoolean);
 	addAttributeWithSetter(Freeze, kTypeBoolean);
 	
