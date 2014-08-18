@@ -173,28 +173,23 @@ TTErr TTReceiver::Get()
                     // don't return empty value
                     if (data.size()) {
                         
-                        // don't return empty value
-                        if (data.size()) {
-                            
-                            // output the address of the node (in case we use * inside the binded address)
-                            aNode->getAddress(anAddress);
-                            anAddress = anAddress.appendAttribute(mAddress.getAttribute());
-                            
-                            // return the address
-                            if (anAddress.getAttribute() == kTTSym_value)
-                                v = anAddress.removeAttribute();
-                            else
-                                v = anAddress;
-                            
-                            if (mReturnAddressCallback.valid())
-                                mReturnAddressCallback.send("notify", v, none);
-                            
-                            // return the value
-                            if (mReturnValueCallback.valid())
-                                mReturnValueCallback.send("notify", data, none);
-                        }
+                        // output the address of the node (in case we use * inside the binded address)
+                        aNode->getAddress(anAddress);
+                        anAddress = anAddress.appendAttribute(mAddress.getAttribute());
+                        
+                        // return the address
+                        if (anAddress.getAttribute() == kTTSym_value)
+                            v = anAddress.removeAttribute();
                         else
-                            return kTTErrGeneric;
+                            v = anAddress;
+                            
+                        if (mReturnAddressCallback.valid())
+                            mReturnAddressCallback.send("notify", v, none);
+                            
+                        // return the value
+                        if (mReturnValueCallback.valid())
+                            mReturnValueCallback.send("notify", data, none);
+
 					}
 					else
 						return kTTErrGeneric;
