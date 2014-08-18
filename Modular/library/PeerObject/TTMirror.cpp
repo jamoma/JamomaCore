@@ -23,7 +23,7 @@
 TT_MODULAR_CONSTRUCTOR,
 mType(kTTSymEmpty)
 {	
-	TTValue				attributeNames, messageNames, args, none;
+	TTValue				attributeNames, messageNames, none;
 	TTSymbol			name;
 	TTAttributePtr		anAttribute;
 	TTAttributeFlags	attributeFlags = kTTAttrPassObject;
@@ -49,9 +49,7 @@ mType(kTTSymEmpty)
         // if the class exist
         if (!ttEnvironment->isClassRegistered(mType)) {
             
-            // instantiate a temp object to copy visible attributes and messages
-            args.resize(32);
-            TTObject anObject = TTObject(mType, args);
+            TTObject anObject = TTObject(mType);
             
             if (anObject.valid()) {
                 
