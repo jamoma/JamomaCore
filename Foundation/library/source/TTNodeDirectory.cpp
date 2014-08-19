@@ -507,7 +507,7 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 				}
 				
 				if (!limitReached)
-					err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode, newLimit);
+					err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode, newLimit, comparisonFunction);
 				else
 					err = kTTErrNone;
 
