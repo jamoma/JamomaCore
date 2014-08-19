@@ -654,9 +654,19 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark Some Methods
 #endif
 
-TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue)
+TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue, TTBoolean parseUnitAndRamp)
 {
 	TTDictionaryBasePtr		command = new TTDictionaryBase();
+    
+    // don't parse the value, just store it into a dictionary
+    // this is useful when unit or ramp doesn't mean anything (e.g. generic case)
+    if (!parseUnitAndRamp) {
+        
+        command->setValue(commandValue);
+        command->setSchema(kTTSym_command);
+        return command;
+    }
+    
 	TTUInt32			time;
 	TTUInt32			commandSize;
 	TTSymbol			unit, ramp;

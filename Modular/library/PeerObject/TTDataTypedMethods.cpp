@@ -196,12 +196,17 @@ TTErr TTData::Command(const TTValue& inputValue, TTValue& outputValue)
             return (this->*commandMethod)(inputValue, outputValue);
     }
     
-    // else we need to free the parsed command afterwards
+    // else we parse command locally (and we need to free the parsed command afterwards)
     TTDictionaryBasePtr command = NULL;
     TTErr           err;
+
+    // for string type : keep only the first element
+    if (mType == kTTSym_string && inputValue.size())
+        command = TTDataParseCommand(inputValue[0], NO);
     
-    // parse command locally
-    command = TTDataParseCommand(inputValue);
+    // for integer, decimal or array type : parse unit and ramp
+    else
+        command = TTDataParseCommand(inputValue, mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_array);
     
     if (!command)
         return kTTErrGeneric;
