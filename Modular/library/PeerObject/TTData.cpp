@@ -46,7 +46,7 @@ mRangeClipmode(kTTSym_none),
 mDynamicInstances(NO),
 mInstanceBounds(0, -1),
 mRampDrive(kTTSym_none),
-mRampDriveDefault(TTSymbol("System")),
+mRampDriveDefault(TTSymbol("system")),
 #ifndef TT_NO_DSP
 mRampFunction(kTTSym_none),         // this default value is expected in #TTData::setType method
 #endif

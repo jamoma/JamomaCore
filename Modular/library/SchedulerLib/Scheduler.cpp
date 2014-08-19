@@ -150,13 +150,13 @@ TTErr Scheduler::setSpeed(const TTValue& value)
 void SchedulerLib::getSchedulerNames(TTValue& SchedulerNames)
 {
 	SchedulerNames.clear();
-	SchedulerNames.append(TTSymbol("Max"));
-	SchedulerNames.append(TTSymbol("System"));
+	SchedulerNames.append(TTSymbol("max"));
+	SchedulerNames.append(TTSymbol("system"));
 }
 
 TTErr SchedulerLib::isSchedulerNameAvailable(TTSymbol aSchedulerName)
 {
-    if (aSchedulerName == TTSymbol("Max") || aSchedulerName == TTSymbol("System"))
+    if (aSchedulerName == TTSymbol("max") || aSchedulerName == TTSymbol("system"))
         return kTTErrNone;
     else
         return kTTErrValueNotFound;

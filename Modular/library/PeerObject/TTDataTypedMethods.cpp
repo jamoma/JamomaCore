@@ -58,7 +58,7 @@ TTErr TTData::setType(const TTValue& value)
             
             // if mRampDrive still equals to the value passed in constructor
             if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
+                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_decimal) {
             commandMethod = (TTMethodValue)&TTData::DecimalCommand;
@@ -75,7 +75,7 @@ TTErr TTData::setType(const TTValue& value)
             
             // if mRampDrive still equals to the value passed in constructor
             if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
+                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_string) {
             commandMethod = (TTMethodValue)&TTData::StringCommand;
@@ -132,7 +132,7 @@ TTErr TTData::setType(const TTValue& value)
             
             // if mRampDrive still equals to the value passed in constructor
             if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
+                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_none) {
             commandMethod = (TTMethodValue)&TTData::NoneCommand;
@@ -172,9 +172,9 @@ TTErr TTData::setType(const TTValue& value)
 		}
         
         // TODO : move this very Max specific thing else where
-        if (mRampDrive == TTSymbol("Max"))
-            if (ttEnvironment->isClassRegistered("Max"))
-                mRampDrive = TTSymbol("System");
+        if (mRampDrive == TTSymbol("max"))
+            if (ttEnvironment->isClassRegistered("max"))
+                mRampDrive = TTSymbol("system");
         
 		rampSetup();
 		
