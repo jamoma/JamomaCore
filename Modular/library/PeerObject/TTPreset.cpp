@@ -102,12 +102,9 @@ TTErr TTPreset::Store()
         v.clear();
 		mScript.send("AppendComment", v, parsedLine);
 		
-		// 5. Look for all Objects under the address into the directory
+		// 5. Look for all Objects under the address into the directory (and sort them using object priority order then alphabetical order)
 		mDirectory->Lookup(mAddress, aNodeList, &aNode);
-		mDirectory->LookFor(&aNodeList, &TTPresetTestObject, NULL, allObjectNodes, &aNode);
-		
-		// 6. Sort the NodeList using object priority order
-		allObjectNodes.sort(&compareNodePriorityThenNameThenInstance);
+		mDirectory->LookFor(&aNodeList, &TTPresetTestObject, NULL, allObjectNodes, &aNode, 0, &compareNodePriorityThenNameThenInstance);
 		
 		// 7. Append a script line for each object found
 		for (allObjectNodes.begin(); allObjectNodes.end(); allObjectNodes.next()) {
