@@ -346,13 +346,13 @@ TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputVal
         else if (inputValue[0].type() == kTypeInt32 && inputValue[1].type() == kTypeInt32 && inputValue[2].type() == kTypeFloat64) {
             
             i1 = inputValue[0] ;
-            if (i1 >= 0 && i1 < mNames.size())
+            if (i1 > 0 && i1 <= mNames.size())
                 name1 = mNames[i1-1];
             else
                 return kTTErrGeneric;
             
             i2 = inputValue[1];
-            if (i2 >= 0 && i2 < mNames.size())
+            if (i2 > 0 && i2 <= mNames.size())
                 name2 = mNames[i2-1];
             else
                 return kTTErrGeneric;
