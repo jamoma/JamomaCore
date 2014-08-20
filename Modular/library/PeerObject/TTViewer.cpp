@@ -279,24 +279,7 @@ TTErr TTViewer::setDataspaceUnit(const TTValue& value)
 
 TTErr TTViewerReceiveAddressCallback(const TTValue& baton, const TTValue& data)
 {
-    TTObject    o;
-    TTViewerPtr aViewer;
-	TTValue		converted;
-	
-    // unpack baton (a #TTViewer)
-    o = baton[0];
-	aViewer = (TTViewerPtr)o.instance();
-    
-    if (aViewer->mActive) {
-        
-        if (aViewer->mDataspace == kTTSym_none) {
-            
-            aViewer->mDataspaceObserver.send(kTTSym_Get);
-            aViewer->mDataspaceUnitObserver.send(kTTSym_Get);
-        }
-    }
-    
-	return kTTErrNone;
+    return kTTErrNone;
 }
 
 TTErr TTViewerReceiveValueCallback(const TTValue& baton, const TTValue& data)
