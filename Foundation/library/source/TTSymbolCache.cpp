@@ -257,6 +257,7 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_repetitionsFilter				(("repetitionsFil
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_return                           (("return"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_returnedValue					(("returnedValue"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Run                              (("Run"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_running                      (("running"));
 
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Send                             (("Send"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_script                           (("script"));
