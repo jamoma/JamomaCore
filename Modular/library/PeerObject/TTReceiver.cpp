@@ -80,10 +80,6 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
     
     if (mAddress != kTTAdrsEmpty) {
         
-        // default attribute to bind is value
-        if (mAddress.getAttribute() == NO_ATTRIBUTE)
-            mAddress = mAddress.appendAttribute(kTTSym_value);
-        
         mDirectory = accessApplicationDirectoryFrom(mAddress);
         if (mDirectory)
             err = bindAddress();
@@ -112,6 +108,10 @@ TTErr TTReceiver::setActive(const TTValue& newValue)
     if (!mNodesObserversCache.isEmpty()) {
         
         ttAttributeName = ToTTName(mAddress.getAttribute());
+        
+        // default attribute to bind is value
+        if (ttAttributeName == NO_ATTRIBUTE)
+            ttAttributeName = kTTSym_value;
         
         // for each node of the selection
         for (mNodesObserversCache.begin(); mNodesObserversCache.end(); mNodesObserversCache.next()) {
@@ -155,6 +155,10 @@ TTErr TTReceiver::Get()
         
         ttAttributeName = ToTTName(mAddress.getAttribute());
         
+        // default attribute to bind is value
+        if (ttAttributeName == NO_ATTRIBUTE)
+            ttAttributeName = kTTSym_value;
+        
         // for each node of the selection
         for (mNodesObserversCache.begin(); mNodesObserversCache.end(); mNodesObserversCache.next()) {
             
@@ -178,13 +182,8 @@ TTErr TTReceiver::Get()
                         anAddress = anAddress.appendAttribute(mAddress.getAttribute());
                         
                         // return the address
-                        if (anAddress.getAttribute() == kTTSym_value)
-                            v = anAddress.removeAttribute();
-                        else
-                            v = anAddress;
-                            
                         if (mReturnAddressCallback.valid())
-                            mReturnAddressCallback.send("notify", v, none);
+                            mReturnAddressCallback.send("notify", anAddress, none);
                             
                         // return the value
                         if (mReturnValueCallback.valid())
@@ -214,6 +213,10 @@ TTErr TTReceiver::Grab(const TTValue& inputValue, TTValue& outputValue)
         
         ttAttributeName = ToTTName(mAddress.getAttribute());
         
+        // default attribute to bind is value
+        if (ttAttributeName == NO_ATTRIBUTE)
+            ttAttributeName = kTTSym_value;
+        
         // grab the value for the first node only
         mNodesObserversCache.begin();
         aNode = TTNodePtr((TTPtr)mNodesObserversCache.current()[0]);
@@ -241,8 +244,12 @@ TTErr TTReceiver::bindAddress()
 	if (!mDirectory)
 		return kTTErrGeneric;
 	
-	// for any Attribute observation except created, destroyed
+	// for any attribute observation except created, destroyed
 	ttAttributeName = ToTTName(mAddress.getAttribute());
+    
+    // default attribute to bind is value
+    if (ttAttributeName == NO_ATTRIBUTE)
+        ttAttributeName = kTTSym_value;
 	
 	if ((ttAttributeName != kTTSym_created) && (ttAttributeName != kTTSym_destroyed))
 	{
@@ -270,7 +277,7 @@ TTErr TTReceiver::bindAddress()
 						
 						baton = TTValue(TTObject(this));
 						aNode->getAddress(anAddress);
-						baton.append(anAddress.appendAttribute(mAddress.getAttribute()));
+                        baton.append(anAddress);
 						
 						newObserver.set(kTTSym_baton, baton);
 						newObserver.set(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
@@ -290,13 +297,8 @@ TTErr TTReceiver::bindAddress()
 						mObjectCache->appendUnique(o);
                         
                         // notify that the address exists
-                        if (anAddress.getAttribute() == kTTSym_value)
-                            v = anAddress.removeAttribute();
-                        else
-                            v = anAddress;
-                        
                         if (mReturnAddressCallback.valid())
-                            mReturnAddressCallback.send("notify", v, none);
+                            mReturnAddressCallback.send("notify", anAddress, none);
 					}
 				}
 			}
@@ -327,7 +329,11 @@ TTErr TTReceiver::unbindAddress()
 		
 		// stop attribute obeservation
 		// for each node of the selection
-			ttAttributeName = ToTTName(mAddress.getAttribute());
+        ttAttributeName = ToTTName(mAddress.getAttribute());
+        
+        // default attribute to bind is value
+        if (ttAttributeName == NO_ATTRIBUTE)
+            ttAttributeName = kTTSym_value;
 			
         for (mNodesObserversCache.begin(); mNodesObserversCache.end(); mNodesObserversCache.next()){
             
@@ -428,6 +434,10 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 	flag = data[2];
 	
 	ttAttributeName = ToTTName(aReceiver->mAddress.getAttribute());
+    
+    // default attribute to bind is value
+    if (ttAttributeName == NO_ATTRIBUTE)
+        ttAttributeName = kTTSym_value;
 	
 	switch (flag) {
 			
@@ -473,7 +483,7 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 							TTObject newObserver = TTObject("callback");
 							
 							b = TTObject(aReceiver);
-							b.append(anAddress.appendAttribute(aReceiver->mAddress.getAttribute()));
+                            b.append(anAddress);
 							
 							newObserver.set(kTTSym_baton, b);
 							newObserver.set(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
@@ -579,15 +589,9 @@ TTErr TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data)
 	
 	if (aReceiver->mActive) {
 		
-		// return the address
-        if (anAddress.getAttribute() == kTTSym_value)
-            v = anAddress.removeAttribute();
-        else
-            v = anAddress;
-		
 		// return address to the owner of #TTReceiver
         if (aReceiver->mReturnAddressCallback.valid())
-            aReceiver->mReturnAddressCallback.send("notify", v, none);
+            aReceiver->mReturnAddressCallback.send("notify", anAddress, none);
 		
 		// return the value to the owner of #TTReceiver
         if (aReceiver->mReturnValueCallback.valid())
