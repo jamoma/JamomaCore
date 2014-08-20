@@ -21,9 +21,9 @@
 #define thisTTClassTags		"node info"
 
 TT_MODULAR_CONSTRUCTOR,
-mTags(TTValue(kTTSym_none)),
+mDescription(kTTSym_none),
 mPriority(0),
-mDescription(kTTSym_none)
+mTags(TTValue(kTTSym_none))
 {
 	addAttributeWithSetter(Tags, kTypeLocalValue);
 	addAttributeWithSetter(Priority, kTypeInt32);
