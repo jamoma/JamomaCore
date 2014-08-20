@@ -61,7 +61,7 @@ currentValue(NULL)
     
     addAttribute(RampTime, kTypeFloat64);
     
-    registerAttribute(TTSymbol("running"), kTypeLocalValue, NULL, (TTGetterMethod)& TTRamp::getRunning);
+    registerAttribute(kTTSym_running, kTypeLocalValue, NULL, (TTGetterMethod)& TTRamp::getRunning);
     
     addMessageWithArguments(Set);
     addMessageWithArguments(Target);
@@ -86,7 +86,7 @@ TTRamp::~TTRamp()
 TTErr TTRamp::getRunning(TTValue& value)
 {
     if (mSchedulerUnit.valid())
-        return mSchedulerUnit.get("running", value);
+        return mSchedulerUnit.get(kTTSym_running, value);
     else
         return kTTErrGeneric;
 }

@@ -438,7 +438,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
                     mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper.get("running", isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -453,7 +453,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
             mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper.get("running", isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -607,7 +607,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
                     mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper.get("running", isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -622,7 +622,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
             mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper.get("running", isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -790,7 +790,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                     mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper.get("running", isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -805,7 +805,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
             mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper.get("running", isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -973,7 +973,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
                     mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper.get("running", isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -988,7 +988,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
             mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper.get("running", isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);

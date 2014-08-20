@@ -816,7 +816,7 @@ void TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 	aData->setAttributeValue(kTTSym_value, rampedValue);
     
 	// update the ramp status attribute
-    aData->mRamper.get("running", isRunning);
+    aData->mRamper.get(kTTSym_running, isRunning);
 	if (aData->mRampStatus != isRunning) {
         
 		aData->mRampStatus = isRunning;
