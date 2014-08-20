@@ -162,8 +162,7 @@ TTErr Protocol::ApplicationRename(const TTValue& inputValue, TTValue& outputValu
         
         if (inputValue[0].type() == kTypeSymbol && inputValue[1].type() == kTypeSymbol) {
             
-            TTHashPtr	applicationParameters;
-            TTValue		v, parameterNames;
+            TTValue		v;
             TTErr		err;
             
             TTSymbol    oldApplicationName = inputValue[0];
@@ -192,7 +191,7 @@ TTErr Protocol::ApplicationRename(const TTValue& inputValue, TTValue& outputValu
 TTErr Protocol::ApplicationUnregister(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTHashPtr	applicationParameters;
-	TTValue		v, parameterNames;
+	TTValue		v;
 	TTErr		err;
     
     // update local application name
