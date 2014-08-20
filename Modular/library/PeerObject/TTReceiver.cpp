@@ -579,19 +579,17 @@ TTErr TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data)
 {
     TTObject        o;
 	TTReceiverPtr	aReceiver;
-	TTAddress       anAddress;
 	TTValue			v, none;
 	
-	// unpack baton (a #TTReceiver)
+	// unpack baton (a #TTReceiver, address)
     o = baton[0];
 	aReceiver = (TTReceiverPtr)o.instance();
-	anAddress = baton[1];
 	
 	if (aReceiver->mActive) {
 		
 		// return address to the owner of #TTReceiver
         if (aReceiver->mReturnAddressCallback.valid())
-            aReceiver->mReturnAddressCallback.send("notify", anAddress, none);
+            aReceiver->mReturnAddressCallback.send("notify", baton[1], none);
 		
 		// return the value to the owner of #TTReceiver
         if (aReceiver->mReturnValueCallback.valid())
