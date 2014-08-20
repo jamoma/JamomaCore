@@ -242,6 +242,9 @@ TTErr TTViewer::setReturnedValue(const TTValue& value)
 
 TTErr TTViewer::Send(const TTValue& inputValue, TTValue& outputValue)
 {
+    if (!mActive)
+        return kTTErrNone;
+    
     TTValue none, valueToSend = inputValue;
     
     // append view unit except for empty value
