@@ -479,21 +479,34 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 	
 	// Special case for Data : observe the Value attribute
 	if (anObject.name() == kTTSym_Data) {
-
-        TTObject valueObserver = TTObject("callback");
-				
-        // create a value Attribute observer on it
-        anObject.instance()->findAttribute(kTTSym_value, &anAttribute);
         
-        baton = TTValue(TTObject(this), aRelativeAddress);
+        // what kind of service the data is used for ?
+        anObject.get(kTTSym_service, v);
+        service = v[0];
         
-        valueObserver.set(kTTSym_baton, baton);
-        valueObserver.set(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
-        
-        anAttribute->registerObserverForNotifications(valueObserver);
-        
-        // 1 : cache observer
-        cacheElement.append(valueObserver);
+        // we are not supposed to address returns
+        if (service == kTTSym_message) {
+            
+            // 1 : cache empty object
+            cacheElement.append(empty);
+        }
+        else {
+            
+            TTObject valueObserver = TTObject("callback");
+            
+            // create a value Attribute observer on it
+            anObject.instance()->findAttribute(kTTSym_value, &anAttribute);
+            
+            baton = TTValue(TTObject(this), aRelativeAddress);
+            
+            valueObserver.set(kTTSym_baton, baton);
+            valueObserver.set(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
+            
+            anAttribute->registerObserverForNotifications(valueObserver);
+            
+            // 1 : cache observer
+            cacheElement.append(valueObserver);
+        }
 	}
 	
 	// Special case for Viewer : observe what it returns
