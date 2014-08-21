@@ -193,31 +193,25 @@ TTErr TTReceiver::Get()
                     // don't return empty value
                     if (data.size()) {
                         
-                        // don't return empty value
-                        if (data.size()) {
-                            
-                            // output the address of the node (in case we use * inside the binded address)
-                            aNode->getAddress(anAddress);
-                            anAddress = anAddress.appendAttribute(mAddress.getAttribute());
-                            
-                            // return the address
-                            if (anAddress.getAttribute() == kTTSym_value)
-                                v = anAddress.removeAttribute();
-                            else
-                                v = anAddress;
-                            
-                            if (mReturnAddressCallback)
-                                mReturnAddressCallback->deliver(v);
-                            
-                            // return the value
-                            if (mReturnValueCallback)
-                                mReturnValueCallback->deliver(data);
-                        }
+                        // output the address of the node (in case we use * inside the binded address)
+                        aNode->getAddress(anAddress);
+                        anAddress = anAddress.appendAttribute(mAddress.getAttribute());
+                        
+                        // return the address
+                        if (anAddress.getAttribute() == kTTSym_value)
+                            v = anAddress.removeAttribute();
                         else
-                            return kTTErrGeneric;
-					}
-					else
-						return kTTErrGeneric;
+                            v = anAddress;
+                        
+                        if (mReturnAddressCallback)
+                            mReturnAddressCallback->deliver(v);
+                        
+                        // return the value
+                        if (mReturnValueCallback)
+                            mReturnValueCallback->deliver(data);
+                    }
+                    else
+                        return kTTErrGeneric;
 				}
 			}
 		}

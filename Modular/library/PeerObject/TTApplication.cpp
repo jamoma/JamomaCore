@@ -948,6 +948,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
         if (strchr(nameInstance.c_str(), '~') != 0 ||
             strchr(nameInstance.c_str(), '(') != 0 ||
             strchr(nameInstance.c_str(), ')') != 0 ||
+            strchr(nameInstance.c_str(), '%') != 0 ||
             v[0].type() != kTypeSymbol) {
             
             // don't use the name for the XML element

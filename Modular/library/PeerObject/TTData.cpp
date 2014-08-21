@@ -24,7 +24,7 @@ TT_MODULAR_CONSTRUCTOR,
 mValue(TTValue(0.0)),
 mValueStepsize(TTValue(0.1)),       // this default value is expected in #TTData::setType method
 mType(kTTSym_generic),
-mTag(TTValue(kTTSym_none)),
+mTags(TTValue(kTTSym_none)),
 mPriority(0),
 mDescription(kTTSym_none),
 mRepetitionsFilter(NO),
@@ -58,7 +58,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithGetterAndSetter(ValueStepsize, kTypeNone);
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
-	addAttributeWithSetter(Tag, kTypeLocalValue);
+	addAttributeWithSetter(Tags, kTypeLocalValue);
 	addAttributeWithSetter(Priority, kTypeInt32);
 	addAttributeWithSetter(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsFilter, kTypeBoolean);
@@ -323,11 +323,11 @@ TTErr TTData::setValueStepsize(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTData::setTag(const TTValue& value)
+TTErr TTData::setTags(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
-	mTag = value;
-	this->notifyObservers(kTTSym_tag, n);
+	mTags = value;
+	this->notifyObservers(kTTSym_tags, n);
 	return kTTErrNone;
 }
 
@@ -666,9 +666,19 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark Some Methods
 #endif
 
-TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue)
+TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue, TTBoolean parseUnitAndRamp)
 {
 	TTDictionaryBasePtr		command = new TTDictionaryBase();
+    
+    // don't parse the value, just store it into a dictionary
+    // this is useful when unit or ramp doesn't mean anything (e.g. generic case)
+    if (!parseUnitAndRamp) {
+        
+        command->setValue(commandValue);
+        command->setSchema(kTTSym_command);
+        return command;
+    }
+    
 	TTUInt32			time;
 	TTUInt32			commandSize;
 	TTSymbol			unit, ramp;

@@ -478,7 +478,7 @@ TTErr TTNodeDirectory::Lookup(TTAddress anAddress, TTList& returnedTTNodes, TTNo
 	}
 }
 
-TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode, TTUInt8 depthLimit)
+TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode, TTUInt8 depthLimit, TTBoolean(comparisonFunction)(TTValue& v1, TTValue& v2))
 {
 	TTList lk_children;
 	TTNodePtr n_r, n_child, n_first;
@@ -503,6 +503,10 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 			// get all children of the node
 			n_r = TTNodePtr((TTPtr)whereToSearch->current()[0]);
 			n_r->getChildren(S_WILDCARD, S_WILDCARD, lk_children);
+            
+            // sort children if needed
+            if (comparisonFunction)
+                lk_children.sort(comparisonFunction);
 
 			// if there are children
 			if (!lk_children.isEmpty()) {
@@ -523,7 +527,7 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 				}
 				
 				if (!limitReached)
-					err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode, newLimit);
+					err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode, newLimit, comparisonFunction);
 				else
 					err = kTTErrNone;
 
@@ -541,7 +545,7 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 	return kTTErrGeneric;
 }
 
-TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNodePtr node, void*args), void *argument, bool *isThere, TTNodePtr *firstTTNode)
+TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, void*args), void *argument, bool *isThere, TTNodePtr *firstTTNode)
 {
 	TTList lk_children;
 	TTNodePtr n_r, n_child;
@@ -981,7 +985,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 							if (!aFilter->lookup(kTTSym_value, valueFilter)) {
                                 
                                 // special case for tag attribute : just check if one element of the value to filter exist in the tag
-                                if (attributeFilter == kTTSym_tag) {
+                                if (attributeFilter == kTTSym_tags) {
                                     
                                     for (TTUInt32 i = 0; i < valueFilter.size(); i++) {
                                         

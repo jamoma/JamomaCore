@@ -24,7 +24,7 @@ TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
 mDescription(kTTSym_none),
 mType(kTTSym_generic),
-mTag(kTTSym_none),
+mTags(kTTSym_none),
 mHighlight(NO),
 mFreeze(NO),
 mDataspace(kTTSym_none),
@@ -44,7 +44,7 @@ mReturnValueCallback(NULL)
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttribute(Description, kTypeSymbol);
 	addAttribute(Type, kTypeSymbol);
-	addAttribute(Tag, kTypeSymbol);
+	addAttribute(Tags, kTypeSymbol);
 	addAttributeWithSetter(Highlight, kTypeBoolean);
 	addAttributeWithSetter(Freeze, kTypeBoolean);
 	
