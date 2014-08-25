@@ -112,30 +112,31 @@ TTErr Protocol::ApplicationRegister(const TTValue& inputValue, TTValue& outputVa
             
             mSelectedApplication = inputValue[0];
             
-            // check if the application is registered into the application manager
-            err = mApplicationManager.send("ApplicationFind", mSelectedApplication, out);
-            
-            if (!err) {
+            // Check the application is not already registered
+            err = mApplicationParameters.lookup(mSelectedApplication, v);
                 
-                application = out[0];
+            if (err) {
                 
-                // Check the application is not already registered
-                err = mApplicationParameters.lookup(mSelectedApplication, v);
+                applicationParameters = new TTHash();
                 
-                if (err) {
-                    
-                    applicationParameters = new TTHash();
-                    
-                    // prepare parameters table
-                    this->getParameterNames(parameterNames);
-                    for (TTUInt32 i = 0; i < parameterNames.size(); i++) {
-                        parameterName = parameterNames[i];
-                        applicationParameters->append(parameterName, none);
-                    }
-                    
-                    // add the parameters table into mApplicationParameters
-                    v = TTValue((TTPtr)applicationParameters);
-                    mApplicationParameters.append(mSelectedApplication, v);
+                // prepare parameters table
+                this->getParameterNames(parameterNames);
+                for (TTUInt32 i = 0; i < parameterNames.size(); i++) {
+                    parameterName = parameterNames[i];
+                    applicationParameters->append(parameterName, none);
+                }
+                
+                // add the parameters table into mApplicationParameters
+                v = TTValue((TTPtr)applicationParameters);
+                mApplicationParameters.append(mSelectedApplication, v);
+                
+                // optionnaly format the application type depending on the protocol features
+                // (if the application is already registered into the application manager)
+                err = mApplicationManager.send("ApplicationFind", mSelectedApplication, out);
+                
+                if (!err) {
+                        
+                    application = out[0];
                     
                     // for none local application
                     if (mSelectedApplication != mLocalApplicationName) {
@@ -146,9 +147,9 @@ TTErr Protocol::ApplicationRegister(const TTValue& inputValue, TTValue& outputVa
                         else
                             application.set("type", kTTSym_proxy);
                     }
-                    
-                    return kTTErrNone;
                 }
+                
+                return kTTErrNone;
             }
         }
     }

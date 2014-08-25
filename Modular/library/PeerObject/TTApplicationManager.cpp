@@ -1058,13 +1058,11 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
     if (!aXmlHandler)
 		return kTTErrGeneric;
     
-	TTSymbol			applicationName, currentApplicationName, version, type;
+	TTSymbol			applicationName, applicationType, currentApplicationName;
     TTSymbol			protocolName, currentProtocolName, parameterName;
 	TTValue				v, args, applicationNames, protocolNames, parameterValue, out, none;
     TTUInt16            i, j;
     TTErr               err;
-	
-	
 	
 	// switch on the name of the XML node
 	
@@ -1155,36 +1153,39 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
         
         // register the application to the current protocol
         v = TTValue(aXmlHandler->mXmlNodeName);
-        mCurrentProtocol.send("ApplicationRegister", v, none);
-        
-        // select the application to set its parameters
-        err = mCurrentProtocol.send("SelectApplication", v, none);
+        err = mCurrentProtocol.send("ApplicationRegister", v, none);
         
         if (!err) {
             
-            // get all protocol attributes and their value for this application
-            while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
+            // select the application to set its parameters
+            err = mCurrentProtocol.send("ApplicationSelect", v, none);
+            
+            if (!err) {
                 
-                // get parameter's name
-                aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
-                
-                if (v.size() == 1) {
+                // get all protocol attributes and their value for this application
+                while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
                     
-                    if (v[0].type() == kTypeSymbol) {
+                    // get parameter's name
+                    aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                    
+                    if (v.size() == 1) {
                         
-                        parameterName = v[0];
-                        
-                        // get parameter's value
-                        aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), parameterValue);
-                        
-                        // set parameter
-                        mCurrentProtocol.set(parameterName, parameterValue);
+                        if (v[0].type() == kTypeSymbol) {
+                            
+                            parameterName = v[0];
+                            
+                            // get parameter's value
+                            aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), parameterValue);
+                            
+                            // set parameter
+                            mCurrentProtocol.set(parameterName, parameterValue);
+                        }
                     }
                 }
             }
         }
         
-        return kTTErrNone;
+        return err;
     }
 
 	// application node
@@ -1197,7 +1198,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
         if (v.size() == 1)
             if (v[0].type() == kTypeSymbol)
                 applicationName = v[0];
-
+        
 		// if it is the end of a "application" xml node
 		if (!aXmlHandler->mXmlNodeStart && mApplicationCurrent.valid()) {
 			mApplicationCurrent.get(kTTSym_name, v);
@@ -1213,10 +1214,23 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		if (!mApplications.lookup(applicationName, v))
 			mApplicationCurrent = v[0];
 		
-		// else create one
+		// else create one local or distant depending of the type
 		else {
-			mApplicationCurrent = TTObject(kTTSym_Application);
-			mApplicationCurrent.set("name", applicationName);
+            
+            // get the application type
+            xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("type"));
+            aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v);
+            
+            if (v.size() == 1)
+                if (v[0].type() == kTypeSymbol)
+                    applicationType = v[0];
+            
+            if (applicationType == kTTSym_local)
+                ApplicationInstantiateLocal(applicationName, v);
+            else
+                ApplicationInstantiateDistant(applicationName, v);
+            
+			mApplicationCurrent = v[0];
 		}
 		
         // if the node is empty : don't use it
