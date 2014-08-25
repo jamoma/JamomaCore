@@ -590,6 +590,10 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTObject
 	
 	// don't look at attribute and directory
 	adrs = anAddress.normalize();
+    
+    // DEBUG
+    if (adrs == TTAddress("/map.A/model"))
+        anObserver.track(YES);
 	
 	// append maxDepthDifference criteria if it is different from 0
 	if (maxDepthDifference >= 0)
