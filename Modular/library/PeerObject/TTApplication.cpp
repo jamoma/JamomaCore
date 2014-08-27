@@ -1143,9 +1143,6 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                     if (aString.empty())
                         continue;
                     
-                    // replace TTName by AppName
-                    attributeName = ToAppName(attributeName);
-                    
                     xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST attributeName.c_str(), BAD_CAST aString.data());
                 }
             }
@@ -1491,7 +1488,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                         
                                         if (v[0].type() == kTypeSymbol) {
                                             
-                                            attributeName = ToTTName(v[0]);
+                                            attributeName = v[0];
                                             
                                             // filter attributes
                                             if (!attributesToFilter.lookup(attributeName, none))
