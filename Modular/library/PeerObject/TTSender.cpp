@@ -217,7 +217,7 @@ TTErr TTSender::bindApplication()
 		
 		mApplicationObserver = TTObject("callback");
 		
-		mApplicationObserver.set(kTTSym_baton, TTObject(this));
+		mApplicationObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 		mApplicationObserver.set(kTTSym_function, TTPtr(&TTSenderApplicationManagerCallback));
 
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
@@ -297,16 +297,14 @@ TTErr TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data)
 
 TTErr TTSenderApplicationManagerCallback(const TTValue& baton, const TTValue& data)
 {
-    TTObject        o;
 	TTSenderPtr		aSender;
 	TTSymbol		anApplicationName;
 	TTObject        anApplication;
 	TTValue			v;
 	TTUInt8			flag;
 	
-	// unpack baton (a #TTSender)
-    o = baton[0];
-	aSender = (TTSenderPtr)o.instance();
+	// unpack baton (a #TTSenderPtr)
+	aSender = TTSenderPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];

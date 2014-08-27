@@ -416,7 +416,7 @@ TTErr TTReceiver::bindApplication()
 		
 		mApplicationObserver = TTObject("callback");
 		
-		mApplicationObserver.set(kTTSym_baton, TTObject(this));
+		mApplicationObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 		mApplicationObserver.set(kTTSym_function, TTPtr(&TTReceiverApplicationManagerCallback));
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
@@ -449,7 +449,6 @@ TTErr TTReceiverDirectoryCallback(const TTValue& baton, const TTValue& data)
 	TTValue			oldElement, v, b, none;
 	TTUInt8			flag;
 	TTBoolean		found;
-	TTErr			err;
 	
 	// unpack baton (a #TTReceiverPtr)
 	aReceiver = TTReceiverPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
@@ -585,16 +584,14 @@ TTErr TTReceiverAttributeCallback(const TTValue& baton, const TTValue& data)
 
 TTErr TTReceiverApplicationManagerCallback(const TTValue& baton, const TTValue& data)
 {
-    TTObject        o;
 	TTReceiverPtr	aReceiver;
 	TTSymbol		anApplicationName;
 	TTObject        anApplication;
 	TTValue			v;
 	TTUInt8			flag;
 	
-	// unpack baton (a #TTReceiver)
-	o = baton[0];
-	aReceiver = (TTReceiverPtr)o.instance();
+	// unpack baton (a #TTReceiverPtr)
+	aReceiver = TTReceiverPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];
