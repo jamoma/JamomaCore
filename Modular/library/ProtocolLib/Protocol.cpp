@@ -6,7 +6,7 @@
  *
  * @details
  *
- * @authors Laurent Garnier, Théo de la Hogue
+ * @author Laurent Garnier, Théo de la Hogue
  *
  * @copyright © 2011, Laurent Garnier, Théo de la Hogue @n
  * This code is licensed under the terms of the "New BSD License" @n
@@ -595,7 +595,7 @@ TTErr ProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data)
 void ProtocolLib::getProtocolNames(TTValue& protocolNames)
 {
 	protocolNames.clear();
-	protocolNames.append(TTSymbol("Minuit"));
+	protocolNames.append(TTSymbol("MIDI"));
 	protocolNames.append(TTSymbol("OSC"));
     /*
 	protocolNames.append(TTSymbol("MIDI"));
