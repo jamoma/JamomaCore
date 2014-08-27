@@ -1092,27 +1092,11 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
         }
         
         // Start object type xml node
-        nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
+        xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "node");
         
-        // Check bad characters for XML element (like ~, (, ) or numbers)
-        v = TTString(nameInstance.c_str());
-        v.fromString();
-        if (strchr(nameInstance.c_str(), '~') != 0 ||
-            strchr(nameInstance.c_str(), '(') != 0 ||
-            strchr(nameInstance.c_str(), ')') != 0 ||
-            strchr(nameInstance.c_str(), '%') != 0 ||
-            v[0].type() != kTypeSymbol) {
-            
-            // don't use the name for the XML element
-            xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "node");
-            
-            // store the address as an attribute
-            xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "address", BAD_CAST nameInstance.c_str());
-            
-        }
-        // Write the name instance as XML element name
-        else
-            xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST nameInstance.c_str());
+        // Write address attribute "name.instance"
+        nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
+        xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST nameInstance.c_str());
         
         // Write object name attribute
         if (objectName != kTTSymEmpty)
