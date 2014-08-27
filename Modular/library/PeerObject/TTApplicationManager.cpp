@@ -239,9 +239,9 @@ TTErr TTApplicationManager::ApplicationInstantiateDistant(const TTValue& inputVa
 
 TTErr TTApplicationManager::ApplicationRelease(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTValue		v;
-	TTSymbol	applicationName;
-	TTObject    anApplication;
+    TTValue		v, protocols, none;
+	TTSymbol	applicationName, protocolName;
+	TTObject    anApplication, aProtocol;
 	TTErr		err;
     
     if (inputValue.size() == 1) {
@@ -258,6 +258,17 @@ TTErr TTApplicationManager::ApplicationRelease(const TTValue& inputValue, TTValu
 		
                 // notify applications observer that an application will be removed
                 notifyApplicationObservers(applicationName, anApplication, kApplicationReleased);
+                
+                // unregister the application to each protocol
+                protocols = getApplicationProtocolNames(applicationName);
+                for (TTUInt8 i = 0; i < protocols.size(); i++) {
+                    
+                    protocolName = protocols[i];
+                    mProtocols.lookup(protocolName, v);
+                    
+                    aProtocol = v[0];
+                    aProtocol.send("ApplicationUnregister", applicationName, none);
+                }
                 
                 // if the application is the local one : forget it
                 if (anApplication.instance() == mApplicationLocal.instance())

@@ -192,7 +192,7 @@ TTErr Protocol::ApplicationRename(const TTValue& inputValue, TTValue& outputValu
 TTErr Protocol::ApplicationUnregister(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTHashPtr	applicationParameters;
-	TTValue		v;
+	TTValue		v, none;
 	TTErr		err;
     
     // update local application name
@@ -209,6 +209,8 @@ TTErr Protocol::ApplicationUnregister(const TTValue& inputValue, TTValue& output
             err = mApplicationParameters.lookup(mSelectedApplication, v);
             
             if (!err) {
+                
+                Stop(mSelectedApplication, none);
                 
                 applicationParameters = TTHashPtr((TTPtr)v[0]);
                 delete applicationParameters;

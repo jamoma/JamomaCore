@@ -30,6 +30,7 @@ class MIDIInput
     
     PortMidiStream*		    mStream;			///< a descriptor for a MIDI device that is opened when the device is set
 	TTThreadPtr			    mPollingThread;		///< our loop that constantly polls for new input
+    TTBoolean			    mRunning;			///< should the thread be running ? If NO then the thread will know to abort itself
 	
 public:
 	
@@ -37,8 +38,6 @@ public:
 	TTSymbol			    mDevice;			///< selected device name
 	const PmDeviceInfo*	    mDeviceInfo;		///< selected device info struct
 	PmDeviceID			    mID;				///< selected device ID number
-    
-    TTBoolean			    mRunning;			///< should the thread be running ? If NO then the thread will know to abort itself
     
     /** Constructor
      @param arguments       #MIDI protocol object pointer, #TTSymbol application name to handle */
@@ -51,6 +50,11 @@ public:
      @param newDevice       #TTSymbol for the MIDI device name to select
      @return #TTErr error code */
     TTErr setDevice(TTSymbol& newDevice);
+    
+    /** Set running state
+     @param running       #TTBolean to enable disable midi iput polling thread
+     @return #TTErr error code */
+    TTErr setRunning(TTBoolean running);
     
     friend void* MidiPoll(MIDIInput* self);
 };

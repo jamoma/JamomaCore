@@ -53,7 +53,24 @@ PROTOCOL_CONSTRUCTOR
 
 MIDI::~MIDI()
 {
-    ;   // TODO : clear all MIDIInputs and MIDIOutputs
+    TTValue         applications, v;
+    TTSymbol        applicationName;
+    MIDIInputPtr    midiInput;
+    
+    // clear mInputs
+    mInputs.getKeys(applications);
+    for (TTUInt32 i = 0; i < applications.size(); i++) {
+        
+        applicationName = applications[i];
+        mInputs.lookup(applicationName, v);
+        midiInput = MIDIInputPtr(TTPtr(v[0]));
+        delete midiInput;
+    }
+    mInputs.clear();
+    
+    // TODO : clear mOutputs
+    
+    Pm_Terminate();
 }
 
 TTErr MIDI::sendMessage(TTSymbol& applicationName, TTSymbol& header, TTValue& arguments)
@@ -116,33 +133,57 @@ TTErr MIDI::Run(const TTValue& inputValue, TTValue& outputValue)
         
         if (inputValue[0].type() == kTypeSymbol) {
             
-            TTSymbol    applicationName = inputValue[0];
-            TTObject    MIDIProtocol(this);
-            TTValue     v;
-            TTErr       err;
+            TTSymbol        applicationName = inputValue[0];
+            TTObject        MIDIProtocol(this);
+            MIDIInputPtr    midiInput;
+            TTValue         v;
+            TTErr           err;
             
             // select the given application to get its device parameter
             ApplicationSelect(applicationName, v);
-            MIDIProtocol.get("device", v);
             
-            if (v.size()) {
+            // if the application don't have a MIDI input device
+            if (mInputs.lookup(applicationName, v)) {
                 
-                TTSymbol deviceName = v[0];
-                MIDIInputPtr midiInput;
+                // get the device name parameter
+                MIDIProtocol.get("device", v);
                 
-                // create a MIDI input object
-                midiInput = new MIDIInput(this, applicationName);
-                err = midiInput->setDevice(deviceName);
-                
-                if (!err) {
-                
+                if (v.size()) {
+                    
+                    TTSymbol deviceName = v[0];
+                    
+                    // create a MIDI input object
+                    midiInput = new MIDIInput(this, applicationName);
+                    err = midiInput->setDevice(deviceName);
+                    
+                    // if the device doesn't exist
+                    if (err) {
+                        delete midiInput;
+                        return kTTErrGeneric;
+                    }
+                        
                     // register the MIDI input
-                    mInputs.append(deviceName, TTPtr(midiInput));
-                    return kTTErrNone;
+                    mInputs.append(applicationName, TTPtr(midiInput));
                 }
                 else
-                    delete midiInput;
+                    return kTTErrGeneric;
             }
+            else {
+                
+                midiInput = MIDIInputPtr(TTPtr(v[0]));
+                
+                // if the application is not registered anymore : clear the MIDI input
+                if (!mApplicationParameters.lookup(applicationName, v)) {
+                    
+                    delete midiInput;
+                    mInputs.remove(applicationName);
+                    
+                    return kTTErrGeneric;
+                }
+            }
+            
+            // run the MIDI input device
+            return midiInput->setRunning(YES);
         }
         
         return kTTErrGeneric;
@@ -169,27 +210,30 @@ TTErr MIDI::Stop(const TTValue& inputValue, TTValue& outputValue)
         
         if (inputValue[0].type() == kTypeSymbol) {
             
-            TTSymbol    applicationName = inputValue[0];
-            TTObject    MIDIProtocol(this);
-            TTValue     v;
+            TTSymbol        applicationName = inputValue[0];
+            TTObject        MIDIProtocol(this);
+            MIDIInputPtr    midiInput;
+            TTValue         v;
             
             // select the given application to get its device parameter
             ApplicationSelect(applicationName, v);
-            MIDIProtocol.get("device", v);
             
-            if (v.size()) {
+            // if the application have a MIDI input device
+            if (!mInputs.lookup(applicationName, v)) {
+            
+                midiInput = MIDIInputPtr(TTPtr(v[0]));
                 
-                TTSymbol deviceName = v[0];
-
-                // delete and unregister the MIDI input object
-                if (!mInputs.lookup(deviceName, v)) {
-                    
-                    MIDIInputPtr midiInput = MIDIInputPtr(TTPtr(v[0]));
+                // if the application is not registered anymore : clear the MIDI input
+                if (!mApplicationParameters.lookup(applicationName, v)) {
                     
                     delete midiInput;
-                    mInputs.remove(deviceName);
-                    return kTTErrNone;
+                    mInputs.remove(applicationName);
+                    
+                    return kTTErrGeneric;
                 }
+                
+                // stop the MIDI input device
+                return midiInput->setRunning(YES);
             }
         }
         

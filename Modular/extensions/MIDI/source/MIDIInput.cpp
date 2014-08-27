@@ -19,17 +19,21 @@ MIDIInput::MIDIInput(MIDIPtr protocol, TTSymbol& application) :
 mProtocol(protocol),
 mStream(NULL),
 mPollingThread(NULL),
-mApplication(application),
-mRunning(YES)
+mRunning(NO),
+mApplication(application)
 {
     ;
 }
 
 MIDIInput::~MIDIInput()
 {
-	// TODO: we are supposed to call Pm_Terminate() when we are done using the library
-	// but we don't currently have a "shutdown" method for classes when the system is torn down
 	mRunning = NO;
+    
+    if (mStream) {
+        Pm_Close(mStream);
+        mStream = NULL;
+    }
+    
 	if (mPollingThread)
 		mPollingThread->wait();
 	delete mPollingThread;
@@ -65,10 +69,8 @@ TTErr MIDIInput::setDevice(TTSymbol& newDevice)
 		}
 		
 		mDevice = newDevice;
-		mRunning = NO;
-		if (mPollingThread)
-			mPollingThread->wait();
-		delete mPollingThread;
+        
+        setRunning(NO);
 		
 		if (mStream) {
 			Pm_Close(mStream);
@@ -76,14 +78,35 @@ TTErr MIDIInput::setDevice(TTSymbol& newDevice)
 		}
 		
 		err = Pm_OpenInput(&mStream, mID, NULL, kMidiBufferSize, NULL, NULL);
-		if (err)
+		if (err) {
+            
 			TTLogError("MIDIInput::setDevice : can't open the %s device\n", mDevice.c_str());
-		
-		mRunning = YES;
-		mPollingThread = new TTThread(TTThreadCallbackType(MidiPoll), this);
+            return kTTErrGeneric;
+        }
 	}
     
 	return kTTErrNone;
+}
+
+TTErr MIDIInput::setRunning(TTBoolean running)
+{
+    if (running != mRunning) {
+        
+        mRunning = running;
+        
+        if (mRunning) {
+            
+            mPollingThread = new TTThread(TTThreadCallbackType(MidiPoll), this);
+        }
+        else {
+            
+            if (mPollingThread)
+                mPollingThread->wait();
+            delete mPollingThread;
+        }
+    }
+    
+    return kTTErrNone;
 }
 
 void editAddress(TTString format, TTUInt8 i, TTAddress& returnedAddress)
@@ -114,7 +137,7 @@ void* MidiPoll(MIDIInput* self)
             // result is an error number
 			if (result < 0) {
 				
-				TTLogError("MidiPoll error %ld\n", result);
+				TTLogError("MidiPoll error\n");
 			}
             // result is the number of midi events
 			else {
