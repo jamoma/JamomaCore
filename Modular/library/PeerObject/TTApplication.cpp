@@ -1096,7 +1096,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
         
         // Write address attribute "name.instance"
         nameInstance = TTAddress(NO_DIRECTORY, NO_PARENT, aNode->getName(), aNode->getInstance(), NO_ATTRIBUTE);
-        xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST nameInstance.c_str());
+        xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter,  BAD_CAST "address", BAD_CAST nameInstance.c_str());
         
         // Write object name attribute
         if (objectName != kTTSymEmpty)
@@ -1308,7 +1308,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
     // when a node starts : append address to the current temp address
     if (aXmlHandler->mXmlNodeStart) {
         
-        // optionnal : the address attribute can store names which are problematic with xml (like number)
+        // the address attribute can store names which are problematic with xml (like number)
         if (xmlTextReaderMoveToAttribute((xmlTextReaderPtr)aXmlHandler->mReader, (const xmlChar*)("address")) == 1) {
             
             aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), v, YES, YES);
@@ -1327,7 +1327,8 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
             }
         }
         
-        // use the node name to build the address
+        // optionnal : use the node name to build the address
+        // NOTE : we keep this option for backward compatibility but now the node name is always stored into address attribute (see in : writeNodeAsXml)
         else
             mTempAddress = mTempAddress.appendAddress(TTAddress(aXmlHandler->mXmlNodeName));
         
