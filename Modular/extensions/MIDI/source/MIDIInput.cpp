@@ -243,7 +243,7 @@ void* MidiPoll(MIDIInput* self)
                                 value = TTUInt32(dataByte1);
                                 break;
                             }
-                            case 224 :  // PITCH WHEEL ? dataByte1 = LSB, dataByte2 = MSB
+                            case 224 :  // PITCH WHEEL : dataByte1 = LSB, dataByte2 = MSB
                             {
                                 commandPart = TTAddress("wheel");
                                 
@@ -252,21 +252,14 @@ void* MidiPoll(MIDIInput* self)
                                 value = TTUInt32(MSB + LSB);
                                 break;
                             }
-                            case 240 :
-                            {
-                                channelPart = kTTAdrsRoot;
-                                commandPart = TTAddress("system_exclusive");
-                                value.clear();
-                                break;
-                            }
-                            case 241 :  // UNDEFINED ? dataByte1 not used, dataByte2 not used
+                            case 241 :  // UNDEFINED : dataByte1 not used, dataByte2 not used
                             {
                                 channelPart = kTTAdrsRoot;
                                 editAddress("undefined.%ld", command, commandPart);
                                 value = TTValue(TTUInt32(dataByte1), TTUInt32(dataByte2));
                                 break;
                             }
-                            case 242 :  // SONG POSITION ? dataByte1 = LSB, dataByte2 = MSB
+                            case 242 :  // SONG POSITION : dataByte1 = LSB, dataByte2 = MSB
                             {
                                 channelPart = kTTAdrsRoot;
                                 commandPart = TTAddress("song/position");
@@ -276,90 +269,84 @@ void* MidiPoll(MIDIInput* self)
                                 value = TTUInt32(MSB + LSB);
                                 break;
                             }
-                            case 243 :  // SONG SELECT ? dataByte1 = song, dataByte2 not used
+                            case 243 :  // SONG SELECT : dataByte1 = song, dataByte2 not used
                             {
                                 channelPart = kTTAdrsRoot;
                                 commandPart = TTAddress("song/select");
                                 value = TTUInt32(dataByte1);
                                 break;
                             }
-                            case 244 :  // UNDEFINED ? dataByte1 not used, dataByte2 not used
+                            case 244 :  // UNDEFINED : dataByte1 not used, dataByte2 not used
                             {
                                 channelPart = kTTAdrsRoot;
                                 editAddress("undefined.%ld", command, commandPart);
                                 value = TTValue(TTUInt32(dataByte1), TTUInt32(dataByte2));
                                 break;
                             }
-                            case 245 :  // UNDEFINED ? dataByte1 not used, dataByte2 not used
+                            case 245 :  // UNDEFINED : dataByte1 not used, dataByte2 not used
                             {
                                 channelPart = kTTAdrsRoot;
                                 editAddress("undefined.%ld", command, commandPart);
                                 value = TTValue(TTUInt32(dataByte1), TTUInt32(dataByte2));
                                 break;
                             }
-                            case 246 :  // TUNE REQUEST ? dataByte1 not used, dataByte2 not used
+                            case 246 :  // TUNE REQUEST : dataByte1 not used, dataByte2 not used
                             {
                                 commandPart = TTAddress("tune_request");
                                 value.clear();
                                 break;
                             }
-                            case 247 :  // END OF EXCLUSIVE ? dataByte1 not used, dataByte2 not used
-                            {
-                                commandPart = TTAddress("end_of_exclusive");
-                                value.clear();
-                                break;
-                            }
-                            case 248 :  // TIMING CLOCK ? dataByte1 not used, dataByte2 not used
+                            case 248 :  // TIMING CLOCK : dataByte1 not used, dataByte2 not used
                             {
                                 commandPart = TTAddress("clock");
                                 value.clear();
                                 break;
                             }
-                            case 249 :  // UNDEFINED ? dataByte1 not used, dataByte2 not used
+                            case 249 :  // UNDEFINED : dataByte1 not used, dataByte2 not used
                             {
                                 channelPart = kTTAdrsRoot;
                                 editAddress("undefined.%ld", command, commandPart);
                                 value = TTValue(TTUInt32(dataByte1), TTUInt32(dataByte2));
                                 break;
                             }
-                            case 250 :  // START ? dataByte1 not used, dataByte2 not used
+                            case 250 :  // START : dataByte1 not used, dataByte2 not used
                             {
                                 commandPart = TTAddress("start");
                                 value.clear();
                                 break;
                             }
-                            case 251 :  // CONTINUE ? dataByte1 not used, dataByte2 not used
+                            case 251 :  // CONTINUE : dataByte1 not used, dataByte2 not used
                             {
                                 commandPart = TTAddress("continue");
                                 value.clear();
                                 break;
                             }
-                            case 252 :  // STOP ? dataByte1 not used, dataByte2 not used
+                            case 252 :  // STOP : dataByte1 not used, dataByte2 not used
                             {
                                 commandPart = TTAddress("stop");
                                 value.clear();
                                 break;
                             }
-                            case 253 :  // UNDEFINED ? dataByte1 not used, dataByte2 not used
+                            case 253 :  // UNDEFINED : dataByte1 not used, dataByte2 not used
                             {
                                 channelPart = kTTAdrsRoot;
                                 editAddress("undefined.%ld", command, commandPart);
                                 value = TTValue(TTUInt32(dataByte1), TTUInt32(dataByte2));
                                 break;
                             }
-                            case 254 :  // ACTIVE SENSING ? dataByte1 not used, dataByte2 not used
+                            case 254 :  // ACTIVE SENSING : dataByte1 not used, dataByte2 not used
                             {
                                 commandPart = TTAddress("active_sensing");
                                 value.clear();
                                 break;
                             }
-                            case 255 :  // SYSTEM RESET ? dataByte1 not used, dataByte2 not used
+                            case 255 :  // SYSTEM RESET : dataByte1 not used, dataByte2 not used
                             {
                                 commandPart = TTAddress("reset");
                                 value.clear();
                                 break;
                             }
-                            default :   // UNDEFINED ? dataByte1 not used, dataByte2 not used
+                            default :   // UNDEFINED : dataByte1 not used, dataByte2 not used
                             {
                                 channelPart = kTTAdrsRoot;
                                 editAddress("undefined.%ld", command, commandPart);
