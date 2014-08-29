@@ -1550,7 +1550,7 @@ TTErr TTApplication::ProxyDataInstantiate(const TTValue& inputValue, TTValue& ou
     return kTTErrGeneric;
 }
 
-TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName, TTValue& attributesName)
+TTObject TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName, TTValue& attributesName)
 {
     TTObject    aMirror;
     TTNodePtr   aNode;
@@ -1626,10 +1626,10 @@ TTObjectBasePtr TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddre
         this->mDirectory->TTNodeCreate(anAddress, aMirror, NULL, &aNode, &newInstanceCreated);
     }
     
-    return aMirror.instance();
+    return aMirror;
 }
 
-TTObjectBasePtr TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service)
+TTObject TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service)
 {
     TTObject    aData;
     TTValue     baton;
@@ -1645,10 +1645,10 @@ TTObjectBasePtr TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress 
     // register object into the directory
     this->mDirectory->TTNodeCreate(anAddress, aData, NULL, &aNode, &newInstanceCreated);
     
-    return aData.instance();
+    return aData;
 }
 
-TTObjectBasePtr TTApplication::appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress)
+TTObject TTApplication::appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress)
 {
     TTObject    aContainer;
     TTNodePtr   aNode;
@@ -1659,7 +1659,7 @@ TTObjectBasePtr TTApplication::appendProxyContainer(ProtocolPtr aProtocol, TTAdd
     // register object into the directory
     this->mDirectory->TTNodeCreate(anAddress, aContainer, NULL, &aNode, &newInstanceCreated);
     
-    return aContainer.instance();
+    return aContainer;
 }
 
 #if 0

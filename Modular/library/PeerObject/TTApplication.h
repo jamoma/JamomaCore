@@ -285,24 +285,24 @@ private:
      @param anAddress       where to register the mirror object
      @param objectName      object type to mirror
      @param attributesName  attributes of the object to mirror
-     @return #TTObjectBasePtr
+     @return #TTObject
      @seealso readNodeFromXml */
-    TTObjectBasePtr appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName, TTValue& attributesName);
+    TTObject appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName, TTValue& attributesName);
     
     /**  Convenient method used to create a data object
      @param aProtocol       a protocol object
      @param anAddress       where to register the data object
      @param service         data service
-     @return #TTObjectBasePtr
+     @return #TTObject
      @seealso readNodeFromXml */
-    TTObjectBasePtr appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service);
+    TTObject appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service);
     
     /**  Convenient method used to create a container object
      @param aProtocol       a protocol object
      @param anAddress       where to register the container object
-     @return #TTObjectBasePtr
+     @return #TTObject
      @seealso readNodeFromXml */
-    TTObjectBasePtr appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress);
+    TTObject appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress);
     
 #if 0
 #pragma mark -
