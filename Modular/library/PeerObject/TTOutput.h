@@ -2,7 +2,7 @@
  *
  * @ingroup modularLibrary
  *
- * @brief TTObjectBase to handle any signal output
+ * @brief Handles any signal output
  *
  * @details
  *
@@ -17,7 +17,8 @@
 #ifndef __TT_OUTPUT_H__
 #define __TT_OUTPUT_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
+#include "TTInput.h"
 
 /** TTOutput ... TODO : an explanation
  
@@ -29,7 +30,7 @@
 class TTInput;
 typedef TTInput* TTInputPtr;
 
-class TTMODULAR_EXPORT TTOutput : public TTDataObjectBase
+class TTMODULAR_EXPORT TTOutput : public TTObjectBase
 {
 	TTCLASS_SETUP(TTOutput)
 	
@@ -43,25 +44,24 @@ public:	// use public for quick acces during signal processing
 	TTFloat32					mGain;						///< ATTRIBUTE : apply again on signal output
 	TTBoolean					mFreeze;					///< ATTRIBUTE : to freeze signal output (ex : for video signal)
 	
-	TTObjectBasePtr				mSignalIn;					///< any data structure to receive complex signal (in Max this comes from the model)
-	TTObjectBasePtr				mSignalOut;					///< any data structure to send complex signal (going to the outlets of the model if we are in Max)
-	TTObjectBasePtr				mSignalTemp;				///< a temporary signal used within the process method
-	TTObjectBasePtr				mSignalZero;				///< a zero signal
+	TTObject                    mSignalIn;					///< any data structure to receive complex signal (in Max this comes from the model)
+	TTObject                    mSignalOut;					///< any data structure to send complex signal (going to the outlets of the model if we are in Max)
+	TTObject                    mSignalTemp;				///< a temporary signal used within the process method
+	TTObject                    mSignalZero;				///< a zero signal
 	
-	TTObjectBasePtr				mMixUnit;					///< the unit used to mix the signal
-	TTObjectBasePtr				mGainUnit;					///< the unit used to apply the gain value on the signal
+	TTObject                    mMixUnit;					///< the unit used to mix the signal 
+	TTObject                    mGainUnit;					///< the unit used to apply the gain value on the signal
 	
-	TTObjectBasePtr				mRampMixUnit;				///< the unit used to ramp the mix value
-	TTObjectBasePtr				mRampGainUnit;				///< the unit used to ramp the gain value
+	TTObject                    mRampMixUnit;				///< the unit used to ramp the mix value
+	TTObject                    mRampGainUnit;				///< the unit used to ramp the gain value
 	
-	TTInputPtr					mInputObject;				///< TTInput object to get a signal passing through
+	TTObject                    mInputObject;				///< TTInput object to get a signal passing through
 	
 protected:
 	
-	TTCallbackPtr				mReturnSignalCallback;		///< a way to return back signal to the owner of this output
-	TTCallbackPtr				mReturnLinkCallback;		///< a way to return back the input link status to the owner of this output
+	TTObject                    mReturnSignalCallback;		///< a way to return back signal to the owner of this output
 	TTValue						mLast;						///< keep a copy of the last sent signal for each index -- for e.g. freezing
-	TTCallbackPtr				mAddressObserver;			///< to observe mInputAddress creation/destruction
+	TTObject                    mAddressObserver;			///< to observe mInputAddress creation/destruction
 	
 	TTValue						mSignal;					///< ATTRIBUTE : a hidden attribute to observe signal preview
 	TTAttributePtr				mSignalAttr;				///< a direct access to the signal preview attribute to notify observers
@@ -95,7 +95,7 @@ protected:
 	/** Notify signal observer */
 	TTErr notifySignalObserver(const TTValue& value);
 	
-	friend TTErr TTMODULAR_EXPORT TTOutputDirectoryCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTOutputDirectoryCallback(const TTValue& baton, const TTValue& data);
 };
 
 typedef TTOutput* TTOutputPtr;
@@ -104,7 +104,7 @@ typedef TTOutput* TTOutputPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTOutputDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTOutputDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 
 #endif // __TT_OUTPUT_H__

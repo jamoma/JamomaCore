@@ -38,7 +38,9 @@ TTErr TTMidiFilter::dictionary(const TTValue& input, TTValue& output)
 	TTDictionaryPtr	d = NULL;
 	TTSymbol		schema;
 	
-	input.get(0, (TTPtr*)(&d));
+	//input.get(0, (TTPtr*)(&d));
+    d = TTDictionaryPtr(TTPtr(input[0]));
+    
 	schema = d->getSchema();
 	if (schema == TT("RawMidiEvent")) {
 		TTValue statusByteValue;
@@ -49,7 +51,7 @@ TTErr TTMidiFilter::dictionary(const TTValue& input, TTValue& output)
 		d->lookup(TT("status"), statusByteValue);
 		d->lookup(TT("data1"), dataByte1Value);
 		d->lookup(TT("data2"), dataByte2Value);
-		statusByteValue.get(0, statusByte);
+		statusByte = statusByteValue[0];
 		
 		if (mType == TT("note")) {
 			bool noteon = false;
@@ -65,15 +67,15 @@ TTErr TTMidiFilter::dictionary(const TTValue& input, TTValue& output)
 			{
 				TTValue v;
 				
-				v.setSize(3);
-				v.set(0, TTUInt8(dataByte1Value));
+				v.resize(3);
+				v[0] = TTUInt8(dataByte1Value);
 				if (noteon) {
-					v.set(1, TTUInt8(dataByte2Value));
-					v.set(2, statusByte - 143);
+					v[1] = TTUInt8(dataByte2Value);
+					v[2] = statusByte - 143;
 				}
 				else {
-					v.set(1, TTUInt8(0));
-					v.set(2, statusByte - 127);
+					v[1] = TTUInt8(0);
+					v[2] = statusByte - 127;
 				}
 				
 				d->setSchema(TT("MidiNoteEvent"));
@@ -83,7 +85,7 @@ TTErr TTMidiFilter::dictionary(const TTValue& input, TTValue& output)
 		}
 	out:
 		d->clear();
-		output.set(0, TTPtr(d));
+		output[0] = TTPtr(d);
 		return kTTErrNone;
 	}
 	else {

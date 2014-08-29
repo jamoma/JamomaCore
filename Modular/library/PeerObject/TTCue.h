@@ -17,7 +17,7 @@
 #ifndef __TT_CUE_H__
 #define __TT_CUE_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 class TTScript;
 typedef TTScript* TTScriptPtr;
@@ -27,7 +27,7 @@ typedef TTScript* TTScriptPtr;
  
  */
 
-class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
+class TTMODULAR_EXPORT TTCue : public TTObjectBase
 {
 	TTCLASS_SETUP(TTCue)
 	
@@ -38,7 +38,7 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
     TTValue                     mTags;							///< ATTRIBUTE : tag list for the preset
 	TTUInt32					mRamp;							///< ATTRIBUTE : a time ramping value for the cue
     TTAddress                   mAddress;						///< ATTRIBUTE : the address from where to manage the script
-	TTScriptPtr					mScript;						///< a script containing relativeAddress and value
+	TTObject					mScript;						///< a script containing relativeAddress and value
 	
 	/** */
 	TTErr	getName(TTValue& value);
@@ -85,37 +85,37 @@ class TTMODULAR_EXPORT TTCue : public TTDataObjectBase
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** a recursive method to store a namespace into a script object */
-	TTErr	processStore(TTObjectBasePtr aScript, const TTAddressItemPtr aNamespace, TTNodePtr nodeToProcess);
+	TTErr	processStore(TTObject aScript, const TTAddressItemPtr aSelection, TTNodePtr nodeToProcess);
     
     /** a method to update each Data value */
-    TTErr   processUpdate(TTObjectBasePtr aScript);
+    TTErr   processUpdate(TTObject aScript);
 	
 	/** a recursive method to process a namespace selection from a script object */
-	TTErr	processSelect(TTObjectBasePtr aScript, TTAddressItemPtr aNamespace);
+	TTErr	processSelect(TTObject aScript, TTAddressItemPtr aSelection);
 	
 	/** a method to change each ramping value into a script */
-	TTErr	processRamp(TTObjectBasePtr aScript, TTUInt32 ramp);
+	TTErr	processRamp(TTObject aScript, TTUInt32 ramp);
 	
 	/** a recursive method to read the ramp value from a script */
-	TTErr	searchRamp(TTObjectBasePtr aScript, TTUInt32& ramp);
+	TTErr	searchRamp(TTObject aScript, TTUInt32& ramp);
 	
-	friend TTErr TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
+	friend TTErr TTMODULAR_EXPORT TTCueInterpolate(TTObject cue1, TTObject cue2, TTFloat64 position);
 	friend TTErr TTMODULAR_EXPORT TTCueMix(const TTValue& cues, const TTValue& factors);
-	friend TTErr TTMODULAR_EXPORT TTCueMerge(TTCue* aCueToMerge, TTCue* mergedCue);
-	friend TTErr TTMODULAR_EXPORT TTCueOptimize(TTCue* aCueToOptimize, TTCue* aCue, TTCue* optimizedCue);
-	friend TTErr TTMODULAR_EXPORT TTCueCopy(TTCue* aCueToCopy, TTCue* aCueCopy);
+	friend TTErr TTMODULAR_EXPORT TTCueMerge(TTObject aCueToMerge, TTObject mergedCue);
+	friend TTErr TTMODULAR_EXPORT TTCueOptimize(TTObject aCueToOptimize, TTObject aCue, TTObject optimizedCue);
+	friend TTErr TTMODULAR_EXPORT TTCueCopy(TTObject aCueToCopy, TTObject aCueCopy);
 };
 
 typedef TTCue* TTCuePtr;
 
-TTErr       TTMODULAR_EXPORT TTCueInterpolate(TTCue* cue1, TTCue* cue2, TTFloat64 position);
+TTErr       TTMODULAR_EXPORT TTCueInterpolate(TTObject cue1, TTObject cue2, TTFloat64 position);
 
 TTErr		TTMODULAR_EXPORT TTCueMix(const TTValue& cues, const TTValue& factors);
 
-TTErr		TTMODULAR_EXPORT TTCueMerge(TTCue* aCueToMerge, TTCue* mergedCue);
+TTErr		TTMODULAR_EXPORT TTCueMerge(TTObject aCueToMerge, TTObject mergedCue);
 
-TTErr		TTMODULAR_EXPORT TTCueOptimize(TTCue* aCueToOptimize, TTCue* aCue, TTCue* optimizedCue);
+TTErr		TTMODULAR_EXPORT TTCueOptimize(TTObject aCueToOptimize, TTObject aCue, TTObject optimizedCue);
 
-TTErr		TTMODULAR_EXPORT TTCueCopy(TTCue* aCueToCopy, TTCue* aCueCopy);
+TTErr		TTMODULAR_EXPORT TTCueCopy(TTObject aCueToCopy, TTObject aCueCopy);
 
 #endif // __TT_CUE_H__

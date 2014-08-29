@@ -25,7 +25,7 @@ typedef Minuit* MinuitPtr;
 class MinuitSenderManager {
 	
 private:
-	TTHashPtr   mSenders;
+	TTHash   mSenders;
 	
 public:
 
@@ -34,11 +34,11 @@ public:
 	
     // check if the parameter are still the same and change the parameter if not
     // if the sender doesn't exist it adds a sender
-    TTObjectBasePtr     lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
+    TTObject     lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
     
 private:
     // add a new sender for an application
-	TTObjectBasePtr     add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
+	TTObject     add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
 };
 typedef MinuitSenderManager* MinuitSenderManagerPtr;
 

@@ -2,7 +2,7 @@
  *
  * @ingroup modularLibrary
  *
- * @brief TTObjectBase to handle opml file reading and writing to be able to store / recall state of an object into/from opml files.
+ * @brief Handles opml file reading and writing to be able to store / recall state of an object into/from opml files.
  *
  * @details
  *
@@ -24,7 +24,6 @@
 #define thisTTClassTags		"opml, handler"
 
 TT_MODULAR_CONSTRUCTOR,
-mObject(NULL),
 mFilePath(kTTSymEmpty),
 mHeaderNodeName(TTSymbol("opml")),
 mVersion(TTSymbol("1.0")),
@@ -33,8 +32,6 @@ mReader(NULL),
 mIsWriting(false),
 mIsReading(false)
 {
-	TT_ASSERT("Correct number of args to create TTOpmlHandler", arguments.size() == 0);
-	
 	addAttribute(Object, kTypeObject);
 
 	addAttribute(HeaderNodeName, kTypeSymbol);
@@ -54,12 +51,12 @@ TTOpmlHandler::~TTOpmlHandler()
 
 TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 {
-    TTValue				v;
-	TTObjectBasePtr			aTTObject;
-	int					ret;
+    TTValue		v;
+	TTObject	aTTObject;
+	int			ret;
 	
 	// an object have to be selected
-	if (mObject == NULL)
+	if (!mObject.valid())
 		return kTTErrGeneric;
 	
 	// memorize this object because it could change if the handler is used recursively
@@ -129,9 +126,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			xmlTextWriterStartElement((xmlTextWriterPtr)mWriter, BAD_CAST "body");
 			
 			// Write data of the given TTObjectBase (which have to implement a WriteAsOpml message)
-			v.clear();
-			v.append(TTObjectBasePtr(this));
-			aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, none);
+			aTTObject.send("WriteAsOpml", TTObject(this), none);
 			
 			// Close opml body
 			xmlTextWriterEndElement((xmlTextWriterPtr)mWriter);
@@ -157,8 +152,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append(TTObjectBasePtr(this));
-	return aTTObject->sendMessage(TTSymbol("WriteAsOpml"), v, none);
+	return aTTObject.send("WriteAsOpml", TTObject(this), none);
 }
 
 TTErr TTOpmlHandler::WriteAgain()
@@ -171,13 +165,13 @@ TTErr TTOpmlHandler::WriteAgain()
 
 TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 {
-	const xmlChar		*xName = 0;
-	TTObjectBasePtr			aTTObject;
-	TTValue				v;
-	int					ret;
+	const xmlChar	*xName = 0;
+	TTObject		aTTObject;
+	TTValue			v;
+	int				ret;
 	
 	// an object have to be selected
-	if (mObject == NULL)
+	if (!mObject.valid())
 		return kTTErrGeneric;
 	
 	// memorize this object because it could change if the handler is used recursively
@@ -223,8 +217,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 						}
 					}
 					
-					v.append(TTObjectBasePtr(this));
-					aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, none);
+					aTTObject.send("ReadFromOpml", TTObject(this), none);
 					
 					// next node
 					ret = xmlTextReaderRead((xmlTextReaderPtr)mReader);
@@ -247,8 +240,7 @@ TTErr TTOpmlHandler::Read(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	v.append(TTObjectBasePtr(this));
-	return aTTObject->sendMessage(TTSymbol("ReadFromOpml"), v, none);
+	return aTTObject.send("ReadFromOpml", TTObject(this), none);
 }
 
 TTErr TTOpmlHandler::ReadAgain()

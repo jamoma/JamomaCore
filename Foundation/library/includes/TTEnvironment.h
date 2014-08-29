@@ -131,6 +131,12 @@ public:
 
 	/**	A message-bound version of getClassNamesWithTags()	*/
 	TTErr getClassNamesForTags(const TTValue& anInputValue, TTValue &anOutputValue);
+    
+    /**	Check if a class is registered
+     @param className			the name of a class
+     @return					#TTErr error code if the class is not registered, else #kTTErrNone.
+	 */
+	TTErr isClassRegistered(const TTSymbol& className);
 	
 	
 	/**	Create a new instance of a registered #TTObjectBase class.
@@ -142,7 +148,7 @@ public:
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, const TTValue& anArgument);
+	TTErr createInstance(const TTSymbol className, TTObjectBasePtr* anObject, const TTValue& anArgument);
 	
 	
 	/**	Create a reference to an object. */
@@ -165,23 +171,35 @@ public:
 };
 
 
-/** The environment object has one instance, which is global in scope. */
+/** The environment object has one instance, which is global in scope.
+ */
 extern TTFOUNDATION_EXPORT TTEnvironment* ttEnvironment;
 
 
 // Public Interface -- REPLACED BY TTOBJECT
-// Some of this looks a bit crazy due to duplication -- however the use of templates causes problems for linking on some Macs and PCs
-// (while not neccessarily on others)
-TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, TTValue& arguments) );
-TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTValue& arguments) );
-TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments) );
 
+/** @brief DEPRECATED
+ @deprecated Instead, please use the @n #TTObject constructor as detailed in @ref chapter_usingobjects_lifecycle */
+TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTValue arguments) );
+TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments) );
+
+/** @brief DEPRECATED
+ @deprecated Instead, most uses can be handled via the @n #TTObject and its = operator */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTObjectBasePtr TTObjectBaseReference(TTObjectBasePtr anObject) );
+
+/** @brief DEPRECATED
+ @deprecated Instead, please use the @n #TTObject destructor via the delete operator as detailed in @ref chapter_usingobjects_lifecycle */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject) );
 
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
 TTFOUNDATION_EXPORT TTErr TTClassRegister(const TTSymbol className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod);
+
+/** @brief DEPRECATED
+ @deprecated Instead, please use @n TTObject::GetRegisteredClassNames */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames) );
+
+/** @brief DEPRECATED
+ @deprecated Instead, please use @n TTObject::GetRegisteredClassNamesForTags */
 TT_DEPRECATED( TTFOUNDATION_EXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags) );
 
 #endif // __TT_ENVIRONMENT_H__

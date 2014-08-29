@@ -40,32 +40,78 @@ void TTAudioGraphSourceObserverCallback(TTAudioGraphSourcePtr self, TTValue& arg
 TTAudioGraphSource::TTAudioGraphSource() :
 	mSourceObject(NULL),
 	mOutletNumber(0),
-	mCallbackHandler(NULL),
+	mCallbackHandler("callback"),
 	mOwner(NULL)
 {
 	create();
 }
 
 
+TTAudioGraphSource::TTAudioGraphSource(const TTAudioGraphSource& original) :
+	mSourceObject(NULL),
+	mOutletNumber(0),
+	mCallbackHandler("callback"),
+	mOwner(NULL)
+{
+	create();
+	mOwner = original.mOwner;
+	
+	// NOTE: See notes below in TTAudioGraphInlet copy constructor...
+	// NOTE: When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
+	// NOTE: Are we ever called after connecting?  If so, then we need to set up the connection...
+	
+	if (original.mSourceObject)
+		connect(original.mSourceObject, original.mOutletNumber);
+}
+
+
+
 TTAudioGraphSource::~TTAudioGraphSource()
 {
 	if (mSourceObject)
-		mSourceObject->unregisterObserverForNotifications(*mCallbackHandler);
-
-	TTObjectBaseRelease(&mCallbackHandler);
+		mSourceObject->unregisterObserverForNotifications(mCallbackHandler);
 	
 	mSourceObject = NULL;
 	mOutletNumber = 0;
-	mCallbackHandler = NULL;	
 }
 
 
 void TTAudioGraphSource::create()
 {
-	TTObjectBaseInstantiate(TT("callback"), &mCallbackHandler, kTTValNONE);
+	mCallbackHandler.set("function", TTPtr(&TTAudioGraphSourceObserverCallback));
+	mCallbackHandler.set("baton", TTPtr(this));
+}
+
+
+void TTAudioGraphSource::setOwner(TTAudioGraphInlet* theOwningInlet)
+{
+	mOwner = theOwningInlet;
+}
+
+
+TTAudioGraphSource& TTAudioGraphSource::operator=(const TTAudioGraphSource& original)
+{
+	mSourceObject = NULL;
+	mOutletNumber = 0;
+	mCallbackHandler = NULL;
+	mOwner = NULL;
 	
-	mCallbackHandler->setAttributeValue(TT("function"), TTPtr(&TTAudioGraphSourceObserverCallback));
-	mCallbackHandler->setAttributeValue(TT("baton"), TTPtr(this));	
+	// TODO: We're probably leaking memory here, because mCallbackHandler is potentially never freed...
+	// However, if we don't NULL the mCallbackHandler
+	// then we end up with crashes when we do something like close a Max patcher after editing connections while running.
+	
+	create();
+	mOwner = original.mOwner;
+	
+	// TODO: evaluate if this is doing the correct thing:
+	// - we can copy the owner ptr for sure
+	// - we definitely can not copy the mCallbackHandler pointer
+	// - not certain about the mSourceObject
+	
+	if (original.mSourceObject && original.mSourceObject->valid)
+		connect(original.mSourceObject, original.mOutletNumber);
+	
+	return *this;
 }
 
 
@@ -75,8 +121,8 @@ void TTAudioGraphSource::connect(TTAudioGraphObjectBasePtr anObject, TTUInt16 fr
 	mOutletNumber = fromOutletNumber;
 
 	// dynamically add a message to the callback object so that it can handle the 'objectFreeing' notification
-	mCallbackHandler->registerMessage(TT("objectFreeing"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
+	mCallbackHandler.instance()->registerMessage(TT("objectFreeing"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
 	
 	// tell the source that is passed in that we want to watch it
-	mSourceObject->registerObserverForNotifications(*mCallbackHandler);
+	mSourceObject->registerObserverForNotifications(mCallbackHandler);
 }	

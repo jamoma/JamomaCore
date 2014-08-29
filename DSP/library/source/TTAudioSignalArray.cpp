@@ -25,8 +25,8 @@
 /****************************************************************************************************/
 
 TT_OBJECT_CONSTRUCTOR, 
-	audioSignals(NULL),
-	maxNumAudioSignals(0),
+	mAudioSignals(NULL),
+	mAudioSignalMaxCount(0),
 	numAudioSignals(0)
 {
 	TTChannelCount initialMaxNumAudioSignals = arguments;
@@ -44,46 +44,55 @@ TT_OBJECT_CONSTRUCTOR,
 
 TTAudioSignalArray::~TTAudioSignalArray()
 {
-	delete[] audioSignals;
+	chuck();
+}
+
+
+void TTAudioSignalArray::chuck()
+{
+	for (TTChannelCount i=0; i<mAudioSignalMaxCount ;i++) {
+		if (mAudioSignals[i])
+			ttEnvironment->releaseInstance((TTObjectBase**)&mAudioSignals[i]);
+	}
+	delete[] mAudioSignals;
 }
 
 
 void TTAudioSignalArray::init()
 {
-	delete[] audioSignals;
-	audioSignals = new TTAudioSignalPtr[maxNumAudioSignals];
-	for (TTChannelCount i=0; i<maxNumAudioSignals ;i++)
-		audioSignals[i] = NULL;
+	mAudioSignals = new TTAudioSignalPtr[mAudioSignalMaxCount];
+	for (TTChannelCount i=0; i<mAudioSignalMaxCount ;i++)
+		mAudioSignals[i] = NULL;
 	numAudioSignals = 0;
 }
 
 
 void TTAudioSignalArray::releaseAll()
 {
-	for (TTChannelCount i=0; i<maxNumAudioSignals; i++)
-		TTObjectBaseRelease(&audioSignals[i]);
+	for (TTChannelCount i=0; i<mAudioSignalMaxCount; i++)
+		TTObjectBaseRelease(&mAudioSignals[i]);
 }
 
 void TTAudioSignalArray::allocAllWithVectorSize(TTUInt16 vs)
 {
-	for (TTChannelCount i=0; i<maxNumAudioSignals; i++)
-		audioSignals[i]->allocWithVectorSize(vs);
+	for (TTChannelCount i=0; i<mAudioSignalMaxCount; i++)
+		mAudioSignals[i]->allocWithVectorSize(vs);
 }
 
 TTUInt16 TTAudioSignalArray::getVectorSize()
 {
-	return audioSignals[0]->getVectorSizeAsInt();
+	return mAudioSignals[0]->getVectorSizeAsInt();
 }
 
 void TTAudioSignalArray::setAllMaxNumChannels(TTChannelCount newMaxNumChannels)
 {
-	for (TTChannelCount i=0; i<maxNumAudioSignals; i++)
-		audioSignals[i]->setMaxNumChannels(newMaxNumChannels);
+	for (TTChannelCount i=0; i<mAudioSignalMaxCount; i++)
+		mAudioSignals[i]->setMaxNumChannels(newMaxNumChannels);
 }
 
 void TTAudioSignalArray::setAllNumChannels(TTChannelCount newNumChannels)
 {
-	for (TTChannelCount i=0; i<maxNumAudioSignals; i++)
-		audioSignals[i]->setNumChannels(newNumChannels);
+	for (TTChannelCount i=0; i<mAudioSignalMaxCount; i++)
+		mAudioSignals[i]->setNumChannels(newNumChannels);
 }
 

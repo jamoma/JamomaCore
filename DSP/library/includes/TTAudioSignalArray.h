@@ -31,20 +31,21 @@ class TTDSP_EXPORT TTAudioSignalArray : public TTDataObjectBase {
 
 protected:
 
-	TTAudioSignalPtr*	audioSignals;			///< The actual array of audio signal pointers.
-	TTChannelCount		maxNumAudioSignals;		///< The maximum number of audio signals that can be passed in this array.
+	TTAudioSignalPtr*	mAudioSignals;			///< The actual array of audio signal pointers.
+	TTChannelCount		mAudioSignalMaxCount;	///< The maximum number of audio signals that can be passed in this array.
 
 public:
 
 	TTChannelCount		numAudioSignals;		///< The number of audio signal pointers which are actually valid.
 	
-	void		init();
-	void		releaseAll();
+	void chuck();
+	void init();
+	void releaseAll();
 
 	void clearAll()
 	{
-		for (TTChannelCount i=0; i<maxNumAudioSignals; i++)
-			audioSignals[i]->clear();
+		for (TTChannelCount i=0; i<mAudioSignalMaxCount; i++)
+			mAudioSignals[i]->clear();
 	}
 	
 	void		allocAllWithVectorSize(TTUInt16 vs);
@@ -55,32 +56,36 @@ public:
 	void setAllSampleRates(TTUInt32 newSampleRate)
 	{
 		for (TTChannelCount i=0; i<numAudioSignals; i++)
-			audioSignals[i]->setSampleRate(newSampleRate);
+			mAudioSignals[i]->setSampleRate(newSampleRate);
 	}
 	
 	/**	Note: calling this function will invalidate all audioSignal pointers contained within the array. */
 	void setMaxNumAudioSignals(TTChannelCount newMaxNumAudioSignals)
 	{
-		if (newMaxNumAudioSignals != maxNumAudioSignals) {
-			maxNumAudioSignals = newMaxNumAudioSignals;
+		if (newMaxNumAudioSignals != mAudioSignalMaxCount) {
+			chuck();
+			mAudioSignalMaxCount = newMaxNumAudioSignals;
 			init();
 		}
 	}
 	
 	TTChannelCount getMaxNumAudioSignals()
 	{
-		return maxNumAudioSignals;
+		return mAudioSignalMaxCount;
 	}
 
 	
 	inline TTAudioSignal& getSignal(TTChannelCount index)
 	{
-		return *audioSignals[index];
+		return *mAudioSignals[index];
 	}
 	
 	inline TTErr setSignal(TTChannelCount index, const TTAudioSignalPtr aSignal)
 	{
-		audioSignals[index] = aSignal;
+		if (mAudioSignals[index] != aSignal) {
+			TTObjectBaseRelease((TTObjectBase**)&mAudioSignals[index]);
+			mAudioSignals[index] = (TTAudioSignal*)TTObjectBaseReference(aSignal);
+		}
 		return kTTErrNone;
 	}
 	
@@ -92,16 +97,16 @@ public:
 
 	void matchNumChannels(TTAudioSignalArray& anotherArray)
 	{
-		TTChannelCount	audioSignalCount =  TTClip<TTChannelCount>(maxNumAudioSignals, 0, anotherArray.maxNumAudioSignals);
+		TTChannelCount	audioSignalCount =  TTClip<TTChannelCount>(mAudioSignalMaxCount, 0, anotherArray.mAudioSignalMaxCount);
 		TTValue		v;
 		
 		for (int i=0; i<audioSignalCount; i++) {
-			TTChannelCount numChannels = anotherArray.audioSignals[i]->getNumChannelsAsInt();
+			TTChannelCount numChannels = anotherArray.mAudioSignals[i]->getNumChannelsAsInt();
 
 			v = numChannels;
 			// TODO: for efficiency, we should only set the maxNumChannels if it is larger than the current so we aren't allocing memory on the heap!
-			audioSignals[i]->setMaxNumChannels(v);
-			audioSignals[i]->setNumChannels(v);
+			mAudioSignals[i]->setMaxNumChannels(v);
+			mAudioSignals[i]->setNumChannels(v);
 		}
 		
 		// TODO, for all channels that are not in this array, but are in another array, we should zero the numChannels
@@ -111,9 +116,9 @@ public:
 	{
 		TTChannelCount maxNumChannels = 0;
 		
-		for (TTChannelCount i=0; i<maxNumAudioSignals; i++) {
-			if (audioSignals[i]->getMaxNumChannelsAsInt() > maxNumChannels)
-				maxNumChannels = audioSignals[i]->getMaxNumChannelsAsInt();
+		for (TTChannelCount i=0; i<mAudioSignalMaxCount; i++) {
+			if (mAudioSignals[i]->getMaxNumChannelsAsInt() > maxNumChannels)
+				maxNumChannels = mAudioSignals[i]->getMaxNumChannelsAsInt();
 		}
 		return maxNumChannels;
 	}

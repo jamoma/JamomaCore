@@ -30,29 +30,29 @@
 #ifndef __TT_TEXT_HANDLER_H__
 #define __TT_TEXT_HANDLER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**  
  */
 
-class TTMODULAR_EXPORT TTTextHandler : public TTDataObjectBase
+class TTMODULAR_EXPORT TTTextHandler : public TTObjectBase
 {
 	TTCLASS_SETUP(TTTextHandler)
 	
 public:	// use public for recursive access
 	
-	TTObjectBasePtr			mObject;						///< the last handled object
-	TTSymbol			mFilePath;						///< the path to the last writen/read file
+	TTObject	mObject;						///< the last handled object
+	TTSymbol	mFilePath;						///< the path to the last writen/read file
 	
-	TTString			*mWriter;						///< the text where to write
-	TTString			*mReader;						///< the text to read
+	TTString	*mWriter;						///< the text where to write
+	TTString	*mReader;						///< the text to read
 	
-	TTValuePtr			mLine;							///< the line being read by the Reader
-	TTUInt8				mTabCount;						///< count the number of tabulation at the beginning of the line
-	TTUInt8				mSpaceNumberForTab;				///< ATTRIBUTE : depending on the text editor a tab can be equal to 4, 5, 8 white space
+	TTValuePtr	mLine;							///< the line being read by the Reader
+	TTUInt8		mTabCount;						///< count the number of tabulation at the beginning of the line
+	TTUInt8		mSpaceNumberForTab;				///< ATTRIBUTE : depending on the text editor a tab can be equal to 4, 5, 8 white space
 	
-	TTBoolean			mFirstLine;						///< a flag to know if it is the first line
-	TTBoolean			mLastLine;						///< a flag to know if it is the last line
+	TTBoolean	mFirstLine;						///< a flag to know if it is the first line
+	TTBoolean	mLastLine;						///< a flag to know if it is the last line
 
 	/** TTTextWriter could takes a file path or a string buffer pointer. */
 	TTErr Write(const TTValue& args, TTValue& outputValue);

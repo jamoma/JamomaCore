@@ -14,13 +14,17 @@ sources:
   - source/TTDataObjectBase.cpp
   - source/TTBase.cpp
   - source/TTMessage.cpp
+  - source/TTObject.cpp
   - source/TTObjectBase.cpp
   - source/TTDictionary.cpp
   - source/TTDictionaryBase.cpp
   - tests/TTDictionary.test.cpp
   - source/TTHash.cpp
   - source/TTList.cpp
+  - tests/TTList.test.cpp
   - source/TTMatrix.cpp
+  - source/TTMatrixBase.cpp
+  - source/TTMatrixObject.cpp
   - source/TTMatrixMath.cpp
   - source/TTMatrixArray.cpp
   - source/TTValue.cpp
@@ -68,6 +72,7 @@ sources:
   - source/TTAddressItem.cpp
   - source/TTNodeDirectory.cpp
   - tests/TTNodeLib.test.cpp
+  - tests/TTObjectTest.cpp
   - tests/TTInterpolate.test.cpp
 
 #  - win source/TTNodeLib.cpp

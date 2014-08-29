@@ -19,13 +19,12 @@
 #include "TTEnvironment.h"
 #include "TTClass.h"
 
-TTObjectBase::TTObjectBase(TTValue arguments)
-	: classPtr(NULL), observers(NULL), messageObservers(NULL), attributeObservers(NULL),
-	  mLocked(false), referenceCount(1), valid(false), reserved1(0), reserved2(0)
+TTObjectBase::TTObjectBase(const TTValue arguments)
+	: classPtr(NULL), messageObservers(NULL), attributeObservers(NULL),
+	  mLocked(false), referenceCount(1), valid(false), track(false), reserved1(0)//, reserved2(0)
 {
 	messages = new TTHash;
 	attributes = new TTHash;
-	observers = new TTList;
 	// 'valid' will be set true by the Environment class which is the factory for all objects
 	
 	// Cannot add any messages or attributes here because messages and attributes are themselves objects
@@ -36,8 +35,6 @@ TTObjectBase::TTObjectBase(TTValue arguments)
 TTObjectBase::~TTObjectBase()
 {
 	TTValue	v, u;
-
-	delete observers;
 
 	// Delete message objects, then delete the hash that maintains them.
 	messages->getKeys(v);
@@ -157,7 +154,6 @@ TTErr TTObjectBase::findAttribute(const TTSymbol name, TTAttribute** attr)
 	return err;
 }
 
-
 TTErr TTObjectBase::getAttributeValue(const TTSymbol name, TTValue& value)
 {
 	TTAttributePtr	attribute = NULL;
@@ -205,6 +201,19 @@ TTErr TTObjectBase::setAttributeValue(const TTSymbol name, TTValue& value)
 		}
 	}
 	return err;
+}
+
+TTSymbol TTObjectBase::getAttributeType(const TTSymbol name)
+{
+    TTAttributePtr attributeObject;
+    
+    if (!findAttribute(name, &attributeObject))
+        
+        return *(ttDataTypeInfo[attributeObject->type]->name);
+    
+    else
+        
+        return kTTSymEmpty;
 }
 
 TTErr TTObjectBase::getAttributeGetterFlags(const TTSymbol name, TTAttributeFlags& value)
@@ -451,30 +460,31 @@ TTErr TTObjectBase::sendMessage(const TTSymbol name, const TTValue& anInputValue
 #endif
 
 
-TTErr TTObjectBase::registerObserverForNotifications(const TTObjectBase& observingObject)
+TTErr TTObjectBase::registerObserverForNotifications(const TTObject& observingObject)
 {
-	TTValue v = observingObject;
-	observers->appendUnique(v);
+	TTValue v(observingObject);
+	
+	observers.appendUnique(v);
 	return kTTErrNone;
 }
 
 
-TTErr TTObjectBase::unregisterObserverForNotifications(const TTObjectBase& observingObject)
+TTErr TTObjectBase::unregisterObserverForNotifications(const TTObject& observingObject)
 {
 	TTValue	c(observingObject);
 	TTValue	v;
 	TTErr	err;
 
-	err = observers->findEquals(c, v);
+	err = observers.findEquals(c, v);
 	if (!err)
-		observers->remove(v);
+		observers.remove(v);
 	return err;
 }
 
 
 TTErr TTObjectBase::sendNotification(const TTSymbol name, const TTValue& arguments)
 {
-	return observers->iterateObjectsSendingMessage(name, TTValueRef(arguments));
+	return observers.iterateObjectsSendingMessage(name, TTValueRef(arguments));
 }
 
 

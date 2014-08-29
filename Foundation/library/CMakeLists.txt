@@ -35,12 +35,15 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAttribute.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTDataObjectBase.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTBase.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMessage.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTObject.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTObjectBase.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTDictionary.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTDictionaryBase.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTHash.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTList.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMatrix.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTMatrixBase.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTMatrixObject.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMatrixMath.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMatrixArray.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTValue.cpp
@@ -58,6 +61,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressCache.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressItem.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTNodeDirectory.cpp
 
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTList.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTDictionary.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTMatrix.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTString.test.cpp
@@ -65,6 +69,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSymbol.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTValue.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTNodeLib.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTInterpolate.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTObjectTest.cpp
 )
 
 if(NOT DEFINED USE_EXTERNAL_BOOST)

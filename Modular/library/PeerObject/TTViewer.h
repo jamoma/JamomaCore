@@ -17,7 +17,7 @@
 #ifndef __TT_VIEWER_H__
 #define __TT_VIEWER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 
 class TTReceiver;
@@ -29,7 +29,7 @@ typedef TTSender* TTSenderPtr;
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-class TTMODULAR_EXPORT TTViewer : public TTDataObjectBase
+class TTMODULAR_EXPORT TTViewer : public TTCallback
 {
 	TTCLASS_SETUP(TTViewer)
 	
@@ -44,17 +44,15 @@ private:
 	
 	TTSymbol					mDataspace;					///< ATTRIBUTE : The dataspace that this view uses (default is 'none')
 	TTSymbol					mDataspaceUnit;				///< ATTRIBUTE : The unit within the dataspace.
-	TTObjectBasePtr				mDataspaceConverter;		///< Performs conversions from data unit to the view unit
-	TTReceiverPtr				mDataspaceObserver;			///< the receiver which observe the data's dataspace attribute
-	TTReceiverPtr				mDataspaceUnitObserver;		///< the receiver which observe the data's unit attribute
+	TTObject                    mDataspaceConverter;		///< Performs conversions from data unit to the view unit
+	TTObject                    mDataspaceObserver;			///< Observes the data's dataspace attribute
+	TTObject                    mDataspaceUnitObserver;		///< Observes the data's unit attribute
 	
 	TTBoolean					mActive;					///< ATTRIBUTE : if false, received data won't be output
 	TTValue						mReturnedValue;				///< ATTRIBUTE : a local value to allow observation of this viewer
 	
-	TTReceiverPtr				mReceiver;					///< the receiver which binds on our data
-	TTSenderPtr					mSender;					///< the sender which binds on our data
-	
-	TTCallbackPtr				mReturnValueCallback;		///< a way to return back value to the owner of this viewer
+	TTObject                    mReceiver;					///< Binds to our data
+	TTObject                    mSender;					///< Binds to our data
 	
 	/** set the address */
 	TTErr setAddress(const TTValue& value);
@@ -84,17 +82,10 @@ private:
      This method is not relevant with address containing wildcards */
 	TTErr Grab(const TTValue& inputValue, TTValue& outputValue);
 	
-	/** */
-	TTErr bind();
-	TTErr refresh();
-	TTErr convertUnit(const TTValue& inputValue, TTValue& outputValue);
-	TTErr observeDataspace();
-	TTErr observeDataspaceUnit();
-	
-	friend TTErr TTMODULAR_EXPORT TTViewerReceiveAddressCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTViewerReceiveValueCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTViewerDataspaceCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTViewerDataspaceUnitCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTViewerReceiveAddressCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTViewerReceiveValueCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTViewerDataspaceCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTViewerDataspaceUnitCallback(const TTValue& baton, const TTValue& data);
 };
 
 typedef TTViewer* TTViewerPtr;
@@ -103,24 +94,24 @@ typedef TTViewer* TTViewerPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTViewerReceiveAddressCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTViewerReceiveAddressCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTViewerReceiveValueCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTViewerReceiveValueCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTViewerDataspaceCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTViewerDataspaceCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTViewerDataspaceUnitCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTViewerDataspaceUnitCallback(const TTValue& baton, const TTValue& data);
 
 #endif // __TT_VIEWER_H__

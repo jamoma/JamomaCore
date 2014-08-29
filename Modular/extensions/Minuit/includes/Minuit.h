@@ -74,20 +74,18 @@ class Minuit : public Protocol {
 	
 private:
 	
-	TTSymbol				mIp;						///< ATTRIBUTE : IP of the local application (to share with clients)		(default : loacalhost, readonly)
-	TTUInt16				mPort;						///< ATTRIBUTE : port dedicated to data reception (to share with clients)	(default : MINUIT_RECEPTION_PORT)
-	
-	TTObjectBasePtr			mOscReceive;
+    PROTOCOL_PARAMETER(Ip);						///< PROTOCOL PARAMETER : each registered application have to setup its ip
+	PROTOCOL_PARAMETER(Port);					///< PROTOCOL PARAMETER : each registered application have to setup its port
+    
+	TTObject                mOscReceive;
     TTThreadPtr             mWaitThread;                // a thread used to wait in some case
 	
 	MinuitAnswerManagerPtr	mAnswerManager;
     MinuitSenderManagerPtr	mSenderManager;
     
-	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& message);
+	TTErr sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& message);
 	TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
 	
-	/** Get parameters names needed by this protocol */
-	TTErr getParameterNames(TTValue& value);
 	
 	/** Scan to find remote applications and add them to the application manager */
 	TTErr Scan();
@@ -228,7 +226,7 @@ private:
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
 	TTErr SendGetAnswer(TTSymbol to, TTAddress address, 
-						TTValue& returnedValue,
+						const TTValue& returnedValue,
 						TTErr err=kTTErrNone);
 	
 	/*!
@@ -239,7 +237,7 @@ private:
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
 	TTErr SendListenAnswer(TTSymbol to, TTAddress address, 
-						   TTValue& returnedValue,
+						   const TTValue& returnedValue,
 						   TTErr err=kTTErrNone);
 	
 };

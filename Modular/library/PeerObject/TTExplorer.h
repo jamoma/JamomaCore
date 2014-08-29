@@ -17,7 +17,7 @@
 #ifndef __TT_EXPLORER_H__
 #define __TT_EXPLORER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 
 /**	TTExplorer ... TODO : an explanation
@@ -25,7 +25,7 @@
  
  */
 
-class TTMODULAR_EXPORT TTExplorer : public TTDataObjectBase
+class TTMODULAR_EXPORT TTExplorer : public TTObjectBase
 {
 	TTCLASS_SETUP(TTExplorer)
 	
@@ -47,10 +47,10 @@ private:
 	
 	TTNodeDirectoryPtr	mDirectory;						///< an explorer depends on a directory
 	
-	TTCallbackPtr		mAddressObserver;				///< an address life cycle observer
-	TTCallbackPtr		mApplicationObserver;			///< an application life cycle observer
-	TTCallbackPtr		mReturnValueCallback;			///< a way to return back value to the owner of this explorer
-	TTCallbackPtr		mReturnSelectionCallback;		///< a way to return back selection to the owner of this explorer
+	TTObject            mAddressObserver;				///< an address life cycle observer
+	TTObject            mApplicationObserver;			///< an application life cycle observer
+	TTObject            mReturnValueCallback;			///< a way to return back value to the owner of this explorer
+	TTObject            mReturnSelectionCallback;		///< a way to return back selection to the owner of this explorer
 	TTHashPtr			mFilterBank;					///< a hash table containing TTDictionaryBasePtr to store filters
 	TTListPtr			mFilterList;					///< a list containing TTSymbol to retreive filters in the filter bank
 	
@@ -134,8 +134,8 @@ private:
 	/** */
 	TTErr returnSelectionBack();
 	
-	friend TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(const TTValue& baton, const TTValue& data);
 };
 
 typedef TTExplorer* TTExplorerPtr;
@@ -144,13 +144,13 @@ typedef TTExplorer* TTExplorerPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTExplorerDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTExplorerApplicationManagerCallback(const TTValue& baton, const TTValue& data);
 
 /** compare priority attribute of object's node
  @param	v1							< relativeAddress, a pointer to a value containing a pointer to a TTNode >

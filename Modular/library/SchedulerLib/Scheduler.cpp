@@ -147,28 +147,18 @@ TTErr Scheduler::setSpeed(const TTValue& value)
  
  ***************************************************************************/
 
-TTErr SchedulerLib::createScheduler(const TTSymbol SchedulerName, SchedulerPtr *returnedScheduler, SchedulerPositionCallback aCallback, TTPtr aBaton)
-{
-	TTValue args;
-	
-    // prepare arguments
-	args.append((TTPtr)aCallback);
-    args.append(aBaton);
-	
-	// These should be alphabetized
-	if (SchedulerName == TTSymbol("Max"))
-		return TTObjectBaseInstantiate(TTSymbol("Max"), (TTObjectBasePtr*)returnedScheduler, args);
-    else if (SchedulerName == TTSymbol("System"))
-		return TTObjectBaseInstantiate(TTSymbol("System"), (TTObjectBasePtr*)returnedScheduler, args);
-    
-	TTLogError("Jamoma SchedulerLib : Invalid Scheduler ( %s ) specified", SchedulerName.c_str());
-	return kTTErrValueNotFound;
-}
-
 void SchedulerLib::getSchedulerNames(TTValue& SchedulerNames)
 {
 	SchedulerNames.clear();
-	SchedulerNames.append(TTSymbol("Max"));
-	SchedulerNames.append(TTSymbol("System"));
+	SchedulerNames.append(TTSymbol("max"));
+	SchedulerNames.append(TTSymbol("system"));
+}
+
+TTErr SchedulerLib::isSchedulerNameAvailable(TTSymbol aSchedulerName)
+{
+    if (aSchedulerName == TTSymbol("max") || aSchedulerName == TTSymbol("system"))
+        return kTTErrNone;
+    else
+        return kTTErrValueNotFound;
 }
 

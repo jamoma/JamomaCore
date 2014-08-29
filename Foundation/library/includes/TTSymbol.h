@@ -98,7 +98,14 @@ public:
 	{
 		return (*symbol1.mSymbolPointer == *symbol2.mSymbolPointer);
 	}
-
+	
+	
+	/** Compare two symbols for inequality. */
+	inline friend bool operator != (const TTSymbol& symbol1, const TTSymbol& symbol2)
+	{
+		return (*symbol1.mSymbolPointer != *symbol2.mSymbolPointer);
+	}
+	
 	
 	/** Compare a symbols against a c-string for equality. */
 	inline friend bool operator == (const TTSymbol& symbol1, const char* aCString)
@@ -142,7 +149,9 @@ public:
 };
 
 	
-/** This macro is defined as a shortcut for doing a lookup in the symbol table. */
+/** This macro is defined as a shortcut for doing a lookup in the symbol table.
+	@ingroup macros
+ */
 #define TT TTSymbol
 
 

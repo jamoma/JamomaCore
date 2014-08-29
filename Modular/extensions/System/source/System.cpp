@@ -18,7 +18,7 @@
 #include "System.h"
 
 #define thisTTClass                 System
-#define thisTTClassName             "System"
+#define thisTTClassName             "system"
 #define thisTTClassTags             "scheduler, System"
 
 #define thisSchedulerVersion		"0.1"

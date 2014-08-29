@@ -78,17 +78,14 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Minuit(void)
 }
 
 PROTOCOL_CONSTRUCTOR,
-mIp(TTSymbol("localhost")),
-mPort(MINUIT_RECEPTION_PORT),
-mOscReceive(NULL),
 mWaitThread(NULL),
 mAnswerManager(NULL),
 mSenderManager(NULL)
 {	
 	PROTOCOL_INITIALIZE
 	
-	addAttribute(Ip, kTypeSymbol);
-	addAttribute(Port, kTypeUInt16);
+    addAttributeAsProtocolParameter(Ip, kTypeSymbol);
+	addAttributeAsProtocolParameter(Port, kTypeUInt16);
 	
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
@@ -106,15 +103,6 @@ Minuit::~Minuit()
 	delete mWaitThread;
 }
 
-TTErr Minuit::getParameterNames(TTValue& value)
-{
-	value.clear();
-	value.append(TTSymbol("ip"));
-	value.append(TTSymbol("port"));
-	
-	return kTTErrNone;
-}
-
 TTErr Minuit::Scan()
 {
 	// TODO
@@ -127,8 +115,9 @@ TTErr Minuit::Scan()
  */
 TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTValue args;
-	TTErr	err;
+    TTValue     v;
+    TTUInt16    port;
+	TTErr       err;
     
     // Minuit doesn't need a thread per application
     if (inputValue.size())
@@ -139,26 +128,39 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
 		mAnswerManager = new MinuitAnswerManager((MinuitPtr)this);
         mSenderManager = new MinuitSenderManager();
 		
-		err = TTObjectBaseInstantiate(TTSymbol("osc.receive"), &mOscReceive, args);
+		mOscReceive = TTObject("osc.receive");
         
-		if (!err) {
+		if (mOscReceive.valid()) {
             
-            err = mOscReceive->setAttributeValue(TTSymbol("port"), mPort);
+            TTObject minuitProtocol(this);
             
-            if (!err) {
+            // select local application to get its port parameter
+            ApplicationSelectLocal();
+            minuitProtocol.get("port", v);
+            
+            if (v.size()) {
                 
-                mOscReceive->registerObserverForNotifications(*this);			// using our 'receivedMessage' method
+                port = v[0];
                 
-                // wait to avoid strange crash when run and stop are called to quickly
-                mWaitThread->sleep(1);
+                err = mOscReceive.set("port", v);
                 
-                mRunning = YES;
+                if (!err) {
+                    
+                    mOscReceive.registerObserverForNotifications(minuitProtocol);			// using our 'receivedMessage' method
+                    
+                    // wait to avoid strange crash when run and stop are called to quickly
+                    mWaitThread->sleep(1);
+                    
+                    mRunning = YES;
+                    
+                    TTLogMessage("Minuit::Run : connected to port %ld\n", port);
+                    
+                    return kTTErrNone;
+                }
+                else
+                    TTLogError("Minuit::Run : unable to connect to port %ld\n", port);
             }
-            else
-                TTLogError("unable to connect to port %ld", mPort);
 		}
-		
-		return err;
 	}
 	
 	return kTTErrGeneric;
@@ -179,7 +181,7 @@ TTErr Minuit::Stop(const TTValue& inputValue, TTValue& outputValue)
 		delete mAnswerManager;
         delete mSenderManager;
         
-		TTObjectBaseRelease(&mOscReceive);
+		mOscReceive = TTObject();
         
         // wait to avoid strange crash when run and stop are called to quickly
         mWaitThread->sleep(1);
@@ -220,7 +222,7 @@ TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
 	TTInt32		state;
 	
 	// edit header "localAppName?namespace"
-	header = protocolGetLocalApplicationName.c_str();
+	header = mLocalApplicationName.c_str();
 	header += MINUIT_REQUEST_DISCOVER;
 	
 	// edit arguments <header address>
@@ -285,7 +287,7 @@ TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address,
 	TTInt32		state;
     
 	// edit header "localAppName?get"
-	header = protocolGetLocalApplicationName.c_str();
+	header = mLocalApplicationName.c_str();
 	header += MINUIT_REQUEST_GET;
 	
 	// edit arguments <header address>
@@ -357,7 +359,7 @@ TTErr Minuit::SendListenRequest(TTSymbol to, TTAddress address,
 	TTString	header;
 	
 	// edit header "appName?listen"
-	header = protocolGetLocalApplicationName.c_str();
+	header = mLocalApplicationName.c_str();
 	header += MINUIT_REQUEST_LISTEN;
 	
 	// edit arguments <header address, enable>
@@ -402,11 +404,11 @@ TTErr Minuit::SendDiscoverAnswer(TTSymbol to, TTAddress address,
 	
 	// edit header "appName:get"
 	if (!err) {
-		header = protocolGetLocalApplicationName.c_str();
+		header = mLocalApplicationName.c_str();
 		header += MINUIT_ANSWER_DISCOVER;
 	}
 	else {
-		header = protocolGetLocalApplicationName.c_str();
+		header = mLocalApplicationName.c_str();
 		header += MINUIT_ERROR_DISCOVER;
 	}
 	
@@ -469,7 +471,7 @@ TTErr Minuit::SendDiscoverAllAnswer(TTSymbol to, TTAddress address, TTNodePtr no
  * \param returnedValue			: the value of the attribute at the address
  */
 TTErr Minuit::SendGetAnswer(TTSymbol to, TTAddress address, 
-							TTValue& returnedValue, 
+							const TTValue& returnedValue,
 							TTErr err)
 {
 	TTValue		v, arguments;
@@ -477,11 +479,11 @@ TTErr Minuit::SendGetAnswer(TTSymbol to, TTAddress address,
 	
 	// edit header "appName:get"
 	if (!err) {
-		header = protocolGetLocalApplicationName.c_str();
+		header = mLocalApplicationName.c_str();
 		header += MINUIT_ANSWER_GET;
 	}
 	else {
-		header = protocolGetLocalApplicationName.c_str();
+		header = mLocalApplicationName.c_str();
 		header += MINUIT_ERROR_GET;
 	}
 	
@@ -505,7 +507,7 @@ TTErr Minuit::SendGetAnswer(TTSymbol to, TTAddress address,
  * \param returnedValue			: the value of the attribute at the address
  */
 TTErr Minuit::SendListenAnswer(TTSymbol to, TTAddress address, 
-							   TTValue& returnedValue, 
+							   const TTValue& returnedValue,
 							   TTErr err)
 {
 	TTValue		v, arguments;
@@ -513,11 +515,11 @@ TTErr Minuit::SendListenAnswer(TTSymbol to, TTAddress address,
 	
 	// edit header "appName:get"
 	if (!err) {
-		header = protocolGetLocalApplicationName.c_str();
+		header = mLocalApplicationName.c_str();
 		header += MINUIT_ANSWER_LISTEN;
 	}
 	else {
-		header = protocolGetLocalApplicationName.c_str();
+		header = mLocalApplicationName.c_str();
 		header += MINUIT_ERROR_LISTEN;
 	}
 	
@@ -533,18 +535,18 @@ TTErr Minuit::SendListenAnswer(TTSymbol to, TTAddress address,
 	return sendMessage(to, TTSymbol(header), arguments);
 }
 
-TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& arguments)
+TTErr Minuit::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& arguments)
 {
 	TTHashPtr	parameters = NULL;
-    TTObjectBasePtr anOscSender;
-	TTValue		v, vIp, vPort, message;
+    TTObject    anOscSender;
+	TTValue		v, vIp, vPort, message, none;
 	TTErr		err, errIp, errPort;
     
     if (!mSenderManager)
         return kTTErrGeneric;
 	
 	// Check the application registration
-	err = mDistantApplicationParameters.lookup(distantApplicationName, v);
+	err = mApplicationParameters.lookup(applicationName, v);
 	
 	if (!err) {
 		parameters = TTHashPtr((TTPtr)v[0]);
@@ -557,13 +559,13 @@ TTErr Minuit::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTVa
 			if (errIp || errPort)
 				return kTTErrGeneric;
 			
-			anOscSender = mSenderManager->lookup(distantApplicationName, vIp, vPort);
-			if (anOscSender) {
+			anOscSender = mSenderManager->lookup(applicationName, vIp, vPort);
+			if (anOscSender.valid()) {
 
 				message = TTValue(header);
 				message.append((TTPtr)&arguments);
 				
-				err = anOscSender->sendMessage(TTSymbol("send"), message, kTTValNONE);
+				err = anOscSender.send("send", message, none);
             
 				if (!err && mActivity) {
 					v = arguments;
@@ -644,7 +646,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 			sender = TTSymbol(headerString.substr(0, operationStart));
 			
 			// Check the sender application registration
-			err = mDistantApplicationParameters.lookup(sender, v);
+			err = mApplicationParameters.lookup(sender, v);
 			if (!err) {
 				
                 // parse request
@@ -695,7 +697,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 			sender = TTSymbol(headerString.substr(0, operationStart));
 			
 			// Check the sender application registration
-			err = mDistantApplicationParameters.lookup(sender, v);
+			err = mApplicationParameters.lookup(sender, v);
 			if (!err) {
 				
                 // parse request
@@ -734,7 +736,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 			sender = TTSymbol(headerString.substr(0, operationStart));				
 			
 			// Check the sender application registration
-			err = mDistantApplicationParameters.lookup(sender, v);
+			err = mApplicationParameters.lookup(sender, v);
 			if (!err) {
                 
                 // parse operation

@@ -17,39 +17,20 @@
 #include "MinuitSenderManager.h"
 
 MinuitSenderManager::MinuitSenderManager()
-{
-    mSenders = new TTHash();
-}
+{}
 
 MinuitSenderManager::~MinuitSenderManager()
-{
-    TTValue     keys, v;
-    TTSymbol    key;
-    TTObjectBasePtr anObject;
-    
-    mSenders->getKeys(keys);
-    
-    for (TTUInt8 i = 0; i < keys.size(); i++) {
-        key = keys[i];
-        
-        mSenders->lookup(key, v);
-        anObject = v[0];
-        
-        TTObjectBaseRelease(TTObjectBaseHandle(&anObject));
-    }
-    
-	delete mSenders;
-}
+{}
 
-TTObjectBasePtr MinuitSenderManager::lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
+TTObject MinuitSenderManager::lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
 {
-    TTValue     last, v;
-    TTObjectBasePtr lastObject = NULL;
-    TTSymbol    lastIp;
-    TTUInt16    lastPort;
-    TTErr       err;
+    TTValue  last, v;
+    TTObject lastObject;
+    TTSymbol lastIp;
+    TTUInt16 lastPort;
+    TTErr    err;
     
-    err = mSenders->lookup(applicationName, last);
+    err = mSenders.lookup(applicationName, last);
     
     if (err)
         return this->add(applicationName, ip, port);
@@ -69,31 +50,27 @@ TTObjectBasePtr MinuitSenderManager::lookup(TTSymbol applicationName, TTSymbol i
             v.append(ip);
             v.append(port);
             
-            mSenders->remove(applicationName);
-            mSenders->append(applicationName,v);
+            mSenders.remove(applicationName);
+            mSenders.append(applicationName,v);
         }
     }
     
     return lastObject;
 }
 
-TTObjectBasePtr MinuitSenderManager::add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
+TTObject MinuitSenderManager::add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
 {
     TTValue     v;
-    TTObjectBasePtr anObject = NULL;
-    TTErr       err;
+    TTObject    anObject("osc.send");
     
-    err = TTObjectBaseInstantiate(TTSymbol("osc.send"), &anObject, kTTValNONE);
-    if (!err) {
-        anObject->setAttributeValue(TTSymbol("address"), ip);
-        anObject->setAttributeValue(TTSymbol("port"), port);
+    anObject.set("address", ip);
+    anObject.set("port", port);
         
-        v.append(anObject);
-        v.append(ip);
-        v.append(port);
+    v.append(anObject);
+    v.append(ip);
+    v.append(port);
         
-        mSenders->append(applicationName, v);
-    }
+    mSenders.append(applicationName, v);
     
     return anObject;
 }

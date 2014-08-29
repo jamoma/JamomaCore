@@ -251,7 +251,7 @@ TTErr TTAudioObjectBase::calculate(const TTValue& x, TTValue& y)
 		y.clear();
 		size = x.size();
 		for (TTUInt32 i=0; i<size; i++) {
-			x.get(i, in);
+			in = x[i];
 			err = (this->*currentCalculateMethod)(in, out, NULL);
 			y.append(out);
 		}

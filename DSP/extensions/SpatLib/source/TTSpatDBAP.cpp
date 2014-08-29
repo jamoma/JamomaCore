@@ -81,8 +81,8 @@ TTErr TTSpatDBAP::setSourceWidth(const TTValue& aWidth, TTValue& anUnused)
 	
 	// TODO: We need to think of what to do if there are not two arguments...
 	
-	aWidth.get(0, sourceNumber);
-	aWidth.get(1, width);
+	sourceNumber = aWidth[0];
+	width = aWidth[1];
 	
 	sourceNumber = sourceNumber - 1;
 	sourceNumber = TTClip<TTInt32>(sourceNumber, 0, mSources.size()-1);
@@ -101,15 +101,15 @@ TTErr TTSpatDBAP::getSourceWidth(const TTValue& aRequestedChannel, TTValue& aWid
 	// TODO: We need to think of what to do if there are no arguments...
 	// or if sinkNumber is out of range of the available sources
 	
-	aRequestedChannel.get(0, sourceNumber);
+	sourceNumber = aRequestedChannel[0];
 	
 	sourceNumber = sourceNumber - 1;
 	sourceNumber = TTClip<TTInt32>(sourceNumber, 0, mSources.size()-1);
 	getSource(sourceNumber)->getWidth(width);
 	
 	aWidth.resize(2);
-	aWidth.set(0, sourceNumber);
-	aWidth.set(1, width);
+	aWidth[0] = sourceNumber;
+	aWidth[1] = width;
 	
 	return kTTErrNone;
 }

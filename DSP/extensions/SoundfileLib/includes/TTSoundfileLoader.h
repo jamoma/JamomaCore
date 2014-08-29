@@ -39,7 +39,7 @@ protected:
      @param     newTargetMatrix     pointer to the new matrix
      @return    TTErr               kTTErrNone if the pointer was updated.
      */
-	TTErr setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix);
+	TTErr setTargetMatrix(const TTMatrix newTargetMatrix);
     
     /**	Internal method that sets the class's pointer to the target sample matrix for loading sound file data. This version is a function overload so that setTargetMatrix() can accept a TTObjectBase* as an input parameter and test whether it points to an actual instance of TTSampleMatrix.
      @param     newTargetMatrix     pointer to the new matrix

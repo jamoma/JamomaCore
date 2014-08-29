@@ -42,16 +42,16 @@ TTMatrixStencil::~TTMatrixStencil()
 
 TTErr TTMatrixStencil::getStepSize(TTValue& returnedStepSize)
 {
-	returnedStepSize.setSize(mStepSize.size());
+	returnedStepSize.resize(mStepSize.size());
 	for (TTUInt32 k=0; k<mStepSize.size(); k++)
-		returnedStepSize.set(k, mStepSize[k]);
+		returnedStepSize[k] = mStepSize[k];
 	return kTTErrNone;
 }
 
 
 TTErr TTMatrixStencil::setStepSize(const TTValue& newStepSize)
 {
-	TTUInt32 count = newStepSize.getSize();
+	TTUInt32 count = newStepSize.size();
 	TTUInt32 k;
 	TTUInt32 step = 0;
 	
@@ -60,7 +60,7 @@ TTErr TTMatrixStencil::setStepSize(const TTValue& newStepSize)
 
 	// assign all values passed-in
 	for (k=0; k<count; k++) {
-		newStepSize.get(k, step);
+		step = newStepSize[k];
 		mStepSize[k] = step;
 	}
 	
@@ -79,7 +79,7 @@ TTErr TTMatrixStencil::setStepSize(const TTValue& newStepSize)
 
 
 template<typename T>
-TTErr TTMatrixStencil::doCalculateAverage2D_zeroedEdges(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix)
+TTErr TTMatrixStencil::doCalculateAverage2D_zeroedEdges(TTMatrixBasePtr inMatrix, TTMatrixBasePtr outMatrix)
 {
 	TTValue		dimensions;
 	TTUInt32	m;
@@ -88,8 +88,8 @@ TTErr TTMatrixStencil::doCalculateAverage2D_zeroedEdges(TTMatrixPtr inMatrix, TT
 	inMatrix->getLockedPointer();
 	outMatrix->getLockedPointer();
 	inMatrix->getDimensions(dimensions);
-	dimensions.get(0, m);
-	dimensions.get(1, n);
+	m = dimensions[0];
+	n = dimensions[1];
 	
 	for (TTUInt8 k=0; k < inMatrix->getElementCount(); k++) {	
 		for (TTUInt32 i=0; i<m; i++) {
@@ -147,7 +147,7 @@ TTErr TTMatrixStencil::doCalculateAverage2D_zeroedEdges(TTMatrixPtr inMatrix, TT
 
 
 template<typename T>
-TTErr TTMatrixStencil::doCalculateAverage2D_clippedEdges(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix)
+TTErr TTMatrixStencil::doCalculateAverage2D_clippedEdges(TTMatrixBasePtr inMatrix, TTMatrixBasePtr outMatrix)
 {
 	TTValue		dimensions;
 	TTUInt32	m;
@@ -156,8 +156,8 @@ TTErr TTMatrixStencil::doCalculateAverage2D_clippedEdges(TTMatrixPtr inMatrix, T
 	inMatrix->getLockedPointer();
 	outMatrix->getLockedPointer();
 	inMatrix->getDimensions(dimensions);
-	dimensions.get(0, m);
-	dimensions.get(1, n);
+	m = dimensions[0];
+	n = dimensions[1];
 	
 	for (TTUInt8 k=0; k < inMatrix->getElementCount(); k++) {	
 		for (TTUInt32 i=0; i<m; i++) {
@@ -253,18 +253,18 @@ TTErr TTMatrix::relax()
 
 TTErr TTMatrixStencil::matrixCalculateAverage(TTMatrixArray& inputMatrices, TTMatrixArray& outputMatrices)
 {
-	TTMatrixPtr inMatrix	= inputMatrices.getMatrix(0);
-	TTMatrixPtr outMatrix	= outputMatrices.getMatrix(0);
-	TTValue		dimensions;
-	TTErr		err;
+	TTMatrixBasePtr inMatrix	= inputMatrices.getMatrix(0);
+	TTMatrixBasePtr outMatrix	= outputMatrices.getMatrix(0);
+	TTValue			dimensions;
+	TTErr			err;
 	
 	inMatrix->getDimensions(dimensions);
-	if (dimensions.getSize() != 2) {
+	if (dimensions.size() != 2) {
 		logError("This class currently only supports 2D matrices");
 		return kTTErrInvalidType;
 	}
 	
-	if (dimensions.getSize() > mStepSize.size())
+	if (dimensions.size() > mStepSize.size())
 		setStepSize(mStepSize[0]); // TODO: make it so that TTValue can automatically be created/assigned from a vector, then pass the whole vector
 	
 	outMatrix->adaptTo(inMatrix);	// set dimensions, element count, datatype, etc.
@@ -316,7 +316,7 @@ TTErr TTMatrixStencil::matrixCalculateAverage(TTMatrixArray& inputMatrices, TTMa
 
 
 template<typename T>
-TTErr TTMatrixStencil::doCalculateFirstDerivative(TTMatrixPtr inMatrix, TTMatrixPtr outMatrix)
+TTErr TTMatrixStencil::doCalculateFirstDerivative(TTMatrixBasePtr inMatrix, TTMatrixBasePtr outMatrix)
 {
 	T* inData = (T*)inMatrix->getLockedPointer();
 	T* outData = (T*)outMatrix->getLockedPointer();
@@ -334,8 +334,8 @@ TTErr TTMatrixStencil::doCalculateFirstDerivative(TTMatrixPtr inMatrix, TTMatrix
 
 TTErr TTMatrixStencil::matrixCalculateFirstDerivative(TTMatrixArray& inputMatrices, TTMatrixArray& outputMatrices)
 {
-	TTMatrixPtr inMatrix	= inputMatrices.getMatrix(0);
-	TTMatrixPtr outMatrix	= outputMatrices.getMatrix(0);
+	TTMatrixBasePtr inMatrix	= inputMatrices.getMatrix(0);
+	TTMatrixBasePtr outMatrix	= outputMatrices.getMatrix(0);
 	TTErr		err;
 	
 	outMatrix->adaptTo(inMatrix);

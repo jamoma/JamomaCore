@@ -101,11 +101,11 @@ public:
 	
 	/** Object constructor.
 	 */
-	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress);
-	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
-	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
-	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
-	TTAttribute(const TTSymbol& newName, const TTObjectBasePtr newGetterObject, const TTObjectBasePtr newSetterObject);
+	TTAttribute(const TTSymbol newName, TTDataType newType, void* newAddress);
+	TTAttribute(const TTSymbol newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
+	TTAttribute(const TTSymbol newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
+	TTAttribute(const TTSymbol newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
+	TTAttribute(const TTSymbol newName, const TTObjectBasePtr newGetterObject, const TTObjectBasePtr newSetterObject);
 	TTAttribute(TTAttributePtr extendedAttribute, const TTObjectBasePtr extendedObject);
 	
 	/** Object destructor.

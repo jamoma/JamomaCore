@@ -21,7 +21,7 @@
 
 /****************************************************************************************************/
 
-TTClass::TTClass(const TTSymbol& className, const TTValue& tagList, const TTObjectBaseInstantiationMethod anInstantiationMethod)
+TTClass::TTClass(const TTSymbol className, const TTValue& tagList, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 	: name(className), tags(tagList), instantiationMethod(anInstantiationMethod), external(false)
 {
 	;

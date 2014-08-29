@@ -2,13 +2,15 @@
  *
  * @ingroup modularLibrary
  *
- * @brief TTModular Library
+ * @brief the Modular Application Programming Interface
  *
- * @details
+ * @details The Modular API allows to use Modular inside any application @n@n
+ *
+ * @see TTModularIncludes
  *
  * @authors Théo de la Hogue
  *
- * @copyright Copyright © 2010, Théo de la Hogue @n
+ * @copyright Copyright © 2013, Théo de la Hogue @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
@@ -16,117 +18,66 @@
 #ifndef __TT_MODULAR_H__
 #define __TT_MODULAR_H__
 
-#define TTMODULAR_VERSION_STRING "0.1"
-#define TTMODULAR_XML_ENCODING "ISO-8859-1"
+#include "TTModularIncludes.h"
 
-#ifdef TT_PLATFORM_WIN
-#include "windows.h"
-	#ifdef TTMODULAR_EXPORTS
-		#define TTMODULAR_EXPORT __declspec(dllexport)
-	#else
-	#ifdef TTSTATIC
-		#define TTMODULAR_EXPORT
-	#else
-		#define TTMODULAR_EXPORT __declspec(dllimport)
-	#endif
-	#endif // _DLL_EXPORT
-
-#else // TT_PLATFORM_MAC
-	#ifdef TTMODULAR_EXPORTS
-		#define TTMODULAR_EXPORT __attribute__((visibility("default")))
-	#else
-		#define TTMODULAR_EXPORT
-	#endif
-#endif
-
-#include <math.h>
-
-#include "TTFoundationAPI.h"		// TTBlue Headers...
-
-#ifndef TT_NO_DSP
-#include "TTDSP.h"
-#endif
-
-#include "TTNode.h"
-#include "TTNodeDirectory.h"
-#include "TTAddressItem.h"
-
-#include "TTRegex.h"
-
-#include "Protocol.h"
-#include "Scheduler.h"
-
-#include "TTApplication.h"
-#include "TTApplicationManager.h"
-#include "TTContainer.h"
-#include "TTCue.h"
-#include "TTCueManager.h"
-#include "TTData.h"
-#include "TTExplorer.h"
-#include "TTMapper.h"
-#include "TTMapperManager.h"
-#include "TTMirror.h"
-#include "TTNodeInfo.h"
-#include "TTPreset.h"
-#include "TTPresetManager.h"
-#include "TTRamp.h"
-#include "TTReceiver.h"
-#include "TTSender.h"
-#include "TTScript.h"
-#include "TTSubscriber.h"
-#include "TTTextHandler.h"
-#include "TTViewer.h"
-#include "TTXmlHandler.h"
-
-// Macros
-
-#define TT_MODULAR_CONSTRUCTOR \
-TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {return new thisTTClass (arguments);} \
-\
-extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
-\
-thisTTClass :: thisTTClass (const TTValue& arguments) : TTDataObjectBase(arguments)
-
-
-
-#define TT_MODULAR_CONSTRUCTOR_EXPORT \
-	\
-	extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
-	TTErr loadTTExtension(void)\
-	{\
-		TTModularInit();\
-		thisTTClass :: registerClass(); \
-		return kTTErrNone;\
-	}\
-	\
-	TT_MODULAR_CONSTRUCTOR
-
-// Macro to retreive a namespace by name
-#define lookupNamespace(namespaceName) TTModularNamespacesLookup(namespaceName)
-
-// Global
-
-/** The main objects of TTModular */
 class TTApplicationManager;
 typedef TTApplicationManager* TTApplicationManagerPtr;
 
-class TTApplication;
-typedef TTApplication* TTApplicationPtr;
+#if 0
+#pragma mark -
+#pragma mark Initialisation
+#endif
 
-extern	TTMODULAR_EXPORT	TTApplicationManagerPtr TTModularApplications;
-extern	TTMODULAR_EXPORT	TTHashPtr				TTModularNamespaces;
+/** Initialize the Modular library and intanciate the TTModular object
+ @param binaries                    path to the Jamoma libraries and extensions binaries folder to load them */
+void TTMODULAR_EXPORT TTModularInit(const char* binaries = NULL);
 
-// Prototypes
+#if 0
+#pragma mark -
+#pragma mark Application management
+#endif
 
-/** Init the Modular library, and the Foundation if needed
-	It creates the application manager with no application inside */
-void	TTMODULAR_EXPORT	TTModularInit(const char* pathToTheJamomaFolder = NULL);
+/** Export a pointer to a #TTApplicationManager instance
+ @details this pointer is automatically filled when a #TTApplicationManager is instanciated */
+extern TTMODULAR_EXPORT TTApplicationManagerPtr TTModularApplicationManager;
 
-/** Create the local application and use a configuration file */
-void	TTMODULAR_EXPORT	TTModularCreateLocalApplication(TTString applicationStr, TTString xmlConfigFilePath);
+#if 0
+#pragma mark -
+#pragma mark Selection management
+#endif
 
-/** Get a namespace */
-TTAddressItemPtr	TTMODULAR_EXPORT	TTModularNamespacesLookup(TTSymbol namespaceName);
+extern TTMODULAR_EXPORT TTHashPtr TTModularSelections;
 
+/** Get a selection or create one if it doesn't exist yet 
+ @param selectionName               a symbol */
+TTAddressItemPtr TTMODULAR_EXPORT TTModularSelectionLookup(const TTSymbol selectionName);
+    
+#if 0
+#pragma mark -
+#pragma mark Addresses edition
+#endif
+    
+/** Edit a specific integer instance address using an integer format address
+ @param integerFormatAddress        a symbol as integer format address : /any/level/name.%d
+ @param instanceNumber              an unsigned integer
+ @return #TTAddress like /any/level/name.1 */
+TTAddress TTMODULAR_EXPORT TTModularAddressEditNumericInstance(const TTSymbol integerFormatAddress,
+                                                      const TTUInt32 instanceNumber);
+    
+/** Edit a specific symbol instance address using an symbol format address
+ @param symbolFormatAddress         a symbol as symbol format address : /any/level/name.%s
+ @param instanceSymbol              a symbol
+ @return #TTAddress like /any/level/name.foo */
+TTAddress TTMODULAR_EXPORT TTModularAddressEditSymbolInstance(const TTSymbol symbolFormatAddress,
+                                                     const TTSymbol instanceSymbol);
+    
+/** Get all intances at an address 
+ @param address                     an address without instance part :
+                                        - /any/level/name
+                                        - distantApp:/any/level/name 
+ @param instances                   the returned instances symbols 
+ @return #kTTErrGeneric if the address doesn't exist */
+TTErr TTMODULAR_EXPORT TTModularAddressGetInstances(const TTAddress address,
+                                           TTValue& instances);
 
-#endif // __TT_MODULAR_H__
+#endif  // __TT_MODULAR_H__

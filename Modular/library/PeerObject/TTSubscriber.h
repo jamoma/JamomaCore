@@ -2,7 +2,7 @@
  *
  * @ingroup modularLibrary
  *
- * @brief A contextual subscriber to register TTObjectBase as TTNode in a TTNodeDirectory
+ * @brief A contextual subscriber to register #TTObject as #TTNode in a #TTNodeDirectory
  *
  * @details TODO: Add more info
  *
@@ -17,7 +17,7 @@
 #ifndef __TT_SUBSCRIBER_H__
 #define __TT_SUBSCRIBER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /*
  
@@ -25,7 +25,7 @@
  to create each upper nodes to make a path to this node in the tree structure.
  To do that we need :
 	
-	- the TTObjectBase to subscribe.
+	- the #TTObject to subscribe.
 	- a Context : a pointer to a structural element of our environnement which contains the subscriber (e.g. a Max patcher, a Pd patcher, a html page, ...).
 	- a relative address of the subscriber in this Context to get the name and the instance (but this could be ommited and be generated automatically).
 	- a way to share the node which refers on that Context with other suscribers inside.
@@ -39,7 +39,7 @@
 class TTData;
 typedef TTData* TTDataPtr;
 
-class TTMODULAR_EXPORT TTSubscriber : public TTDataObjectBase
+class TTMODULAR_EXPORT TTSubscriber : public TTObjectBase
 {
 	
 public:
@@ -48,7 +48,7 @@ public:
 
 private:
     
-    TTObjectBasePtr				mObject;					///< the object to subscribe
+    TTObject                    mObject;					///< the object to subscribe
 	
 	TTAddress					mRelativeAddress;			///< the address of this subscriber relative to the Context node
 	
@@ -78,17 +78,17 @@ private:
 	/** Register each given Context of the list as TTNode if they don't exist yet and return the Context node */
 	TTNodePtr registerContextList(TTListPtr aContextList);
 	
-	friend TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(const TTValue& baton, const TTValue& data);
 	
 public:
 	
-	/** Expose a message of any TTObjectBase as TTData in the same context than subscribed object */
-	TTErr exposeMessage(TTObjectBasePtr anObject, TTSymbol messageName, TTDataPtr *returnedData);
+	/** Expose a message of any #TTObject as #TTData in the same context than subscribed object */
+	TTErr exposeMessage(TTObject anObject, TTSymbol messageName, TTObject& returnedData);
 	
-	/** Expose an attribute of any TTObjectBase as TTData (parameter or return) in the same context than subscribed object */
-	TTErr exposeAttribute(TTObjectBasePtr anObject, TTSymbol attributeName, TTSymbol service, TTDataPtr *returnedData);
+	/** Expose an attribute of any #TTObject as #TTData (parameter or return) in the same context than subscribed object */
+	TTErr exposeAttribute(TTObject anObject, TTSymbol attributeName, TTSymbol service, TTObject& returnedData);
 	
 	/** Remove message exposition */
 	TTErr unexposeMessage(TTSymbol messageName);
@@ -99,10 +99,10 @@ public:
 
 typedef TTSubscriber* TTSubscriberPtr;
 
-TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSubscriberMessageReturnValueCallback(const TTValue& baton, const TTValue& data);
 
-TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSubscriberAttributeReturnValueCallback(const TTValue& baton, const TTValue& data);
 
-TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(TTPtr baton, TTValue& data);
+TTErr TTMODULAR_EXPORT TTSubscriberAttributeObserveValueCallback(const TTValue& baton, const TTValue& data);
 
 #endif // __TT_SUBSCRIBER_H__

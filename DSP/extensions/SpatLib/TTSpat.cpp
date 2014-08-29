@@ -60,7 +60,7 @@ TTErr TTSpat::setSpatFunction(const TTValue& aSpatFunction)
 	TTSymbol			spatFunctionName;
 	TTAudioObjectBasePtr	spatFunction = NULL;
 	
-	aSpatFunction.get(0, spatFunctionName);
+	spatFunctionName = aSpatFunction[0];
 	
 	// if the function didn't change, then don't change the function
 	if (spatFunctionName == mSpatFunction)
@@ -100,9 +100,10 @@ TTErr TTSpat::getSpatFunctions(const TTValue&, TTValue& listOfSpatFunctionsToRet
 	TTValue v;
 	
 	v.resize(2);
-	v.set(0, TT("spatialization"));
-	v.set(1, TT("processing")); // more efficent than append
-	return TTGetRegisteredClassNamesForTags(listOfSpatFunctionsToReturn, v);
+	v[0] = TT("spatialization");
+	v[1] = TT("processing"); // more efficent than append
+	return TTObject::GetRegisteredClassNamesForTags(listOfSpatFunctionsToReturn, v);
+
 }		   
 
 /*

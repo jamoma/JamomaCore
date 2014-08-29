@@ -32,10 +32,16 @@ class TTFOUNDATION_EXPORT TTCallback : public TTObjectBase
 protected:
 
 	TTFunctionWithBatonAndValue	mFunction;          ///< Function called when the notify message is engaged.
-	TTPtr						mBaton;             ///< User data to be passed back when the callback is triggered.
+	TTValue						mBaton;             ///< User data to be passed back when the callback is triggered.
     TTSymbol                    mNotification;      ///< the notification the callback is sensitive to
 
 private:
+    
+    /** Set baton value
+     @param	value           any value
+     @return                kTTErrNone */
+    TTErr setBaton(const TTValue& value);
+    
     /** Set to which notification the callback is sensitive to
      @param	value           a symbol
      @return                kTTErrNone */

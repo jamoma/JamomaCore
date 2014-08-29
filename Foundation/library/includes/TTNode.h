@@ -1,8 +1,18 @@
 /** @file
- * TTNode
- * Copyright © 2008, Théo de la Hogue & Tim Place
- * 
- * License: This code is licensed under the terms of the "New BSD License"
+ * @ingroup foundationLibrary
+ *
+ * @brief References an object using a name, an instance and any contextual environnement information
+ *
+ * @details some details about the class.
+ 
+ * other details. @n@n
+ 
+ * another details. @n@n
+ *
+ * @see TTApplicationManager, Protocol, TTMirror
+ *
+ * @copyright Copyright © 2008, Théo de la Hogue & Tim Place @n
+ * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
 
@@ -50,95 +60,113 @@ class TTFOUNDATION_EXPORT TTNode {
 	
 private:
 
-	TTSymbol			name;					///< the name of the TTNode
+	TTSymbol			name;					///< the name of the node
 	TTSymbol			instance;				///< an instance symbol (default to "")
 	
-	TTNodePtr			parent;					///< pointer to the parent TTNode in the directory
+	TTNodePtr			parent;					///< pointer to the parent node in the directory
 	TTHashPtr			children;				///< a hashtab of hashtabs:
 												///< hashed on children names which containing hashtabs hashed on instances
 
-	TTObjectBasePtr		object;					///< an object linked to the TTNode
-	TTPtr				context;				///< an element that contains the object in the environnement (e.g. The owning t_object* in Max)
+	TTObject            object;					///< an object referenced by the node
+	TTPtr				context;				///< any pointer to precise the object place in its environnement (e.g. The owning t_object* in Max)
 
-	TTNodeDirectoryPtr	directory;				///< a pointer to a directory
+	TTNodeDirectoryPtr	directory;				///< pointer to a node directory
 	
 public:
 	
-	/** Constructor */
-	TTNode (TTSymbol aName, TTSymbol anInstance, TTObjectBasePtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory);
+	/** Constructor 
+        @param aName                    the name of the node
+        @param anInstance               an instance symbol
+        @param anObject                 an object referenced by the node
+        @param aContext                 any pointer to precise the object place in its environnement
+        @param aDirectory               a pointer to a node directory */
+	TTNode (TTSymbol aName, TTSymbol anInstance, TTObject anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory);
 	
 	/** Destructor */
 	virtual ~TTNode ();
 
-	/** Set the name of the TTNode. 
-		It maintains the directory and the directory
+	/** Set the name of the node
+		@details It maintains the directory and the directory
 		@param	newName					the name to set
 		@param	newInstance				the returned instance if a new have been created
 		@param	newInstanceCreated		true if a new instance have been created
-		@return							a error code	*/
+		@return	#TTErr 					an error code */
 	TTErr			setName(TTSymbol name, TTSymbol newInstance, TTBoolean *newInstanceCreated);
 
-	/** Set the instance of the TTNode. 
-		It maintains the directory and the global hashtab	
+	/** Set the instance of the node
+		@details It maintains the directory and the global hashtab
 		@param	instance				the instance to set
 		@param	newInstance				the returned instance if a new have been created
 		@param	newInstanceCreated		true if a new instance have been created
-		@return							a error code	*/
+		@return	#TTErr 					an error code */
 	TTErr			setInstance(TTSymbol instance, TTSymbol newInstance, TTBoolean *newInstanceCreated);
 
-	/** Set the parent of the TTNode 
-		This method ensure that the path to the TTNode exist
+	/** Set the parent of the node
+		@details This method ensure that the path to the node exist
 		@param	parentAddress			The address to check
 		@param	newParentCreated		This parameter will be set to true upon return if a new TTNode was created, or false if one was not created - 
 										e.g. because a TTNode already existed with this address and instance name.			
-		@return							An error code. */
+		@return	#TTErr 					an error code */
 	TTErr			setParent(TTAddress parentAddress, TTBoolean *newParentCreated);
 
-	/** Add a TTNode as a child of the TTNode
-		@param child			a TTNodePtr to add as children of the TTNode.
-		@return					a kTTErrGeneric if the instance of the given child already exist. */
+	/** Add a node as a child of the node
+		@param child                    a TTNodePtr to add as children of the TTNode.
+		@return #TTErr                  a kTTErrGeneric if the instance of the given child already exist. */
 	TTErr			setChild(TTNodePtr child);
 	
-	/** Set the object of this node */
-	TTErr			setObject(TTObjectBasePtr anObject);
+	/** Set the object of the node
+        @param anObject                 the object to reference
+        @return #TTErr                  always returns #kTTErrNone */
+	TTErr			setObject(TTObject anObject = TTObject());
 
-	/** Set the context of this node */
+	/** Set the context of the node
+        @param aContext                 any pointer usefull to precise a context
+        @return #TTErr                  always returns #kTTErrNone */
 	TTErr			setContext(TTPtr aContext);
 	
-	/** Get the name of the TTNode */
+	/** Get the name of the node
+        @return #TTSymbol               the name of the node */
 	TTSymbol		getName();
 	
-	/** Get the instance of the TTNode */
+	/** Get the instance of the node
+        @return #TTSymbol               the instance of the node */
 	TTSymbol		getInstance();
 	
-	/** Get a pointer to the parent TTNode of the TTNode */
+	/** Get a pointer to the parent node of the node
+        @return #TTNodePtr              the parent node */
 	TTNodePtr		getParent();
 	
-	/** Get a linklist of children of the TTNode : select them by name and instance (use wilcards to select them all) */
+	/** Get a linklist of children of the node : select them by name and instance (use wilcards to select them all)
+        @return #TTErr                  an error code */
 	TTErr			getChildren(TTSymbol name, TTSymbol instance, TTList& returnedChildren);
 	
-	/** Get a linklist of children name */
+	/** Get a linklist of children name 
+        @return #TTErr                  an error code */
 	TTErr			getChildrenName(TTList& returnedChildrenName);
 	
-	/** Get a linklist of children instance for a given name */
+	/** Get a linklist of children instance for a given name 
+        @return #TTErr                  an error code */
 	TTErr			getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstance);
 	
-	/** Get a pointer to the object binded by this node. It return also NUL when the object is not valid */
-	TTObjectBasePtr		getObject();
+	/** Get the object binded by this node. It return also NULL when the object is not valid 
+        @return #TTObject               the referenced object */
+	TTObject&       getObject();
 	
-	/** Get a pointer to the context of this node */
+	/** Get a pointer to the context of this node 
+        @return #TTPtr                  the context pointer */
 	TTPtr			getContext();
 
-	/** Get the address of the TTNode
-	 It is computed dynamicaly by asking to all the ancestor of the TTNode	
-	 @param	returnedAddress		A TTAddressPtr with the address is returned in this parameter.
-	 @param	from				An address from where to start the returned address in order to have a relative address */
+	/** Get the address of the node
+	 @details It is computed dynamicaly by asking to all the ancestor of the node
+	 @param	returnedAddress             a #TTAddress with the address is returned in this parameter.
+	 @param	from                        an address from where to start the returned address in order to have a relative address
+     @return #TTErr                     an error code*/
 	TTErr			getAddress(TTAddress& returnedAddress, TTAddress from = kTTAdrsEmpty);
 
 	/** Generate a new instance of a given child
-		@param childName		the name of a child.
-		@param newInstance		a new instance created (or "" if not)	.
-		@return					a kTTErrGeneric if the child doesn't exist.	*/
+		@param childName                the name of a child.
+		@param newInstance              a new instance created (or "" if not)	.
+		@return	#TTErr                  a kTTErrGeneric if the child doesn't exist.	*/
 	TTErr			generateInstance(TTSymbol childName, TTSymbol& newInstance);
 };
 

@@ -257,6 +257,7 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_repetitionsFilter				(("repetitionsFil
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_return                           (("return"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_returnedValue					(("returnedValue"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Run                              (("Run"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_running                      (("running"));
 
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Send                             (("Send"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_script                           (("script"));
@@ -286,3 +287,62 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_WriteAgain                       (("Wr
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_xmlHandlerReadingComment         (("xmlHandlerReadingComment"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_xmlHandlerReadingEnds            (("xmlHandlerReadingEnds"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_xmlHandlerReadingStarts          (("xmlHandlerReadingStarts"));
+
+// Symbols used for the Score project
+// théo : they used to be stored inside a dedicated symbol cache but it is not possible to do that anymore.
+// TODO : sort them with the other symbol above
+
+// object classe name
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_TimeEvent                      (("TimeEvent"));
+
+// notifications
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_ConditionReadyChanged          (("ConditionReadyChanged"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_EventDateChanged               (("EventDateChanged"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_EventStatusChanged             (("EventStatusChanged"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_ProcessStarted                 (("ProcessStarted"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_ProcessEnded                   (("ProcessEnded"));
+
+// message name
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_case                           (("case"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_color                          (("color"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_Compile                        (("Compile"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_compiled                       (("compiled"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_condition                      (("condition"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_date                           (("date"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_Dispose                        (("Dispose"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_duration                       (("duration"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_durationMin                    (("durationMin"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_durationMax                    (("durationMax"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_endDate                        (("endDate"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_event                          (("event"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_eventDisposed                  (("eventDisposed"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_eventHappened                  (("eventHappened"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_eventPending                   (("eventPending"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_eventWaiting                   (("eventWaiting"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_expression                     (("expression"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_Goto                           (("Goto"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_Happen                         (("Happen"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_Limit                          (("Limit"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_Move                           (("Move"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_Pause                          (("Pause"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_Process                        (("Process"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_ProcessStart                   (("ProcessStart"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_ProcessEnd                     (("ProcessEnd"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_ready                          (("ready"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_redundancy                     (("redundancy"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_Resume                         (("Resume"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_recorded                       (("recorded"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_rigid                          (("rigid"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_sampled                        (("sampled"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_samples                        (("samples"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_speed                          (("speed"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_startDate                      (("startDate"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_status                         (("status"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_Trigger                        (("Trigger"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_verticalPosition               (("verticalPosition"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_verticalSize                   (("verticalSize"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_viewPosition                   (("viewPosition"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_viewZoom                       (("viewZoom"));
+
+
+

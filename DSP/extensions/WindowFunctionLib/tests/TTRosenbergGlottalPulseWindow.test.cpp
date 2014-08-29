@@ -104,8 +104,8 @@ TTErr RosenbergGlottalPulseWindow::test(TTValue& returnedTestInfo)
 		TTTestLog("badSampleCount is %i", badSampleCount);
 	
 	v.resize(2);
-	v.set(0, TT("ratio"));
-	v.set(1, 0.8);
+	v[0] = TT("ratio");
+	v[1] = 0.8;
 	windowObject->sendMessage(TT("setParameter"), v, aReturnWeDontCareAbout);
 	
 	// Again create a signal to be transformed, and then process it

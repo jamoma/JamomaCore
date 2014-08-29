@@ -41,40 +41,26 @@ mInverse(NO),
 #ifndef TT_NO_DSP
 mFunction(kTTSymEmpty),
 #endif
-mRamp(0),
-mReceiver(NULL),
-mSender(NULL),
-mInputObserver(NULL),
-mOutputObserver(NULL),
-mInputRangeObserver(NULL),
-mOutputRangeObserver(NULL),
-mObserveInputRange(true),
-mObserveOutputRange(true),
-mReturnValueCallback(NULL),
-mReturnInputGoingDownCallback(NULL),
-mReturnInputGoingUpCallback(NULL),
-mReturnOutputGoingDownCallback(NULL),
-mReturnOutputGoingUpCallback(NULL)
+mRamp(0)
 #ifndef TT_NO_DSP
 ,
-mFunctionUnit(NULL),
 mValid(NO)
 #endif
 {	
 	if(arguments.size() >= 1)
-		mReturnValueCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
+		mReturnValueCallback = arguments[0];
     
     if(arguments.size() >= 2)
-		mReturnInputGoingDownCallback = TTCallbackPtr((TTObjectBasePtr)arguments[1]);
+		mReturnInputGoingDownCallback = arguments[1];
     
     if(arguments.size() >= 3)
-		mReturnInputGoingUpCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
+		mReturnInputGoingUpCallback = arguments[2];
     
     if(arguments.size() >= 4)
-		mReturnOutputGoingDownCallback = TTCallbackPtr((TTObjectBasePtr)arguments[3]);
+		mReturnOutputGoingDownCallback = arguments[3];
     
     if(arguments.size() >= 5)
-		mReturnOutputGoingUpCallback = TTCallbackPtr((TTObjectBasePtr)arguments[4]);
+		mReturnOutputGoingUpCallback = arguments[4];
 	
 	addAttributeWithSetter(Input, kTypeSymbol);
     
@@ -124,7 +110,7 @@ TTMapper::~TTMapper() // TODO : delete things...
 #ifndef TT_NO_DSP
 	long		n;
     
-	if (mFunctionUnit) {
+	if (mFunctionUnit.valid()) {
 		
 		// Remove former datas
 		n = mFunctionParameters.size();
@@ -133,55 +119,10 @@ TTMapper::~TTMapper() // TODO : delete things...
 			this->removeAttribute(aName);
 		}
 		
-		TTObjectBaseRelease(TTObjectBaseHandle(&mFunctionUnit));
-		mFunctionUnit = NULL;
 		mFunction = kTTSymEmpty;
 		mFunctionParameters.clear();
 	}
 #endif
-	
-	if (mReturnValueCallback) {
-		delete (TTValuePtr)mReturnValueCallback->getBaton();
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
-	}
-    
-    if (mReturnInputGoingDownCallback) {
-		delete (TTValuePtr)mReturnInputGoingDownCallback->getBaton();
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnInputGoingDownCallback));
-	}
-    
-    if (mReturnInputGoingUpCallback) {
-		delete (TTValuePtr)mReturnInputGoingUpCallback->getBaton();
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnInputGoingUpCallback));
-	}
-    
-    if (mReturnOutputGoingDownCallback) {
-		delete (TTValuePtr)mReturnOutputGoingDownCallback->getBaton();
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnOutputGoingDownCallback));
-	}
-    
-    if (mReturnOutputGoingUpCallback) {
-		delete (TTValuePtr)mReturnOutputGoingUpCallback->getBaton();
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnOutputGoingUpCallback));
-	}
-	
-	if (mSender)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mSender));
-	
-	if (mReceiver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReceiver));
-	
-	if (mInputObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mInputObserver));
-	
-	if (mOutputObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mOutputObserver));
-	
-	if (mInputRangeObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mInputRangeObserver));
-	
-	if (mOutputRangeObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mOutputRangeObserver));
 }
 
 TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
@@ -193,7 +134,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 		processMapping(inputValue, outputValue);
 		
 		// return value (+ ramp)
-		if (mSender) {
+		if (mSender.valid()) {
             
             // if there is a ramp value, edit the command here
             if (mRamp > 0) {
@@ -208,23 +149,22 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
                 
                 valueAndRamp = TTValue((TTPtr)command);
                 
-                mSender->sendMessage(kTTSym_Send, valueAndRamp, none);
+                mSender.send(kTTSym_Send, valueAndRamp, none);
                 
                 delete command;
             }
             else
-                mSender->sendMessage(kTTSym_Send, outputValue, none);
+                mSender.send(kTTSym_Send, outputValue, none);
         }
 		
-		if (mReturnValueCallback)
-			mReturnValueCallback->deliver(outputValue);
+        mReturnValueCallback.send("notify", outputValue, none);
         
         // notify if input going down
         TTBoolean newInputGoingDown = inputValue <= TTValue(mInputThresholdDown);
         if (newInputGoingDown != mInputGoingDown) {
             
             mInputGoingDown = newInputGoingDown;
-            mReturnInputGoingDownCallback->deliver(mInputGoingDown);
+            mReturnInputGoingDownCallback.send("notify", mInputGoingDown, none);
         }
         
         // notify if input going up
@@ -232,7 +172,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
         if (newInputGoingUp != mInputGoingUp) {
             
             mInputGoingUp = newInputGoingUp;
-            mReturnInputGoingUpCallback->deliver(mInputGoingUp);
+            mReturnInputGoingUpCallback.send("notify", mInputGoingUp, none);
         }
         
         // notify if output going down
@@ -240,7 +180,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
         if (newOutputGoingDown != mOutputGoingDown) {
             
             mOutputGoingDown = newOutputGoingDown;
-            mReturnOutputGoingDownCallback->deliver(mOutputGoingDown);
+            mReturnOutputGoingDownCallback.send("notify", mOutputGoingDown, none);
         }
         
         // notify if output going up
@@ -248,7 +188,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
         if (newOutputGoingUp != mOutputGoingUp) {
             
             mOutputGoingUp = newOutputGoingUp;
-            mReturnOutputGoingUpCallback->deliver(mOutputGoingUp);
+            mReturnOutputGoingUpCallback.send("notify", mOutputGoingUp, none);
         }
 	}
 	
@@ -257,7 +197,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
 #ifndef TT_NO_DSP
 TTErr TTMapper::getFunctionLibrary(TTValue& value)
 {
-    TTGetRegisteredClassNamesForTags(mFunctionLibrary, kTTSym_function);
+	TTObject::GetRegisteredClassNamesForTags(mFunctionLibrary, kTTSym_function);
 	
 	value = mFunctionLibrary;
 	return kTTErrNone;
@@ -280,48 +220,68 @@ TTErr TTMapper::getFunctionSamples(TTValue& value)
 #endif
 TTErr TTMapper::setInput(const TTValue& value)
 {
-	TTValue			args, v, min, max, none;
-	TTNodePtr		aNode;
-	TTObjectBasePtr	returnValueCallback, anObject;
-	TTValuePtr		returnValueBaton;
-	TTErr			err;
-	
-	if (mReceiver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReceiver));
-	
+	TTValue		v, min, max, none;
+	TTNodePtr	aNode;
+	TTObject	returnValueCallback, anObject;
+	TTErr		err;
+    
 	mInput = value[0];
 	
-	mObserveInputRange = true;
+	mObserveInputRange = YES;
+    
+    if (mInput == kTTAdrsEmpty) {
+        
+        if (mReceiver.valid()) {
+            mReceiver.set(kTTSym_address, kTTAdrsEmpty);
+            mReceiver = TTObject();
+        }
+        
+        if (mInputObserver.valid()) {
+            mInputObserver.set(kTTSym_address, kTTAdrsEmpty);
+            mInputObserver = TTObject();
+        }
+        
+        if (mInputRangeObserver.valid()) {
+            mInputRangeObserver.set(kTTSym_address, kTTAdrsEmpty);
+            mInputRangeObserver = TTObject();
+        }
+        
+        return kTTErrGeneric;
+    }
+    
+    // create a receiver if needed
+    if (!mReceiver.valid()) {
+		
+        TTValue     args;
+        TTObject    empty;
+        
+        args.append(empty);
+        
+        returnValueCallback = TTObject("callback");
+        
+        returnValueCallback.set(kTTSym_baton, TTObject(this));
+        returnValueCallback.set(kTTSym_function, TTPtr(&TTMapperReceiveValueCallback));
+        args.append(returnValueCallback);
+        
+        mReceiver = TTObject(kTTSym_Receiver, args);
+    }
 	
-	// Make a TTReceiver object
-	args.append(0);
-	
-	returnValueCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), &returnValueCallback, none);
-	returnValueBaton = new TTValue(TTObjectBasePtr(this));
-	returnValueCallback->setAttributeValue(kTTSym_baton, TTPtr(returnValueBaton));
-	returnValueCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperReceiveValueCallback));
-	args.append(returnValueCallback);
-	
-	mReceiver = NULL;
-	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(&mReceiver), args);
-	
-	mReceiver->setAttributeValue(kTTSym_address, mInput.appendAttribute(kTTSym_value));
+	mReceiver.set(kTTSym_address, mInput.appendAttribute(kTTSym_value));
 	
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// and if the mapper was created before we observe the input address
-	if (getDirectoryFrom(mInput)) {
-		err = getDirectoryFrom(mInput)->getTTNode(mInput, &aNode);
+	if (accessApplicationDirectoryFrom(mInput)) {
+		err = accessApplicationDirectoryFrom(mInput)->getTTNode(mInput, &aNode);
 		
 		if (!err) {
 			
 			anObject = aNode->getObject();
-			if (anObject) {
+			if (anObject.valid()) {
                 
-				if (anObject->getName() == kTTSym_Data) {
+				if (anObject.name() == kTTSym_Data) {
 					
-					anObject->getAttributeValue(kTTSym_rangeBounds, v);
+					anObject.get(kTTSym_rangeBounds, v);
 					
 					mInputMin = TTFloat64(v[0]);
 					mInputMax = TTFloat64(v[1]);
@@ -342,92 +302,106 @@ TTErr TTMapper::setInput(const TTValue& value)
 
 TTErr TTMapper::observeInput()
 {
-	TTValue			args, none;
-	TTObjectBasePtr	returnInputCreationCallback;
-	TTValuePtr		returnInputCreationBaton;
+	TTObject returnInputCreationCallback;
 	
-	if (mInputObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mInputObserver));
+    // create a receiver if needed
+	if (!mInputObserver.valid()) {
+        
+        TTValue     args;
+        TTObject    empty;
+		
+        returnInputCreationCallback = TTObject("callback");
+        
+        returnInputCreationCallback.set(kTTSym_baton, TTObject(this));
+        returnInputCreationCallback.set(kTTSym_function, TTPtr(&TTMapperInputCreationCallback));
+        args.append(returnInputCreationCallback);
+        
+        args.append(empty);
+        
+        mInputObserver = TTObject(kTTSym_Receiver, args);
+    }
 	
-	// Make a TTReceiver object
-	returnInputCreationCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), &returnInputCreationCallback, none);
-	returnInputCreationBaton = new TTValue(TTObjectBasePtr(this));
-	returnInputCreationCallback->setAttributeValue(kTTSym_baton, TTPtr(returnInputCreationBaton));
-	returnInputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperInputCreationCallback));
-	args.append(returnInputCreationCallback);
-	
-	args.append(0);
-	
-	mInputObserver = NULL;
-	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(&mInputObserver), args);
-	
-	mInputObserver->setAttributeValue(kTTSym_address, mInput.appendAttribute(kTTSym_created));
+	mInputObserver.set(kTTSym_address, mInput.appendAttribute(kTTSym_created));
 
 	return kTTErrNone;
 }
 
 TTErr TTMapper::observeInputRange()
 {
-	TTValue			args, none;
-	TTObjectBasePtr returnInputRangeCallback;
-	TTValuePtr		returnInputRangeBaton;
+	TTObject returnInputRangeCallback;
 	
-	if (mInputRangeObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mInputRangeObserver));
+	if (!mInputRangeObserver.valid()) {
+		
+        TTValue     args;
+        TTObject    empty;
+        
+        args.append(empty);
 	
-	// Make a TTReceiver object
-	args.append(0);
+        returnInputRangeCallback = TTObject("callback");
+    
+        returnInputRangeCallback.set(kTTSym_baton, TTObject(this));
+        returnInputRangeCallback.set(kTTSym_function, TTPtr(&TTMapperInputRangeCallback));
+        args.append(returnInputRangeCallback);
 	
-	returnInputRangeCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), &returnInputRangeCallback, none);
-	returnInputRangeBaton = new TTValue(TTObjectBasePtr(this));
-	returnInputRangeCallback->setAttributeValue(kTTSym_baton, TTPtr(returnInputRangeBaton));
-	returnInputRangeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperInputRangeCallback));
-	args.append(returnInputRangeCallback);
+        mInputRangeObserver = TTObject(kTTSym_Receiver, args);
+    }
 	
-	mInputRangeObserver = NULL;
-	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(&mInputRangeObserver), args);
-	
-	mInputRangeObserver->setAttributeValue(kTTSym_address, mInput.appendAttribute(kTTSym_rangeBounds));
+	mInputRangeObserver.set(kTTSym_address, mInput.appendAttribute(kTTSym_rangeBounds));
 	
 	return kTTErrNone;
 }
 
 TTErr TTMapper::setOutput(const TTValue& value)
 {
-	TTValue			args, v, min, max, none;
-	TTNodePtr		aNode;
-	TTObjectBasePtr	anObject;
-	TTErr			err;
-	
-	if (mSender)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mSender));
+	TTValue		args, v, min, max;
+	TTNodePtr	aNode;
+	TTObject    anObject;
+	TTErr		err;
 	
 	mOutput = value[0];
 	
-	mObserveOutputRange = true;
+	mObserveOutputRange = YES;
+    
+    if (mOutput == kTTAdrsEmpty) {
+        
+        if (mSender.valid()) {
+            mSender.set(kTTSym_address, kTTAdrsEmpty);
+            mSender = TTObject();
+        }
+        
+        if (mOutputObserver.valid()) {
+            mOutputObserver.set(kTTSym_address, kTTAdrsEmpty);
+            mOutputObserver = TTObject();
+        }
+        
+        if (mOutputRangeObserver.valid()) {
+            mOutputRangeObserver.set(kTTSym_address, kTTAdrsEmpty);
+            mOutputRangeObserver = TTObject();
+        }
+        
+        return kTTErrGeneric;
+    }
 		
-	// Make a TTSender object
-	mSender = NULL;
-	TTObjectBaseInstantiate(kTTSym_Sender, TTObjectBaseHandle(&mSender), none);
+	// Make a sender if needed
+    if (!mSender.valid())
+        mSender = TTObject(kTTSym_Sender);
 	
-	mSender->setAttributeValue(kTTSym_address, mOutput.appendAttribute(kTTSym_value));
+	mSender.set(kTTSym_address, mOutput.appendAttribute(kTTSym_value));
 	
 	// Trying to get the Data at this address 
 	// and get some infos about range bounds 
 	// and if the mapper created before we observe the output address
-	if (getDirectoryFrom(mOutput)) {
-		err = getDirectoryFrom(mOutput)->getTTNode(mOutput, &aNode);
+	if (accessApplicationDirectoryFrom(mOutput)) {
+		err = accessApplicationDirectoryFrom(mOutput)->getTTNode(mOutput, &aNode);
 		
 		if (!err) {
 			
 			anObject = aNode->getObject();
-			if (anObject) {
+			if (anObject.valid()) {
                 
-				if (anObject->getName() == kTTSym_Data) {
+				if (anObject.name() == kTTSym_Data) {
 					
-					anObject->getAttributeValue(kTTSym_rangeBounds, v);
+					anObject.get(kTTSym_rangeBounds, v);
 					
                     mOutputMin = TTFloat64(v[0]);
                     mOutputMax = TTFloat64(v[1]);
@@ -448,54 +422,49 @@ TTErr TTMapper::setOutput(const TTValue& value)
 
 TTErr TTMapper::observeOutput()
 {
-	TTValue			args, none;
-	TTObjectBasePtr	returnOutputCreationCallback;
-	TTValuePtr		returnOutputCreationBaton;
+	TTObject returnOutputCreationCallback;
 	
-	if (mOutputObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mOutputObserver));
+	if (!mOutputObserver.valid()) {
+		
+        TTValue     args;
+        TTObject    empty;
+        
+        returnOutputCreationCallback = TTObject("callback");
+    
+        returnOutputCreationCallback.set(kTTSym_baton, TTObject(this));
+        returnOutputCreationCallback.set(kTTSym_function, TTPtr(&TTMapperOutputCreationCallback));
+        args.append(returnOutputCreationCallback);
 	
-	// Make a TTReceiver object
-	returnOutputCreationCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), &returnOutputCreationCallback, none);
-	returnOutputCreationBaton = new TTValue(TTObjectBasePtr(this));
-	returnOutputCreationCallback->setAttributeValue(kTTSym_baton, TTPtr(returnOutputCreationBaton));
-	returnOutputCreationCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperOutputCreationCallback));
-	args.append(returnOutputCreationCallback);
+        args.append(empty);
 	
-	args.append(0);
+        mOutputObserver = TTObject(kTTSym_Receiver, args);
+    }
 	
-	mOutputObserver = NULL;
-	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(&mOutputObserver), args);
-	
-	mOutputObserver->setAttributeValue(kTTSym_address, mOutput.appendAttribute(kTTSym_created));
+	mOutputObserver.set(kTTSym_address, mOutput.appendAttribute(kTTSym_created));
 	
 	return kTTErrNone;
 }
 
 TTErr TTMapper::observeOutputRange()
 {
-	TTValue			args, none;
-	TTObjectBasePtr returnOutputRangeCallback;
-	TTValuePtr		returnOutputRangeBaton;
+	TTObject returnOutputRangeCallback;
 	
-	if (mOutputRangeObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mOutputRangeObserver));
+	if (!mOutputRangeObserver.valid()) {
+		
+        TTValue     args;
+        TTObject    empty;
+        
+        args.append(empty);
 	
-	// Make a TTReceiver object
-	args.append(0);
+        returnOutputRangeCallback = TTObject("callback");
+        returnOutputRangeCallback.set(kTTSym_baton, TTObject(this));
+        returnOutputRangeCallback.set(kTTSym_function, TTPtr(&TTMapperOutputRangeCallback));
+        args.append(returnOutputRangeCallback);
 	
-	returnOutputRangeCallback = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-	TTObjectBaseInstantiate(TTSymbol("callback"), &returnOutputRangeCallback, none);
-	returnOutputRangeBaton = new TTValue(TTObjectBasePtr(this));
-	returnOutputRangeCallback->setAttributeValue(kTTSym_baton, TTPtr(returnOutputRangeBaton));
-	returnOutputRangeCallback->setAttributeValue(kTTSym_function, TTPtr(&TTMapperOutputRangeCallback));
-	args.append(returnOutputRangeCallback);
+        mOutputRangeObserver = TTObject(kTTSym_Receiver, args);
+    }
 	
-	mOutputRangeObserver = NULL;
-	TTObjectBaseInstantiate(kTTSym_Receiver, TTObjectBaseHandle(&mOutputRangeObserver), args);
-	
-	mOutputRangeObserver->setAttributeValue(kTTSym_address, mOutput.appendAttribute(kTTSym_rangeBounds));
+	mOutputRangeObserver.set(kTTSym_address, mOutput.appendAttribute(kTTSym_rangeBounds));
 	
 	return kTTErrNone;
 }
@@ -506,7 +475,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	TTValue		names;
 	TTSymbol	aName;
 	
-	if (mFunctionUnit) {
+	if (mFunctionUnit.valid()) {
 
 		// Remove former datas
 		n = mFunctionParameters.size();
@@ -515,8 +484,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 			this->removeAttribute(aName);
 		}
 		
-		TTObjectBaseRelease(TTObjectBaseHandle(&mFunctionUnit));
-		mFunctionUnit = NULL;
+        mFunctionUnit = TTObject();
 		mFunction = kTTSymEmpty;
 		mFunctionParameters.clear();
 	}
@@ -524,13 +492,13 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	// Create a new function unit
 	mValid = false;
 	mFunction = value;
-    TTObjectBaseInstantiate(mFunction, TTObjectBaseHandle(&mFunctionUnit), 1);
+    mFunctionUnit = TTObject(mFunction, 1);
 	
 	// Extend function unit attributes as attributes of this mapper
 	// and set mFunctionParameters attribute
-	if (mFunctionUnit) {
+	if (mFunctionUnit.valid()) {
 
-		mFunctionUnit->getAttributeNames(names);
+		mFunctionUnit.attributes(names);
 		n = names.size();
 		
 		if (n) {
@@ -543,7 +511,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 					continue;
 				
 				// extend attribute with the same name
-				this->extendAttribute(aName, mFunctionUnit, aName);
+				this->extendAttribute(aName, mFunctionUnit.instance(), aName);
 				mFunctionParameters.append(aName);
 			}
 		}
@@ -567,8 +535,8 @@ TTErr TTMapper::setInputMin(const TTValue& value)
 	// stop input range observation
 	mObserveInputRange = false;
 	
-	if (mInputRangeObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mInputRangeObserver));
+	if (mInputRangeObserver.valid())
+		mInputRangeObserver = TTObject();
 	
 	notifyObservers(TTSymbol("inputMin"), value);
 	return scaleInput();
@@ -581,8 +549,8 @@ TTErr TTMapper::setInputMax(const TTValue& value)
 	// stop input range observation
 	mObserveInputRange = false;
 	
-	if (mInputRangeObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mInputRangeObserver));
+	if (mInputRangeObserver.valid())
+		mInputRangeObserver = TTObject();
 	
 	notifyObservers(TTSymbol("inputMax"), value);
 	return scaleInput();
@@ -595,8 +563,8 @@ TTErr TTMapper::setOutputMin(const TTValue& value)
 	// stop output range observation
 	mObserveOutputRange = false;
 	
-	if (mOutputRangeObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mOutputRangeObserver));
+	if (mOutputRangeObserver.valid())
+		mOutputRangeObserver = TTObject();
 	
 	notifyObservers(TTSymbol("outputMin"), value);
 	return scaleOutput();
@@ -609,8 +577,8 @@ TTErr TTMapper::setOutputMax(const TTValue& value)
 	// stop output range observation
 	mObserveOutputRange = false;
 	
-	if (mOutputRangeObserver)
-		TTObjectBaseRelease(TTObjectBaseHandle(&mOutputRangeObserver));
+	if (mOutputRangeObserver.valid())
+		mOutputRangeObserver = TTObject();
 	
 	notifyObservers(TTSymbol("outputMax"), value);
 	return scaleOutput();
@@ -645,20 +613,23 @@ TTErr TTMapper::scaleOutput()
 	return kTTErrNone;
 }
 
-TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
+TTErr TTMapper::processMapping(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue		in, out;
+	TTValue		inputCopy, in, out;
 	TTFloat64	f;
 	TTInt32		i, size;
+    
+    // we need to copy to protect the inputValue
+    inputCopy = inputValue;
 	
-	size = inputValue.size();
+	size = inputCopy.size();
 	
 	// clip input value
-	inputValue.clip(mInputMin, mInputMax);
+	inputCopy.clip(mInputMin, mInputMax);
 	
 	// scale input value
 	for (i = 0; i < size; i++) {
-		f = inputValue[i];
+		f = inputCopy[i];
 		in.append(mA * f + mB);
 	}
     
@@ -670,8 +641,8 @@ TTErr TTMapper::processMapping(TTValue& inputValue, TTValue& outputValue)
 
 #ifndef TT_NO_DSP
 	// process function
-	if (mFunctionUnit)
-		mFunctionUnit->calculate(in, out);
+	if (mFunctionUnit.valid())
+		TTAudioObjectBasePtr(mFunctionUnit.instance())->calculate(in, out);
 	else
 #endif		
 		out = in;
@@ -710,34 +681,33 @@ TTErr TTMapper::notifyObservers(TTSymbol attrName, const TTValue& value)
 #pragma mark Some Methods
 #endif
 
-TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
-{	
+TTErr TTMapperInputCreationCallback(const TTValue& baton, const TTValue& data)
+{
+    TTObject    o;
 	TTMapperPtr aMapper;
-	TTValuePtr	b;
 	TTValue		v;
 	TTAddress   address;
 	TTNodePtr	aNode;
-	TTObjectBasePtr anObject;
 	
 	// unpack baton (a TTMapper)
-	b = (TTValuePtr)baton;
-	aMapper = TTMapperPtr((TTObjectBasePtr)(*b)[0]);
+    o = baton[0];
+	aMapper = (TTMapperPtr)o.instance();
 	
 	// unpack data (an address)
 	address = data[0];
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
-	TTErr err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+	TTErr err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
 	
 	if (!err) {
 		
-		anObject = aNode->getObject();
-		if (anObject) {
+		o = aNode->getObject();
+		if (o.valid()) {
             
-			if (anObject->getName() == kTTSym_Data || anObject->getName() == kTTSym_Mirror) {
+			if (o.name() == kTTSym_Data || o.name() == kTTSym_Mirror) {
 				
-				anObject->getAttributeValue(kTTSym_rangeBounds, v);
+				o.get(kTTSym_rangeBounds, v);
 				
                 if (v.size() == 2) {
                     
@@ -760,34 +730,33 @@ TTErr TTMapperInputCreationCallback(TTPtr baton, TTValue& data)
 	return err;
 }
 
-TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
-{	
+TTErr TTMapperOutputCreationCallback(const TTValue& baton, const TTValue& data)
+{
+    TTObject    o;
 	TTMapperPtr aMapper;
-	TTValuePtr	b;
 	TTValue		v;
 	TTAddress   address;
 	TTNodePtr	aNode;
-	TTObjectBasePtr anObject;
 	
 	// unpack baton (a TTMapper)
-	b = (TTValuePtr)baton;
-	aMapper = TTMapperPtr((TTObjectBasePtr)(*b)[0]);
+    o = baton[0];
+	aMapper = (TTMapperPtr)o.instance();
 	
 	// unpack data (an address)
 	address = data[0];
 	
 	// get the Data at this address 
 	// and get some infos about range bounds 
-	TTErr err = getDirectoryFrom(address)->getTTNode(address, &aNode);
+	TTErr err = accessApplicationDirectoryFrom(address)->getTTNode(address, &aNode);
 	
 	if (!err) {
 		
-		anObject = aNode->getObject();
-		if (anObject) {
+		o = aNode->getObject();
+		if (o.valid()) {
             
-			if (anObject->getName() == kTTSym_Data || anObject->getName() == kTTSym_Mirror) {
+			if (o.name() == kTTSym_Data || o.name() == kTTSym_Mirror) {
 				
-				anObject->getAttributeValue(kTTSym_rangeBounds, v);
+				o.get(kTTSym_rangeBounds, v);
                 
                 if (v.size() == 2) {
                     
@@ -810,14 +779,14 @@ TTErr TTMapperOutputCreationCallback(TTPtr baton, TTValue& data)
 	return err;
 }
 
-TTErr TTMapperInputRangeCallback(TTPtr baton, TTValue& data)
+TTErr TTMapperInputRangeCallback(const TTValue& baton, const TTValue& data)
 {
+    TTObject    o;
 	TTMapperPtr aMapper;
-	TTValuePtr	b;
 
 	// unpack baton (a TTMapper)
-	b = (TTValuePtr)baton;
-	aMapper = TTMapperPtr((TTObjectBasePtr)(*b)[0]);
+    o = baton[0];
+	aMapper = (TTMapperPtr)o.instance();
 	
 	if (aMapper->mObserveInputRange) {
 		// unpack data (min, max)
@@ -832,14 +801,14 @@ TTErr TTMapperInputRangeCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-TTErr TTMapperOutputRangeCallback(TTPtr baton, TTValue& data)
+TTErr TTMapperOutputRangeCallback(const TTValue& baton, const TTValue& data)
 {
+    TTObject    o;
 	TTMapperPtr aMapper;
-	TTValuePtr	b;
 	
 	// unpack baton (a TTMapper)
-	b = (TTValuePtr)baton;
-	aMapper = TTMapperPtr((TTObjectBasePtr)(*b)[0]);
+    o = baton[0];
+	aMapper = (TTMapperPtr)o.instance();
 	
 	if (aMapper->mObserveOutputRange) {
 		// unpack data (min, max)
@@ -854,17 +823,16 @@ TTErr TTMapperOutputRangeCallback(TTPtr baton, TTValue& data)
 	return kTTErrNone;
 }
 
-TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& inputValue)
+TTErr TTMapperReceiveValueCallback(const TTValue& baton, const TTValue& inputValue)
 {
+    TTObject    o;
 	TTMapperPtr aMapper;
-	TTValuePtr	b;
-    TTDictionaryBasePtr	command;
 	TTValue		outputValue;
 	TTValue     none;
 	
 	// unpack baton (a TTMapper)
-	b = (TTValuePtr)baton;
-	aMapper = TTMapperPtr((TTObjectBasePtr)(*b)[0]);
+    o = baton[0];
+	aMapper = (TTMapperPtr)o.instance();
 	
 	if (aMapper->mActive) {
 		
@@ -872,7 +840,7 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& inputValue)
 		aMapper->processMapping(inputValue, outputValue);
         
         // return value (+ ramp)
-		if (aMapper->mSender) {
+		if (aMapper->mSender.valid()) {
             
             // if there is a ramp value, edit the command here
             if (aMapper->mRamp > 0) {
@@ -887,23 +855,22 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& inputValue)
                 
                 valueAndRamp = TTValue((TTPtr)command);
                 
-                aMapper->mSender->sendMessage(kTTSym_Send, valueAndRamp, none);
+                aMapper->mSender.send(kTTSym_Send, valueAndRamp, none);
                 
                 delete command;
             }
             else
-                aMapper->mSender->sendMessage(kTTSym_Send, outputValue, none);
+                aMapper->mSender.send(kTTSym_Send, outputValue, none);
         }
 		
-		if (aMapper->mReturnValueCallback)
-			aMapper->mReturnValueCallback->deliver(outputValue);
+        aMapper->mReturnValueCallback.send("notify", outputValue, none);
         
         // notify if input going down
         TTBoolean newInputGoingDown = inputValue <= TTValue(aMapper->mInputThresholdDown);
         if (newInputGoingDown != aMapper->mInputGoingDown) {
             
             aMapper->mInputGoingDown = newInputGoingDown;
-            aMapper->mReturnInputGoingDownCallback->deliver(aMapper->mInputGoingDown);
+            aMapper->mReturnInputGoingDownCallback.send("notify", aMapper->mInputGoingDown, none);
         }
         
         // notify if input going up
@@ -911,7 +878,7 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& inputValue)
         if (newInputGoingUp != aMapper->mInputGoingUp) {
             
             aMapper->mInputGoingUp = newInputGoingUp;
-            aMapper->mReturnInputGoingUpCallback->deliver(aMapper->mInputGoingUp);
+            aMapper->mReturnInputGoingUpCallback.send("notify", aMapper->mInputGoingUp, none);
         }
         
         // notify if output going down
@@ -919,7 +886,7 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& inputValue)
         if (newOutputGoingDown != aMapper->mOutputGoingDown) {
             
             aMapper->mOutputGoingDown = newOutputGoingDown;
-            aMapper->mReturnOutputGoingDownCallback->deliver(aMapper->mOutputGoingDown);
+            aMapper->mReturnOutputGoingDownCallback.send("notify", aMapper->mOutputGoingDown, none);
         }
         
         // notify if output going up
@@ -927,7 +894,7 @@ TTErr TTMapperReceiveValueCallback(TTPtr baton, TTValue& inputValue)
         if (newOutputGoingUp != aMapper->mOutputGoingUp) {
             
             aMapper->mOutputGoingUp = newOutputGoingUp;
-            aMapper->mReturnOutputGoingUpCallback->deliver(aMapper->mOutputGoingUp);
+            aMapper->mReturnOutputGoingUpCallback.send("notify", aMapper->mOutputGoingUp, none);
         }
 	}
 	

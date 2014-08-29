@@ -95,7 +95,7 @@ mOwner(owner)
 			TTValue						v;
 			
 			connection = new TTNetSocketConnection(this);	// The connection instance manages its own thread for receiving
-			v.set(0, connection);
+			v[0] = connection;
 			mConnections.append(v);							// We need to track connection instances so that we can close them all later
 		}
 		
@@ -126,8 +126,8 @@ void TTNetSocket::Accept()
 	}
 	
 	connection = new TTNetSocketConnection(this);	// The connection instance manages its own thread for receiving
-	v.set(0, connection);
-	mConnections.append(v);							// We need to track connection instances so that we can close them all later
+	v[0] = connection;
+ 	mConnections.append(v);							// We need to track connection instances so that we can close them all later
 	
 	// we could send stuff to the client now through clientSocketDescriptor
 	// however, we are simply listening to communication from the client not sending to it
@@ -176,7 +176,7 @@ void TTNetSocketConnection::Receive()
             TTString    message(mReceiveBuffer);
             
             message.resize(status-1);
-			v.set(0, message);
+			v[0] = message;
 			mSocket->mOwner->sendMessage(TTSymbol("networkSocketReceive"), v, none);
 		}
 		TTThread::sleep(10); // TODO: is this appropriate?

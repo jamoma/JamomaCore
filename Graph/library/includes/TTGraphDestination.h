@@ -35,7 +35,7 @@ protected:
 
 	TTGraphObjectBasePtr	mDestinationObject;	///< the object from which we pull samples
 	TTUInt16			    mInletNumber;		///< zero-based
-	TTObjectBasePtr			mCallbackHandler;
+	TTObject				mCallbackHandler;
 	TTGraphOutletPtr	    mOwner;				///< the owning inlet
 	
 public:
@@ -83,7 +83,6 @@ public:
 	{
 		mDestinationObject = NULL;
 		mInletNumber = 0;
-		mCallbackHandler = NULL;
 		mOwner = NULL;
 	
 		// TODO: We're probably leaking memory here, because mCallbackHandler is potentially never freed...

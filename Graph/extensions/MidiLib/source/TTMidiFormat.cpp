@@ -34,7 +34,9 @@ TTErr TTMidiFormat::dictionary(const TTValue& input, TTValue& output)
 	TTDictionaryPtr	d = NULL;
 	TTSymbol		schema;
 	
-	input.get(0, (TTPtr*)(&d));
+	//input.get(0, (TTPtr*)(&d));
+    d = TTDictionaryPtr(TTPtr(input[0]));
+    
 	schema = d->getSchema();
 	
 	if (schema == TT("MidiNoteEvent")) {
@@ -44,9 +46,9 @@ TTErr TTMidiFormat::dictionary(const TTValue& input, TTValue& output)
 		TTUInt8 noteChannel = 1;
 		
 		d->getValue(v);
-		v.get(0, noteNumber);
-		v.get(1, noteVelocity);
-		v.get(2, noteChannel);
+		noteNumber   = v[0];
+		noteVelocity = v[1];
+		noteChannel  = v[2];
 
 		if (noteVelocity > 0)	// Note-on
 			d->append(TT("status"), 143 + noteChannel);
@@ -56,7 +58,7 @@ TTErr TTMidiFormat::dictionary(const TTValue& input, TTValue& output)
 		d->append(TT("data1"), noteNumber);
 		d->append(TT("data2"), noteVelocity);
 		d->setSchema(TT("RawMidiEvent"));
-		output.set(0, TTPtr(d));
+		output[0] = TTPtr(d);
 	}
 	else if (schema == TT("RawMidiEvent"))
 		output = input; // Nothing to do...

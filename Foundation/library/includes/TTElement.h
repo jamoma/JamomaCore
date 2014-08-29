@@ -22,6 +22,8 @@
 #include "TTLimits.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
+#include "TTObject.h"
+#include "TTMatrix.h"
 
 #ifndef DISABLE_NODELIB
 #include "TTAddress.h"
@@ -30,9 +32,8 @@
 #endif
 
 #include <cinttypes>
-class TTObjectBase;
-class TTMatrix;
 class TTDictionary;
+
 
 //#define USE_TTInt32				// to -- To easily change for TTInt32 instead of int in order to make test
 
@@ -119,14 +120,22 @@ break;\
 /****************************************************************************************************/
 // Class Specification
 
-
-class TTFOUNDATION_EXPORT TTElement {
+/** Individual items found in a #TTValue
+ */
+class TTFOUNDATION_EXPORT TT_ALIGN_16 TTElement {
 	friend class TTDictionary;
-
-	/** The data value of TTValue is stored using a union, which means that the size of TTDataValue is the size of the largest type in this list.
-		It is generally in our interest to keep this size as small as possible.
-		On a 64-bit platform a pointer uses 8-bytes.
-		We are trying to keep the size of the TTDataValue to 16-bytes which allows us to store TTSymbol etc. by value (it contains 2 pointers).
+	
+	/** The data value of TTValue is stored using a union, which means that 
+	    the size of TTDataValue is the size of the largest type in this list.
+	 
+	    For performance and interoperability we need to align each TTElement on 16-byte boundaries.
+		Therefore we need to be careful to keep the size of TTDataValue + TTDataType to a maximum of 16-bytes.
+	 
+		For non-trivial data types we store pointers (8 bytes on 64-bit), but we do so by 
+		creating a new instance and making a copy (as done in STL containers).
+		That means also be careful in how we refcount and free these cases.
+	 
+		@see http://en.wikipedia.org/wiki/Data_structure_alignment
 	 */
 	union TTDataValue {
 		TTFloat32		float32;
@@ -140,57 +149,96 @@ class TTFOUNDATION_EXPORT TTElement {
 		TTInt64			int64;
 		TTUInt64		uint64;
 		TTBoolean		boolean;
-		TTSymbol		sym;
-		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
-		TTObjectBase*	object;
-		TTMatrix*		matrix;
+		TTSymbol*		mSymbol;
+		TTAddress*		mAddress;
+		TTString*		stringPtr;
+		TTObject*		mObject;
+		TTMatrix*		mMatrix;
 		TTPtr			ptr;
 		TTSymbolBase*	dictionary;	///< dictionaries are referenced by name
-
-		TTDataValue() :
-		sym(kTTSymEmpty)
-		{}
 	};
-
+	
 	TTDataValue		mValue;
 	TTDataType		mType;
 
 public:
+	
+	/** We use custom #new and #delete operators for TTElement to ensure that all memory
+		allocated on the heap is aligned on 16-byte boundaries.
+		
+		For memory allocated on the stack we rely on the #TT_ALIGN_16 macro used in the class definition.
+	 */
+	void* operator new(size_t size)
+	{
+		void *mem = TTMalloc16(size);
+		
+		if (!mem)
+            throw "allocation fail : no free memory";
+		return mem;
+	}
+	
 
+	/** We use custom #new and #delete operators for TTElement to ensure that all memory
+		allocated on the heap is aligned on 16-byte boundaries.
+		 
+		For memory allocated on the stack we rely on the #TT_ALIGN_16 macro used in the class definition.
+	 */
+	void operator delete(void* mem)
+	{
+		TTFree16(mem);
+	}
+	
+	
 	TTElement() :
 	mType(kTypeNone)
 	{
 		mValue.ptr = NULL;	// windows doesn't permit using an initializer for a union?
 	}
-
-
+	
+	
 	template<class T>
 	TTElement(const T& anInitialValue) :
 	mType(kTypeNone)
 	{
 		*this = anInitialValue;
 	}
-
+	
 	/** Copy constructor. */
-	TTElement(const TTElement& anOtherElement)
+	TTElement(const TTElement& anOtherElement) :
+	mType(kTypeNone)
 	{
 		*this = anOtherElement;
 	}
-
+	
 	virtual ~TTElement();
 
-
+private:
+	/** Internal use only: Free memory of the item if it is a non-trivial type. */
+	void chuck()
+	{
+		if (mType == kTypeSymbol)
+			delete mValue.mSymbol;
+        // TODO: JamomaCore #281 : review the use of TTAddress
+		//else if (mType == kTypeAddress)
+		//	delete mValue.mAddress;
+		else if (mType == kTypeObject)
+			delete mValue.mObject;
+		mValue.ptr = NULL;
+		mType = kTypeNone;
+	}
+	
+public:
 	/**	query an element for its type */
 	TTDataType type() const
 	{
 		return mType;
 	}
-
+	
 #if 0
 #pragma mark -
 #pragma mark casting
 #endif
-
+	
 	operator TTFloat32() const
 	{
 		if (mType == kTypeFloat32)
@@ -223,7 +271,7 @@ public:
 			return value;
 		}
 	}
-
+	
 	operator TTUInt8() const
 	{
 		if (mType == kTypeUInt8)
@@ -278,7 +326,7 @@ public:
 			return value;
 		}
 	}
-
+	
 	operator TTInt64() const
 	{
 		if (mType == kTypeInt64)
@@ -289,7 +337,7 @@ public:
 			return value;
 		}
 	}
-
+	
 	operator TTUInt64() const
 	{
 		if (mType == kTypeUInt64)
@@ -300,7 +348,7 @@ public:
 			return value;
 		}
 	}
-
+	
 	operator TTBoolean() const
 	{
 		if (mType == kTypeBoolean)
@@ -312,11 +360,11 @@ public:
 			return (TTBoolean)(value != 0);
 		}
 	}
-
+		
 	operator TTSymbol() const
 	{
 		if (mType == kTypeSymbol)
-			return TTSymbol(mValue.sym);
+			return *mValue.mSymbol;
 		else
 			return kTTSymEmpty;
 	}
@@ -324,69 +372,35 @@ public:
 #ifndef DISABLE_NODELIB
 	operator TTAddress() const
 	{
+        // TODO: JamomaCore #281 : review the use of TTAddress
+		//if (mType == kTypeAddress)
+		//	return *mValue.mAddress;
 		if (mType == kTypeSymbol)
-			return TTAddress(mValue.sym);
+			return TTAddress(*mValue.mSymbol);
         else
 			return kTTAdrsEmpty;
 	}
 #endif
-
+	
 	operator TTString() const
 	{
 		TT_ASSERT(ttvalue_cast_to_string_ref, (mType == kTypeString));
-
-		if (mType == kTypeString)
-			return *mValue.stringPtr;
-		else
-			return *(new TTString(""));
-		// TODO: This will cause a memory leak if there is an error, right?
+		return *mValue.stringPtr;
 	}
 
 	// OBJECT
-	operator TTObjectBase&() const
+	operator TTObject() const
 	{
-		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeObject));
-
-		if (mType == kTypeObject)
-			return *mValue.object;
-		else {
-			// TODO: This is an error, not sure what to do...
-			return *mValue.object;
-		}
+		TT_ASSERT(ttvalue_cast_to_object, (mType == kTypeObject));
+		return *mValue.mObject;
 	}
-
-	operator TTObjectBase*() const
+		
+	operator TTMatrix() const
 	{
-		TT_ASSERT(ttvalue_cast_to_object_ptr, (mType == kTypeObject));
-
-		if (mType == kTypeObject)
-			return mValue.object;
-		else
-			return NULL;
+		TT_ASSERT(ttvalue_cast_to_matrix, (mType == kTypeMatrix));
+		return *mValue.mMatrix;
 	}
-
-	operator TTMatrix&() const
-	{
-		TT_ASSERT(ttvalue_cast_to_object_ref, (mType == kTypeObject));
-
-		if (mType == kTypeMatrix)
-			return *mValue.matrix;
-		else {
-			// TODO: This is an error, not sure what to do...
-			return *mValue.matrix;
-		}
-	}
-
-	operator TTMatrix*() const
-	{
-		TT_ASSERT(ttvalue_cast_to_object_ptr, (mType == kTypeObject));
-
-		if (mType == kTypeMatrix)
-			return mValue.matrix;
-		else
-			return NULL;
-	}
-
+	
 	operator TTPtr() const
 	{
 		if (mType == kTypePointer)
@@ -394,31 +408,53 @@ public:
 		else
 			return NULL;
 	}
-
+	
 	operator TTDictionary() const;
 
-
+	
 #if 0
 #pragma mark -
 #pragma mark assignment
 #endif
+	
+	TTElement& operator = (const TTElement& anOtherValue)
+	{
+		chuck();
 
+		mType = anOtherValue.mType;
+	
+		if (anOtherValue.mType == kTypeSymbol)
+			mValue.mSymbol = new TTSymbol(*anOtherValue.mValue.mSymbol);
+        // TODO: JamomaCore #281 : review the use of TTAddress
+		//else if (anOtherValue.mType == kTypeAddress)
+		//	mValue.mAddress = new TTAddress(*anOtherValue.mValue.mAddress);
+		else if (anOtherValue.mType == kTypeObject)
+			mValue.mObject = new TTObject(*anOtherValue.mValue.mObject);
+		else
+			mValue = anOtherValue.mValue;
+		
+		return *this;
+	}
+	
 	TTElement& operator = (TTFloat32 value)
 	{
+		chuck();
 		mType = kTypeFloat32;
 		mValue.float32 = value;
 		return *this;
 	}
-
+		
 	TTElement& operator = (TTFloat64 value)
 	{
+		chuck();
 		mType = kTypeFloat64;
 		mValue.float64 = value;
 		return *this;
 	}
-
+	
 	TTElement& operator = (TTInt8 value)
 	{
+		chuck();
 		mType = kTypeInt8;
 		mValue.int8 = value;
 		return *this;
@@ -426,6 +462,7 @@ public:
 
 	TTElement& operator = (TTUInt8 value)
 	{
+		chuck();
 		mType = kTypeUInt8;
 		mValue.uint8 = value;
 		return *this;
@@ -433,6 +470,7 @@ public:
 
 	TTElement& operator = (TTInt16 value)
 	{
+		chuck();
 		mType = kTypeInt16;
 		mValue.int16 = value;
 		return *this;
@@ -440,6 +478,7 @@ public:
 
 	TTElement& operator = (TTUInt16 value)
 	{
+		chuck();
 		mType = kTypeUInt16;
 		mValue.uint16 = value;
 		return *this;
@@ -447,6 +486,7 @@ public:
 
 	TTElement& operator = (TTInt32 value)
 	{
+		chuck();
 		mType = kTypeInt32;
 		mValue.int32 = value;
 		return *this;
@@ -454,6 +494,7 @@ public:
 
 	TTElement& operator = (TTUInt32 value)
 	{
+		chuck();
 		mType = kTypeUInt32;
 		mValue.uint32 = value;
 		return *this;
@@ -461,6 +502,7 @@ public:
 
 	TTElement& operator = (TTInt64 value)
 	{
+		chuck();
 		mType = kTypeInt64;
 		mValue.int64 = value;
 		return *this;
@@ -468,6 +510,7 @@ public:
 
 	TTElement& operator = (TTUInt64 value)
 	{
+		chuck();
 		mType = kTypeUInt64;
 		mValue.uint64 = value;
 		return *this;
@@ -475,29 +518,42 @@ public:
 
 	TTElement& operator = (TTBoolean value)
 	{
+		chuck();
 		mType = kTypeBoolean;
 		mValue.boolean = value;
 		return *this;
 	}
-
+    
+    TTElement& operator = (const char* value)
+	{
+		return *this = TTSymbol(value);
+	}
+	
 	TTElement& operator = (const TTSymbol value)
 	{
+		chuck();
 		mType = kTypeSymbol;
-		mValue.sym = value;
+		mValue.mSymbol = new TTSymbol(value);
 		return *this;
 	}
 
 #ifndef DISABLE_NODELIB
 	TTElement& operator = (const TTAddress value)
 	{
-		mType = kTypeSymbol;
-		mValue.sym = (TTAddressBase*)value.rawpointer();
+		chuck();
+        // TODO: JamomaCore #281 : review the use of TTAddress
+		//mType = kTypeAddress;
+        mType = kTypeSymbol;
+        // TODO: JamomaCore #281 : review the use of TTAddress
+		//mValue.mAddress = new TTAddress(value);
+        mValue.mSymbol = new TTAddress(value);
 		return *this;
 	}
 #endif
-
+	
 	TTElement& operator = (const TTString value)
 	{
+		chuck();
 		//		if (!stringsPresent && *type != kTypeString)
 		//			data->stringPtr = new TTString;
 		if (mType != kTypeString)
@@ -507,64 +563,51 @@ public:
 		*mValue.stringPtr = value;
 		return *this;
 	}
-
-	TTElement& operator = (const TTObjectBase& value)
+	
+	TTElement& operator = (const TTObject value)
 	{
+		chuck();
 		mType = kTypeObject;
-		mValue.object = (TTObjectBase*)&value;
+		mValue.mObject = new TTObject(value);
 		return *this;
 	}
-
-	TTElement& operator = (TTObjectBase* value)
+		
+	TTElement& operator = (const TTMatrix value)
 	{
-		mType = kTypeObject;
-		mValue.object = value;
-		return *this;
-	}
-
-	TTElement& operator = (TTMatrix& value)
-	{
+		chuck();
 		mType = kTypeMatrix;
-		mValue.matrix = &value;
+		mValue.mMatrix = new TTMatrix(value);
 		return *this;
 	}
-
-	TTElement& operator = (TTMatrix* value)
-	{
-		mType = kTypeMatrix;
-		mValue.matrix = value;
-		return *this;
-	}
-
+	
 	TTElement& operator = (TTPtr value)
 	{
+		chuck();
 		mType = kTypePointer;
 		mValue.ptr = value;
 		return *this;
 	}
-
+	
 	// TODO: an assignment to a different type (like the above) will leak the dictionary!
-
+	
 	TTElement& operator = (const TTDictionary value);
 
-
+	
 #if 0
 #pragma mark -
 #pragma mark conversion
 #endif
-
-#define TTELEMENT_TEMP_STRINGLEN 32
-
 	
-	void string(TTString& aString, TTBoolean quotes = YES)
-
+#define TTELEMENT_TEMP_STRINGLEN 32
+	
+	void string(TTString& aString, TTBoolean quotes = YES) const
 	{
 		char		temp[TTELEMENT_TEMP_STRINGLEN];
 		TTBoolean	addQuotes;
-
+		
 
 		temp[0] = 0;
-
+		
 		switch (mType) {
 			case kTypeFloat32:
 				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%f", mValue.float32);
@@ -603,10 +646,10 @@ public:
 					aString.append("0");
 				break;
 			case kTypeSymbol:
-				addQuotes = quotes && strchr(mValue.sym.c_str(), ' ') != 0;
+				addQuotes = quotes && strchr(mValue.mSymbol->c_str(), ' ') != 0;
 				if (addQuotes)
 					aString.append("\"");
-				aString.append(mValue.sym.c_str());
+				aString.append(mValue.mSymbol->c_str());
 				if (addQuotes)
 					aString.append("\"");
 				break;
@@ -614,24 +657,24 @@ public:
 				aString.append(*mValue.stringPtr);
 				break;
 			case kTypeObject:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%ld", (TTPtrSizedInt)mValue.object);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "<object %p>", mValue.mObject);
 				break;
 			case kTypePointer:
-				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "%ld", (TTPtrSizedInt)mValue.ptr);
+				snprintf(temp, TTELEMENT_TEMP_STRINGLEN, "<pointer %p>", mValue.ptr);
 				break;
 			default:
 				break;
 		}
-
+		
 		if (temp[0])
 			aString.append(temp);
 	}
 
-
-
+	
+	
 	// comparison overloads
-
-
+	
+	
 	// make sure this is a friend so that it can access the private members of the other element
 	friend bool operator == (const TTElement& a1, const TTElement& a2)
 	{
@@ -684,7 +727,7 @@ public:
 						return false;
 					break;
 				case kTypeSymbol:
-					if ( a1.mValue.sym != a2.mValue.sym )
+					if ( *a1.mValue.mSymbol != *a2.mValue.mSymbol )
 						return false;
 					break;
 				case kTypeString:
@@ -692,7 +735,7 @@ public:
 						return false;
 					break;
 				case kTypeObject:
-					if ( a1.mValue.object != a2.mValue.object )
+					if ( *a1.mValue.mObject != *a2.mValue.mObject )
 						return false;
 					break;
 				case kTypePointer:
@@ -710,7 +753,7 @@ public:
 	{
 		return !(a1 == a2);
 	}
-
+	
 	friend bool operator == (const TTElement& a1, const int& i)
 	{
 		switch (a1.mType) {
@@ -758,9 +801,7 @@ public:
 		return true;
 	}
 
-
-
-
+	
 	friend bool operator == (const TTElement& a1, const double& f)
 	{
 		switch (a1.mType) {
@@ -778,7 +819,7 @@ public:
 		return true;
 	}
 
-
+	
 	friend bool operator == (const TTElement& a1, const float& f)
 	{
 		switch (a1.mType) {
@@ -796,11 +837,11 @@ public:
 		return true;
 	}
 
-
+	
 	/**
 	 We define the < operator for sorting of linked-list and other STL calls that require sorting ability of TTValue.
 	 */
-
+	
 	// make sure this is a friend so that it can access the private members of the other atom
 	friend bool operator < (const TTElement& a1, const TTElement& a2)
 	{
@@ -850,15 +891,15 @@ public:
 					return false;
 				break;
 			case kTypeSymbol:
-				if ( strcmp( a1.mValue.sym.c_str(), a2.mValue.sym.c_str() ) >= 0 )
+				if ( strcmp( a1.mValue.mSymbol->c_str(), a2.mValue.mSymbol->c_str() ) >= 0 )
 					return false;
 				break;
 			case kTypeString:
 				if ( strcmp( a1.mValue.stringPtr->c_str(), a2.mValue.stringPtr->c_str() ) >= 0 )
 					return false;
 				break;
-			case kTypeObject:
-				if ( a1.mValue.object >= a2.mValue.object )
+			case kTypeObject: // TODO: how should we actually be sorting objects, if at all?
+				if ( a1.mValue.mObject >= a2.mValue.mObject )
 					return false;
 				break;
 			case kTypePointer:
@@ -871,12 +912,12 @@ public:
 		return true;
 	}
 
-
+	
 #if 0
 #pragma mark -
 #pragma mark transformation
 #endif
-
+	
 	void clip(const TTFloat64& lowBound, const TTFloat64& highBound)
 	{
 		if (TTDataInfo::getIsNumerical(mType)) {
@@ -917,7 +958,7 @@ public:
 			}
 		}
 	}
-
+	
 
 	void cliplow(const TTFloat64& lowBound)
 	{
@@ -959,8 +1000,8 @@ public:
 			}
 		}
 	}
-
-
+	
+	
 	void cliphigh(const TTFloat64& highBound)
 	{
 		if (TTDataInfo::getIsNumerical(mType)) {
@@ -1001,8 +1042,8 @@ public:
 			}
 		}
 	}
-
-
+	
+	
 	void round()
 	{
 		if (TTDataInfo::getIsNumerical(mType)) {
@@ -1043,8 +1084,8 @@ public:
 			}
 		}
 	}
-
-
+	
+	
 	void truncate()
 	{
 		if (TTDataInfo::getIsNumerical(mType)) {
@@ -1063,8 +1104,8 @@ public:
 			}
 		}
 	}
-
-
+	
+	
 	void booleanize()
 	{
 		if (TTDataInfo::getIsNumerical(mType)) {
@@ -1122,6 +1163,6 @@ public:
 typedef std::vector<TTElement>		TTElementVector;
 typedef TTElementVector::iterator	TTElementIter;
 
-
+	
 #endif // __TT_ELEMENT_H__
 

@@ -18,7 +18,7 @@
 
 using namespace std;
 
-static const unsigned int MINUIT_RECEPTION_PORT = 8002;
+static const unsigned int MINUIT_RECEPTION_PORT = 13579;
 
 #define MINUIT_REQUEST_DISCOVER "?namespace"
 #define MINUIT_REQUEST_GET "?get"

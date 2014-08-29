@@ -18,11 +18,22 @@ TTPtr TTOscSocketListener(TTPtr anArgument)
     
     } catch (const std::runtime_error& error) {
     
+        TTLogError("TTOscSocketListener -- error when intantiating udp listening on port %ld : %s\n", anOscSocket->mPort, error.what());
         return NULL;
     }
 
-    if (anOscSocket->mSocketListener)
-        anOscSocket->mSocketListener->Run();
+    if (anOscSocket->mSocketListener) {
+        
+        try {
+            
+            anOscSocket->mSocketListener->Run();
+            
+        }  catch (const std::exception& exception) {
+            
+            TTLogError("TTOscSocketListener -- exception when running udp listening on port %ld : %s\n", anOscSocket->mPort, exception.what());
+            return NULL;
+        }
+    }
     
 	return NULL;
 }
@@ -144,7 +155,7 @@ TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 			oscStream << intValue;
 		}
 		else if (valueType == kTypeFloat32 || valueType == kTypeFloat64) {
-			arguments.get(i, floatValue);
+			floatValue = arguments[i];
 			oscStream << (float)floatValue;
 		}
 		else {

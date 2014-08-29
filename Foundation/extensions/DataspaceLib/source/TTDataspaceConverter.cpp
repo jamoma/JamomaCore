@@ -49,7 +49,7 @@ TTErr TTDataspaceConverter::setDataspace(const TTValue& newValue)
 	TTErr			err;
 	TTString		objectName = "dataspace.";
 	
-	newValue.get(0, name);
+	name = newValue[0];
 	
 	// TODO: validate the name provided before proceeding
 	objectName += name.c_str();
@@ -82,7 +82,7 @@ TTErr TTDataspaceConverter::dictionary(const TTValue& anInputValue, TTValue& anO
 	TTValue			out;
 	TTErr			err;
 	
-	anInputValue.get(0, (TTPtr*)(&d));
+	d = (TTDictionaryPtr)&(anInputValue[0]);
 	d->getValue(in);
 	err = convert(in, out);
 	d->setValue(out);
@@ -129,15 +129,15 @@ TTErr TTDataspaceConverter::getAvailableDataspaces(const TTValue& anUnusedInputV
 {
 	TTErr err;
 	
-	err = TTGetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));
+	err = TTObject::GetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));
 	if (!err) {
 		// strip the leading "dataspace." prefix off all the names
-		for (int i=0; i < dataspaceNames.getSize(); i++) {
+		for (int i=0; i < dataspaceNames.size(); i++) {
 			TTSymbol s;
 			//TTString	str;
 			const char* cStr;
 			
-			dataspaceNames.get(i, s);
+			s = dataspaceNames[i];
 			/* 
 			str = s->getString();	// this causes crashes on Windows, need to use C string instead
 			str.erase(0, 10);
