@@ -1014,6 +1014,7 @@ TTErr TTApplicationManager::WriteAsXml(const TTValue& inputValue, TTValue& outpu
 TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, TTObject aProtocol)
 {
     TTSymbol  name;
+    TTBoolean registered;
     TTValue   v, none, applicationNames, parametersNames;
     TTString  s;
     TTErr     err;
@@ -1031,12 +1032,16 @@ TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, TTOb
     {
         name = TTElement(*it1);
         
-        // select an application to get its parameters
-        err = aProtocol.send("ApplicationSelect", name, none);
+        aProtocol.send("isRegistered", name, v);
+        
+        registered = v[0];
         
         // if the application is registered to this protocol
-        if (!err)
+        if (registered)
         {
+            // select an application to get its parameters
+            err = aProtocol.send("ApplicationSelect", name, none);
+            
             // Start an xml node for distant application parameters
             xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST name.c_str());
             
@@ -1163,34 +1168,30 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
         // the node name is the name of an application
         
         // register the application to the current protocol
-        v = TTValue(aXmlHandler->mXmlNodeName);
-        err = mCurrentProtocol.send("ApplicationRegister", v, none);
+        err = mCurrentProtocol.send("ApplicationRegister", aXmlHandler->mXmlNodeName, none);
         
         if (!err) {
             
             // select the application to set its parameters
-            err = mCurrentProtocol.send("ApplicationSelect", v, none);
-            
-            if (!err) {
+            mCurrentProtocol.send("ApplicationSelect", aXmlHandler->mXmlNodeName, none);
                 
-                // get all protocol attributes and their value for this application
-                while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
+            // get all protocol attributes and their value for this application
+            while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {
+                
+                // get parameter's name
+                aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
+                
+                if (v.size() == 1) {
                     
-                    // get parameter's name
-                    aXmlHandler->fromXmlChar(xmlTextReaderName((xmlTextReaderPtr)aXmlHandler->mReader), v);
-                    
-                    if (v.size() == 1) {
+                    if (v[0].type() == kTypeSymbol) {
                         
-                        if (v[0].type() == kTypeSymbol) {
-                            
-                            parameterName = v[0];
-                            
-                            // get parameter's value
-                            aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), parameterValue);
-                            
-                            // set parameter
-                            mCurrentProtocol.set(parameterName, parameterValue);
-                        }
+                        parameterName = v[0];
+                        
+                        // get parameter's value
+                        aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), parameterValue);
+                        
+                        // set parameter
+                        mCurrentProtocol.set(parameterName, parameterValue);
                     }
                 }
             }
