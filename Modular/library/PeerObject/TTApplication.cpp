@@ -1128,10 +1128,12 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
         
             if (anObject.valid()) {
             
-                anObject.get(kTTSym_description, v);
-                v.toString();
-                aString = TTString(v[0]);
-                xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
+                if (!anObject.get(kTTSym_description, v)) {
+                    
+                    v.toString();
+                    aString = TTString(v[0]);
+                    xmlTextWriterWriteFormatComment((xmlTextWriterPtr)aXmlHandler->mWriter, "%s", BAD_CAST aString.data());
+                }
             }
         }
         
