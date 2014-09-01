@@ -207,6 +207,12 @@ private:
      @return #TTErr error code */
 	TTErr ObjectUnregister(const TTValue& inputValue, TTValue& outputValue);
     
+    /** Change the name.instance part of the address of a registered object
+     @param inputValue      a registered object, the new name.instance
+     @param outputValue     the effective name.instance
+     @return #TTErr error code */
+	TTErr ObjectRename(const TTValue& inputValue, TTValue& outputValue);
+    
     /** Retreive a registered object into the application directory at an address
      @param inputValue      an address
      @param outputValue     the registered object

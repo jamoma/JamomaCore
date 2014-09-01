@@ -92,6 +92,9 @@ mTempAddress(kTTAdrsRoot)
     addMessageWithArguments(ObjectUnregister);
     addMessageProperty(UnregisterObject, hidden, YES);
     
+    addMessageWithArguments(ObjectRename);
+    addMessageProperty(ObjectRename, hidden, YES);
+    
     addMessageWithArguments(ObjectRetreive);
     addMessageProperty(RetreiveObject, hidden, YES);
     
@@ -812,6 +815,47 @@ TTErr TTApplication::ObjectUnregister(const TTValue& inputValue, TTValue& output
                 
                 // unregister it
                 return mDirectory->TTNodeRemove(address);
+            }
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTApplication::ObjectRename(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (inputValue.size() == 2) {
+        
+        if (inputValue[0].type() == kTypeObject && inputValue[1].type() == kTypeSymbol) {
+            
+            TTObject    anObject = inputValue[0];
+            TTAddress   newNameInstance = inputValue[1];
+            
+            // check it is name.instance only
+            if (newNameInstance.getType() == kAddressRelative && newNameInstance.getParent() == kTTAdrsEmpty) {
+                
+                TTList      aNodeList;
+                TTBoolean   isThere;
+                TTNodePtr   aNode;
+                
+                // search the object from the root
+                aNodeList.append(mDirectory->getRoot());
+                
+                TTErr err = mDirectory->IsThere(&aNodeList, &testNodeObject, anObject.instance(), &isThere, &aNode);
+                
+                if (!err && isThere) {
+                    
+                    TTBoolean   newInstanceCreated;
+                    TTSymbol    newInstance, effectiveNameInstance;
+                    TTAddress   effectiveAddress;
+                    
+                    aNode->setInstance(newNameInstance.getInstance(), newInstance, &newInstanceCreated);
+                    aNode->setName(newNameInstance.getName(), newInstance, &newInstanceCreated);
+                    
+                    aNode->getAddress(effectiveAddress);
+                    
+                    outputValue = effectiveAddress.getNameInstance();
+                }
             }
         }
     }
