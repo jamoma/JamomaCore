@@ -758,6 +758,15 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
  *
  ************************************************************************************/
 
+TTBoolean testNodeObject(TTNodePtr n, TTPtr args)
+{
+    TTObject o;
+    
+	o = n->getObject();
+    
+	return o.instance() == TTObjectBasePtr(args);
+}
+
 TTBoolean testNodeObjectType(TTNodePtr n, TTPtr args)
 {
 	TTObject o;

@@ -195,6 +195,13 @@ public:
 	TTErr			notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTAddressNotificationFlag flag);
 };
 
+/**	An test tool : test the object stored inside the node.
+ This method could be used as testFunction for the LookFor or IsThere methods.
+ @param	node						A node
+ @param args						An TTObjectBasePtr argument to retreive an object instance
+ @return							true if the object is the same than the one passed in argument */
+TTBoolean TTFOUNDATION_EXPORT testNodeObject(TTNodePtr n, TTPtr args);
+
 /**	An test tool : test the type of the object stored inside the node. 
 	This method could be used as testFunction for the LookFor or IsThere methods.
  @param	node						A node
