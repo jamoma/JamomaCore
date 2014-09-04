@@ -35,24 +35,12 @@ find_library(PORTMIDI_LIBRARY portmidi
   /opt/local/lib
 )
 
-find_library(PORTTIME_LIBRARY porttime
-  HINTS
-  $ENV{PORTMIDI_DIR}
-  PATHS
-  /usr/lib
-  /usr/local/lib
-  /opt/local/lib
-)
 endif()
 
 # Porttime library is merged to Portmidi in new versions, so
 # we work around problems by adding it only if it's present
-if(NOT ${PORTTIME_LIBRARY_FOUND})
-  set(PORTMIDI_LIBRARIES ${PORTMIDI_LIBRARY})
-else()
-  set(PORTMIDI_LIBRARIES ${PORTMIDI_LIBRARY} ${PORTTIME_LIBRARY})
-endif()
 
+set(PORTMIDI_LIBRARIES ${PORTMIDI_LIBRARY})
 set(PORTMIDI_INCLUDE_DIRS ${PORTMIDI_INCLUDE_DIR})
 
 include(FindPackageHandleStandardArgs)
