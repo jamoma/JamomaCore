@@ -95,7 +95,11 @@ mSenderManager(NULL)
 
 Minuit::~Minuit()
 {
-	delete mAnswerManager;
+    if (mAnswerManager)
+        delete mAnswerManager;
+    
+    if (mSenderManager)
+        delete mSenderManager;
     
     if (mWaitThread)
 		mWaitThread->wait();
@@ -179,8 +183,14 @@ TTErr Minuit::Stop(const TTValue& inputValue, TTValue& outputValue)
 	if (mRunning) {
 		
 		delete mAnswerManager;
-        delete mSenderManager;
+        mAnswerManager = NULL;
         
+        delete mSenderManager;
+        mSenderManager = NULL;
+        
+        TTObject minuitProtocol(this);
+        
+        mOscReceive.unregisterObserverForNotifications(minuitProtocol);
 		mOscReceive = TTObject();
         
         // wait to avoid strange crash when run and stop are called to quickly
