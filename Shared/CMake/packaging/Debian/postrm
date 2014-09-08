@@ -1,0 +1,4 @@
+#!/bin/sh
+
+rm -rf /usr/local/jamoma/lib/
+rm -rf /usr/local/lib/jamoma
