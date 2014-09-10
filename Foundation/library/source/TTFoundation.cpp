@@ -296,7 +296,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 
 		TTString	fileName(FindFileData.cFileName);
 		TTString	fileSuffix(strrchr(fileName.c_str(), '.'));
-		TTString	fileBaseName = fileName.substr(0, fileName.size() - 8);
+		TTString	fileBaseName = fileName.substr(0, fileName.size() - 6);
 		TTString	fileFullpath(fullpath);
 		void*		handle = NULL;
 
@@ -312,6 +312,7 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 		// TODO: assert -- or at least do a log post -- if handle is NULL
 		initializerFunctionName = "TTLoadJamomaExtension_";
 		initializerFunctionName += fileBaseName;
+		std::cout << "initializerFunctionName: " << initializerFunctionName << std::endl;
 		initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)handle, initializerFunctionName.c_str());
 		if (initializer)
 			err = initializer();
