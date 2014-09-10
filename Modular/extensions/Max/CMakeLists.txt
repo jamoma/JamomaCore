@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(Max)
 
-if(NOT APPLE)
+if(NOT APPLE OR NOT WIN32)
 	message("Max extension requires either OS X or Windows")
 	return() 
 endif()

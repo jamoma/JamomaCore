@@ -16,6 +16,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTGain.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTMuteSolo.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTThru.test.cpp
 )
+add_definitions(-DTT_EFFECTS_LIB)
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../library/includes")

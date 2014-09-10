@@ -152,12 +152,12 @@ public:
 		TTErr		err = kTTErrNone;
 		
 		if (mMode == TT("ramp")){
-			if (ttDataTypeInfo[arguments[0].type()]->isNumerical and ttDataTypeInfo[arguments[1].type()]->isNumerical) {
+			if (ttDataTypeInfo[arguments[0].type()]->isNumerical && ttDataTypeInfo[arguments[1].type()]->isNumerical) {
 				n = arguments.size();
 				switch(n)
 				{
 					case 4:
-						if (ttDataTypeInfo[arguments[2].type()]->isNumerical and ttDataTypeInfo[arguments[3].type()]->isNumerical == false) {
+						if (ttDataTypeInfo[arguments[2].type()]->isNumerical && ttDataTypeInfo[arguments[3].type()]->isNumerical == false) {
 							attrType = arguments[3];
 							setType(attrType);
 							x = arguments[0];
