@@ -57,6 +57,7 @@ include_directories("${PROJECT_SOURCE_DIR}/PeerObject")
 include_directories("${PROJECT_SOURCE_DIR}/ProtocolLib")
 include_directories("${PROJECT_SOURCE_DIR}/SchedulerLib")
 include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
+include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/libiconv/include")
 include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes")
 include_directories(${LIBXML2_INCLUDE_DIR})
 

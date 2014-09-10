@@ -27,6 +27,8 @@ include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes"
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
+target_link_libraries(${PROJECT_NAME} Ws2_32)
+target_link_libraries(${PROJECT_NAME} winmm)
 
 ### Output ###
 setOutput()

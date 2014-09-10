@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(JamomaFoundation)
 
-if(NOT ANDROID)
+if(NOT ANDROID AND NOT WIN32)
 	if(DEFINED USE_EXTERNAL_BOOST)
 		find_package(Boost COMPONENTS REQUIRED filesystem)
 		find_package(Boost COMPONENTS regex)
@@ -111,10 +111,14 @@ include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/tests")
 include_directories("${PROJECT_SOURCE_DIR}/Mersenne-1.1")
 
+
+
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS} ${PROJECT_HDRS})
+if(WIN32)
+	SET_TARGET_PROPERTIES( ${PROJECT_NAME} PROPERTIES LINK_FLAGS "/LIBPATH:${PROJECT_SOURCE_DIR}/boost/stage/lib" )
+endif()
 
-
-if(NOT ANDROID)
+if(NOT ANDROID AND NOT WIN32)
 	if(DEFINED USE_EXTERNAL_BOOST)
 		if(BOOST_FOUND)
 			target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
@@ -123,8 +127,7 @@ if(NOT ANDROID)
 
 	target_link_libraries(${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
 	target_link_libraries(${PROJECT_NAME} ${DL_LIBRARY})
-endif(NOT ANDROID)
-
+endif()
 # OS X :
 addAppleFramework(Carbon)
 addAppleFramework(CoreServices)

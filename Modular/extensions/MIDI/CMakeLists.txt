@@ -29,6 +29,10 @@ add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} ${PORTMIDI_LIBRARIES})
 
+if(WIN32)
+	target_link_libraries(${PROJECT_NAME} winmm)
+endif()
+
 addAppleFramework(CoreMIDI)
 addAppleFramework(CoreFoundation)
 addAppleFramework(CoreAudio)

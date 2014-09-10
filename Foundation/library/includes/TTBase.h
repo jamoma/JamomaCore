@@ -151,10 +151,12 @@
 // Memory alignment
 
 #if defined(_MSC_VER) || defined(__BORLANDC__)
-#define TT_ALIGN_16 __declspec(align(16))
+//#define TT_ALIGN_16 __declspec(align(16))
+#define TT_ALIGN_16
 #else // assuming gcc
 #define TT_ALIGN_16 __attribute__((aligned (16)))
 #endif
+
 
 
 /****************************************************************************************************/
