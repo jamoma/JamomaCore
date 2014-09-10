@@ -245,7 +245,7 @@ TTErr TTCue::setRamp(const TTValue& value)
     flattened = v[0];
     
     if (!flattened)
-        mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
+        mScript.send(kTTSym_Flatten, mAddress, none);
 	
 	// TODO : don't change line with a ramp value different from the mRamp
 	return processRamp(mScript, mRamp);
@@ -311,7 +311,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 	TTAddressItemPtr    aSelection = NULL;
     TTNodePtr           aNode;
 	TTSymbol			name;
-	TTValue				v, parsedLine;
+	TTValue				v, parsedLine, none;
     
     if (inputValue.size() == 1) {
         
@@ -365,7 +365,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
         
         // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
         // but we should review all the #TTCue and #TTScript architecture to improve this
-        mScript.send("Flatten");
+        mScript.send(kTTSym_Flatten, mAddress, none);
 		
 		return kTTErrNone;
 	}
@@ -582,7 +582,7 @@ TTErr TTCue::Update(const TTValue& inputValue, TTValue& outputValue)
     flattened = v[0];
     
     if (!flattened)
-        mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
+        mScript.send(kTTSym_Flatten, mAddress, none);
 	
 	return processUpdate(mScript);
 }
@@ -849,7 +849,7 @@ TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
     if (!aTextHandler)
 		return kTTErrGeneric;
 
-	TTValue	v;
+	TTValue	v, none;
 	
 	/* get the address of the script
 	mScript.get(kTTSym_address, v);
@@ -863,7 +863,7 @@ TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
     
     // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
     // but we should review all the #TTCue and #TTScript architecture to improve this
-    mScript.send("Flatten");
+    mScript.send(kTTSym_Flatten, mAddress, none);
 	
 	// use WriteAsText of the script
 	v = TTValue(mScript);
@@ -881,7 +881,7 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
 		return kTTErrGeneric;
     
 	TTDictionaryBasePtr line;
-	TTValue	v;
+	TTValue	v, none;
 
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
@@ -927,7 +927,7 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
     // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
     // but we should review all the #TTCue and #TTScript architecture to improve this
     if (aTextHandler->mLastLine)
-        mScript.send("Flatten");
+        mScript.send(kTTSym_Flatten, mAddress, none);
 	
 	return kTTErrNone;
 }
@@ -947,14 +947,14 @@ TTErr TTCueInterpolate(TTObject cue1, TTObject cue2, TTFloat64 position)
     flattened1 = v[0];
     
     if (!flattened1)
-        TTCuePtr(cue1.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
+        TTCuePtr(cue1.instance())->mScript.send(kTTSym_Flatten, TTCuePtr(cue1.instance())->mAddress, none);
     
     // is the cue2 already flattened ?
     TTCuePtr(cue2.instance())->mScript.get(kTTSym_flattened, v);
     flattened2 = v[0];
     
     if (!flattened2)
-        TTCuePtr(cue2.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
+        TTCuePtr(cue2.instance())->mScript.send(kTTSym_Flatten, TTCuePtr(cue2.instance())->mAddress, none);
     
 	return TTScriptInterpolate(TTCuePtr(cue1.instance())->mScript, TTCuePtr(cue2.instance())->mScript, position);
 }
@@ -976,7 +976,7 @@ TTErr TTCueMix(const TTValue& cues, const TTValue& factors)
         flattened = v[0];
         
         if (!flattened)
-            TTCuePtr(aCue.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
+            TTCuePtr(aCue.instance())->mScript.send(kTTSym_Flatten, TTCuePtr(aCue.instance())->mAddress, none);
         
 		scripts.append(TTCuePtr(aCue.instance())->mScript);
 	}
