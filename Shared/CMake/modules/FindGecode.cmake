@@ -63,6 +63,18 @@ foreach(COMPONENT ${Gecode_FIND_COMPONENTS})
  endif()
 endforeach()
 
+# Also float was missing
+set(GECODE_float__UNIX gecodefloat)
+set(GECODE_float__WIN32 GecodeFloat-4-3-0-d-x86)
+find_library(GECODE_float NAMES ${GECODE_float__UNIX} ${GECODE_float__WIN32}
+			 PATHS ${GECODE_LIB_WIN32_PATH_CMAKE})
+if (GECODE_float)
+    message(STATUS "  float: ${GECODE_float}")
+    list(APPEND GECODE_LIBRARIES ${GECODE_float})
+else()
+    message(FATAL_ERROR "  float not found")
+endif()
+
 #message(STATUS "Gecode libraries: ${GECODE_LIBRARIES}")
 find_file(GECODE_VIMP gecode/kernel/var-imp.hpp
 		  PATHS ${GECODE_INCLUDE_WIN32_PATH_CMAKE})
