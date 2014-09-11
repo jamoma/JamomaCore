@@ -189,6 +189,17 @@ public:
 		else
 			return kTTSymEmpty;
 	}
+    
+    // TTObject needs to be manually wrapped to avoid ambiguity as interpretted by the clang compiler
+    /** @overload
+     */
+	operator TTObject() const
+	{
+		if (size())
+			return at(0);
+		else
+			return TTObject();
+	}
 	
     /** @brief Insert a single TTElement at the end */
 	template<class T>
@@ -278,13 +289,13 @@ public:
      @param     none
      @return    #TTString that contains the content of all elements in the #TTValue
      */
-	TTString toString() const
+	TTString toString(TTBoolean quotes = YES) const
 	{
 		TTString temp;
 	
 		for (size_t i=0; i<size(); i++) {
-			at(i).string(temp);		// get a string for each item
-			if (i < (size()-1))		// add a space between each item, but no space at the end
+			at(i).string(temp, quotes);		// get a string for each item
+			if (i < (size()-1))				// add a space between each item, but no space at the end
 				temp.append(" ");
 		}
 		
@@ -294,13 +305,13 @@ public:
     // TODO: Could this be DRYer?
     /** @overload
      */
-	void toString()
+	void toString(TTBoolean quotes = YES)
 	{
 		TTString temp;
         
 		for (size_t i=0; i<size(); i++) {
-			at(i).string(temp);		// get a string for each item
-			if (i < (size()-1))		// add a space between each item, but no space at the end
+			at(i).string(temp, quotes);		// get a string for each item
+			if (i < (size()-1))             // add a space between each item, but no space at the end
 				temp.append(" ");
 		}
 		

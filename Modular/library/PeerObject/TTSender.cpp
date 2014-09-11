@@ -58,16 +58,21 @@ TTErr TTSender::setAddress(const TTValue& newValue)
 	unbindApplication();
 	
 	mAddress = newValue[0];
-	
-	// default attribute to bind is value
-	if (mAddress.getAttribute() == NO_ATTRIBUTE)
-		mAddress = mAddress.appendAttribute(kTTSym_value);
-	
-	mDirectory = accessApplicationDirectoryFrom(mAddress);
-	if (mDirectory)
-		return bindAddress();
-	else 
-		return bindApplication();
+    
+    if (mAddress != kTTAdrsEmpty) {
+        
+        // default attribute to bind is value
+        if (mAddress.getAttribute() == NO_ATTRIBUTE)
+            mAddress = mAddress.appendAttribute(kTTSym_value);
+        
+        mDirectory = accessApplicationDirectoryFrom(mAddress);
+        if (mDirectory)
+            return bindAddress();
+        else 
+            return bindApplication();
+    }
+    
+    return kTTErrGeneric;
 }
 
 #if 0
@@ -178,7 +183,7 @@ TTErr TTSender::bindAddress()
 	// 3. Observe any creation or destruction below the address
 	mAddressObserver = TTObject("callback");
 	
-	mAddressObserver.set(kTTSym_baton, TTObject(this));
+	mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	mAddressObserver.set(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
 
 	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
@@ -212,7 +217,7 @@ TTErr TTSender::bindApplication()
 		
 		mApplicationObserver = TTObject("callback");
 		
-		mApplicationObserver.set(kTTSym_baton, TTObject(this));
+		mApplicationObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 		mApplicationObserver.set(kTTSym_function, TTPtr(&TTSenderApplicationManagerCallback));
 
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
@@ -241,14 +246,13 @@ TTErr TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data)
 	TTValue			aCacheElement;
 	TTSenderPtr		aSender;
 	TTNodePtr		aNode;
-	TTObject        o, anObject, aCacheObject;
+	TTObject        anObject, aCacheObject;
 	TTAddress		anAddress;
 	TTValue			v;
 	TTUInt8			flag;
 
-	// unpack baton (a #TTSender)
-    o = baton[0];
-	aSender = (TTSenderPtr)o.instance();
+	// unpack baton (a #TTSenderPtr)
+	aSender = TTSenderPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 
 	// Unpack data (address, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -293,16 +297,14 @@ TTErr TTSenderDirectoryCallback(const TTValue& baton, const TTValue& data)
 
 TTErr TTSenderApplicationManagerCallback(const TTValue& baton, const TTValue& data)
 {
-    TTObject        o;
 	TTSenderPtr		aSender;
 	TTSymbol		anApplicationName;
 	TTObject        anApplication;
 	TTValue			v;
 	TTUInt8			flag;
 	
-	// unpack baton (a #TTSender)
-    o = baton[0];
-	aSender = (TTSenderPtr)o.instance();
+	// unpack baton (a #TTSenderPtr)
+	aSender = TTSenderPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];

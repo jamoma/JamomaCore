@@ -73,7 +73,7 @@ class TTMODULAR_EXPORT TTMirror : public TTObjectBase
 	
 private:
 	
-	TTSymbol					mType;							///< ATTRIBUTE : the type of the object binded by the mirror
+	TTSymbol					mType;							///< the type of the object binded by the mirror
     TTBoolean                   mIsListening;                   ///< to not forget to disable listening when the Mirror will be destroyed
 	
 	TTObject                    mGetAttributeCallback;			///< a way to get the attribute value
@@ -90,6 +90,18 @@ private:
 	TTErr						setMirrorCachedAttribute(TTAttribute& anAttribute, const TTValue& value);
     
 	TTErr						sendMirrorMessage(const TTSymbol* messageName, const TTValue& inputValue, TTValue& outputValue);
+    
+    /** When the type doesn't refer to a known class, use this method to instantiate the attributes to mirror
+     @param inputValue      all attribute names to mirror
+     @param outputValue     nothing
+     @return #TTErr error code */
+    TTErr						AttributesInstantiate(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** When the type doesn't refer to a known class, use this method to instantiate the messages to mirror
+     @param inputValue      all message names to mirror
+     @param outputValue     nothing
+     @return #TTErr error code */
+    TTErr						MessagesInstantiate(const TTValue& inputValue, TTValue& outputValue);
     
     /** Add an attribute to cache its value and avoid the use of mGetAttributeCallback
      @param inputValue      the name of an attribute to add to the cache, a pointer to a value to cache

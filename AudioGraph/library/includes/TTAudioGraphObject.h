@@ -246,20 +246,24 @@ public:
 class TTAudioGraphObject : public TTObject {
 	
 public:
-	TTAudioGraphObject(const TTSymbol& aClassName) :
+	/*	Don't need to a TTSymbol version because a c-string is converted to a TTValue automatically and the method below will work for both cases.
+		Further, the presence of both leads to compile errors regarding ambiguity between the two when compiling with clang.
+	TTAudioGraphObject(const TTSymbol aClassName) :
 	TTObject("audio.object", aClassName)
 	{}
+	 */
 
 	// first arg must be classname -- used by ruby language bindings
 	TTAudioGraphObject(const TTValue args) :
 	TTObject("audio.object", args)
 	{}
 
-	TTErr send(const TTSymbol& aName){
+	TTErr send(const TTSymbol aName)
+	{
 		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator().send(aName);
 	}
 
-	TTErr send(const TTSymbol& aName, const TTValue& anInputValue, TTValue& anOutputValue)
+	TTErr send(const TTSymbol aName, const TTValue& anInputValue, TTValue& anOutputValue)
 	{
 		return ((TTAudioGraphObjectBase*)instance())->getUnitGenerator().send(aName, anInputValue, anOutputValue);
 	}

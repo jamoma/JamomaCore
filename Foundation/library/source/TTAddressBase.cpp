@@ -257,7 +257,7 @@ TTErr TTAddressBase::parse()
 		end = s_toParse.end();
         
         // directory:/ case
-        if (s_toParse[0] == C_SEPARATOR && s_toParse.length() == 2) {
+        if (s_toParse[0] == C_SEPARATOR && s_toParse[1] == '\0') {
             
             this->directory = TTSymbol(s_directory);
             this->parent = NO_PARENT.getBasePointer();
@@ -404,12 +404,21 @@ TTAddressComparisonFlag TTAddressBase::compare(TTAddressBase* toCompare, TTInt8&
 		
 		// compare parents
 		cParent = top1->getParent() == top2->getParent();
-		
-		// compare names
-		cName = (top1->getName() == top2->getName()) || (top1->getName() == S_WILDCARD) || (top2->getName() == S_WILDCARD);
-		
-		// compare instances
-		cInstance = (top1->getInstance() == top2->getInstance()) || (top1->getInstance() == S_WILDCARD) || (top2->getInstance() == S_WILDCARD);
+        
+        // lonely wilcard case : * equals *.*
+        if ((top1->getName() == S_WILDCARD && top1->getInstance() == kTTSymEmpty) || (top2->getName() == S_WILDCARD && top2->getInstance() == kTTSymEmpty)) {
+            
+            cName = YES;
+            cInstance = YES;
+        }
+        else {
+            
+            // compare names
+            cName = (top1->getName() == top2->getName()) || (top1->getName() == S_WILDCARD) || (top2->getName() == S_WILDCARD);
+            
+            // compare instances
+            cInstance = (top1->getInstance() == top2->getInstance()) || (top1->getInstance() == S_WILDCARD) || (top2->getInstance() == S_WILDCARD);
+        }
 		
 		// don't compare attributes
 		

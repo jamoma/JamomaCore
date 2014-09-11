@@ -137,23 +137,29 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
             // select local application to get its port parameter
             ApplicationSelectLocal();
             minuitProtocol.get("port", v);
-            port = v[0];
             
-            err = mOscReceive.set("port", v);
-            
-            if (!err) {
+            if (v.size()) {
                 
-                mOscReceive.registerObserverForNotifications(minuitProtocol);			// using our 'receivedMessage' method
+                port = v[0];
                 
-                // wait to avoid strange crash when run and stop are called to quickly
-                mWaitThread->sleep(1);
+                err = mOscReceive.set("port", v);
                 
-                mRunning = YES;
-                
-                return kTTErrNone;
+                if (!err) {
+                    
+                    mOscReceive.registerObserverForNotifications(minuitProtocol);			// using our 'receivedMessage' method
+                    
+                    // wait to avoid strange crash when run and stop are called to quickly
+                    mWaitThread->sleep(1);
+                    
+                    mRunning = YES;
+                    
+                    TTLogMessage("Minuit::Run : connected to port %ld\n", port);
+                    
+                    return kTTErrNone;
+                }
+                else
+                    TTLogError("Minuit::Run : unable to connect to port %ld\n", port);
             }
-            else
-                TTLogError("unable to connect to port %ld", port);
 		}
 	}
 	

@@ -33,22 +33,22 @@ extern "C" void TTData::registerClass()
 TTData::TTData(const TTValue& arguments) :
 TTCallback(arguments),
 mValue(TTValue(0.0)),
-mValueStepsize(TTValue(0.1)),
+mValueStepsize(TTValue(0.1)),       // this default value is expected in #TTData::setType method
 mType(kTTSym_generic),
-mTag(TTValue(kTTSym_none)),
+mTags(TTValue(kTTSym_none)),
 mPriority(0),
 mDescription(kTTSym_none),
 mRepetitionsFilter(NO),
 mActive(YES),
 mInitialized(NO),
-mRangeBounds(0.0, 1.0),
+mRangeBounds(0.0, 1.0),             // this default value is expected in #TTData::setType method
 mRangeClipmode(kTTSym_none),
 mDynamicInstances(NO),
 mInstanceBounds(0, -1),
 mRampDrive(kTTSym_none),
-mRampDriveDefault(TTSymbol("System")),
+mRampDriveDefault(TTSymbol("system")),
 #ifndef TT_NO_DSP
-mRampFunction(kTTSym_none),
+mRampFunction(kTTSym_none),         // this default value is expected in #TTData::setType method
 #endif
 mRampStatus(NO),
 mDataspace(kTTSym_none),
@@ -63,7 +63,7 @@ mService(kTTSymEmpty)
 	addAttributeWithGetterAndSetter(ValueStepsize, kTypeNone);
 	
 	addAttributeWithSetter(Type, kTypeSymbol);
-	addAttributeWithSetter(Tag, kTypeLocalValue);
+	addAttributeWithSetter(Tags, kTypeLocalValue);
 	addAttributeWithSetter(Priority, kTypeInt32);
 	addAttributeWithSetter(Description, kTypeSymbol);
 	addAttributeWithSetter(RepetitionsFilter, kTypeBoolean);
@@ -319,11 +319,11 @@ TTErr TTData::setValueStepsize(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTData::setTag(const TTValue& value)
+TTErr TTData::setTags(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
-	mTag = value;
-	this->notifyObservers(kTTSym_tag, n);
+	mTags = value;
+	this->notifyObservers(kTTSym_tags, n);
 	return kTTErrNone;
 }
 
@@ -439,13 +439,22 @@ TTErr TTData::setRampFunction(const TTValue& value)
 #endif
 TTErr TTData::setDataspace(const TTValue& value)
 {
-	TTErr err = kTTErrGeneric;
-	TTValue v, none;
+	TTErr   err;
+	TTValue v;
 	TTValue n = value;				// use new value to protect the attribute
+    
 	mDataspace = value;
 	
-	mDataspaceConverter = TTObject("dataspace");
-	mDataspaceConverter.set("dataspace", mDataspace);
+    if (!mDataspaceConverter.valid())
+        mDataspaceConverter = TTObject("dataspace");
+    
+	err = mDataspaceConverter.set("dataspace", mDataspace);
+    
+    if (err) {
+        
+        mDataspace = kTTSym_none;
+        return err;
+    }
 	
 	// If there is already a unit defined, then we try to use that
     err = mDataspaceConverter.set("outputUnit", mDataspaceUnit);
@@ -466,10 +475,15 @@ TTErr TTData::setDataspaceUnit(const TTValue& value)
 	TTValue n = value;				// use new value to protect the attribute
 	mDataspaceUnit = value;
     
-    mDataspaceConverter.set("outputUnit", mDataspaceUnit);
+    if (mDataspaceConverter.valid()) {
+        
+        mDataspaceConverter.set("outputUnit", mDataspaceUnit);
 	
-	this->notifyObservers(kTTSym_dataspaceUnit, n);
-	return kTTErrNone;
+        this->notifyObservers(kTTSym_dataspaceUnit, n);
+        return kTTErrNone;
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTData::setDescription(const TTValue& value)
@@ -640,9 +654,19 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark Some Methods
 #endif
 
-TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue)
+TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue, TTBoolean parseUnitAndRamp)
 {
 	TTDictionaryBasePtr		command = new TTDictionaryBase();
+    
+    // don't parse the value, just store it into a dictionary
+    // this is useful when unit or ramp doesn't mean anything (e.g. generic case)
+    if (!parseUnitAndRamp) {
+        
+        command->setValue(commandValue);
+        command->setSchema(kTTSym_command);
+        return command;
+    }
+    
 	TTUInt32			time;
 	TTUInt32			commandSize;
 	TTSymbol			unit, ramp;
@@ -792,7 +816,7 @@ void TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 	aData->setAttributeValue(kTTSym_value, rampedValue);
     
 	// update the ramp status attribute
-    aData->mRamper.get("running", isRunning);
+    aData->mRamper.get(kTTSym_running, isRunning);
 	if (aData->mRampStatus != isRunning) {
         
 		aData->mRampStatus = isRunning;

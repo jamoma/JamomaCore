@@ -6,7 +6,7 @@
  *
  * @details
  *
- * @authors Laurent Garnier, Théo de la Hogue
+ * @author Laurent Garnier, Théo de la Hogue
  *
  * @copyright © 2011, Laurent Garnier, Théo de la Hogue @n
  * This code is licensed under the terms of the "New BSD License" @n
@@ -108,6 +108,12 @@ public:
      @param[out] outputValue    nothing
      @return #TTErr error code */
 	TTErr ApplicationRegister(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Rename an application
+     @param[in] inputValue      #TTSymbol old application name, #TTSymbol new application name
+     @param[out] outputValue    nothing
+     @return #TTErr error code */
+    TTErr ApplicationRename(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Unregister an application as a client of the protocol 
      @details This method deallocate a TTHash used to store parameters

@@ -33,9 +33,9 @@ mSignalAttr(NULL)
         mReturnSignalCallback = arguments[0];
 	
 	addAttribute(Type, kTypeSymbol);
-	addAttributeProperty(Type, readOnly, YES);
 	
 	addAttributeWithSetter(InputAddress, kTypeSymbol);
+    addAttributeProperty(InputAddress, hidden, YES);
 	
 	addAttributeWithSetter(Mute, kTypeBoolean);
 	addAttributeWithSetter(Mix, kTypeFloat64);
@@ -135,6 +135,13 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 	TTValue		none, n = value;		// use new value to protect the attribute
     
 	newAddress = value[0];
+    
+    if (newAddress == kTTAdrsEmpty) {
+        
+        mAddressObserver.set(kTTSym_address, kTTAdrsEmpty);
+        mAddressObserver = TTObject();
+        return kTTErrGeneric;
+    }
 	
 	if (!accessApplicationLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
@@ -143,22 +150,22 @@ TTErr TTOutput::setInputAddress(const TTValue& value)
 			if (o.name() == kTTSym_Input|| o.name() == kTTSym_InputAudio)
 				Link(o, none);
 	}
-
+    
+    // create receiver if needed
 	if (!mAddressObserver.valid()) {
 		
 		// prepare arguments
 		mAddressObserver = TTObject("callback");
         
-		mAddressObserver.set(kTTSym_baton, TTObject(this));
+		mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 		mAddressObserver.set(kTTSym_function, TTPtr(&TTOutputDirectoryCallback));
 	}
 	
-	if (mAddressObserver.valid()) {
-		if (mInputAddress != kTTAdrsEmpty)
-			accessApplicationLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
-		
-		accessApplicationLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
-	}
+    // update directory observation
+    if (mInputAddress != kTTAdrsEmpty)
+        accessApplicationLocalDirectory->removeObserverForNotifications(mInputAddress, mAddressObserver);
+    
+    accessApplicationLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	
 	mInputAddress = newAddress;
 	
@@ -169,10 +176,15 @@ TTErr TTOutput::setMute(const TTValue& value)
 {
 	mMute = value;
 	
-    if (mMute)
-        return mGainUnit.set("linearGain", 0.0);
+    if (mGainUnit.valid()) {
+        
+        if (mMute)
+            return mGainUnit.set("linearGain", 0.0);
+        else
+            return mGainUnit.set("midiGain", mGain);
+    }
     else
-        return mGainUnit.set("midiGain", mGain);
+        return kTTErrGeneric;
 }
 
 TTErr TTOutput::setMix(const TTValue& value)
@@ -191,7 +203,10 @@ TTErr TTOutput::setGain(const TTValue& value)
 {
 	mGain = value;
 	
-	return mGainUnit.set("midiGain", mGain);
+    if (mGainUnit.valid())
+        return mGainUnit.set("midiGain", mGain);
+    else
+        return kTTErrGeneric;
 }
 
 TTErr TTOutput::notifySignalObserver(const TTValue& value)
@@ -217,9 +232,8 @@ TTErr TTOutputDirectoryCallback(const TTValue& baton, const TTValue& data)
 	TTUInt8			flag;
     TTValue         none;
 	
-	// unpack baton (a TTOutput)
-    o = baton[0];
-	anOutput = (TTOutputPtr)o.instance();
+	// unpack baton (a #TTOutputPtr)
+	anOutput = TTOutputPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];

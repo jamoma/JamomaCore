@@ -23,11 +23,11 @@
 TT_MODULAR_CONSTRUCTOR,
 mDescription(kTTSym_none),
 mPriority(0),
-mTag(kTTSym_none)
+mTags(TTValue(kTTSym_none))
 {
-    addAttributeWithSetter(Description, kTypeSymbol);
-    addAttributeWithSetter(Priority, kTypeInt32);
-	addAttributeWithSetter(Tag, kTypeLocalValue);
+	addAttributeWithSetter(Tags, kTypeLocalValue);
+	addAttributeWithSetter(Priority, kTypeInt32);
+	addAttributeWithSetter(Description, kTypeSymbol);
 }
 
 TTNodeInfo::~TTNodeInfo()
@@ -53,11 +53,11 @@ TTErr TTNodeInfo::setPriority(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTNodeInfo::setTag(const TTValue& value)
+TTErr TTNodeInfo::setTags(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
-	mTag = value;
-	this->notifyObservers(kTTSym_tag, n);
+	mTags = value;
+	this->notifyObservers(kTTSym_tags, n);
 	return kTTErrNone;
 }
 

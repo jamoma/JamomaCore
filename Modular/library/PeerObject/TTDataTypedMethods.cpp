@@ -45,10 +45,20 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeInt32;
 			valueStepSizeAttribute->type = kTypeInt32;
 			mValue = TTValue(0);
-			mValueStepsize = TTValue(1);
-			mRangeBounds.set(0, TTUInt16(0));
-			mRangeBounds.set(1, TTUInt16(1));
-            mRampDrive = mRampDriveDefault;
+            
+            // if mValueStepsize still equals to the value passed in constructor
+            if (mValueStepsize == TTValue(0.1))
+                mValueStepsize = TTValue(1);
+            
+            // if mRangeBounds still equals to the value passed in constructor
+            if (mRangeBounds == TTValue(0.0, 1.0)) {
+                mRangeBounds.set(0, TTUInt16(0));
+                mRangeBounds.set(1, TTUInt16(1));
+            }
+            
+            // if mRampDrive still equals to the value passed in constructor
+            if (mRampDrive == kTTSym_none)
+                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_decimal) {
             commandMethod = (TTMethodValue)&TTData::DecimalCommand;
@@ -58,10 +68,14 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
-			mValueStepsize = TTValue(0.1);
-			mRangeBounds.set(0, 0.);
-			mRangeBounds.set(1, 1.);
-            mRampDrive = mRampDriveDefault;
+			
+            // don't reset mValueStepsize as the default values is equals to the value passed in constructor
+            
+			// don't reset mRangeBounds as the default values is equals to the value passed in constructor
+            
+            // if mRampDrive still equals to the value passed in constructor
+            if (mRampDrive == kTTSym_none)
+                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_string) {
             commandMethod = (TTMethodValue)&TTData::StringCommand;
@@ -71,8 +85,15 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeSymbol;
 			valueStepSizeAttribute->type = kTypeSymbol;
 			mValue = TTValue(kTTSymEmpty);
-			mValueStepsize.clear();
-			mRangeBounds.clear();
+            
+            // if mValueStepsize still equals to the value passed in constructor
+            if (mValueStepsize == TTValue(0.1))
+                mValueStepsize.clear();
+            
+            // if mRangeBounds still equals to the value passed in constructor
+            if (mRangeBounds == TTValue(0.0, 1.0))
+                mRangeBounds.clear();
+            
             mRampDrive = kTTSym_none;
 		}
 		else if (mType == kTTSym_boolean) {
@@ -83,9 +104,17 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeBoolean;
 			valueStepSizeAttribute->type = kTypeBoolean;
 			mValue = TTValue(NO);
-			mValueStepsize = TTValue(YES);
-			mRangeBounds.set(0, NO);
-			mRangeBounds.set(1, YES);
+            
+            // if mValueStepsize still equals to the value passed in constructor
+            if (mValueStepsize == TTValue(0.1))
+                mValueStepsize = TTValue(YES);
+            
+            // if mRangeBounds still equals to the value passed in constructor
+            if (mRangeBounds == TTValue(0.0, 1.0)) {
+                mRangeBounds.set(0, NO);
+                mRangeBounds.set(1, YES);
+            }
+            
             mRampDrive = kTTSym_none;
 		}
 		else if (mType == kTTSym_array) {
@@ -96,10 +125,14 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
-			mValueStepsize = TTValue(0.1);
-			mRangeBounds.set(0, 0.);
-			mRangeBounds.set(1, 1.);
-            mRampDrive = mRampDriveDefault;
+            
+			// don't reset mValueStepsize as the default values is equals to the value passed in constructor
+			
+            // don't reset mRangeBounds as the default values is equals to the value passed in constructor
+            
+            // if mRampDrive still equals to the value passed in constructor
+            if (mRampDrive == kTTSym_none)
+                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_none) {
             commandMethod = (TTMethodValue)&TTData::NoneCommand;
@@ -109,8 +142,15 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeNone;
 			valueStepSizeAttribute->type = kTypeNone;
 			mValue.clear();
-			mValueStepsize.clear();
-			mRangeBounds.clear();
+            
+            // if mValueStepsize still equals to the value passed in constructor
+            if (mValueStepsize == TTValue(0.1))
+                mValueStepsize.clear();
+            
+			// if mRangeBounds still equals to the value passed in constructor
+            if (mRangeBounds == TTValue(0.0, 1.0))
+                mRangeBounds.clear();
+            
             mRampDrive = kTTSym_none;
 		}
 		else {
@@ -122,11 +162,19 @@ TTErr TTData::setType(const TTValue& value)
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mType = kTTSym_generic;
 			mValue = TTValue(0.);
-			mValueStepsize = TTValue(0.1);
-			mRangeBounds = TTValue(0., 1.);
+            
+			// don't reset mValueStepsize as the default values is equals to the value passed in constructor
+			
+            // don't reset mRangeBounds as the default values is equals to the value passed in constructor
+            
             mRampDrive = kTTSym_none;
 			return kTTErrGeneric;
 		}
+        
+        // TODO : move this very Max specific thing else where
+        if (mRampDrive == TTSymbol("max"))
+            if (ttEnvironment->isClassRegistered("max"))
+                mRampDrive = TTSymbol("system");
         
 		rampSetup();
 		
@@ -148,12 +196,17 @@ TTErr TTData::Command(const TTValue& inputValue, TTValue& outputValue)
             return (this->*commandMethod)(inputValue, outputValue);
     }
     
-    // else we need to free the parsed command afterwards
+    // else we parse command locally (and we need to free the parsed command afterwards)
     TTDictionaryBasePtr command = NULL;
     TTErr           err;
+
+    // for string type : keep only the first element
+    if (mType == kTTSym_string && inputValue.size())
+        command = TTDataParseCommand(inputValue[0], NO);
     
-    // parse command locally
-    command = TTDataParseCommand(inputValue);
+    // for integer, decimal or array type : parse unit and ramp
+    else
+        command = TTDataParseCommand(inputValue, mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_array);
     
     if (!command)
         return kTTErrGeneric;
@@ -385,7 +438,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
                     mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper.get("running", isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -400,7 +453,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
             mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper.get("running", isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -554,7 +607,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
                     mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper.get("running", isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -569,7 +622,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
             mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper.get("running", isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -737,7 +790,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                     mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper.get("running", isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -752,7 +805,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
             mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper.get("running", isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -920,7 +973,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
                     mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper.get("running", isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -935,7 +988,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
             mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper.get("running", isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);

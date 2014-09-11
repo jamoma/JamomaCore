@@ -257,6 +257,7 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_repetitionsFilter				(("repetitionsFil
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_return                           (("return"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_returnedValue					(("returnedValue"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Run                              (("Run"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_running                      (("running"));
 
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Send                             (("Send"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_script                           (("script"));
@@ -268,7 +269,7 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_stop                             (("st
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Stop                             (("Stop"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Subscribe                        (("Subscribe"));
 
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_tag                              (("tag"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_tags                              (("tags"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_target                           (("target"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Tick                             (("Tick"));
 

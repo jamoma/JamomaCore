@@ -21,7 +21,7 @@
 
 TTObjectBase::TTObjectBase(const TTValue arguments)
 	: classPtr(NULL), messageObservers(NULL), attributeObservers(NULL),
-	  mLocked(false), referenceCount(1), valid(false), reserved1(0), reserved2(0)
+	  mLocked(false), referenceCount(1), valid(false), track(false), reserved1(0)//, reserved2(0)
 {
 	messages = new TTHash;
 	attributes = new TTHash;

@@ -25,6 +25,7 @@ TTObjectBase(arguments),
 mDuration(0.),
 mOffset(0.),
 mSpeed(1.),
+mExternalTick(NO),
 mRunning(NO),
 mPaused(NO),
 mPosition(0.),
@@ -47,6 +48,7 @@ mBaton(NULL)
     addAttributeWithSetter(Duration, kTypeFloat64);
     addAttributeWithSetter(Offset, kTypeFloat64);
     addAttributeWithSetter(Speed, kTypeFloat64);
+    addAttribute(ExternalTick, kTypeBoolean);
 
 	addAttribute(Stretchable, kTypeBoolean);
 	addAttributeProperty(Stretchable, readOnly, YES);
@@ -148,13 +150,13 @@ TTErr Scheduler::setSpeed(const TTValue& value)
 void SchedulerLib::getSchedulerNames(TTValue& SchedulerNames)
 {
 	SchedulerNames.clear();
-	SchedulerNames.append(TTSymbol("Max"));
-	SchedulerNames.append(TTSymbol("System"));
+	SchedulerNames.append(TTSymbol("max"));
+	SchedulerNames.append(TTSymbol("system"));
 }
 
 TTErr SchedulerLib::isSchedulerNameAvailable(TTSymbol aSchedulerName)
 {
-    if (aSchedulerName == TTSymbol("Max") || aSchedulerName == TTSymbol("System"))
+    if (aSchedulerName == TTSymbol("max") || aSchedulerName == TTSymbol("system"))
         return kTTErrNone;
     else
         return kTTErrValueNotFound;

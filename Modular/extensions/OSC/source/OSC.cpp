@@ -97,11 +97,7 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
     if (inputValue.size() == 0) {
         
         TTValue keys, out;
-        
-        // run local
-        Run(mLocalApplicationName, out);
-        
-        // run each distant
+
         mApplicationParameters.getKeys(keys);
         for (TTUInt32 i = 0 ; i < keys.size() ; i++)
             Run(keys[i], out);
@@ -187,7 +183,7 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                     // prepare arguments
                     returnMessageCallback = TTObject("callback");
                     
-                    returnMessageBaton = TTValue(TTObjectBasePtr(this), applicationName);
+                    returnMessageBaton = TTValue(TTObject(this), applicationName);
                     returnMessageCallback.set(kTTSym_baton, returnMessageBaton);
                     
                     returnMessageCallback.set(kTTSym_function, TTPtr(&OSCReceiveMessageCallback));

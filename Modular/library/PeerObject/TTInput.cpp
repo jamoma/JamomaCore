@@ -37,9 +37,9 @@ mSignalAttr(NULL)
 	}
 	
 	addAttribute(Type, kTypeSymbol);
-	addAttributeProperty(Type, readOnly, YES);
 	
 	addAttributeWithSetter(OutputAddress, kTypeSymbol);
+    addAttributeProperty(OutputAddress, hidden, YES);
 	
 	addAttribute(Mute, kTypeBoolean);
     
@@ -111,6 +111,13 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
 	TTObject    o;
 
 	newAddress = value[0];
+    
+    if (newAddress == kTTAdrsEmpty) {
+        
+        mAddressObserver.set(kTTSym_address, kTTAdrsEmpty);
+        mAddressObserver = TTObject();
+        return kTTErrGeneric;
+    }
 	
 	if (!accessApplicationLocalDirectory->getTTNode(newAddress, &aNode)) {
 		
@@ -119,21 +126,20 @@ TTErr TTInput::setOutputAddress(const TTValue& value)
             Link(o, none);
 	}
 	
+    //create a receiver if needed
 	if (!mAddressObserver.valid()) {
         
 		// prepare arguments
 		mAddressObserver = TTObject("callback");
         
-		mAddressObserver.set(kTTSym_baton, TTObject(this));
+		mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 		mAddressObserver.set(kTTSym_function, TTPtr(&TTInputDirectoryCallback));
 	}
 	
-	if (mAddressObserver.valid()) {
-		if (mOutputAddress != kTTAdrsEmpty)
-			accessApplicationLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
+    if (mOutputAddress != kTTAdrsEmpty)
+        accessApplicationLocalDirectory->removeObserverForNotifications(mOutputAddress, mAddressObserver);
 		
-		accessApplicationLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
-	}
+    accessApplicationLocalDirectory->addObserverForNotifications(newAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	
 	mOutputAddress = newAddress;
 	
@@ -163,9 +169,8 @@ TTErr TTInputDirectoryCallback(const TTValue& baton, const TTValue& data)
 	TTUInt8			flag;
 	TTValue         none;
 	
-	// unpack baton (a TTInput)
-    o = baton[0];
-	anInput = (TTInputPtr)o.instance();
+	// unpack baton (a #TTInputPtr)
+	anInput = TTInputPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];

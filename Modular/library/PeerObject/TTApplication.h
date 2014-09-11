@@ -63,6 +63,7 @@ private:
 	
 	TTBoolean					mActivity;			///< ATTRIBUTE : enable the activity mechanism
     TTBoolean					mDebug;				///< ATTRIBUTE : to enable the debug mode for the application (default : NO)
+	TTBoolean					mLearn;             ///< ATTRIBUTE : enable the learning mechanism (see in UpdateAttribute)
 
 	TTHash                      mCachedAttributes;  ///< ATTRIBUTE : all attribute names which need to be cached by a mirror application to reduce the number of network requests
     
@@ -206,6 +207,12 @@ private:
      @return #TTErr error code */
 	TTErr ObjectUnregister(const TTValue& inputValue, TTValue& outputValue);
     
+    /** Change the name.instance part of the address of a registered object
+     @param inputValue      a registered object, the new name.instance
+     @param outputValue     the effective name.instance
+     @return #TTErr error code */
+	TTErr ObjectRename(const TTValue& inputValue, TTValue& outputValue);
+    
     /** Retreive a registered object into the application directory at an address
      @param inputValue      an address
      @param outputValue     the registered object
@@ -271,29 +278,37 @@ private:
      @param aXmlHandler     a xml handler object
      @seealso ReadFromXml */
     void readNodeFromXml(TTXmlHandlerPtr aXmlHandler);
+
+	/* Instantiate and register a #TTData object
+     note : this a temporary message to allow proxy data creation
+     @param inputValue      an address, service of the data
+     @param outputValue     the new object 
+	 @return #TTErr error code */
+    TTErr ProxyDataInstantiate(const TTValue& inputValue, TTValue& outputValue);
     
     /**  Convenient method used to create a mirror object
      @param aProtocol       a protocol object
      @param anAddress       where to register the mirror object
      @param objectName      object type to mirror
-     @return #TTObjectBasePtr
+     @param attributesName  attributes of the object to mirror
+     @return #TTObject
      @seealso readNodeFromXml */
-    TTObjectBasePtr appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName);
+    TTObject appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName, TTValue& attributesName);
     
     /**  Convenient method used to create a data object
      @param aProtocol       a protocol object
      @param anAddress       where to register the data object
      @param service         data service
-     @return #TTObjectBasePtr
+     @return #TTObject
      @seealso readNodeFromXml */
-    TTObjectBasePtr appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service);
+    TTObject appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service);
     
     /**  Convenient method used to create a container object
      @param aProtocol       a protocol object
      @param anAddress       where to register the container object
-     @return #TTObjectBasePtr
+     @return #TTObject
      @seealso readNodeFromXml */
-    TTObjectBasePtr appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress);
+    TTObject appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress);
     
 #if 0
 #pragma mark -

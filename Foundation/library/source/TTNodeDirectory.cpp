@@ -403,8 +403,12 @@ TTErr TTNodeDirectory::Lookup(TTAddress anAddress, TTList& returnedTTNodes, TTNo
 	// Make sure we are dealing with an absolute address
 	if (anAddress.getType() != kAddressAbsolute)
 		return kTTErrGeneric;
+    
+    // lonely wilcard case : * equals *.*
+    if (anAddress.getName() == S_WILDCARD && anAddress.getInstance() == kTTSymEmpty)
+        return Lookup(anAddress.appendInstance(S_WILDCARD), returnedTTNodes, firstReturnedTTNode);
 
-	// Is there a wild card ?
+	// Is there a wild card anywhere else ?
 	if (strrchr(anAddress.c_str(), C_WILDCARD)) {
 		
 		// Here is a recursive call to the TTNodeDirectory Lookup to get all TTNodes at upper levels
@@ -454,7 +458,7 @@ TTErr TTNodeDirectory::Lookup(TTAddress anAddress, TTList& returnedTTNodes, TTNo
 	}
 }
 
-TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode, TTUInt8 depthLimit)
+TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode, TTUInt8 depthLimit, TTBoolean(comparisonFunction)(TTValue& v1, TTValue& v2))
 {
 	TTList lk_children;
 	TTNodePtr n_r, n_child, n_first;
@@ -479,6 +483,10 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 			// get all children of the node
 			n_r = TTNodePtr((TTPtr)whereToSearch->current()[0]);
 			n_r->getChildren(S_WILDCARD, S_WILDCARD, lk_children);
+            
+            // sort children if needed
+            if (comparisonFunction)
+                lk_children.sort(comparisonFunction);
 
 			// if there are children
 			if (!lk_children.isEmpty()) {
@@ -499,7 +507,7 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 				}
 				
 				if (!limitReached)
-					err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode, newLimit);
+					err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode, newLimit, comparisonFunction);
 				else
 					err = kTTErrNone;
 
@@ -517,7 +525,7 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 	return kTTErrGeneric;
 }
 
-TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNodePtr node, void*args), void *argument, bool *isThere, TTNodePtr *firstTTNode)
+TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, void*args), void *argument, bool *isThere, TTNodePtr *firstTTNode)
 {
 	TTList lk_children;
 	TTNodePtr n_r, n_child;
@@ -569,7 +577,7 @@ TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, bool(testFunction)(TTNod
 	return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTObject anObserver, TTInt8 maxDepthDifference)
+TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTObject& anObserver, TTInt8 maxDepthDifference)
 {
 	TTErr			err;
 	TTValue			lk;
@@ -609,7 +617,7 @@ TTErr TTNodeDirectory::addObserverForNotifications(TTAddress anAddress, TTObject
 	return kTTErrNone;
 }
 
-TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTObject anObserver)
+TTErr TTNodeDirectory::removeObserverForNotifications(TTAddress anAddress, TTObject& anObserver)
 {
 	TTErr			err;
 	TTValue			lk, o, v;
@@ -750,6 +758,15 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
  *
  ************************************************************************************/
 
+TTBoolean testNodeObject(TTNodePtr n, TTPtr args)
+{
+    TTObject o;
+    
+	o = n->getObject();
+    
+	return o.instance() == TTObjectBasePtr(args);
+}
+
 TTBoolean testNodeObjectType(TTNodePtr n, TTPtr args)
 {
 	TTObject o;
@@ -883,8 +900,34 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 						if (!err) {
 							
 							// test value
-							if (!aFilter->lookup(kTTSym_value, valueFilter))
-								resultValue = valueFilter == v;
+							if (!aFilter->lookup(kTTSym_value, valueFilter)) {
+                                
+                                // special case for tag attribute : just check if one element of the value to filter exist in the tag
+                                if (attributeFilter == kTTSym_tags) {
+                                    
+                                    for (TTUInt32 i = 0; i < valueFilter.size(); i++) {
+                                        
+                                        TTSymbol tagFilter = valueFilter[i];
+                                        
+                                        for (TTUInt32 j = 0; j < v.size(); j++) {
+                                            
+                                            TTSymbol aTag = v[j];
+                                            
+                                            resultValue = aTag == tagFilter;
+                                            
+                                            if (resultValue)
+                                                break;
+                                        }
+                                        
+                                        if (resultValue)
+                                            break;
+                                    }
+                                }
+                                
+                                // compare the whole value
+                                else
+                                    resultValue = valueFilter == v;
+                            }
 						}
 					}
 				}

@@ -6,7 +6,7 @@
  *
  * @details
  *
- * @authors Laurent Garnier, Théo de la Hogue
+ * @author Laurent Garnier, Théo de la Hogue
  *
  * @copyright © 2011, Laurent Garnier, Théo de la Hogue @n
  * This code is licensed under the terms of the "New BSD License" @n
@@ -58,6 +58,7 @@ mSelectedApplication(kTTSymEmpty)
 	addAttribute(Activity, kTypeBoolean);
 
 	addMessageWithArguments(ApplicationRegister);
+    addMessageWithArguments(ApplicationRename);
 	addMessageWithArguments(ApplicationUnregister);
     addMessageWithArguments(ApplicationSelect);
     addMessage(ApplicationSelectLocal);
@@ -95,9 +96,10 @@ TTErr Protocol::setApplicationManager(const TTValue& value)
 
 TTErr Protocol::ApplicationRegister(const TTValue& inputValue, TTValue& outputValue)
 {
+    TTObject    application;
 	TTSymbol	parameterName;
 	TTHashPtr	applicationParameters;
-	TTValue		v, parameterNames, none;
+	TTValue		v, parameterNames, out, none;
 	TTErr		err;
     
     // update local application name
@@ -112,7 +114,7 @@ TTErr Protocol::ApplicationRegister(const TTValue& inputValue, TTValue& outputVa
             
             // Check the application is not already registered
             err = mApplicationParameters.lookup(mSelectedApplication, v);
-            
+                
             if (err) {
                 
                 applicationParameters = new TTHash();
@@ -126,7 +128,60 @@ TTErr Protocol::ApplicationRegister(const TTValue& inputValue, TTValue& outputVa
                 
                 // add the parameters table into mApplicationParameters
                 v = TTValue((TTPtr)applicationParameters);
-                return mApplicationParameters.append(mSelectedApplication, v);
+                mApplicationParameters.append(mSelectedApplication, v);
+                
+                // optionnaly format the application type depending on the protocol features
+                // (if the application is already registered into the application manager)
+                err = mApplicationManager.send("ApplicationFind", mSelectedApplication, out);
+                
+                if (!err) {
+                        
+                    application = out[0];
+                    
+                    // for none local application
+                    if (mSelectedApplication != mLocalApplicationName) {
+                        
+                        // setup the application type depending of the discovering feature of the protocol
+                        if (mDiscover || mDiscoverAll)
+                            application.set("type", kTTSym_mirror);
+                        else
+                            application.set("type", kTTSym_proxy);
+                    }
+                }
+                
+                return kTTErrNone;
+            }
+        }
+    }
+	
+	return kTTErrGeneric;
+}
+
+TTErr Protocol::ApplicationRename(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (inputValue.size() == 2) {
+        
+        if (inputValue[0].type() == kTypeSymbol && inputValue[1].type() == kTypeSymbol) {
+            
+            TTValue		v;
+            TTErr		err;
+            
+            TTSymbol    oldApplicationName = inputValue[0];
+            TTSymbol    newApplicationName = inputValue[1];
+    
+            // Check there is application registered under the old name
+            err = mApplicationParameters.lookup(oldApplicationName, v);
+                    
+            if (!err) {
+                
+                mApplicationParameters.remove(oldApplicationName);
+                mApplicationParameters.append(newApplicationName, v);
+                
+                // update local application name
+                mApplicationManager.get("applicationLocalName", v);
+                mLocalApplicationName = v[0];
+                
+                return kTTErrNone;
             }
         }
     }
@@ -137,7 +192,7 @@ TTErr Protocol::ApplicationRegister(const TTValue& inputValue, TTValue& outputVa
 TTErr Protocol::ApplicationUnregister(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTHashPtr	applicationParameters;
-	TTValue		v, parameterNames;
+	TTValue		v, none;
 	TTErr		err;
     
     // update local application name
@@ -154,6 +209,8 @@ TTErr Protocol::ApplicationUnregister(const TTValue& inputValue, TTValue& output
             err = mApplicationParameters.lookup(mSelectedApplication, v);
             
             if (!err) {
+                
+                Stop(mSelectedApplication, none);
                 
                 applicationParameters = TTHashPtr((TTPtr)v[0]);
                 delete applicationParameters;
@@ -540,7 +597,7 @@ TTErr ProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data)
 void ProtocolLib::getProtocolNames(TTValue& protocolNames)
 {
 	protocolNames.clear();
-	protocolNames.append(TTSymbol("Minuit"));
+	protocolNames.append(TTSymbol("MIDI"));
 	protocolNames.append(TTSymbol("OSC"));
     protocolNames.append(TTSymbol("WebSocket"));
     /*

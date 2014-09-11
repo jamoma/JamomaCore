@@ -22,7 +22,7 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mName(kTTSymEmpty),
-mDescription(kTTSym_none),
+mDescription("something about this cue"),
 mRamp(0),
 mAddress(kTTAdrsRoot)
 {
@@ -327,7 +327,7 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 	if (aSelection) {
 		
 		Clear();
-		
+
 		// 1. Append a cue flag with the name
 		v = TTValue(TTSymbol("cue"));
 		v.append(mName);
@@ -337,8 +337,12 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 		v = TTValue(TTSymbol("description"));
 		v.append(mDescription);
 		mScript.send("AppendFlag", v, parsedLine);
+        
+        // 3. Append a comment line
+		v = TTValue(TTSymbol("###########################################"));
+		mScript.send("AppendComment", v, parsedLine);
 		
-		// 3. Process namespace storage from the mAddress
+		// 4. Process namespace storage from the mAddress
         // (but others directories are handled too. see in processStore)
         if (mAddress != kTTAdrsRoot)
             if (aSelection->find(mAddress, & aSelection))
@@ -347,9 +351,21 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
         accessApplicationDirectoryFrom(mAddress)->getTTNode(mAddress, &aNode);
         
         processStore(mScript, aSelection, aNode);
+        
+        // 5. Append an empty comment line
+        v.clear();
+		mScript.send("AppendComment", v, parsedLine);
+        
+        // 6. Append a comment line at the end
+		v = TTValue(TTSymbol("###########################################"));
+		mScript.send("AppendComment", v, parsedLine);
 		
-		// 5. Process ramp
+		// 7. Process ramp
 		if (mRamp) setRamp(mRamp);
+        
+        // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
+        // but we should review all the #TTCue and #TTScript architecture to improve this
+        mScript.send("Flatten");
 		
 		return kTTErrNone;
 	}
@@ -844,6 +860,10 @@ TTErr TTCue::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer += mAddress->getCString();
 	*buffer += "\n";
 	*/
+    
+    // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
+    // but we should review all the #TTCue and #TTScript architecture to improve this
+    mScript.send("Flatten");
 	
 	// use WriteAsText of the script
 	v = TTValue(mScript);
@@ -860,16 +880,54 @@ TTErr TTCue::ReadFromText(const TTValue& inputValue, TTValue& outputValue)
     if (!aTextHandler)
 		return kTTErrGeneric;
     
+	TTDictionaryBasePtr line;
 	TTValue	v;
 
 	// if it is the first line :
 	if (aTextHandler->mFirstLine)
 		Clear();
+    
+    if (aTextHandler->mLine->size() == 0)
+        return kTTErrGeneric;
+    
+    // if needed : parse the buffer line into TTDictionary
+    if ((*(aTextHandler->mLine))[0].type() != kTypePointer) {
+        
+        line = TTScriptParseLine(*(aTextHandler->mLine));
+        
+        if (line)
+            
+            // replace the buffer line value by the parsed line dictionary
+            aTextHandler->mLine = new TTValue((TTPtr)line);
+    }
+    else
+        line = TTDictionaryBasePtr((TTPtr)aTextHandler->mLine[0]);
+    
+    // match description or tag flag lines :
+    if (line->getSchema() == kTTSym_flag) {
+        
+        line->lookup(kTTSym_name, v);
+        TTSymbol flagName = v[0];
+        
+        if (flagName == TTSymbol("description")) {
+            
+            // get description
+            if (!line->getValue(v)) {
+                
+                mDescription = v[0];
+            }
+        }
+    }
 	
 	// use ReadFromText of the script
 	v = TTValue(mScript);
 	aTextHandler->setAttributeValue(kTTSym_object, v);
 	aTextHandler->sendMessage(TTSymbol("Read"));
+    
+    // théo - since the workshop in june 2014 in Albi we decide to force the script to be flattened
+    // but we should review all the #TTCue and #TTScript architecture to improve this
+    if (aTextHandler->mLastLine)
+        mScript.send("Flatten");
 	
 	return kTTErrNone;
 }

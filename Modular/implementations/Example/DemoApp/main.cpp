@@ -251,7 +251,7 @@ DemoApp::Setup()
     }
     
     
-	TTLogMessage("\n*** Creation of myDemoApp datas ***\n");
+	TTLogMessage("\n*** Creation and registration of datas into myDemoApp ***\n");
     /////////////////////////////////////////////////////////
     
     // Create a parameter data and set its callback function and baton and some attributes
@@ -328,6 +328,18 @@ DemoApp::Setup()
         address = out[0];
         TTLogMessage("\n /myReturn : effective registration address is %s \n", address.c_str());
     }
+    
+    TTLogMessage("\n*** Exploration of i-score ***\n");
+    /////////////////////////////////////////////////////////
+
+    // Explore the namespace of the i-score application (i-score have to be opened and configured with a Minuit "demo" device)
+    //mApplicationRemote.send("DirectoryBuild");
+    
+    TTLogMessage("\n*** Control of i-score ***\n");
+    /////////////////////////////////////////////////////////
+    
+    v = TTValue("/Main:externalTick", 1);
+    mApplicationRemote.send("ObjectSend", v, out);
 }
 
 void

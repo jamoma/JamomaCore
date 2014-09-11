@@ -59,7 +59,10 @@ private:
 	TTErr	Clear();
 	
 	/** */
-	TTErr	Store(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	New(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** */
+    TTErr   Update(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
@@ -80,7 +83,7 @@ private:
 	TTErr	Move(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
-	TTErr	Remove(const TTValue& inputValue, TTValue& outputValue);
+	TTErr	Delete(const TTValue& inputValue, TTValue& outputValue);
     
     /** Reorder the preset list*/
 	TTErr	Order(const TTValue& inputValue, TTValue& outputValue);

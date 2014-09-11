@@ -77,9 +77,6 @@ TTExplorer::~TTExplorer()
 	delete mFilterBank;
 	delete mFilterList;
 	delete mResult;
-	
-	// unregister from the namespace
-	setNamespace(kTTSymEmpty);
 }
 
 TTErr TTExplorer::setNamespace(const TTValue& value)
@@ -192,7 +189,7 @@ TTErr TTExplorer::bindAddress()
 			// observe any creation or destruction below the address
 			mAddressObserver = TTObject("callback");
 			
-			mAddressObserver.set(kTTSym_baton, TTObject(this));
+			mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 			mAddressObserver.set(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
 			
 			if (mDepth)
@@ -227,7 +224,7 @@ TTErr TTExplorer::bindApplication()
 		
 		mApplicationObserver = TTObject("callback");
 		
-		mApplicationObserver.set(kTTSym_baton, TTObject(this));
+		mApplicationObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 		mApplicationObserver.set(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
 		
 		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
@@ -861,9 +858,8 @@ TTErr TTExplorerDirectoryCallback(const TTValue& baton, const TTValue& data)
 	TTNodePtr		aNode;
 	TTUInt8			flag;
 		
-	// Unpack baton
-    o = baton[0];
-    anExplorer = (TTExplorerPtr)o.instance();
+	// Unpack baton (#TTExplorerPtr)
+    anExplorer = TTExplorerPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
@@ -954,16 +950,14 @@ TTErr TTExplorerDirectoryCallback(const TTValue& baton, const TTValue& data)
 
 TTErr TTExplorerApplicationManagerCallback(const TTValue& baton, const TTValue& data)
 {
-    TTObject        o;
 	TTExplorerPtr	anExplorer;
 	TTSymbol		anApplicationName;
 	TTObject        anApplication;
 	TTValue			v;
 	TTUInt8			flag;
-	
-	// unpack baton (a TTExplorer)
-    o = baton[0];
-	anExplorer = (TTExplorerPtr)o.instance();
+    
+    // Unpack baton (#TTExplorerPtr)
+    anExplorer = TTExplorerPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];

@@ -1,0 +1,26 @@
+#defines:
+#  - TT_PROTOCOL_DEBUG
+
+sources:
+  - ../../library/ProtocolLib/Protocol.cpp		
+  - source/MIDI.cpp
+  - source/MIDIInput.cpp
+    
+includes:
+  - "."
+  - "includes"
+  - "../../../Graph/extensions/MidiLib/portmidi/pm_common"
+  - "../../library/ProtocolLib"
+  - "../../../Foundation/library/includes"
+
+libraries:
+  - FOUNDATION
+  - mac "../../../Graph/extensions/MidiLib/portmidi/libportmidi-jamoma.a"
+  - win "../../../Graph/extensions/MidiLib/portmidi/pm_win_static_lib/Release_/libportmidi_s_jamoma.lib"
+  - win winmm.lib
+
+frameworks:
+  - CoreMIDI
+  - CoreFoundation
+  - CoreAudio
+  - Carbon
