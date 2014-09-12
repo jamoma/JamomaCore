@@ -701,7 +701,7 @@ TTErr TTScript::DumpFlattened()
 {
     TTDictionaryBasePtr	aLine;
 	TTAddress       address;
-    TTSymbol        unit;
+    TTSymbol        unit, schema;
 	TTValue			v, valueToDump, none;
     TTUInt32		ramp;
     
