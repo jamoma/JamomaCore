@@ -461,7 +461,7 @@ TTErr TTScript::RunCommand(const TTValue& inputValue, TTValue& outputValue)
 	TTDictionaryBasePtr	aLine;
 	TTNodePtr		aNode;
 	TTAddress       address, addressToRun;
-    TTSymbol        attribute;
+    TTSymbol        attribute, schema;
 	TTObject        anObject;
 	TTValue			v, none;
     TTErr           err;
@@ -477,7 +477,10 @@ TTErr TTScript::RunCommand(const TTValue& inputValue, TTValue& outputValue)
             
             aLine = TTDictionaryBasePtr((TTPtr)mFlattenedLines->current()[0]);
             
-            // note : Flattened lines are only command with absolute address
+            // in flatten mode there is no subscript so only run command line
+            schema = aLine->getSchema();
+            if (schema != kTTSym_command)
+                continue;
             
             // get the target address
             aLine->lookup(kTTSym_target, v);
@@ -538,6 +541,7 @@ TTErr TTScript::RemoveCommand(const TTValue& inputValue, TTValue& outputValue)
 	TTValue			v;
     TTInt8          depthDifference;
     TTList          linesToRemove;
+    TTSymbol        schema;
     TTAddressComparisonFlag	comp;
     
     if (inputValue.size() == 1) {
@@ -549,7 +553,10 @@ TTErr TTScript::RemoveCommand(const TTValue& inputValue, TTValue& outputValue)
             
             aLine = TTDictionaryBasePtr((TTPtr)mFlattenedLines->current()[0]);
             
-            // note : Flattened lines are only command with absolute address
+            // in flatten mode there is no subscript so only run command line
+            schema = aLine->getSchema();
+            if (schema != kTTSym_command)
+                continue;
             
             // get the target address
             aLine->lookup(kTTSym_target, v);
@@ -694,7 +701,7 @@ TTErr TTScript::DumpFlattened()
 {
     TTDictionaryBasePtr	aLine;
 	TTAddress       address;
-    TTSymbol        unit;
+    TTSymbol        unit, schema;
 	TTValue			v, valueToDump, none;
     TTUInt32		ramp;
     
@@ -703,7 +710,10 @@ TTErr TTScript::DumpFlattened()
         
         aLine = TTDictionaryBasePtr((TTPtr)mFlattenedLines->current()[0]);
         
-        // note : Flattened lines are only command with absolute address
+        // in flatten mode there is no subscript so only run command line
+        schema = aLine->getSchema();
+        if (schema != kTTSym_command)
+            continue;
         
         // get command value
         aLine->getValue(valueToDump);
@@ -739,7 +749,7 @@ TTErr TTScript::DumpLine(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr	aLine;
     TTAddress       address, addressToDump;;
-    TTSymbol        unit;
+    TTSymbol        unit, schema;
     TTValue			v, valueToDump, none;
     TTUInt32		ramp;
     TTInt8          depthDifference;
@@ -754,7 +764,10 @@ TTErr TTScript::DumpLine(const TTValue& inputValue, TTValue& outputValue)
             
             aLine = TTDictionaryBasePtr((TTPtr)mFlattenedLines->current()[0]);
             
-            // note : Flattened lines are only command with absolute address
+            // in flatten mode there is no subscript so only run command line
+            schema = aLine->getSchema();
+            if (schema != kTTSym_command)
+                continue;
             
             // get the target address
             aLine->lookup(kTTSym_target, v);
