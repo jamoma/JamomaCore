@@ -718,10 +718,8 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
                 
                 // TODO : how to allow to choose what to create when learning ?
                 
-                // initialize the value with a default 0. value
-                aData.set("valueDefault", 0.);
-                
-                aData.send("Init");
+                // initialize the value with the incoming value
+                aData.set("value", *newValue);
             }
             
             return kTTErrNone;
