@@ -683,7 +683,6 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 	TTSymbol	type, protocolName;;
     TTList      aNodeList;
     TTNodePtr   aNode;
-    TTObject    aMirror;
     ProtocolPtr aProtocol;
     TTErr       err;
 	
@@ -712,9 +711,16 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
                 // instantiate Mirror object for distant application
                 appendMirrorObject(aProtocol, whereComesFrom, type, none);
             
-            if (mType == kTTSym_proxy)
+            if (mType == kTTSym_proxy) {
+                
                 // instantiate proxy Data object for distant application
-                appendProxyData(aProtocol, whereComesFrom, kTTSym_parameter);
+                TTObject aData = appendProxyData(aProtocol, whereComesFrom, kTTSym_parameter);
+                
+                // TODO : how to allow to choose what to create when learning ?
+                
+                // initialize the value with the incoming value
+                aData.set("value", *newValue);
+            }
             
             return kTTErrNone;
         }
