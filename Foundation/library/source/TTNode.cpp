@@ -106,7 +106,7 @@ TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstan
 	TTString temp, t;
 	TTAddress	oldAddress;
 	TTAddress	newAaddress;
-	TTSymbol	old_key;
+	TTAddress	old_key;
 	TTHashPtr p_ht_i;
 	TTNodePtr n_c;
 
@@ -171,7 +171,7 @@ TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstan
 					this->directory->getDirectory()->remove(old_key);
 
 					// append the new key
-					this->directory->getDirectory()->append(TTSymbol(temp), n_c);
+					this->directory->getDirectory()->append(TTAddress(temp), n_c);
 				}
 			}
 		}
@@ -188,7 +188,7 @@ TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *
 	TTString temp, t;
 	TTAddress	oldAddress;
 	TTAddress	newAddress;
-	TTSymbol	old_key;
+	TTAddress	old_key;
 	TTHashPtr p_ht_i;
 	TTNodePtr n_c;
 
@@ -245,7 +245,7 @@ TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *
 					this->directory->getDirectory()->remove(old_key);
 
 					// append the new key
-					this->directory->getDirectory()->append(TTSymbol(temp), n_c);
+					this->directory->getDirectory()->append(TTAddress(temp), n_c);
 				}
 			}
 		}
