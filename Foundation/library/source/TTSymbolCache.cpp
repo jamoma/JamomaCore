@@ -259,6 +259,7 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_returnedValue					(("returnedValue"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Run                              (("Run"));
 TTFOUNDATION_EXPORT TTSymbol        kTTSym_running                      (("running"));
 
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_SelectionRefresh             (("SelectionRefresh"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Send                             (("Send"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_script                           (("script"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_service                          (("service"));
