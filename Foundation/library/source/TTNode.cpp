@@ -10,7 +10,7 @@
 
 #include "TTNode.h"
 
-TTNode::TTNode(TTSymbol aName, TTSymbol anInstance, TTObject anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
+TTNode::TTNode(TTSymbol& aName, TTSymbol& anInstance, TTObject& anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
 	parent(NULL)
 {
     name = aName;
@@ -98,7 +98,7 @@ TTNode::~TTNode()
 	this->context = NULL;
 }
 
-TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstanceCreated)
+TTErr TTNode::setName(TTSymbol& aName, TTSymbol& newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
 	TTUInt32 i;
@@ -180,7 +180,7 @@ TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstan
 	return kTTErrNone;
 }
 
-TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *newInstanceCreated)
+TTErr TTNode::setInstance(TTSymbol& anInstance, TTSymbol& newInstance, TTBoolean *newInstanceCreated)
 {
 	TTErr err;
 	TTUInt32 i;
@@ -256,8 +256,9 @@ TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *
 
 TTErr TTNode::setParent(TTAddress parentAddress, TTBoolean *newParentCreated)
 {
-	TTValue	found;
-	TTErr	err;
+	TTValue     found;
+    TTObject    empty;
+	TTErr       err;
 
 	// look into the hashtab to check if the address exist in the directory
 	err = this->directory->getDirectory()->lookup(parentAddress, found);
@@ -266,7 +267,7 @@ TTErr TTNode::setParent(TTAddress parentAddress, TTBoolean *newParentCreated)
 	if (err == kTTErrValueNotFound) {
 
 		// we create a container TTNode
-		this->directory->TTNodeCreate(parentAddress, NULL, NULL, &this->parent, newParentCreated);
+		this->directory->TTNodeCreate(parentAddress, empty, NULL, &this->parent, newParentCreated);
 
 		// Is it a good test ?
 		if (*newParentCreated && (this->parent->instance != NO_INSTANCE))
@@ -337,12 +338,12 @@ TTErr TTNode::setContext(TTPtr aContext)
 
 
 
-TTSymbol TTNode::getName()
+TTSymbol& TTNode::getName()
 {
 	return this->name;
 }
 
-TTSymbol TTNode::getInstance()
+TTSymbol& TTNode::getInstance()
 {
 return this->instance;
 }
@@ -352,7 +353,7 @@ TTNodePtr TTNode::getParent()
 return this->parent;
 }
 
-TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedChildren)
+TTErr TTNode::getChildren(TTSymbol& aName, TTSymbol& anInstance, TTList& returnedChildren)
 {
 	unsigned int i, j;
 	TTErr err;
@@ -475,7 +476,7 @@ TTErr TTNode::getChildrenName(TTList& returnedChildrenName)
 	return kTTErrNone;
 }
 
-TTErr TTNode::getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstance)
+TTErr TTNode::getChildrenInstance(TTSymbol& aName, TTList& returnedChildrenInstance)
 {
 	unsigned int j;
 	TTErr err;
@@ -629,7 +630,7 @@ TTErr TTNode::getAddress(TTAddress& returnedAddress, TTAddress from)
 	return kTTErrGeneric;
 }
 
-TTErr TTNode::generateInstance(TTSymbol childName, TTSymbol& newInstance)
+TTErr TTNode::generateInstance(TTSymbol& childName, TTSymbol& newInstance)
 {
 	TTErr err;
 	unsigned int i;

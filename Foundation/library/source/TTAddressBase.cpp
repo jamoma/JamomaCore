@@ -40,7 +40,7 @@ TTAddressBase::~TTAddressBase()
 	;
 }
 
-TTSymbol TTAddressBase::getDirectory()
+TTSymbol& TTAddressBase::getDirectory()
 {
 	if (!parsed)
 		parse();
@@ -54,21 +54,21 @@ TTAddressBase* TTAddressBase::getParent()
 	return parent;
 }
 
-TTSymbol TTAddressBase::getName()
+TTSymbol& TTAddressBase::getName()
 {
 	if (!parsed)
 		parse();
 	return name;
 }
 
-TTSymbol TTAddressBase::getInstance()
+TTSymbol& TTAddressBase::getInstance()
 {
 	if (!parsed)
 		parse();
 	return instance;
 }
 
-TTSymbol TTAddressBase::getAttribute()
+TTSymbol& TTAddressBase::getAttribute()
 {
 	if (!parsed)
 		parse();
@@ -82,7 +82,7 @@ TTAddressType TTAddressBase::getType()
 	return type;
 }
 
-TTSymbol	TTAddressBase::getNameInstance()
+TTSymbol TTAddressBase::getNameInstance()
 {
 	TTSymbol nameInstanceSymbol = this->getName();
 	TTString nameInstance = nameInstanceSymbol.c_str();
