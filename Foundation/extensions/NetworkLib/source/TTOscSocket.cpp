@@ -18,7 +18,7 @@ TTPtr TTOscSocketListener(TTPtr anArgument)
     
     } catch (const std::runtime_error& error) {
     
-        TTLogError("TTOscSocketListener -- error when intantiating udp listening on port %ld : %s\n", anOscSocket->mPort, error.what());
+        TTLogError("TTOscSocketListener -- error when instantiating udp listening on port %ld : %s\n", anOscSocket->mPort, error.what());
         return NULL;
     }
 

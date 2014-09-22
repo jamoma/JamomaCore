@@ -492,6 +492,9 @@ TTErr TTApplicationManager::ProtocolRelease(const TTValue& inputValue, TTValue& 
 
             if (!mProtocols.lookup(protocolName, v)) {
                 
+                TTObject aProtocol = v[0];
+                aProtocol.send("Stop");
+                
                 mProtocols.remove(protocolName);
                 
                 TTLogMessage("%s protocol released\n", protocolName.c_str());
