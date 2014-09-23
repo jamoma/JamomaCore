@@ -18,6 +18,7 @@
 #define __SCHEDULER_H__
 
 #include "TTFoundationAPI.h"
+#include <atomic>
 
 #define SCHEDULER_CONSTRUCTOR \
 TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {return new thisTTClass (arguments);} \
@@ -58,7 +59,7 @@ protected:
     TTFloat64                       mSpeed;                 ///< ATTRIBUTE : the speed factor of the scheduler
     TTBoolean                       mExternalTick;          ///< ATTRIBUTE : if true the Tick message comes from an external source
     
-    TTBoolean                       mRunning;               ///< ATTRIBUTE : is the scheduler running right now ?
+    std::atomic_bool                mRunning;				///< ATTRIBUTE : is the scheduler running right now ?
     TTBoolean                       mPaused;                ///< ATTRIBUTE : is the scheduler paused right now ?
     TTFloat64                       mPosition;              ///< ATTRIBUTE : the progression of the scheduler between the beginning and the end [0. :: 1.]
     TTFloat64                       mDate;                  ///< ATTRIBUTE : how many time the scheduler is running (without no speed factor consideration)

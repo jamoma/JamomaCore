@@ -33,8 +33,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_System(void)
 }
 
 SCHEDULER_CONSTRUCTOR,
-mGranularity(20.0),
-mThread(NULL)
+mGranularity(20.0)
 {	
 	SCHEDULER_INITIALIZE
     
@@ -43,14 +42,7 @@ mThread(NULL)
 
 System::~System()
 {
-    // if a thread is running
-    if (mThread) {
-        
-        // stop thread execution
-		mThread->wait();
-        delete mThread;
-        mThread = NULL;
-    }
+	stopThread();
 }
 
 TTErr System::getParameterNames(TTValue& value)
@@ -65,10 +57,11 @@ TTErr System::getParameterNames(TTValue& value)
 
 TTErr System::Go()
 {
+	TTLogError("** System::Go() CALLED **\r\n");
     // do we need to ramp at all ?
     if (mDuration <= mOffset) {
-        
-        mRunning = NO;
+        stopThread();
+        mRunning.store(false);
         mPaused = NO;
         mPosition = 0.;
         mDate = 0.;
@@ -76,28 +69,30 @@ TTErr System::Go()
         (mCallback)(mBaton, mPosition, mDate);
         
         // notify each observers
-        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning.load());
         sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
     }
     else if (mExternalTick) {
         
         // reset timing informations
-        mRunning = YES;
+        mRunning.store(true);
         mPaused = NO;
         mLastTime = 0.;
         
         // notify each observers
-        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning.load());
         
         // launch a first tick if the duration is valid
         if (mDuration > 0.)
             Tick();
     }
     // if the thread is not running
-    else if (mThread == NULL) {
-        
+    else if (!mRunning.load()) {
+        if(mThread.joinable())
+			mThread.join();
+			
         // launch a new thread to run the scheduler execution
-        mThread = new TTThread(TTThreadCallbackType(&SystemThreadCallback), (TTPtr)this);
+        mThread = std::thread(&System::SystemThreadCallback, this);
     
     }
     
@@ -106,23 +101,19 @@ TTErr System::Go()
 
 TTErr System::Stop()
 {
-	mRunning = NO;
-    mPaused = NO;
-    
-    // if a thread is running
-    if (mThread) {
-        
-        // stop thread execution
-		mThread->wait();
-        delete mThread;
-        mThread = NULL;
-    
-        // notify each observers
-        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-    }
-    
-    // reset all time info
-    mOffset = 0.;
+	TTLogError("** System::Stop() CALLED **\r\n");
+
+	mPaused = NO;
+	
+	// stop thread execution
+	stopThread();
+	
+	// notify each observers
+	sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning.load());
+	
+	
+	// reset all time info
+	mOffset = 0.;
     mPosition = 0.;
     mDate = 0.;
     
@@ -132,7 +123,7 @@ TTErr System::Stop()
 TTErr System::Tick()
 {
     TTFloat64 delta = computeDeltaTime() * mSpeed;
-    
+
     if (mPaused)
         return kTTErrNone;
     
@@ -160,7 +151,7 @@ TTErr System::Tick()
         
         // if the scheduler is still running : stop it
         // note : because it  is possible another thread stop the scheduler before
-        if (mRunning)
+        if (mRunning.load())
             Stop();
     }
     
@@ -230,20 +221,40 @@ TTFloat64 System::computeDeltaTime()
 	return TTFloat64(deltaInUs / 1000.);
 }
 
-void SystemThreadCallback(void* anSystemScheduler)
+void System::SystemThreadCallback()
 {
-    SystemPtr aScheduler = SystemPtr(anSystemScheduler);
-    
+	TTLogError("** System::SystemThreadCallback() STARTED **\r\n");
     // reset timing informations
-    aScheduler->mRunning = YES;
-    aScheduler->mPaused = NO;
-    aScheduler->mLastTime = 0.;
+    mRunning.store(true);
+    mPaused = NO;
+    mLastTime = 0.;
     
     // notify each observers
-    aScheduler->sendNotification(TTSymbol("SchedulerRunningChanged"), aScheduler->mRunning);
+    sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning.load());
     
     // launch the tick if the duration is valid and while it have to run
-    if (aScheduler->mDuration > 0.)
-        while(aScheduler->mRunning)
-            aScheduler->Tick();
+    if (mDuration > 0.)
+        while(mRunning.load())
+			Tick();
+			
+	TTLogError("** System::SystemThreadCallback() ENDED **\r\n");
+}
+
+void System::stopThread()
+{
+	if(mRunning.load())
+	{
+		mRunning.store(false);
+		while(!mThread.joinable())
+			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		
+		try{
+		mThread.join();
+		}
+		catch(std::system_error& e)
+		{
+			TTLogError(e.what());
+			TTLogError("\n");
+		}
+	}
 }

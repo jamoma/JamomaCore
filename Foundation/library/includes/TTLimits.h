@@ -33,14 +33,8 @@ template<class T>
 static void TTZeroDenormal(T& value)
 {
 #ifndef TT_DISABLE_DENORMAL_FIX
-#ifdef TT_PLATFORM_WIN
-	// MSVC is not standards-compliant, which includes lack of support for C99's fpclassify()
-	value += kTTAntiDenormalValue;
-	value -= kTTAntiDenormalValue;
-#else // a good platform
 	if (!std::isnormal(value))
 		value = 0;
-#endif
 #endif
 }
 
@@ -232,16 +226,7 @@ static T TTFold(T value, T low_bound, T high_bound)
 		return value; //nothing to fold
 	else {
 		foldRange = 2 * fabs((double)low_bound - high_bound);
-#ifdef TT_PLATFORM_WIN
-		// The standard remainder() function is not present on Windows, so we do it ourselves.
-		double	v = value - low_bound;
-		double	d = v / foldRange;
-		long	n = TTRound(d);
-		double	r = v - n * foldRange;
-		return fabs(r);
-#else
 		return fabs(remainder(value - low_bound, foldRange)) + low_bound;
-#endif
 	}
 }
 
