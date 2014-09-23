@@ -23,7 +23,6 @@
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
 mActive(YES),
-mDirectory(NULL),
 mObjectCache(NULL)
 {
 	if (arguments.size() >= 1)
@@ -59,7 +58,7 @@ TTReceiver::~TTReceiver()
     // disable reception to avoid crash
     mActive = NO;
     
-    unbindAddress();
+    unbindAddress(accessApplicationDirectoryFrom(mAddress));
 	unbindApplication();
     
     delete mObjectCache;
@@ -67,24 +66,21 @@ TTReceiver::~TTReceiver()
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
 {
-    TTErr       err = kTTErrGeneric;
-    TTBoolean   memoActive = mActive;
+    TTNodeDirectoryPtr  aDirectory = accessApplicationDirectoryFrom(mAddress);
+    TTErr               err = kTTErrGeneric;
+    TTBoolean           memoActive = mActive;
     
     // disable reception to avoid crash
     mActive = NO;
     
-	unbindAddress();
+	unbindAddress(aDirectory);
 	unbindApplication();
 	
 	mAddress = newValue[0];
     
     if (mAddress != kTTAdrsEmpty) {
         
-        mDirectory = accessApplicationDirectoryFrom(mAddress);
-        if (mDirectory)
-            err = bindAddress();
-        else
-            err = bindApplication();
+        err = bindAddress(aDirectory);
     }
     
     // enable reception
@@ -230,7 +226,7 @@ TTErr TTReceiver::Grab(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTReceiver::bindAddress()
+TTErr TTReceiver::bindAddress(TTNodeDirectoryPtr aDirectory)
 {
 	TTAddress   anAddress;
 	TTSymbol    ttAttributeName;
@@ -238,8 +234,8 @@ TTErr TTReceiver::bindAddress()
 	TTNodePtr   aNode;
 	TTErr       err;
 	
-	if (!mDirectory)
-		return kTTErrGeneric;
+	if (!aDirectory)
+		return bindApplication();
 	
 	// for any attribute observation except created, destroyed
 	ttAttributeName = ToTTName(mAddress.getAttribute());
@@ -251,7 +247,7 @@ TTErr TTReceiver::bindAddress()
 	if ((ttAttributeName != kTTSym_created) && (ttAttributeName != kTTSym_destroyed))
 	{
 		// Look for node(s) into the directory
-		err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
+		err = aDirectory->Lookup(mAddress, aNodeList, &aNode);
 		
 		// Start attribute observation on each existing node of the selection
 		if (!err) {
@@ -274,7 +270,7 @@ TTErr TTReceiver::bindAddress()
 	mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	mAddressObserver.set(kTTSym_function, TTPtr(&TTReceiverDirectoryCallback));
 	
-	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
+	aDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	
 	return kTTErrNone;
 }
@@ -339,7 +335,7 @@ void TTReceiver::cacheNodeObserver(TTNodePtr aNode, TTAddress& anAddress, TTSymb
     }
 }
 
-TTErr TTReceiver::unbindAddress()
+TTErr TTReceiver::unbindAddress(TTNodeDirectoryPtr aDirectory)
 {
 	TTValue     oldElement;
 	TTNodePtr   aNode;
@@ -378,9 +374,9 @@ TTErr TTReceiver::unbindAddress()
         mObjectCache->clear();
 		
 		// stop life cycle observation
-		if (mAddressObserver.valid() && mDirectory) {
+		if (mAddressObserver.valid() && aDirectory) {
 			
-			mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
+			aDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
 			
 			mAddressObserver = TTObject();
 		}
@@ -433,8 +429,6 @@ TTErr TTReceiver::unbindApplication()
 		
 		mApplicationObserver = TTObject();
 	}
-	
-	mDirectory = NULL;
 	
 	return kTTErrNone;
 }
@@ -602,8 +596,7 @@ TTErr TTReceiverApplicationManagerCallback(const TTValue& baton, const TTValue& 
 			
 		case kApplicationInstantiated :
 		{
-			aReceiver->mDirectory = accessApplicationDirectoryFrom(aReceiver->mAddress);
-			aReceiver->bindAddress();
+			aReceiver->bindAddress(accessApplicationDirectoryFrom(aReceiver->mAddress));
 			break;
 		}
 			
@@ -621,7 +614,7 @@ TTErr TTReceiverApplicationManagerCallback(const TTValue& baton, const TTValue& 
 			
 		case kApplicationReleased :
 		{
-			aReceiver->unbindAddress();
+			aReceiver->unbindAddress(accessApplicationDirectoryFrom(aReceiver->mAddress));
 			break;
 		}
 			
