@@ -27,7 +27,7 @@
 /* Begin PBXLegacyTarget section */
 		8E30FD8218C8F55D0057739C /* Crossfade */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(CONFIGURATION) $(ACTION)";
+			buildArgumentsString = "$(ACTION)";
 			buildConfigurationList = 8E30FD8518C8F55D0057739C /* Build configuration list for PBXLegacyTarget "Crossfade" */;
 			buildPhases = (
 			);

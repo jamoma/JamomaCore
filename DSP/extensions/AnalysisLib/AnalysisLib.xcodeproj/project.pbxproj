@@ -153,7 +153,7 @@
 /* Begin PBXLegacyTarget section */
 		22F19FE414673EEA002CF320 /* AnalysisLib */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildArgumentsString = "$(ACTION)";
 			buildConfigurationList = 22F19FE714673EEA002CF320 /* Build configuration list for PBXLegacyTarget "AnalysisLib" */;
 			buildPhases = (
 			);
