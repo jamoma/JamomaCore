@@ -97,7 +97,7 @@
 /* Begin PBXLegacyTarget section */
 		A726F32B16BC584C00590514 /* SpatLib */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(CONFIGURATION) $(ACTION)";
+			buildArgumentsString = "$(ACTION)";
 			buildConfigurationList = A726F32E16BC584C00590514 /* Build configuration list for PBXLegacyTarget "SpatLib" */;
 			buildPhases = (
 			);

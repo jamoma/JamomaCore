@@ -47,7 +47,7 @@
 /* Begin PBXLegacyTarget section */
 		227B1E1D1466D942004BEDEA /* extension */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION) $(CONFIGURATION)";
+			buildArgumentsString = "$(ACTION)";
 			buildConfigurationList = 227B1E201466D942004BEDEA /* Build configuration list for PBXLegacyTarget "extension" */;
 			buildPhases = (
 			);

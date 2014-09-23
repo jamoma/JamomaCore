@@ -284,7 +284,7 @@ public:
     TTSymbol getAttributeType(const TTSymbol name);
 	
 	/** Get the getterFlags of an attribute
-		@param name					The name of the attribute that we are querying properies of.
+		@param name					The name of the attribute that we are querying properties of.
 		@param value					Pointer to attribute flags. Used for returning the result of the query.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
