@@ -865,12 +865,13 @@ TTErr TTApplication::ObjectRename(const TTValue& inputValue, TTValue& outputValu
                     TTSymbol    newInstance, effectiveNameInstance;
                     TTAddress   effectiveAddress;
                     
-                    aNode->setInstance(newNameInstance.getInstance(), newInstance, &newInstanceCreated);
-                    aNode->setName(newNameInstance.getName(), newInstance, &newInstanceCreated);
+                    aNode->setNameInstance(newNameInstance, newInstance, &newInstanceCreated);
                     
                     aNode->getAddress(effectiveAddress);
                     
                     outputValue = effectiveAddress.getNameInstance();
+                    
+                    return kTTErrNone;
                 }
             }
         }
