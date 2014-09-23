@@ -62,6 +62,7 @@ contentAttribute(NULL)
 	addMessageProperty(Send, hidden, YES);
 	
 	addMessage(Init);
+    addMessageWithArguments(Rename);                 // théo : this was a try to rename a container on the fly but in Max it is not changing the parameters address below
 	addMessage(AliasRemove);
 	
 	// needed to be handled by a TTTextHandler
@@ -281,6 +282,34 @@ TTErr TTContainer::initNode(TTNodePtr aNode)
     }
     
     return kTTErrNone;
+}
+
+TTErr TTContainer::Rename(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            TTSymbol    newNameInstance = inputValue[0];
+            TTAddress   oldAddress = mAddress;
+            TTValue     args(TTObject(this), newNameInstance), out;
+            
+            unbind();
+            
+            TTErr err = accessApplicationFrom(mAddress)->sendMessage("ObjectRename", args, out);
+            
+            if (!err)
+                newNameInstance = out[0];
+            
+            mAddress = oldAddress.getParent().appendAddress(TTAddress(newNameInstance));
+            
+            bind();
+            
+            return err;
+        }
+    }
+    
+    return kTTErrGeneric;
 }
 
 /** */
