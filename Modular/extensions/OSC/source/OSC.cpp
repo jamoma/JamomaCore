@@ -130,22 +130,32 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                 
                 TTValue     v;
                 TTObject    oscProtocol(this);
+                TTUInt16    port;
                 
                 // select local application to get its port parameter
                 ApplicationSelectLocal();
                 oscProtocol.get("port", v);
                 
-                mLocalApplicationOscReceiver.set("port", v);
+                port = v[0];
                 
-                // register for notification using our 'receivedMessage' method
-                mLocalApplicationOscReceiver.registerObserverForNotifications(oscProtocol);
+                err = mLocalApplicationOscReceiver.set("port", port);
                 
-                // wait to avoid strange crash when run and stop are called to quickly
-                mWaitThread->sleep(1);
+                if (!err) {
                 
-                mRunning = YES;
+                    // register for notification using our 'receivedMessage' method
+                    mLocalApplicationOscReceiver.registerObserverForNotifications(oscProtocol);
                 
-                return kTTErrNone;
+                    // wait to avoid strange crash when run and stop are called to quickly
+                    mWaitThread->sleep(1);
+                
+                    mRunning = YES;
+                    
+                    TTLogMessage("OSC::Run : connected to port %ld for local application\n", port);
+                
+                    return kTTErrNone;
+                }
+                else
+                    TTLogError("OSC::Run : unable to connect to port %ld for local application\n", port);
             }
         }
     }
@@ -193,17 +203,24 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                     
                     if (anOscReceiver.valid()) {
                         
-                        anOscReceiver.set("port", receptionPort);
+                        err = anOscReceiver.set("port", receptionPort);
                         
-                        // don't register for notification because we use callback mechanism
-                        
-                        // append the osc.receive to the table
-                        mDistantApplicationOscReceivers.append(applicationName, anOscReceiver);
-                        
-                        // wait to avoid strange crash when run and stop are called to quickly
-                        mWaitThread->sleep(1);
-                        
-                        return kTTErrNone;
+                        if (!err) {
+                            
+                            // don't register for notification because we use callback mechanism
+                            
+                            // append the osc.receive to the table
+                            mDistantApplicationOscReceivers.append(applicationName, anOscReceiver);
+                            
+                            // wait to avoid strange crash when run and stop are called to quickly
+                            mWaitThread->sleep(1);
+                            
+                            TTLogMessage("OSC::Run : connected to port %ld for %s application\n", receptionPort, applicationName.c_str());
+                            
+                            return kTTErrNone;
+                        }
+                        else
+                            TTLogError("OSC::Run : unable to connect to port %ld for %s application\n", receptionPort, applicationName.c_str());
                     }
                 }
             }
