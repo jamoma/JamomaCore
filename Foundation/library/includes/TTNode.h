@@ -85,21 +85,13 @@ public:
 	/** Destructor */
 	virtual ~TTNode ();
 
-	/** Set the name of the node
+	/** Set the name and the instance of the node
 		@details It maintains the directory and the directory
-		@param	newName					the name to set
-		@param	newInstance				the returned instance if a new have been created
+		@param	aNameInstance			#TTAddress name.instance to set
+		@param	newInstance				the returned #TTSymbol instance if a new have been created
 		@param	newInstanceCreated		true if a new instance have been created
 		@return	#TTErr 					an error code */
-	TTErr			setName(TTSymbol& name, TTSymbol& newInstance, TTBoolean *newInstanceCreated);
-
-	/** Set the instance of the node
-		@details It maintains the directory and the global hashtab
-		@param	instance				the instance to set
-		@param	newInstance				the returned instance if a new have been created
-		@param	newInstanceCreated		true if a new instance have been created
-		@return	#TTErr 					an error code */
-	TTErr			setInstance(TTSymbol& instance, TTSymbol& newInstance, TTBoolean *newInstanceCreated);
+	TTErr			setNameInstance(TTAddress& aNameInstance, TTSymbol& newInstance, TTBoolean *newInstanceCreated);
 
 	/** Set the parent of the node
 		@details This method ensure that the path to the node exist

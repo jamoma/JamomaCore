@@ -1290,11 +1290,8 @@ TTApplicationPtr TTApplicationManager::findApplication(TTSymbol applicationName)
         TTObject anApplication = v[0];
         return TTApplicationPtr(anApplication.instance());
     }
-    else {
-        
-        TTLogError("TTApplicationManager::findApplicationFrom : wrong application name\n");
+    else
         return NULL;
-    }
 }
 
 TTNodeDirectoryPtr TTApplicationManager::findApplicationDirectory(TTSymbol applicationName)
