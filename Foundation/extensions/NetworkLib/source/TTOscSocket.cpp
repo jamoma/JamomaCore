@@ -7,7 +7,8 @@
  */
 
 #include "TTOscSocket.h"
-
+#include <thread>
+#include <chrono>
 TTPtr TTOscSocketListener(TTPtr anArgument)
 {
 	TTOscSocketPtr anOscSocket= (TTOscSocketPtr) anArgument;

@@ -9,9 +9,7 @@
 #ifndef __TT_NETSOCKET_H__
 #define __TT_NETSOCKET_H__
 
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
+
 
 #ifndef TT_PLATFORM_WIN
 	#include <sys/socket.h>
@@ -19,7 +17,11 @@
 	#include <netinet/tcp.h>
 	#include <netdb.h>
 	#include <sys/types.h>
+    #include <unistd.h>
 #else
+    #ifndef WIN32_LEAN_AND_MEAN
+    #define WIN32_LEAN_AND_MEAN
+    #endif
 	#include <winsock2.h>
 	#include <WS2tcpip.h>
 #endif

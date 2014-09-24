@@ -26,13 +26,13 @@ mDuration(0.),
 mOffset(0.),
 mSpeed(1.),
 mExternalTick(NO),
+mRunning(NO),
 mPaused(NO),
 mPosition(0.),
 mDate(0.),
 mCallback(NULL),
 mBaton(NULL)
 {
-    mRunning.store(false);
     mCallback = SchedulerPositionCallback((TTPtr)arguments[0]);
     mBaton = arguments[1];
 	

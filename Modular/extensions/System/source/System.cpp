@@ -61,7 +61,7 @@ TTErr System::Go()
     // do we need to ramp at all ?
     if (mDuration <= mOffset) {
         stopThread();
-        mRunning.store(false);
+        mRunning = false;
         mPaused = NO;
         mPosition = 0.;
         mDate = 0.;
@@ -69,25 +69,25 @@ TTErr System::Go()
         (mCallback)(mBaton, mPosition, mDate);
         
         // notify each observers
-        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning.load());
+        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
         sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
     }
     else if (mExternalTick) {
         
         // reset timing informations
-        mRunning.store(true);
+        mRunning = true;
         mPaused = NO;
         mLastTime = 0.;
         
         // notify each observers
-        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning.load());
+        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
         
         // launch a first tick if the duration is valid
         if (mDuration > 0.)
             Tick();
     }
     // if the thread is not running
-    else if (!mRunning.load()) {
+    else if (!mRunning) {
         if(mThread.joinable())
 			mThread.join();
 			
@@ -109,7 +109,7 @@ TTErr System::Stop()
 	stopThread();
 	
 	// notify each observers
-	sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning.load());
+    sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
 	
 	
 	// reset all time info
@@ -151,7 +151,7 @@ TTErr System::Tick()
         
         // if the scheduler is still running : stop it
         // note : because it  is possible another thread stop the scheduler before
-        if (mRunning.load())
+        if (mRunning)
             Stop();
     }
     
@@ -203,11 +203,7 @@ TTFloat64 System::computeDeltaTime()
         
 		if (deltaInUs < granularityInUs) {
             
-			#ifdef TT_PLATFORM_WIN
-				Sleep((granularityInUs - deltaInUs) / 1000);
-			#else
-				usleep(granularityInUs - deltaInUs);
-			#endif
+            std::this_thread::sleep_for(std::chrono::microseconds(granularityInUs - deltaInUs));
             
 			deltaInUs = granularityInUs;
 		}
@@ -225,16 +221,16 @@ void System::SystemThreadCallback()
 {
 	TTLogError("** System::SystemThreadCallback() STARTED **\r\n");
     // reset timing informations
-    mRunning.store(true);
+    mRunning = true;
     mPaused = NO;
     mLastTime = 0.;
     
     // notify each observers
-    sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning.load());
+    sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
     
     // launch the tick if the duration is valid and while it have to run
     if (mDuration > 0.)
-        while(mRunning.load())
+        while(mRunning)
 			Tick();
 			
 	TTLogError("** System::SystemThreadCallback() ENDED **\r\n");
@@ -242,9 +238,9 @@ void System::SystemThreadCallback()
 
 void System::stopThread()
 {
-	if(mRunning.load())
+    if(mRunning)
 	{
-		mRunning.store(false);
+        mRunning = false;
 		while(!mThread.joinable())
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
 		
