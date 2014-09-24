@@ -548,6 +548,8 @@ TTErr WebSocket::SendGetAnswer(TTSymbol to, TTAddress address,
     
     // create JSonNode
     jsonNode = new JSONNode(JSON_NODE);
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
 	
 	// edit local app name and operation
 	if (!err) {
@@ -560,13 +562,16 @@ TTErr WebSocket::SendGetAnswer(TTSymbol to, TTAddress address,
         // if only value attribute to get, add it like this in json : <address> : <value>
         if (address.getAttribute() == kTTSym_value)
         {
-            addChildToJson(childNode, address.removeAttribute(), returnedValue);
+            addChildToJson(jsonNode, address.removeAttribute(), returnedValue);
         }
         // else like this : <address> : { ":type" : <type> }
         // TODO : do it for several attributes like this : <address> : { ":type" : <type>, ":value" : <value>, ":range" : <range> }
         else
         {
+            childNode = new JSONNode(JSON_NODE);
+            childNode->set_name(address.removeAttribute().c_str());
             addChildToJson(childNode, address.getAttribute(), returnedValue);
+            jsonNode->push_back(*childNode);
         }
 	}
 	else {
@@ -575,12 +580,12 @@ TTErr WebSocket::SendGetAnswer(TTSymbol to, TTAddress address,
         
         // TODO : send explicit error description
         childNode = new JSONNode(WEBSOCKET_JSON_ERROR, err);
+        jsonNode->push_back(*childNode);
 	}
     
     // append sender & operation to json
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
-    jsonNode->push_back(*childNode);
+    
+    //jsonNode->push_back(*childNode);
 	
 #ifdef TT_PROTOCOL_DEBUG
 		std::cout << "WebSocket : applicationSendGetAnswer" << std::endl;
