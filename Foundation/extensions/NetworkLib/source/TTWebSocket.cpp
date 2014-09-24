@@ -123,7 +123,13 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
     
     std::string s1 = data;
     std::string s2 = "set";
-    std::size_t found = s1.find(s2);
+    std::string s3 = "get";
+    std::string s4 = "namespace";
+    std::string s5 = "listen";
+    std::size_t found1 = s1.find(s2);
+    std::size_t found2 = s1.find(s3);
+    std::size_t found3 = s1.find(s4);
+    std::size_t found4 = s1.find(s5);
 
     if (flags & 0x80) {
         flags &= 0x7f;
@@ -136,16 +142,25 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
                 // store this connection to send back data
                 mLastConnection = conn;
                 
-                // if it is a set message, send to the other clients
-                if (found != std::string::npos)
+                // if it is an unknown message, send to the other clients
+                if (found1 == std::string::npos && found2 == std::string::npos && found3 == std::string::npos && found4 == std::string::npos)
                     for(i=0; i < CONNECTIONS; ++i) {
-                        if (ws_conn[i].conn)
+                        if (ws_conn[i].conn && i != wsd)
                             mg_websocket_write(ws_conn[i].conn, WEBSOCKET_OPCODE_TEXT, data, data_len);
                     }
-                
-                // send received datas to JamomaModular WebSocket plugin
-                receivedMessage = TTSymbol(data);
-                ((TTWebSocketPtr)(mg_get_request_info(conn)->user_data))->mOwner->sendMessage(TTSymbol("WebSocketReceive"), receivedMessage, kTTValNONE);
+                else
+                {
+                    // if it is a set message, send to the other clients
+                    if (found1 != std::string::npos)
+                        for(i=0; i < CONNECTIONS; ++i) {
+                            if (ws_conn[i].conn && i != wsd)
+                                mg_websocket_write(ws_conn[i].conn, WEBSOCKET_OPCODE_TEXT, data, data_len);
+                        }
+                    
+                    // send received datas to JamomaModular WebSocket plugin
+                    receivedMessage = TTSymbol(data);
+                    ((TTWebSocketPtr)(mg_get_request_info(conn)->user_data))->mOwner->sendMessage(TTSymbol("WebSocketReceive"), receivedMessage, kTTValNONE);
+                }
                 break;
             case WEBSOCKET_OPCODE_BINARY:
                 fprintf(stderr, "websocket receive BINARY...\n");

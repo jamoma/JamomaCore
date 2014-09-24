@@ -548,13 +548,14 @@ TTErr WebSocket::SendGetAnswer(TTSymbol to, TTAddress address,
     
     // create JSonNode
     jsonNode = new JSONNode(JSON_NODE);
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
 	
 	// edit local app name and operation
 	if (!err) {
 		localAppName = mLocalApplicationName.c_str();
 		operation = WEBSOCKET_ANSWER_GET;
+        
+        jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+        jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
         
         childNode = new JSONNode(JSON_NODE);
         childNode->set_name(address.removeAttribute().c_str());
@@ -578,14 +579,13 @@ TTErr WebSocket::SendGetAnswer(TTSymbol to, TTAddress address,
 		localAppName = mLocalApplicationName.c_str();
 		operation = WEBSOCKET_ERROR_GET;
         
+        jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+        jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+        
         // TODO : send explicit error description
         childNode = new JSONNode(WEBSOCKET_JSON_ERROR, err);
         jsonNode->push_back(*childNode);
 	}
-    
-    // append sender & operation to json
-    
-    //jsonNode->push_back(*childNode);
 	
 #ifdef TT_PROTOCOL_DEBUG
 		std::cout << "WebSocket : applicationSendGetAnswer" << std::endl;
