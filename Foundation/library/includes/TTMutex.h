@@ -13,10 +13,13 @@
 #ifdef TT_PLATFORM_MAC
 	#include <pthread.h>
 #endif
-
+#ifdef TT_PLATFORM_WIN
+#include <mutex>
+#endif
 /****************************************************************************************************/
 // Class Specification
 
+#ifndef TT_PLATFORM_WIN
 /**
 	The TTMutex class maintains a mutual exclusion lock.
 	See http://en.wikipedia.org/wiki/Mutex for more details.
@@ -37,8 +40,7 @@ public:
 	void unlock();
 };
 
-typedef TTMutex* TTMutexPtr;
-typedef TTMutex& TTMutexRef;
+
 
 
 /**	TTLock provides an exception-safe, scoped, mutex locking that cannot be left accidentally locked.
@@ -71,6 +73,36 @@ public:
 		delete mMutex;
 	}
 };
+#else // Windows, using the standard C++11 Mutex
 
+class TTMutex{
+// Ugly hack, one should do a make_mutex template that generates the correct type but this 
+// involves changing every mutex creation in Jamoma
+	std::mutex mutex;
+	std::recursive_mutex rmutex;
+	const bool recursive;
+	
+	public:
+	TTMutex(bool isRecursive):
+		recursive(isRecursive)
+		{
+		}
+		
+		void lock()
+		{
+			recursive ? rmutex.lock() : mutex.lock();
+		}
+		
+		void unlock()
+		{
+			recursive ? rmutex.unlock() : mutex.unlock();
+		}
+
+};
+
+#endif
+
+typedef TTMutex* TTMutexPtr;
+typedef TTMutex& TTMutexRef;
 
 #endif // __TT_MUTEX_H__

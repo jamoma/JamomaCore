@@ -78,7 +78,7 @@
 #endif
 
 #ifdef TT_PLATFORM_WIN
-	#include "windows.h"
+	//#include "windows.h"
 	#include <time.h>
 
 	#pragma warning(disable:4244) // to avoid possible data lost warning with MSVC

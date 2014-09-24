@@ -7,6 +7,9 @@
  */
 
 #include "TTUnitTest.h"
+#ifdef TT_PLATFORM_WIN
+#include <Windows.h>
+#endif
 
 
 //static const TTFloat32 kTTTestFloat32Epsilon = 0.00001f;

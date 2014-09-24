@@ -16,7 +16,9 @@
 #include "TTBase.h"
 #include "TTEnvironment.h"
 #include "MersenneTwister.h"	// Used for the TTRandom64 method
-
+#ifdef TT_PLATFORM_WIN
+#include <Windows.h>
+#endif
 
 const TTFloat64 kTTPi					= 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;
 const TTFloat64 kTTTwoPi				= kTTPi * 2.0;

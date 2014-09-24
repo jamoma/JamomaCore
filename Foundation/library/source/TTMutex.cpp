@@ -7,7 +7,7 @@
  */
 
 #include "TTMutex.h"
-
+#ifndef TT_PLATFORM_WIN
 
 /****************************************************************************************************/
 
@@ -53,4 +53,4 @@ void TTMutex::unlock()
 		pthread_mutex_unlock(&pMutex);
 	#endif
 }
-
+#endif

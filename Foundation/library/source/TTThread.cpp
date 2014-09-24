@@ -7,7 +7,7 @@
  */
 
 #include "TTThread.h"
-
+#ifndef TT_PLATFORM_WIN
 
 /****************************************************************************************************/
 
@@ -80,3 +80,4 @@ void* TTThread::doCallbackMethod()
 	else
 		return (void*)-1;
 }
+#endif
