@@ -22,7 +22,7 @@ include_directories("${PROJECT_SOURCE_DIR}/")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../library/ProtocolLib")
 include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
-
+include_directories("${PORTMIDI_INCLUDE_DIR}")
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
