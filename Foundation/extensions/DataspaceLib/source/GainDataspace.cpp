@@ -111,7 +111,7 @@ TT_OBJECT_CONSTRUCTOR
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(TT("unit.linear"),		TT("linear"));
-	registerUnit(TT("unit.midi.gain"),	TT("midi"));
+	registerUnit(TT("unit.midi.gain"),	TT("midigain"));
 	registerUnit(TT("unit.db"),			TT("dB"));
 	registerUnit(TT("unit.db"),			TT("db"));
 
