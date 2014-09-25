@@ -31,7 +31,8 @@ void TTAudioGraphSourceObserverCallback(TTAudioGraphSourcePtr self, TTValue& arg
 	// at the moment we only receive one callback, which is for the object being deleted
 	self->mSourceObject = NULL;
 	self->mOutletNumber = 0;
-	self->mOwner->drop(*self);
+	if (self->mOwner)
+		self->mOwner->drop(*self);
 }
 
 
@@ -93,21 +94,11 @@ TTAudioGraphSource& TTAudioGraphSource::operator=(const TTAudioGraphSource& orig
 {
 	mSourceObject = NULL;
 	mOutletNumber = 0;
-	mCallbackHandler = NULL;
 	mOwner = NULL;
-	
-	// TODO: We're probably leaking memory here, because mCallbackHandler is potentially never freed...
-	// However, if we don't NULL the mCallbackHandler
-	// then we end up with crashes when we do something like close a Max patcher after editing connections while running.
 	
 	create();
 	mOwner = original.mOwner;
-	
-	// TODO: evaluate if this is doing the correct thing:
-	// - we can copy the owner ptr for sure
-	// - we definitely can not copy the mCallbackHandler pointer
-	// - not certain about the mSourceObject
-	
+		
 	if (original.mSourceObject && original.mSourceObject->valid)
 		connect(original.mSourceObject, original.mOutletNumber);
 	
