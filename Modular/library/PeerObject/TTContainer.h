@@ -54,6 +54,12 @@ private:
 	/** */
 	TTErr Init();
     TTErr initNode(TTNodePtr aNode);
+    
+    /** Rename the container 
+     @param inputValue      a new name.instance #TTSymbol
+     @param outputValue     the effective #TTSymbol name.instance
+     @return #TTErr error code */
+    TTErr Rename(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** */
 	TTErr AliasRemove();

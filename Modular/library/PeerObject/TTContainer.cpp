@@ -62,6 +62,10 @@ contentAttribute(NULL)
 	addMessageProperty(Send, hidden, YES);
 	
 	addMessage(Init);
+    
+    addMessageWithArguments(Rename);
+    addMessageProperty(Rename, hidden, YES);
+    
 	addMessage(AliasRemove);
 	
 	// needed to be handled by a TTTextHandler
@@ -281,6 +285,34 @@ TTErr TTContainer::initNode(TTNodePtr aNode)
     }
     
     return kTTErrNone;
+}
+
+TTErr TTContainer::Rename(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            TTSymbol    newNameInstance = inputValue[0];
+            TTAddress   oldAddress = mAddress;
+            TTValue     args(TTObject(this), newNameInstance);
+            
+            unbind();
+            
+            TTErr err = accessApplicationFrom(mAddress)->sendMessage("ObjectRename", args, outputValue);
+            
+            if (!err)
+                newNameInstance = outputValue[0];
+            
+            mAddress = oldAddress.getParent().appendAddress(TTAddress(newNameInstance));
+            
+            bind();
+            
+            return err;
+        }
+    }
+    
+    return kTTErrGeneric;
 }
 
 /** */

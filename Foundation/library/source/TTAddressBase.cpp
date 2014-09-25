@@ -40,7 +40,7 @@ TTAddressBase::~TTAddressBase()
 	;
 }
 
-TTSymbol TTAddressBase::getDirectory()
+TTSymbol& TTAddressBase::getDirectory()
 {
 	if (!parsed)
 		parse();
@@ -54,21 +54,21 @@ TTAddressBase* TTAddressBase::getParent()
 	return parent;
 }
 
-TTSymbol TTAddressBase::getName()
+TTSymbol& TTAddressBase::getName()
 {
 	if (!parsed)
 		parse();
 	return name;
 }
 
-TTSymbol TTAddressBase::getInstance()
+TTSymbol& TTAddressBase::getInstance()
 {
 	if (!parsed)
 		parse();
 	return instance;
 }
 
-TTSymbol TTAddressBase::getAttribute()
+TTSymbol& TTAddressBase::getAttribute()
 {
 	if (!parsed)
 		parse();
@@ -82,7 +82,7 @@ TTAddressType TTAddressBase::getType()
 	return type;
 }
 
-TTSymbol	TTAddressBase::getNameInstance()
+TTSymbol TTAddressBase::getNameInstance()
 {
 	TTSymbol nameInstanceSymbol = this->getName();
 	TTString nameInstance = nameInstanceSymbol.c_str();
@@ -240,7 +240,25 @@ TTErr TTAddressBase::parse()
 	TTStringIter begin = s_toParse.begin();
 	TTStringIter end = s_toParse.end();
 
-	//cout << "*** s_toParse    " << s_toParse << "    ***" << endl;
+	// ignore addresses with special regex characters (like -, [, {) to avoid crash
+    // TODO : rewrite the parsing without regex because we want to use those special characters !
+    if (s_toParse.find_first_of('-') != -1 ||
+        s_toParse.find_first_of('{') != -1 ||
+        s_toParse.find_first_of('}') != -1 ||
+        s_toParse.find_first_of('[') != -1 ||
+        s_toParse.find_first_of(']') != -1)
+    {
+        this->directory = NO_DIRECTORY;
+		this->parent = NO_PARENT.getBasePointer();
+		this->name = NO_NAME;
+		this->instance = NO_INSTANCE;
+		this->attribute = NO_ATTRIBUTE;
+		this->type = kAddressRelative;
+		this->parsed = YES;
+        this->normalized = this;
+        return kTTErrGeneric;
+    }
+	
 
 	// parse directory
 	if (!ttRegexForDirectory->parse(begin, end))

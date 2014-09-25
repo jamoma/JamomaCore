@@ -402,7 +402,7 @@ TT_OBJECT_CONSTRUCTOR
 	registerUnit(TT("unit.bpm"),	TT("bpm"));
     registerUnit(TT("unit.cent"),	TT("cents"));
 	registerUnit(TT("unit.mel"),	TT("mel"));
-    registerUnit(TT("unit.midi"),	TT("midi"));
+    registerUnit(TT("unit.midi"),	TT("midipitch"));
 	registerUnit(TT("unit.ms"),		TT("ms"));
 	registerUnit(TT("unit.ms"),		TT("millisecond"));
 	registerUnit(TT("unit.rate"),	TT("fps"));

@@ -26,8 +26,13 @@ mFunction(NULL),
 mNotification(kTTSym_notify)
 {
 	addAttribute(Function, kTypePointer);
+    addAttributeProperty(Function, hidden, YES);
+    
 	addAttributeWithSetter(Baton, kTypeLocalValue);
+    addAttributeProperty(Baton, hidden, YES);
+    
     addAttributeWithSetter(Notification, kTypeSymbol);
+    addAttributeProperty(Notification, hidden, YES);
 	
     // by default the callback is sensitive to the kTTSym_notify notification sent from a TTObject
     registerMessage(mNotification, (TTMethod)& TTCallback::notify);

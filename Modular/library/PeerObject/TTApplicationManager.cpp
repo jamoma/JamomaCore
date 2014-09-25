@@ -176,6 +176,10 @@ TTErr TTApplicationManager::ApplicationInstantiateLocal(const TTValue& inputValu
             anApplication = TTObject(kTTSym_Application);
             anApplication.set(kTTSym_name, applicationName);
             
+            // register the application under its own root
+            v = TTValue(kTTAdrsRoot, anApplication);
+            anApplication.send("ObjectRegister", v, none);
+            
             // register the application as any application
             mApplications.append(applicationName, anApplication);
             
@@ -219,6 +223,10 @@ TTErr TTApplicationManager::ApplicationInstantiateDistant(const TTValue& inputVa
             // create an application
             anApplication = TTObject(kTTSym_Application);
             anApplication.set(kTTSym_name, applicationName);
+            
+            // register the application under its own root
+            v = TTValue(kTTAdrsRoot, anApplication);
+            anApplication.send("ObjectRegister", v, none);
             
             // register the application as any application
             mApplications.append(applicationName, anApplication);
@@ -269,6 +277,9 @@ TTErr TTApplicationManager::ApplicationRelease(const TTValue& inputValue, TTValu
                     aProtocol = v[0];
                     aProtocol.send("ApplicationUnregister", applicationName, none);
                 }
+                
+                // unregister the application from its own root
+                anApplication.send("ObjectUnregister", kTTAdrsRoot, none);
                 
                 // if the application is the local one : forget it
                 if (anApplication.instance() == mApplicationLocal.instance())
@@ -1279,11 +1290,8 @@ TTApplicationPtr TTApplicationManager::findApplication(TTSymbol applicationName)
         TTObject anApplication = v[0];
         return TTApplicationPtr(anApplication.instance());
     }
-    else {
-        
-        TTLogError("TTApplicationManager::findApplicationFrom : wrong application name\n");
+    else
         return NULL;
-    }
 }
 
 TTNodeDirectoryPtr TTApplicationManager::findApplicationDirectory(TTSymbol applicationName)

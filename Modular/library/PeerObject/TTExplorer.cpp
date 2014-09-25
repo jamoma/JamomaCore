@@ -396,7 +396,7 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 				anItem->setSelection(state, YES);
 				
 				// refresh all namespace handlers (TTExplorer only)
-                aSelection->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+                aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
                 
                 return kTTErrNone;
 			}
@@ -429,7 +429,7 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 			}
 			
 			// refresh all namespace handlers (TTExplorer only)
-            aSelection->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+            aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
             
             return kTTErrNone;
 		}
@@ -467,7 +467,7 @@ TTErr TTExplorer::SelectAll()
 		}
         
         // refresh all namespace handlers (TTExplorer only)
-        aSelection->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+        aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
         
         return kTTErrNone;
 	}
@@ -506,7 +506,7 @@ TTErr TTExplorer::SelectNone()
 		}
         
         // refresh all namespace handlers (TTExplorer only)
-        aSelection->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+        aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
         
         return kTTErrNone;
 	}
