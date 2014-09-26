@@ -1073,10 +1073,8 @@ void parseChildren(JSONNode* jsonNode, TTNodePtr ttNode, TTBoolean isFirstParsin
 	
     JSONNode* childNode = new JSONNode(JSON_NODE);
 	
-	// don't write the first node AppName in xml because already written in application xml header
-	// don't write the node name if is an instance, don't want it in xml file, replaced by dynamic instances attribute
-    if (strrchr(address, '.') == NULL)
-    {
+//    if (strrchr(address, '.') == NULL)
+//    {
 		// get the substring representing the last node name
         
         // address is only the root ("/")
@@ -1111,7 +1109,8 @@ void parseChildren(JSONNode* jsonNode, TTNodePtr ttNode, TTBoolean isFirstParsin
 			
 			if (param != NULL)
             {
-				addAttributeToJson(param, childNode, kTTSym_type);
+				addAttributeToJson(param, childNode, TTSymbol("type"));
+                addAttributeToJson(param, childNode, TTSymbol("service"));
 				addAttributeToJson(param, childNode, TTSymbol("valueDefault"));
 				addAttributeToJson(param, childNode, TTSymbol("rangeBounds"));
 				addAttributeToJson(param, childNode, TTSymbol("valueStepsize"));
@@ -1122,7 +1121,7 @@ void parseChildren(JSONNode* jsonNode, TTNodePtr ttNode, TTBoolean isFirstParsin
                 //				addAttributeToJson(param, childNode, TTSymbol("readonly"));
 			}
 		}
-	}
+//	}
 	
 	// repeat recursively for each child
 	for (childList.begin(); childList.end(); childList.next()) {
