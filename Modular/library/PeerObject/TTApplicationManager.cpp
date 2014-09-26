@@ -1027,7 +1027,7 @@ TTErr TTApplicationManager::WriteAsXml(const TTValue& inputValue, TTValue& outpu
 
 TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, TTObject aProtocol)
 {
-    TTSymbol  name;
+    TTSymbol  name, type;
     TTBoolean registered;
     TTValue   v, none, applicationNames, parametersNames;
     TTString  s;
@@ -1064,9 +1064,12 @@ TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, TTOb
             for (TTElementIter it2 = parametersNames.begin() ; it2 != parametersNames.end() ; it2++)
             {
                 name = TTElement(*it2);
+                type = aProtocol.attributeType(name);
+                
                 aProtocol.get(name, v);
-                v.toString();
+                v.toString(type != kTTSym_symbol);
                 s = TTString(v[0]);
+                
                 xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST name.c_str(), BAD_CAST s.data());
             }
             
@@ -1089,7 +1092,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		return kTTErrGeneric;
     
 	TTSymbol			applicationName, applicationType, currentApplicationName;
-    TTSymbol			protocolName, currentProtocolName, parameterName;
+    TTSymbol			protocolName, currentProtocolName, parameterName, parameterType;
 	TTValue				v, args, applicationNames, protocolNames, parameterValue, out, none;
     TTUInt16            i, j;
     TTErr               err;
@@ -1201,8 +1204,10 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
                         
                         parameterName = v[0];
                         
+                        parameterType = mCurrentProtocol.attributeType(parameterName);
+                        
                         // get parameter's value
-                        aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), parameterValue);
+                        aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), parameterValue, parameterType == kTTSym_symbol);
                         
                         // set parameter
                         mCurrentProtocol.set(parameterName, parameterValue);
