@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		46778A9119D8A8CD00E4A1AC /* NetworkingUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingUtils.cpp; sourceTree = "<group>"; };
+		46778A9219D8A8CD00E4A1AC /* UdpSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UdpSocket.cpp; sourceTree = "<group>"; };
 		469192F916A89BE7000A75A5 /* TTNetReceive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNetReceive.h; sourceTree = "<group>"; };
 		469192FA16A89BE7000A75A5 /* TTNetSend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNetSend.h; sourceTree = "<group>"; };
 		469192FB16A89BE7000A75A5 /* TTNetSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNetSocket.h; sourceTree = "<group>"; };
@@ -21,11 +23,9 @@
 		4691931016A89BEC000A75A5 /* TTOscSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOscSocket.cpp; sourceTree = "<group>"; };
 		46E71B7A19AB780200050A76 /* IpEndpointName.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IpEndpointName.cpp; sourceTree = "<group>"; };
 		46E71B7B19AB780200050A76 /* IpEndpointName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
-		46E71B7E19AB780200050A76 /* NetworkingUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingUtils.cpp; sourceTree = "<group>"; };
 		46E71B7F19AB780200050A76 /* NetworkingUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkingUtils.h; sourceTree = "<group>"; };
 		46E71B8219AB780200050A76 /* PacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PacketListener.h; sourceTree = "<group>"; };
 		46E71B8319AB780200050A76 /* TimerListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimerListener.h; sourceTree = "<group>"; };
-		46E71B8419AB780200050A76 /* UdpSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UdpSocket.cpp; sourceTree = "<group>"; };
 		46E71B8519AB780200050A76 /* UdpSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UdpSocket.h; sourceTree = "<group>"; };
 		46E71B8919AB780200050A76 /* MessageMappingOscPacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageMappingOscPacketListener.h; sourceTree = "<group>"; };
 		46E71B8A19AB780200050A76 /* OscException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscException.h; sourceTree = "<group>"; };
@@ -45,6 +45,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		46778A9019D8A8CD00E4A1AC /* posix */ = {
+			isa = PBXGroup;
+			children = (
+				46778A9119D8A8CD00E4A1AC /* NetworkingUtils.cpp */,
+				46778A9219D8A8CD00E4A1AC /* UdpSocket.cpp */,
+			);
+			path = posix;
+			sourceTree = "<group>";
+		};
 		469192F816A89BE7000A75A5 /* includes */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,12 +94,11 @@
 			children = (
 				46E71B7A19AB780200050A76 /* IpEndpointName.cpp */,
 				46E71B7B19AB780200050A76 /* IpEndpointName.h */,
-				46E71B7E19AB780200050A76 /* NetworkingUtils.cpp */,
 				46E71B7F19AB780200050A76 /* NetworkingUtils.h */,
 				46E71B8219AB780200050A76 /* PacketListener.h */,
 				46E71B8319AB780200050A76 /* TimerListener.h */,
-				46E71B8419AB780200050A76 /* UdpSocket.cpp */,
 				46E71B8519AB780200050A76 /* UdpSocket.h */,
+				46778A9019D8A8CD00E4A1AC /* posix */,
 			);
 			path = ip;
 			sourceTree = "<group>";
