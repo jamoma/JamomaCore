@@ -13,6 +13,16 @@ function(setExtensionSuffix)
 	endif()
 endFunction(setExtensionSuffix)
 
+## Set suffixes according to the conventions of the Jamoma project ##
+function(setExternalSuffix)
+	if(APPLE)
+		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES PREFIX "")
+		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".mxo")
+	elseif(WIN32)
+		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".mxe")
+	endif()
+endFunction(setExternalSuffix)
+
 ## Add Apple frameworks ##
 function(addAppleFramework FRAMEWORK_NAME)
 IF(APPLE)
@@ -44,6 +54,15 @@ function(addExtensions)
 	ENDFOREACH()
 endFunction()
 
+## Add max externals recursively ##
+function(addExternals)
+	SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
+	SET(IS_EXTERNAL 1)
+	FOREACH(subdir ${SUBDIRS})
+	    ADD_SUBDIRECTORY(${subdir})
+	ENDFOREACH()
+endFunction()
+
 
 ## Function to create test targets ##
 function(addTestTarget)
@@ -64,6 +83,9 @@ function(setOutput)
 	if(DEFINED IS_EXTENSION)
 		setExtensionSuffix()
 		INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")
+	elseif(DEFINED IS_EXTERNAL)
+		setExternalSuffix()
+		INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "externals")
 	else()
 		INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
 	endif()
