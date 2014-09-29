@@ -125,9 +125,9 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
                         testAssertionCount, 
                         errorCount);
 
-        // MIDI => second (2 tests at MIDI notes 57 and 69)
+        // midi note => second (2 tests at midi notes 57 and 69)
         
-        myDataspace.set(TT("inputUnit"), TT("midi"));
+        myDataspace.set(TT("inputUnit"), TT("midinote"));
         myDataspace.set(TT("outputUnit"), TT("second"));    
         
         v = TTValue(57.);
@@ -135,7 +135,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("MIDI note 57 to second", 
+        TTTestAssertion("midi note 57 to second",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
@@ -145,7 +145,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("MIDI note 69 to second", 
+        TTTestAssertion("midi note 69 to second",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
@@ -208,7 +208,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
                         errorCount);
         
         // speed => seconds
-        // Rather than checking this, there are tests for speed <=> midi further down
+        // Rather than checking this, there are tests for speed <=> midi note further down
         
         /************************************************/
         /*                                              */
@@ -282,17 +282,17 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
                         testAssertionCount, 
                         errorCount);
         
-        // Second => MIDI (2 tests at MIDI notes 57 and 69)
+        // Second => midi note (2 tests at midi notes 57 and 69)
         
         myDataspace.set(TT("inputUnit"), TT("second"));
-        myDataspace.set(TT("outputUnit"), TT("midi"));    
+        myDataspace.set(TT("outputUnit"), TT("midinote"));
         
         v = TTValue(1./220.);
         expected = TTValue(57.);
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("Second to MIDI note 57", 
+        TTTestAssertion("Second to midi note 57",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
@@ -302,7 +302,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("Second to MIDI note 69", 
+        TTTestAssertion("Second to midi note 69",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
@@ -364,7 +364,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
                         errorCount);
         
         // Second => Speed
-        // Rather than checking this, there are tests for speed <=> midi further down
+        // Rather than checking this, there are tests for speed <=> midi note further down
         
         /************************************************/
         /*                                              */
@@ -373,17 +373,17 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         /*                                              */
         /************************************************/
 
-        // Speed => MIDI (tests for Speed = 0.5, 1.0 and 2)
+        // Speed => midi note (tests for Speed = 0.5, 1.0 and 2)
         
         myDataspace.set(TT("inputUnit"), TT("speed"));
-        myDataspace.set(TT("outputUnit"), TT("midi"));
+        myDataspace.set(TT("outputUnit"), TT("midinote"));
         
         v = TTValue(0.5);
         expected = TTValue(-12.0);
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("0.5 speed to MIDI", 
+        TTTestAssertion("0.5 speed to midi note",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
@@ -393,7 +393,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("1.0 speed to MIDI", 
+        TTTestAssertion("1.0 speed to midi note",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
@@ -403,14 +403,14 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("2.0 speed to MIDI", 
+        TTTestAssertion("2.0 speed to midi note",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
         
-        // MIDI => Speed (tests for Speed = 0.5, 1.0 and 2)*/
+        // midi note => Speed (tests for Speed = 0.5, 1.0 and 2)*/
         
-        myDataspace.set(TT("inputUnit"), TT("midi"));
+        myDataspace.set(TT("inputUnit"), TT("midinote"));
         myDataspace.set(TT("outputUnit"), TT("speed")); 
         
         v = TTValue(-12.0);
@@ -418,7 +418,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("-12 MIDI to speed", 
+        TTTestAssertion("-12 midi note to speed",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
@@ -428,7 +428,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("0 MIDI to speed", 
+        TTTestAssertion("0 midi note to speed",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
@@ -438,7 +438,7 @@ TTErr TimeDataspace::test(TTValue& returnedTestInfo)
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("12 MIDI to speed", 
+        TTTestAssertion("12 midi note to speed",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);  
