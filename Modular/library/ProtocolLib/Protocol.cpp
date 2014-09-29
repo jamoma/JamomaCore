@@ -65,9 +65,9 @@ mSelectedApplication(kTTSymEmpty)
 	
 	addMessageWithArguments(isRegistered);
 	
+    addMessageWithArguments(Scan);
 	addMessageWithArguments(Run);
 	addMessageWithArguments(Stop);
-	addMessage(Scan);
 }
 
 Protocol::~Protocol()
