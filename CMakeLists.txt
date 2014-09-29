@@ -23,5 +23,9 @@ if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/Score")
 	add_subdirectory(Score)
 endif()
 
+if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/../Implementations/Max")
+	add_subdirectory(../Implementations/Max ../build/Max)
+endif()
+
 ### Creation of packages ###
 include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaPack.txt NO_POLICY_SCOPE)
