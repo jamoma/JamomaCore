@@ -74,9 +74,9 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
                         errorCount);
         
         
-        // midi => Linear
+        // midi gain => Linear
         
-        myDataspace.set(TT("inputUnit"), TT("midi"));
+        myDataspace.set(TT("inputUnit"), TT("midigain"));
         myDataspace.set(TT("outputUnit"), TT("linear"));    
         
         v = TTValue(100.0);
@@ -84,7 +84,7 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("100 MIDI to linear", 
+        TTTestAssertion("100 midi gain to linear",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
@@ -113,30 +113,30 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
                         errorCount);
         
         
-        // linear => midi
+        // linear => midi gain
         
         myDataspace.set(TT("inputUnit"), TT("linear"));
-        myDataspace.set(TT("outputUnit"), TT("midi"));    
+        myDataspace.set(TT("outputUnit"), TT("midigain"));
         
         v = TTValue(1.0);
         expected = TTValue(100.0);
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("1.0 linear to MIDI", 
+        TTTestAssertion("1.0 linear to midi gain",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
 
-        /************************************************/
-        /*                                              */
-        /* Some additional important midi relationships */
-        /*                                              */
-        /************************************************/
+        /*****************************************************/
+        /*                                                   */
+        /* Some additional important midi gain relationships */
+        /*                                                   */
+        /*****************************************************/
         
-        // 127 midi => 10 dB
+        // 127 midi gain => 10 dB
         
-        myDataspace.set(TT("inputUnit"), TT("midi"));
+        myDataspace.set(TT("inputUnit"), TT("midigain"));
         myDataspace.set(TT("outputUnit"), TT("dB"));    
         
         v = TTValue(127.0);
@@ -144,29 +144,29 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("127 MIDI to 10 dB", 
+        TTTestAssertion("127 midi gain to 10 dB",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
         
-        // 10 dB => 127 midi
+        // 10 dB => 127 midi gain
         
         myDataspace.set(TT("inputUnit"), TT("dB"));
-        myDataspace.set(TT("outputUnit"), TT("midi"));    
+        myDataspace.set(TT("outputUnit"), TT("midigain"));
         
         v = TTValue(10.0);
         expected = TTValue(127.0);
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("10 dB to 127 MIDI", 
+        TTTestAssertion("10 dB to 127 midi gain",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
         
-        // 0 midi => 0 linear
+        // 0 midi gain => 0 linear
         
-        myDataspace.set(TT("inputUnit"), TT("midi"));
+        myDataspace.set(TT("inputUnit"), TT("midigain"));
         myDataspace.set(TT("outputUnit"), TT("linear"));    
         
         v = TTValue(0.0);
@@ -174,22 +174,22 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("0 MIDI to 0 linear", 
+        TTTestAssertion("0 midi gain to 0 linear",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
 
-        // 0 linear => 0 midi
+        // 0 linear => 0 midi gain
         
         myDataspace.set(TT("inputUnit"), TT("linear"));
-        myDataspace.set(TT("outputUnit"), TT("midi"));    
+        myDataspace.set(TT("outputUnit"), TT("midigain"));
         
         v = TTValue(0.0);
         expected = TTValue(0.0);
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("0 linear to 0 midi", 
+        TTTestAssertion("0 linear to 0 midigain",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
