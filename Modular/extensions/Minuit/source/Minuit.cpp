@@ -107,7 +107,7 @@ Minuit::~Minuit()
 	delete mWaitThread;
 }
 
-TTErr Minuit::Scan()
+TTErr Minuit::Scan(const TTValue& inputValue, TTValue& outputValue)
 {
 	// TODO
 	return kTTErrGeneric;

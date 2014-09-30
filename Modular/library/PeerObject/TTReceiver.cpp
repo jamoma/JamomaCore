@@ -66,22 +66,19 @@ TTReceiver::~TTReceiver()
 
 TTErr TTReceiver::setAddress(const TTValue& newValue)
 {
-    TTNodeDirectoryPtr  aDirectory = accessApplicationDirectoryFrom(mAddress);
-    TTErr               err = kTTErrGeneric;
-    TTBoolean           memoActive = mActive;
+    TTErr       err = kTTErrGeneric;
+    TTBoolean   memoActive = mActive;
     
     // disable reception to avoid crash
     mActive = NO;
     
-	unbindAddress(aDirectory);
+	unbindAddress(accessApplicationDirectoryFrom(mAddress));
 	unbindApplication();
 	
 	mAddress = newValue[0];
     
-    if (mAddress != kTTAdrsEmpty) {
-        
-        err = bindAddress(aDirectory);
-    }
+    if (mAddress != kTTAdrsEmpty)
+        err = bindAddress(accessApplicationDirectoryFrom(mAddress));
     
     // enable reception
     mActive = memoActive;

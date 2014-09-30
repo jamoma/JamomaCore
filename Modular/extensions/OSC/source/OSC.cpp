@@ -80,7 +80,7 @@ TTErr OSC::getParameterNames(TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr OSC::Scan()
+TTErr OSC::Scan(const TTValue& inputValue, TTValue& outputValue)
 {
 	// TODO : using Bonjour
 	return kTTErrGeneric;

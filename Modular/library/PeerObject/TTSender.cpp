@@ -53,9 +53,7 @@ TTSender::~TTSender()
 
 TTErr TTSender::setAddress(const TTValue& newValue)
 {
-    TTNodeDirectoryPtr aDirectory = accessApplicationDirectoryFrom(mAddress);
-    
-	unbindAddress(aDirectory);
+	unbindAddress(accessApplicationDirectoryFrom(mAddress));
 	unbindApplication();
 	
 	mAddress = newValue[0];
@@ -66,7 +64,7 @@ TTErr TTSender::setAddress(const TTValue& newValue)
         if (mAddress.getAttribute() == NO_ATTRIBUTE)
             mAddress = mAddress.appendAttribute(kTTSym_value);
         
-        return bindAddress(aDirectory);
+        return bindAddress(accessApplicationDirectoryFrom(mAddress));
     }
     
     return kTTErrGeneric;
