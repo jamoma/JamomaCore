@@ -58,7 +58,7 @@ TTErr MIDIInput::setDevice(TTSymbol& newDevice)
 			deviceCount = Pm_CountDevices();
 			for (i=0; i<deviceCount; i++) {
 				deviceInfo = Pm_GetDeviceInfo(i);
-				if (newDevice == TT(deviceInfo->name)) {
+				if (newDevice == TTSymbol(deviceInfo->name)) {
 					mDeviceInfo = deviceInfo;
 					mID = i;
 					break;

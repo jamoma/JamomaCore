@@ -19,9 +19,13 @@
 #include "Protocol.h"
 #include "MIDIInclude.h"
 #include "MIDIInput.h"
+#include "MIDIOutput.h"
 
 class MIDIInput;
 typedef MIDIInput* MIDIInputPtr;
+
+class MIDIOutput;
+typedef MIDIOutput* MIDIOutputPtr;
 
 class MIDI : public Protocol {
 	
@@ -35,10 +39,10 @@ private:
 	TTHash  mInputs;                            ///< a table of MIDIInput instances for each device
     TTHash  mOutputs;                           ///< a table of MIDIInput instances for each device
     
-    /**
+    /** send MIDI message using MIDIOutput instance reltive to an application
      
      */
-    TTErr sendMessage(TTSymbol& applicationName, TTSymbol& header, TTValue& message);
+    TTErr sendMessage(TTSymbol& applicationName, TTAddress& address, TTValue& value);
     
     /** used by MIDIInput instances to pass received MIDI message from their
      

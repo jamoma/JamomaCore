@@ -2,9 +2,9 @@
  *
  * @ingroup modularMIDI
  *
- * @brief a MIDI input
+ * @brief a MIDI output
  *
- * @details MidiInput receives MIDI input from an external device. @n
+ * @details MidiOutput receives MIDI output from an external device. @n
  * It is a wrapper around the PortMidi library. @n
  *
  * @author Theo Delahogue
@@ -15,8 +15,8 @@
  */
 
 
-#ifndef __MIDI_INPUT_H__
-#define __MIDI_INPUT_H__
+#ifndef __MIDI_OUTPUT_H__
+#define __MIDI_OUTPUT_H__
 
 #include "MIDIInclude.h"
 #include "MIDI.h"
@@ -24,12 +24,11 @@
 class MIDI;
 typedef MIDI* MIDIPtr;
 
-class MIDIInput
+class MIDIOutput
 {
-    MIDIPtr                 mProtocol;           ///< The MIDI protocol object which manages all MIDI inputs
+    MIDIPtr                 mProtocol;          ///< The MIDI protocol object which manages all MIDI outputs
     
     PortMidiStream*		    mStream;			///< a descriptor for a MIDI device that is opened when the device is set
-	TTThreadPtr			    mPollingThread;		///< our loop that constantly polls for new input
     TTBoolean			    mRunning;			///< should the thread be running ? If NO then the thread will know to abort itself
 	
 public:
@@ -41,10 +40,10 @@ public:
     
     /** Constructor
      @param arguments       #MIDI protocol object pointer, #TTSymbol application name to handle */
-    MIDIInput(MIDIPtr protocol, TTSymbol& application);
+    MIDIOutput(MIDIPtr protocol, TTSymbol& application);
     
     /** Destructor */
-	virtual ~MIDIInput();
+	virtual ~MIDIOutput();
     
     /** Set device name
      @param newDevice       #TTSymbol for the MIDI device name to select
@@ -52,16 +51,16 @@ public:
     TTErr setDevice(TTSymbol& newDevice);
     
     /** Set running state
-     @param running       #TTBoolean to enable disable midi iput polling thread
+     @param running         #TTBoolean to enable disable midi iput polling thread
      @return #TTErr error code */
     TTErr setRunning(TTBoolean running);
     
-    friend void* MidiPoll(MIDIInput* self);
+    /** Send MIDI message using an address and a value
+     @param address         #TTAddress like /channel.N/command.M
+     @param value           #TTValue
+     @return #TTErr error code */
+    TTErr sendMessage(TTAddress& address, const TTValue& value);
 };
-typedef MIDIInput* MIDIInputPtr;
+typedef MIDIOutput* MIDIOutputPtr;
 
-/** the function call by the olling thread 
- @param #MIDIInput pointer*/
-void* MidiPoll(MIDIInput* self);
-
-#endif // __MIDI_INPUT_H__
+#endif // __MIDI_OUTPUT_H__
