@@ -2,7 +2,7 @@
  *
  * @ingroup dspFunctionLib
  *
- * @brief #TTLinearFunction Unit for Jamoms DSP
+ * @brief #TTCubicEaseInOutFunction Unit for Jamoms DSP
  *
  * @details
  *
@@ -23,8 +23,8 @@
 /**	This implements a function which basically does nothing: 
 	y = f(x)
  */
-class TTLinearFunction : TTAudioObjectBase {
-	TTCLASS_SETUP(TTLinearFunction)
+class TTCubicEaseInOutFunction : TTAudioObjectBase {
+	TTCLASS_SETUP(TTCubicEaseInOutFunction)
 
 protected:
 

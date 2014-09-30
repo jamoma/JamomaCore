@@ -2,7 +2,7 @@
  *
  * @ingroup dspFunctionLib
  *
- * @brief #TTLinearFunction Unit for Jamoms DSP
+ * @brief #TTQuadraticEaseInOutFunction Unit for Jamoms DSP
  *
  * @details
  *
@@ -14,9 +14,9 @@
  */
 
 
-#include "TTLinearFunction.h"
+#include "TTQuadraticEaseInOutFunction.h"
 
-#define thisTTClass			TTLinearFunction
+#define thisTTClass			TTQuadraticEaseInOutFunction
 #define thisTTClassName		"linear"
 #define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
@@ -28,20 +28,20 @@ TT_AUDIO_CONSTRUCTOR
 }
 
 
-TTLinearFunction::~TTLinearFunction()
+TTQuadraticEaseInOutFunction::~TTQuadraticEaseInOutFunction()
 {
 	;
 }
 
 
-TTErr TTLinearFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
+TTErr TTQuadraticEaseInOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
 	y = x;
 	return kTTErrNone;
 }
 
 
-TTErr TTLinearFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr TTQuadraticEaseInOutFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TT_WRAP_CALCULATE_METHOD(calculateValue);
 }
