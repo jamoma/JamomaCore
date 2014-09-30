@@ -14,8 +14,8 @@
  */
 
 
-#ifndef __TTLINEARFUNCTION_H__
-#define __TTLINEARFUNCTION_H__
+#ifndef __TTEXPONENTIALEASEOUTFUNCTION_H__
+#define __TTEXPONENTIALEASEOUTFUNCTION_H__
 
 #include "TTDSP.h"
 
@@ -39,4 +39,4 @@ protected:
 };
 
 
-#endif // __LINEARFUNCTION_H__
+#endif // __TTEXPONENTIALEASEOUTFUNCTION_H__
