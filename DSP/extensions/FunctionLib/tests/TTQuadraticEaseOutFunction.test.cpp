@@ -2,7 +2,7 @@
  *
  * @ingroup dspFunctionLib
  *
- * @brief Unit tests for the Jamoma DSP #TTCosineFunction of the #TTFunctionLib
+ * @brief Unit tests for the Jamoma DSP #TTQuadraticEaseOutFunction of the #TTFunctionLib
  *
  * @details
  *
@@ -15,7 +15,7 @@
 
 
 #include "TTFunction.h"
-#include "TTCosineFunction.h"
+#include "TTQuadraticEaseOutFunction.h"
 
 
 /*
@@ -27,7 +27,7 @@
  
  */
 
-TTErr TTCosineFunction::test(TTValue& returnedTestInfo)
+TTErr TTQuadraticEaseOutFunction::test(TTValue& returnedTestInfo)
 {
 	int					errorCount = 0;
 	int					testAssertionCount = 0;
