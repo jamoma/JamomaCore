@@ -14,6 +14,37 @@ sources:
   - source/TTSmoothPolynomialFunction.cpp  
   - source/TTTanhFunction.cpp
   
+  - source/TTQuadraticEaseInFunction.cpp
+  - source/TTQuadraticEaseOutFunction.cpp
+  - source/TTQuadraticEaseInOutFunction.cpp
+  - source/TTCubicEaseInFunction.cpp
+  - source/TTCubicEaseOutFunction.cpp
+  - source/TTCubicEaseInOutFunction.cpp
+  - source/TTQuarticEaseInFunction.cpp
+  - source/TTQuarticEaseOutFunction.cpp
+  - source/TTQuarticEaseInOutFunction.cpp
+  - source/TTQuinticEaseInFunction.cpp
+  - source/TTQuinticEaseOutFunction.cpp
+  - source/TTQuinticEaseInOutFunction.cpp
+  - source/TTSineEaseInFunction.cpp
+  - source/TTSineEaseOutFunction.cpp
+  - source/TTSineEaseInOutFunction.cpp
+  - source/TTCircularEaseInFunction.cpp
+  - source/TTCircularEaseOutFunction.cpp
+  - source/TTCircularEaseInOutFunction.cpp
+  - source/TTExponentialEaseInFunction.cpp
+  - source/TTExponentialEaseOutFunction.cpp
+  - source/TTExponentialEaseInOutFunction.cpp
+  - source/TTElasticEaseInFunction.cpp
+  - source/TTElasticEaseOutFunction.cpp
+  - source/TTElasticEaseInOutFunction.cpp
+  - source/TTBackEaseInFunction.cpp
+  - source/TTBackEaseOutFunction.cpp
+  - source/TTBackEaseInOutFunction.cpp
+  - source/TTBounceEaseInFunction.cpp
+  - source/TTBounceEaseOutFunction.cpp
+  - source/TTBounceEaseInOutFunction.cpp
+  
   - tests/TTCosineFunction.test.cpp
   - tests/TTCrossFadeInFunction.test.cpp
   - tests/TTCrossFadeOutFunction.test.cpp
@@ -24,6 +55,37 @@ sources:
   - tests/TTPowerFunction.test.cpp
   - tests/TTSmoothPolynomialFunction.test.cpp
   - tests/TTTanhFunction.test.cpp
+  
+  - tests/TTQuadraticEaseInFunction.test.cpp
+  - tests/TTQuadraticEaseOutFunction.test.cpp
+  - tests/TTQuadraticEaseInOutFunction.test.cpp
+  - tests/TTCubicEaseInFunction.test.cpp
+  - tests/TTCubicEaseOutFunction.test.cpp
+  - tests/TTCubicEaseInOutFunction.test.cpp
+  - tests/TTQuarticEaseInFunction.test.cpp
+  - tests/TTQuarticEaseOutFunction.test.cpp
+  - tests/TTQuarticEaseInOutFunction.test.cpp
+  - tests/TTQuinticEaseInFunction.test.cpp
+  - tests/TTQuinticEaseOutFunction.test.cpp
+  - tests/TTQuinticEaseInOutFunction.test.cpp
+  - tests/TTSineEaseInFunction.test.cpp
+  - tests/TTSineEaseOutFunction.test.cpp
+  - tests/TTSineEaseInOutFunction.test.cpp
+  - tests/TTCircularEaseInFunction.test.cpp
+  - tests/TTCircularEaseOutFunction.test.cpp
+  - tests/TTCircularEaseInOutFunction.test.cpp
+  - tests/TTExponentialEaseInFunction.test.cpp
+  - tests/TTExponentialEaseOutFunction.test.cpp
+  - tests/TTExponentialEaseInOutFunction.test.cpp
+  - tests/TTElasticEaseInFunction.test.cpp
+  - tests/TTElasticEaseOutFunction.test.cpp
+  - tests/TTElasticEaseInOutFunction.test.cpp
+  - tests/TTBackEaseInFunction.test.cpp
+  - tests/TTBackEaseOutFunction.test.cpp
+  - tests/TTBackEaseInOutFunction.test.cpp
+  - tests/TTBounceEaseInFunction.test.cpp
+  - tests/TTBounceEaseOutFunction.test.cpp
+  - tests/TTBounceEaseInOutFunction.test.cpp
   
 includes:
   - "includes"
