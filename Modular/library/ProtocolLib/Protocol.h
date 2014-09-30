@@ -155,22 +155,26 @@ public:
 	TTErr isRegistered(const TTValue& inputValue, TTValue& outputValue);
 
     
-	/** Scan to find remote applications and add them to the application manager */
-	virtual TTErr Scan()=0;
+    /** Scan to find remote applications and add them to the application manager
+     * \param inputValue			: anything needed for scanning
+	 * \param outputValue			: all remote device informations
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
+     */
+	virtual TTErr Scan(const TTValue& inputValue, TTValue& outputValue)=0;
 	
-	/*! 
-     * Run reception thread mechanism for each application
-     * \param inputValue			: the application to run (by default all the applications)
+	/*!
+     * Run reception thread mechanism for the local application only
+     * \param inputValue			: nothing to run all registered applications or a #TTSymbol application name
 	 * \param outputValue			: nothing
-     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start for the application or if it was running already
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
 	virtual TTErr Run(const TTValue& inputValue, TTValue& outputValue)=0;
 	
 	/*!
-     * Stop the reception thread mechanism for each application
-     * \param inputValue			: the application to stop (by default all the applications)
+     * Stop the reception thread mechanism for the local application only
+     * \param inputValue			: nothing to stop all registered applications or a #TTSymbol application name
 	 * \param outputValue			: nothing
-     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop for the application or if it was already stopped
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop or if it was already stopped
      */
 	virtual TTErr Stop(const TTValue& inputValue, TTValue& outputValue)=0;
 	

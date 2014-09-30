@@ -257,6 +257,7 @@ TTNodePtr TTSubscriber::registerContextList(TTListPtr aContextList)
 	TTList				contextNodeList, attributesAccess;
 	TTNodePtr			contextNode, lowerContextNode;
 	TTPtr				aContext, lowerContext;
+    TTObject            empty;
 	TTBoolean			found;
 	
 	// Build the /topContext/subContext/.../contextName/ structure
@@ -334,7 +335,7 @@ TTNodePtr TTSubscriber::registerContextList(TTListPtr aContextList)
 					lowerContextAddress = contextAddress.appendAddress(relativeContextAddress);
 					
 					// Make a TTNode with no object
-					aDirectory->TTNodeCreate(lowerContextAddress, NULL, aContext, &contextNode, &this->mNewContextInstanceCreated);
+					aDirectory->TTNodeCreate(lowerContextAddress, empty, aContext, &contextNode, &this->mNewContextInstanceCreated);
 
 				}
 				else {

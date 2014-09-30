@@ -39,7 +39,8 @@ PROTOCOL_CONSTRUCTOR
 {	
 	PROTOCOL_INITIALIZE
 	
-    addAttributeAsProtocolParameter(Device, kTypeSymbol);
+    addAttributeAsProtocolParameter(Input, kTypeSymbol);
+    addAttributeAsProtocolParameter(Output, kTypeSymbol);
 	
 	PmError err = Pm_Initialize();
     
@@ -96,30 +97,41 @@ TTErr MIDI::receivedMessage(TTSymbol& applicationName, TTAddress& address, TTVal
         return ReceiveListenAnswer(applicationName, address, value);
 }
 
-TTErr MIDI::Scan()
+TTErr MIDI::Scan(const TTValue& inputValue, TTValue& outputValue)
 {
-	// TODO
-    
-/*
     const PmDeviceInfo*	deviceInfo = NULL;
     int					deviceCount = Pm_CountDevices();
-	
-	returnedDeviceNames.clear();
-	
-    if (deviceCount < 0) {
-        logError("Pa_CountDevices() returned 0x%x\n", deviceCount);
-        return kTTErrGeneric;
-    }
-	
-    for (int i=0; i<deviceCount; i++) {
-        deviceInfo = Pm_GetDeviceInfo(i);
-		if (deviceInfo->input)
-			returnedDeviceNames.append(TT(deviceInfo->name));
-    }
-	return kTTErrNone;
-*/
+    TTSymbol            deviceType;
     
-	return kTTErrGeneric;
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            deviceType = inputValue[0];
+            
+            if (deviceCount < 0) {
+                
+                logError("Pm_CountDevices() returned 0x%x\n", deviceCount);
+                return kTTErrGeneric;
+            }
+            
+            for (TTUInt32 i = 0; i < deviceCount; i++) {
+                
+                deviceInfo = Pm_GetDeviceInfo(i);
+                
+                if (deviceType == TTSymbol("inputs") && deviceInfo->input)
+                    outputValue.append(TTSymbol(deviceInfo->name));
+                
+                else if (deviceType == TTSymbol("outputs") && deviceInfo->output)
+                    outputValue.append(TTSymbol(deviceInfo->name));
+
+            }
+            
+            return kTTErrNone;
+        }
+    }
+    
+    return kTTErrGeneric;
 }
 
 /*!
@@ -145,16 +157,16 @@ TTErr MIDI::Run(const TTValue& inputValue, TTValue& outputValue)
             // if the application don't have a MIDI input device
             if (mInputs.lookup(applicationName, v)) {
                 
-                // get the device name parameter
-                MIDIProtocol.get("device", v);
+                // get the input device name parameter
+                MIDIProtocol.get("input", v);
                 
                 if (v.size()) {
                     
-                    TTSymbol deviceName = v[0];
+                    TTSymbol inputDeviceName = v[0];
                     
                     // create a MIDI input object
                     midiInput = new MIDIInput(this, applicationName);
-                    err = midiInput->setDevice(deviceName);
+                    err = midiInput->setDevice(inputDeviceName);
                     
                     // if the device doesn't exist
                     if (err) {

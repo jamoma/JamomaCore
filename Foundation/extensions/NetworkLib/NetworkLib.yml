@@ -13,8 +13,8 @@ sources:
   - source/TTWebReceive.cpp
   - source/TTWebSocket.cpp
   - NetworkCommunication/ip/IpEndpointName.cpp
-  - NetworkCommunication/ip/NetworkingUtils.cpp
-  - NetworkCommunication/ip/UdpSocket.cpp
+  - NetworkCommunication/ip/posix/NetworkingUtils.cpp   # théo : for windows we need to build with the win32 folder
+  - NetworkCommunication/ip/posix/UdpSocket.cpp         # théo : for windows we need to build with the win32 folder
   - NetworkCommunication/osc/OscOutboundPacketStream.cpp	
   - NetworkCommunication/osc/OscPrintReceivedElements.cpp	
   - NetworkCommunication/osc/OscReceivedElements.cpp		
@@ -24,6 +24,7 @@ sources:
 includes:
   - "."
   - "includes"
+  - "NetworkCommunication"
   - "NetworkCommunication/ip"
   - "NetworkCommunication/osc"
   - "NetworkCommunication/civetweb/includes"

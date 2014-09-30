@@ -29,7 +29,8 @@ class MIDI : public Protocol {
 	
 private:
 	
-    PROTOCOL_PARAMETER(Device);                 ///< PROTOCOL PARAMETER : each registered application have to setup its device name
+    PROTOCOL_PARAMETER(Input);                  ///< PROTOCOL PARAMETER : each registered application have to setup its input device name
+    PROTOCOL_PARAMETER(Output);                 ///< PROTOCOL PARAMETER : each registered application have to setup its output device name
     
 	TTHash  mInputs;                            ///< a table of MIDIInput instances for each device
     TTHash  mOutputs;                           ///< a table of MIDIInput instances for each device
@@ -45,21 +46,25 @@ private:
     friend void* MidiPoll(MIDIInput* self);
 	TTErr receivedMessage(TTSymbol& applicationName, TTAddress& address, TTValue& value);
 	
-	/** Scan to find remote applications and add them to the application manager */
-	TTErr Scan();
+	/** Scan to find remote applications and add them to the application manager 
+     * \param inputValue			: #TTSymbol "inputs" or #TTSymbol "outputs"
+	 * \param outputValue			: all remote device names
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
+     */
+	TTErr Scan(const TTValue& inputValue, TTValue& outputValue);
 	
 	/*!
      * Run reception thread mechanism for the local application only
-     * \param inputValue			: kTTValNONE
-	 * \param outputValue			: kTTValNONE
+     * \param inputValue			: nothing to run all registered applications or a #TTSymbol application name
+	 * \param outputValue			: nothing
      * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
 	TTErr Run(const TTValue& inputValue, TTValue& outputValue);
 	
     /*!
      * Stop the reception thread mechanism for the local application only
-     * \param inputValue			: kTTValNONE
-	 * \param outputValue			: kTTValNONE
+     * \param inputValue			: nothing to stop all registered applications or a #TTSymbol application name
+	 * \param outputValue			: nothing
      * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop or if it was already stopped
      */
 	TTErr Stop(const TTValue& inputValue, TTValue& outputValue);

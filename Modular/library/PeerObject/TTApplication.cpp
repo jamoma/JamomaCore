@@ -129,7 +129,7 @@ mTempAddress(kTTAdrsRoot)
 	
     // create a TTNodeDirectory to handle the application namespace
 	mDirectory = new TTNodeDirectory(mName);
-	mDirectory->getRoot()->setObject(TTObject(this));
+	
 	TT_ASSERT("NodeDirectory created successfully", (mDirectory != NULL));
 }
 
@@ -784,18 +784,23 @@ TTErr TTApplication::ObjectRegister(const TTValue& inputValue, TTValue& outputVa
             TTNodePtr node;
             TTBoolean newInstanceCreated;
             
-            TTErr err = mDirectory->TTNodeCreate(address, object, context, &node, &newInstanceCreated);
+            if (address == kTTAdrsRoot)
+                return mDirectory->getRoot()->setObject(object);
             
-            // return the effective address
-            if (!err) {
+            else {
+                TTErr err = mDirectory->TTNodeCreate(address, object, context, &node, &newInstanceCreated);
                 
-                if (newInstanceCreated)
-                    node->getAddress(address);
+                // return the effective address
+                if (!err) {
+                    
+                    if (newInstanceCreated)
+                        node->getAddress(address);
+                    
+                    outputValue = address;
+                }
                 
-                outputValue = address;
+                return err;
             }
-            
-            return err;
         }
     }
     
@@ -820,7 +825,12 @@ TTErr TTApplication::ObjectUnregister(const TTValue& inputValue, TTValue& output
                 outputValue = node->getObject();
                 
                 // unregister it
-                return mDirectory->TTNodeRemove(address);
+                if (address == kTTAdrsRoot) {
+                    TTObject empty;
+                    return node->setObject(empty);
+                }
+                else
+                    return mDirectory->TTNodeRemove(address);
             }
         }
     }
@@ -855,12 +865,13 @@ TTErr TTApplication::ObjectRename(const TTValue& inputValue, TTValue& outputValu
                     TTSymbol    newInstance, effectiveNameInstance;
                     TTAddress   effectiveAddress;
                     
-                    aNode->setInstance(newNameInstance.getInstance(), newInstance, &newInstanceCreated);
-                    aNode->setName(newNameInstance.getName(), newInstance, &newInstanceCreated);
+                    aNode->setNameInstance(newNameInstance, newInstance, &newInstanceCreated);
                     
                     aNode->getAddress(effectiveAddress);
                     
                     outputValue = effectiveAddress.getNameInstance();
+                    
+                    return kTTErrNone;
                 }
             }
         }
@@ -1513,9 +1524,10 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                         
                         // register no object into the directory
                         TTNodePtr   aNode;
+                        TTObject    empty;
                         TTBoolean   newInstanceCreated;
                         
-                        this->mDirectory->TTNodeCreate(address, TTObject(), NULL, &aNode, &newInstanceCreated);
+                        this->mDirectory->TTNodeCreate(address, empty, NULL, &aNode, &newInstanceCreated);
                     }
                     
                     // OTHER case ? Input, Output, Mapper ?

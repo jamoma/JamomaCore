@@ -54,7 +54,7 @@ void TTAddressItem::setParent(const TTAddressItemPtr newParent)
 	this->parent = newParent;
 }
 
-TTSymbol TTAddressItem::getSymbol()
+TTSymbol& TTAddressItem::getSymbol()
 {
 	return this->symbol;
 }
@@ -315,12 +315,12 @@ void TTAddressItem::unregisterHandler(TTObject& anObject)
 	this->handlers.remove(anObject);
 }
 
-void TTAddressItem::iterateHandlersSendingMessage(TTSymbol messageName)
+void TTAddressItem::iterateHandlersSendingMessage(TTSymbol& messageName)
 {
 	this->handlers.iterateObjectsSendingMessage(messageName);
 }
 
-void TTAddressItem::iterateHandlersSendingMessage(TTSymbol messageName, TTValue& aValue)
+void TTAddressItem::iterateHandlersSendingMessage(TTSymbol& messageName, TTValue& aValue)
 {
 	this->handlers.iterateObjectsSendingMessage(messageName, aValue);
 }

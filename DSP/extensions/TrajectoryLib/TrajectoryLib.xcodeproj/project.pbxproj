@@ -137,7 +137,7 @@
 /* Begin PBXLegacyTarget section */
 		8E6C69A517EA3EE4002BEB95 /* TrajectoryLib */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(Configuration) $(ACTION)";
+			buildArgumentsString = "$(ACTION)";
 			buildConfigurationList = 8E6C69A817EA3EE4002BEB95 /* Build configuration list for PBXLegacyTarget "TrajectoryLib" */;
 			buildPhases = (
 			);

@@ -63,7 +63,7 @@ WebSocket::~WebSocket()
 	delete mWaitThread;
 }
 
-TTErr WebSocket::Scan()
+TTErr WebSocket::Scan(const TTValue& inputValue, TTValue& outputValue)
 {
 	// TODO
 	return kTTErrGeneric;

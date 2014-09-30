@@ -218,7 +218,7 @@ TTErr TTNodeDirectory::fillAddressItem(TTAddressItemPtr anAddressItem, TTAddress
     return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::TTNodeCreate(TTAddress& anAddress, TTObject newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
+TTErr TTNodeDirectory::TTNodeCreate(TTAddress& anAddress, TTObject& newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
 {
 	TTAddress	normalizedAddress, effectiveAddress;
 	TTSymbol	newInstance;

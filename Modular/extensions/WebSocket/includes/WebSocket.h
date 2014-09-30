@@ -52,7 +52,7 @@ private:
 	TTErr parseJSON(const JSONNode &n, TTString address, TTValue& value);
 	
 	/** Scan to find remote applications and add them to the application manager */
-	TTErr Scan();
+	TTErr Scan(const TTValue& inputValue, TTValue& outputValue);
 	
 	/*!
      * Run reception thread mechanism for the local application only

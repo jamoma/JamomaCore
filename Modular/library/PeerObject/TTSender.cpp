@@ -22,7 +22,6 @@
 
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
-mDirectory(NULL),
 mObjectCache(NULL)
 {
 	// a Sender can handle a signal
@@ -46,7 +45,7 @@ mObjectCache(NULL)
 
 TTSender::~TTSender()
 {
-	unbindAddress();
+	unbindAddress(accessApplicationDirectoryFrom(mAddress));
 	unbindApplication();
     
     delete mObjectCache;
@@ -54,7 +53,7 @@ TTSender::~TTSender()
 
 TTErr TTSender::setAddress(const TTValue& newValue)
 {
-	unbindAddress();
+	unbindAddress(accessApplicationDirectoryFrom(mAddress));
 	unbindApplication();
 	
 	mAddress = newValue[0];
@@ -65,11 +64,7 @@ TTErr TTSender::setAddress(const TTValue& newValue)
         if (mAddress.getAttribute() == NO_ATTRIBUTE)
             mAddress = mAddress.appendAttribute(kTTSym_value);
         
-        mDirectory = accessApplicationDirectoryFrom(mAddress);
-        if (mDirectory)
-            return bindAddress();
-        else 
-            return bindApplication();
+        return bindAddress(accessApplicationDirectoryFrom(mAddress));
     }
     
     return kTTErrGeneric;
@@ -90,7 +85,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 	TTAddress		relativeAddress;
 	TTErr			err = kTTErrNone;
 	
-	if (!mDirectory || mAddress == kTTAdrsEmpty)
+	if (!accessApplicationDirectoryFrom(mAddress) || mAddress == kTTAdrsEmpty)
 		return kTTErrGeneric;
 
 	if (!mIsSending) {
@@ -162,16 +157,19 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 	return err;
 }
 
-TTErr TTSender::bindAddress()
+TTErr TTSender::bindAddress(TTNodeDirectoryPtr aDirectory)
 {
 	TTNodePtr	aNode;
 	TTObject	anObject;
 	TTValue		aCacheElement;
 	TTList		aNodeList;
 	TTValue		v, baton;
+    
+    if (!aDirectory)
+        return bindApplication();
 	
 	// 1. Look for the node(s) into the directory
-	mDirectory->Lookup(mAddress, aNodeList, &aNode);
+	aDirectory->Lookup(mAddress, aNodeList, &aNode);
 	
 	// 2. make a cache containing each object
 	for (aNodeList.begin(); aNodeList.end(); aNodeList.next()) {
@@ -186,12 +184,12 @@ TTErr TTSender::bindAddress()
 	mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	mAddressObserver.set(kTTSym_function, TTPtr(&TTSenderDirectoryCallback));
 
-	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
+	aDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	
 	return kTTErrNone;
 }
 
-TTErr TTSender::unbindAddress()
+TTErr TTSender::unbindAddress(TTNodeDirectoryPtr aDirectory)
 {
 	TTErr err = kTTErrNone;	
 	
@@ -200,9 +198,9 @@ TTErr TTSender::unbindAddress()
         mObjectCache->clear();
 		
 		// stop life cycle observation
-		if(mAddressObserver.valid() && mDirectory) {
+		if(mAddressObserver.valid() && aDirectory) {
 			
-			err = mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
+			err = aDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
 			
 			mAddressObserver = TTObject();
 		}
@@ -235,8 +233,6 @@ TTErr TTSender::unbindApplication()
 
 		mApplicationObserver = TTObject();
 	}
-	
-	mDirectory = NULL;
 	
 	return kTTErrNone;
 }
@@ -315,8 +311,7 @@ TTErr TTSenderApplicationManagerCallback(const TTValue& baton, const TTValue& da
 			
 		case kApplicationInstantiated :
 		{
-			aSender->mDirectory = accessApplicationDirectoryFrom(aSender->mAddress);
-			aSender->bindAddress();
+			aSender->bindAddress(accessApplicationDirectoryFrom(aSender->mAddress));
 			break;
 		}
 			
@@ -332,7 +327,7 @@ TTErr TTSenderApplicationManagerCallback(const TTValue& baton, const TTValue& da
 			
 		case kApplicationReleased :
 		{
-			aSender->unbindAddress();
+			aSender->unbindAddress(accessApplicationDirectoryFrom(aSender->mAddress));
 			break;
 		}
 			

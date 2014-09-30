@@ -143,7 +143,7 @@
 /* Begin PBXLegacyTarget section */
 		8E30FD9018C8F74D0057739C /* FFTLib */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(CONFIGURATION) $(ACTION)";
+			buildArgumentsString = "$(ACTION)";
 			buildConfigurationList = 8E30FD9318C8F74D0057739C /* Build configuration list for PBXLegacyTarget "FFTLib" */;
 			buildPhases = (
 			);

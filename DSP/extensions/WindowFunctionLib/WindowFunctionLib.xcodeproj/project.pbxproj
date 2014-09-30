@@ -217,7 +217,7 @@
 /* Begin PBXLegacyTarget section */
 		A702D0C615DCFBDB00CA71C6 /* WindowFunctionLib */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(Configuration) $(ACTION)";
+			buildArgumentsString = "$(ACTION)";
 			buildConfigurationList = A702D0C915DCFBDB00CA71C6 /* Build configuration list for PBXLegacyTarget "WindowFunctionLib" */;
 			buildPhases = (
 			);
