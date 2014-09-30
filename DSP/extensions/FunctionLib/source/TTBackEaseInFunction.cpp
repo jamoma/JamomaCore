@@ -17,7 +17,7 @@
 #include "TTBackEaseInFunction.h"
 
 #define thisTTClass			TTBackEaseInFunction
-#define thisTTClassName		"linear"
+#define thisTTClassName		"easeInBack"
 #define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 

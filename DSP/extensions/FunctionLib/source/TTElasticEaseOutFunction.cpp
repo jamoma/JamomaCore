@@ -17,7 +17,7 @@
 #include "TTElasticEaseOutFunction.h"
 
 #define thisTTClass			TTElasticEaseOutFunction
-#define thisTTClassName		"linear"
+#define thisTTClassName		"easeOutElastic"
 #define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 

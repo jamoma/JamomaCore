@@ -17,7 +17,7 @@
 #include "TTCircularEaseInOutFunction.h"
 
 #define thisTTClass			TTCircularEaseInOutFunction
-#define thisTTClassName		"linear"
+#define thisTTClassName		"easeInOutCircular"
 #define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 

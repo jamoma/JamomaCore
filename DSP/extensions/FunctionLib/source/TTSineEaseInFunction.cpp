@@ -17,7 +17,7 @@
 #include "TTSineEaseInFunction.h"
 
 #define thisTTClass			TTSineEaseInFunction
-#define thisTTClassName		"linear"
+#define thisTTClassName		"easeInSine"
 #define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 

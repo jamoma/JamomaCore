@@ -17,7 +17,7 @@
 #include "TTExponentialEaseInOutFunction.h"
 
 #define thisTTClass			TTExponentialEaseInOutFunction
-#define thisTTClassName		"linear"
+#define thisTTClassName		"easeInOutExponential"
 #define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 

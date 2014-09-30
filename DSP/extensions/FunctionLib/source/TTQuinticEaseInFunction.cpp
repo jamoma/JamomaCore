@@ -17,7 +17,7 @@
 #include "TTQuinticEaseInFunction.h"
 
 #define thisTTClass			TTQuinticEaseInFunction
-#define thisTTClassName		"linear"
+#define thisTTClassName		"easeInQuintic"
 #define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 

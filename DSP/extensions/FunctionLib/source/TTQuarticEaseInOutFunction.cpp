@@ -17,7 +17,7 @@
 #include "TTQuarticEaseInOutFunction.h"
 
 #define thisTTClass			TTQuarticEaseInOutFunction
-#define thisTTClassName		"linear"
+#define thisTTClassName		"easeInOutQuartic"
 #define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 

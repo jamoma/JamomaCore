@@ -17,7 +17,7 @@
 #include "TTBounceEaseOutFunction.h"
 
 #define thisTTClass			TTBounceEaseOutFunction
-#define thisTTClassName		"linear"
+#define thisTTClassName		"easeOutBounce"
 #define thisTTClassTags		"dspFunctionLib, audio, processor, function"
 
 
