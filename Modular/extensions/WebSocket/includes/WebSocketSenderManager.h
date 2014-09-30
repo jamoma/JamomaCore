@@ -1,12 +1,12 @@
 /** @file
  *
- * @ingroup modularMinuit
+ * @ingroup modularWebSocket
  *
- * @brief A OSC send object manager
+ * @brief A WebSocket send object manager
  *
  * @details
  *
- * @authors Théo de la Hogue
+ * @authors Théo de la Hogue, Laurent Garnier
  *
  * @copyright Copyright © 2013, Théo de la Hogue @n
  * This code is licensed under the terms of the "New BSD License" @n
@@ -14,32 +14,32 @@
  */
 
 
-#ifndef MINUIT_SENDER_MANAGER
-#define MINUIT_SENDER_MANAGER
+#ifndef WEBSOCKET_SENDER_MANAGER
+#define WEBSOCKET_SENDER_MANAGER
 
-#include "Minuit.h"
+#include "WebSocket.h"
 
-class Minuit;
-typedef Minuit* MinuitPtr;
+class WebSocket;
+typedef WebSocket* WebSocketPtr;
 
-class MinuitSenderManager {
+class WebSocketSenderManager {
 	
 private:
 	TTHash   mSenders;
 	
 public:
 
-	MinuitSenderManager();
-	virtual ~MinuitSenderManager();
+	WebSocketSenderManager();
+	virtual ~WebSocketSenderManager();
 	
     // check if the parameter are still the same and change the parameter if not
     // if the sender doesn't exist it adds a sender
-    TTObject     lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
+    TTObject    lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
     
 private:
     // add a new sender for an application
 	TTObject     add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
 };
-typedef MinuitSenderManager* MinuitSenderManagerPtr;
+typedef WebSocketSenderManager* WebSocketSenderManagerPtr;
 
-#endif // MINUIT_SENDER_MANAGER
+#endif // WEBSOCKET_SENDER_MANAGER
