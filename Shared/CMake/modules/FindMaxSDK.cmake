@@ -7,7 +7,7 @@ set(MAXSDK_API_LIBRARY NOTFOUND)
 set(MAXSDK_AUDIO_LIBRARY NOTFOUND)
 set(MAXSDK_CRT_LIBRARY NOTFOUND)
 #message (STATUS "BEFOREEEEEEEEEEEE")
-find_path(MAXSDK_MAINPATH "C:/c74support/max-includes/MaxAPI.lib" DOC "Insert main path to MaxSDK (download it from http://cycling74.com/products/sdk/ for both MacOSX and Windows)")
+find_path(MAXSDK_MAINPATH "..//Implementations//Max//source//c74support" DOC "Insert main path to MaxSDK (download it from http://cycling74.com/products/sdk/ for both MacOSX and Windows)")
 #message (STATUS "AFTERRRRRRRRRRRRR")
 # Just to test if Max/MSP found!!
 if(MAXSDK_MAINPATH)

@@ -10,19 +10,34 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTNetReceive.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTNetSocket.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTOscSend.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/IpEndpointName.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/NetworkingUtils.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/UdpSocket.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/osc/OscOutboundPacketStream.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/osc/OscPrintReceivedElements.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/osc/OscReceivedElements.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/osc/OscTypes.cpp
 )
 
+if(NOT WIN32)
+	set(PROJECT_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/posix/NetworkingUtils.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/posix/UdpSocket.cpp
+	)
+else()
+	set(PROJECT_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/win32/NetworkingUtils.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/win32/UdpSocket.cpp
+	)
+endif()
+
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication/ip")
 include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication/osc")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
+if(NOT WIN32)
+	include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication/ip/posix")
+else()
+	include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication/ip/win32")
+endif()
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 

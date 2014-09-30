@@ -36,7 +36,7 @@ PKG_CHECK_MODULES(PC_LIBXML QUIET libxml-2.0)
 set(LIBXML2_DEFINITIONS ${PC_LIBXML_CFLAGS_OTHER})
 
 find_path(LIBXML2_INCLUDE_DIR NAMES libxml/xpath.h
-   PATHS "C://Program Files (x86)//libxml2*//include"
+   PATHS "C://Program Files (x86)//libxml2*//include" "Foundation//library//libxml2//win32//include"
    HINTS
    ${PC_LIBXML_INCLUDEDIR}
    ${PC_LIBXML_INCLUDE_DIRS}

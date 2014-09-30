@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
 project(Max)
 
-if(NOT APPLE)
-	message("Max extension requires OS X. TODO Windows.")
+if(NOT APPLE AND NOT WIN32)
+	message("Max extension requires OS X or Windows.")
 	return() 
 endif()
 
@@ -19,11 +19,14 @@ include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes"
 
 addMaxsupport()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include../../../../Implementations/Max/source/c74support/max-includes/macho-prefix.pch")
+if(APPLE)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include../../../../Implementations/Max/source/c74support/max-includes/macho-prefix.pch")
+endif()
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
+target_link_libraries(${PROJECT_NAME} ../../../../Implementations/Max/source/c74support/max-includes/MaxAPI)
 
 ### Output ###
 setOutput()
