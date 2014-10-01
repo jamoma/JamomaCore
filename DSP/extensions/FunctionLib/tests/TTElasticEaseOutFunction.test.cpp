@@ -302,7 +302,7 @@ TTErr TTElasticEaseOutFunction::test(TTValue& returnedTestInfo)
 	};	
 	
 	// setup Function 
-	this->setAttributeValue(TT("function"), TT("cosine"));
+	this->setAttributeValue(TT("function"), TT("easeOutElastic"));
 
 	
 	// create 1 channel audio signal objects

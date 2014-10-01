@@ -302,7 +302,7 @@ TTErr TTCircularEaseInOutFunction::test(TTValue& returnedTestInfo)
 	};	
 	
 	// setup Function 
-	this->setAttributeValue(TT("function"), TT("cosine"));
+	this->setAttributeValue(TT("function"), TT("easeInOutCircular"));
 
 	
 	// create 1 channel audio signal objects

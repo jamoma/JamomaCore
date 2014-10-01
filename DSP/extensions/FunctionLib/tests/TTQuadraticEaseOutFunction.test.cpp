@@ -302,7 +302,7 @@ TTErr TTQuadraticEaseOutFunction::test(TTValue& returnedTestInfo)
 	};	
 	
 	// setup Function 
-	this->setAttributeValue(TT("function"), TT("cosine"));
+	this->setAttributeValue(TT("function"), TT("easeOutQuadratic"));
 
 	
 	// create 1 channel audio signal objects
