@@ -463,7 +463,7 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 	TTList lk_children;
 	TTNodePtr n_r, n_child, n_first;
 	TTBoolean limitReached = false;
-	TTUInt8	newLimit;
+	TTUInt8	newLimit = 0;
 	TTErr err;
 
 	*firstReturnedTTNode = NULL;
