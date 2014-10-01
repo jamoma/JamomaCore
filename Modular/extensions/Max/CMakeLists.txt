@@ -26,7 +26,10 @@ endif()
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
-target_link_libraries(${PROJECT_NAME} ../../../../Implementations/Max/source/c74support/max-includes/MaxAPI)
+
+if(WIN32)
+	target_link_libraries(${PROJECT_NAME} ../../../../Implementations/Max/source/c74support/max-includes/MaxAPI)
+endif()
 
 ### Output ###
 setOutput()
