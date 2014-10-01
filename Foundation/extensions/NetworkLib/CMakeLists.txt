@@ -29,6 +29,7 @@ else()
 endif()
 
 include_directories("${PROJECT_SOURCE_DIR}")
+include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication")
 include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication/ip")
 include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication/osc")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
