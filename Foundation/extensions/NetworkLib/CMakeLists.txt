@@ -17,12 +17,12 @@ ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/osc/OscTypes.cpp
 )
 
 if(NOT WIN32)
-	set(PROJECT_SRCS
+        set(PROJECT_SRCS ${PROJECT_SRCS}
 	${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/posix/NetworkingUtils.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/posix/UdpSocket.cpp
 	)
 else()
-	set(PROJECT_SRCS
+        set(PROJECT_SRCS ${PROJECT_SRCS}
 	${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/win32/NetworkingUtils.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/win32/UdpSocket.cpp
 	)
@@ -48,8 +48,8 @@ if(WIN32)
 	target_link_libraries(${PROJECT_NAME} winmm)
 endif()
 
-### Output ###
+### Output ###
 setOutput()
 
-### Tests ###
+### Tests ###
 addTestTarget()
