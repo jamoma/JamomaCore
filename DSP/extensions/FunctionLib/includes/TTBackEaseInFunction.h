@@ -4,7 +4,7 @@
  *
  * @brief #TTBackEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the overshooting cubic y = x^3-x*sin(x*pi)
  *
  * @authors Timothy Place, Trond Lossius
  *

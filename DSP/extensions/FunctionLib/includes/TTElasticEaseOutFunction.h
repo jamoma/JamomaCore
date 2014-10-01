@@ -4,7 +4,7 @@
  *
  * @brief #TTElasticEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the damped sine wave y = sin(-13pi/2*(x + 1))*pow(2, -10x) + 1
  *
  * @authors Timothy Place, Trond Lossius
  *

@@ -4,7 +4,7 @@
  *
  * @brief #TTQuadraticEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the parabola y = -x^2 + 2x
  *
  * @authors Timothy Place, Trond Lossius
  *

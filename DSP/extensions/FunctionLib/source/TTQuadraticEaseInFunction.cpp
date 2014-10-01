@@ -4,7 +4,7 @@
  *
  * @brief #TTQuadraticEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the parabola y = x^2.
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,7 @@ TTQuadraticEaseInFunction::~TTQuadraticEaseInFunction()
 
 TTErr TTQuadraticEaseInFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	y = x * x;
 	return kTTErrNone;
 }
 

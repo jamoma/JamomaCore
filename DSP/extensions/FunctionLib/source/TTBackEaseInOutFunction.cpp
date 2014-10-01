@@ -4,7 +4,9 @@
  *
  * @brief #TTBackEaseInOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the piecewise overshooting cubic function: @n
+ *  y = (1/2)*((2x)^3-(2x)*sin(2*x*pi))           ; [0, 0.5) @n
+ *  y = (1/2)*(1-((1-x)^3-(1-x)*sin((1-x)*pi))+1) ; [0.5, 1]
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +38,16 @@ TTBackEaseInOutFunction::~TTBackEaseInOutFunction()
 
 TTErr TTBackEaseInOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	if (x < 0.5)
+	{
+		TTFloat64 f = 2 * x;
+		y = 0.5 * (f * f * f - f * sin(f * kTTPi));
+	}
+	else
+	{
+		TTFloat64 f = (1 - (2*x - 1));
+		y = 0.5 * (1 - (f * f * f - f * sin(f * kTTPi))) + 0.5;
+	}
 	return kTTErrNone;
 }
 

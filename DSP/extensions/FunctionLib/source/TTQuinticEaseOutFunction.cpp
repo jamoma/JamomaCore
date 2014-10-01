@@ -4,7 +4,7 @@
  *
  * @brief #TTQuinticEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the quintic y = (x - 1)^5 + 1
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,8 @@ TTQuinticEaseOutFunction::~TTQuinticEaseOutFunction()
 
 TTErr TTQuinticEaseOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	TTFloat64 f = (x - 1);
+	y = f * f * f * f * f + 1;
 	return kTTErrNone;
 }
 

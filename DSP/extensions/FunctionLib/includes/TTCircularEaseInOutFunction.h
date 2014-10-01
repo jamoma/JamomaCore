@@ -4,7 +4,9 @@
  *
  * @brief #TTCircularEaseInOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the piecewise circular function @n
+ *  y = (1/2)(1 - sqrt(1 - 4x^2))           ; [0, 0.5) @n
+ *  y = (1/2)(sqrt(-(2x - 3)*(2x - 1)) + 1) ; [0.5, 1]
  *
  * @authors Timothy Place, Trond Lossius
  *

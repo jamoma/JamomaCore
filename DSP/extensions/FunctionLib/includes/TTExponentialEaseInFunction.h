@@ -4,7 +4,7 @@
  *
  * @brief #TTExponentialEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the exponential function y = 2^(10(x - 1))
  *
  * @authors Timothy Place, Trond Lossius
  *

@@ -4,7 +4,7 @@
  *
  * @brief #TTQuinticEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the quintic y = x^5
  *
  * @authors Timothy Place, Trond Lossius
  *

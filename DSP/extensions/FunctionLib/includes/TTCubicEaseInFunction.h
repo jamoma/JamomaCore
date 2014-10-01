@@ -4,7 +4,7 @@
  *
  * @brief #TTCubicEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the cubic y = x^3
  *
  * @authors Timothy Place, Trond Lossius
  *

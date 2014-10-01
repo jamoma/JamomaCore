@@ -4,7 +4,7 @@
  *
  * @brief #TTExponentialEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the exponential function y = 2^(10(x - 1))
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,7 @@ TTExponentialEaseInFunction::~TTExponentialEaseInFunction()
 
 TTErr TTExponentialEaseInFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	(x == 0.0) ? (y = x) : (y = pow(2, 10 * (x - 1)));
 	return kTTErrNone;
 }
 

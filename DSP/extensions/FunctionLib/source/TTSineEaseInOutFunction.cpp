@@ -4,7 +4,7 @@
  *
  * @brief #TTSineEaseInOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after half sine wave
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,7 @@ TTSineEaseInOutFunction::~TTSineEaseInOutFunction()
 
 TTErr TTSineEaseInOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	y = 0.5 * (1 - cos(x * kTTPi));
 	return kTTErrNone;
 }
 

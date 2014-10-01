@@ -4,7 +4,7 @@
  *
  * @brief #TTCircularEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after shifted quadrant IV of unit circle
  *
  * @authors Timothy Place, Trond Lossius
  *

@@ -4,7 +4,7 @@
  *
  * @brief #TTQuarticEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the quartic y = 1 - (x - 1)^4
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,8 @@ TTQuarticEaseOutFunction::~TTQuarticEaseOutFunction()
 
 TTErr TTQuarticEaseOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	TTFloat64 f = (x - 1);
+	y = f * f * f * (1 - x) + 1;
 	return kTTErrNone;
 }
 

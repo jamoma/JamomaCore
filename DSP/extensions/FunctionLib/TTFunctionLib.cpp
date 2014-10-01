@@ -64,49 +64,55 @@
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_FunctionLib(void)
 {
 	TTDSPInit();
-
+	
+	// Functions are registered in alphabetical order according to #thisTTClassName
+	
+	// Regular functions
 	TTCosineFunction::registerClass();
 	TTCrossFadeInFunction::registerClass();
 	TTCrossFadeOutFunction::registerClass();
-    TTExpFunction::registerClass();
-    TTFreeHandFunction::registerClass();
+	
+	// Robert Penner easing functions
+	TTBackEaseInFunction::registerClass();
+	TTBackEaseInOutFunction::registerClass();
+	TTBackEaseOutFunction::registerClass();
+	TTBounceEaseInFunction::registerClass();
+	TTBounceEaseInOutFunction::registerClass();
+	TTBounceEaseOutFunction::registerClass();
+	TTCircularEaseInFunction::registerClass();
+	TTCircularEaseInOutFunction::registerClass();
+	TTCircularEaseOutFunction::registerClass();
+	TTCubicEaseInFunction::registerClass();
+	TTCubicEaseInOutFunction::registerClass();
+	TTCubicEaseOutFunction::registerClass();
+	TTElasticEaseInFunction::registerClass();
+	TTElasticEaseInOutFunction::registerClass();
+	TTElasticEaseOutFunction::registerClass();
+	TTExponentialEaseInFunction::registerClass();
+	TTExponentialEaseInOutFunction::registerClass();
+	TTExponentialEaseOutFunction::registerClass();
+	TTQuadraticEaseInFunction::registerClass();
+	TTQuadraticEaseInOutFunction::registerClass();
+	TTQuadraticEaseOutFunction::registerClass();
+	TTQuarticEaseInFunction::registerClass();
+	TTQuarticEaseInOutFunction::registerClass();
+	TTQuarticEaseOutFunction::registerClass();
+	TTQuinticEaseInFunction::registerClass();
+	TTQuinticEaseInOutFunction::registerClass();
+	TTQuinticEaseOutFunction::registerClass();
+	TTSineEaseInFunction::registerClass();
+	TTSineEaseInOutFunction::registerClass();
+	TTSineEaseOutFunction::registerClass();
+	
+	// More regular functions
+	TTExpFunction::registerClass();
+	TTFreeHandFunction::registerClass();
 	TTLinearFunction::registerClass();
 	TTLogFunction::registerClass();
 	TTLowpassFunction::registerClass();
 	TTPowerFunction::registerClass();
 	TTSmoothPolynomialFunction::registerClass();
 	TTTanhFunction::registerClass();
-	
-	TTQuadraticEaseInFunction::registerClass();
-	TTQuadraticEaseOutFunction::registerClass();
-	TTQuadraticEaseInOutFunction::registerClass();
-	TTCubicEaseInFunction::registerClass();
-	TTCubicEaseOutFunction::registerClass();
-	TTCubicEaseInOutFunction::registerClass();
-	TTQuarticEaseInFunction::registerClass();
-	TTQuarticEaseOutFunction::registerClass();
-	TTQuarticEaseInOutFunction::registerClass();
-	TTQuinticEaseInFunction::registerClass();
-	TTQuinticEaseOutFunction::registerClass();
-	TTQuinticEaseInOutFunction::registerClass();
-	TTSineEaseInFunction::registerClass();
-	TTSineEaseOutFunction::registerClass();
-	TTSineEaseInOutFunction::registerClass();
-	TTCircularEaseInFunction::registerClass();
-	TTCircularEaseOutFunction::registerClass();
-	TTCircularEaseInOutFunction::registerClass();
-	TTExponentialEaseInFunction::registerClass();
-	TTExponentialEaseOutFunction::registerClass();
-	TTExponentialEaseInOutFunction::registerClass();
-	TTElasticEaseInFunction::registerClass();
-	TTElasticEaseOutFunction::registerClass();
-	TTElasticEaseInOutFunction::registerClass();
-	TTBackEaseInFunction::registerClass();
-	TTBackEaseOutFunction::registerClass();
-	TTBackEaseInOutFunction::registerClass();
-	TTBounceEaseInFunction::registerClass();
-	TTBounceEaseOutFunction::registerClass();
-	TTBounceEaseInOutFunction::registerClass();
 	
 	TTFunction::registerClass();
 	

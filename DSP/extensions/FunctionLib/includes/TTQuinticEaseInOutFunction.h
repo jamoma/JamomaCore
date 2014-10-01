@@ -4,7 +4,9 @@
  *
  * @brief #TTQuinticEaseInOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details  Modeled after the piecewise quintic @n
+ *  y = (1/2)((2x)^5)       ; [0, 0.5) @n
+ *  y = (1/2)((2x-2)^5 + 2) ; [0.5, 1]
  *
  * @authors Timothy Place, Trond Lossius
  *

@@ -4,7 +4,7 @@
  *
  * @brief #TTSineEaseInOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after half sine wave
  *
  * @authors Timothy Place, Trond Lossius
  *

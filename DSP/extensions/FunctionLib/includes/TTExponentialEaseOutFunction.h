@@ -4,7 +4,7 @@
  *
  * @brief #TTExponentialEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the exponential function y = -2^(-10x) + 1
  *
  * @authors Timothy Place, Trond Lossius
  *

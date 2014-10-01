@@ -4,7 +4,7 @@
  *
  * @brief #TTElasticEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the damped sine wave y = sin(-13pi/2*(x + 1))*pow(2, -10x) + 1
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,7 @@ TTElasticEaseOutFunction::~TTElasticEaseOutFunction()
 
 TTErr TTElasticEaseOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	y = sin(-6.5 * kTTPi * (x + 1)) * pow(2, -10 * x) + 1;;
 	return kTTErrNone;
 }
 

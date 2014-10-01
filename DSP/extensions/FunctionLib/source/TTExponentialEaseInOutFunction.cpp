@@ -4,7 +4,9 @@
  *
  * @brief #TTExponentialEaseInOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the piecewise exponential @n
+ *  y =  (1/2)2^(10(2x - 1))        ; [0,0.5) @n
+ *  y = -(1/2)*2^(-10(2x - 1))) + 1 ; [0.5,1]
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +38,16 @@ TTExponentialEaseInOutFunction::~TTExponentialEaseInOutFunction()
 
 TTErr TTExponentialEaseInOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	if (x == 0.0 || x == 1.0)
+		y = x;
+	else if(x < 0.5)
+	{
+		y = 0.5 * pow(2, (20 * x) - 10);
+	}
+	else
+	{
+		y = -0.5 * pow(2, (-20 * x) + 10) + 1;
+	}
 	return kTTErrNone;
 }
 

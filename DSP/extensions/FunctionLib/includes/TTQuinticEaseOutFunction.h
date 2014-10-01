@@ -4,7 +4,7 @@
  *
  * @brief #TTQuinticEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the quintic y = (x - 1)^5 + 1
  *
  * @authors Timothy Place, Trond Lossius
  *

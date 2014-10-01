@@ -4,7 +4,7 @@
  *
  * @brief #TTCubicEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the cubic y = (x - 1)^3 + 1
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,9 @@ TTCubicEaseOutFunction::~TTCubicEaseOutFunction()
 
 TTErr TTCubicEaseOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	TTFloat64 f = (x - 1);
+	
+	y = f * f * f + 1;
 	return kTTErrNone;
 }
 

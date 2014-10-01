@@ -4,7 +4,7 @@
  *
  * @brief #TTSineEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after quarter-cycle of sine wave (different phase)
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,7 @@ TTSineEaseOutFunction::~TTSineEaseOutFunction()
 
 TTErr TTSineEaseOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	y = sin(x * kTTPi * 0.5);
 	return kTTErrNone;
 }
 

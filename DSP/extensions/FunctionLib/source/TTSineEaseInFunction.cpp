@@ -4,7 +4,7 @@
  *
  * @brief #TTSineEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after quarter-cycle of sine wave
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,7 @@ TTSineEaseInFunction::~TTSineEaseInFunction()
 
 TTErr TTSineEaseInFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	y = sin((x - 1) * kTTPi * 0.5) + 1;;
 	return kTTErrNone;
 }
 

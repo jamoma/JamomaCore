@@ -4,7 +4,7 @@
  *
  * @brief #TTQuadraticEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the parabola y = x^2.
  *
  * @authors Timothy Place, Trond Lossius
  *

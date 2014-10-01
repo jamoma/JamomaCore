@@ -4,7 +4,7 @@
  *
  * @brief #TTQuinticEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the quintic y = x^5
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,7 @@ TTQuinticEaseInFunction::~TTQuinticEaseInFunction()
 
 TTErr TTQuinticEaseInFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	y = x * x * x * x * x;
 	return kTTErrNone;
 }
 

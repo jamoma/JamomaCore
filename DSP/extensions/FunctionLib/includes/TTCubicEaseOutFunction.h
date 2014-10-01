@@ -4,7 +4,7 @@
  *
  * @brief #TTCubicEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the cubic y = (x - 1)^3 + 1
  *
  * @authors Timothy Place, Trond Lossius
  *

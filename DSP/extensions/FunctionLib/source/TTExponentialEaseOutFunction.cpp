@@ -4,7 +4,7 @@
  *
  * @brief #TTExponentialEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the exponential function y = -2^(-10x) + 1
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,7 @@ TTExponentialEaseOutFunction::~TTExponentialEaseOutFunction()
 
 TTErr TTExponentialEaseOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	(x == 1.0) ? (y = x) : (y = 1 - pow(2, -10 * x));
 	return kTTErrNone;
 }
 

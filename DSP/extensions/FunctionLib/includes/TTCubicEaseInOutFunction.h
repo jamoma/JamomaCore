@@ -4,7 +4,9 @@
  *
  * @brief #TTCubicEaseInOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details @details Modeled after the piecewise cubic @n
+    y = (1/2)((2x)^3)       ; [0, 0.5) @n
+    y = (1/2)((2x-2)^3 + 2) ; [0.5, 1]
  *
  * @authors Timothy Place, Trond Lossius
  *

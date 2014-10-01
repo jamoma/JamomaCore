@@ -4,7 +4,7 @@
  *
  * @brief #TTBackEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after overshooting cubic y = 1-((1-x)^3-(1-x)*sin((1-x)*pi))
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,8 @@ TTBackEaseOutFunction::~TTBackEaseOutFunction()
 
 TTErr TTBackEaseOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	TTFloat64 f = (1 - x);
+	y = 1 - (f * f * f - f * sin(f * kTTPi));
 	return kTTErrNone;
 }
 

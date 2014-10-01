@@ -36,7 +36,60 @@ TTBounceEaseInOutFunction::~TTBounceEaseInOutFunction()
 
 TTErr TTBounceEaseInOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	/*
+	 if(x < 0.5)
+	 {
+		y = 0.5 * BounceEaseIn(x*2);
+	 }
+	 else
+	 {
+		y = 0.5 * BounceEaseOut(x * 2 - 1) + 0.5;
+	 }
+	 */
+	
+	if(x < 0.5)
+	{
+		TTFloat64 f = 2 * (1 - x);
+		if (f < 4/11.0)
+		{
+			y = (121 * f * f)/16.0;
+		}
+		else if (f < 8/11.0)
+		{
+			y = (363/40.0 * f * f) - (99/10.0 * f) + 17/5.0;
+		}
+		else if (f < 9/10.0)
+		{
+			y = (4356/361.0 * f * f) - (35442/1805.0 * f) + 16061/1805.0;
+		}
+		else
+		{
+			y = (54/5.0 * f * f) - (513/25.0 * f) + 268/25.0;
+		}
+		
+		y = 0.5 * (1 - y);
+	}
+	else
+	{
+		TTFloat64 f = x * 2 - 1;
+		if (f < 4/11.0)
+		{
+			y = (121 * f * f)/16.0;
+		}
+		else if (f < 8/11.0)
+		{
+			y = (363/40.0 * f * f) - (99/10.0 * f) + 17/5.0;
+		}
+		else if (f < 9/10.0)
+		{
+			y = (4356/361.0 * f * f) - (35442/1805.0 * f) + 16061/1805.0;
+		}
+		else
+		{
+			y = (54/5.0 * f * f) - (513/25.0 * f) + 268/25.0;
+		}
+		y = 0.5 * y + 0.5;
+	}
 	return kTTErrNone;
 }
 

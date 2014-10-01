@@ -4,7 +4,7 @@
  *
  * @brief #TTQuarticEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the quartic y = 1 - (x - 1)^4
  *
  * @authors Timothy Place, Trond Lossius
  *

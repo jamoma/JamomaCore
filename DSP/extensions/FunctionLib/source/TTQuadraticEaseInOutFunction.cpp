@@ -4,7 +4,9 @@
  *
  * @brief #TTQuadraticEaseInOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the piecewise quadratic @n
+   y = (1/2)((2x)^2)             ; [0, 0.5) @n
+   y = -(1/2)((2x-1)*(2x-3) - 1) ; [0.5, 1]
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +38,14 @@ TTQuadraticEaseInOutFunction::~TTQuadraticEaseInOutFunction()
 
 TTErr TTQuadraticEaseInOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	if (x < 0.5)
+	{
+		y = 2 * x * x;
+	}
+	else
+	{
+		y = (-2 * x * x) + (4 * x) - 1;
+	}
 	return kTTErrNone;
 }
 

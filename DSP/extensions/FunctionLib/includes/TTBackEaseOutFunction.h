@@ -4,7 +4,7 @@
  *
  * @brief #TTBackEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after overshooting cubic y = 1-((1-x)^3-(1-x)*sin((1-x)*pi))
  *
  * @authors Timothy Place, Trond Lossius
  *

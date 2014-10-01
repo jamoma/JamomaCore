@@ -4,7 +4,7 @@
  *
  * @brief #TTCircularEaseOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after shifted quadrant II of unit circle
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,7 @@ TTCircularEaseOutFunction::~TTCircularEaseOutFunction()
 
 TTErr TTCircularEaseOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	y = sqrt((2 - x) * x);
 	return kTTErrNone;
 }
 

@@ -4,7 +4,7 @@
  *
  * @brief #TTCubicEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the cubic y = x^3
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +36,7 @@ TTCubicEaseInFunction::~TTCubicEaseInFunction()
 
 TTErr TTCubicEaseInFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	y = x * x * x;
 	return kTTErrNone;
 }
 

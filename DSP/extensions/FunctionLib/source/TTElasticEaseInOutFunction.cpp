@@ -4,7 +4,9 @@
  *
  * @brief #TTElasticEaseInOutFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the piecewise exponentially-damped sine wave: @n
+ *  y = (1/2)*sin(13pi/2*(2*x))*pow(2, 10 * ((2*x) - 1))      ; [0,0.5) @n
+ *  y = (1/2)*(sin(-13pi/2*((2x-1)+1))*pow(2,-10(2*x-1)) + 2) ; [0.5, 1]
  *
  * @authors Timothy Place, Trond Lossius
  *
@@ -36,7 +38,14 @@ TTElasticEaseInOutFunction::~TTElasticEaseInOutFunction()
 
 TTErr TTElasticEaseInOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
-	y = x;
+	if (x < 0.5)
+	{
+		y = 0.5 * sin(6.5 * kTTPi * (2 * x)) * pow(2, 10 * ((2 * x) - 1));
+	}
+	else
+	{
+		y = 0.5 * (sin(-6.5 * kTTPi * ((2 * x - 1) + 1)) * pow(2, -10 * (2 * x - 1)) + 2);
+	}
 	return kTTErrNone;
 }
 

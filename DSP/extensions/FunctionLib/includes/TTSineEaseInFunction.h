@@ -4,7 +4,7 @@
  *
  * @brief #TTSineEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after quarter-cycle of sine wave
  *
  * @authors Timothy Place, Trond Lossius
  *

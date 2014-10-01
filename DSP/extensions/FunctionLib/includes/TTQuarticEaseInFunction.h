@@ -4,7 +4,7 @@
  *
  * @brief #TTQuarticEaseInFunction Unit for Jamoms DSP
  *
- * @details
+ * @details Modeled after the quartic x^4
  *
  * @authors Timothy Place, Trond Lossius
  *
