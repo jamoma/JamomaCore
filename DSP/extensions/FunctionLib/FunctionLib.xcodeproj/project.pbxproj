@@ -19,9 +19,6 @@
 		A784C6A219DAF7570025D8C9 /* TTCircularEaseInFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C67A19DAF7570025D8C9 /* TTCircularEaseInFunction.test.cpp */; };
 		A784C6A319DAF7570025D8C9 /* TTCircularEaseInOutFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C67B19DAF7570025D8C9 /* TTCircularEaseInOutFunction.test.cpp */; };
 		A784C6A419DAF7570025D8C9 /* TTCircularEaseOutFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C67C19DAF7570025D8C9 /* TTCircularEaseOutFunction.test.cpp */; };
-		A784C6A519DAF7570025D8C9 /* TTCosineFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C67D19DAF7570025D8C9 /* TTCosineFunction.test.cpp */; };
-		A784C6A619DAF7570025D8C9 /* TTCrossFadeInFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C67E19DAF7570025D8C9 /* TTCrossFadeInFunction.test.cpp */; };
-		A784C6A719DAF7570025D8C9 /* TTCrossFadeOutFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C67F19DAF7570025D8C9 /* TTCrossFadeOutFunction.test.cpp */; };
 		A784C6A819DAF7570025D8C9 /* TTCubicEaseInFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C68019DAF7570025D8C9 /* TTCubicEaseInFunction.test.cpp */; };
 		A784C6A919DAF7570025D8C9 /* TTCubicEaseInOutFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C68119DAF7570025D8C9 /* TTCubicEaseInOutFunction.test.cpp */; };
 		A784C6AA19DAF7570025D8C9 /* TTCubicEaseOutFunction.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C68219DAF7570025D8C9 /* TTCubicEaseOutFunction.test.cpp */; };
@@ -59,9 +56,6 @@
 		A784C6F419DAF7650025D8C9 /* TTCircularEaseInFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6CA19DAF7650025D8C9 /* TTCircularEaseInFunction.cpp */; };
 		A784C6F519DAF7650025D8C9 /* TTCircularEaseInOutFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6CB19DAF7650025D8C9 /* TTCircularEaseInOutFunction.cpp */; };
 		A784C6F619DAF7650025D8C9 /* TTCircularEaseOutFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6CC19DAF7650025D8C9 /* TTCircularEaseOutFunction.cpp */; };
-		A784C6F719DAF7650025D8C9 /* TTCosineFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6CD19DAF7650025D8C9 /* TTCosineFunction.cpp */; };
-		A784C6F819DAF7650025D8C9 /* TTCrossFadeInFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6CE19DAF7650025D8C9 /* TTCrossFadeInFunction.cpp */; };
-		A784C6F919DAF7650025D8C9 /* TTCrossFadeOutFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6CF19DAF7650025D8C9 /* TTCrossFadeOutFunction.cpp */; };
 		A784C6FA19DAF7650025D8C9 /* TTCubicEaseInFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6D019DAF7650025D8C9 /* TTCubicEaseInFunction.cpp */; };
 		A784C6FB19DAF7650025D8C9 /* TTCubicEaseInOutFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6D119DAF7650025D8C9 /* TTCubicEaseInOutFunction.cpp */; };
 		A784C6FC19DAF7650025D8C9 /* TTCubicEaseOutFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6D219DAF7650025D8C9 /* TTCubicEaseOutFunction.cpp */; };
@@ -92,6 +86,7 @@
 		A784C71519DAF7650025D8C9 /* TTSineEaseOutFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6EB19DAF7650025D8C9 /* TTSineEaseOutFunction.cpp */; };
 		A784C71619DAF7650025D8C9 /* TTSmoothPolynomialFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6EC19DAF7650025D8C9 /* TTSmoothPolynomialFunction.cpp */; };
 		A784C71719DAF7650025D8C9 /* TTTanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A784C6ED19DAF7650025D8C9 /* TTTanhFunction.cpp */; };
+		A7AAEC8A19DDC45E00A30F30 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = A7AAEC8919DDC45E00A30F30 /* Makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -125,9 +120,6 @@
 		A784C67A19DAF7570025D8C9 /* TTCircularEaseInFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCircularEaseInFunction.test.cpp; path = tests/TTCircularEaseInFunction.test.cpp; sourceTree = "<group>"; };
 		A784C67B19DAF7570025D8C9 /* TTCircularEaseInOutFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCircularEaseInOutFunction.test.cpp; path = tests/TTCircularEaseInOutFunction.test.cpp; sourceTree = "<group>"; };
 		A784C67C19DAF7570025D8C9 /* TTCircularEaseOutFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCircularEaseOutFunction.test.cpp; path = tests/TTCircularEaseOutFunction.test.cpp; sourceTree = "<group>"; };
-		A784C67D19DAF7570025D8C9 /* TTCosineFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCosineFunction.test.cpp; path = tests/TTCosineFunction.test.cpp; sourceTree = "<group>"; };
-		A784C67E19DAF7570025D8C9 /* TTCrossFadeInFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCrossFadeInFunction.test.cpp; path = tests/TTCrossFadeInFunction.test.cpp; sourceTree = "<group>"; };
-		A784C67F19DAF7570025D8C9 /* TTCrossFadeOutFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCrossFadeOutFunction.test.cpp; path = tests/TTCrossFadeOutFunction.test.cpp; sourceTree = "<group>"; };
 		A784C68019DAF7570025D8C9 /* TTCubicEaseInFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCubicEaseInFunction.test.cpp; path = tests/TTCubicEaseInFunction.test.cpp; sourceTree = "<group>"; };
 		A784C68119DAF7570025D8C9 /* TTCubicEaseInOutFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCubicEaseInOutFunction.test.cpp; path = tests/TTCubicEaseInOutFunction.test.cpp; sourceTree = "<group>"; };
 		A784C68219DAF7570025D8C9 /* TTCubicEaseOutFunction.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCubicEaseOutFunction.test.cpp; path = tests/TTCubicEaseOutFunction.test.cpp; sourceTree = "<group>"; };
@@ -165,9 +157,6 @@
 		A784C6CA19DAF7650025D8C9 /* TTCircularEaseInFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCircularEaseInFunction.cpp; path = source/TTCircularEaseInFunction.cpp; sourceTree = "<group>"; };
 		A784C6CB19DAF7650025D8C9 /* TTCircularEaseInOutFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCircularEaseInOutFunction.cpp; path = source/TTCircularEaseInOutFunction.cpp; sourceTree = "<group>"; };
 		A784C6CC19DAF7650025D8C9 /* TTCircularEaseOutFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCircularEaseOutFunction.cpp; path = source/TTCircularEaseOutFunction.cpp; sourceTree = "<group>"; };
-		A784C6CD19DAF7650025D8C9 /* TTCosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCosineFunction.cpp; path = source/TTCosineFunction.cpp; sourceTree = "<group>"; };
-		A784C6CE19DAF7650025D8C9 /* TTCrossFadeInFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCrossFadeInFunction.cpp; path = source/TTCrossFadeInFunction.cpp; sourceTree = "<group>"; };
-		A784C6CF19DAF7650025D8C9 /* TTCrossFadeOutFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCrossFadeOutFunction.cpp; path = source/TTCrossFadeOutFunction.cpp; sourceTree = "<group>"; };
 		A784C6D019DAF7650025D8C9 /* TTCubicEaseInFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCubicEaseInFunction.cpp; path = source/TTCubicEaseInFunction.cpp; sourceTree = "<group>"; };
 		A784C6D119DAF7650025D8C9 /* TTCubicEaseInOutFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCubicEaseInOutFunction.cpp; path = source/TTCubicEaseInOutFunction.cpp; sourceTree = "<group>"; };
 		A784C6D219DAF7650025D8C9 /* TTCubicEaseOutFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCubicEaseOutFunction.cpp; path = source/TTCubicEaseOutFunction.cpp; sourceTree = "<group>"; };
@@ -198,6 +187,7 @@
 		A784C6EB19DAF7650025D8C9 /* TTSineEaseOutFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSineEaseOutFunction.cpp; path = source/TTSineEaseOutFunction.cpp; sourceTree = "<group>"; };
 		A784C6EC19DAF7650025D8C9 /* TTSmoothPolynomialFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSmoothPolynomialFunction.cpp; path = source/TTSmoothPolynomialFunction.cpp; sourceTree = "<group>"; };
 		A784C6ED19DAF7650025D8C9 /* TTTanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTanhFunction.cpp; path = source/TTTanhFunction.cpp; sourceTree = "<group>"; };
+		A7AAEC8919DDC45E00A30F30 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				A776C21615AFF051003F5555 /* FunctionLib.yml */,
+				A7AAEC8919DDC45E00A30F30 /* Makefile */,
 				A776C21515AFEB54003F5555 /* TTFunctionLib.cpp */,
 				8ED7ADC5183D3AC300170BBA /* test.cpp */,
 				A776C21015AFE617003F5555 /* includes */,
@@ -339,9 +330,6 @@
 			isa = PBXGroup;
 			children = (
 				A7AAEC8719DDC20600A30F30 /* Robert Penner Easing Functions */,
-				A784C6CD19DAF7650025D8C9 /* TTCosineFunction.cpp */,
-				A784C6CE19DAF7650025D8C9 /* TTCrossFadeInFunction.cpp */,
-				A784C6CF19DAF7650025D8C9 /* TTCrossFadeOutFunction.cpp */,
 				A784C6D619DAF7650025D8C9 /* TTExpFunction.cpp */,
 				A784C6DA19DAF7650025D8C9 /* TTFreeHandFunction.cpp */,
 				A784C6DB19DAF7650025D8C9 /* TTFunction.cpp */,
@@ -359,9 +347,6 @@
 			isa = PBXGroup;
 			children = (
 				A7AAEC8819DDC24F00A30F30 /* Robert Penner Easing Functions */,
-				A784C67D19DAF7570025D8C9 /* TTCosineFunction.test.cpp */,
-				A784C67E19DAF7570025D8C9 /* TTCrossFadeInFunction.test.cpp */,
-				A784C67F19DAF7570025D8C9 /* TTCrossFadeOutFunction.test.cpp */,
 				A784C68619DAF7570025D8C9 /* TTExpFunction.test.cpp */,
 				A784C68A19DAF7570025D8C9 /* TTFreeHandFunction.test.cpp */,
 				A784C68B19DAF7570025D8C9 /* TTLinearFunction.test.cpp */,
@@ -459,7 +444,6 @@
 				A784C70519DAF7650025D8C9 /* TTFunction.cpp in Sources */,
 				A784C6C119DAF7570025D8C9 /* TTSineEaseOutFunction.test.cpp in Sources */,
 				A784C6B119DAF7570025D8C9 /* TTExponentialEaseOutFunction.test.cpp in Sources */,
-				A784C6A619DAF7570025D8C9 /* TTCrossFadeInFunction.test.cpp in Sources */,
 				A784C6B319DAF7570025D8C9 /* TTLinearFunction.test.cpp in Sources */,
 				A784C6BE19DAF7570025D8C9 /* TTQuinticEaseOutFunction.test.cpp in Sources */,
 				A784C70219DAF7650025D8C9 /* TTExponentialEaseInOutFunction.cpp in Sources */,
@@ -474,16 +458,14 @@
 				A784C6EE19DAF7650025D8C9 /* TTBackEaseInFunction.cpp in Sources */,
 				A784C70419DAF7650025D8C9 /* TTFreeHandFunction.cpp in Sources */,
 				A784C6FE19DAF7650025D8C9 /* TTElasticEaseInOutFunction.cpp in Sources */,
-				A784C6A719DAF7570025D8C9 /* TTCrossFadeOutFunction.test.cpp in Sources */,
 				A784C6B519DAF7570025D8C9 /* TTPowerFunction.test.cpp in Sources */,
 				2A23AD4D169D011A004793F5 /* TTFunctionLib.cpp in Sources */,
+				A7AAEC8A19DDC45E00A30F30 /* Makefile in Sources */,
 				A784C6C219DAF7570025D8C9 /* TTSmoothPolynomialFunction.test.cpp in Sources */,
-				A784C6F819DAF7650025D8C9 /* TTCrossFadeInFunction.cpp in Sources */,
 				A784C71019DAF7650025D8C9 /* TTQuinticEaseInFunction.cpp in Sources */,
 				8ED7ADC6183D3AC300170BBA /* test.cpp in Sources */,
 				A784C70B19DAF7650025D8C9 /* TTQuadraticEaseInOutFunction.cpp in Sources */,
 				A784C6F019DAF7650025D8C9 /* TTBackEaseOutFunction.cpp in Sources */,
-				A784C6F719DAF7650025D8C9 /* TTCosineFunction.cpp in Sources */,
 				A784C6FB19DAF7650025D8C9 /* TTCubicEaseInOutFunction.cpp in Sources */,
 				A784C70719DAF7650025D8C9 /* TTLogFunction.cpp in Sources */,
 				A784C70A19DAF7650025D8C9 /* TTQuadraticEaseInFunction.cpp in Sources */,
@@ -495,7 +477,6 @@
 				A784C70619DAF7650025D8C9 /* TTLinearFunction.cpp in Sources */,
 				A784C70D19DAF7650025D8C9 /* TTQuarticEaseInFunction.cpp in Sources */,
 				A784C6AB19DAF7570025D8C9 /* TTElasticEaseInFunction.test.cpp in Sources */,
-				A784C6A519DAF7570025D8C9 /* TTCosineFunction.test.cpp in Sources */,
 				A784C69F19DAF7570025D8C9 /* TTBounceEaseInFunction.test.cpp in Sources */,
 				A784C6BC19DAF7570025D8C9 /* TTQuinticEaseInFunction.test.cpp in Sources */,
 				A784C6FC19DAF7650025D8C9 /* TTCubicEaseOutFunction.cpp in Sources */,
@@ -518,7 +499,6 @@
 				A784C70319DAF7650025D8C9 /* TTExponentialEaseOutFunction.cpp in Sources */,
 				A784C6C019DAF7570025D8C9 /* TTSineEaseInOutFunction.test.cpp in Sources */,
 				A784C6AD19DAF7570025D8C9 /* TTElasticEaseOutFunction.test.cpp in Sources */,
-				A784C6F919DAF7650025D8C9 /* TTCrossFadeOutFunction.cpp in Sources */,
 				A784C6B619DAF7570025D8C9 /* TTQuadraticEaseInFunction.test.cpp in Sources */,
 				A784C6F619DAF7650025D8C9 /* TTCircularEaseOutFunction.cpp in Sources */,
 				A784C71219DAF7650025D8C9 /* TTQuinticEaseOutFunction.cpp in Sources */,

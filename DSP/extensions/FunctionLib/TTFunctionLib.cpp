@@ -15,9 +15,6 @@
 
 
 #include "TTDSP.h"
-#include "TTCosineFunction.h"
-#include "TTCrossFadeInFunction.h"
-#include "TTCrossFadeOutFunction.h"
 #include "TTExpFunction.h"
 #include "TTFreeHandFunction.h"
 #include "TTLinearFunction.h"
@@ -65,13 +62,11 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_FunctionLib(void)
 {
 	TTDSPInit();
 	
-	// Functions are registered in alphabetical order according to #thisTTClassName
+	// Register all functions
 	
-	// Regular functions
-	TTCosineFunction::registerClass();
-	TTCrossFadeInFunction::registerClass();
-	TTCrossFadeOutFunction::registerClass();
-	
+	// Linear should show up first
+	TTLinearFunction::registerClass();
+
 	// Robert Penner easing functions
 	TTBackEaseInFunction::registerClass();
 	TTBackEaseInOutFunction::registerClass();
@@ -107,7 +102,6 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_FunctionLib(void)
 	// More regular functions
 	TTExpFunction::registerClass();
 	TTFreeHandFunction::registerClass();
-	TTLinearFunction::registerClass();
 	TTLogFunction::registerClass();
 	TTLowpassFunction::registerClass();
 	TTPowerFunction::registerClass();
