@@ -5,6 +5,7 @@ sources:
   - ../../library/ProtocolLib/Protocol.cpp		
   - source/MIDI.cpp
   - source/MIDIInput.cpp
+  - source/MIDIOutput.cpp
     
 includes:
   - "."

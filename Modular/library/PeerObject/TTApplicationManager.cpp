@@ -223,6 +223,7 @@ TTErr TTApplicationManager::ApplicationInstantiateDistant(const TTValue& inputVa
             // create an application
             anApplication = TTObject(kTTSym_Application);
             anApplication.set(kTTSym_name, applicationName);
+            anApplication.set(kTTSym_type, kTTSym_mirror);
             
             // register the application under its own root
             v = TTValue(kTTAdrsRoot, anApplication);

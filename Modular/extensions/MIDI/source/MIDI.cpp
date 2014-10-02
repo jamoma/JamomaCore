@@ -39,7 +39,8 @@ PROTOCOL_CONSTRUCTOR
 {	
 	PROTOCOL_INITIALIZE
 	
-    addAttributeAsProtocolParameter(Device, kTypeSymbol);
+    addAttributeAsProtocolParameter(Input, kTypeSymbol);
+    addAttributeAsProtocolParameter(Output, kTypeSymbol);
 	
 	PmError err = Pm_Initialize();
     
@@ -56,6 +57,7 @@ MIDI::~MIDI()
     TTValue         applications, v;
     TTSymbol        applicationName;
     MIDIInputPtr    midiInput;
+    MIDIOutputPtr   midiOutput;
     
     // clear mInputs
     mInputs.getKeys(applications);
@@ -68,13 +70,41 @@ MIDI::~MIDI()
     }
     mInputs.clear();
     
-    // TODO : clear mOutputs
+    // clear mOutputs
+    mOutputs.getKeys(applications);
+    for (TTUInt32 i = 0; i < applications.size(); i++) {
+        
+        applicationName = applications[i];
+        mOutputs.lookup(applicationName, v);
+        midiOutput = MIDIOutputPtr(TTPtr(v[0]));
+        delete midiOutput;
+    }
+    mOutputs.clear();
     
     Pm_Terminate();
 }
 
-TTErr MIDI::sendMessage(TTSymbol& applicationName, TTSymbol& header, TTValue& arguments)
+TTErr MIDI::sendMessage(TTSymbol& applicationName, TTAddress& address, TTValue& value)
 {
+    TTValue v;
+    
+    if (!mOutputs.lookup(applicationName, v)) {
+        
+        MIDIOutputPtr midiOutput = MIDIOutputPtr(TTPtr(v[0]));
+        
+        if (!midiOutput->sendMessage(address, value)) {
+            
+            if (mActivity) {
+                
+                TTValue message = value;
+                message.prepend(address);
+                ActivityOutMessage(message);
+            }
+            
+            return kTTErrNone;
+        }
+    }
+    
     return kTTErrGeneric;
 }
 
@@ -96,30 +126,41 @@ TTErr MIDI::receivedMessage(TTSymbol& applicationName, TTAddress& address, TTVal
         return ReceiveListenAnswer(applicationName, address, value);
 }
 
-TTErr MIDI::Scan()
+TTErr MIDI::Scan(const TTValue& inputValue, TTValue& outputValue)
 {
-	// TODO
-    
-/*
     const PmDeviceInfo*	deviceInfo = NULL;
     int					deviceCount = Pm_CountDevices();
-	
-	returnedDeviceNames.clear();
-	
-    if (deviceCount < 0) {
-        logError("Pa_CountDevices() returned 0x%x\n", deviceCount);
-        return kTTErrGeneric;
-    }
-	
-    for (int i=0; i<deviceCount; i++) {
-        deviceInfo = Pm_GetDeviceInfo(i);
-		if (deviceInfo->input)
-			returnedDeviceNames.append(TT(deviceInfo->name));
-    }
-	return kTTErrNone;
-*/
+    TTSymbol            deviceType;
     
-	return kTTErrGeneric;
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            deviceType = inputValue[0];
+            
+            if (deviceCount < 0) {
+                
+                logError("Pm_CountDevices() returned 0x%x\n", deviceCount);
+                return kTTErrGeneric;
+            }
+            
+            for (TTUInt32 i = 0; i < deviceCount; i++) {
+                
+                deviceInfo = Pm_GetDeviceInfo(i);
+                
+                if (deviceType == TTSymbol("inputs") && deviceInfo->input)
+                    outputValue.append(TTSymbol(deviceInfo->name));
+                
+                else if (deviceType == TTSymbol("outputs") && deviceInfo->output)
+                    outputValue.append(TTSymbol(deviceInfo->name));
+
+            }
+            
+            return kTTErrNone;
+        }
+    }
+    
+    return kTTErrGeneric;
 }
 
 /*!
@@ -135,38 +176,38 @@ TTErr MIDI::Run(const TTValue& inputValue, TTValue& outputValue)
             
             TTSymbol        applicationName = inputValue[0];
             TTObject        MIDIProtocol(this);
-            MIDIInputPtr    midiInput;
+            MIDIInputPtr    midiInput = NULL;
+            MIDIOutputPtr   midiOutput = NULL;
             TTValue         v;
             TTErr           err;
             
-            // select the given application to get its device parameter
+            // select the given application to get its input and output device parameter
             ApplicationSelect(applicationName, v);
             
+            // INPUT
             // if the application don't have a MIDI input device
             if (mInputs.lookup(applicationName, v)) {
                 
-                // get the device name parameter
-                MIDIProtocol.get("device", v);
+                // get the input device name parameter
+                MIDIProtocol.get("input", v);
                 
                 if (v.size()) {
                     
-                    TTSymbol deviceName = v[0];
+                    TTSymbol inputDeviceName = v[0];
                     
                     // create a MIDI input object
                     midiInput = new MIDIInput(this, applicationName);
-                    err = midiInput->setDevice(deviceName);
+                    err = midiInput->setDevice(inputDeviceName);
                     
                     // if the device doesn't exist
                     if (err) {
                         delete midiInput;
-                        return kTTErrGeneric;
+                        midiInput = NULL;
                     }
-                        
                     // register the MIDI input
-                    mInputs.append(applicationName, TTPtr(midiInput));
+                    else
+                        mInputs.append(applicationName, TTPtr(midiInput));
                 }
-                else
-                    return kTTErrGeneric;
             }
             else {
                 
@@ -176,14 +217,58 @@ TTErr MIDI::Run(const TTValue& inputValue, TTValue& outputValue)
                 if (!mApplicationParameters.lookup(applicationName, v)) {
                     
                     delete midiInput;
+                    midiInput = NULL;
                     mInputs.remove(applicationName);
-                    
-                    return kTTErrGeneric;
                 }
             }
             
-            // run the MIDI input device
-            return midiInput->setRunning(YES);
+            // run the MIDI input device if there is one for the application
+            if (midiInput)
+                midiInput->setRunning(YES);
+            
+            // OUTPUT
+            // if the application don't have a MIDI output device
+            if (mOutputs.lookup(applicationName, v)) {
+                
+                // get the output device name parameter
+                MIDIProtocol.get("output", v);
+                
+                if (v.size()) {
+                    
+                    TTSymbol outputDeviceName = v[0];
+                    
+                    // create a MIDI output object
+                    midiOutput = new MIDIOutput(this, applicationName);
+                    err = midiOutput->setDevice(outputDeviceName);
+                    
+                    // if the device doesn't exist
+                    if (err) {
+                        delete midiOutput;
+                        midiOutput = NULL;
+                    }
+                    // register the MIDI output
+                    else
+                        mOutputs.append(applicationName, TTPtr(midiOutput));
+                }
+            }
+            else {
+                
+                midiOutput = MIDIOutputPtr(TTPtr(v[0]));
+                
+                // if the application is not registered anymore : clear the MIDI output
+                if (!mApplicationParameters.lookup(applicationName, v)) {
+                    
+                    delete midiOutput;
+                    midiOutput = NULL;
+                    mOutputs.remove(applicationName);
+                }
+            }
+            
+            // run the MIDI output device if there is one for the application
+            if (midiOutput)
+                midiOutput->setRunning(YES);
+            
+            return kTTErrNone;
         }
         
         return kTTErrGeneric;
@@ -212,12 +297,14 @@ TTErr MIDI::Stop(const TTValue& inputValue, TTValue& outputValue)
             
             TTSymbol        applicationName = inputValue[0];
             TTObject        MIDIProtocol(this);
-            MIDIInputPtr    midiInput;
+            MIDIInputPtr    midiInput = NULL;
+            MIDIOutputPtr   midiOutput = NULL;
             TTValue         v;
             
             // select the given application to get its device parameter
             ApplicationSelect(applicationName, v);
             
+            // INPUT
             // if the application have a MIDI input device
             if (!mInputs.lookup(applicationName, v)) {
             
@@ -227,13 +314,32 @@ TTErr MIDI::Stop(const TTValue& inputValue, TTValue& outputValue)
                 if (!mApplicationParameters.lookup(applicationName, v)) {
                     
                     delete midiInput;
+                    midiInput = NULL;
                     mInputs.remove(applicationName);
-                    
-                    return kTTErrGeneric;
                 }
                 
                 // stop the MIDI input device
-                return midiInput->setRunning(YES);
+                if (midiInput)
+                    midiInput->setRunning(YES);
+            }
+            
+            // OUTPUT
+            // if the application have a MIDI output device
+            if (!mOutputs.lookup(applicationName, v)) {
+                
+                midiOutput = MIDIOutputPtr(TTPtr(v[0]));
+                
+                // if the application is not registered anymore : clear the MIDI output
+                if (!mApplicationParameters.lookup(applicationName, v)) {
+                    
+                    delete midiOutput;
+                    midiOutput = NULL;
+                    mOutputs.remove(applicationName);
+                }
+                
+                // stop the MIDI output device
+                if (midiOutput)
+                    midiOutput->setRunning(YES);
             }
         }
         
@@ -319,7 +425,7 @@ TTErr MIDI::SendSetRequest(TTSymbol to, TTAddress address,
 							 TTValue& value,
                              TTUInt8 tryCount)
 {
-    return kTTErrGeneric;
+    return sendMessage(to, address, value);
 }
 
 /*!

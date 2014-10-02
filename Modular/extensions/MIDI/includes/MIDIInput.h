@@ -52,7 +52,7 @@ public:
     TTErr setDevice(TTSymbol& newDevice);
     
     /** Set running state
-     @param running       #TTBolean to enable disable midi iput polling thread
+     @param running       #TTBoolean to enable disable midi iput polling thread
      @return #TTErr error code */
     TTErr setRunning(TTBoolean running);
     

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		464135EE19D9FE2A00BFAF44 /* MIDIOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MIDIOutput.cpp; path = source/MIDIOutput.cpp; sourceTree = SOURCE_ROOT; };
+		464135EF19D9FE3300BFAF44 /* MIDIOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIOutput.h; sourceTree = "<group>"; };
 		46A30BA819AD210E00223A7D /* MIDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDI.h; sourceTree = "<group>"; };
 		46A30BAA19AD211C00223A7D /* MIDI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MIDI.cpp; sourceTree = "<group>"; };
 		46A30BAB19AD212300223A7D /* MIDI.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = MIDI.yml; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 				46A30BC419AD223100223A7D /* MIDIInclude.h */,
 				46A30BA819AD210E00223A7D /* MIDI.h */,
 				46A30BC519AD26C700223A7D /* MIDIInput.h */,
+				464135EF19D9FE3300BFAF44 /* MIDIOutput.h */,
 			);
 			path = includes;
 			sourceTree = "<group>";
@@ -57,6 +60,7 @@
 			children = (
 				46A30BAA19AD211C00223A7D /* MIDI.cpp */,
 				46A30BC619AD26CE00223A7D /* MIDIInput.cpp */,
+				464135EE19D9FE2A00BFAF44 /* MIDIOutput.cpp */,
 			);
 			path = source;
 			sourceTree = "<group>";

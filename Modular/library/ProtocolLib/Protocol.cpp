@@ -65,9 +65,9 @@ mSelectedApplication(kTTSymEmpty)
 	
 	addMessageWithArguments(isRegistered);
 	
+    addMessageWithArguments(Scan);
 	addMessageWithArguments(Run);
 	addMessageWithArguments(Stop);
-	addMessage(Scan);
 }
 
 Protocol::~Protocol()
@@ -599,6 +599,7 @@ void ProtocolLib::getProtocolNames(TTValue& protocolNames)
 	protocolNames.clear();
 	protocolNames.append(TTSymbol("MIDI"));
 	protocolNames.append(TTSymbol("OSC"));
+    protocolNames.append(TTSymbol("WebSocket"));
     /*
 	protocolNames.append(TTSymbol("MIDI"));
 	protocolNames.append(TTSymbol("CopperLan"));
