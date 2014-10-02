@@ -42,9 +42,6 @@ sources:
   - source/TTBounceEaseOutFunction.cpp
   - source/TTBounceEaseInOutFunction.cpp
   
-  - tests/TTCosineFunction.test.cpp
-  - tests/TTCrossFadeInFunction.test.cpp
-  - tests/TTCrossFadeOutFunction.test.cpp
   - tests/TTExpFunction.test.cpp
   - tests/TTFreeHandFunction.test.cpp
   - tests/TTLinearFunction.test.cpp
