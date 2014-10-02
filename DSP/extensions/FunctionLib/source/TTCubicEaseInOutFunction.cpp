@@ -6,11 +6,14 @@
  *
  * @details Modeled after the piecewise cubic @n
     y = (1/2)((2x)^3)       ; [0, 0.5) @n
-    y = (1/2)((2x-2)^3 + 2) ; [0.5, 1]
+    y = (1/2)((2x-2)^3 + 2) ; [0.5, 1] @n
+ * @n
+ * Derived from Sam Hocevar's public domain C/C++ implementation of
+ * Robert Penner easing functions
  *
- * @authors Timothy Place, Trond Lossius
+ * @authors Trond Lossius
  *
- * @copyright Copyright © 2007 by Timothy Place @n
+ * @copyright Copyright © 2014 by Trond Lossius @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */

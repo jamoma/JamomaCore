@@ -4,11 +4,14 @@
  *
  * @brief #TTSineEaseInFunction Unit for Jamoms DSP
  *
- * @details Modeled after quarter-cycle of sine wave
+ * @details Modeled after quarter-cycle of sine wave @n
+ * @n
+ * Derived from Sam Hocevar's public domain C/C++ implementation of
+ * Robert Penner easing functions
  *
- * @authors Timothy Place, Trond Lossius
+ * @authors Trond Lossius
  *
- * @copyright Copyright © 2007 by Timothy Place @n
+ * @copyright Copyright © 2014 by Trond Lossius @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */

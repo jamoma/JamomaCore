@@ -4,11 +4,14 @@
  *
  * @brief #TTBackEaseOutFunction Unit for Jamoms DSP
  *
- * @details Modeled after overshooting cubic y = 1-((1-x)^3-(1-x)*sin((1-x)*pi))
+ * @details Modeled after overshooting cubic y = 1-((1-x)^3-(1-x)*sin((1-x)*pi)) @n
+ * @n
+ * Derived from Sam Hocevar's public domain C/C++ implementation of
+ * Robert Penner easing functions
  *
- * @authors Timothy Place, Trond Lossius
+ * @authors Trond Lossius
  *
- * @copyright Copyright © 2007 by Timothy Place @n
+ * @copyright Copyright © 2014 by Trond Lossius @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */

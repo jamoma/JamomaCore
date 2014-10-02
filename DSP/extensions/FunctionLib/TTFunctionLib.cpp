@@ -2,9 +2,9 @@
  *
  * @ingroup dspFunctionLib
  *
- * @brief FuncitonLib extends Jamoma DSP with a set of functions for mapping, ramping and more.
+ * @brief FuncitonLib extends Jamoma DSP with a set of functions for mapping, ramping and more, including Robert Penner's easing functions
  *
- * @details
+ * @details FunctionLib makes use of code derived from Sam Hocevar's public domain C/C++ implementation of Robert Penner easing functions
  *
  * @authors Tim Place, Trond Lossius, Dave Watson
  *

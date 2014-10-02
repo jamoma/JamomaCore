@@ -4,11 +4,11 @@
  *
  * @brief Unit tests for the Jamoma DSP #TTCircularEaseOutFunction of the #TTFunctionLib
  *
- * @details
+ * @details Derived from Sam Hocevar's public domain C/C++ implementation of Robert Penner easing functions
  *
  * @authors Trond Lossius
  *
- * @copyright Copyright © 2012 by Trond Lossius @n
+ * @copyright Copyright © 2014 by Trond Lossius @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
