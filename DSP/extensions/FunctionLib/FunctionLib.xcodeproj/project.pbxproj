@@ -261,7 +261,7 @@
 			);
 			sourceTree = "<group>";
 		};
-		A7F8593018B0DD1B0039341F /* source */ = {
+		A7AAEC8719DDC20600A30F30 /* Robert Penner Easing Functions */ = {
 			isa = PBXGroup;
 			children = (
 				A784C6C419DAF7650025D8C9 /* TTBackEaseInFunction.cpp */,
@@ -273,25 +273,15 @@
 				A784C6CA19DAF7650025D8C9 /* TTCircularEaseInFunction.cpp */,
 				A784C6CB19DAF7650025D8C9 /* TTCircularEaseInOutFunction.cpp */,
 				A784C6CC19DAF7650025D8C9 /* TTCircularEaseOutFunction.cpp */,
-				A784C6CD19DAF7650025D8C9 /* TTCosineFunction.cpp */,
-				A784C6CE19DAF7650025D8C9 /* TTCrossFadeInFunction.cpp */,
-				A784C6CF19DAF7650025D8C9 /* TTCrossFadeOutFunction.cpp */,
 				A784C6D019DAF7650025D8C9 /* TTCubicEaseInFunction.cpp */,
 				A784C6D119DAF7650025D8C9 /* TTCubicEaseInOutFunction.cpp */,
 				A784C6D219DAF7650025D8C9 /* TTCubicEaseOutFunction.cpp */,
 				A784C6D319DAF7650025D8C9 /* TTElasticEaseInFunction.cpp */,
 				A784C6D419DAF7650025D8C9 /* TTElasticEaseInOutFunction.cpp */,
 				A784C6D519DAF7650025D8C9 /* TTElasticEaseOutFunction.cpp */,
-				A784C6D619DAF7650025D8C9 /* TTExpFunction.cpp */,
 				A784C6D719DAF7650025D8C9 /* TTExponentialEaseInFunction.cpp */,
 				A784C6D819DAF7650025D8C9 /* TTExponentialEaseInOutFunction.cpp */,
 				A784C6D919DAF7650025D8C9 /* TTExponentialEaseOutFunction.cpp */,
-				A784C6DA19DAF7650025D8C9 /* TTFreeHandFunction.cpp */,
-				A784C6DB19DAF7650025D8C9 /* TTFunction.cpp */,
-				A784C6DC19DAF7650025D8C9 /* TTLinearFunction.cpp */,
-				A784C6DD19DAF7650025D8C9 /* TTLogFunction.cpp */,
-				A784C6DE19DAF7650025D8C9 /* TTLowpassFunction.cpp */,
-				A784C6DF19DAF7650025D8C9 /* TTPowerFunction.cpp */,
 				A784C6E019DAF7650025D8C9 /* TTQuadraticEaseInFunction.cpp */,
 				A784C6E119DAF7650025D8C9 /* TTQuadraticEaseInOutFunction.cpp */,
 				A784C6E219DAF7650025D8C9 /* TTQuadraticEaseOutFunction.cpp */,
@@ -304,13 +294,11 @@
 				A784C6E919DAF7650025D8C9 /* TTSineEaseInFunction.cpp */,
 				A784C6EA19DAF7650025D8C9 /* TTSineEaseInOutFunction.cpp */,
 				A784C6EB19DAF7650025D8C9 /* TTSineEaseOutFunction.cpp */,
-				A784C6EC19DAF7650025D8C9 /* TTSmoothPolynomialFunction.cpp */,
-				A784C6ED19DAF7650025D8C9 /* TTTanhFunction.cpp */,
 			);
-			name = source;
+			name = "Robert Penner Easing Functions";
 			sourceTree = "<group>";
 		};
-		A7F8593118B0DD2B0039341F /* unit tests */ = {
+		A7AAEC8819DDC24F00A30F30 /* Robert Penner Easing Functions */ = {
 			isa = PBXGroup;
 			children = (
 				A784C67419DAF7570025D8C9 /* TTBackEaseInFunction.test.cpp */,
@@ -322,23 +310,15 @@
 				A784C67A19DAF7570025D8C9 /* TTCircularEaseInFunction.test.cpp */,
 				A784C67B19DAF7570025D8C9 /* TTCircularEaseInOutFunction.test.cpp */,
 				A784C67C19DAF7570025D8C9 /* TTCircularEaseOutFunction.test.cpp */,
-				A784C67D19DAF7570025D8C9 /* TTCosineFunction.test.cpp */,
-				A784C67E19DAF7570025D8C9 /* TTCrossFadeInFunction.test.cpp */,
-				A784C67F19DAF7570025D8C9 /* TTCrossFadeOutFunction.test.cpp */,
 				A784C68019DAF7570025D8C9 /* TTCubicEaseInFunction.test.cpp */,
 				A784C68119DAF7570025D8C9 /* TTCubicEaseInOutFunction.test.cpp */,
 				A784C68219DAF7570025D8C9 /* TTCubicEaseOutFunction.test.cpp */,
 				A784C68319DAF7570025D8C9 /* TTElasticEaseInFunction.test.cpp */,
 				A784C68419DAF7570025D8C9 /* TTElasticEaseInOutFunction.test.cpp */,
 				A784C68519DAF7570025D8C9 /* TTElasticEaseOutFunction.test.cpp */,
-				A784C68619DAF7570025D8C9 /* TTExpFunction.test.cpp */,
 				A784C68719DAF7570025D8C9 /* TTExponentialEaseInFunction.test.cpp */,
 				A784C68819DAF7570025D8C9 /* TTExponentialEaseInOutFunction.test.cpp */,
 				A784C68919DAF7570025D8C9 /* TTExponentialEaseOutFunction.test.cpp */,
-				A784C68A19DAF7570025D8C9 /* TTFreeHandFunction.test.cpp */,
-				A784C68B19DAF7570025D8C9 /* TTLinearFunction.test.cpp */,
-				A784C68C19DAF7570025D8C9 /* TTLogFunction.test.cpp */,
-				A784C68D19DAF7570025D8C9 /* TTPowerFunction.test.cpp */,
 				A784C68E19DAF7570025D8C9 /* TTQuadraticEaseInFunction.test.cpp */,
 				A784C68F19DAF7570025D8C9 /* TTQuadraticEaseInOutFunction.test.cpp */,
 				A784C69019DAF7570025D8C9 /* TTQuadraticEaseOutFunction.test.cpp */,
@@ -351,6 +331,42 @@
 				A784C69719DAF7570025D8C9 /* TTSineEaseInFunction.test.cpp */,
 				A784C69819DAF7570025D8C9 /* TTSineEaseInOutFunction.test.cpp */,
 				A784C69919DAF7570025D8C9 /* TTSineEaseOutFunction.test.cpp */,
+			);
+			name = "Robert Penner Easing Functions";
+			sourceTree = "<group>";
+		};
+		A7F8593018B0DD1B0039341F /* source */ = {
+			isa = PBXGroup;
+			children = (
+				A7AAEC8719DDC20600A30F30 /* Robert Penner Easing Functions */,
+				A784C6CD19DAF7650025D8C9 /* TTCosineFunction.cpp */,
+				A784C6CE19DAF7650025D8C9 /* TTCrossFadeInFunction.cpp */,
+				A784C6CF19DAF7650025D8C9 /* TTCrossFadeOutFunction.cpp */,
+				A784C6D619DAF7650025D8C9 /* TTExpFunction.cpp */,
+				A784C6DA19DAF7650025D8C9 /* TTFreeHandFunction.cpp */,
+				A784C6DB19DAF7650025D8C9 /* TTFunction.cpp */,
+				A784C6DC19DAF7650025D8C9 /* TTLinearFunction.cpp */,
+				A784C6DD19DAF7650025D8C9 /* TTLogFunction.cpp */,
+				A784C6DE19DAF7650025D8C9 /* TTLowpassFunction.cpp */,
+				A784C6DF19DAF7650025D8C9 /* TTPowerFunction.cpp */,
+				A784C6EC19DAF7650025D8C9 /* TTSmoothPolynomialFunction.cpp */,
+				A784C6ED19DAF7650025D8C9 /* TTTanhFunction.cpp */,
+			);
+			name = source;
+			sourceTree = "<group>";
+		};
+		A7F8593118B0DD2B0039341F /* unit tests */ = {
+			isa = PBXGroup;
+			children = (
+				A7AAEC8819DDC24F00A30F30 /* Robert Penner Easing Functions */,
+				A784C67D19DAF7570025D8C9 /* TTCosineFunction.test.cpp */,
+				A784C67E19DAF7570025D8C9 /* TTCrossFadeInFunction.test.cpp */,
+				A784C67F19DAF7570025D8C9 /* TTCrossFadeOutFunction.test.cpp */,
+				A784C68619DAF7570025D8C9 /* TTExpFunction.test.cpp */,
+				A784C68A19DAF7570025D8C9 /* TTFreeHandFunction.test.cpp */,
+				A784C68B19DAF7570025D8C9 /* TTLinearFunction.test.cpp */,
+				A784C68C19DAF7570025D8C9 /* TTLogFunction.test.cpp */,
+				A784C68D19DAF7570025D8C9 /* TTPowerFunction.test.cpp */,
 				A784C69A19DAF7570025D8C9 /* TTSmoothPolynomialFunction.test.cpp */,
 				A784C69B19DAF7570025D8C9 /* TTTanhFunction.test.cpp */,
 			);
