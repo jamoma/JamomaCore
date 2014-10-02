@@ -38,6 +38,7 @@ TTQuarticEaseInOutFunction::~TTQuarticEaseInOutFunction()
 
 TTErr TTQuarticEaseInOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
 {
+	
 	if (x < 0.5)
 	{
 		y = 8 * x * x * x * x;

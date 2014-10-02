@@ -22,7 +22,7 @@
  * coefficients calculated in Octave using:
 
  x = linspace(0,1,128);
- y = -0.5 * cos(x * pi) + 0.5;
+ y = 0.5 * (1 - cos(x * pi))
  printf("%.16e,\n", y)
  
  */

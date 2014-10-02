@@ -49,7 +49,8 @@ TTErr TTBounceEaseInOutFunction::calculateValue(const TTFloat64& x, TTFloat64& y
 	
 	if(x < 0.5)
 	{
-		TTFloat64 f = 2 * (1 - x);
+		TTFloat64 f = 1 - 2 * x;
+		
 		if (f < 4/11.0)
 		{
 			y = (121 * f * f)/16.0;
