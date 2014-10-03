@@ -69,6 +69,9 @@ OSC::~OSC()
     Stop(kTTValNONE, out);
     
     delete mWaitThread;
+    
+    // release the sender manager
+    delete mSenderManager;
 }
 
 TTErr OSC::getParameterNames(TTValue& value)
@@ -116,12 +119,17 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
             applicationName = inputValue[0];
     }
     
+    // for any application
+    if (!mRunning) {
+        
+        // instantiate the sender manager
+        mSenderManager = new OSCSenderManager();
+    }
+    
     // for local application
     if (applicationName == mLocalApplicationName) {
         
         if (!mRunning) {
-            
-            mSenderManager = new OSCSenderManager();
             
             // create an osc.receiver local application
             mLocalApplicationOscReceiver = TTObject("osc.receive");
@@ -215,6 +223,8 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                             // wait to avoid strange crash when run and stop are called to quickly
                             mWaitThread->sleep(1);
                             
+                            mRunning = YES;
+                            
                             TTLogMessage("OSC::Run : connected to port %ld for %s application\n", receptionPort, applicationName.c_str());
                             
                             return kTTErrNone;
@@ -262,12 +272,17 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
             applicationName = inputValue[0];
     }
     
+    // for any application
+    if (mRunning) {
+        
+        // release the sender manager
+        delete mSenderManager;
+    }
+    
     // for local application
     if (applicationName == mLocalApplicationName) {
         
         if (mRunning) {
-            
-            delete mSenderManager;
             
             // delete osc.receive dedicated to local application
             mLocalApplicationOscReceiver = TTObject();
