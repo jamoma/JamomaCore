@@ -156,25 +156,25 @@ public:
 
     
     /** Scan to find remote applications and add them to the application manager
-     * \param inputValue			: anything needed for scanning
-	 * \param outputValue			: all remote device informations
-     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
+     @param inputValue			: anything needed for scanning
+	 @param outputValue			: all remote device informations
+     @return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
 	virtual TTErr Scan(const TTValue& inputValue, TTValue& outputValue)=0;
 	
 	/*!
      * Run reception thread mechanism for the local application only
-     * \param inputValue			: nothing to run all registered applications or a #TTSymbol application name
-	 * \param outputValue			: nothing
-     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
+     @param inputValue			: nothing to run all registered applications or a #TTSymbol application name
+	 @param outputValue			: nothing
+     @return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
 	virtual TTErr Run(const TTValue& inputValue, TTValue& outputValue)=0;
 	
 	/*!
      * Stop the reception thread mechanism for the local application only
-     * \param inputValue			: nothing to stop all registered applications or a #TTSymbol application name
-	 * \param outputValue			: nothing
-     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop or if it was already stopped
+     @param inputValue			: nothing to stop all registered applications or a #TTSymbol application name
+	 @param outputValue			: nothing
+     @return errorcode			: return a kTTErrGeneric if the protocol fails to stop or if it was already stopped
      */
 	virtual TTErr Stop(const TTValue& inputValue, TTValue& outputValue)=0;
 	
@@ -187,13 +187,13 @@ public:
 	/*!
 	 * Send a discover request to an application to get a part of the namespace at the given address
 	 *
- 	 * \param to					: the application where to discover
-	 * \param address				: the address to discover
-     * \param returnedType          : the type of the node at the address (default is none which means no type)
-	 * \param returnedChildren      : all names of nodes below the address
-	 * \param returnedAttributes	: all attributes of the node at the address
-     * \param tryCount              : number of try for this request
-	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+ 	 @param to					: the application where to discover
+	 @param address				: the address to discover
+     @param returnedType          : the type of the node at the address (default is none which means no type)
+	 @param returnedChildren      : all names of nodes below the address
+	 @param returnedAttributes	: all attributes of the node at the address
+     @param tryCount              : number of try for this request
+	 @return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
 	virtual TTErr SendDiscoverRequest(TTSymbol to, TTAddress address,
@@ -205,11 +205,11 @@ public:
     /*!
 	 * Send a discover all request to an application to fill all the directory under this address
 	 *
- 	 * \param to					: the application where to discover
-	 * \param address				: the address to discover
-     * \param node                  : the node for this address
-     * \param tryCount              : number of try for this request
-	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+ 	 @param to					: the application where to discover
+	 @param address				: the address to discover
+     @param node                  : the node for this address
+     @param tryCount              : number of try for this request
+	 @return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
 	virtual TTErr SendDiscoverAllRequest(TTSymbol to, TTAddress address,
@@ -219,11 +219,11 @@ public:
 	/*!
 	 * Send a get request to an application to get a value at the given address
 	 *
- 	 * \param to					: the application where to get
-	 * \param address				: the address to get
-	 * \param returnedValue			: the value which is going to be filled
-     * \param tryCount              : number of try for this request
-	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+ 	 @param to					: the application where to get
+	 @param address				: the address to get
+	 @param returnedValue			: the value which is going to be filled
+     @param tryCount              : number of try for this request
+	 @return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
 	virtual TTErr SendGetRequest(TTSymbol to, TTAddress address, 
@@ -233,11 +233,11 @@ public:
 	/*!
 	 * Send a set request to set a value of a specific application
 	 *
-	 * \param to					: the application where to set
-	 * \param address				: the address to set
-	 * \param value					: anything to send
-     * \param tryCount              : number of try for this request
-	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+	 @param to					: the application where to set
+	 @param address				: the address to set
+	 @param value					: anything to send
+     @param tryCount              : number of try for this request
+	 @return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
 	virtual TTErr SendSetRequest(TTSymbol to, TTAddress address, 
 								 TTValue& value,
@@ -246,12 +246,12 @@ public:
 	/*!
 	 * Send a listen request to a specific application
 	 *
-	 * \param to					: the application where to listen
-	 * \param address				: the address to listen
-	 * \param attribute				: the attribute to listen
-	 * \param enable				: enable/disable the listening
-     * \param tryCount              : number of try for this request
-	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+	 @param to					: the application where to listen
+	 @param address				: the address to listen
+	 @param attribute				: the attribute to listen
+	 @param enable				: enable/disable the listening
+     @param tryCount              : number of try for this request
+	 @return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
 	virtual TTErr SendListenRequest(TTSymbol to, TTAddress address, 
 									TTBoolean enable,
@@ -267,11 +267,11 @@ public:
 	/*!
 	 * Send a disover answer to a application which ask for.
 	 *
-	 * \param to					: the application where to send answer
-	 * \param address				: the address where comes from the description
-     * \param returnedType          : the type of the node at the address (default is none which means no type)
-	 * \param returnedChildren      : all names of nodes below the address
-	 * \param returnedAttributes	: all attributes the node at the address
+	 @param to					: the application where to send answer
+	 @param address				: the address where comes from the description
+     @param returnedType          : the type of the node at the address (default is none which means no type)
+	 @param returnedChildren      : all names of nodes below the address
+	 @param returnedAttributes	: all attributes the node at the address
 	 */
 	virtual TTErr SendDiscoverAnswer(TTSymbol to, TTAddress address,
                                      TTSymbol& returnedType,
@@ -282,9 +282,9 @@ public:
     /*!
 	 * Send a discover answer to a application which ask for.
 	 *
-	 * \param to					: the application where to send answer
-	 * \param address				: the address where comes from the description
-     * \param node                  : the node for this address
+	 @param to					: the application where to send answer
+	 @param address				: the address where comes from the description
+     @param node                  : the node for this address
 	 */
 	virtual TTErr SendDiscoverAllAnswer(TTSymbol to, TTAddress address,
                                         TTNodePtr node,
@@ -293,9 +293,9 @@ public:
 	/*!
 	 * Send a get answer to a application which ask for.
 	 *
-	 * \param to					: the application where to send answer
-	 * \param address				: the address where comes from the value
-	 * \param returnedValue			: the value of the attribute at the address
+	 @param to					: the application where to send answer
+	 @param address				: the address where comes from the value
+	 @param returnedValue			: the value of the attribute at the address
 	 */
 	virtual TTErr SendGetAnswer(TTSymbol to, TTAddress address, 
 								const TTValue& returnedValue,
@@ -304,9 +304,9 @@ public:
 	/*!
 	 * Send a listen answer to a application which ask for.
 	 *
-	 * \param to					: the application where to send answer
-	 * \param address				: the address where comes from the value
-	 * \param returnedValue			: the value of the attribute at the address
+	 @param to					: the application where to send answer
+	 @param address				: the address where comes from the value
+	 @param returnedValue			: the value of the attribute at the address
 	 */
 	virtual TTErr SendListenAnswer(TTSymbol to, TTAddress address, 
 								   const TTValue& returnedValue,
@@ -323,8 +323,8 @@ public:
 	 *
 	 * !!! This a built-in protocol method which sends automatically the answer (or a notification if error)
 	 *
-	 * \param from					: the application where comes from the request
-	 * \param address				: the address the application wants to discover
+	 @param from					: the application where comes from the request
+	 @param address				: the address the application wants to discover
 	 */
 	TTErr ReceiveDiscoverRequest(TTSymbol from, TTAddress address);
     
@@ -333,8 +333,8 @@ public:
 	 *
 	 * !!! This a built-in protocol method which sends automatically the answer (or a notification if error)
 	 *
-	 * \param from					: the application where comes from the request
-	 * \param address				: the address the application wants to discover
+	 @param from					: the application where comes from the request
+	 @param address				: the address the application wants to discover
 	 */
 	TTErr ReceiveDiscoverAllRequest(TTSymbol from, TTAddress address);
 	
@@ -343,8 +343,8 @@ public:
 	 *
 	 * !!! This a built-in protocol method which sends automatically the answer (or a notification if error)
 	 *
-	 * \param from					: the application where comes from the request
-	 * \param address				: the address the application wants to get
+	 @param from					: the application where comes from the request
+	 @param address				: the address the application wants to get
 	 */
 	TTErr ReceiveGetRequest(TTSymbol from, TTAddress address);
 	
@@ -353,20 +353,20 @@ public:
 	 *
 	 * !!! This a built-in protocol method which set automatically the value (or send a notification if error)
 	 *
-	 * \param from					: the application where comes from the request
-	 * \param address				: the address the application wants to get
-	 * \param newValue				: the incoming value
+	 @param from					: the application where comes from the request
+	 @param address				: the address the application wants to get
+	 @param newValue				: the incoming value
 	 */
-	TTErr ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& newValue);
+	TTErr ReceiveSetRequest(TTSymbol from, TTAddress address, const TTValue& newValue);
 	
 	/*!
 	 * Notify the protocol that an application wants to listen (or not) the namespace
 	 *
 	 * !!! This a built-in protocol method which create/remove automatically the listener (or send a notification if error)
 	 *
-	 * \param from					: the application where comes from the request
-	 * \param address				: the address the application wants to listen
-	 * \param enable				: enable/disable the listening
+	 @param from					: the application where comes from the request
+	 @param address				: the address the application wants to listen
+	 @param enable				: enable/disable the listening
 	 */
 	TTErr ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean enable);
 	
@@ -383,11 +383,11 @@ public:
 	 *
 	 * !!! This a built-in protocol method notify automatically the listener (or send a notification if error)
 	 *
-	 * \param from					: the application where comes from the answer
-	 * \param address				: the address where comes from the answer
-	 * \param newValue				: the answered value
+	 @param from					: the application where comes from the answer
+	 @param address				: the address where comes from the answer
+	 @param newValue				: the answered value
 	 */
-	TTErr ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& newValue);
+	TTErr ReceiveListenAnswer(TTSymbol from, TTAddress address, const TTValue& newValue);
 	
 	/**************************************************************************************************************************
 	 *
@@ -400,7 +400,7 @@ public:
 	 *
 	 * !!! This a built-in protocol method
 	 *
-	 * \param message				: an incoming message
+	 @param message				: an incoming message
 	 */
 	TTErr ActivityInMessage(const TTValue& message);
 	
@@ -409,7 +409,7 @@ public:
 	 *
 	 * !!! This a built-in protocol method
 	 *
-	 * \param message				: an outputing message
+	 @param message				: an outputing message
 	 */
 	TTErr ActivityOutMessage(const TTValue& message);
 	
