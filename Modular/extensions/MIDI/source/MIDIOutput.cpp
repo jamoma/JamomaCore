@@ -2,9 +2,10 @@
  *
  * @ingroup modularMIDI
  *
- * @brief a MIDI output
+ * @brief bind to an external device destination
  *
- * @details
+ * @details MidiOutput sends messages to one external device. @n
+ * It is a wrapper around the PortMidi library. @n
  *
  * @author Theo Delahogue
  *
@@ -34,36 +35,28 @@ MIDIOutput::~MIDIOutput()
     }
 }
 
-TTErr MIDIOutput::setDevice(TTSymbol& newDevice)
+TTErr MIDIOutput::setName(TTSymbol& newName)
 {
 	const PmDeviceInfo*	deviceInfo;
-    int					deviceCount;
+    int					i, deviceCount;
 	PmError				err = pmNoError;
 	
-	if (newDevice != mDevice) {
+	if (newName != mName) {
         
-		if (newDevice == TTSymbol("default")) {
-			mID = Pm_GetDefaultOutputDeviceID();
-			mDeviceInfo = Pm_GetDeviceInfo(mID);
-		}
-		else {
+        // check there is an output with this name
+        deviceCount = Pm_CountDevices();
+        for (i = 0; i < deviceCount; i++) {
             
-			int i;
-			
-			deviceCount = Pm_CountDevices();
-			for (i=0; i<deviceCount; i++) {
-				deviceInfo = Pm_GetDeviceInfo(i);
-				if (newDevice == TTSymbol(deviceInfo->name)) {
-					mDeviceInfo = deviceInfo;
-					mID = i;
-					break;
-				}
-			}
-			if (i == deviceCount)
-				return kTTErrGeneric;
-		}
+            deviceInfo = Pm_GetDeviceInfo(i);
+            
+            if (deviceInfo->output && newName == TTSymbol(deviceInfo->name))
+                break;
+        }
+        
+        if (i == deviceCount)
+            return kTTErrGeneric;
 		
-		mDevice = newDevice;
+		mName = newName;
         
         setRunning(NO);
 		
@@ -72,10 +65,10 @@ TTErr MIDIOutput::setDevice(TTSymbol& newDevice)
 			mStream = NULL;
 		}
 		
-		err = Pm_OpenOutput(&mStream, mID, NULL, kMidiBufferSize, NULL, NULL, 0);
+		err = Pm_OpenOutput(&mStream, i, NULL, kMidiBufferSize, NULL, NULL, 0);
 		if (err) {
             
-			TTLogError("MIDIOutput::setDevice : can't open the %s device\n", mDevice.c_str());
+			TTLogError("MIDIOutput::setName : can't open the %s device\n", mName.c_str());
             return kTTErrGeneric;
         }
 	}
@@ -88,11 +81,6 @@ TTErr MIDIOutput::setRunning(TTBoolean running)
     if (running != mRunning) {
         
         mRunning = running;
-        
-        if (mRunning)
-            ;
-        else
-            ;
     }
     
     return kTTErrNone;
@@ -100,132 +88,21 @@ TTErr MIDIOutput::setRunning(TTBoolean running)
 
 TTErr MIDIOutput::sendMessage(TTAddress& address, const TTValue& value)
 {
-    TTUInt8 statusByte, dataByte1, dataByte2;
-    int		message;
-    
-    // parse command
-    TTSymbol command = address.getName();
-    
-    // parse command number
-    TTInt32 commandNumber = 0;
-    if (address.getInstance() != kTTSymEmpty) {
+    if (mRunning) {
         
-        TTValue v = TTString(address.getInstance().c_str());
-        v.fromString();
-        commandNumber = v[0];
-    }
-    
-    // parse channel
-    // TODO : catch the song/position and the song/select case
-    TTInt32 channel = 0;
-    if (address.getParent().getInstance() != kTTSymEmpty) {
+        MIDIParserTo    parser;
+        TTBoolean       done;
         
-        TTValue v = TTString(address.getParent().getInstance().c_str());
-        v.fromString();
-        channel = v[0];
-    }
-
-    // depending on the command type, set statusByte, dataByte1 and dataByte2
-    if (command == TTSymbol("note")) {
-        
-        dataByte1 = commandNumber;
-        dataByte2 = value[0];
-        
-        if (dataByte2 == 0) {
-            
-            // NOTE OFF : statusByte = 128, dataByte1 = pitch, dataByte2 = velocity (always 0)
-            statusByte = 128;
+        // until the parsing ends
+        do {
+            done = parser.parse(address, value);
+            int message = Pm_Message(parser.statusByte, parser.dataByte1, parser.dataByte2);
+            Pm_WriteShort(mStream, 0, message);
         }
-        else {
-            
-            // NOTE ON : statusByte = 144, dataByte1 = pitch, dataByte2 = velocity (always > 0)
-            statusByte = 144;
-        }
-    }
-    else if (command == TTSymbol("pressure")) {
+        while (!done);
         
-        if (commandNumber) {
-            
-            // POLY PRESSURE : statusByte = 160, dataByte1 = pitch, dataByte2 = pressure
-            return kTTErrGeneric;
-        }
-        else {
-            
-            // CHANNEL PRESSURE : statusByte = 208, dataByte1 = pressure, dataByte2 not used
-            return kTTErrGeneric;
-        }
+        return kTTErrNone;
     }
-    else if (command == TTSymbol("control")) {
-        
-        // CONTROL CHANGE : statusByte = 176, dataByte1 = control type, dataByte2 = control value
-        statusByte = 176;
-        dataByte1 = commandNumber;
-        dataByte2 = value[0];
-    }
-    else if (command == TTSymbol("program")) {
-        
-        // PROGRAM CHANGE : statusByte = 192, dataByte1 = program number, dataByte2 not used
-        statusByte = 192;
-        dataByte1 = commandNumber;
-        dataByte2 = 0;
-    }
-    else if (command == TTSymbol("wheel")) {
-        
-        // PITCH WHEEL : statusByte = 224, dataByte1 = LSB, dataByte2 = MSB
-        return kTTErrGeneric;
-    }
-    else if (command == TTSymbol("position")) { // ?? song/position
-        
-        // SONG POSITION : statusByte = 242, dataByte1 = LSB, dataByte2 = MSB
-        return kTTErrGeneric;
-    }
-    else if (command == TTSymbol("select")) { // ?? song/select
-        
-        // SONG SELECT : statusByte = 243, dataByte1 = song, dataByte2 not used
-        return kTTErrGeneric;
-    }
-    else if (command == TTSymbol("tune_request")) {
-        
-        // TUNE REQUEST : statusByte = 246, dataByte1 not used, dataByte2 not used
-        return kTTErrGeneric;
-    }
-    else if (command == TTSymbol("clock")) {
-        
-        // TIMING CLOCK : statusByte = 248, dataByte1 not used, dataByte2 not used
-        return kTTErrGeneric;
-    }
-    else if (command == TTSymbol("start")) {
-        
-        // START : statusByte = 250, dataByte1 not used, dataByte2 not used
-        return kTTErrGeneric;
-    }
-    else if (command == TTSymbol("continue")) {
-        
-        // CONTINUE : statusByte = 251, dataByte1 not used, dataByte2 not used
-        return kTTErrGeneric;
-    }
-    else if (command == TTSymbol("stop")) {
-        
-        // STOP : statusByte = 252, dataByte1 not used, dataByte2 not used
-        return kTTErrGeneric;
-    }
-    else if (command == TTSymbol("active_sensing")) {
-        
-        // ACTIVE SENSING : statusByte = 254, dataByte1 not used, dataByte2 not used
-        return kTTErrGeneric;
-    }
-    else if (command == TTSymbol("reset")) {
-        
-        // SYSTEM RESET : statusByte = 255, dataByte1 not used, dataByte2 not used
-        return kTTErrGeneric;
-    }
-
-    // TODO ? catch /raw statusByte dataByte1 dataByte2
-    // TODO ? set timestamp
     
-    message = Pm_Message(statusByte, dataByte1, dataByte2);
-    
-    Pm_WriteShort(mStream, 0, message);
-    
-    return kTTErrNone;
+    return kTTErrGeneric;
 }

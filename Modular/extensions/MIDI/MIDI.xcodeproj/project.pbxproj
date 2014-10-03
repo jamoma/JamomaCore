@@ -30,6 +30,14 @@
 		46A30BC419AD223100223A7D /* MIDIInclude.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIInclude.h; sourceTree = "<group>"; };
 		46A30BC519AD26C700223A7D /* MIDIInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIInput.h; sourceTree = "<group>"; };
 		46A30BC619AD26CE00223A7D /* MIDIInput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MIDIInput.cpp; sourceTree = "<group>"; };
+		46BEF5A619DD751E008436C9 /* MIDIDestination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIDestination.h; sourceTree = "<group>"; };
+		46BEF5A719DD751E008436C9 /* MIDISource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDISource.h; sourceTree = "<group>"; };
+		46BEF5A819DD752D008436C9 /* MIDIDestination.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MIDIDestination.cpp; sourceTree = "<group>"; };
+		46BEF5A919DD752D008436C9 /* MIDISource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MIDISource.cpp; sourceTree = "<group>"; };
+		46BEF5AA19DD7CB5008436C9 /* MIDIParserFrom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIParserFrom.h; sourceTree = "<group>"; };
+		46BEF5AB19DD7CC4008436C9 /* MIDIParserFrom.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MIDIParserFrom.cpp; sourceTree = "<group>"; };
+		46BEF5AC19DD8732008436C9 /* MIDIParserTo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIParserTo.h; sourceTree = "<group>"; };
+		46BEF5AD19DD873A008436C9 /* MIDIParserTo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MIDIParserTo.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -49,8 +57,12 @@
 			children = (
 				46A30BC419AD223100223A7D /* MIDIInclude.h */,
 				46A30BA819AD210E00223A7D /* MIDI.h */,
+				46BEF5A619DD751E008436C9 /* MIDIDestination.h */,
 				46A30BC519AD26C700223A7D /* MIDIInput.h */,
 				464135EF19D9FE3300BFAF44 /* MIDIOutput.h */,
+				46BEF5AA19DD7CB5008436C9 /* MIDIParserFrom.h */,
+				46BEF5AC19DD8732008436C9 /* MIDIParserTo.h */,
+				46BEF5A719DD751E008436C9 /* MIDISource.h */,
 			);
 			path = includes;
 			sourceTree = "<group>";
@@ -59,8 +71,12 @@
 			isa = PBXGroup;
 			children = (
 				46A30BAA19AD211C00223A7D /* MIDI.cpp */,
+				46BEF5A819DD752D008436C9 /* MIDIDestination.cpp */,
 				46A30BC619AD26CE00223A7D /* MIDIInput.cpp */,
 				464135EE19D9FE2A00BFAF44 /* MIDIOutput.cpp */,
+				46BEF5AB19DD7CC4008436C9 /* MIDIParserFrom.cpp */,
+				46BEF5AD19DD873A008436C9 /* MIDIParserTo.cpp */,
+				46BEF5A919DD752D008436C9 /* MIDISource.cpp */,
 			);
 			path = source;
 			sourceTree = "<group>";

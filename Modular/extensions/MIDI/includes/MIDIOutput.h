@@ -2,9 +2,9 @@
  *
  * @ingroup modularMIDI
  *
- * @brief a MIDI output
+ * @brief bind to an external device destination
  *
- * @details MidiOutput receives MIDI output from an external device. @n
+ * @details MidiOutput sends messages to one external device. @n
  * It is a wrapper around the PortMidi library. @n
  *
  * @author Theo Delahogue
@@ -14,44 +14,43 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-
 #ifndef __MIDI_OUTPUT_H__
 #define __MIDI_OUTPUT_H__
 
 #include "MIDIInclude.h"
 #include "MIDI.h"
+#include "MIDIParserTo.h"
 
 class MIDI;
 typedef MIDI* MIDIPtr;
 
 class MIDIOutput
 {
-    MIDIPtr                 mProtocol;          ///< The MIDI protocol object which manages all MIDI outputs
+    MIDIPtr                 mProtocol;          ///< The MIDI protocol object which manages all MIDI communications
     
     PortMidiStream*		    mStream;			///< a descriptor for a MIDI device that is opened when the device is set
-    TTBoolean			    mRunning;			///< should the thread be running ? If NO then the thread will know to abort itself
-	
+    TTBoolean			    mRunning;			///< should the output send messages ?
+
 public:
 	
     TTSymbol			    mApplication;       ///< the application name this device handles
-	TTSymbol			    mDevice;			///< selected device name
-	const PmDeviceInfo*	    mDeviceInfo;		///< selected device info struct
-	PmDeviceID			    mID;				///< selected device ID number
+	TTSymbol			    mName;              ///< selected existing output name
     
     /** Constructor
-     @param arguments       #MIDI protocol object pointer, #TTSymbol application name to handle */
+     @param protocol        #MIDI protocol object pointer
+     @param application     #TTSymbol application name to handle */
     MIDIOutput(MIDIPtr protocol, TTSymbol& application);
     
     /** Destructor */
 	virtual ~MIDIOutput();
     
     /** Set device name
-     @param newDevice       #TTSymbol for the MIDI device name to select
+     @param newName      #TTSymbol for the MIDI device name to select
      @return #TTErr error code */
-    TTErr setDevice(TTSymbol& newDevice);
+    TTErr setName(TTSymbol& newName);
     
     /** Set running state
-     @param running         #TTBoolean to enable disable midi iput polling thread
+     @param running         #TTBoolean to enable disable midi message sending
      @return #TTErr error code */
     TTErr setRunning(TTBoolean running);
     

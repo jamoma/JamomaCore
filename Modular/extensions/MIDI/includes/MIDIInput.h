@@ -2,9 +2,9 @@
  *
  * @ingroup modularMIDI
  *
- * @brief a MIDI input
+ * @brief bind to an external device source
  *
- * @details MidiInput receives MIDI input from an external device. @n
+ * @details MidiInput receives messages from one external device. @n
  * It is a wrapper around the PortMidi library. @n
  *
  * @author Theo Delahogue
@@ -14,54 +14,53 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-
 #ifndef __MIDI_INPUT_H__
 #define __MIDI_INPUT_H__
 
 #include "MIDIInclude.h"
 #include "MIDI.h"
+#include "MIDIParserFrom.h"
 
 class MIDI;
 typedef MIDI* MIDIPtr;
 
 class MIDIInput
 {
-    MIDIPtr                 mProtocol;           ///< The MIDI protocol object which manages all MIDI inputs
+    MIDIPtr                 mProtocol;          ///< The MIDI protocol object which manages all MIDI communications
     
     PortMidiStream*		    mStream;			///< a descriptor for a MIDI device that is opened when the device is set
 	TTThreadPtr			    mPollingThread;		///< our loop that constantly polls for new input
-    TTBoolean			    mRunning;			///< should the thread be running ? If NO then the thread will know to abort itself
+    TTBoolean			    mRunning;			///< should the thread be running ?
 	
 public:
 	
     TTSymbol			    mApplication;       ///< the application name this device handles
-	TTSymbol			    mDevice;			///< selected device name
-	const PmDeviceInfo*	    mDeviceInfo;		///< selected device info struct
-	PmDeviceID			    mID;				///< selected device ID number
-    
+	TTSymbol			    mName;              ///< selected existing input name
+ 
     /** Constructor
-     @param arguments       #MIDI protocol object pointer, #TTSymbol application name to handle */
+     @param protocol        #MIDI protocol object pointer
+     @param application     #TTSymbol application name to handle */
     MIDIInput(MIDIPtr protocol, TTSymbol& application);
     
     /** Destructor */
 	virtual ~MIDIInput();
     
     /** Set device name
-     @param newDevice       #TTSymbol for the MIDI device name to select
-     @return #TTErr error code */
-    TTErr setDevice(TTSymbol& newDevice);
+     @param newName      #TTSymbol for the MIDI device to select
+     @return #TTErr error code if the device name doesn't exist */
+    TTErr setName(TTSymbol& newName);
     
     /** Set running state
-     @param running       #TTBoolean to enable disable midi iput polling thread
+     @param running         #TTBoolean to enable disable polling thread
      @return #TTErr error code */
     TTErr setRunning(TTBoolean running);
     
-    friend void* MidiPoll(MIDIInput* self);
+    friend void* MIDIInputPoll(MIDIInput* self);
 };
 typedef MIDIInput* MIDIInputPtr;
 
-/** the function call by the olling thread 
+/** the function call by the polling thread 
  @param #MIDIInput pointer*/
-void* MidiPoll(MIDIInput* self);
+void* MIDIInputPoll(MIDIInput* self);
 
 #endif // __MIDI_INPUT_H__
