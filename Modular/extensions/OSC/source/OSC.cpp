@@ -71,7 +71,8 @@ OSC::~OSC()
     delete mWaitThread;
     
     // release the sender manager
-    delete mSenderManager;
+    if (mSenderManager)
+        delete mSenderManager;
 }
 
 TTErr OSC::getParameterNames(TTValue& value)
@@ -277,6 +278,7 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
         
         // release the sender manager
         delete mSenderManager;
+        mSenderManager = NULL;
     }
     
     // for local application
@@ -309,6 +311,8 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
             
             // wait to avoid strange crash when run and stop are called to quickly
             mWaitThread->sleep(1);
+            
+            mRunning = NO;
             
             return kTTErrNone;
         }
