@@ -789,7 +789,7 @@ TTErr WebSocket::receivedMessage(const TTValue& message, TTValue& outputValue)
     aSymbol = message[0];
 
     // sometimes strange characters are added to the end of message after last json '}' so remove them to get a proper json string
-    char *pos = strchr(aSymbol.c_str(), '}');
+    const char *pos = strchr(aSymbol.c_str(), '}');
     aSymbol = aSymbol.string().substr(0, pos - aSymbol.c_str() + 1);
     
 #ifdef TT_PROTOCOL_DEBUG

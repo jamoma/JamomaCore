@@ -52,7 +52,7 @@ PROTOCOL_CONSTRUCTOR
         mRunning = YES;
     
     // instantiate the client handle
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
     ;   // TODO
 #else
     OSStatus status = MIDIClientCreate(CFSTR("PortMidi"), NULL, NULL, &mClient);
@@ -93,7 +93,7 @@ MIDI::~MIDI()
     mOutputs.clear();
     
     // release the client handle
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
     ;   // TODO
 #else
     MIDIClientDispose(mClient);
@@ -242,7 +242,7 @@ TTErr MIDI::runDestination(TTSymbol& applicationName)
             TTSymbol inputName = v[0];
             
             // create a specific-plateform MIDI destination object
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
             ; // TODO
 #else
             midiDestination = new MIDIDestination(this, applicationName, mClient);
@@ -414,7 +414,7 @@ TTErr MIDI::runSource(TTSymbol& applicationName)
             TTSymbol outputName = v[0];
             
             // create a specific-plateform MIDI source object
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
             ; // TODO
 #else
             midiSource = new MIDISource(this, applicationName, mClient);

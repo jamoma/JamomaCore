@@ -47,7 +47,7 @@ private:
 	TTHash                  mInputs;                    ///< a table of MIDIInput instances for each device
     TTHash                  mOutputs;                   ///< a table of MIDIOutput instances for each device
 
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
     TTPtr                   mClient;                    ///< TODO : a client handle to the Windows MIDI server
 #else
     MIDIClientRef           mClient;                    ///< a client handle to the Mac OS X Core MIDI server

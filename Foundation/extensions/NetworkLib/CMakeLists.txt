@@ -45,6 +45,8 @@ else()
 	include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication/ip/win32")
 endif()
 
+add_definitions(-DUSE_WEBSOCKET)
+
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)

@@ -14,6 +14,7 @@
 
 
 #include "TTWebSocket.h"
+#include <unistd.h>
 
 // ws_server_thread()
 static void *ws_server_thread(void *parm)

@@ -16,8 +16,8 @@
 
 #include "MIDIDestination.h"
 
-#ifdef TT_PLATFORM_WIN
-MIDIDestination::MIDIDestination(MIDIPtr protocol, TTSymbol& application, TTSymbol& name, TTPtr client) :
+#if !defined(TT_PLATFORM_MAC)
+MIDIDestination::MIDIDestination(MIDIPtr protocol, TTSymbol& application, TTPtr client) :
 mProtocol(protocol),
 mClient(client),
 mApplication(application)
@@ -36,7 +36,7 @@ mApplication(application)
 
 MIDIDestination::~MIDIDestination()
 {
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
     ;// TODO
 #else
     MIDIEndpointDispose(mDestination);
@@ -52,7 +52,7 @@ TTErr MIDIDestination::setName(TTSymbol& newName)
         setRunning(NO);
         
         // release the former destination and then instantiate a new one destination
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
         ;// TODO
 #else
         MIDIEndpointDispose(mDestination);
@@ -83,7 +83,7 @@ TTErr MIDIDestination::setRunning(TTBoolean running)
     return kTTErrNone;
 }
 
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
 // TODO
 #else
 void MIDIDestinationPacketReceivedCallback(const MIDIPacketList *data, void *baton, void *connectionInfo)

@@ -16,7 +16,7 @@
 
 #include "MIDISource.h"
 
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
 MIDISource::MIDISource(MIDIPtr protocol, TTSymbol& application, TTPtr client) :
 mProtocol(protocol),
 mClient(client),
@@ -36,7 +36,7 @@ mApplication(application)
 
 MIDISource::~MIDISource()
 {
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
     ;// TODO
 #else
     MIDIEndpointDispose(mSource);
@@ -52,7 +52,7 @@ TTErr MIDISource::setName(TTSymbol& newName)
         setRunning(NO);
 		
         // instantiate the source
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
         ;// TODO
 #else
         MIDIEndpointDispose(mSource);

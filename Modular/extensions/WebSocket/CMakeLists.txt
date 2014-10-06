@@ -29,6 +29,8 @@ include_directories("${PROJECT_SOURCE_DIR}/../../library/ProtocolLib")
 include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
 include_directories("${PROJECT_SOURCE_DIR}/libjson")
 
+add_definitions(-DTT_PROTOCOL_DEBUG)
+
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
