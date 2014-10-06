@@ -13,9 +13,14 @@ if(NOT PORTMIDI_FOUND)
 endif()
 
 set(PROJECT_SRCS
-${CMAKE_CURRENT_SOURCE_DIR}/../../library/ProtocolLib/Protocol.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/../../library/ProtocolLib/Protocol.cpp		
 ${CMAKE_CURRENT_SOURCE_DIR}/source/MIDI.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/MIDIDestination.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/MIDIInput.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/MIDIOutput.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/MIDIParserFrom.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/MIDIParserTo.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/MIDISource.cpp
 )
 
 include_directories("${PROJECT_SOURCE_DIR}/")

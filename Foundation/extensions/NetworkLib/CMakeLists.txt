@@ -9,11 +9,15 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTOscSocket.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTNetReceive.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTNetSocket.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTOscSend.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTWebSend.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTWebReceive.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTWebSocket.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/IpEndpointName.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/osc/OscOutboundPacketStream.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/osc/OscPrintReceivedElements.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/osc/OscReceivedElements.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/osc/OscTypes.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/civetweb/source/civetweb.cpp
 )
 
 if(NOT WIN32)
@@ -32,6 +36,7 @@ include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication")
 include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication/ip")
 include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication/osc")
+include_directories("${PROJECT_SOURCE_DIR}/NetworkCommunication/civetweb/includes")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
 if(NOT WIN32)
