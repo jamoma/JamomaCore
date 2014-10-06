@@ -44,8 +44,8 @@ mSenderManager(NULL)
 {
 	PROTOCOL_INITIALIZE
 	
-	addAttributeAsProtocolParameter(Ip, kTypeSymbol);
 	addAttributeAsProtocolParameter(Port, kTypeUInt16);
+    addAttributeAsProtocolParameter(HtmlPath, kTypeSymbol);
 	
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
@@ -65,7 +65,19 @@ WebSocket::~WebSocket()
 
 TTErr WebSocket::Scan(const TTValue& inputValue, TTValue& outputValue)
 {
-	// TODO
+    TTValue     out;
+    TTErr       err;
+    
+    // Create a distant application called "telecommande" and register it
+    err = mApplicationManager.send("ApplicationInstantiateDistant", "telecommande", out);
+    if (!err) {
+        ApplicationRegister("telecommande", out);
+        
+        return kTTErrNone;
+    }
+    else
+        TTLogError("Error : can't create myRemoteApp application \n");
+    
 	return kTTErrGeneric;
 }
 
@@ -75,8 +87,9 @@ TTErr WebSocket::Scan(const TTValue& inputValue, TTValue& outputValue)
  */
 TTErr WebSocket::Run(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue     v;
+	TTValue     v, out;
     TTUInt16    port;
+    TTSymbol    htmlPath;
 	TTErr       err;
     
     if (inputValue.size())
@@ -99,6 +112,16 @@ TTErr WebSocket::Run(const TTValue& inputValue, TTValue& outputValue)
             port = v[0];
             
             err = mWebSocketReceive.set("port", v);
+            
+            // select local application to get its HtmlPath parameter
+            v.clear();
+            webSocketProtocol.get("htmlPath", v);
+            htmlPath = v[0];
+            
+            if (htmlPath == "")
+                v = WEBSOCKET_DEFAULT_HTML_PATH;
+            
+            mWebSocketReceive.set("htmlPath", v);
             
             if (!err) {
                 
@@ -643,8 +666,8 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
 	TTHashPtr       parameters = NULL;
     TTObject        aWebSender;
     TTString        header;
-	TTValue         v, vIp, vPort, message, none;
-	TTErr           err, errIp, errPort;
+	TTValue         v, message, none;
+	TTErr           err;
     
     if (!mSenderManager)
         return kTTErrGeneric;
@@ -653,17 +676,8 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
 	err = mApplicationParameters.lookup(distantApplicationName, v);
 	
 	if (!err) {
-		parameters = TTHashPtr((TTPtr)v[0]);
-		
-		if (parameters) {
 			
-			errIp = parameters->lookup(TTSymbol("ip"), vIp);
-			errPort = parameters->lookup(TTSymbol("port"), vPort);
-			
-			if (errIp || errPort)
-				return kTTErrGeneric;
-			
-			aWebSender = mSenderManager->lookup(distantApplicationName, vIp, vPort);
+			aWebSender = mSenderManager->lookup(distantApplicationName);
             
 			if (aWebSender.valid()) {
                 // get json string
@@ -678,7 +692,7 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
 				
                 // send message
 				err = aWebSender.send(TTSymbol("send"), message, none);
-            
+                
 				if (!err && mActivity) {
                     header = mLocalApplicationName.c_str();
                     header += operation;
@@ -686,7 +700,6 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
 					v = header;
 					ActivityOutMessage(v);
 				}
-			}
 		}
 	}
 
@@ -697,7 +710,6 @@ TTErr WebSocket::parseJSON(const JSONNode &n, TTString address, TTValue& value)
 {
    if (n == NULL)
     {
-//        std::cout << "Invalid JSON Node" << std::endl;
         return kTTErrGeneric;
     }
     
@@ -707,7 +719,6 @@ TTErr WebSocket::parseJSON(const JSONNode &n, TTString address, TTValue& value)
     {
         if (*i == NULL)
         {
-//            std::cout << "Invalid JSON Node" << std::endl;
             return kTTErrGeneric;
         }
         

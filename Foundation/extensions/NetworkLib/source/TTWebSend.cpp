@@ -17,14 +17,10 @@
 
 
 TT_OBJECT_CONSTRUCTOR,
-mAddress(kTTSymEmpty),
-mPort(0),
 mSocket(NULL)
 {
-	addAttributeWithSetter(Address,	kTypeSymbol);
-	addAttributeWithSetter(Port,	kTypeUInt16);
-	
 	addMessageWithArguments(send);
+    connect();
 }
 
 TTWebSend::~TTWebSend()
@@ -34,42 +30,15 @@ TTWebSend::~TTWebSend()
 
 void TTWebSend::connect()
 {
-	if (mAddress && mPort && (mAddress != kTTSymEmpty)) {
-        
-		delete mSocket;
-		mSocket = new TTWebSocket(mAddress.c_str(), mPort);
-	}
-}
-
-TTErr TTWebSend::setAddress(const TTValue& newValue)
-{
-	TTSymbol	newAddress = newValue;
-	TTErr		err = kTTErrNone;
-	
-	if (mAddress != newAddress) {
-		mAddress = newAddress;
-		connect();
-	}
-	return err;
-}
-
-TTErr TTWebSend::setPort(const TTValue& newValue)
-{
-	TTUInt16	newPort = newValue;
-	TTErr		err = kTTErrNone;
-	
-	if (mPort != newPort) {
-		mPort = newPort;
-		connect();
-	}
-	return err;
+    delete mSocket;
+    mSocket = new TTWebSocket();
 }
 
 TTErr TTWebSend::send(const TTValue& value, TTValue& unusedOutput)
 {
 	TTSymbol    message;
 	TTValuePtr	arguments;
-	
+    
 	if (mSocket) {
 		// set all application parameters using a TTHash
         if (value.size()) {

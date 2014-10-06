@@ -34,6 +34,8 @@ using namespace std;
 
 static const unsigned int WEBSOCKET_RECEPTION_PORT = 9001;
 
+#define WEBSOCKET_DEFAULT_HTML_PATH "html"
+
 #define WEBSOCKET_REQUEST_SET "set"
 
 #define WEBSOCKET_REQUEST_DISCOVER "?namespace"

@@ -53,9 +53,8 @@ public:
     
 private:
     
-	TTString                        mAddress;
-	TTUInt16                        mPort;
-    
+	TTUInt16                        mPort;                          ///< Not used in the case of a TTWebSend object, websocket server manage the communication itself.
+    TTString                        mHtmlPath;                      ///< Path of the index.html file.
     
     struct mg_context               *mContext;
     
@@ -64,14 +63,13 @@ public:
 	/**	Create a socket to receive websocket messages.
      @param	owner		the TTObjectBase to notify
      @param	port		the port number
+     @param	htmlPath	the path to index.html file
 	 */
-	TTWebSocket(const TTObjectBasePtr owner, const TTUInt16 port);
+	TTWebSocket(const TTObjectBasePtr owner, const TTUInt16 port, const TTString& htmlPath);
 	
 	/**	Create a socket to send websocket messages.
-	 @param	address		the ip address
-	 @param	port		the port number
 	 */
-	TTWebSocket(const TTString& address, const TTUInt16 port);
+	TTWebSocket();
 
 	virtual ~TTWebSocket();
 	

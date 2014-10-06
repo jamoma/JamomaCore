@@ -34,11 +34,11 @@ public:
 	
     // check if the parameter are still the same and change the parameter if not
     // if the sender doesn't exist it adds a sender
-    TTObject    lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
+    TTObject    lookup(TTSymbol applicationName);
     
 private:
     // add a new sender for an application
-	TTObject     add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port);
+	TTObject     add(TTSymbol applicationName);
 };
 typedef WebSocketSenderManager* WebSocketSenderManagerPtr;
 

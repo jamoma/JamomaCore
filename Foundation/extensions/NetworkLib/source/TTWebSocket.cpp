@@ -142,7 +142,7 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
                 // store this connection to send back data
                 mLastConnection = conn;
                 
-                // if it is an unknown message, send to the other clients
+                // if it is an unknown message, send to other connected clients
                 if (found1 == std::string::npos && found2 == std::string::npos && found3 == std::string::npos && found4 == std::string::npos)
                     for(i=0; i < CONNECTIONS; ++i) {
                         if (ws_conn[i].conn && i != wsd)
@@ -191,10 +191,11 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
 }
 
 
-TTWebSocket::TTWebSocket(const TTObjectBasePtr owner, const TTUInt16 port)
+TTWebSocket::TTWebSocket(const TTObjectBasePtr owner, const TTUInt16 port, const TTString& htmlPath)
 {
 	mOwner = owner;
 	mPort = port;
+    mHtmlPath = htmlPath;
     
     char portString[20];
     sprintf(portString, "%d", port);
@@ -203,7 +204,7 @@ TTWebSocket::TTWebSocket(const TTObjectBasePtr owner, const TTUInt16 port)
     struct mg_callbacks callbacks;
     const char *options[] = {
         "listening_ports", portString,
-        "document_root", "html",
+        "document_root", mHtmlPath,
         NULL
     };
     
@@ -226,10 +227,8 @@ TTWebSocket::TTWebSocket(const TTObjectBasePtr owner, const TTUInt16 port)
            mg_get_option(mContext, "document_root"));
 }
 
-TTWebSocket::TTWebSocket(const TTString& address, const TTUInt16 port)
+TTWebSocket::TTWebSocket()
 {
-	mAddress = address;
-	mPort = port;
 }
 
 TTWebSocket::~TTWebSocket()
@@ -239,15 +238,13 @@ TTWebSocket::~TTWebSocket()
 
 TTErr TTWebSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 {
-    std::cout << std::endl;
-    std::cout << "Message to send : " << message.c_str() << std::endl;
-    if (mLastConnection)
-    {
+    if (mLastConnection) {
         int result = mg_websocket_write(mLastConnection, WEBSOCKET_OPCODE_TEXT, message.c_str(), message.string().size());
-        std::cout << "message sent" << std::endl;
     }
-    else
-        std::cout << "message not sent" << std::endl;
+    else {
+        TTLogError("WebSocket message not sent : %s\n", message.c_str());
+        return kTTErrGeneric;
+    }
     
 	return kTTErrNone;
 }
