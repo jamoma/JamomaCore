@@ -95,16 +95,14 @@ TTErr TTXmlHandler::Write(const TTValue& args, TTValue& outputValue)
 			// Create a new XmlWriter for filePath, with no compression.
 			mWriter = xmlNewTextWriterFilename(mFilePath.c_str(), 0);
 			if (mWriter == NULL) {
-				TT_ASSERT("testXmlwriterFilename: Error creating the xml writer\n", true);
+				TT_ASSERT("TTXmlHandler::Write : Error creating the xml writer\n", true);
 				return kTTErrGeneric;
 			}
 			
-			/* Start the document with the xml default for the version,
-			 * encoding ISO 8859-1 and the default for the standalone
-			 * declaration. */
+			// Start the document with the xml default for the version, the choosen encoding and yes for standalone status
 			ret = xmlTextWriterStartDocument((xmlTextWriterPtr)mWriter, NULL, TTMODULAR_XML_ENCODING, "yes");
 			if (ret < 0) {
-				TT_ASSERT("testXmlwriterFilename: Error at xmlTextWriterStartDocument\n", true);
+				TT_ASSERT("TTXmlHandler::Write : Error at xmlTextWriterStartDocument\n", true);
 				return kTTErrGeneric;
 			}
 			
@@ -212,8 +210,13 @@ TTErr TTXmlHandler::Read(const TTValue& args, TTValue& outputValue)
 			// Init the xml library
 			LIBXML_TEST_VERSION
 			
-			// Parse the file
-			mReader = xmlReaderForFile(mFilePath.c_str(), NULL, 0);
+			// Create a new XmlReader for filePath
+			mReader = xmlNewTextReaderFilename(mFilePath.c_str());
+            if (mReader == NULL) {
+				TT_ASSERT("TTXmlHandler::Read : Error creating the xml reader\n", true);
+				return kTTErrGeneric;
+			}
+            
 			if (mReader != NULL) {
 				
 				// Start reading
