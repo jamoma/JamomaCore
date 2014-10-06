@@ -742,7 +742,7 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	TTErr		err;
 
 	if (mLearn)
-        return UpdateDirectory(inputValue, outputValue);
+        UpdateDirectory(inputValue, outputValue);
 	
 	whereComesFrom = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);
@@ -922,6 +922,7 @@ TTErr TTApplication::ObjectRetreive(const TTValue& inputValue, TTValue& outputVa
 
 TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
 {
+    std::cout << "ObjectSend" << std::endl;
     // get address
     if (inputValue.size() >= 1) {
         
@@ -935,6 +936,8 @@ TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
             TTErr err = mDirectory->Lookup(address, aNodeList, &aNode);
             
             if (!err) {
+                
+                std::cout << "ok" << std::endl;
                 
                 TTValue valueToSend, none;
                 

@@ -776,7 +776,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer =  "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">";	
 	*buffer += "<html>";
 	*buffer += "\t<head>";
-	*buffer += "\t\t<meta http-equiv=\"content-type\" content=\"text/html;charset=ISO-8859-1\">";
+	*buffer += "\t\t<meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-16\">";
 	*buffer += "<title>";
 	*buffer += this->mAddress.c_str();
 	*buffer += "</title>";	

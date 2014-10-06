@@ -130,9 +130,14 @@ TTErr Scheduler::setSpeed(const TTValue& value)
         
         if (value[0].type() == kTypeFloat64) {
             
-            mSpeed = value[0];
+            TTFloat64 newSpeed = value[0];
             
-            sendNotification(TTSymbol("SchedulerSpeedChanged"), mSpeed);
+            if (newSpeed != mSpeed) {
+            
+                mSpeed = value[0];
+            
+                sendNotification(TTSymbol("SchedulerSpeedChanged"), mSpeed);
+            }
             
             return kTTErrNone;
         }

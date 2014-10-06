@@ -42,6 +42,12 @@
 		8E2B2C0718C8C4C5009BFF10 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = SOURCE_ROOT; };
 		8E2B2C0818C8C4C5009BFF10 /* NetworkLib.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = NetworkLib.yml; sourceTree = SOURCE_ROOT; };
 		8E2B2C0918C8C4E0009BFF10 /* NetworkLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkLib.cpp; sourceTree = "<group>"; };
+		B5CE93BC1926101500E6F4E2 /* TTWebReceive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTWebReceive.h; sourceTree = "<group>"; };
+		B5CE93BD1926101500E6F4E2 /* TTWebSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTWebSend.h; sourceTree = "<group>"; };
+		B5CE93BE1926101500E6F4E2 /* TTWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTWebSocket.h; sourceTree = "<group>"; };
+		B5CE93BF1926102400E6F4E2 /* TTWebReceive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTWebReceive.cpp; sourceTree = "<group>"; };
+		B5CE93C01926102400E6F4E2 /* TTWebSend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTWebSend.cpp; sourceTree = "<group>"; };
+		B5CE93C11926102400E6F4E2 /* TTWebSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTWebSocket.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -57,6 +63,9 @@
 		469192F816A89BE7000A75A5 /* includes */ = {
 			isa = PBXGroup;
 			children = (
+				B5CE93BC1926101500E6F4E2 /* TTWebReceive.h */,
+				B5CE93BD1926101500E6F4E2 /* TTWebSend.h */,
+				B5CE93BE1926101500E6F4E2 /* TTWebSocket.h */,
 				469192F916A89BE7000A75A5 /* TTNetReceive.h */,
 				469192FA16A89BE7000A75A5 /* TTNetSend.h */,
 				469192FB16A89BE7000A75A5 /* TTNetSocket.h */,
@@ -70,6 +79,9 @@
 		4691930016A89BEC000A75A5 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				B5CE93BF1926102400E6F4E2 /* TTWebReceive.cpp */,
+				B5CE93C01926102400E6F4E2 /* TTWebSend.cpp */,
+				B5CE93C11926102400E6F4E2 /* TTWebSocket.cpp */,
 				4691930116A89BEC000A75A5 /* TTNetReceive.cpp */,
 				4691930416A89BEC000A75A5 /* TTNetSend.cpp */,
 				4691930716A89BEC000A75A5 /* TTNetSocket.cpp */,

@@ -349,7 +349,7 @@ TTErr Protocol::ReceiveGetRequest(TTSymbol from, TTAddress address)
     return SendGetAnswer(from, address, returnedValue, err);
 }
 
-TTErr Protocol::ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& newValue) 
+TTErr Protocol::ReceiveSetRequest(TTSymbol from, TTAddress address, const TTValue& newValue)
 {
 	TTValue v, none;
 	TTErr	err;
@@ -391,7 +391,7 @@ TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean
     return kTTErrGeneric;
 }
 
-TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& newValue)
+TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, const TTValue& newValue)
 {
 	TTValue v, none;
 	TTErr	err;
@@ -599,6 +599,7 @@ void ProtocolLib::getProtocolNames(TTValue& protocolNames)
 	protocolNames.clear();
 	protocolNames.append(TTSymbol("MIDI"));
 	protocolNames.append(TTSymbol("OSC"));
+    protocolNames.append(TTSymbol("WebSocket"));
     /*
 	protocolNames.append(TTSymbol("MIDI"));
 	protocolNames.append(TTSymbol("CopperLan"));
