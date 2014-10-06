@@ -742,7 +742,7 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 	TTErr		err;
 
 	if (mLearn)
-        return UpdateDirectory(inputValue, outputValue);
+        UpdateDirectory(inputValue, outputValue);
 	
 	whereComesFrom = inputValue[0];
 	newValue = TTValuePtr((TTPtr)inputValue[1]);
