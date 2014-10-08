@@ -14,7 +14,8 @@
 
 
 #include "TTWebSocket.h"
-#include <unistd.h>
+#include <chrono>
+#include <thread>
 
 // ws_server_thread()
 static void *ws_server_thread(void *parm)
@@ -25,7 +26,7 @@ static void *ws_server_thread(void *parm)
     
     /* While the connection is open, send periodic updates */
     while(!ws_conn[wsd].closing) {
-        usleep(100000); /* 0.1 second */
+        std::this_thread::sleep_for(std::chrono::milliseconds(100)); /* 0.1 second */
         timer++;
         
         /* Send periodic PING to assure websocket remains connected, except if we are closing */

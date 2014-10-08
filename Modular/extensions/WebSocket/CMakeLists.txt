@@ -34,6 +34,9 @@ add_definitions(-DTT_PROTOCOL_DEBUG)
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
+if(WIN32)
+	target_link_libraries(${PROJECT_NAME} winmm)
+endif()
 
 ### Output ###
 setOutput()

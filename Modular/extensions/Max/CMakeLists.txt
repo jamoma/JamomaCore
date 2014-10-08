@@ -28,7 +28,7 @@ add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 
 if(WIN32)
-	target_link_libraries(${PROJECT_NAME} ../../../../Implementations/Max/source/c74support/max-includes/MaxAPI)
+	target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/MaxAPI.lib")
 endif()
 
 ### Output ###
