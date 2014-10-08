@@ -5,8 +5,9 @@ _________________________________________________________________
 
 Introduction
 Jamoma Modular is a c++ open source framework to manage interoperability between applications.
-Using the benefit of TTFoundation NodeLib layer, it provides a way to register objects into a tree structure 
-and then to expose this database through various protocol solution (OSC, Minuit, Websocket, MIDI, ...).
+Using the benefit of TTFoundation NodeLib layer, it provides a way to register objects into a tree structure and then to expose this database through various and extensible protocol solution (OSC, Minuit, Websocket, MIDI, ...).
+
+Jamoma Modular is currently used into Max/MSP, i-score, Unity, a RaspberryPi video player, ... to expose their services to query, recall or listen their values.
 
 
 Documentation / API
