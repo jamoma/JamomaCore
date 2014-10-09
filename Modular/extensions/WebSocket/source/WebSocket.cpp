@@ -55,7 +55,19 @@ mSenderManager(NULL)
 
 WebSocket::~WebSocket()
 {
-	delete mAnswerManager;
+    TTObject webSocketProtocol(this);
+    
+    if (mAnswerManager)
+        delete mAnswerManager;
+    
+    if (mSenderManager)
+        delete mSenderManager;
+    
+    if (mWebSocketReceive.valid()) {
+        
+        mWebSocketReceive.unregisterObserverForNotifications(webSocketProtocol);
+        mWebSocketReceive = TTObject();
+    }
     
     if (mWaitThread)
 		mWaitThread->wait();
@@ -96,24 +108,25 @@ TTErr WebSocket::Run(const TTValue& inputValue, TTValue& outputValue)
         return kTTErrGeneric;
 	
 	if (!mRunning) {
-
-		mAnswerManager = new WebSocketAnswerManager((WebSocketPtr)this);
-        mSenderManager = new WebSocketSenderManager();
-		
-		mWebSocketReceive = TTObject("web.receive");
         
-		if (mWebSocketReceive.valid()) {
+        TTObject webSocketProtocol(this);
+        
+        // select local application to get its port parameter
+        ApplicationSelectLocal();
+        webSocketProtocol.get("port", v);
+        
+        // if the local application already setup its port
+        if (v.size()) {
             
-            TTObject webSocketProtocol(this);
+            port = v[0];
             
-            // select local application to get its port parameter
-            ApplicationSelectLocal();
-            webSocketProtocol.get("port", v);
+            // create all internal objects
+            mAnswerManager = new WebSocketAnswerManager((WebSocketPtr)this);
+            mSenderManager = new WebSocketSenderManager();
             
-            // if the local application already setup its port
-            if (v.size()) {
-                
-                port = v[0];
+            mWebSocketReceive = TTObject("web.receive");
+            
+            if (mWebSocketReceive.valid()) {
                 
                 err = mWebSocketReceive.set("port", v);
                 
@@ -123,37 +136,36 @@ TTErr WebSocket::Run(const TTValue& inputValue, TTValue& outputValue)
                     v.clear();
                     webSocketProtocol.get("htmlPath", v);
                     
-                    // if the local application already setup its htmlPath
-                    if (v.size()) {
-                        
+                    if (v.size())
                         htmlPath = v[0];
-                        
-                        if (htmlPath == "")
-                            v = WEBSOCKET_DEFAULT_HTML_PATH;
-                        
-                        mWebSocketReceive.set("htmlPath", v);
-                        
-                        mWebSocketReceive.registerObserverForNotifications(webSocketProtocol);			// using our 'receivedMessage' method
-                        
-                        // wait to avoid strange crash when run and stop are called to quickly
-                        mWaitThread->sleep(1);
-                        
-                        mRunning = YES;
-                        
-                        return kTTErrNone;
-                    }
+                    
+                    if (htmlPath == "")
+                        v = WEBSOCKET_DEFAULT_HTML_PATH;
+                    
+                    mWebSocketReceive.set("htmlPath", v);
+                    
+                    mWebSocketReceive.registerObserverForNotifications(webSocketProtocol);			// using our 'receivedMessage' method
+                    
+                    // wait to avoid strange crash when run and stop are called to quickly
+                    mWaitThread->sleep(1);
+                    
+                    mRunning = YES;
+                    
+                    return kTTErrNone;
                 }
                 else
                     TTLogError("unable to connect to port %ld", port);
             }
-		}
+            else
+                TTLogError("unable to create a websocket receiver");
+        }
 	}
 	
 	return kTTErrGeneric;
 }
 
 /*!
- * Stop the reception thread 
+ * Stop the reception thread
  *
  */
 TTErr WebSocket::Stop(const TTValue& inputValue, TTValue& outputValue)
@@ -166,12 +178,17 @@ TTErr WebSocket::Stop(const TTValue& inputValue, TTValue& outputValue)
         
         TTObject webSocketProtocol(this);
 		
-		delete mAnswerManager;
-        delete mSenderManager;
+        if (mAnswerManager)
+            delete mAnswerManager;
         
-        mWebSocketReceive.unregisterObserverForNotifications(webSocketProtocol);
+        if (mSenderManager)
+            delete mSenderManager;
         
-        mWebSocketReceive = TTObject();
+        if (mWebSocketReceive.valid()) {
+            
+            mWebSocketReceive.unregisterObserverForNotifications(webSocketProtocol);
+            mWebSocketReceive = TTObject();
+        }
         
         // wait to avoid strange crash when run and stop are called to quickly
         mWaitThread->sleep(1);
