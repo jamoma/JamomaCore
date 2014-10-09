@@ -113,17 +113,17 @@ TTErr WebSocket::Run(const TTValue& inputValue, TTValue& outputValue)
             
             err = mWebSocketReceive.set("port", v);
             
-            // select local application to get its HtmlPath parameter
-            v.clear();
-            webSocketProtocol.get("htmlPath", v);
-            htmlPath = v[0];
-            
-            if (htmlPath == "")
-                v = WEBSOCKET_DEFAULT_HTML_PATH;
-            
-            mWebSocketReceive.set("htmlPath", v);
-            
             if (!err) {
+                
+                // select local application to get its HtmlPath parameter
+                v.clear();
+                webSocketProtocol.get("htmlPath", v);
+                htmlPath = v[0];
+                
+                if (htmlPath == "")
+                    v = WEBSOCKET_DEFAULT_HTML_PATH;
+                
+                mWebSocketReceive.set("htmlPath", v);
                 
                 mWebSocketReceive.registerObserverForNotifications(webSocketProtocol);			// using our 'receivedMessage' method
                 
@@ -153,9 +153,13 @@ TTErr WebSocket::Stop(const TTValue& inputValue, TTValue& outputValue)
         return kTTErrGeneric;
     
 	if (mRunning) {
+        
+        TTObject webSocketProtocol(this);
 		
 		delete mAnswerManager;
         delete mSenderManager;
+        
+        mWebSocketReceive.unregisterObserverForNotifications(webSocketProtocol);
         
         mWebSocketReceive = TTObject();
         
