@@ -109,33 +109,43 @@ TTErr WebSocket::Run(const TTValue& inputValue, TTValue& outputValue)
             // select local application to get its port parameter
             ApplicationSelectLocal();
             webSocketProtocol.get("port", v);
-            port = v[0];
             
-            err = mWebSocketReceive.set("port", v);
-            
-            if (!err) {
+            // if the local application already setup its port
+            if (v.size()) {
                 
-                // select local application to get its HtmlPath parameter
-                v.clear();
-                webSocketProtocol.get("htmlPath", v);
-                htmlPath = v[0];
+                port = v[0];
                 
-                if (htmlPath == "")
-                    v = WEBSOCKET_DEFAULT_HTML_PATH;
+                err = mWebSocketReceive.set("port", v);
                 
-                mWebSocketReceive.set("htmlPath", v);
-                
-                mWebSocketReceive.registerObserverForNotifications(webSocketProtocol);			// using our 'receivedMessage' method
-                
-                // wait to avoid strange crash when run and stop are called to quickly
-                mWaitThread->sleep(1);
-                
-                mRunning = YES;
-                
-                return kTTErrNone;
+                if (!err) {
+                    
+                    // select local application to get its HtmlPath parameter
+                    v.clear();
+                    webSocketProtocol.get("htmlPath", v);
+                    
+                    // if the local application already setup its htmlPath
+                    if (v.size()) {
+                        
+                        htmlPath = v[0];
+                        
+                        if (htmlPath == "")
+                            v = WEBSOCKET_DEFAULT_HTML_PATH;
+                        
+                        mWebSocketReceive.set("htmlPath", v);
+                        
+                        mWebSocketReceive.registerObserverForNotifications(webSocketProtocol);			// using our 'receivedMessage' method
+                        
+                        // wait to avoid strange crash when run and stop are called to quickly
+                        mWaitThread->sleep(1);
+                        
+                        mRunning = YES;
+                        
+                        return kTTErrNone;
+                    }
+                }
+                else
+                    TTLogError("unable to connect to port %ld", port);
             }
-            else
-                TTLogError("unable to connect to port %ld", port);
 		}
 	}
 	
