@@ -77,20 +77,7 @@ WebSocket::~WebSocket()
 
 TTErr WebSocket::Scan(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTValue     out;
-    TTErr       err;
-    
-    // Create a distant application called "telecommande" and register it
-    err = mApplicationManager.send("ApplicationInstantiateDistant", "telecommande", out);
-    if (!err) {
-        ApplicationRegister("telecommande", out);
-        
-        return kTTErrNone;
-    }
-    else
-        TTLogError("Error : can't create myRemoteApp application \n");
-    
-	return kTTErrGeneric;
+    return kTTErrNone;
 }
 
 /*!
@@ -151,10 +138,18 @@ TTErr WebSocket::Run(const TTValue& inputValue, TTValue& outputValue)
                     
                     mRunning = YES;
                     
-                    return kTTErrNone;
+                    // Create a distant application called "telecommande" and register it
+                    err = mApplicationManager.send("ApplicationInstantiateDistant", WEBSOCKET_DEFAULT_REMOTE_APPNAME, out);
+                    if (!err) {
+                        ApplicationRegister(WEBSOCKET_DEFAULT_REMOTE_APPNAME, out);
+                        
+                        return kTTErrNone;
+                    }
+                    else
+                        TTLogError("unable to create %s distant application \n", WEBSOCKET_DEFAULT_REMOTE_APPNAME);
                 }
                 else
-                    TTLogError("unable to connect to port %ld", port);
+                    TTLogError("unable to bind to port %ld", port);
             }
             else
                 TTLogError("unable to create a websocket receiver");
