@@ -38,12 +38,17 @@ TTWebReceive::~TTWebReceive()
 	delete mSocket;
 }
 
-void TTWebReceive::bind()
+TTErr TTWebReceive::bind()
 {
+    TTErr		err = kTTErrNone;
+    
 	if (mPort) {
 		delete mSocket;
 		mSocket = new TTWebSocket((TTObjectBasePtr)this, mPort, mHtmlPath);
+        
+        err = mSocket->bind();
 	}
+    return err;
 }
 
 TTErr TTWebReceive::setPort(const TTValue& newValue)
@@ -53,7 +58,7 @@ TTErr TTWebReceive::setPort(const TTValue& newValue)
 	
 	if (mPort != newPort) {
 		mPort = newPort;
-		bind();
+		err = bind();
 	}
 	return err;
 }
@@ -65,7 +70,7 @@ TTErr TTWebReceive::setHtmlPath(const TTValue& newValue)
     
     if (mHtmlPath != newHtmlPath) {
         mHtmlPath = newHtmlPath;
-        bind();
+        err = bind();
     }
     return err;
 }

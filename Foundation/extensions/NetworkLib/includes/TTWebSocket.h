@@ -72,6 +72,10 @@ public:
 	TTWebSocket();
 
 	virtual ~TTWebSocket();
+    
+    /**	Bind websocket server.
+     */
+    TTErr bind();
 	
     /**	Send message
 	 @param	message         message to send

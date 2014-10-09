@@ -196,9 +196,21 @@ TTWebSocket::TTWebSocket(const TTObjectBasePtr owner, const TTUInt16 port, const
 	mOwner = owner;
 	mPort = port;
     mHtmlPath = htmlPath;
-    
+}
+
+TTWebSocket::TTWebSocket()
+{
+}
+
+TTWebSocket::~TTWebSocket()
+{
+	mg_stop(mContext);
+}
+
+TTErr TTWebSocket::bind()
+{
     char portString[20];
-    sprintf(portString, "%d", port);
+    sprintf(portString, "%d", mPort);
     
     char server_name[40];
     struct mg_callbacks callbacks;
@@ -221,19 +233,16 @@ TTWebSocket::TTWebSocket(const TTObjectBasePtr owner, const TTUInt16 port, const
     
     mContext = mg_start(&callbacks, this, options);
     
-    /* show the greeting and some basic information */
-    printf("%s started on port(s) %s with web root [%s]\n",
-           server_name, mg_get_option(mContext, "listening_ports"),
-           mg_get_option(mContext, "document_root"));
-}
-
-TTWebSocket::TTWebSocket()
-{
-}
-
-TTWebSocket::~TTWebSocket()
-{
-	mg_stop(mContext);
+    if (mContext) {
+        /* show the greeting and some basic information */
+        printf("%s started on port(s) %s with web root [%s]\n",
+               server_name, mg_get_option(mContext, "listening_ports"),
+               mg_get_option(mContext, "document_root"));
+        
+        return kTTErrNone;
+    }
+        
+    return kTTErrGeneric;
 }
 
 TTErr TTWebSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
