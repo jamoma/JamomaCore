@@ -4,7 +4,12 @@
 sources:
   - ../../library/ProtocolLib/Protocol.cpp		
   - source/MIDI.cpp
+  - source/MIDIDestination.cpp
   - source/MIDIInput.cpp
+  - source/MIDIOutput.cpp
+  - source/MIDIParserFrom.cpp
+  - source/MIDIParserTo.cpp
+  - source/MIDISource.cpp
     
 includes:
   - "."
@@ -21,6 +26,7 @@ libraries:
 
 frameworks:
   - CoreMIDI
+  - CoreMIDIServer
   - CoreFoundation
   - CoreAudio
   - Carbon

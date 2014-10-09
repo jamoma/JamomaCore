@@ -20,8 +20,15 @@
 
 #include "portmidi.h"
 
+#ifdef TT_PLATFORM_WIN
+// TODO
+#else
+#include <CoreServices/CoreServices.h>
+#include <CoreMIDI/MIDIServices.h>
+#endif
+
 using namespace std;
 
-static const int kMidiBufferSize = 100;	// This is arbitrary, is there a more rational value for this?
+static const int kMidiBufferSize = 100;         // this is arbitrary, is there a more rational value for this ?
 
 #endif // __MIDI_INCLUDE_H__
