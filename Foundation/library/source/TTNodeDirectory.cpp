@@ -1057,10 +1057,10 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 	TTNodePtr	n1, n2;
 	TTObject    o1, o2;
 	TTValue		v;
-    TTValue    name1;
-    TTValue    name2;
-    TTValue    instance1;
-    TTValue    instance2;
+    TTValue     name1;
+    TTValue     name2;
+    TTValue     instance1;
+    TTValue     instance2;
 	TTInt32		p1 = 0;
 	TTInt32		p2 = 0;
 	
@@ -1068,8 +1068,8 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 	n1 = TTNodePtr((TTPtr)v1[0]);
 	if (n1) {
         
-        name1 = n1->getName();
-        instance1 = n1->getInstance();
+        name1 = TTString(n1->getName().c_str());            // to convert number name
+        instance1 = TTString(n1->getInstance().c_str());    // to convert number instance
 		o1 = n1->getObject();
 		
 		if (o1.valid())
@@ -1081,8 +1081,8 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 	n2 = TTNodePtr((TTPtr)v2[0]);
 	if (n2) {
         
-        name2 = n2->getName();
-        instance2 = n2->getInstance();
+        name2 = TTString(n2->getName().c_str());
+        instance2 = TTString(n2->getInstance().c_str());
 		o2 = n2->getObject();
 		
 		if (o2.valid())
@@ -1092,7 +1092,13 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 	
 	if (p1 == p2) {
         
+        name1.fromString();
+        name2.fromString();
+        
         if (name1 == name2) {
+            
+            instance1.fromString();
+            instance2.fromString();
             
             if (instance1 == instance2)
                 return v1 < v2;

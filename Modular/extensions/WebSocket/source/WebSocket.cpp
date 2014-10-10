@@ -44,8 +44,8 @@ mSenderManager(NULL)
 {
 	PROTOCOL_INITIALIZE
 	
-	addAttributeAsProtocolParameter(Ip, kTypeSymbol);
 	addAttributeAsProtocolParameter(Port, kTypeUInt16);
+    addAttributeAsProtocolParameter(HtmlPath, kTypeSymbol);
 	
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
@@ -55,7 +55,19 @@ mSenderManager(NULL)
 
 WebSocket::~WebSocket()
 {
-	delete mAnswerManager;
+    TTObject webSocketProtocol(this);
+    
+    if (mAnswerManager)
+        delete mAnswerManager;
+    
+    if (mSenderManager)
+        delete mSenderManager;
+    
+    if (mWebSocketReceive.valid()) {
+        
+        mWebSocketReceive.unregisterObserverForNotifications(webSocketProtocol);
+        mWebSocketReceive = TTObject();
+    }
     
     if (mWaitThread)
 		mWaitThread->wait();
@@ -65,8 +77,7 @@ WebSocket::~WebSocket()
 
 TTErr WebSocket::Scan(const TTValue& inputValue, TTValue& outputValue)
 {
-	// TODO
-	return kTTErrGeneric;
+    return kTTErrNone;
 }
 
 /*!
@@ -75,52 +86,81 @@ TTErr WebSocket::Scan(const TTValue& inputValue, TTValue& outputValue)
  */
 TTErr WebSocket::Run(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTValue     v;
+	TTValue     v, out;
     TTUInt16    port;
+    TTSymbol    htmlPath;
 	TTErr       err;
     
     if (inputValue.size())
         return kTTErrGeneric;
 	
 	if (!mRunning) {
-
-		mAnswerManager = new WebSocketAnswerManager((WebSocketPtr)this);
-        mSenderManager = new WebSocketSenderManager();
-		
-		mWebSocketReceive = TTObject("web.receive");
         
-		if (mWebSocketReceive.valid()) {
+        TTObject webSocketProtocol(this);
+        
+        // select local application to get its port parameter
+        ApplicationSelectLocal();
+        webSocketProtocol.get("port", v);
+        
+        // if the local application already setup its port
+        if (v.size()) {
             
-            TTObject webSocketProtocol(this);
-            
-            // select local application to get its port parameter
-            ApplicationSelectLocal();
-            webSocketProtocol.get("port", v);
             port = v[0];
             
-            err = mWebSocketReceive.set("port", v);
+            // create all internal objects
+            mAnswerManager = new WebSocketAnswerManager((WebSocketPtr)this);
+            mSenderManager = new WebSocketSenderManager();
             
-            if (!err) {
+            mWebSocketReceive = TTObject("web.receive");
+            
+            if (mWebSocketReceive.valid()) {
                 
-                mWebSocketReceive.registerObserverForNotifications(webSocketProtocol);			// using our 'receivedMessage' method
+                err = mWebSocketReceive.set("port", v);
                 
-                // wait to avoid strange crash when run and stop are called to quickly
-                mWaitThread->sleep(1);
-                
-                mRunning = YES;
-                
-                return kTTErrNone;
+                if (!err) {
+                    
+                    // select local application to get its HtmlPath parameter
+                    v.clear();
+                    webSocketProtocol.get("htmlPath", v);
+                    
+                    if (v.size())
+                        htmlPath = v[0];
+                    
+                    if (htmlPath == "")
+                        v = WEBSOCKET_DEFAULT_HTML_PATH;
+                    
+                    mWebSocketReceive.set("htmlPath", v);
+                    
+                    mWebSocketReceive.registerObserverForNotifications(webSocketProtocol);			// using our 'receivedMessage' method
+                    
+                    // wait to avoid strange crash when run and stop are called to quickly
+                    mWaitThread->sleep(1);
+                    
+                    mRunning = YES;
+                    
+                    // Create a distant application called "telecommande" and register it
+                    err = mApplicationManager.send("ApplicationInstantiateDistant", WEBSOCKET_DEFAULT_REMOTE_APPNAME, out);
+                    if (!err) {
+                        ApplicationRegister(WEBSOCKET_DEFAULT_REMOTE_APPNAME, out);
+                        
+                        return kTTErrNone;
+                    }
+                    else
+                        TTLogError("unable to create %s distant application \n", WEBSOCKET_DEFAULT_REMOTE_APPNAME);
+                }
+                else
+                    TTLogError("unable to bind to port %ld", port);
             }
             else
-                TTLogError("unable to connect to port %ld", port);
-		}
+                TTLogError("unable to create a websocket receiver");
+        }
 	}
 	
 	return kTTErrGeneric;
 }
 
 /*!
- * Stop the reception thread 
+ * Stop the reception thread
  *
  */
 TTErr WebSocket::Stop(const TTValue& inputValue, TTValue& outputValue)
@@ -130,11 +170,20 @@ TTErr WebSocket::Stop(const TTValue& inputValue, TTValue& outputValue)
         return kTTErrGeneric;
     
 	if (mRunning) {
-		
-		delete mAnswerManager;
-        delete mSenderManager;
         
-        mWebSocketReceive = TTObject();
+        TTObject webSocketProtocol(this);
+		
+        if (mAnswerManager)
+            delete mAnswerManager;
+        
+        if (mSenderManager)
+            delete mSenderManager;
+        
+        if (mWebSocketReceive.valid()) {
+            
+            mWebSocketReceive.unregisterObserverForNotifications(webSocketProtocol);
+            mWebSocketReceive = TTObject();
+        }
         
         // wait to avoid strange crash when run and stop are called to quickly
         mWaitThread->sleep(1);
@@ -643,8 +692,8 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
 	TTHashPtr       parameters = NULL;
     TTObject        aWebSender;
     TTString        header;
-	TTValue         v, vIp, vPort, message, none;
-	TTErr           err, errIp, errPort;
+	TTValue         v, message, none;
+	TTErr           err;
     
     if (!mSenderManager)
         return kTTErrGeneric;
@@ -653,17 +702,8 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
 	err = mApplicationParameters.lookup(distantApplicationName, v);
 	
 	if (!err) {
-		parameters = TTHashPtr((TTPtr)v[0]);
-		
-		if (parameters) {
 			
-			errIp = parameters->lookup(TTSymbol("ip"), vIp);
-			errPort = parameters->lookup(TTSymbol("port"), vPort);
-			
-			if (errIp || errPort)
-				return kTTErrGeneric;
-			
-			aWebSender = mSenderManager->lookup(distantApplicationName, vIp, vPort);
+			aWebSender = mSenderManager->lookup(distantApplicationName);
             
 			if (aWebSender.valid()) {
                 // get json string
@@ -678,7 +718,7 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
 				
                 // send message
 				err = aWebSender.send(TTSymbol("send"), message, none);
-            
+                
 				if (!err && mActivity) {
                     header = mLocalApplicationName.c_str();
                     header += operation;
@@ -686,7 +726,6 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
 					v = header;
 					ActivityOutMessage(v);
 				}
-			}
 		}
 	}
 
@@ -697,7 +736,6 @@ TTErr WebSocket::parseJSON(const JSONNode &n, TTString address, TTValue& value)
 {
    if (n == NULL)
     {
-//        std::cout << "Invalid JSON Node" << std::endl;
         return kTTErrGeneric;
     }
     
@@ -707,7 +745,6 @@ TTErr WebSocket::parseJSON(const JSONNode &n, TTString address, TTValue& value)
     {
         if (*i == NULL)
         {
-//            std::cout << "Invalid JSON Node" << std::endl;
             return kTTErrGeneric;
         }
         

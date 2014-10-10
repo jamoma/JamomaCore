@@ -22,53 +22,36 @@ WebSocketSenderManager::WebSocketSenderManager()
 WebSocketSenderManager::~WebSocketSenderManager()
 {}
 
-TTObject WebSocketSenderManager::lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
+TTObject WebSocketSenderManager::lookup(TTSymbol applicationName)
 {
     TTValue  last, v;
     TTObject lastObject;
-    TTSymbol lastIp;
-    TTUInt16 lastPort;
     TTErr    err;
     
     err = mSenders.lookup(applicationName, last);
     
     if (err)
-        return this->add(applicationName, ip, port);
+        return this->add(applicationName);
     
     else {
         
         lastObject = last[0];
-        lastIp = last[1];
-        lastPort = last[2];
-        
-        if (lastIp == ip && lastPort == port)
-            ;
-        
-        else {
             
-            v.append(lastObject);
-            v.append(ip);
-            v.append(port);
+        v.append(lastObject);
             
-            mSenders.remove(applicationName);
-            mSenders.append(applicationName,v);
-        }
+        mSenders.remove(applicationName);
+        mSenders.append(applicationName, v);
     }
     
     return lastObject;
 }
 
-TTObject WebSocketSenderManager::add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
+TTObject WebSocketSenderManager::add(TTSymbol applicationName)
 {
     TTValue     v;
     TTObject    anObject("web.send");
     
-    anObject.set("address", ip);
-    anObject.set("port", port);
-    
     v.append(anObject);
-    v.append(ip);
-    v.append(port);
     
     mSenders.append(applicationName, v);
     

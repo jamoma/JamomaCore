@@ -36,8 +36,8 @@ class WebSocket : public Protocol {
 	
 private:
 	
-	PROTOCOL_PARAMETER(Ip);						///< PROTOCOL PARAMETER : each registered application have to setup its ip
 	PROTOCOL_PARAMETER(Port);					///< PROTOCOL PARAMETER : each registered application have to setup its port
+    PROTOCOL_PARAMETER(HtmlPath);				///< PROTOCOL PARAMETER : each registered application have to setup its html path
     
 	TTObject                mWebSocketReceive;
     TTThreadPtr             mWaitThread;        ///< a thread used to wait in some case
@@ -51,7 +51,11 @@ private:
     /** Get osc address string from a json string */
 	TTErr parseJSON(const JSONNode &n, TTString address, TTValue& value);
 	
-	/** Scan to find remote applications and add them to the application manager */
+	/** Scan to find remote applications and add them to the application manager
+     * \param inputValue			: anything needed for scanning
+	 * \param outputValue			: all remote application name
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
+     */
 	TTErr Scan(const TTValue& inputValue, TTValue& outputValue);
 	
 	/*!
