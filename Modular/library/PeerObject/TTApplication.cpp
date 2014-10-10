@@ -493,7 +493,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 	key = TTSymbol(editKey);
 	
 	// if this listener doesn't exist yet
-	if (mAttributeListenersCache.lookup(key, cacheElement)) {
+	if (mDirectoryListenersCache.lookup(key, cacheElement)) {
 		
 		// prepare a callback based on ProtocolDirectoryCallback
 		returnValueCallback = TTObject("callback");
