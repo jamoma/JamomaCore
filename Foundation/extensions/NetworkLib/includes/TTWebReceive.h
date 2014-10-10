@@ -24,17 +24,18 @@ class TTWebReceive : public TTDataObjectBase {
 	
 public:
 	TTUInt16				mPort;		///< port number
+    TTSymbol				mHtmlPath;	///< path to index.html file
 	TTWebSocketPtr			mSocket;
     TTObject                mCallback;  ///< an optionnal callback to get message and baton data back
 	
 	// internal method
-	void bind();
+	TTErr bind();
 	
 	/**	Setter */
 	TTErr setPort(const TTValue& value);
 	
 	/**	Setter */
-	TTErr setMode(const TTValue& value);
+	TTErr setHtmlPath(const TTValue& value);
 	
 	/**	Callback from socket receive */
 	TTErr WebSocketReceive(const TTValue& message, TTValue& unusedOutput);

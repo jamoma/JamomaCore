@@ -18,6 +18,7 @@
 
 TT_OBJECT_CONSTRUCTOR,
 mPort(0),
+mHtmlPath(kTTSymEmpty),
 mSocket(NULL),
 mCallback(NULL)
 {
@@ -25,6 +26,7 @@ mCallback(NULL)
         mCallback = arguments[0];
     
 	addAttributeWithSetter(Port, kTypeUInt16);
+    addAttributeWithSetter(HtmlPath, kTypeString);
     
 	// callback from mSocket
 	addMessageWithArguments(WebSocketReceive);
@@ -36,12 +38,17 @@ TTWebReceive::~TTWebReceive()
 	delete mSocket;
 }
 
-void TTWebReceive::bind()
+TTErr TTWebReceive::bind()
 {
+    TTErr		err = kTTErrNone;
+    
 	if (mPort) {
 		delete mSocket;
-		mSocket = new TTWebSocket((TTObjectBasePtr)this, mPort);
+		mSocket = new TTWebSocket((TTObjectBasePtr)this, mPort, mHtmlPath);
+        
+        err = mSocket->bind();
 	}
+    return err;
 }
 
 TTErr TTWebReceive::setPort(const TTValue& newValue)
@@ -51,9 +58,21 @@ TTErr TTWebReceive::setPort(const TTValue& newValue)
 	
 	if (mPort != newPort) {
 		mPort = newPort;
-		bind();
+		err = bind();
 	}
 	return err;
+}
+
+TTErr TTWebReceive::setHtmlPath(const TTValue& newValue)
+{
+    TTSymbol	newHtmlPath = newValue;
+    TTErr		err = kTTErrNone;
+    
+    if (mHtmlPath != newHtmlPath) {
+        mHtmlPath = newHtmlPath;
+        err = bind();
+    }
+    return err;
 }
 
 TTErr TTWebReceive::WebSocketReceive(const TTValue& message, TTValue& unusedOutput)

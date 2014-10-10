@@ -21,18 +21,10 @@
 class TTWebSend : public TTDataObjectBase {
 	TTCLASS_SETUP(TTWebSend)
     
-	TTSymbol				mAddress;	///< www.jamoma.org, 192.168.1.1, etc.
-	TTUInt16				mPort;		///< port number
 	TTWebSocketPtr			mSocket;
 	
 	// internal helper method
 	void connect();
-	
-	/**	Setter */
-	TTErr setAddress(const TTValue& value);
-	
-	/**	Setter */
-	TTErr setPort(const TTValue& value);
 	
 	/** Transmit a message using a <TTSymbolPtr message, TTValuePtr arguments> value */
 	TTErr send(const TTValue& value, TTValue& unusedOutput);

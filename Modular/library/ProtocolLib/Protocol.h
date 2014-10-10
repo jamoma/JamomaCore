@@ -143,7 +143,7 @@ public:
      @param[out] value          returned the selected parameter for the selected application */
 	TTErr getApplicationParameters(TTSymbol parameterName, TTValue& value);
 	
-	/** Internal accessor to get the parameter of an application
+	/** Internal accessor to set the parameter of an application
      @param[in] parameterName   the name of the parameter to set
      @param[in] value           value for selected parameter for the selected application */
 	TTErr setApplicationParameters(TTSymbol parameterName, const TTValue& value);
