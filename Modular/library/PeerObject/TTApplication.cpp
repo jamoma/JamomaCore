@@ -453,26 +453,20 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
 
 TTErr TTApplication::DirectoryObserve(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTSymbol	protocolName;
-    ProtocolPtr aProtocol;
-	TTValue		v, protocolNames;
-    TTBoolean   enable;
-    
-    if (inputValue.size() == 1) {
-        
-        if (inputValue[0].type() == kTypeInt32) {
-            
-            enable = inputValue[0];
+    if (inputValue.size() == 1)
+    {
+        if (inputValue[0].type() == kTypeBoolean || inputValue[0].type() == kTypeInt32)
+        {
+            TTBoolean enable = inputValue[0];
             
             // only for distant application
             if (this == accessApplicationLocal)
                 return kTTErrGeneric;
             
             // a distant application should have one protocol
-            protocolNames = accessApplicationProtocolNames(mName);
-			protocolName = protocolNames[0];
+            TTSymbol protocolName = accessApplicationProtocolNames(mName)[0];
             
-            aProtocol = accessProtocol(protocolName);
+            ProtocolPtr aProtocol = accessProtocol(protocolName);
             if (aProtocol)
                 return aProtocol->SendListenRequest(mName, kTTAdrsRoot.appendAttribute(TTSymbol("life")), enable);
         }
