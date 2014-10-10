@@ -674,7 +674,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 {
 	TTAddress	whereComesFrom;
 	TTValuePtr	newValue;
-    TTValue     protocolNames, none;
+    TTValue     none;
 	TTSymbol	type, protocolName;;
     TTList      aNodeList;
     TTNodePtr   aNode;
@@ -696,8 +696,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 	if (type != TTSymbol("delete") && err) {
         
         // a distant application should have one protocol
-        protocolNames = accessApplicationProtocolNames(mName);
-		protocolName = protocolNames[0];
+        protocolName = accessApplicationProtocolNames(mName)[0];
         
         aProtocol = accessProtocol(protocolName);
         if (aProtocol) {
