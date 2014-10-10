@@ -722,7 +722,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
     
     // if the node exists : remove it
 	else if (!err && type == TTSymbol("delete"))
-        mDirectory->TTNodeRemove(whereComesFrom);
+        return mDirectory->TTNodeRemove(whereComesFrom);
 	
 	return kTTErrGeneric;
 }
