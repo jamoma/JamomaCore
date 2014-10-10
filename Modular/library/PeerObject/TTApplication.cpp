@@ -607,7 +607,8 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 			; // TODO : observe the directory in order to add the listener later
 	}
 	
-	return kTTErrGeneric;
+    // don't return an error if the listening is already enabled
+	return kTTErrNone;
 }
 
 TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue& outputValue)
