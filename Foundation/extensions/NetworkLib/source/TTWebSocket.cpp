@@ -130,7 +130,7 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
     std::size_t found2 = s1.find(s3);
     std::size_t found3 = s1.find(s4);
     std::size_t found4 = s1.find(s5);
-
+    
     if (flags & 0x80) {
         flags &= 0x7f;
         switch (flags) {
@@ -139,6 +139,7 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
                 break;
             case WEBSOCKET_OPCODE_TEXT:
                 fprintf(stderr, "websocket receive : %-.*s\n", (int)data_len, data);
+                
                 // store this connection to send back data
                 mLastConnection = conn;
                 
@@ -157,8 +158,13 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
                                 mg_websocket_write(ws_conn[i].conn, WEBSOCKET_OPCODE_TEXT, data, data_len);
                         }
                     
+                    
+                    char buffer[(int)data_len];
+                    snprintf(buffer, (int)data_len+1, data);
+                    
                     // send received datas to JamomaModular WebSocket plugin
-                    receivedMessage = TTSymbol(data);
+                    receivedMessage.clear();
+                    receivedMessage = TTString(buffer);
                     ((TTWebSocketPtr)(mg_get_request_info(conn)->user_data))->mOwner->sendMessage(TTSymbol("WebSocketReceive"), receivedMessage, kTTValNONE);
                 }
                 break;
@@ -193,8 +199,8 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
 
 TTWebSocket::TTWebSocket(const TTObjectBasePtr owner, const TTUInt16 port, const TTString& htmlPath)
 {
-	mOwner = owner;
-	mPort = port;
+    mOwner = owner;
+    mPort = port;
     mHtmlPath = htmlPath;
 }
 
@@ -204,7 +210,7 @@ TTWebSocket::TTWebSocket()
 
 TTWebSocket::~TTWebSocket()
 {
-	mg_stop(mContext);
+    mg_stop(mContext);
 }
 
 TTErr TTWebSocket::bind()
@@ -241,7 +247,7 @@ TTErr TTWebSocket::bind()
         
         return kTTErrNone;
     }
-        
+    
     return kTTErrGeneric;
 }
 
@@ -255,5 +261,5 @@ TTErr TTWebSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
         return kTTErrGeneric;
     }
     
-	return kTTErrNone;
+    return kTTErrNone;
 }
