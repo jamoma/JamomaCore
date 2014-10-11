@@ -453,26 +453,20 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
 
 TTErr TTApplication::DirectoryObserve(const TTValue& inputValue, TTValue& outputValue)
 {
-    TTSymbol	protocolName;
-    ProtocolPtr aProtocol;
-	TTValue		v, protocolNames;
-    TTBoolean   enable;
-    
-    if (inputValue.size() == 1) {
-        
-        if (inputValue[0].type() == kTypeInt32) {
-            
-            enable = inputValue[0];
+    if (inputValue.size() == 1)
+    {
+        if (inputValue[0].type() == kTypeBoolean || inputValue[0].type() == kTypeInt32)
+        {
+            TTBoolean enable = inputValue[0];
             
             // only for distant application
             if (this == accessApplicationLocal)
                 return kTTErrGeneric;
             
             // a distant application should have one protocol
-            protocolNames = accessApplicationProtocolNames(mName);
-			protocolName = protocolNames[0];
+            TTSymbol protocolName = accessApplicationProtocolNames(mName)[0];
             
-            aProtocol = accessProtocol(protocolName);
+            ProtocolPtr aProtocol = accessProtocol(protocolName);
             if (aProtocol)
                 return aProtocol->SendListenRequest(mName, kTTAdrsRoot.appendAttribute(TTSymbol("life")), enable);
         }
@@ -499,7 +493,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 	key = TTSymbol(editKey);
 	
 	// if this listener doesn't exist yet
-	if (mAttributeListenersCache.lookup(key, cacheElement)) {
+	if (mDirectoryListenersCache.lookup(key, cacheElement)) {
 		
 		// prepare a callback based on ProtocolDirectoryCallback
 		returnValueCallback = TTObject("callback");
@@ -613,7 +607,8 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 			; // TODO : observe the directory in order to add the listener later
 	}
 	
-	return kTTErrGeneric;
+    // don't return an error if the listening is already enabled
+	return kTTErrNone;
 }
 
 TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue& outputValue)
@@ -679,7 +674,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 {
 	TTAddress	whereComesFrom;
 	TTValuePtr	newValue;
-    TTValue     protocolNames, none;
+    TTValue     none;
 	TTSymbol	type, protocolName;;
     TTList      aNodeList;
     TTNodePtr   aNode;
@@ -701,8 +696,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 	if (type != TTSymbol("delete") && err) {
         
         // a distant application should have one protocol
-        protocolNames = accessApplicationProtocolNames(mName);
-		protocolName = protocolNames[0];
+        protocolName = accessApplicationProtocolNames(mName)[0];
         
         aProtocol = accessProtocol(protocolName);
         if (aProtocol) {
@@ -728,7 +722,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
     
     // if the node exists : remove it
 	else if (!err && type == TTSymbol("delete"))
-        mDirectory->TTNodeRemove(whereComesFrom);
+        return mDirectory->TTNodeRemove(whereComesFrom);
 	
 	return kTTErrGeneric;
 }

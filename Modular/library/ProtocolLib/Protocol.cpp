@@ -382,9 +382,6 @@ TTErr Protocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean
     
     err = mApplicationManager.send("ApplicationListen", v, none);
     
-    // NW: wondering why this happens twice?
-    if (err)
-        return SendListenAnswer(from, address, none, err);
     if (err && mRunning)
         return SendListenAnswer(from, address, none, err);
     
@@ -404,12 +401,8 @@ TTErr Protocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, const TTVa
     v.append(address);
     v.append((TTPtr)&newValue);
     
-    // TODO
     err = mApplicationManager.send("ApplicationListenAnswer", v, none);
     
-    // NW: wondering why this happens twice?
-    if (err)
-        return SendListenAnswer(from, address, dummy, err);
     if (err && mRunning)
         return SendListenAnswer(from, address, dummy, err);
     
