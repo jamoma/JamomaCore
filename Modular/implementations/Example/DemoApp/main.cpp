@@ -32,10 +32,10 @@ public:
     
     // Declare publicly all datas of our application to retreive them from the callback function
     TTObject mDataDemoDecimalParameter;     // a parameter is relative to the state of our application
-    TTObject mDataDemoStringParameter;     // a parameter is relative to the state of our application
-    TTObject mDataDemoBoolParameter;     // a parameter is relative to the state of our application
-    TTObject mDataDemoMessage;       // a message is a kind of command to send to our application
-    TTObject mDataDemoReturn;        // a return is a kind of notification sent by our application
+    TTObject mDataDemoStringParameter;      // a parameter is relative to the state of our application
+    TTObject mDataDemoBoolParameter;        // a parameter is relative to the state of our application
+    TTObject mDataDemoMessage;              // a message is a kind of command to send to our application
+    TTObject mDataDemoReturn;               // a return is a kind of notification sent by our application
     
     // Be friend with the callback function
     friend TTErr DemoAppDataReturnValueCallback(const TTValue& baton, const TTValue& v);
@@ -102,8 +102,8 @@ DemoApp::Setup()
     TTLogMessage("\n*** Creation of myDemoApp and myRemoteApp applications ***\n");
     ////////////////////////////////////////////////////////////////////////////////
     
-    // Create a local application called "demo" and get it back
-    err = mApplicationManager.send("ApplicationInstantiateLocal", "demo", out);
+    // Create a local application called "myDemoApp" and get it back
+    err = mApplicationManager.send("ApplicationInstantiateLocal", "myDemoApp", out);
     
     if (err) {
         TTLogError("Error : can't create myDemoApp application \n");
@@ -111,17 +111,6 @@ DemoApp::Setup()
     }
     else
         mApplicationDemo = out[0];
-    
-    
-    // Create a distant application called "telecommande" and get it back
-    err = mApplicationManager.send("ApplicationInstantiateDistant", "telecommande", out);
-    
-    if (err) {
-        TTLogError("Error : can't create myRemoteApp application \n");
-        return;
-    }
-    else
-        mApplicationRemote = out[0];
     
     // Get registered application names
     mApplicationManager.get("applicationNames", out);
@@ -134,57 +123,57 @@ DemoApp::Setup()
     TTLogMessage("\n*** Enable Minuit communication ***\n");
     ////////////////////////////////////////////////////////////////////////
     
-//    // Create a Minuit protocol unit
-//    err = mApplicationManager.send("ProtocolInstantiate", "Minuit", out);
-//    
-//    if (err) {
-//        TTLogError("Error : can't create Minuit protocol unit \n");
-//        return;
-//    }
-//    else
-//        mProtocolMinuit = out[0];
-//    
-//    // Get Minuit Protocol attribute names and types
-//    mProtocolMinuit.get("parameterNames", out);
-//    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
-//        TTSymbol name = TTElement(*it);
-//        TTSymbol type = mProtocolMinuit.attributeType(name);
-//        TTLogMessage("Minuit %s parameter is a %s \n", name.c_str(), type.c_str());
-//    }
-//    
-//    // Register myDemoApp and myRemoteApp to the Minuit protocol
-//    mProtocolMinuit.send("ApplicationRegister", "demo", out);
-//    mProtocolMinuit.send("ApplicationRegister", "telecommande", out);
-//    
-//    // Select myDemoApp to set its protocol parameters
-//    mProtocolMinuit.send("ApplicationSelect", "demo", out);
-//    mProtocolMinuit.set("port", 9998);
-//    mProtocolMinuit.set("ip", "127.0.0.1");
-//    
-//    // Select myRemoteApp to set its protocol parameters
-//    mProtocolMinuit.send("ApplicationSelect", "telecommande", out);
-//    mProtocolMinuit.set("port", 13579);
-//    mProtocolMinuit.set("ip", "127.0.0.1");
-//    
-//    // Get Minuit parameters for each registered application
-//    mProtocolMinuit.get("applicationNames", out);
-//    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
-//        TTSymbol name = TTElement(*it);
-//        
-//        mProtocolMinuit.send("ApplicationSelect", name, out);
-//        TTLogMessage("Minuit setup for %s application : \n", name.c_str());
-//        
-//        mProtocolMinuit.get("ip", v);
-//        TTSymbol ip = v[0];
-//        TTLogMessage("- ip = %s \n", ip.c_str());
-//        
-//        mProtocolMinuit.get("port", v);
-//        TTUInt16 port = v[0];
-//        TTLogMessage("- port = %d \n", port);
-//    }
-//    
-//    // Enable Minuit communication
-//    mProtocolMinuit.send("Run");
+    // Create a Minuit protocol unit
+    err = mApplicationManager.send("ProtocolInstantiate", "Minuit", out);
+    
+    if (err) {
+        TTLogError("Error : can't create Minuit protocol unit \n");
+        return;
+    }
+    else
+        mProtocolMinuit = out[0];
+    
+    // Get Minuit Protocol attribute names and types
+    mProtocolMinuit.get("parameterNames", out);
+    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
+        TTSymbol name = TTElement(*it);
+        TTSymbol type = mProtocolMinuit.attributeType(name);
+        TTLogMessage("Minuit %s parameter is a %s \n", name.c_str(), type.c_str());
+    }
+    
+    // Register mymyRemoteAppApp and myRemoteApp to the Minuit protocol
+    mProtocolMinuit.send("ApplicationRegister", "myDemoApp", out);
+    mProtocolMinuit.send("ApplicationRegister", "myRemoteApp", out);
+    
+    // Select myDemoApp to set its protocol parameters
+    mProtocolMinuit.send("ApplicationSelect", "myDemoApp", out);
+    mProtocolMinuit.set("port", 9998);
+    mProtocolMinuit.set("ip", "127.0.0.1");
+    
+    // Select myRemoteApp to set its protocol parameters
+    mProtocolMinuit.send("ApplicationSelect", "myRemoteApp", out);
+    mProtocolMinuit.set("port", 13579);
+    mProtocolMinuit.set("ip", "127.0.0.1");
+    
+    // Get Minuit parameters for each registered application
+    mProtocolMinuit.get("applicationNames", out);
+    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
+        TTSymbol name = TTElement(*it);
+        
+        mProtocolMinuit.send("ApplicationSelect", name, out);
+        TTLogMessage("Minuit setup for %s application : \n", name.c_str());
+        
+        mProtocolMinuit.get("ip", v);
+        TTSymbol ip = v[0];
+        TTLogMessage("- ip = %s \n", ip.c_str());
+        
+        mProtocolMinuit.get("port", v);
+        TTUInt16 port = v[0];
+        TTLogMessage("- port = %d \n", port);
+    }
+    
+    // Enable Minuit communication
+    mProtocolMinuit.send("Run");
     
     
     TTLogMessage("\n*** Enable WebSocket communication ***\n");
@@ -208,22 +197,12 @@ DemoApp::Setup()
     }
     
     // Register myDemoApp and myRemoteApp to the WebSocket protocol
-    mProtocolWebSocket.send("ApplicationRegister", "demo", out);
-    
-    // No need to register remote app for now because WebSocket plugin is only a server,
-    // remote clients have to instanciate the connection, and clients connection informations are stored internally
-    mProtocolWebSocket.send("ApplicationRegister", "telecommande", out);
+    mProtocolWebSocket.send("ApplicationRegister", "myDemoApp", out);
     
     // Select myDemoApp to set its protocol parameters
-    mProtocolWebSocket.send("ApplicationSelect", "demo", out);
+    mProtocolWebSocket.send("ApplicationSelect", "myDemoApp", out);
+    mProtocolWebSocket.set("htmlPath", "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");
     mProtocolWebSocket.set("port", 9001);
-    mProtocolWebSocket.set("ip", "127.0.0.1");
-    
-    // Select myRemoteApp to set its protocol parameters : no need because WebSocket plugin is only a server,
-    // remote clients have to instanciate the connection, and clients connection informations are stored internally
-    mProtocolWebSocket.send("ApplicationSelect", "telecommande", out);
-    mProtocolWebSocket.set("port", 9002);
-    mProtocolWebSocket.set("ip", "127.0.0.1");
     
     // Get WebSocket parameters for each registered application
     mProtocolWebSocket.get("applicationNames", out);
@@ -233,9 +212,9 @@ DemoApp::Setup()
         mProtocolWebSocket.send("ApplicationSelect", name, out);
         TTLogMessage("WebSocket setup for %s application : \n", name.c_str());
         
-        mProtocolWebSocket.get("ip", v);
-        TTSymbol ip = v[0];
-        TTLogMessage("- ip = %s \n", ip.c_str());
+        mProtocolWebSocket.get("htmlPath", v);
+        TTSymbol htmlPath = v[0];
+        TTLogMessage("- htmlPath = %s \n", htmlPath.c_str());
         
         mProtocolWebSocket.get("port", v);
         TTUInt16 port = v[0];
@@ -255,6 +234,9 @@ DemoApp::Setup()
     
     
 	TTLogMessage("\n*** Creation and registration of datas into myDemoApp ***\n");
+    /////////////////////////////////////////////////////////
+    
+    TTLogMessage("\n*** Creation and registration of a decimal parameter ***\n");
     /////////////////////////////////////////////////////////
     
     // Create a decimal parameter data and set its callback function and baton and some attributes
@@ -286,6 +268,9 @@ DemoApp::Setup()
         TTLogMessage("\n /myParameterDecimal : effective registration address is %s \n", address.c_str());
     }
     
+    TTLogMessage("\n*** Creation and registration of a string parameter ***\n");
+    /////////////////////////////////////////////////////////
+    
     // Create a string parameter data and set its callback function and baton and some attributes
     mDataDemoStringParameter = TTObject("Data", "parameter");
     
@@ -297,7 +282,7 @@ DemoApp::Setup()
     // Setup the data attributes depending of its use inside the application
     mDataDemoStringParameter.set("type", "string");
     mDataDemoStringParameter.set("description", "this parameter is useful for demo purpose");
-    mDataDemoStringParameter.set("valueDefault", "demo");
+    mDataDemoStringParameter.set("valueDefault", "myDemoApp");
     mDataDemoStringParameter.set("value", "test");
     
     // Register the parameter data into myDemoApp at an address
@@ -311,6 +296,9 @@ DemoApp::Setup()
         address = out[0];
         TTLogMessage("\n /myParameterString : effective registration address is %s \n", address.c_str());
     }
+    
+    TTLogMessage("\n*** Creation and registration of a bool parameter ***\n");
+    /////////////////////////////////////////////////////////
     
     // Create a bool parameter data and set its callback function and baton and some attributes
     mDataDemoBoolParameter = TTObject("Data", "parameter");
@@ -338,6 +326,9 @@ DemoApp::Setup()
         TTLogMessage("\n /myParameterBool : effective registration address is %s \n", address.c_str());
     }
     
+    TTLogMessage("\n*** Creation and registration of a message ***\n");
+    /////////////////////////////////////////////////////////
+    
     // Create a message data and set its callback function and baton and some attributes
     mDataDemoMessage = TTObject("Data", "message");
     
@@ -361,6 +352,9 @@ DemoApp::Setup()
         address = out[0];
         TTLogMessage("\n /myMessage : effective registration address is %s \n", address.c_str());
     }
+    
+    TTLogMessage("\n*** Creation and registration of a return ***\n");
+    /////////////////////////////////////////////////////////
     
     // Create a return data and set its callback function and baton and some attributes
     mDataDemoReturn = TTObject("Data", "return");
@@ -388,17 +382,18 @@ DemoApp::Setup()
         TTLogMessage("\n /myReturn : effective registration address is %s \n", address.c_str());
     }
     
-    TTLogMessage("\n*** Exploration of telecommande ***\n");
+    TTLogMessage("\n*** Exploration of myRemoteApp ***\n");
     /////////////////////////////////////////////////////////
 
-    // Explore the namespace of the telecommande application (telecommande have to be opened and configured with a Minuit "demo" device)
-    //mApplicationRemote.send("DirectoryBuild");
+    // Explore the namespace of the myRemoteApp application (myRemoteApp have to be opened and configured with a Minuit "myDemoApp" device)
+//    mApplicationRemote.send("DirectoryBuild");
     
-    TTLogMessage("\n*** Control of telecommande ***\n");
+    
+    TTLogMessage("\n*** Control of myRemoteApp ***\n");
     /////////////////////////////////////////////////////////
     
-    v = TTValue("/Main:externalTick", 1);
-    mApplicationRemote.send("ObjectSend", v, out);
+//    v = TTValue("/Main:externalTick", 1);
+//    mApplicationRemote.send("ObjectSend", v, out);
 }
 
 void
@@ -432,8 +427,16 @@ DemoApp::Quit()
     /////////////////////////////////////////////////////
     
     // Unregister the parameter
-    if ( mApplicationDemo.send("ObjectUnregister", "/myParameter", out))
-        TTLogError("Error : can't unregister data at /myParameter address \n");
+    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterDecimal", out))
+        TTLogError("Error : can't unregister data at /myParameterDecimal address \n");
+    
+    // Unregister the parameter
+    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterString", out))
+        TTLogError("Error : can't unregister data at /myParameterString address \n");
+    
+    // Unregister the parameter
+    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterBool", out))
+        TTLogError("Error : can't unregister data at /myParameterBool address \n");
     
     // Unregister the message
     if (mApplicationDemo.send("ObjectUnregister", "/myMessage", out))
@@ -448,14 +451,14 @@ DemoApp::Quit()
     ///////////////////////////////////////////////
     
     mApplicationManager.send("ProtocolRelease", "Minuit", out);
-    //mApplicationManager.send("ProtocolRelease", "WebSocket", out);
+    mApplicationManager.send("ProtocolRelease", "WebSocket", out);
     
     
     TTLogMessage("\n*** Release applications ***\n");
     //////////////////////////////////////////////////
     
-    mApplicationManager.send("ApplicationRelease", "telecommande", out);
-    mApplicationManager.send("ApplicationRelease", "demo", out);
+    mApplicationManager.send("ApplicationRelease", "myRemoteApp", out);
+    mApplicationManager.send("ApplicationRelease", "myDemoApp", out);
 }
 
 TTErr
@@ -468,21 +471,21 @@ DemoAppDataReturnValueCallback(const TTValue& baton, const TTValue& value)
     if (anObject.instance() == demoApp->mDataDemoDecimalParameter.instance()) {
         
         // print the returned value
-        TTLogMessage("/myParameter has been updated to %s \n", value.toString().data());
+        TTLogMessage("/myParameterDecimal has been updated to %s \n", value.toString().data());
         return kTTErrNone;
     }
     
     if (anObject.instance() == demoApp->mDataDemoStringParameter.instance()) {
         
         // print the returned value
-        TTLogMessage("/myParameter has been updated to %s \n", value.toString().data());
+        TTLogMessage("/myParameterString has been updated to %s \n", value.toString().data());
         return kTTErrNone;
     }
     
     if (anObject.instance() == demoApp->mDataDemoBoolParameter.instance()) {
         
         // print the returned value
-        TTLogMessage("/myParameter has been updated to %s \n", value.toString().data());
+        TTLogMessage("/myParameterBool has been updated to %s \n", value.toString().data());
         return kTTErrNone;
     }
     

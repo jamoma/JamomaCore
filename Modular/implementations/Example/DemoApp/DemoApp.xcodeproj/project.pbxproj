@@ -28,7 +28,7 @@
 		46A92B2318B6146400E88F79 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../Foundation/library/build/JamomaFoundation.dylib; sourceTree = "<group>"; };
 		46A92B2518B6147000E88F79 /* JamomaModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaModular.dylib; path = ../../../library/build/JamomaModular.dylib; sourceTree = "<group>"; };
 		B5B16FA41816B30800F939C5 /* DemoApp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DemoApp; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5B16FB01816B41300F939C5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
+		B5B16FB01816B41300F939C5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = main.cpp; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
