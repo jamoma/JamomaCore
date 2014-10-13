@@ -296,21 +296,24 @@ TTErr TTNodeDirectory::TTNodeRemove(TTAddress& anAddress)
 	TTList			childrenList;
 	TTValue			v;
 	TTObject		obj;
-	TTAddress		parentAddress;
+	TTAddress		parentAddress, normalizedAddress;
+    
+    // remove any directory or attribute part
+    normalizedAddress = anAddress.normalize();
 
 	// can't destroy the root (use the TTNodeDirectory destructor)
-	if (anAddress != kTTAdrsRoot) {
+	if (normalizedAddress != kTTAdrsRoot) {
 
 		// find the TTNode in the directory
-		err = this->getTTNode(anAddress, &oldNode);
+		err = this->getTTNode(normalizedAddress, &oldNode);
 
 		if (!err) {
 
 			// Notify observers that a node will be destroyed BEFORE the destruction
-			this->notifyObservers(anAddress, oldNode, kAddressDestroyed);
+			this->notifyObservers(normalizedAddress, oldNode, kAddressDestroyed);
 
 			// Remove his address
-			err = directory.remove(anAddress);
+			err = directory.remove(normalizedAddress);
 
 			// Get parent node
 			parentNode = oldNode->getParent();

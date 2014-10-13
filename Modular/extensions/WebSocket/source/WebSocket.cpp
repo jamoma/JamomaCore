@@ -812,8 +812,8 @@ TTErr WebSocket::parseJSON(const JSONNode &n, TTString address, TTValue& value)
 
 TTErr WebSocket::receivedMessage(const TTValue& message, TTValue& outputValue)
 {
-	TTSymbol	aSymbol, sender, operation;
-	TTString	headerString, address;
+	TTSymbol	sender, operation;
+	TTString	headerString, address, aString;
 	TTInt32		operationStart;
 	TTValue		arguments;
 	TTAddress   whereTo = kTTAdrsEmpty;
@@ -822,20 +822,16 @@ TTErr WebSocket::receivedMessage(const TTValue& message, TTValue& outputValue)
 	TTErr		err;
 	
 	if (mActivity) ActivityInMessage(message);
-    
-    aSymbol = message[0];
-
-    // sometimes strange characters are added to the end of message after last json '}' so remove them to get a proper json string
-    const char *pos = strchr(aSymbol.c_str(), '}');
-    aSymbol = aSymbol.string().substr(0, pos - aSymbol.c_str() + 1);
-    
+	
+    aString = message.toString();
+	
 #ifdef TT_PROTOCOL_DEBUG
     cout << endl;
-    cout << "Message received : " << aSymbol.c_str() << endl;
+    cout << "Message received : " << aString.c_str() << endl;
 #endif
     
     // parse json string
-    JSONNode rootNode = libjson::parse(aSymbol.c_str());
+    JSONNode rootNode = libjson::parse(aString.c_str());
     json_string js = rootNode.write_formatted();
     
     parseJSON(rootNode, address, jsonContent);
