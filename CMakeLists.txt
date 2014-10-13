@@ -23,7 +23,7 @@ if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/Score")
 	add_subdirectory(Score)
 endif()
 
-if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/../Implementations/Max")
+if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/../Implementations/Max" AND NOT DONT_BUILD_JAMOMAMAX)
 	add_subdirectory(../Implementations/Max ../build/Max)
 endif()
 
