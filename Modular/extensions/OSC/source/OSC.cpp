@@ -96,6 +96,8 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
     if (inputValue.size() == 0) {
         
         TTValue keys;
+        
+        outputValue.clear();
 
         mApplicationParameters.getKeys(keys);
         for (TTUInt32 i = 0 ; i < keys.size() ; i++)

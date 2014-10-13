@@ -153,7 +153,7 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
                 else {
                     
                     // return the port
-                    outputValue.append(port);
+                    outputValue = port;
                     
                     TTLogError("Minuit::Run : unable to connect to port %ld\n", port);
                 }
