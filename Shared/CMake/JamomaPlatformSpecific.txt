@@ -28,6 +28,7 @@ if(UNIX)
 	## Linux ##
 	elseif(UNIX)
 		add_definitions(-DTT_PLATFORM_LINUX)
+		SET(CMAKE_INSTALL_PREFIX /usr/local/lib/jamoma)
 		SET(CPACK_GENERATOR "DEB")
 		SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "The Jamoma Foundation")
 		SET(CPACK_SET_DESTDIR true)
