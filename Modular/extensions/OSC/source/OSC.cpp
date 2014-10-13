@@ -37,8 +37,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_OSC(void)
 }
 
 PROTOCOL_CONSTRUCTOR,
-mSenderManager(NULL),
-mWaitThread(NULL)
+mSenderManager(NULL)
 {	
 	PROTOCOL_INITIALIZE
 	
@@ -47,8 +46,6 @@ mWaitThread(NULL)
 	
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
-    
-    mWaitThread = new TTThread(NULL, NULL);
 }
 
 OSC::~OSC()
@@ -67,8 +64,6 @@ OSC::~OSC()
     
     // Stop local application
     Stop(kTTValNONE, out);
-    
-    delete mWaitThread;
     
     // release the sender manager
     if (mSenderManager)
@@ -100,11 +95,13 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
     // run OSC for all applications
     if (inputValue.size() == 0) {
         
-        TTValue keys, out;
+        TTValue keys;
+        
+        outputValue.clear();
 
         mApplicationParameters.getKeys(keys);
         for (TTUInt32 i = 0 ; i < keys.size() ; i++)
-            Run(keys[i], out);
+            Run(keys[i], outputValue);
         
         return kTTErrNone;
     }
@@ -154,17 +151,19 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                     // register for notification using our 'receivedMessage' method
                     mLocalApplicationOscReceiver.registerObserverForNotifications(oscProtocol);
                 
-                    // wait to avoid strange crash when run and stop are called to quickly
-                    mWaitThread->sleep(1);
-                
                     mRunning = YES;
                     
                     TTLogMessage("OSC::Run : connected to port %ld for local application\n", port);
                 
                     return kTTErrNone;
                 }
-                else
+                else {
+                    
+                    // return the port
+                    outputValue.append(port);
+                    
                     TTLogError("OSC::Run : unable to connect to port %ld for local application\n", port);
+                }
             }
         }
     }
@@ -221,17 +220,19 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                             // append the osc.receive to the table
                             mDistantApplicationOscReceivers.append(applicationName, anOscReceiver);
                             
-                            // wait to avoid strange crash when run and stop are called to quickly
-                            mWaitThread->sleep(1);
-                            
                             mRunning = YES;
                             
                             TTLogMessage("OSC::Run : connected to port %ld for %s application\n", receptionPort, applicationName.c_str());
                             
                             return kTTErrNone;
                         }
-                        else
+                        else {
+                            
+                            // return the port
+                            outputValue.append(receptionPort);
+                            
                             TTLogError("OSC::Run : unable to connect to port %ld for %s application\n", receptionPort, applicationName.c_str());
+                        }
                     }
                 }
             }
@@ -289,9 +290,6 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
             // delete osc.receive dedicated to local application
             mLocalApplicationOscReceiver = TTObject();
             
-            // wait to avoid strange crash when run and stop are called to quickly
-            mWaitThread->sleep(1);
-            
             mRunning = NO;
             
             return kTTErrNone;
@@ -308,9 +306,6 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
             
             // remove key
             mDistantApplicationOscReceivers.remove(applicationName);
-            
-            // wait to avoid strange crash when run and stop are called to quickly
-            mWaitThread->sleep(1);
             
             mRunning = NO;
             

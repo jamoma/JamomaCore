@@ -78,7 +78,6 @@ private:
 	PROTOCOL_PARAMETER(Port);					///< PROTOCOL PARAMETER : each registered application have to setup its port
     
 	TTObject                mOscReceive;
-    TTThreadPtr             mWaitThread;                // a thread used to wait in some case
 	
 	MinuitAnswerManagerPtr	mAnswerManager;
     MinuitSenderManagerPtr	mSenderManager;
@@ -97,7 +96,7 @@ private:
 	/*!
      * Run reception thread mechanism for the local application only
      * \param inputValue			: nothing to run all registered applications or a #TTSymbol application name
-	 * \param outputValue			: nothing
+	 * \param outputValue			: when the running failed because of a port connection failure : the port number
      * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
     TTErr Run(const TTValue& inputValue, TTValue& outputValue);
@@ -105,7 +104,7 @@ private:
 	/*!
      * Stop the reception thread mechanism for the local application only
      * \param inputValue			: nothing to stop all registered applications or a #TTSymbol application name
-	 * \param outputValue			: nothing
+	 * \param outputValue			: any informations relative to a failure when stopping the protocol
      * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop or if it was already stopped
      */
     TTErr Stop(const TTValue& inputValue, TTValue& outputValue);

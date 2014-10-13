@@ -165,7 +165,7 @@ public:
 	/*!
      * Run reception thread mechanism for the local application only
      @param inputValue			: nothing to run all registered applications or a #TTSymbol application name
-	 @param outputValue			: nothing
+	 @param outputValue			: any informations relative to a failure when running the protocol
      @return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
 	virtual TTErr Run(const TTValue& inputValue, TTValue& outputValue)=0;
@@ -173,7 +173,7 @@ public:
 	/*!
      * Stop the reception thread mechanism for the local application only
      @param inputValue			: nothing to stop all registered applications or a #TTSymbol application name
-	 @param outputValue			: nothing
+	 @param outputValue			: any informations relative to a failure when stopping the protocol
      @return errorcode			: return a kTTErrGeneric if the protocol fails to stop or if it was already stopped
      */
 	virtual TTErr Stop(const TTValue& inputValue, TTValue& outputValue)=0;
