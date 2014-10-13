@@ -19,9 +19,10 @@ class TTOscReceive : public TTDataObjectBase {
 	TTCLASS_SETUP(TTOscReceive)
 	
 public:
-	TTUInt16				mPort;		///< port number
+	TTUInt16				mPort;              ///< port number
 	TTOscSocketPtr			mSocket;
-    TTObject                mCallback;  ///< an optionnal callback to get message and baton data back
+    TTObject                mCallback;          ///< an optionnal callback to get message and baton data back
+    TTThreadPtr             mWaitThread;        ///< a thread used to wait a connection status
 	
 	// internal method
 	TTErr bind();
@@ -32,7 +33,7 @@ public:
 	/**	Setter */
 	TTErr setMode(const TTValue& value);
 	
-	/**	Callback from socket receive */
+	/**	Callbacks from socket receive */
 	TTErr oscSocketReceive(const TTValue& message, TTValue& unusedOutput);
 
 };
