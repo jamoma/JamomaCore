@@ -11,7 +11,7 @@
 #include <chrono>
 TTPtr TTOscSocketListener(TTPtr anArgument)
 {
-	TTOscSocketPtr anOscSocket= (TTOscSocketPtr) anArgument;
+	TTOscSocketPtr  anOscSocket= (TTOscSocketPtr) anArgument;
     
     try {
         
@@ -19,7 +19,7 @@ TTPtr TTOscSocketListener(TTPtr anArgument)
     
     } catch (const std::runtime_error& error) {
     
-        TTLogError("TTOscSocketListener -- error when instantiating udp listening on port %ld : %s\n", anOscSocket->mPort, error.what());
+        anOscSocket->mSocketListenerStatus = kOscSocketConnectionFailed;
         return NULL;
     }
 
@@ -27,15 +27,16 @@ TTPtr TTOscSocketListener(TTPtr anArgument)
         
         try {
             
+            anOscSocket->mSocketListenerStatus = kOscSocketConnectionSucceeded;
             anOscSocket->mSocketListener->Run();
             
         }  catch (const std::exception& exception) {
             
-            TTLogError("TTOscSocketListener -- exception when running udp listening on port %ld : %s\n", anOscSocket->mPort, exception.what());
+            anOscSocket->mSocketListenerStatus = kOscSocketConnectionFailed;
             return NULL;
         }
     }
-    
+
 	return NULL;
 }
 
@@ -43,7 +44,8 @@ TTOscSocket::TTOscSocket(const TTObjectBasePtr owner, const TTUInt16 port)
 {
 	mOwner = owner;
 	mPort = port;
-	
+    
+	mSocketListenerStatus = kOscSocketConnectionTrying;
 	mSocketListener = NULL;
 	mSocketListenerThread = new TTThread(TTOscSocketListener, this);
 	
@@ -57,6 +59,7 @@ TTOscSocket::TTOscSocket(const TTString& address, const TTUInt16 port)
 	
 	mSocketTransmitter = new UdpTransmitSocket(IpEndpointName(address.data(), port));
 	
+    mSocketListenerStatus = kOscSocketConnectionTrying;
 	mSocketListener = NULL;
 }
 
@@ -72,6 +75,8 @@ TTOscSocket::~TTOscSocket()
 
 		delete mSocketListener;
 		mSocketListener = NULL;
+        
+        mSocketListenerStatus = kOscSocketConnectionTrying;
 	}
 	
 	if (mSocketTransmitter) {
@@ -176,9 +181,9 @@ TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 	return kTTErrNone;
 }
 
-TTBoolean TTOscSocket::isBound()
+TTOscSocketConnectionFlag TTOscSocket::getSocketListenerStatus()
 {
-    return YES; // théo : the following test is wrong because the socket listener is created in an other thread so it can return false : mSocketListener != NULL;
+    return mSocketListenerStatus;
 }
 
 TTUInt32 TTOscSocket::computeMessageSize(TTSymbol& message, const TTValue& arguments)

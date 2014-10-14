@@ -78,7 +78,6 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Minuit(void)
 }
 
 PROTOCOL_CONSTRUCTOR,
-mWaitThread(NULL),
 mAnswerManager(NULL),
 mSenderManager(NULL)
 {	
@@ -89,8 +88,6 @@ mSenderManager(NULL)
 	
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
-    
-    mWaitThread = new TTThread(NULL, NULL);
 }
 
 Minuit::~Minuit()
@@ -100,11 +97,6 @@ Minuit::~Minuit()
     
     if (mSenderManager)
         delete mSenderManager;
-    
-    if (mWaitThread)
-		mWaitThread->wait();
-    
-	delete mWaitThread;
 }
 
 TTErr Minuit::Scan(const TTValue& inputValue, TTValue& outputValue)
@@ -152,17 +144,19 @@ TTErr Minuit::Run(const TTValue& inputValue, TTValue& outputValue)
                     
                     mOscReceive.registerObserverForNotifications(minuitProtocol);			// using our 'receivedMessage' method
                     
-                    // wait to avoid strange crash when run and stop are called to quickly
-                    mWaitThread->sleep(1);
-                    
                     mRunning = YES;
                     
                     TTLogMessage("Minuit::Run : connected to port %ld\n", port);
                     
                     return kTTErrNone;
                 }
-                else
+                else {
+                    
+                    // return the port
+                    outputValue = port;
+                    
                     TTLogError("Minuit::Run : unable to connect to port %ld\n", port);
+                }
             }
 		}
 	}
@@ -192,9 +186,6 @@ TTErr Minuit::Stop(const TTValue& inputValue, TTValue& outputValue)
         
         mOscReceive.unregisterObserverForNotifications(minuitProtocol);
 		mOscReceive = TTObject();
-        
-        // wait to avoid strange crash when run and stop are called to quickly
-        mWaitThread->sleep(1);
         
 		mRunning = NO;
 		
