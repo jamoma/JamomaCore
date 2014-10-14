@@ -161,13 +161,14 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
                         }
                     
                     
-                    char buffer[(int)data_len];
+                    char* buffer = new char[sizeof(char) * ((int)data_len)];
                     snprintf(buffer, (int)data_len+1, data);
                     
                     // send received datas to JamomaModular WebSocket plugin
                     receivedMessage.clear();
                     receivedMessage = TTString(buffer);
                     ((TTWebSocketPtr)(mg_get_request_info(conn)->user_data))->mOwner->sendMessage(TTSymbol("WebSocketReceive"), receivedMessage, kTTValNONE);
+                    delete buffer;
                 }
                 break;
             case WEBSOCKET_OPCODE_BINARY:
