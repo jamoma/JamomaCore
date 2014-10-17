@@ -168,6 +168,8 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                 }
             }
         }
+        else
+            return kTTErrNone;
     }
 	
     // for distant application case
