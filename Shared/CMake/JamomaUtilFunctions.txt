@@ -26,10 +26,10 @@ endFunction(setExternalSuffix)
 ## Add Apple frameworks ##
 function(addAppleFramework FRAMEWORK_NAME)
 IF(APPLE)
-   INCLUDE_DIRECTORIES ( /Developer/Headers/FlatCarbon )
+   UNSET(THE_LIBRARY CACHE)
    FIND_LIBRARY(THE_LIBRARY ${FRAMEWORK_NAME})
    MARK_AS_ADVANCED (THE_LIBRARY)
-   SET(EXTRA_LIBS ${EXTRA_LIBS} ${THE_LIBRARY})
+   SET(OSX_FRAMEWORKS "${OSX_FRAMEWORKS};${THE_LIBRARY}" PARENT_SCOPE)
 ENDIF (APPLE)
 endFunction(addAppleFramework)
 

@@ -42,6 +42,10 @@ addAppleFramework(CoreMIDI)
 addAppleFramework(CoreFoundation)
 addAppleFramework(CoreAudio)
 addAppleFramework(Carbon)
+if(APPLE)
+	message("Linking with: ${OSX_FRAMEWORKS}")
+	target_link_libraries(${PROJECT_NAME} ${OSX_FRAMEWORKS})
+endif()
 
 ### Output ###
 setOutput()
