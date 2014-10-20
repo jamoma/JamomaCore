@@ -29,6 +29,12 @@ target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/MaxAPI.lib")
+	if(CMAKE_BUILD_TYPE STREQUAL "Release")
+		add_definitions(-DMAXAPI_USE_MSCRT)
+		
+		target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/maxcrt.lib")
+		target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/maxcrt_p.lib")
+	endif()
 endif()
 
 ### Output ###

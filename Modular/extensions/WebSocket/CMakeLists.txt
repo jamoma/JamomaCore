@@ -29,7 +29,10 @@ include_directories("${PROJECT_SOURCE_DIR}/../../library/ProtocolLib")
 include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
 include_directories("${PROJECT_SOURCE_DIR}/libjson")
 
-add_definitions(-DTT_PROTOCOL_DEBUG)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+	add_definitions(-DTT_PROTOCOL_DEBUG)
+	add_definitions(-DJAMOMA_WEBSOCKET_JSON_DEBUG)
+endif()
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
