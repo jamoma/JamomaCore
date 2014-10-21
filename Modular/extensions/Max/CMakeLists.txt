@@ -6,6 +6,11 @@ if(NOT APPLE AND NOT WIN32)
 	return() 
 endif()
 
+if(WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+	message("Does not work yet on Win64")
+	return()
+endif()
+
 set(PROJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/../../library/SchedulerLib/Scheduler.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/Max.cpp

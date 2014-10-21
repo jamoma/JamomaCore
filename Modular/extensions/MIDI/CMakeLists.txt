@@ -6,6 +6,11 @@ if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID)
   return()
 endif()
 
+if(WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+	message("Does not work yet on Win64")
+	return()
+endif()
+
 find_package(PortMidi)
 if(NOT PORTMIDI_FOUND)
   message(STATUS "Package portmidi required, but not found! Won't build MidiLib extension.")
