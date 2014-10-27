@@ -542,6 +542,8 @@ else
 					reallibname = "JamomaGraph"
 				elsif (lib == "AUDIOGRAPH")
 					reallibname = "JamomaAudioGraph"
+                elsif (lib == "SCORE")
+					reallibname = "JamomaScore"
 				end
 				makefile.write("\tinstall_name_tool -change @loader_path/../../../../support/#{reallibname}.dylib @loader_path/#{reallibname}.dylib build/$(NAME).$(SUFFIX)\n") if reallibname
 			end
@@ -1213,6 +1215,8 @@ else
 								makefile.write("#{path_to_moduleroot}/#{up}../Core/AudioGraph/library/build/JamomaAudioGraph.dylib")
 							elsif (lib == "GRAPHICS")
 								makefile.write("#{path_to_moduleroot}/#{up}../Core/Graphics/library/build/JamomaGraphics.dylib")
+                            elsif (lib == "SCORE")
+								makefile.write("#{path_to_moduleroot}/#{up}../Core/Score/library/build/JamomaScore.dylib")
 							elsif (lib == "C74")
 								define_c74_linker_syms = true
 							elsif (lib == "JAMOMA_FOR_MAX")
@@ -1263,6 +1267,14 @@ else
 								else
 									makefile.write("LIBS += -lJamomaAudioGraph\n")
 									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/AudioGraph/library/build\n")
+								end
+                            elsif (lib == "SCORE")
+								if (i == 0)
+									makefile.write("LIBS = -lJamomaScore\n")
+									makefile.write("LIB_INCLUDES = -L#{path_to_moduleroot}/../../Core/Score/library/build\n")
+                                else
+									makefile.write("LIBS += -lJamomaScore\n")
+									makefile.write("LIB_INCLUDES += -L#{path_to_moduleroot}/../../Core/Score/library/build\n")
 								end
 							else
 								lib_dir = lib.split "/"
@@ -1327,6 +1339,9 @@ else
 						elsif (lib == "AUDIOGRAPH")
 							concatenated_libs_debug += "JamomaAudioGraph.lib;"
 							concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\AudioGraph\\library\\#{win64dir}$(ConfigurationName)\";"
+                        elsif (lib == "SCORE")
+							concatenated_libs_debug += "JamomaScore.lib;"
+							concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Score\\library\\#{win64dir}$(ConfigurationName)\";"
 						elsif (lib == "C74")
 							concatenated_libs_debug += "MaxAPI.lib;"
 							concatenated_lib_dirs_debug += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
@@ -1376,6 +1391,9 @@ else
 						elsif (lib == "GRAPHICS")
 							concatenated_libs_release += "JamomaGraphics.lib;"
 							concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Graphics\\library\\#{win64dir}$(ConfigurationName)\";"
+                        elsif (lib == "SCORE")
+							concatenated_libs_release += "JamomaScore.lib;"
+							concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Core\\Score\\library\\#{win64dir}$(ConfigurationName)\";"
 						elsif (lib == "C74")
 							concatenated_libs_release += "MaxAPI.lib;"
 							concatenated_lib_dirs_release += "\"$(ProjectDir)#{path_to_moduleroot_win}\\..\\..\\Implementations\\Max\\source\\c74support\\max-includes\";"
@@ -1766,7 +1784,7 @@ else
 					  
 					  # build_and_test will often be dependent on other libraries within Jamoma or third party libraries.
 					  # we pull this information from the project's YAML file, under the section heading for "libraries".
-					  # macros are defined here for FOUNDATION, DSP, MODULAR, GRAPH, & AUDIOGRAPH.
+					  # macros are defined here for FOUNDATION, DSP, MODULAR, GRAPH, AUDIOGRAPH & SCORE
 					  # third party libraries should be listed in the YAML file by their path relative to the current project.
 					  test_dependencies = ""
 					  
@@ -1789,6 +1807,8 @@ else
         					test_dependencies += extra_level + "../../Graph/library/build/libJamomaGraph.a "
         				elsif (lib == "AUDIOGRAPH")
         					test_dependencies += extra_level + "../../AudioGraph/library/build/libJamomaAudioGraph.a "
+                        elsif (lib == "SCORE")
+        					test_dependencies += extra_level + "../../Score/library/build/libJamomaScore.a "
         				else
         					test_dependencies += lib + " "
         				end
