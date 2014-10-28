@@ -96,14 +96,16 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
     if (inputValue.size() == 0) {
         
         TTValue keys;
+        TTErr   err = kTTErrNone;
         
         outputValue.clear();
 
         mApplicationParameters.getKeys(keys);
         for (TTUInt32 i = 0 ; i < keys.size() ; i++)
-            Run(keys[i], outputValue);
+            if (Run(keys[i], outputValue))
+                err = kTTErrGeneric;
         
-        return kTTErrNone;
+        return err;
     }
     
     // run OSC for one application
@@ -166,6 +168,8 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                 }
             }
         }
+        else
+            return kTTErrNone;
     }
 	
     // for distant application case

@@ -13,9 +13,22 @@
 # Look for the main header files of gecode.
 include(FindPackageHandleStandardArgs)
 
-SET(GECODE_INCLUDE_WIN32_PATH "C:\\Program Files (x86)\\Gecode\\include" )
+# TODO version number
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+	set(GECODE_WIN32_BUILD_TYPE "d")
+else()
+	set(GECODE_WIN32_BUILD_TYPE "r")
+endif()
+
+if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+	set(GECODE_WIN32_ARCH "x86")
+else()
+	set(GECODE_WIN32_ARCH "x64")
+endif()
+
+SET(GECODE_INCLUDE_WIN32_PATH "${WIN32_PROGRAMFILES}\\Gecode\\include" )
 FILE(TO_CMAKE_PATH ${GECODE_INCLUDE_WIN32_PATH} GECODE_INCLUDE_WIN32_PATH_CMAKE)
-SET(GECODE_LIB_WIN32_PATH "C:\\Program Files (x86)\\Gecode\\lib" )
+SET(GECODE_LIB_WIN32_PATH "${WIN32_PROGRAMFILES}\\Gecode\\lib" )
 FILE(TO_CMAKE_PATH ${GECODE_LIB_WIN32_PATH} GECODE_LIB_WIN32_PATH_CMAKE)
 
 find_path(GECODE_INCLUDE_DIR NAMES gecode/kernel.hh
@@ -35,9 +48,9 @@ message(STATUS "  version found ${GECODE_VERSION}")
 set(GECODE_LIBRARIES)
 
 # Look for the library
-find_library(GECODE_LIBRARY NAMES gecodekernel GecodeKernel-4-3-0-d-x86
+find_library(GECODE_LIBRARY NAMES gecodekernel GecodeKernel-4-3-0-${GECODE_WIN32_BUILD_TYPE}-${GECODE_WIN32_ARCH}
 			 PATHS ${GECODE_LIB_WIN32_PATH_CMAKE})
-find_library(GECODE_SUPPORT_LIBRARY NAMES gecodesupport GecodeSupport-4-3-0-d-x86
+find_library(GECODE_SUPPORT_LIBRARY NAMES gecodesupport GecodeSupport-4-3-0-${GECODE_WIN32_BUILD_TYPE}-${GECODE_WIN32_ARCH}
 			 PATHS ${GECODE_LIB_WIN32_PATH_CMAKE})
 
 if(GECODE_LIBRARY AND GECODE_SUPPORT_LIBRARY)
@@ -51,7 +64,7 @@ set(CMAKE_FIND_FRAMEWORK "NEVER")
 
 foreach(COMPONENT ${Gecode_FIND_COMPONENTS})
  set(GECODE_${COMPONENT}__UNIX gecode${COMPONENT})
- set(GECODE_${COMPONENT}__WIN32 Gecode${COMPONENT}-4-3-0-d-x86)
+ set(GECODE_${COMPONENT}__WIN32 Gecode${COMPONENT}-4-3-0-${GECODE_WIN32_BUILD_TYPE}-${GECODE_WIN32_ARCH})
 # message(STATUS "${GECODE_${COMPONENT}__}")
  find_library(GECODE_${COMPONENT} NAMES ${GECODE_${COMPONENT}__UNIX} ${GECODE_${COMPONENT}__WIN32}
 			  PATHS ${GECODE_LIB_WIN32_PATH_CMAKE})
@@ -65,7 +78,7 @@ endforeach()
 
 # Also float was missing
 set(GECODE_float__UNIX gecodefloat)
-set(GECODE_float__WIN32 GecodeFloat-4-3-0-d-x86)
+set(GECODE_float__WIN32 GecodeFloat-4-3-0-${GECODE_WIN32_BUILD_TYPE}-${GECODE_WIN32_ARCH})
 find_library(GECODE_float NAMES ${GECODE_float__UNIX} ${GECODE_float__WIN32}
 			 PATHS ${GECODE_LIB_WIN32_PATH_CMAKE})
 if (GECODE_float)

@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 2.6)
 project(WebSocket)
 
+if(WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+	message("Does not work yet on Win64")
+	return()
+endif()
+
 set(PROJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/../../library/ProtocolLib/Protocol.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/WebSocket.cpp
@@ -29,7 +34,10 @@ include_directories("${PROJECT_SOURCE_DIR}/../../library/ProtocolLib")
 include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
 include_directories("${PROJECT_SOURCE_DIR}/libjson")
 
-add_definitions(-DTT_PROTOCOL_DEBUG)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+	add_definitions(-DTT_PROTOCOL_DEBUG)
+	add_definitions(-DJAMOMA_WEBSOCKET_JSON_DEBUG)
+endif()
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 

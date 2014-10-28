@@ -12,6 +12,10 @@
 #include "TTBase.h"
 #include <mutex>
 
+#if defined(TT_PLATFORM_WIN)
+bool TTFOUNDATION_EXPORT TTIsWindows8OrGreater();
+#endif
+
 class TTMutex{
 // Ugly hack, one should do a make_mutex template that generates the correct type but this 
 // involves changing every mutex creation in Jamoma
@@ -27,12 +31,18 @@ class TTMutex{
 		
 		void lock()
 		{
-			recursive ? rmutex.lock() : mutex.lock();
+#if defined(TT_PLATFORM_WIN)
+            if(TTIsWindows8OrGreater())
+#endif
+                recursive ? rmutex.lock() : mutex.lock();
 		}
 		
 		void unlock()
 		{
-			recursive ? rmutex.unlock() : mutex.unlock();
+#if defined(TT_PLATFORM_WIN)
+            if(TTIsWindows8OrGreater())
+#endif
+                recursive ? rmutex.unlock() : mutex.unlock();
 		}
 
 };

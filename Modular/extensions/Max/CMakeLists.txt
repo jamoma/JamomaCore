@@ -6,6 +6,11 @@ if(NOT APPLE AND NOT WIN32)
 	return() 
 endif()
 
+if(WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+	message("Does not work yet on Win64")
+	return()
+endif()
+
 set(PROJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/../../library/SchedulerLib/Scheduler.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/Max.cpp
@@ -29,6 +34,12 @@ target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/MaxAPI.lib")
+	if(CMAKE_BUILD_TYPE STREQUAL "Release")
+		add_definitions(-DMAXAPI_USE_MSCRT)
+		
+		target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/maxcrt.lib")
+		target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/maxcrt_p.lib")
+	endif()
 endif()
 
 ### Output ###
