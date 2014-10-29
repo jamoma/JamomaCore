@@ -10,7 +10,7 @@
 
 #include "TTNode.h"
 
-TTNode::TTNode(TTSymbol aName, TTSymbol anInstance, TTObjectBasePtr anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
+TTNode::TTNode(TTSymbol& aName, TTSymbol& anInstance, TTObject& anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
 	parent(NULL)
 {
     name = aName;
@@ -95,24 +95,50 @@ TTNode::~TTNode()
 	this->children->clear();
 	this->children->~TTHash();
 
-	this->object = NULL;
 	this->context = NULL;
 }
 
-TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstanceCreated)
+TTErr TTNode::setNameInstance(TTAddress& aNameInstance, TTSymbol& newInstance, TTBoolean *newInstanceCreated)
 {
-	TTErr err;
-	TTUInt32 i;
-	TTValue hk, p_c, c;
-	TTString temp, t;
-	TTAddress	oldAddress;
-	TTAddress	newAaddress;
-	TTSymbol	old_key;
-	TTHashPtr p_ht_i;
-	TTNodePtr n_c;
+	TTErr       err;
+	TTUInt32    i;
+	TTValue     hk, p_c, c, n;
+	TTString    temp, t;
+	TTAddress	oldAddress, newAddress;
+	TTAddress	old_key, new_key;
+	TTHashPtr   p_ht_i;
+	TTNodePtr   n_c;
+    TTHash      ht_o;
 
 	// get his actual address
 	this->getAddress(oldAddress);
+    
+    // for each key of the directory
+    this->directory->getDirectory()->getKeys(hk);
+    
+	for (i=0; i<hk.size(); i++) {
+        
+		old_key = hk[i];
+        
+		// if the key starts by the oldAddress
+		if (strstr(old_key.c_str(), oldAddress.c_str()) == old_key.c_str()) {
+            
+			// get the TTNode
+			err = this->directory->getDirectory()->lookup(old_key, c);
+			if (err != kTTErrValueNotFound) {
+				n_c = TTNodePtr((TTPtr)c[0]);
+                
+                // notify directory observers that an address will be destroyed BEFORE the unregistration
+                this->directory->notifyObservers(old_key, n_c, kAddressDestroyed);
+                
+                // remove the old key
+                this->directory->getDirectory()->remove(old_key);
+                
+                // append to a temporary table to rename them later
+                ht_o.append(old_key, TTPtr(n_c));
+			}
+		}
+	}
 
 	// remove the his actual name in the parent TTNode
 	err = this->parent->children->lookup(this->name, p_c);
@@ -129,83 +155,9 @@ TTErr TTNode::setName(TTSymbol aName, TTSymbol newInstance, TTBoolean *newInstan
 		}
 	}
 
-	// change his name
-	this->name = aName;
-
-	// add this TTNode to his parent
-	// and change his instance if already exists
-	*newInstanceCreated = false;
-	while (this->parent->setChild(this) == kTTErrGeneric) {
-		this->parent->generateInstance(name, instance);
-		newInstance = instance;
-		*newInstanceCreated = true;
-	}
-
-	// get the new address
-	this->getAddress(newAaddress);
-
-	// for all the address witch starts by oldAddress :
-	// replace the beginning by the newAaddress
-	this->directory->getDirectory()->getKeys(hk);
-
-	// for each key
-	for (i=0; i<this->directory->getDirectory()->getSize(); i++) {
-
-		old_key = hk[i];
-
-		// if the key starts by the oldAddress
-		if (strstr(old_key.c_str(), oldAddress.c_str()) == old_key.c_str()) {
-
-			// get the TTNode
-			err = this->directory->getDirectory()->lookup(old_key, c);
-			if (err != kTTErrValueNotFound) {
-				n_c = TTNodePtr((TTPtr)c[0]);
-
-				// create a new key : /newAddress/end_of_the_old_key
-				temp = newAaddress.c_str();
-				t = (char *)(old_key.c_str() + strlen(oldAddress.c_str()));
-
-				if ((TT(t) == S_SEPARATOR) || t.at(0) == 0) {
-					temp += t;
-
-					// remove the old key
-					this->directory->getDirectory()->remove(old_key);
-
-					// append the new key
-					this->directory->getDirectory()->append(TTSymbol(temp), n_c);
-				}
-			}
-		}
-	}
-
-	return kTTErrNone;
-}
-
-TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *newInstanceCreated)
-{
-	TTErr err;
-	TTUInt32 i;
-	TTValue hk, p_c, c;
-	TTString temp, t;
-	TTAddress	oldAddress;
-	TTAddress	newAddress;
-	TTSymbol	old_key;
-	TTHashPtr p_ht_i;
-	TTNodePtr n_c;
-
-	// get his actual address
-	this->getAddress(oldAddress);
-
-	// remove his instance in the parent TTNode
-	err = this->parent->children->lookup(this->name, p_c);
-
-	if (err != kTTErrValueNotFound) {
-		p_ht_i = TTHashPtr((TTPtr)p_c[0]);
-		p_ht_i->remove(this->instance);
-	}
-
-	// change his instance
-	this->instance = anInstance;
+	// change his name and his instance
+	this->name = aNameInstance.getName();
+    this->instance = aNameInstance.getInstance();
 
 	// add this TTNode to his parent
 	// and change his instance if already exists
@@ -221,35 +173,27 @@ TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *
 
 	// for all the address witch starts by oldAddress :
 	// replace the beginning by the newAddress
-	this->directory->getDirectory()->getKeys(hk);
+	ht_o.getKeys(hk);
 
-	// for each key
-	for (i=0; i<this->directory->getDirectory()->getSize(); i++) {
+	// for each key of the temprary table
+	for (i=0; i<hk.size(); i++) {
+
 		old_key = hk[i];
+        
+        ht_o.lookup(old_key, n);
+        n_c = TTNodePtr((TTPtr)n[0]);
 
-		// if the key starts by the address
-		if (strstr(old_key.c_str(), oldAddress.c_str()) == old_key.c_str()) {
-
-			// get the TTNode
-			err = this->directory->getDirectory()->lookup(old_key, c);
-			if (err != kTTErrValueNotFound) {
-				n_c = TTNodePtr((TTPtr)c[0]);
-
-				// create a new key : /newAddress/end_of_the_old_key
-				temp = newAddress.c_str();
-				t = (char *)(old_key.c_str() + strlen(oldAddress.c_str()));
-
-				if ((TT(t) == S_SEPARATOR) || t.at(0) == 0) {
-					temp += t;
-
-					// remove the old key
-					this->directory->getDirectory()->remove(old_key);
-
-					// append the new key
-					this->directory->getDirectory()->append(TTSymbol(temp), n_c);
-				}
-			}
-		}
+        // create a new key : /newAddress/end_of_the_old_key
+        temp = newAddress.c_str();
+        t = (char *)(old_key.c_str() + strlen(oldAddress.c_str()));
+        temp += t;
+        new_key = TTAddress(temp);
+        
+        // append the new key
+        this->directory->getDirectory()->append(new_key, n_c);
+        
+        // notify directory observers that an address have been created AFTER the registration
+        this->directory->notifyObservers(new_key, n_c, kAddressCreated);
 	}
 
 	return kTTErrNone;
@@ -257,8 +201,9 @@ TTErr TTNode::setInstance(TTSymbol anInstance, TTSymbol newInstance, TTBoolean *
 
 TTErr TTNode::setParent(TTAddress parentAddress, TTBoolean *newParentCreated)
 {
-	TTValue	found;
-	TTErr	err;
+	TTValue     found;
+    TTObject    empty;
+	TTErr       err;
 
 	// look into the hashtab to check if the address exist in the directory
 	err = this->directory->getDirectory()->lookup(parentAddress, found);
@@ -267,7 +212,7 @@ TTErr TTNode::setParent(TTAddress parentAddress, TTBoolean *newParentCreated)
 	if (err == kTTErrValueNotFound) {
 
 		// we create a container TTNode
-		this->directory->TTNodeCreate(parentAddress, NULL, NULL, &this->parent, newParentCreated);
+		this->directory->TTNodeCreate(parentAddress, empty, NULL, &this->parent, newParentCreated);
 
 		// Is it a good test ?
 		if (*newParentCreated && (this->parent->instance != NO_INSTANCE))
@@ -323,7 +268,7 @@ TTErr TTNode::setChild(TTNodePtr child)
 	}
 }
 
-TTErr TTNode::setObject(TTObjectBasePtr anObject)
+TTErr TTNode::setObject(TTObject anObject)
 {
 	this->object = anObject;
 	return kTTErrNone;
@@ -338,12 +283,12 @@ TTErr TTNode::setContext(TTPtr aContext)
 
 
 
-TTSymbol TTNode::getName()
+TTSymbol& TTNode::getName()
 {
 	return this->name;
 }
 
-TTSymbol TTNode::getInstance()
+TTSymbol& TTNode::getInstance()
 {
 return this->instance;
 }
@@ -353,7 +298,7 @@ TTNodePtr TTNode::getParent()
 return this->parent;
 }
 
-TTErr TTNode::getChildren(TTSymbol aName, TTSymbol anInstance, TTList& returnedChildren)
+TTErr TTNode::getChildren(TTSymbol& aName, TTSymbol& anInstance, TTList& returnedChildren)
 {
 	unsigned int i, j;
 	TTErr err;
@@ -476,7 +421,7 @@ TTErr TTNode::getChildrenName(TTList& returnedChildrenName)
 	return kTTErrNone;
 }
 
-TTErr TTNode::getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstance)
+TTErr TTNode::getChildrenInstance(TTSymbol& aName, TTList& returnedChildrenInstance)
 {
 	unsigned int j;
 	TTErr err;
@@ -520,12 +465,8 @@ TTErr TTNode::getChildrenInstance(TTSymbol aName, TTList& returnedChildrenInstan
 	return kTTErrNone;
 }
 
-TTObjectBasePtr TTNode::getObject()
+TTObject& TTNode::getObject()
 {
-	if (this->object)
-		if (!this->object->valid)
-			return NULL;
-
 	return this->object;
 }
 
@@ -634,7 +575,7 @@ TTErr TTNode::getAddress(TTAddress& returnedAddress, TTAddress from)
 	return kTTErrGeneric;
 }
 
-TTErr	TTNode::generateInstance(TTSymbol childName, TTSymbol& newInstance)
+TTErr TTNode::generateInstance(TTSymbol& childName, TTSymbol& newInstance)
 {
 	TTErr err;
 	unsigned int i;

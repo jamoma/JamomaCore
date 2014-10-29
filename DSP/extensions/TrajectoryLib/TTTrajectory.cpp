@@ -22,35 +22,17 @@
 
 TT_AUDIO_CONSTRUCTOR,
 	mActualTrajectoryObject(NULL),
-	mPhasorOutputSignals(NULL),
-	mRampOutputSignals(NULL)
+	mPhasor("phasor"),
+	mPhasorOutputSignal(1),
+	mRamp("ramp"),
+	mRampOutputSignal(1)
 
-{   
-	mPhasors[0] = NULL;	//mPhasors[1] = NULL;	mPhasors[2] = NULL;
-	mRamps[0] = NULL;	//mRamps[1] = NULL;	mRamps[2] = NULL;
-//	for (int i=0; i<3; i++){
-		TTObjectBaseInstantiate(TT("phasor"), &mPhasors[0], TTValue(1));
-		TTObjectBaseInstantiate(TT("ramp")	, &mRamps[0],	TTValue(1));
-//	}
-	extendAttribute(TT("frequency"), mPhasors[0], TT("frequency"));
-	
-	TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mPhasorOutputSignals, 1);
-	TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mRampOutputSignals, 1);	
-	
-	// we should look and see if we need to call this next one, since we just specified 3 above
-	mPhasorOutputSignals->setMaxNumAudioSignals(1);
-	mPhasorOutputSignals->numAudioSignals = 1;
-	mRampOutputSignals->setMaxNumAudioSignals(1);
-	mRampOutputSignals->numAudioSignals = 1;
-	
-	//for (int i=0; i<1; i++) {
-		TTObjectBasePtr anAudioSignal = NULL;		
-		TTObjectBaseInstantiate(kTTSym_audiosignal, &anAudioSignal, 1);
-		mPhasorOutputSignals->setSignal(0, (TTAudioSignal*)anAudioSignal);
-		mRampOutputSignals->setSignal(0, (TTAudioSignal*)anAudioSignal);
-		mPhasors[0]->setAttributeValue(TT("gain"), TTLinearGainToDecibels(2)); // factor 2 in [dB] 
-		mRamps[0]->setAttributeValue(TT("mode"), TT("sample"));
-	//}
+{
+	extendAttribute(TT("frequency"), mPhasor.instance(), TT("frequency"));
+		
+	mPhasor.set("gain", TTLinearGainToDecibels(2)); // factor 2 in [dB]
+	mRamp.set("mode", "sample");
+
 	addAttributeWithSetter(A,				kTypeFloat64);
 	addAttributeWithSetter(B,				kTypeFloat64);
 	addAttributeWithSetter(C,				kTypeFloat64);
@@ -83,11 +65,4 @@ TT_AUDIO_CONSTRUCTOR,
 // Destructor
 TTTrajectory::~TTTrajectory()
 {
-
-	TTObjectBaseRelease(&mPhasors[0]);
-	TTObjectBaseRelease(&mRamps[0]);
-	
-	TTObjectBaseRelease((TTObjectBasePtr*)&mPhasorOutputSignals);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mRampOutputSignals);
-
 }

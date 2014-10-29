@@ -37,49 +37,45 @@ TTInput(arguments)
 {
 	mType = "audio";
 	
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &mSignalIn, 1);
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &mSignalOut, 1);
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &mSignalZero, 1);
+	mSignalIn = TTObject(kTTSym_audiosignal, 1);
+	mSignalOut = TTObject(kTTSym_audiosignal, 1);
+	mSignalZero = TTObject(kTTSym_audiosignal, 1);
 }
 
 
 TTInputAudio::~TTInputAudio()
 {
-	TTObjectBaseRelease(&mSignalIn);
-	TTObjectBaseRelease(&mSignalOut);
-	TTObjectBaseRelease(&mSignalZero);
+    ;
 }
 
 
 void TTInputAudio::process(TTSampleValue* anInputSampleVector, TTSampleValue* anOutputSampleVector, TTUInt16 aVectorSize)
 {
 	// Store the input from the inlets
-	TTAudioSignalPtr(mSignalIn)->setVector64Copy(0, aVectorSize, anInputSampleVector);
+	TTAudioSignalPtr(mSignalIn.instance())->setVector64Copy(0, aVectorSize, anInputSampleVector);
     
     // Sum signal from j.send~ objects
-    if (mSignalCache) {
+    for (mSignalCache.begin(); mSignalCache.end(); mSignalCache.next()) {
+        TTObject o = mSignalCache.current()[0];
+        TTAudioSignalPtr sentSignal = TTAudioSignalPtr(o.instance());
         
-        for (mSignalCache->begin(); mSignalCache->end(); mSignalCache->next()) {
-            TTAudioSignalPtr sentSignal = TTAudioSignalPtr((TTObjectBasePtr)mSignalCache->current()[0]);
-            
-            if (sentSignal)
-                *TTAudioSignalPtr(mSignalIn) += *sentSignal;
-        }
+        if (sentSignal)
+            *TTAudioSignalPtr(mSignalIn.instance()) += *sentSignal;
     }
 	
 	// if signal is bypassed or muted, send a zero signal to the algorithm
 	if (mBypass || mMute)
-		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalZero), *TTAudioSignalPtr(mSignalOut));
+		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalZero.instance()), *TTAudioSignalPtr(mSignalOut.instance()));
 	
 	// else copy in to out
 	else
-		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalIn), *TTAudioSignalPtr(mSignalOut));
+		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalIn.instance()), *TTAudioSignalPtr(mSignalOut.instance()));
 	
 	// clear the signal cache
-	mSignalCache->clear();
+	mSignalCache.clear();
 	
 	// Send the input on to the outlets for the algorithm, if desired
 	if (anOutputSampleVector)
-		TTAudioSignalPtr(mSignalOut)->getVectorCopy(0, aVectorSize, anOutputSampleVector);
+		TTAudioSignalPtr(mSignalOut.instance())->getVectorCopy(0, aVectorSize, anOutputSampleVector);
 }
 

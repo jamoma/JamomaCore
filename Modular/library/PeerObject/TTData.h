@@ -17,12 +17,12 @@
 #ifndef __TT_DATA_H__
 #define __TT_DATA_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**	TTData establishes a control point, which is to say a TTNode that is dramaticly expanded, for a model to get/set its state.
  @details In Max the jcom.parameter, jcom.message and jcom.return externals are based on TTData
  */
-class TTMODULAR_EXPORT TTData : public TTDataObjectBase
+class TTMODULAR_EXPORT TTData : public TTCallback
 {
 	TTCLASS_SETUP(TTData)
 	
@@ -46,16 +46,18 @@ private:
 	TTBoolean		mDynamicInstances;			///< ATTRIBUTE: is the data can be dynamically instanciated
 	TTValue			mInstanceBounds;			///< ATTRIBUTE: two TTValues for a range of dynamic instances (-1 = infini)
 
-	TTSymbol		mRampDrive;					///< ATTRIBUTE: ramp mode
+    
+	TTSymbol		mRampDrive;					///< ATTRIBUTE: ramp mode // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
+    TTSymbol		mRampDriveDefault;			///< ATTRIBUTE: default ramp mode to set when the type change
 #ifndef TT_NO_DSP    
-	TTSymbol		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping
+	TTSymbol		mRampFunction;				///< ATTRIBUTE: for setting the function used by the ramping // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 #endif
-	TTValue			mRampFunctionParameters;	///< ATTRIBUTE: names of parameter's function
-	TTBoolean		mRampStatus;				///< ATTRIBUTE: is the ramp running ?
+	TTValue			mRampFunctionParameters;	///< ATTRIBUTE: names of parameter's function // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
+	TTBoolean		mRampStatus;				///< ATTRIBUTE: is the ramp running ? // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 	
-	TTSymbol		mDataspace;					///< ATTRIBUTE: The dataspace that this data uses (default is 'none')
-	TTSymbol		mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace.
-	TTObjectBasePtr	mDataspaceConverter;		///< Performs conversions from input unit to the data unit
+	TTSymbol		mDataspace;					///< ATTRIBUTE: The dataspace that this data uses (default is 'none') // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
+	TTSymbol		mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
+	TTObject        mDataspaceConverter;		///< Performs conversions from input unit to the data unit
 	
 	TTSymbol		mService;					///< how the data flows into our environnement :
 												///<	as parameter : the data is in full access mode
@@ -63,11 +65,9 @@ private:
 												///<	as return : the value is not returned to his owner anymore but the data notify observers it's changing
 												///< Notice that in each case the value can be queried using a getAttributeValue method.
 	
-	TTCallbackPtr	mReturnValueCallback;		///< Callback to return back value to the owner of this data
-	
 	TTBoolean		mIsSending;					///< Flag to tell us if we are currently sending out our Value attribute
 
-    TTObjectBasePtr mRamper;                    ///< Ramp object to ramp value
+    TTObject        mRamper;                    ///< Ramp object to ramp value
 
     TTMethodValue	commandMethod;              ///< a specific method depending on mType.
                                                 ///< we need to wrap the call on specific command methods because a command can be parsed locally (so it have to be deleted after to not create memory leaks)
@@ -80,7 +80,7 @@ private:
 	
 	/** Prepares a command to update the value of TTValue. 
 	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out outputValue	This is not being used.
+	 @param[out] outputValue	This is not being used.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
 	 @see #TTDataParseCommand
 	 */
@@ -104,8 +104,8 @@ private:
     TTErr       setIntegerValue(const TTValue& value);
     
     /** Private method that sets the internal value attribute.
-    @param[in]         The new value that the attribute is to be set to.
-    @return            #TTErrorNone if the method executed successfully, elseway an error code.
+     @param[in]         The new value that the attribute is to be set to.
+     @return            #TTErrorNone if the method executed successfully, elseway an error code.
     */
     TTErr       setDecimalValue(const TTValue& value);
     TTErr       setArrayValue(const TTValue& value);
@@ -134,9 +134,13 @@ private:
     TTErr       StringInit();
     
     /** Ramper messages */
+    // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
     TTErr       RampSet(const TTValue& inputValue, TTValue& outputValue);
+    // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
     TTErr       RampTarget(const TTValue& inputValue, TTValue& outputValue);
+    // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
     TTErr       RampGo(const TTValue& inputValue, TTValue& outputValue);
+    // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
     TTErr       RampSlide(const TTValue& inputValue, TTValue& outputValue);
     
     /**	Increment mValue attribute (and ramp this incrementation)
@@ -185,15 +189,19 @@ private:
 	TTErr       setInstanceBounds(const TTValue& value);
 
 	/**	Setter for mRampDrive attribute. */
+    // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 	TTErr       setRampDrive(const TTValue& value);
 #ifndef TT_NO_DSP	
 	/**	Setter for mRampFunction attribute. */
+    // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 	TTErr       setRampFunction(const TTValue& value);
 #endif
 	/**	Setter for mDataspace attribute. */
+    // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 	TTErr       setDataspace(const TTValue& value);
 	
 	/**	Setter for mDataspaceUnit attribute. */
+    // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 	TTErr       setDataspaceUnit(const TTValue& value);
     
     /**	Setter for mDescription attribute. */

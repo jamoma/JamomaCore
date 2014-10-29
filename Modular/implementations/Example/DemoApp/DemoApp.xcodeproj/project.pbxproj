@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B58B2A6F181AC4580055FD97 /* libjson.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B58B2A6E181AC4580055FD97 /* libjson.dylib */; };
+		46A92B2418B6146400E88F79 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A92B2318B6146400E88F79 /* JamomaFoundation.dylib */; };
+		46A92B2618B6147000E88F79 /* JamomaModular.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A92B2518B6147000E88F79 /* JamomaModular.dylib */; };
 		B5B16FB11816B41300F939C5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5B16FB01816B41300F939C5 /* main.cpp */; };
-		B5C063781817D9020032A501 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C063761817D9020032A501 /* JamomaFoundation.dylib */; };
-		B5C063791817D9020032A501 /* JamomaModular.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C063771817D9020032A501 /* JamomaModular.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,11 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B58B2A6E181AC4580055FD97 /* libjson.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjson.dylib; path = Debug/libjson.dylib; sourceTree = "<group>"; };
+		46A92B2318B6146400E88F79 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../Foundation/library/build/JamomaFoundation.dylib; sourceTree = "<group>"; };
+		46A92B2518B6147000E88F79 /* JamomaModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaModular.dylib; path = ../../../library/build/JamomaModular.dylib; sourceTree = "<group>"; };
 		B5B16FA41816B30800F939C5 /* DemoApp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DemoApp; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5B16FB01816B41300F939C5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
-		B5C063761817D9020032A501 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../../Implementations/Max/Jamoma/support/JamomaFoundation.dylib; sourceTree = "<group>"; };
-		B5C063771817D9020032A501 /* JamomaModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaModular.dylib; path = ../../../../../Implementations/Max/Jamoma/support/JamomaModular.dylib; sourceTree = "<group>"; };
+		B5B16FB01816B41300F939C5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = main.cpp; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,9 +36,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B58B2A6F181AC4580055FD97 /* libjson.dylib in Frameworks */,
-				B5C063791817D9020032A501 /* JamomaModular.dylib in Frameworks */,
-				B5C063781817D9020032A501 /* JamomaFoundation.dylib in Frameworks */,
+				46A92B2618B6147000E88F79 /* JamomaModular.dylib in Frameworks */,
+				46A92B2418B6146400E88F79 /* JamomaFoundation.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,9 +47,8 @@
 		B5B16F9B1816B30800F939C5 = {
 			isa = PBXGroup;
 			children = (
-				B58B2A6E181AC4580055FD97 /* libjson.dylib */,
-				B5C063761817D9020032A501 /* JamomaFoundation.dylib */,
-				B5C063771817D9020032A501 /* JamomaModular.dylib */,
+				46A92B2318B6146400E88F79 /* JamomaFoundation.dylib */,
+				46A92B2518B6147000E88F79 /* JamomaModular.dylib */,
 				B5B16FA61816B30800F939C5 /* DemoApp */,
 				B5B16FA51816B30800F939C5 /* Products */,
 			);
@@ -203,22 +199,27 @@
 		B5B16FAE1816B30800F939C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CONFIGURATION_BUILD_DIR = Debug;
-				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_MAC;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TT_PLATFORM_MAC,
+					TT_PROTOCOL_DEBUG,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					../../../library/PeerObject,
-					../../../library/SchedulerLib,
-					../../../library/ProtocolLib,
-					../../../../DSP/library/includes,
 					../../../../Foundation/library/includes,
+					../../../../DSP/library/includes,
 					../../../library/includes,
+					../../../library/PeerObject,
+					../../../library/ProtocolLib,
+					../../../library/SchedulerLib,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/ProLauGre/Travail/09-ossia/Jamoma/Implementations/Max/Jamoma/support",
-					"/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/Debug",
+					"/Users/WALL-E/Documents/Jamoma/Core/Modular/library/build",
+					"/Users/WALL-E/Documents/Jamoma/Core/Foundation/library/build",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -227,22 +228,27 @@
 		B5B16FAF1816B30800F939C5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CONFIGURATION_BUILD_DIR = Release;
-				GCC_PREPROCESSOR_DEFINITIONS = TT_PLATFORM_MAC;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TT_PLATFORM_MAC,
+					TT_PROTOCOL_DEBUG,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					../../../library/PeerObject,
-					../../../library/SchedulerLib,
-					../../../library/ProtocolLib,
-					../../../../DSP/library/includes,
 					../../../../Foundation/library/includes,
+					../../../../DSP/library/includes,
 					../../../library/includes,
+					../../../library/PeerObject,
+					../../../library/ProtocolLib,
+					../../../library/SchedulerLib,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/ProLauGre/Travail/09-ossia/Jamoma/Implementations/Max/Jamoma/support",
-					"/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/Debug",
+					"/Users/WALL-E/Documents/Jamoma/Core/Modular/library/build",
+					"/Users/WALL-E/Documents/Jamoma/Core/Foundation/library/build",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

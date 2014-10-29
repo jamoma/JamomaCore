@@ -35,7 +35,7 @@ protected:
 
 	TTGraphObjectBasePtr	mSourceObject;		///< The object from which we pull samples
 	TTUInt16			    mOutletNumber;		///< Number of the outlet (zero-based)
-	TTObjectBasePtr			mCallbackHandler;
+	TTObject				mCallbackHandler;
 	TTGraphInletPtr		    mOwner;				///< The owning inlet
 	
 public:
@@ -64,7 +64,7 @@ public:
 	TTGraphSource(const TTGraphSource& original) :
 		mSourceObject(NULL),
 		mOutletNumber(0),
-		mCallbackHandler(NULL),
+		mCallbackHandler("callback"),
 		mOwner(NULL)
 	{
 		create();
@@ -81,12 +81,10 @@ public:
 	// This one is called, for example, on the Mac when dropping a source and the vector has to be re-arranged.	
 	TTGraphSource& operator=(const TTGraphSource& original)
 	{
-		if (mSourceObject && mCallbackHandler)
-			((TTObjectBasePtr)mSourceObject)->unregisterObserverForNotifications(*mCallbackHandler);
+		if (mSourceObject && mCallbackHandler.valid())
+			((TTObjectBasePtr)mSourceObject)->unregisterObserverForNotifications(mCallbackHandler);
 
-		TTObjectBaseRelease(&mCallbackHandler);
-		mCallbackHandler = TTObjectBaseReference(original.mCallbackHandler);
-				
+		mCallbackHandler = original.mCallbackHandler;
 		mOwner = original.mOwner;
 
 		// TODO: evaluate if this is doing the correct thing:

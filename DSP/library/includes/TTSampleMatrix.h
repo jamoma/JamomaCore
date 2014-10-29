@@ -47,7 +47,7 @@ SampleMatrix extends the Matrix class found in Foundation to provide support for
 
 	@see TTAudioSignal, TTMatrix
 */
-class TTDSP_EXPORT TTSampleMatrix : public TTMatrix {
+class TTDSP_EXPORT TTSampleMatrix : public TTMatrixBase {
 	TTCLASS_SETUP(TTSampleMatrix)
 
 protected:

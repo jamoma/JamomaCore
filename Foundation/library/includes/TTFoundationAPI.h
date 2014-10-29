@@ -19,7 +19,7 @@
 #include "TTInterpolate.h"
 #include "TTLimits.h"
 #include "TTList.h"
-#include "TTMatrix.h"
+#include "TTMatrixBase.h"
 #include "TTMatrixArray.h"
 #include "TTMutex.h"
 #include "TTObjectBase.h"
@@ -40,6 +40,9 @@
 #include "TTUnitTest.h"
 #include "TTValue.h"
 #include "TTObject.h"
+#include "TTObjectTemplates.h"
+#include "TTMatrix.h"
+#include "TTMatrixObject.h"
 
 #ifdef TT_PLATFORM_WIN
 #define TT_EXTENSION_EXPORT __declspec(dllexport)
@@ -52,9 +55,9 @@
 	@param strname A C-string that names the object as it should be listed in the environment. */
 #define TT_CLASS_SETUP(strname, tags, className)\
 	\
-	extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol&, TTValue& arguments); \
+	extern "C" TT_EXTENSION_EXPORT TTObject* instantiate ## className (TTSymbol, TTValue& arguments); \
 	\
-	TTObject*  instantiate ## className (TTSymbol&, TTValue& arguments) \
+	TTObject*  instantiate ## className (TTSymbol, TTValue& arguments) \
 	{\
 		return new className (arguments);\
 	}\

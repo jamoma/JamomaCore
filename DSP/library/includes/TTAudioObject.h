@@ -28,7 +28,7 @@ public:
 	TTObject(kTTSym_audiosignal, aChannelCount)
 	{}
 	
-	TTAudioSignalPtr instance()
+	TTAudioSignalPtr instance() const
 	{
 		return (TTAudioSignalPtr)mObjectInstance;
 	}
@@ -84,6 +84,67 @@ public:
 };
 
 
+/** Wrap TTAudioSignalArray instances for convenience. */
+class TTAudioArray : public TTObject {
+public:
+	TTAudioArray(int aChannelCount):
+	TTObject(kTTSym_audiosignalarray, aChannelCount)
+	{}
+	
+	TTAudioSignalArrayPtr instance()
+	{
+		return (TTAudioSignalArrayPtr)mObjectInstance;
+	}
+	
+	void setStreamCount(TTInt32 newStreamCount)
+	{
+		instance()->setMaxNumAudioSignals(newStreamCount);
+		instance()->numAudioSignals = newStreamCount;
+	}
+	
+	TTErr setStream(TTChannelCount index, const TTAudio& aStream)
+	{
+		//instance()->setSignal(index, (TTAudioSignalPtr)TTObjectBaseReference((TTObjectBasePtr)aStream.instance()));
+		// above reference incrementing now moved into the setSignal() method below
+		instance()->setSignal(index, aStream.instance());
+		return kTTErrNone;
+	}
+
+	TTErr setStream(TTChannelCount index, const TTAudioSignalPtr aSignal)
+	{
+		//instance()->setSignal(index, (TTAudioSignalPtr)TTObjectBaseReference((TTObjectBasePtr)aSignal));
+		// above reference incrementing now moved into the setSignal() method below
+		instance()->setSignal(index, aSignal);
+		return kTTErrNone;
+	}
+	
+	TTAudioSignal& getSignal(TTChannelCount index)
+	{
+		return instance()->getSignal(index);
+	}
+	
+	void allocAllWithVectorSize(TTUInt16 vs)
+	{
+		instance()->allocAllWithVectorSize(vs);
+	}
+	
+	TTUInt16 getVectorSize()
+	{
+		return instance()->getVectorSize();
+	}
+	
+	TTChannelCount getMaxChannelCount()
+	{
+		return instance()->getMaxNumChannels();
+	}
+	
+	void matchNumChannels(TTAudioArray& anotherArray)
+	{
+		instance()->matchNumChannels(anotherArray.instance());
+	}
+};
+
+
 inline TTErr TTAudioObjectBase::process(TTAudio& inputs, TTAudio& outputs)
 {
 	return process(inputs.instance(), outputs.instance());
@@ -98,6 +159,44 @@ public:
 	TTObject(aClassName, arguments)
 	{}
 	
+	// copy constructor is fully implemented in the super-class
+	
+	/** like a copy constructor -- but from TTObject to TTAudioObject */
+	TTAudioObject(const TTObject& anOtherObject) :
+	TTObject(anOtherObject)
+	{}
+	
+	
+	/**	Set the object's sample rate. */
+	TTErr setSampleRate(const TTUInt32& newSampleRate)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->setSampleRate(newSampleRate);
+	}
+
+	
+	/** Allocate neccessary memory and make configuration adjustments so the object is able
+		to process additional channels of audio. */
+	TTErr adaptMaxChannelCount(const TTUInt16 aNewChannelCount)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->adaptMaxNumChannels(aNewChannelCount);
+	}
+
+
+	TTErr process(TTAudioSignal& out)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->process(out);
+	}
+	
+	TTErr process(TTAudio& out)
+	{
+		return process(*out.instance());
+	}
+
+	TTErr process(TTAudioSignalArrayPtr in, TTAudioSignalArrayPtr out)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->process(in, out);
+	}
+	
 	TTErr process(TTAudioSignal& in, TTAudioSignal& out)
 	{
 		return TTAudioObjectBasePtr(mObjectInstance)->process(in, out);
@@ -106,6 +205,11 @@ public:
 	TTErr process(TTAudio* in, TTAudio* out)
 	{
 		return TTAudioObjectBasePtr(mObjectInstance)->process(in->instance(), out->instance());
+	}
+	
+	TTErr process(TTAudioArray& in, TTAudioArray& out)
+	{
+		return TTAudioObjectBasePtr(mObjectInstance)->process(in.instance(), out.instance());
 	}
 	
 	

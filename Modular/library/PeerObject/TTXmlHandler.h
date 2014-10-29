@@ -17,10 +17,8 @@
 #ifndef __TT_XML_HANDLER_H__
 #define __TT_XML_HANDLER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 #include <stdio.h>
-
-#define TTMODULAR_XML_ENCODING "ISO-8859-1"
 
 /** Write / Read mecanism
  
@@ -47,7 +45,7 @@
  
  */
 
-class TTMODULAR_EXPORT TTXmlHandler : public TTDataObjectBase
+class TTMODULAR_EXPORT TTXmlHandler : public TTObjectBase
 {
 	TTCLASS_SETUP(TTXmlHandler)
 	

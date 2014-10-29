@@ -18,7 +18,7 @@
 #include "Max.h"
 
 #define thisTTClass                 Max
-#define thisTTClassName             "Max"
+#define thisTTClassName             "max"
 #define thisTTClassTags             "scheduler, max"
 
 #define thisSchedulerVersion		"0.1"

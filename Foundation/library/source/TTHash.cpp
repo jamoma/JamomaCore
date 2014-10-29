@@ -67,13 +67,13 @@ TTErr TTHash::append(const TTPtr key, const TTValue& value)
 }
 
 
-TTErr TTHash::append(const TTSymbol& key, const TTValue& value)
+TTErr TTHash::append(const TTSymbol key, const TTValue& value)
 {
 	return append(TTPtr(key.rawpointer()), value);
 }
 
 
-TTErr TTHash::lookup(const TTSymbol& key, TTValue& value)
+TTErr TTHash::lookup(const TTSymbol key, TTValue& value)
 {
 	return lookup(TTPtr(key.rawpointer()), value);
 }
@@ -103,7 +103,7 @@ TTErr TTHash::lookup(const TTPtr key, TTValue& value)
 
 
 
-TTErr TTHash::remove(const TTSymbol& key)
+TTErr TTHash::remove(const TTSymbol key)
 {
 	lock();
 	HASHMAP->erase(TTPtrSizedInt(key.rawpointer()));

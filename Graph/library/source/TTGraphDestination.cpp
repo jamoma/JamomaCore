@@ -35,7 +35,7 @@ void TTGraphDestinationObserverCallback(TTGraphDestinationPtr self, TTValue& arg
 TTGraphDestination::TTGraphDestination() :
 	mDestinationObject(NULL),
 	mInletNumber(0),
-	mCallbackHandler(NULL),
+	mCallbackHandler("callback"),
 	mOwner(NULL)
 {
 	create();
@@ -45,23 +45,18 @@ TTGraphDestination::TTGraphDestination() :
 TTGraphDestination::~TTGraphDestination()
 {
 	if (mDestinationObject)
-		mDestinationObject->unregisterObserverForNotifications(*mCallbackHandler);
-
-	TTObjectBaseRelease(&mCallbackHandler);
+		mDestinationObject->unregisterObserverForNotifications(mCallbackHandler);
 	
 	mDestinationObject = NULL;
 	mInletNumber = 0;
-	mCallbackHandler = NULL;	
 }
 
 
 void TTGraphDestination::create()
 {
-	TTObjectBaseInstantiate(TT("callback"), &mCallbackHandler, kTTValNONE);
-	
-	mCallbackHandler->setAttributeValue(TT("owner"), TT("TTGraphDestination"));
-	mCallbackHandler->setAttributeValue(TT("function"), TTPtr(&TTGraphDestinationObserverCallback));
-	mCallbackHandler->setAttributeValue(TT("baton"), TTPtr(this));	
+	mCallbackHandler.set(TT("owner"), TT("TTGraphDestination"));
+	mCallbackHandler.set(TT("function"), TTPtr(&TTGraphDestinationObserverCallback));
+	mCallbackHandler.set(TT("baton"), TTPtr(this));
 }
 
 
@@ -71,10 +66,10 @@ void TTGraphDestination::connect(TTGraphObjectBasePtr anObject, TTUInt16 fromOut
 	mInletNumber = fromOutletNumber;
 
 	// dynamically add a message to the callback object so that it can handle the 'objectFreeing' notification
-	mCallbackHandler->registerMessage(TT("objectFreeing"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
+	mCallbackHandler.instance()->registerMessage(TT("objectFreeing"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
 	
 	// tell the source that is passed in that we want to watch it
-	mDestinationObject->registerObserverForNotifications(*mCallbackHandler);
+	mDestinationObject->registerObserverForNotifications(mCallbackHandler);
 }
 
 

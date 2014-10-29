@@ -86,12 +86,12 @@ typedef std::vector<TTAudioGraphObjectBasePtr>	TTAudioGraphObjectBaseVector;
 typedef TTAudioGraphObjectBaseVector::iterator	TTAudioGraphObjectBaseIter;
 
 class	TTAudioGraphInlet;
-typedef TTAudioGraphInlet*					TTAudioGraphInletPtr;
+//typedef TTAudioGraphInlet*					TTAudioGraphInletPtr;
 typedef std::vector<TTAudioGraphInlet>		TTAudioGraphInletVector;
 typedef TTAudioGraphInletVector::iterator	TTAudioGraphInletIter;
 
 class	TTAudioGraphOutlet;
-typedef TTAudioGraphOutlet*					TTAudioGraphOutletPtr;
+//typedef TTAudioGraphOutlet*					TTAudioGraphOutletPtr;
 typedef std::vector<TTAudioGraphOutlet>		TTAudioGraphOutletVector;
 typedef TTAudioGraphOutletVector::iterator	TTAudioGraphOutletIter;
 

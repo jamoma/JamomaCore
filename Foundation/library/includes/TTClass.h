@@ -49,7 +49,7 @@ public:
 	 @param anInstantiationMethod	The instantiation method for this class.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTClass(const TTSymbol& className, const TTValue& tags, const TTObjectBaseInstantiationMethod anInstantiationMethod);
+	TTClass(const TTSymbol className, const TTValue& tags, const TTObjectBaseInstantiationMethod anInstantiationMethod);
 		
 	
 	/**	Destructor. */

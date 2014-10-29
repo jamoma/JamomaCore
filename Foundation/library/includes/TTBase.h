@@ -163,6 +163,7 @@
 
 typedef bool				TTBoolean;				///< Boolean flag, same as Boolean on the Mac
 typedef unsigned char		TTByte;					///< Byte value
+typedef TTByte*				TTBytePtr;				///< Data is a pointer to some bytes
 typedef char*				TTCString;
 typedef const char*			TTImmutableCString;
 
@@ -211,6 +212,44 @@ typedef float					TTFloat32;			///< 32 bit floating point number
 typedef double					TTFloat64;			///< 64 bit floating point number
 typedef std::complex<double>	TTComplex;			///< Conmplex number
 
+
+/**	@typedef TTRowID
+	Datatype for any number used to indicate a row index within a matrix.
+	Three typedefs ( #TTRowID, #TTColumnID & #TTElementID ) are used so that we can easily distinguish between these important matrix attributes, 
+	have consistent datatypes throughout #TTMatrixBase and quickly change those datatypes should the need arise in the future.
+ 
+	Although these values should always be positive, we have intentionally avoided unsigned numbers because of boundary checking considerations in the TTMatrixBase::makeInBounds() method.
+	Negative, signed integers have the potential to become very large numbers when casting to an unsigned integers. 
+	This can cause errors during a boundary check, such as values clipping to the high boundary instead of the low boundary or numerous iterations of loop to bring a wrapped value back into the acceptable range.
+ 
+	They can potentially be used to override functions that take the numbers in either order. 
+	For example, linear algebra-related matrices will likely access elements in TTRowID, TTColumnID order. 
+	However, video processing objects will likely access elements in TTColumnID, TTRowID order.
+ 
+	@ingroup typedefs
+ */
+typedef TTInt32 TTRowID;
+
+
+/**	@typedef TTColumnID
+	Datatype for any number used to indicate a column index within the matrix.
+ 
+	@ingroup typedefs
+	@see TTRowID
+ */
+typedef TTInt32 TTColumnID;
+
+
+/**	@typedef TTElementID
+ @brief Datatype for any number used to indicate an element index within the matrix.
+ @see TTRowID
+ @ingroup typedefs
+ */
+typedef TTInt16 TTElementID;
+// TODO: should there be a similar typedef for results of math operations that combine these values, i.e. TTIndexMathType?
+
+
+
 /** A value representing a single audio sample.  TTSampleValue should be used any place a sample value is what the value represents.  This will enable us to change the type in the future if needed.  For example, to use 64-bit floats. */
 typedef TTFloat64			TTSampleValue;
 
@@ -243,9 +282,7 @@ typedef void (*TTFunctionPtr)();
 /**	A simple/generic function pointer with one arg.	*/
 typedef void (*TTFunctionWithArgPtr)(TTPtr);
 
-/**	A simple/generic function pointer with one generic pointer (baton) and one TTValueRef.	*/
 class TTValue;
-typedef void (*TTFunctionWithBatonAndValue)(TTPtr, const TTValue&);
 typedef std::vector<TTValue>	TTVector;
 typedef TTVector::iterator		TTVectorIter;
 
@@ -277,6 +314,8 @@ enum TTDataType {
 	kTypeLocalValue,	///< This is a special type used by TTAttribute to indicate that a value is a TTValue and is locally maintained.
 	kTypeMatrix,		///< An instance of a TTMatrix object
 	kTypeDictionary,	///< Dictionary type
+    // TODO: JamomaCore #281 : review the use of TTAddress
+	//kTypeAddress,
 	kNumTTDataTypes
 };
 
@@ -324,8 +363,6 @@ public:
 
 };
 
-
-
 /**	\ingroup enums
  Jamoma Error Codes
  Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
@@ -347,6 +384,8 @@ enum TTErr {
 	kTTErrInvalidFilepath 	///< Couldn't resolve the filepath as submitted.
 };
 
+/**	A simple/generic function pointer with a baton as TTValueRef and the value to send back as a TTValueRef.	*/
+typedef TTErr (*TTFunctionWithBatonAndValue)(const TTValue&, const TTValue&);
 
 /****************************************************************************************************/
 // Class Specifications
@@ -359,6 +398,11 @@ public:
 	TTException(TTImmutableCString aReason)
 	: reason(aReason)
 	{}
+	
+	const char* getReason()
+	{
+		return reason;
+	}
 };
 
 
@@ -606,6 +650,20 @@ void TTFOUNDATION_EXPORT TTLogError(TTImmutableCString message, ...);
 void TTFOUNDATION_EXPORT TTLogDebug(TTImmutableCString message, ...);
 
 
+
+
+/**	Allocate memory from the heap aligned to 16-byte boundaries.
+	This memory MUST be freed using TTFree16().
+ 
+	@see #TT_ALIGN_16
+	@see http://stackoverflow.com/questions/1919183/how-to-allocate-and-free-aligned-memory-in-c
+	@see http://bytes.com/topic/c/answers/591742-overload-new-delete-memalign-malloc
+*/
+TTPtr TTFOUNDATION_EXPORT TTMalloc16(size_t numBytes);
+
+
+/** Free memory allocated using TTMalloc16(). */
+void TTFOUNDATION_EXPORT TTFree16(TTPtr ptr);
 
 
 #endif // __TT_BASE_H__

@@ -2,7 +2,7 @@
  *
  * @ingroup modularLibrary
  *
- * @brief TTObjectBase to handle opml file reading and writing to be able to store / recall state of an object into/from opml files.
+ * @brief Handles opml file reading and writing to be able to store / recall state of an object into/from opml files.
  *
  * @details
  *
@@ -17,16 +17,16 @@
 #ifndef __TT_OPML_HANDLER_H__
 #define __TT_OPML_HANDLER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 #include <stdio.h>
 
-#define TTMODULAR_OPML_ENCODING "ISO-8859-1"
+#define TTMODULAR_OPML_ENCODING "UTF-16"
 
 /** Write / Read mecanism
  
 	writeAs<Format> / readFrom<Format> methods are not directly called using the classic message system.
 	We should prefer use one of the exported TT<Format>Reader / TT<Format>Writer method which have :
-		- an Object attribute : the TTObjectBase you want it reads / writes a file
+		- an Object attribute : the #TTObject you want it reads / writes a file
 	or
 		- the data structure to pass in order to read / write depending on the selected <Format>
  
@@ -47,13 +47,13 @@
  
  */
 
-class TTMODULAR_EXPORT TTOpmlHandler : public TTDataObjectBase
+class TTMODULAR_EXPORT TTOpmlHandler : public TTObjectBase
 {
 	TTCLASS_SETUP(TTOpmlHandler)
 	
 public:	// use public for recursive access
 	
-	TTObjectBasePtr			mObject;						///< the last handled object
+	TTObject			mObject;						///< the last handled object
 	TTSymbol			mFilePath;						///< the path to the last writen/read file
 
 	TTSymbol			mHeaderNodeName;				///< the name of the header node in the opml file

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		224EFE921916C3E1003F9AAA /* TTTrajectory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTTrajectory.h; sourceTree = "<group>"; };
+		224EFE931916C3FA003F9AAA /* TTTrajectory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTTrajectory.cpp; sourceTree = "<group>"; };
 		8E6C69DF17EA3F81002BEB95 /* Bean2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bean2D.h; sourceTree = "<group>"; };
 		8E6C69E017EA3F81002BEB95 /* Bspline2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bspline2D.h; sourceTree = "<group>"; };
 		8E6C69E117EA3F81002BEB95 /* Butterfly2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Butterfly2D.h; sourceTree = "<group>"; };
@@ -62,6 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				8E6C6A0F17EA3F81002BEB95 /* TrajectoryLib.yml */,
+				224EFE921916C3E1003F9AAA /* TTTrajectory.h */,
+				224EFE931916C3FA003F9AAA /* TTTrajectory.cpp */,
 				8E6C6A0E17EA3F81002BEB95 /* TrajectoryLib.cpp */,
 				8E6C69DE17EA3F81002BEB95 /* includes */,
 				8E6C69F517EA3F81002BEB95 /* sources */,
@@ -133,7 +137,7 @@
 /* Begin PBXLegacyTarget section */
 		8E6C69A517EA3EE4002BEB95 /* TrajectoryLib */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(Configuration) $(ACTION)";
+			buildArgumentsString = "$(ACTION)";
 			buildConfigurationList = 8E6C69A817EA3EE4002BEB95 /* Build configuration list for PBXLegacyTarget "TrajectoryLib" */;
 			buildPhases = (
 			);

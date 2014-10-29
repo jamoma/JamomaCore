@@ -37,21 +37,15 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_OSC(void)
 }
 
 PROTOCOL_CONSTRUCTOR,
-mIp(TTSymbol("localhost")),
-mPort(OSC_RECEPTION_PORT),
-mLocalApplicationOscReceiver(NULL),
-mSenderManager(NULL),
-mWaitThread(NULL)
+mSenderManager(NULL)
 {	
 	PROTOCOL_INITIALIZE
 	
-	addAttribute(Ip, kTypeSymbol);
-	addAttribute(Port, kTypeUInt16);
+    addAttributeAsProtocolParameter(Ip, kTypeSymbol);
+	addAttributeAsProtocolParameter(Port, kTypeUInt16);
 	
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
-    
-    mWaitThread = new TTThread(NULL, NULL);
 }
 
 OSC::~OSC()
@@ -71,7 +65,9 @@ OSC::~OSC()
     // Stop local application
     Stop(kTTValNONE, out);
     
-    delete mWaitThread;
+    // release the sender manager
+    if (mSenderManager)
+        delete mSenderManager;
 }
 
 TTErr OSC::getParameterNames(TTValue& value)
@@ -83,7 +79,7 @@ TTErr OSC::getParameterNames(TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr OSC::Scan()
+TTErr OSC::Scan(const TTValue& inputValue, TTValue& outputValue)
 {
 	// TODO : using Bonjour
 	return kTTErrGeneric;
@@ -99,17 +95,17 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
     // run OSC for all applications
     if (inputValue.size() == 0) {
         
-        TTValue keys, out;
+        TTValue keys;
+        TTErr   err = kTTErrNone;
         
-        // run local
-        Run(protocolGetLocalApplicationName, out);
-        
-        // run each distant
-        mDistantApplicationParameters.getKeys(keys);
+        outputValue.clear();
+
+        mApplicationParameters.getKeys(keys);
         for (TTUInt32 i = 0 ; i < keys.size() ; i++)
-            Run(keys[i], out);
+            if (Run(keys[i], outputValue))
+                err = kTTErrGeneric;
         
-        return kTTErrNone;
+        return err;
     }
     
     // run OSC for one application
@@ -123,47 +119,74 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
             applicationName = inputValue[0];
     }
     
+    // for any application
+    if (!mRunning) {
+        
+        // instantiate the sender manager
+        mSenderManager = new OSCSenderManager();
+    }
+    
     // for local application
-    if (applicationName == protocolGetLocalApplicationName) {
+    if (applicationName == mLocalApplicationName) {
         
         if (!mRunning) {
             
-            mSenderManager = new OSCSenderManager();
-            
             // create an osc.receiver local application
-            err = TTObjectBaseInstantiate(TTSymbol("osc.receive"), &mLocalApplicationOscReceiver, kTTValNONE);
-            if (!err) {
-                
-                mLocalApplicationOscReceiver->setAttributeValue(TTSymbol("port"), mPort);
-                
-                // register for notification using our 'receivedMessage' method
-                mLocalApplicationOscReceiver->registerObserverForNotifications(*this);
-                
-                // wait to avoid strange crash when run and stop are called to quickly
-                mWaitThread->sleep(1);
-                
-                mRunning = YES;
-            }
+            mLocalApplicationOscReceiver = TTObject("osc.receive");
             
-            return err;
+            if (mLocalApplicationOscReceiver.valid()) {
+                
+                TTValue     v;
+                TTObject    oscProtocol(this);
+                TTUInt16    port;
+                
+                // select local application to get its port parameter
+                ApplicationSelectLocal();
+                oscProtocol.get("port", v);
+                
+                port = v[0];
+                
+                err = mLocalApplicationOscReceiver.set("port", port);
+                
+                if (!err) {
+                
+                    // register for notification using our 'receivedMessage' method
+                    mLocalApplicationOscReceiver.registerObserverForNotifications(oscProtocol);
+                
+                    mRunning = YES;
+                    
+                    TTLogMessage("OSC::Run : connected to port %ld for local application\n", port);
+                
+                    return kTTErrNone;
+                }
+                else {
+                    
+                    // return the port
+                    outputValue.append(port);
+                    
+                    TTLogError("OSC::Run : unable to connect to port %ld for local application\n", port);
+                }
+            }
         }
+        else
+            return kTTErrNone;
     }
 	
     // for distant application case
     else {
 	
-        TTValue         v, args;
-        TTHashPtr       parameters;
-        TTObjectBasePtr anOscReceiver, returnMessageCallback;
-        TTValuePtr		returnMessageBaton;
-        TTUInt16        receptionPort;
+        TTValue    v, args;
+        TTHashPtr  parameters;
+        TTObject   anOscReceiver, returnMessageCallback;
+        TTValue    returnMessageBaton;
+        TTUInt16   receptionPort;
         
         // if the application have already a reception thread : return an error
         if (!mDistantApplicationOscReceivers.lookup(applicationName, v))
             return kTTErrGeneric;
         
         // get application parameters
-        err = mDistantApplicationParameters.lookup(applicationName, v);
+        err = mApplicationParameters.lookup(applicationName, v);
         
         if (!err) {
             
@@ -180,32 +203,40 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                     receptionPort = v[1];
                     
                     // prepare arguments
-                    returnMessageCallback = NULL;
-                    TTObjectBaseInstantiate(TTSymbol("callback"), &returnMessageCallback, kTTValNONE);
+                    returnMessageCallback = TTObject("callback");
                     
-                    returnMessageBaton = new TTValue(TTObjectBasePtr(this));
-                    returnMessageBaton->append(applicationName);
+                    returnMessageBaton = TTValue(TTObject(this), applicationName);
+                    returnMessageCallback.set(kTTSym_baton, returnMessageBaton);
                     
-                    returnMessageCallback->setAttributeValue(kTTSym_baton, TTPtr(returnMessageBaton));
-                    returnMessageCallback->setAttributeValue(kTTSym_function, TTPtr(&OSCReceiveMessageCallback));
-                    args.append(returnMessageCallback);
+                    returnMessageCallback.set(kTTSym_function, TTPtr(&OSCReceiveMessageCallback));
                     
                     // create an osc.receive instance
-                    anOscReceiver = NULL;
-                    err = TTObjectBaseInstantiate(TTSymbol("osc.receive"), &anOscReceiver, args);
+                    anOscReceiver = TTObject("osc.receive", returnMessageCallback);
                     
-                    if (!err) {
+                    if (anOscReceiver.valid()) {
                         
-                        anOscReceiver->setAttributeValue(TTSymbol("port"), receptionPort);
+                        err = anOscReceiver.set("port", receptionPort);
                         
-                        // don't register for notification because we use callback mechanism
-                        
-                        // append the osc.receive to the table
-                        v = TTValue(TTObjectBasePtr(anOscReceiver));
-                        mDistantApplicationOscReceivers.append(applicationName, v);
-                        
-                        // wait to avoid strange crash when run and stop are called to quickly
-                        mWaitThread->sleep(1);
+                        if (!err) {
+                            
+                            // don't register for notification because we use callback mechanism
+                            
+                            // append the osc.receive to the table
+                            mDistantApplicationOscReceivers.append(applicationName, anOscReceiver);
+                            
+                            mRunning = YES;
+                            
+                            TTLogMessage("OSC::Run : connected to port %ld for %s application\n", receptionPort, applicationName.c_str());
+                            
+                            return kTTErrNone;
+                        }
+                        else {
+                            
+                            // return the port
+                            outputValue.append(receptionPort);
+                            
+                            TTLogError("OSC::Run : unable to connect to port %ld for %s application\n", receptionPort, applicationName.c_str());
+                        }
                     }
                 }
             }
@@ -227,10 +258,10 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
         TTValue keys, out;
         
         // stop local
-        Stop(protocolGetLocalApplicationName, out);
+        Stop(mLocalApplicationName, out);
         
         // stop each distant
-        mDistantApplicationParameters.getKeys(keys);
+        mApplicationParameters.getKeys(keys);
         for (TTUInt32 i = 0 ; i < keys.size() ; i++)
             Stop(keys[i], out);
         
@@ -247,18 +278,21 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
             applicationName = inputValue[0];
     }
     
+    // for any application
+    if (mRunning) {
+        
+        // release the sender manager
+        delete mSenderManager;
+        mSenderManager = NULL;
+    }
+    
     // for local application
-    if (applicationName == protocolGetLocalApplicationName) {
+    if (applicationName == mLocalApplicationName) {
         
         if (mRunning) {
             
-            delete mSenderManager;
-            
             // delete osc.receive dedicated to local application
-            TTObjectBaseRelease(&mLocalApplicationOscReceiver);
-            
-            // wait to avoid strange crash when run and stop are called to quickly
-            mWaitThread->sleep(1);
+            mLocalApplicationOscReceiver = TTObject();
             
             mRunning = NO;
             
@@ -270,21 +304,14 @@ TTErr OSC::Stop(const TTValue& inputValue, TTValue& outputValue)
     else {
         
         TTValue         v;
-        TTObjectBasePtr anOscReceiver;
         
         // if the application have a reception thread
         if (!mDistantApplicationOscReceivers.lookup(applicationName, v)) {
             
-            anOscReceiver = v[0];
-            
-            // delete osc.receive dedicated to distant applications
-            TTObjectBaseRelease(&anOscReceiver);
-            
             // remove key
             mDistantApplicationOscReceivers.remove(applicationName);
             
-            // wait to avoid strange crash when run and stop are called to quickly
-            mWaitThread->sleep(1);
+            mRunning = NO;
             
             return kTTErrNone;
         }
@@ -444,8 +471,8 @@ TTErr OSC::SendDiscoverAllAnswer(TTSymbol to, TTAddress address,
  * \param returnedValue			: the value of the attribute at the address
  */
 TTErr OSC::SendGetAnswer(TTSymbol to, TTAddress address, 
-							TTValue& returnedValue, 
-							TTErr err)
+                         const TTValue& returnedValue,
+                         TTErr err)
 {
     return kTTErrGeneric;
 }
@@ -458,21 +485,21 @@ TTErr OSC::SendGetAnswer(TTSymbol to, TTAddress address,
  * \param returnedValue			: the value of the attribute at the address
  */
 TTErr OSC::SendListenAnswer(TTSymbol to, TTAddress address, 
-							   TTValue& returnedValue, 
-							   TTErr err)
+                            const TTValue& returnedValue,
+                            TTErr err)
 {
     return kTTErrGeneric;
 }
 
-TTErr OSC::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& arguments)
+TTErr OSC::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& arguments)
 {
 	TTHashPtr	parameters = NULL;
-    TTObjectBasePtr anOscSender;
-	TTValue		v, vIp, vPort, message;
+    TTObject    anOscSender;
+	TTValue		v, vIp, vPort, message, none;
 	TTErr		err, errIp, errPort;
 	
 	// Check the application registration
-	err = mDistantApplicationParameters.lookup(distantApplicationName, v);
+	err = mApplicationParameters.lookup(applicationName, v);
 	
 	if (!err) {
 		parameters = TTHashPtr((TTPtr)v[0]);
@@ -485,13 +512,13 @@ TTErr OSC::sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue
 			if (errIp || errPort)
 				return kTTErrGeneric;
 			
-			anOscSender = mSenderManager->lookup(distantApplicationName, vIp, vPort);
-			if (anOscSender) {
+			anOscSender = mSenderManager->lookup(applicationName, vIp, vPort);
+			if (anOscSender.valid()) {
 
 				message = TTValue(header);
 				message.append((TTPtr)&arguments);
 				
-				err = anOscSender->sendMessage(TTSymbol("send"), message, kTTValNONE);
+				err = anOscSender.send("send", message, none);
             
 				if (mActivity) {
 					v = arguments;
@@ -537,53 +564,53 @@ TTErr OSC::receivedMessage(const TTValue& message, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr OSCReceiveMessageCallback(TTPtr baton, TTValue& message)
+TTErr OSCReceiveMessageCallback(const TTValue& baton, const TTValue& data)
 {
-    TTValuePtr	b;
-	OSCPtr      anOscPlugin;
+    TTObject    o;
+	OSCPtr      anOscProtocol;
 	TTSymbol	from, aSymbol;
 	TTString	headerString;
 	TTValue		arguments;
     TTErr       err;
     
 	// unpack baton
-	b = (TTValuePtr)baton;
-	anOscPlugin = OSCPtr((TTObjectBasePtr)(*b)[0]);
-	from = (*b)[1];
+    o = baton[0];
+	anOscProtocol = (OSCPtr)o.instance();
+	from = baton[1];
     
     // clear mReceiveFrom and mReceivedAddress
-    anOscPlugin->mReceivedFrom = kTTSymEmpty;
-    anOscPlugin->mReceivedAddress = kTTAdrsEmpty;
+    anOscProtocol->mReceivedFrom = kTTSymEmpty;
+    anOscProtocol->mReceivedAddress = kTTAdrsEmpty;
 	
 	/*
 	 if message starts with '/'
 	 */
 	
-	if (anOscPlugin->mActivity) anOscPlugin->ActivityInMessage(message);
+	if (anOscProtocol->mActivity) anOscProtocol->ActivityInMessage(data);
 	
-	aSymbol = message[0];
+	aSymbol = data[0];
 	headerString = aSymbol.string();
     
 	// if message starts with '/'
 	if (headerString[0] == '/')
 	{
         // meorize who send the message and the address to avoid loop
-        anOscPlugin->mReceivedFrom = from;
-		anOscPlugin->mReceivedAddress = TTAddress(aSymbol.c_str());
-        if (anOscPlugin->mReceivedAddress.getAttribute() == NO_ATTRIBUTE)
-            anOscPlugin->mReceivedAddress = anOscPlugin->mReceivedAddress.appendAttribute(kTTSym_value);
+        anOscProtocol->mReceivedFrom = from;
+		anOscProtocol->mReceivedAddress = TTAddress(aSymbol.c_str());
+        if (anOscProtocol->mReceivedAddress.getAttribute() == NO_ATTRIBUTE)
+            anOscProtocol->mReceivedAddress = anOscProtocol->mReceivedAddress.appendAttribute(kTTSym_value);
         
-		arguments.copyFrom(message, 1);
+		arguments.copyFrom(data, 1);
 		
 #ifdef TT_PROTOCOL_DEBUG
-		cout << "OSCReceiveMessageCallback : from " << from.c_str() << " at " << anOscPlugin->mReceivedAddress.c_str() << endl;
+		cout << "OSCReceiveMessageCallback : from " << from.c_str() << " at " << anOscProtocol->mReceivedAddress.c_str() << endl;
 #endif
 		
-		err = anOscPlugin->ReceiveListenAnswer(from, anOscPlugin->mReceivedAddress, arguments);
+		err = anOscProtocol->ReceiveListenAnswer(from, anOscProtocol->mReceivedAddress, arguments);
         
         // clear mReceiveFrom and mReceivedAddress
-        anOscPlugin->mReceivedFrom = kTTSymEmpty;
-        anOscPlugin->mReceivedAddress = kTTAdrsEmpty;
+        anOscProtocol->mReceivedFrom = kTTSymEmpty;
+        anOscProtocol->mReceivedAddress = kTTAdrsEmpty;
         
         return err;
 	} 

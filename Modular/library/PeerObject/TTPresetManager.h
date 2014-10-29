@@ -17,7 +17,7 @@
 #ifndef __TT_PRESET_MANAGER_H__
 #define __TT_PRESET_MANAGER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**	TTPresetManager ... TODO : an explanation
  
@@ -30,7 +30,7 @@ typedef TTPreset* TTPresetPtr;
 class TTXmlHandler;
 typedef TTXmlHandler* TTXmlHandlerPtr;
 
-class TTMODULAR_EXPORT TTPresetManager : public TTDataObjectBase
+class TTMODULAR_EXPORT TTPresetManager : public TTObjectBase
 {
 	TTCLASS_SETUP(TTPresetManager)
 	
@@ -41,10 +41,10 @@ private:
 	TTSymbol			mCurrent;						///< ATTRIBUTE : the current preset name
 	TTUInt32			mCurrentPosition;				///< ATTRIBUTE : the current cue position
 
-	TTHashPtr			mPresets;						///< a hash table containing <name, TTPresetPtr>
-	TTPresetPtr			mCurrentPreset;					///< the current preset
+	TTHash              mPresets;						///< a hash table containing <name, TTPresetPtr>
+	TTObject			mCurrentPreset;					///< the current preset
     
-    TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this presetmanager
+    TTObject            mReturnLineCallback;			///< Callback to return back cue lines to the owner of this presetmanager
 	
 	/** */
 	TTErr	setAddress(const TTValue& value);

@@ -33,11 +33,11 @@ protected:
 	TTFloat64				mDeltaZ; 				///< Trajectory Parameter, usage depend on the actual trajectory function 
 	TTSymbol				mType;					///< The name of the current trajectory type
 	TTSymbol				mMode;					///< the underlying signal generator, can be "phasor" or "ramp"
-	//TTList					mAnchorPoints;
-	TTAudioObjectBasePtr		mPhasors[1];			///< Object pointer to the internal phasor generator
-	TTAudioSignalArrayPtr	mPhasorOutputSignals;   ///< The output vector of the phasor generator
-	TTAudioObjectBasePtr		mRamps[1];				///< Object pointer to the internal ramp generator
-	TTAudioSignalArrayPtr	mRampOutputSignals;		///< The output vector of the ramp generator
+	//TTList				mAnchorPoints;
+	TTAudioObject			mPhasor;				///< The internal phasor generator
+	TTAudio					mPhasorOutputSignal;	///< The output vector of the phasor generator
+	TTAudioObject			mRamp;					///< The internal ramp generator
+	TTAudio					mRampOutputSignal;		///< The output vector of the ramp generator
 	
 public:
 	
@@ -87,9 +87,9 @@ public:
 	{
 		TTValue v;
 		v.resize(2);
-		v.set(0, TT("trajectory"));
-		v.set(1, TT("audio")); 
-		return TTGetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
+		v[0] = TT("trajectory");
+		v[1] = TT("audio");
+		return TTObject::GetRegisteredClassNamesForTags(listOfTrajectoryTypesToReturn, v);
 	}
 
 	/**	Return the current trajectory type.
@@ -118,7 +118,7 @@ public:
 		mActualTrajectoryObject->getAttributeNames(names);
 		n = names.size();
 		for (int i=0; i<n; i++) {
-			names.get(i, aName);
+			aName = names[i];
 
 			if (aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sampleRate"))
 				continue;	
@@ -157,41 +157,48 @@ public:
 				switch(n)
 				{
 					case 4:
-						if (ttDataTypeInfo[arguments[2].type()]->isNumerical and ttDataTypeInfo[arguments[3].type()]->isNumerical == false){
-							arguments.get(3, attrType);
+						if (ttDataTypeInfo[arguments[2].type()]->isNumerical and ttDataTypeInfo[arguments[3].type()]->isNumerical == false) {
+							attrType = arguments[3];
 							setType(attrType);
-							arguments.get(0, x); x = x * 2.0;  // scaling						
-							mRamps[0]->setAttributeValue(TT("startValue"), x);
-							arguments.get(1, x); x = x * 2.0;  // scaling
-							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
-							arguments.get(2, x); 
-							mRamps[0]->setAttributeValue(TT("rampTime"), x);	
+							x = arguments[0];
+							x = x * 2.0;  // scaling
+							mRamp.set("startValue", x);
+							x = arguments[1];
+							x = x * 2.0;  // scaling
+							mRamp.set("destinationValue", x);
+							x = arguments[2];
+							mRamp.set("rampTime", x);
 						}	
 						break;
 					case 3:
-						if (ttDataTypeInfo[arguments[2].type()]->isNumerical)
-							{// start stop time
-							arguments.get(0, x); x = x * 2.0;  // scaling						
-							mRamps[0]->setAttributeValue(TT("startValue"), x);
-							arguments.get(1, x); x = x * 2.0;  // scaling
-							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
-							arguments.get(2, x); 
-							mRamps[0]->setAttributeValue(TT("rampTime"), x);	
+						if (ttDataTypeInfo[arguments[2].type()]->isNumerical) {
+							// start stop time
+							x = arguments[0];
+							x = arguments[0];
+							x = x * 2.0;  // scaling
+							mRamp.set("startValue", x);
+							x = arguments[1];
+							x = x * 2.0;  // scaling
+							mRamp.set("destinationValue", x);
+							x = arguments[2];
+							mRamp.set("rampTime", x);
 						}
 						else {// stop time type
-							arguments.get(2, attrType);
+							attrType = arguments[2];
 							setType(attrType);
-							arguments.get(0, x); x = x * 2.0;  // scaling
-							mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
-							arguments.get(1, x); 
-							mRamps[0]->setAttributeValue(TT("rampTime"), x);
+							x = arguments[0];
+							x = x * 2.0;  // scaling
+							mRamp.set("destinationValue", x);
+							x = arguments[1];
+							mRamp.set("rampTime", x);
 						}
 					break;
 				case 2: // stop time
-						arguments.get(0, x); x = x * 2.0;  // scaling
-						mRamps[0]->setAttributeValue(TT("destinationValue"), x);	
-						arguments.get(1, x); 
-						mRamps[0]->setAttributeValue(TT("rampTime"), x);
+						x = arguments[0];
+						x = x * 2.0;  // scaling
+						mRamp.set("destinationValue", x);
+						x = arguments[1];
+						mRamp.set("rampTime", x);
 					break;
 				default:
 					err = kTTErrWrongNumValues;
@@ -207,10 +214,10 @@ public:
 	TTErr reset()
 	{
 		TTValue v;
-		v.set(0,0.0);
+		v[0] = 0.0;
 		//for (int i=0; i<1; i++) {
-		mPhasors[0]->setAttributeValue(TT("phase"),v);		
-		mRamps[0]->setAttributeValue(TT("startValue"),v);
+		mPhasor.set("phase",v);
+		mRamp.set("startValue",v);
 		//}		
 		return kTTErrNone;
 	}
@@ -285,8 +292,8 @@ public:
 	TTErr updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 	{
 		//for (int i=0; i<3; i++) {
-		mPhasors[0]->setAttributeValue(kTTSym_sampleRate, sr);
-		mRamps[0]->setAttributeValue(kTTSym_sampleRate, sr); 
+		mPhasor.set(kTTSym_sampleRate, sr);
+		mRamp.set(kTTSym_sampleRate, sr);
 		//}
 		return mActualTrajectoryObject->setAttributeValue(kTTSym_sampleRate, sr);
 	}
@@ -323,13 +330,10 @@ public:
  	*/
 	TTErr processAudioPhasorInternal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		mPhasorOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
+		mPhasorOutputSignal.allocWithVectorSize(outputs->getVectorSize());
+		mPhasor.process(mPhasorOutputSignal);
 		
-		mPhasors[0]->process(mPhasorOutputSignals->getSignal(0));
-		//mPhasors[1]->process(mPhasorOutputSignals->getSignal(1));
-		//mPhasors[2]->process(mPhasorOutputSignals->getSignal(2));
-		
-		return mActualTrajectoryObject->process(mPhasorOutputSignals, outputs);
+		return mActualTrajectoryObject->process(*mPhasorOutputSignal.instance(), outputs->getSignal(0));
 	}
 
 	/**	Internal Computing the ramp signal to drive the trajectory functions
@@ -338,13 +342,11 @@ public:
  	*/
 	TTErr processAudioRampInternal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		mRampOutputSignals->allocAllWithVectorSize(outputs->getVectorSize());
+		mRampOutputSignal.allocWithVectorSize(outputs->getVectorSize());
 		
-		mRamps[0]->process(mRampOutputSignals->getSignal(0));
-		//mRamps[1]->process(mRampOutputSignals->getSignal(1));
-		//mRamps[2]->process(mRampOutputSignals->getSignal(2));
+		mRamp.process(mRampOutputSignal);
 		
-		return mActualTrajectoryObject->process(mRampOutputSignals, outputs);
+		return mActualTrajectoryObject->process(*mRampOutputSignal.instance(), outputs->getSignal(0));
 	}
 };
 

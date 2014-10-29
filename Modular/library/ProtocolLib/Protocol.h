@@ -6,7 +6,7 @@
  *
  * @details
  *
- * @authors Laurent Garnier, Théo de la Hogue
+ * @author Laurent Garnier, Théo de la Hogue
  *
  * @copyright © 2011, Laurent Garnier, Théo de la Hogue @n
  * This code is licensed under the terms of the "New BSD License" @n
@@ -19,6 +19,7 @@
 
 #include "TTFoundationAPI.h"
 
+/** Declares instantiation and registration methods to add the protocol class as any #TTObject class */
 #define PROTOCOL_CONSTRUCTOR \
 TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {return new thisTTClass (arguments);} \
 \
@@ -26,6 +27,7 @@ extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisT
 \
 thisTTClass :: thisTTClass (const TTValue& arguments) : Protocol(arguments)
 
+/** Declares all members needed by any protocol class */
 #define PROTOCOL_INITIALIZE \
 mName = TTSymbol(thisTTClassName); \
 mVersion = TTSymbol(thisProtocolVersion); \
@@ -35,12 +37,19 @@ mSet = TTBoolean(thisProtocolSet); \
 mListen = TTBoolean(thisProtocolListen); \
 mDiscover = TTBoolean(thisProtocolDiscover); \
 mDiscoverAll = TTBoolean(thisProtocolDiscoverAll); \
-registerAttribute(TTSymbol("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
-/*addAttributeProperty(ParameterNames, readOnly, YES); \ */
+registerAttribute(TTSymbol("parameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
 
+/** Declares specific accessors methods to manage the parameter value in order to have one value per registered applications */
+#define PROTOCOL_PARAMETER(name) \
+TTErr get##name(TTValue& value) {TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##name.at(0)); return getApplicationParameters(TTSymbol(_attrname_##name),value);}; \
+TTErr set##name(const TTValue& value) {TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##name.at(0)); return setApplicationParameters(TTSymbol(_attrname_##name),value);}; \
 
-// Macro to update and get the local application name (to use only inside the protocol class)
-#define protocolGetLocalApplicationName ProtocolGetLocalApplicationName(TTObjectBasePtr(this))
+/** Add a protocol parameter as an attribute of the class */
+#define addAttributeAsProtocolParameter(name, type) \
+TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##name.at(0)); registerAttribute(_attrname_##name, type, NULL, (TTGetterMethod)& thisTTClass ::get##name, (TTSetterMethod)& thisTTClass ::set##name ); mParameterNames.append(TTSymbol(_attrname_##name)) \
+
+/** Macro to update and get the local application name (to use only inside the protocol class) */
+#define accessProtocolLocalApplicationName ProtocolGetLocalApplicationName(TTObjectBasePtr(this))
 
 /****************************************************************************************************/
 // Class Specification
@@ -51,16 +60,18 @@ registerAttribute(TTSymbol("ParameterNames"), kTypeLocalValue, NULL, (TTGetterMe
 class Protocol : public TTObjectBase {
 	
 protected:																																	
-	TTObjectBasePtr				mApplicationManager;				///< the application manager of the Modular framework.					
+	TTObject                    mApplicationManager;				///< the application manager of the Modular framework.					
 																	///< protocol programmers should not have to deal with this member.
+    
+    TTSymbol                    mLocalApplicationName;              ///< cache local application name
 	
-	TTCallbackPtr				mActivityInCallback;				///< a callback to trace raw incoming messages.
-	TTCallbackPtr				mActivityOutCallback;				///< a callback to trace raw outputing messages.
+	TTObject                    mActivityInCallback;				///< a callback to trace raw incoming messages.
+	TTObject                    mActivityOutCallback;				///< a callback to trace raw outputing messages.
 
-    TTHash                      mLocalApplicationParameter;         ///< ATTRIBUTE : hash table of parameters
-	TTHash                      mDistantApplicationParameters;		///< ATTRIBUTE : hash table containing hash table of parameters
+    TTHash                      mApplicationParameters;             ///< ATTRIBUTE : hash table containing hash table of parameters
 																	///< for each application registered for communication with this protocol
 																	///< <TTSymbol applicationName, <TTSymbol parameterName, TTValue value>>
+    
 public:																															
 	TTSymbol					mName;								///< ATTRIBUTE : the name of the protocol to use							
 	TTSymbol					mVersion;							///< ATTRIBUTE : the version of the protocol								
@@ -73,61 +84,97 @@ public:
 	TTBoolean					mRunning;							///< ATTRIBUTE : is the Protocol reception thread enable ?
 	TTBoolean					mActivity;							///< ATTRIBUTE : is the Protocol activity thread enable ?
 
-	
-public:
-	//** Constructor.	*/
+    TTSymbol                    mSelectedApplication;               ///< internal symbol to select an application to access to its own parameters
+                                                                    ///< note : a protocol developper have to use PROTOCOL_PARAMETERto declare specific accessors for a protocol parameter
+                                                                    ///< this allows to manage one parameter value per registered application
+    
+    TTValue                     mParameterNames;                    ///< store the name of the protocol parameters
+
+	/** Constructor 
+     @param arguments           #TTApplicationManager object, #TTCallback for activity in, #TTCallback for activity out */
 	Protocol(const TTValue& arguments);
 	
-	/** Destructor. */
+	/** Destructor */
 	virtual ~Protocol();
-	
-	/** Set application manager */
+
+	/** Set application manager 
+     @param[in] value           #TTApplicationManager object
+     @return #TTErr error code */
 	TTErr setApplicationManager(const TTValue& value);
 	
-	/** Get parameters names needed by this protocol */
-	virtual TTErr getParameterNames(TTValue& value)=0;
-	
-	
 	/** Register an application as a client of the protocol 
-        This method allocate a TTHashPtr to store parameters */
-	TTErr registerApplication(const TTValue& inputValue, TTValue& outputValue);
+     @details This method allocate a TTHash to store parameters
+     @param[in] inputValue      #TTSymbol application name
+     @param[out] outputValue    nothing
+     @return #TTErr error code */
+	TTErr ApplicationRegister(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Rename an application
+     @param[in] inputValue      #TTSymbol old application name, #TTSymbol new application name
+     @param[out] outputValue    nothing
+     @return #TTErr error code */
+    TTErr ApplicationRename(const TTValue& inputValue, TTValue& outputValue);
 	
 	/** Unregister an application as a client of the protocol 
-        This method deallocate a TTHashPtr used to store parameters */
-	TTErr unregisterApplication(const TTValue& inputValue, TTValue& outputValue);
-	
+     @details This method deallocate a TTHash used to store parameters
+     @param[in] inputValue      #TTSymbol application name
+     @param[out] outputValue    nothing
+     @return #TTErr error code */
+	TTErr ApplicationUnregister(const TTValue& inputValue, TTValue& outputValue);
     
-	/** Get all parameters of an application via a TTHash */
-	TTErr getApplicationParameters(TTValue& value);
+    /** Select an application to access to its own parameters value
+     @param[in] inputValue      #TTSymbol application name
+     @param[out] outputValue    nothing
+     @return #TTErr error code
+     @seealso getApplicationParameters, setApplicationParameters, PROTOCOL_PAREMETER_ACCESSORS */
+	TTErr ApplicationSelect(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Select the local application to access to its own parameters value
+     @return #TTErr error code
+     @seealso getApplicationParameters, setApplicationParameters, PROTOCOL_PAREMETER_ACCESSORS */
+    TTErr ApplicationSelectLocal();
+    
+    /** Get parameters needed by this protocol
+     @param[out] value      returned parameter names */
+	TTErr getParameterNames(TTValue& value) {value = mParameterNames; return kTTErrNone;};
 	
-	/** Set all parameters of an application using a TTHash */
-	TTErr setApplicationParameters(TTValue& value);
+	/** Internal accessor to get the parameter of an application
+     @param[in] parameterName   the name of the parameter to get
+     @param[out] value          returned the selected parameter for the selected application */
+	TTErr getApplicationParameters(TTSymbol parameterName, TTValue& value);
+	
+	/** Internal accessor to set the parameter of an application
+     @param[in] parameterName   the name of the parameter to set
+     @param[in] value           value for selected parameter for the selected application */
+	TTErr setApplicationParameters(TTSymbol parameterName, const TTValue& value);
 
-	
-	/** Get all names of distant applications */
-	TTErr getDistantApplicationNames(TTValue& value);
-	
-
-	/** Is an application registered for this protocol ? */
+    /** Get the names of the registered applications */
+	TTErr getApplicationNames(TTValue& value);
+    
+    /** Is an application registered for this protocol ? */
 	TTErr isRegistered(const TTValue& inputValue, TTValue& outputValue);
+
+    
+    /** Scan to find remote applications and add them to the application manager
+     @param inputValue			: anything needed for scanning
+	 @param outputValue			: all remote device informations
+     @return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
+     */
+	virtual TTErr Scan(const TTValue& inputValue, TTValue& outputValue)=0;
 	
-	
-	/** Scan to find remote applications and add them to the application manager */
-	virtual TTErr Scan()=0;
-	
-	/*! 
-     * Run reception thread mechanism for each application
-     * \param inputValue			: the application to run (by default all the applications)
-	 * \param outputValue			: nothing
-     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start for the application or if it was running already
+	/*!
+     * Run reception thread mechanism for the local application only
+     @param inputValue			: nothing to run all registered applications or a #TTSymbol application name
+	 @param outputValue			: any informations relative to a failure when running the protocol
+     @return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
 	virtual TTErr Run(const TTValue& inputValue, TTValue& outputValue)=0;
 	
 	/*!
-     * Stop the reception thread mechanism for each application
-     * \param inputValue			: the application to stop (by default all the applications)
-	 * \param outputValue			: nothing
-     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop for the application or if it was already stopped
+     * Stop the reception thread mechanism for the local application only
+     @param inputValue			: nothing to stop all registered applications or a #TTSymbol application name
+	 @param outputValue			: any informations relative to a failure when stopping the protocol
+     @return errorcode			: return a kTTErrGeneric if the protocol fails to stop or if it was already stopped
      */
 	virtual TTErr Stop(const TTValue& inputValue, TTValue& outputValue)=0;
 	
@@ -140,13 +187,13 @@ public:
 	/*!
 	 * Send a discover request to an application to get a part of the namespace at the given address
 	 *
- 	 * \param to					: the application where to discover
-	 * \param address				: the address to discover
-     * \param returnedType          : the type of the node at the address (default is none which means no type)
-	 * \param returnedChildren      : all names of nodes below the address
-	 * \param returnedAttributes	: all attributes of the node at the address
-     * \param tryCount              : number of try for this request
-	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+ 	 @param to					: the application where to discover
+	 @param address				: the address to discover
+     @param returnedType          : the type of the node at the address (default is none which means no type)
+	 @param returnedChildren      : all names of nodes below the address
+	 @param returnedAttributes	: all attributes of the node at the address
+     @param tryCount              : number of try for this request
+	 @return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
 	virtual TTErr SendDiscoverRequest(TTSymbol to, TTAddress address,
@@ -158,11 +205,11 @@ public:
     /*!
 	 * Send a discover all request to an application to fill all the directory under this address
 	 *
- 	 * \param to					: the application where to discover
-	 * \param address				: the address to discover
-     * \param node                  : the node for this address
-     * \param tryCount              : number of try for this request
-	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+ 	 @param to					: the application where to discover
+	 @param address				: the address to discover
+     @param node                  : the node for this address
+     @param tryCount              : number of try for this request
+	 @return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
 	virtual TTErr SendDiscoverAllRequest(TTSymbol to, TTAddress address,
@@ -172,11 +219,11 @@ public:
 	/*!
 	 * Send a get request to an application to get a value at the given address
 	 *
- 	 * \param to					: the application where to get
-	 * \param address				: the address to get
-	 * \param returnedValue			: the value which is going to be filled
-     * \param tryCount              : number of try for this request
-	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+ 	 @param to					: the application where to get
+	 @param address				: the address to get
+	 @param returnedValue			: the value which is going to be filled
+     @param tryCount              : number of try for this request
+	 @return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 else it returns kTTErrGeneric if no answer or timeout
 	 */
 	virtual TTErr SendGetRequest(TTSymbol to, TTAddress address, 
@@ -186,11 +233,11 @@ public:
 	/*!
 	 * Send a set request to set a value of a specific application
 	 *
-	 * \param to					: the application where to set
-	 * \param address				: the address to set
-	 * \param value					: anything to send
-     * \param tryCount              : number of try for this request
-	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+	 @param to					: the application where to set
+	 @param address				: the address to set
+	 @param value					: anything to send
+     @param tryCount              : number of try for this request
+	 @return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
 	virtual TTErr SendSetRequest(TTSymbol to, TTAddress address, 
 								 TTValue& value,
@@ -199,12 +246,12 @@ public:
 	/*!
 	 * Send a listen request to a specific application
 	 *
-	 * \param to					: the application where to listen
-	 * \param address				: the address to listen
-	 * \param attribute				: the attribute to listen
-	 * \param enable				: enable/disable the listening
-     * \param tryCount              : number of try for this request
-	 * \return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
+	 @param to					: the application where to listen
+	 @param address				: the address to listen
+	 @param attribute				: the attribute to listen
+	 @param enable				: enable/disable the listening
+     @param tryCount              : number of try for this request
+	 @return errorcode			: kTTErrNone means the answer has been received, kTTErrValueNotFound means something is bad in the request
 	 */
 	virtual TTErr SendListenRequest(TTSymbol to, TTAddress address, 
 									TTBoolean enable,
@@ -220,11 +267,11 @@ public:
 	/*!
 	 * Send a disover answer to a application which ask for.
 	 *
-	 * \param to					: the application where to send answer
-	 * \param address				: the address where comes from the description
-     * \param returnedType          : the type of the node at the address (default is none which means no type)
-	 * \param returnedChildren      : all names of nodes below the address
-	 * \param returnedAttributes	: all attributes the node at the address
+	 @param to					: the application where to send answer
+	 @param address				: the address where comes from the description
+     @param returnedType          : the type of the node at the address (default is none which means no type)
+	 @param returnedChildren      : all names of nodes below the address
+	 @param returnedAttributes	: all attributes the node at the address
 	 */
 	virtual TTErr SendDiscoverAnswer(TTSymbol to, TTAddress address,
                                      TTSymbol& returnedType,
@@ -235,9 +282,9 @@ public:
     /*!
 	 * Send a discover answer to a application which ask for.
 	 *
-	 * \param to					: the application where to send answer
-	 * \param address				: the address where comes from the description
-     * \param node                  : the node for this address
+	 @param to					: the application where to send answer
+	 @param address				: the address where comes from the description
+     @param node                  : the node for this address
 	 */
 	virtual TTErr SendDiscoverAllAnswer(TTSymbol to, TTAddress address,
                                         TTNodePtr node,
@@ -246,23 +293,23 @@ public:
 	/*!
 	 * Send a get answer to a application which ask for.
 	 *
-	 * \param to					: the application where to send answer
-	 * \param address				: the address where comes from the value
-	 * \param returnedValue			: the value of the attribute at the address
+	 @param to					: the application where to send answer
+	 @param address				: the address where comes from the value
+	 @param returnedValue			: the value of the attribute at the address
 	 */
 	virtual TTErr SendGetAnswer(TTSymbol to, TTAddress address, 
-								TTValue& returnedValue,
+								const TTValue& returnedValue,
 								TTErr err=kTTErrNone)=0;
 	
 	/*!
 	 * Send a listen answer to a application which ask for.
 	 *
-	 * \param to					: the application where to send answer
-	 * \param address				: the address where comes from the value
-	 * \param returnedValue			: the value of the attribute at the address
+	 @param to					: the application where to send answer
+	 @param address				: the address where comes from the value
+	 @param returnedValue			: the value of the attribute at the address
 	 */
 	virtual TTErr SendListenAnswer(TTSymbol to, TTAddress address, 
-								   TTValue& returnedValue,
+								   const TTValue& returnedValue,
 								   TTErr err=kTTErrNone)=0;
 	
 	/**************************************************************************************************************************
@@ -270,14 +317,14 @@ public:
 	 *	RECEIVE REQUEST METHODS (BUILT-IN METHODS)
 	 *
 	 **************************************************************************************************************************/
-	
+
 	/*!
 	 * Notify the protocol that an application ask for a namespace description
 	 *
 	 * !!! This a built-in protocol method which sends automatically the answer (or a notification if error)
 	 *
-	 * \param from					: the application where comes from the request
-	 * \param address				: the address the application wants to discover
+	 @param from					: the application where comes from the request
+	 @param address				: the address the application wants to discover
 	 */
 	TTErr ReceiveDiscoverRequest(TTSymbol from, TTAddress address);
     
@@ -286,8 +333,8 @@ public:
 	 *
 	 * !!! This a built-in protocol method which sends automatically the answer (or a notification if error)
 	 *
-	 * \param from					: the application where comes from the request
-	 * \param address				: the address the application wants to discover
+	 @param from					: the application where comes from the request
+	 @param address				: the address the application wants to discover
 	 */
 	TTErr ReceiveDiscoverAllRequest(TTSymbol from, TTAddress address);
 	
@@ -296,8 +343,8 @@ public:
 	 *
 	 * !!! This a built-in protocol method which sends automatically the answer (or a notification if error)
 	 *
-	 * \param from					: the application where comes from the request
-	 * \param address				: the address the application wants to get
+	 @param from					: the application where comes from the request
+	 @param address				: the address the application wants to get
 	 */
 	TTErr ReceiveGetRequest(TTSymbol from, TTAddress address);
 	
@@ -306,20 +353,20 @@ public:
 	 *
 	 * !!! This a built-in protocol method which set automatically the value (or send a notification if error)
 	 *
-	 * \param from					: the application where comes from the request
-	 * \param address				: the address the application wants to get
-	 * \param newValue				: the incoming value
+	 @param from					: the application where comes from the request
+	 @param address				: the address the application wants to get
+	 @param newValue				: the incoming value
 	 */
-	TTErr ReceiveSetRequest(TTSymbol from, TTAddress address, TTValue& newValue);
+	TTErr ReceiveSetRequest(TTSymbol from, TTAddress address, const TTValue& newValue);
 	
 	/*!
 	 * Notify the protocol that an application wants to listen (or not) the namespace
 	 *
 	 * !!! This a built-in protocol method which create/remove automatically the listener (or send a notification if error)
 	 *
-	 * \param from					: the application where comes from the request
-	 * \param address				: the address the application wants to listen
-	 * \param enable				: enable/disable the listening
+	 @param from					: the application where comes from the request
+	 @param address				: the address the application wants to listen
+	 @param enable				: enable/disable the listening
 	 */
 	TTErr ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoolean enable);
 	
@@ -336,11 +383,11 @@ public:
 	 *
 	 * !!! This a built-in protocol method notify automatically the listener (or send a notification if error)
 	 *
-	 * \param from					: the application where comes from the answer
-	 * \param address				: the address where comes from the answer
-	 * \param newValue				: the answered value
+	 @param from					: the application where comes from the answer
+	 @param address				: the address where comes from the answer
+	 @param newValue				: the answered value
 	 */
-	TTErr ReceiveListenAnswer(TTSymbol from, TTAddress address, TTValue& newValue);
+	TTErr ReceiveListenAnswer(TTSymbol from, TTAddress address, const TTValue& newValue);
 	
 	/**************************************************************************************************************************
 	 *
@@ -353,7 +400,7 @@ public:
 	 *
 	 * !!! This a built-in protocol method
 	 *
-	 * \param message				: an incoming message
+	 @param message				: an incoming message
 	 */
 	TTErr ActivityInMessage(const TTValue& message);
 	
@@ -362,22 +409,20 @@ public:
 	 *
 	 * !!! This a built-in protocol method
 	 *
-	 * \param message				: an outputing message
+	 @param message				: an outputing message
 	 */
 	TTErr ActivityOutMessage(const TTValue& message);
 	
 	
 	
-	friend TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(TTPtr baton, TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(const TTValue& baton, const TTValue& data);
 	
-	friend TTErr TT_EXTENSION_EXPORT ProtocolGetAttributeCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(TTPtr baton, TTValue& data);
-	friend TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(TTPtr baton, TTValue& data);
-	
-	friend TTSymbol TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol);
-
+	friend TTErr TT_EXTENSION_EXPORT ProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data);
+    
 };
 typedef Protocol* ProtocolPtr;
 
@@ -386,43 +431,38 @@ typedef Protocol* ProtocolPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 /**	Called when an application object attribute send a 
  notification to registered application observers
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolGetAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(TTPtr baton, TTValue& data);
+TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(TTPtr baton, TTValue& data);
-
-/** Get the current name of the local application
- @param	aProtocol					..
- @return							the name of the local application */
-TTSymbol TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol);
+TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data);
 
 #endif	//__PROTOCOL_H__
 
@@ -431,8 +471,6 @@ TTSymbol TT_EXTENSION_EXPORT ProtocolGetLocalApplicationName(TTPtr aProtocol);
 
 class TT_EXTENSION_EXPORT ProtocolLib {
 public:
-	/** Instantiate a protocol by name */
-	static TTErr createProtocol(const TTSymbol protocolName, ProtocolPtr *returnedProtocol, TTObjectBasePtr manager, TTCallbackPtr activityInCallback, TTCallbackPtr activityOutCallback);
 	
 	/**	Return a list of all available protocols. */
 	static void getProtocolNames(TTValue& protocolNames);

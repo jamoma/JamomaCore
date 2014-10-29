@@ -197,7 +197,7 @@
 		A7B79E011652B7370099C2DD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = org.jamoma;
 			};
 			buildConfigurationList = A7B79E041652B7370099C2DD /* Build configuration list for PBXProject "GeneratorLib" */;
@@ -242,7 +242,6 @@
 		2A23AD61169D0186004793F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -262,7 +261,6 @@
 		2A23AD62169D0186004793F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -284,7 +282,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -313,7 +310,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;

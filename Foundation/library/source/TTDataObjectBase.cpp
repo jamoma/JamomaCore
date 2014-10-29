@@ -87,11 +87,11 @@ TTErr TTDataObjectBase::setBypass(const TTValue& value)
 TTErr TTDataObjectBase::bypassMatrixCalculate(const TTMatrixArray* inputs, TTMatrixArray* outputs)
 {
 	for (TTUInt16 i=0; i < outputs->getMatrixCount(); i++) {
-		TTMatrixPtr out = outputs->getMatrix(i);
+		TTMatrixBasePtr out = outputs->getMatrix(i);
 		
 		if (i < inputs->getMatrixCount()) {
-			TTMatrixPtr in = inputs->getMatrix(i);
-			TTMatrix::copy(in, out);
+			TTMatrixBasePtr in = inputs->getMatrix(i);
+			TTMatrixBase::copy(in, out);
 		}
 		else
 			out->clear();
@@ -129,14 +129,14 @@ TTErr TTDataObjectBase::calculate(const TTMatrixArray* inputs, TTMatrixArray* ou
 }
 
 
-TTErr TTDataObjectBase::calculate(const TTMatrix& x, TTMatrix& y)
+TTErr TTDataObjectBase::calculate(const TTMatrixBase& x, TTMatrixBase& y)
 {
 	TTErr	err = kTTErrGeneric;
 	
 	if (valid) {
 		lock();
 		mInputArray->setMatrixCount(1);
-		mInputArray->setMatrix(0, (TTMatrix&)x);
+		mInputArray->setMatrix(0, (TTMatrixBase&)x);
 		mOutputArray->setMatrixCount(1);
 		mOutputArray->setMatrix(0, y);
 		if (!ttEnvironment->mBenchmarking)

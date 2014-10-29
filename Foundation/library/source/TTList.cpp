@@ -96,7 +96,7 @@ TTErr TTList::getIndex(TTUInt32 index, TTValue& returnedValue)
 	TTUInt32	i=0;
 	
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		if (i==index) {
 			err = kTTErrNone;
 			returnedValue = *iter;
@@ -135,7 +135,7 @@ void TTList::insert(TTUInt32 index, const TTValue& newValue)
 	TTUInt32	i=0;
 	
 	lock();
-	for (iter = theList.begin(); iter != theList.end(); iter++) {
+	for (iter = theList.begin(); iter != theList.end(); ++iter) {
 		if (i==index) {
 			break;
 		}
@@ -175,7 +175,7 @@ TTErr TTList::find(TTFunctionMatch aMatchFunction, TTPtr aBaton, TTValue& return
 	TTBoolean	found = NO;
 	
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		TTValue& v = *iter;
 		
 		aMatchFunction(v, aBaton, found);
@@ -195,7 +195,7 @@ TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundVal
 	TTErr err = kTTErrValueNotFound;
 	
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		if ((*iter) == valueToCompareAgainst) {
 			foundValue = *iter;
 			err = kTTErrNone;
@@ -208,12 +208,14 @@ TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundVal
 }
 
 
-void TTList::remove(const TTValue& value)
+void TTList::remove(const TTValue& aValue)
 {
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
-		if ((*iter) == value) {
-			theList.remove(*iter);
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
+		TTValue v = *iter;
+		
+		if (v == aValue) {
+			theList.remove(v);
 			break;
 		}
 	}
@@ -231,19 +233,23 @@ void TTList::clear()
 
 void TTList::free()
 {
-	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
-		TTValue& v = *iter;
-		if (v[0].type() == kTypeObject) {
-			TTObjectBasePtr o = NULL;
+//	lock();
+	
+// TTValue takes care of memory management of member objects now, so we don't have to worry about it.
+//	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+//		TTValue& v = *iter;
+//		if (v[0].type() == kTypeObject) {
+// TTValue
+//			TTObjectBasePtr o = NULL;
 //			v.get(0, &o);
-			o = v;
-			TTObjectBaseRelease(&o);
-		}
+//			o = v;
+//			TTObjectBaseRelease(&o);
+//		}
 //		delete *iter;
-	}
-	theList.clear();
-	unlock();
+//	}
+//	theList.clear();
+//	unlock();
+	clear();
 }
 
 
@@ -254,7 +260,7 @@ void TTList::assignToValue(TTValue& value)
 	value.clear();
 	
 	lock();
-	for (iter = theList.begin(); iter != theList.end(); iter++) {
+	for (iter = theList.begin(); iter != theList.end(); ++iter) {
 		value.append(*iter);
 	}
 	unlock();	
@@ -263,8 +269,11 @@ void TTList::assignToValue(TTValue& value)
 
 TTErr TTList::iterate(const TTObjectBasePtr target, const TTFunctionWithBatonAndValue callback)
 {
+	if (theList.empty())
+		return kTTErrNone;
+
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		callback(target, *iter);
 	}
 	unlock();
@@ -272,10 +281,13 @@ TTErr TTList::iterate(const TTObjectBasePtr target, const TTFunctionWithBatonAnd
 }
 
 
-TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol& messageName)
+TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol messageName)
 {
+	if (theList.empty())
+		return kTTErrNone;
+
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		TTValue v;
 		target->sendMessage(messageName, *iter, v);
 	}
@@ -284,26 +296,40 @@ TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol& messageName)
 }
 
 
-TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName)
+TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName)
 {
+	if (theList.empty())
+		return kTTErrNone;
+
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
+#ifdef OLD
 		TTObjectBasePtr obj = NULL;
 		
 		//(iter)->get(0, &obj);
 		obj = iter->at(0);
 		if (obj && obj->valid)
 			obj->sendMessage(messageName);
+#else // NEW
+		TTObject o = iter->at(0);
+		
+		if (o.valid())
+			o.send(messageName);
+#endif
 	}
 	unlock();
 	return kTTErrNone;
 }
 
 
-TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName, TTValue& aValue)
+TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName, TTValue& aValue)
 {
+	if (theList.empty())
+		return kTTErrNone;
+	
 	lock();
-	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
+	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
+#ifdef OLD
 		TTObjectBasePtr obj = NULL;
 		
 		//(iter)->get(0, &obj);
@@ -312,6 +338,13 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol& messageName, TTValue&
 			TTValue v;
 			obj->sendMessage(messageName, aValue, v);
 		}
+#else // NEW
+		TTObject	o = iter->at(0);
+		TTValue		unusedReturnValue;
+	
+		if (o.valid())
+			o.send(messageName, aValue, unusedReturnValue);
+#endif
 	}
 	unlock();
 	return kTTErrNone;

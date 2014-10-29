@@ -544,7 +544,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 294.0, 73.0, 245.0, 55.0 ],
-					"text" : "j.parameter time @type integer @range/bounds 0 5000 @range/clipmode low @repetitions/filter 1 @ramp/drive scheduler @description \"Metro interval (ms)\"",
+					"text" : "j.parameter time @type integer @range/bounds 0 5000 @clipmode low @repetitions/filter 1 @ramp/drive scheduler @description \"Metro interval (ms)\"",
 					"varname" : "hue_angle[1]"
 				}
 
@@ -576,7 +576,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 294.0, 12.0, 242.0, 55.0 ],
-					"text" : "j.parameter toggle @type boolean @range/bounds 0. 1. @range/clipmode both @repetitions/filter 1 @ramp/drive none @description \"Toggle qmetro on/off\"",
+					"text" : "j.parameter toggle @type boolean @range/bounds 0. 1. @clipmode both @repetitions/filter 1 @ramp/drive none @description \"Toggle qmetro on/off\"",
 					"varname" : "hue_angle"
 				}
 

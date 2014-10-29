@@ -45,8 +45,8 @@ TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
 	TTGraphObjectBase(arguments),
 	mStatus(kTTAudioGraphProcessUnknown),
 	mAudioFlags(kTTAudioGraphProcessor), 
-	mInputSignals(NULL), 
-	mOutputSignals(NULL), 
+	mInputSignals(1),
+	mOutputSignals(1),
 	mVectorSize(0),
 	mSampleStamp(-1)
 {
@@ -57,13 +57,13 @@ TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
 	addAttributeWithSetter(NumAudioInlets, kTypeUInt32);
 	addAttributeWithSetter(NumAudioOutlets, kTypeUInt32);
 	
-	TT_ASSERT(audiograph_correct_instantiation_arg_count, arguments.getSize() > 0);
+	TT_ASSERT(audiograph_correct_instantiation_arg_count, (arguments.size() > 0));
 
-	arguments.get(0, wrappedObjectName);
+	wrappedObjectName = arguments[0];
 	if (arguments.size() > 1)
-		arguments.get(1, numInlets);
+		numInlets = arguments[1];
 	if (arguments.size() > 2)
-		arguments.get(2, numOutlets);
+		numOutlets = arguments[2];
 	
 	setAttributeValue(TT("numAudioInlets"), numInlets);
 	setAttributeValue(TT("numAudioOutlets"), numOutlets);
@@ -71,7 +71,8 @@ TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
 	// if an object supports the 'setOwner' message, then we tell it that we want to become the owner
 	// this is particularly important for the dac object
 	TTValue v = TTPtr(this);
-	mKernel->sendMessage(TT("setOwner"), v, kTTValNONE);
+	TTValue unusedReturnValue;
+	mKernel.send("setOwner", v, unusedReturnValue);
 	
 	if (!sSharedMutex)
 		sSharedMutex = new TTMutex(false);
@@ -80,34 +81,30 @@ TTAudioGraphObjectBase :: TTAudioGraphObjectBase (const TTValue& arguments) :
 
 TTAudioGraphObjectBase::~TTAudioGraphObjectBase()
 {
-	TTObjectBaseRelease((TTObjectBasePtr*)&mInputSignals);
-	TTObjectBaseRelease((TTObjectBasePtr*)&mOutputSignals);
 }
 
 
 TTErr TTAudioGraphObjectBase::setNumAudioInlets(const TTValue& newNumInlets)
 {
-	TTErr		err = TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mInputSignals, newNumInlets);
+	// TODO: if the number of inlets or outlets changes on the fly then we will leak memory!
 	TTUInt16	inletCount = newNumInlets;
-
+	
+	mInputSignals.setStreamCount(inletCount);
 	mAudioInlets.resize(inletCount);
-	mInputSignals->setMaxNumAudioSignals(inletCount);
-	mInputSignals->numAudioSignals = inletCount;			// TODO: this array num signals access is kind of clumsy and inconsistent [tap]
 	mNumAudioInlets = inletCount;
-	return err;
+	return kTTErrNone;
 }
 
 
 TTErr TTAudioGraphObjectBase::setNumAudioOutlets(const TTValue& newNumOutlets)
 {
-	TTErr		err = TTObjectBaseInstantiate(kTTSym_audiosignalarray, (TTObjectBasePtr*)&mOutputSignals, newNumOutlets);
+	// TODO: if the number of inlets or outlets changes on the fly then we will leak memory!
 	TTUInt16	outletCount = newNumOutlets;
 
 	mAudioOutlets.resize(outletCount);
-	mOutputSignals->setMaxNumAudioSignals(outletCount);
-	mOutputSignals->numAudioSignals = outletCount;
+	mOutputSignals.setStreamCount(outletCount);
 	mNumAudioOutlets = outletCount;
-	return err;
+	return kTTErrNone;
 }
 
 
@@ -131,7 +128,7 @@ void TTAudioGraphObjectBase::getAudioDescription(TTAudioGraphDescription& desc)
 		desc = mAudioDescription;
 	}
 	else {					// create a new description for this object.
-		desc.mClassName = mKernel->getName();
+		desc.mClassName = mKernel.name();
 		desc.mObjectInstance = mKernel;
 		desc.mNumInlets = mInlets.size();
 		desc.mNumOutlets = mOutlets.size();
@@ -206,22 +203,22 @@ TTErr TTAudioGraphObjectBase::preprocess(const TTAudioGraphPreprocessData& initD
 		for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
 			inlet->preprocess(initData);
 			audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
-			mInputSignals->setSignal(index, audioSignal);
+			mInputSignals.setStream(index, audioSignal);
 			index++;
 		}
 		
 		index = 0;
 		for (TTAudioGraphOutletIter outlet = mAudioOutlets.begin(); outlet != mAudioOutlets.end(); outlet++) {
 			audioSignal = outlet->getBuffer();
-			mOutputSignals->setSignal(index, audioSignal);
+			mOutputSignals.setStream(index, audioSignal);
 			index++;
 		}
 
 		if (mAudioFlags & kTTAudioGraphGenerator) {
 			if (mVectorSize != initData.vectorSize) {
 				mVectorSize = initData.vectorSize;					
-				mOutputSignals->allocAllWithVectorSize(initData.vectorSize);
-				mInputSignals->setMaxNumAudioSignals(0);
+				mOutputSignals.allocAllWithVectorSize(initData.vectorSize);
+				mInputSignals.setStreamCount(0);
 			}			
 		}
 	}
@@ -235,7 +232,7 @@ TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64
 	lock();
 	
 	if (sampleStamp == mSampleStamp) // we have already processed this slice of time!
-		returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+		returnedSignal = &mOutputSignals.getSignal(forOutletNumber);
 	else {
 		mSampleStamp = sampleStamp;	// update our notion of time and proceed
 		
@@ -246,7 +243,7 @@ TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64
 				mStatus = kTTAudioGraphProcessingCurrently;
 				
 				if (mAudioFlags & kTTAudioGraphGenerator) {			// a generator (or no input)
-					getUnitGenerator()->process(mInputSignals, mOutputSignals);
+					getUnitGenerator().process(mInputSignals, mOutputSignals);
 				}
 				else {												// a processor
 					// zero our collected input samples
@@ -269,28 +266,28 @@ TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64
 					int index = 0;
 					for (TTAudioGraphInletIter inlet = mAudioInlets.begin(); inlet != mAudioInlets.end(); inlet++) {
 						TTAudioSignalPtr audioSignal = inlet->getBuffer(); // TODO: It seems like we can just cache this once when we init the graph, because the number of inlets cannot change on-the-fly
-						mInputSignals->setSignal(index, audioSignal);
+						mInputSignals.setStream(index, audioSignal);
 						index++;
 					}
 									
 					if (!(mAudioFlags & kTTAudioGraphNonAdapting)) {
 						// examples of non-adapting objects are join≈ and matrix≈
 						// non-adapting in this case means channel numbers -- vector sizes still adapt
-						mOutputSignals->matchNumChannels(mInputSignals);
+						mOutputSignals.matchNumChannels(mInputSignals);
 					}
-					mOutputSignals->allocAllWithVectorSize(mInputSignals->getVectorSize());
+					mOutputSignals.allocAllWithVectorSize(mInputSignals.getVectorSize());
 					
 					// adapt ugen based on the input we are going to process
-					getUnitGenerator()->adaptMaxNumChannels(mInputSignals->getMaxNumChannels());
-					getUnitGenerator()->setSampleRate(mInputSignals->getSignal(0).getSampleRate());
+					getUnitGenerator().adaptMaxChannelCount(mInputSignals.getMaxChannelCount());
+					getUnitGenerator().setSampleRate(mInputSignals.getSignal(0).getSampleRate());
 							
 					// finally, process the audio
-					getUnitGenerator()->process(mInputSignals, mOutputSignals);
+					getUnitGenerator().process(mInputSignals, mOutputSignals);
 				}
 				
 				// These two lines should be equivalent
 				//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
-				returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+				returnedSignal = &mOutputSignals.getSignal(forOutletNumber);
 							
 				mStatus = kTTAudioGraphProcessComplete;
 				break;
@@ -299,14 +296,14 @@ TTErr TTAudioGraphObjectBase::process(TTAudioSignalPtr& returnedSignal, TTUInt64
 			case kTTAudioGraphProcessComplete:
 				// These two lines should be equivalent
 				//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
-				returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+				returnedSignal = &mOutputSignals.getSignal(forOutletNumber);
 				break;
 			
 			// to prevent feedback / infinite loops, we just hand back the last calculated output here
 			case kTTAudioGraphProcessingCurrently:
 				// These two lines should be equivalent
 				//returnedSignal = mAudioOutlets[forOutletNumber].mBufferedOutput;
-				returnedSignal = &mOutputSignals->getSignal(forOutletNumber);
+				returnedSignal = &mOutputSignals.getSignal(forOutletNumber);
 				break;
 			
 			// we should never get here

@@ -58,7 +58,7 @@ TTErr TTData::setType(const TTValue& value)
             
             // if mRampDrive still equals to the value passed in constructor
             if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
+                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_decimal) {
             commandMethod = (TTMethodValue)&TTData::DecimalCommand;
@@ -75,7 +75,7 @@ TTErr TTData::setType(const TTValue& value)
             
             // if mRampDrive still equals to the value passed in constructor
             if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
+                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_string) {
             commandMethod = (TTMethodValue)&TTData::StringCommand;
@@ -132,7 +132,7 @@ TTErr TTData::setType(const TTValue& value)
             
             // if mRampDrive still equals to the value passed in constructor
             if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("Max");   // TODO : move this very Max specific thing else where
+                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_none) {
             commandMethod = (TTMethodValue)&TTData::NoneCommand;
@@ -170,6 +170,11 @@ TTErr TTData::setType(const TTValue& value)
             mRampDrive = kTTSym_none;
 			return kTTErrGeneric;
 		}
+        
+        // TODO : move this very Max specific thing else where
+        if (mRampDrive == TTSymbol("max"))
+            if (ttEnvironment->isClassRegistered("max"))
+                mRampDrive = TTSymbol("system");
         
 		rampSetup();
 		
@@ -245,7 +250,6 @@ TTErr TTData::returnValue()
 {
     // used a new value to protect the internal value
     TTValue v = mValue;
-	TTValue dummy;
 	
     
     // This is a temporary solution to have audio rate ramping outside the #TTData
@@ -265,8 +269,8 @@ TTErr TTData::returnValue()
     else if (!mInitialized)
         mInitialized = YES;
     
-    // return the value to its owner
-    this->mReturnValueCallback->notify(v, dummy);
+    // return the value to his owner
+    this->deliver(v);
     
     // notify each observers
     valueAttribute->sendNotification(kTTSym_notify, v);             // we use kTTSym_notify because we know that observers are TTCallback
@@ -421,7 +425,7 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 4. Ramp the convertedValue
         /////////////////////////////////
-        if (mRamper) {
+        if (mRamper.valid()) {
             
             if (!command->lookup(kTTSym_ramp, v)) {
                 
@@ -429,12 +433,12 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
-                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
+                    mRamper.send("Set", mValue, none);
+                    mRamper.send("Target", aValue, none);
+                    mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -446,10 +450,10 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            mRamper->sendMessage(kTTSym_Stop);
+            mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -565,14 +569,14 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
         // Ultimately though, we actually want to convert the units after the ramping,
         // for example to perform a sweep that is linear vs logarithmic
         ////////////////////////////////////////////////////////////////
-        if (mDataspaceConverter) {
+        if (mDataspaceConverter.valid()) {
             
             if (!command->lookup(kTTSym_unit, v)) {
                 
                 TTValue convertedValue;
                 
                 v.get(0, unit);
-                mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
+                mDataspaceConverter.set(kTTSym_inputUnit, unit);
                 convertUnit(aValue, convertedValue);
                 aValue = convertedValue;
             }
@@ -590,7 +594,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 5. Ramp the convertedValue
         /////////////////////////////////
-        if (mRamper) {
+        if (mRamper.valid()) {
             
             if (!command->lookup(kTTSym_ramp, v)) {
                 
@@ -598,12 +602,12 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
-                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
+                    mRamper.send("Set", mValue, none);
+                    mRamper.send("Target", aValue, none);
+                    mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -615,10 +619,10 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            mRamper->sendMessage(kTTSym_Stop);
+            mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -656,9 +660,9 @@ TTErr TTData::setIntegerValue(const TTValue& value)
                 // truncate internal value
                 mValue.truncate();
                 
-                if (mRamper)
+                if (mRamper.valid())
                     if (clipValue())
-                        mRamper->sendMessage(kTTSym_Stop);
+                        mRamper.send(kTTSym_Stop);
             }
             
             // return the internal value
@@ -745,14 +749,14 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
         // Ultimately though, we actually want to convert the units after the ramping,
         // for example to perform a sweep that is linear vs logarithmic
         ////////////////////////////////////////////////////////////////
-        if (mDataspaceConverter) {
+        if (mDataspaceConverter.valid()) {
             
             if (!command->lookup(kTTSym_unit, v)) {
                 
                 TTValue convertedValue;
                 
                 unit = v[0];
-                mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
+                mDataspaceConverter.set(kTTSym_inputUnit, unit);
                 convertUnit(aValue, convertedValue);
                 aValue = convertedValue;
             }
@@ -768,7 +772,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 5. Ramp the convertedValue
         /////////////////////////////////
-        if (mRamper) {
+        if (mRamper.valid()) {
             
             if (!command->lookup(kTTSym_ramp, v)) {
                 
@@ -777,16 +781,16 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                 if (time > 0) {
                     
                     // set the start (current) value
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
+                    mRamper.send("Set", mValue, none);
                     
                     // set the end value
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
+                    mRamper.send("Target", aValue, none);
                     
                     // set how long it going to take and start the ramp, we don't output any value immediately
-                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
+                    mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -798,10 +802,10 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            mRamper->sendMessage(kTTSym_Stop);
+            mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -840,9 +844,9 @@ TTErr TTData::setDecimalValue(const TTValue& value)
                 // why are we only clipping if we are ramping ?
                 // why are we stopping the ramping after setting the value ?
                 // TODO #JamomaCore issue #211 : review this question when porting dataspace ramping
-                if (mRamper)
+                if (mRamper.valid())
                     if (clipValue())
-                        mRamper->sendMessage(kTTSym_Stop);
+                        mRamper.send(kTTSym_Stop);
 
             }
             
@@ -930,14 +934,14 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
         // Ultimately though, we actually want to convert the units after the ramping,
         // for example to perform a sweep that is linear vs logarithmic
         ////////////////////////////////////////////////////////////////
-        if (mDataspaceConverter) {
+        if (mDataspaceConverter.valid()) {
             
             if (!command->lookup(kTTSym_unit, v)) {
                 
                 TTValue convertedValue;
                 
                 v.get(0, unit);
-                mDataspaceConverter->setAttributeValue(kTTSym_inputUnit, unit);
+                mDataspaceConverter.set(kTTSym_inputUnit, unit);
                 convertUnit(aValue, convertedValue);
                 aValue = convertedValue;
             }
@@ -953,7 +957,7 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
         
         // 5. Ramp the convertedValue
         /////////////////////////////////
-        if (mRamper) {
+        if (mRamper.valid()) {
             
             if (!command->lookup(kTTSym_ramp, v)) {
                 
@@ -964,12 +968,12 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
                     if(mValue.size() != aValue.size())
                         mValue.resize(aValue.size());
                     
-                    mRamper->sendMessage(TTSymbol("Set"), mValue, none);
-                    mRamper->sendMessage(TTSymbol("Target"), aValue, none);
-                    mRamper->sendMessage(kTTSym_Go, (int)time, none);
+                    mRamper.send("Set", mValue, none);
+                    mRamper.send("Target", aValue, none);
+                    mRamper.send(kTTSym_Go, (int)time, none);
                     
                     // update the ramp status attribute
-                    mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+                    mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -981,10 +985,10 @@ TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
             
             // in any other cases :
             // stop ramping before to set a value
-            mRamper->sendMessage(kTTSym_Stop);
+            mRamper.send(kTTSym_Stop);
             
             // update the ramp status attribute
-            mRamper->getAttributeValue(TTSymbol("running"), isRunning);
+            mRamper.get(kTTSym_running, isRunning);
             if (mRampStatus != isRunning) {
                 mRampStatus = isRunning;
                 notifyObservers(kTTSym_rampStatus, mRampStatus);
@@ -1019,9 +1023,9 @@ TTErr TTData::setArrayValue(const TTValue& value)
                 // set internal value
                 mValue = value;
                 
-                if (mRamper)
+                if (mRamper.valid())
                     if (clipValue())
-                        mRamper->sendMessage(kTTSym_Stop);
+                        mRamper.send(kTTSym_Stop);
                 
             }
             

@@ -57,14 +57,14 @@ TTSoundfileLoader::~TTSoundfileLoader()
 }
 
 // target a new TTSampleMatrix
-TTErr TTSoundfileLoader::setTargetMatrix(const TTSampleMatrixPtr newTargetMatrix)
+TTErr TTSoundfileLoader::setTargetMatrix(const TTMatrix newTargetMatrix)
 {
     TTErr err = kTTErrNone;
     
-    mTargetMatrix = newTargetMatrix;
-    mTargetMatrixLengthInSamples = mTargetMatrix->getRowCount();
-    mTargetMatrixNumChannels = mTargetMatrix->getColumnCount();
-    mTargetMatrix->getAttributeValue("sampleRate",mTargetMatrixSampleRate);
+    mTargetMatrix = (TTSampleMatrixPtr)newTargetMatrix.instance();
+    mTargetMatrixLengthInSamples = newTargetMatrix.getRowCount();
+    mTargetMatrixNumChannels = newTargetMatrix.getColumnCount();
+    newTargetMatrix.get("sampleRate", mTargetMatrixSampleRate);
     
     return err;
 }
@@ -199,9 +199,9 @@ TTErr TTSoundfileLoader::setFilePath(const TTValue& newValue)
 TTErr TTSoundfileLoader::load(const TTValue& input, TTValue& unusedOutput)
 {
     // sort out the two input values
-    TTObjectBasePtr newTargetMatrix = input[0];
-    TTSymbol newFilePath = input[1];
-    TTErr err = kTTErrNone;
+    TTMatrix	newTargetMatrix = input[0];
+    TTSymbol	newFilePath = input[1];
+    TTErr		err = kTTErrNone;
     
     // set the mTargetMatrix
     err = setTargetMatrix(newTargetMatrix);
@@ -243,9 +243,9 @@ TTErr TTSoundfileLoader::load(const TTValue& input, TTValue& unusedOutput)
 TTErr TTSoundfileLoader::resizeThenLoad(const TTValue& input, TTValue& unusedOutput)
 {
     // sort out the two input values
-    TTObjectBasePtr newTargetMatrix = input[0];
-    TTSymbol newFilePath = input[1];
-    TTErr err = kTTErrNone;
+    TTMatrix	newTargetMatrix = input[0];
+    TTSymbol	newFilePath = input[1];
+    TTErr		err = kTTErrNone;
     
     // set the mTargetMatrix
     err = setTargetMatrix(newTargetMatrix);

@@ -209,7 +209,14 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 }
 
 
-TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectBasePtr* anObject, const TTValue& anArgument)
+TTErr TTEnvironment::isClassRegistered(const TTSymbol& className)
+{
+    TTValue v;
+    return classes->lookup(className, v);
+}
+
+
+TTErr TTEnvironment::createInstance(const TTSymbol className, TTObjectBasePtr* anObject, const TTValue& anArgument)
 {
 	TTValue		v;
 	TTClassPtr	theClass;
@@ -251,25 +258,52 @@ TTErr TTEnvironment::createInstance(const TTSymbol& className, TTObjectBasePtr* 
 
 TTObjectBasePtr TTEnvironment::referenceInstance(TTObjectBasePtr anObject)
 {
-	// TODO: make sure that anObject is valid or wrap with an exception?
-	anObject->referenceCount++;
+	if (anObject) {
+        anObject->referenceCount++;
+        
+        if (anObject->valid) { // Théo : this is avoiding the log of the reference count when the object is stored in a TTValue for objectFreeing notification (see in TTEnvironment::releaseInstance)
+            if (anObject->track)
+                TTLogMessage("TTEnvironment::referenceInstance : \t%p is referenced %d times\n", anObject, anObject->referenceCount);
+        }
+    }
+    
 	return anObject;
 }
 
+// TODO: find a better way to avoid the problem of infinite feedback from
+// objects duplicating to provide notification
+// This current technique is not threadsafe (for example, if we are deleting objects on the non-main thread).
+//static TTBoolean sFreeInProgress = NO;
+#include <unordered_map>
+static std::unordered_map<TTObjectBasePtr, TTBoolean> sFreeInProgress;
+
 TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 {
-	TTValue v = **anObject;
-
+	if (sFreeInProgress[*anObject])
+		return kTTErrNone;
+	
 	TT_ASSERT("can only release a valid instance", *anObject && (*anObject)->valid == 1 && (*anObject)->referenceCount);
-
-	(*anObject)->valid = false;
-	(*anObject)->observers->iterateObjectsSendingMessage("objectFreeing", v);
-
-	waitForLock(); // in case an object is processing a vector of audio in another thread or something...
-
+		
 	(*anObject)->referenceCount--;
+    if ((*anObject)->track)
+        TTLogMessage("TTEnvironment::releaseInstance : \t%p is referenced %d times\n", (*anObject), (*anObject)->referenceCount);
+    
 	if ((*anObject)->referenceCount < 1) {
+
+		(*anObject)->valid = false;
+		waitForLock(); // in case an object is processing a vector of audio in another thread or something...
+		sFreeInProgress[*anObject] = YES;
+		
+		// the following must happen in a block so that 'v' will go out of scope before we
+		// delete the object.
+		{
+			TTValue v = TTObject(*anObject);
+			(*anObject)->observers.iterateObjectsSendingMessage("objectFreeing", v);
+		}
+        if ((*anObject)->track)
+            TTLogMessage("TTEnvironment::releaseInstance : \t%p is not a %s instance anymore\n", (*anObject), (*anObject)->getName().c_str());
 		delete *anObject;
+		sFreeInProgress.erase(*anObject);
 		*anObject = NULL;
 	}
 	return kTTErrNone;
@@ -281,19 +315,14 @@ TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 #pragma mark Public Interface
 #endif
 
-TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, TTValue& arguments)
+
+TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTValue arguments)
 {
 	return ttEnvironment->createInstance(className, returnedObjectPtr, arguments);
 }
 
 
-TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTValue& arguments)
-{
-	return ttEnvironment->createInstance(className, returnedObjectPtr, arguments);
-}
-
-
-TTErr TTObjectBaseInstantiate(const TTSymbol& className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments)
+TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments)
 {
 	TTValue	v(arguments);
 	return ttEnvironment->createInstance(className, returnedObjectPtr, v);

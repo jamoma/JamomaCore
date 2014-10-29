@@ -38,7 +38,7 @@ class TTGRAPH_EXPORT TTGraphDescription {
 public:
 	TTSymbol					mClassName;
 	TTGraphDescriptionVector	mInputDescriptions;
-	TTObjectBasePtr					mObjectInstance;
+	TTObject					mObjectInstance;
 
 	TTInt32						mID;					///< An index number that uniquely identifies this instance
 	TTPtr						mUserData;				///< A place for a descriptions' user to store custom information, per node
@@ -47,7 +47,7 @@ public:
 	
 	
 	TTGraphDescription() :
-		mObjectInstance(NULL),
+		mObjectInstance(),
 		mUserData(NULL)
 	{
 		;

@@ -31,7 +31,8 @@ void TTAudioGraphSourceObserverCallback(TTAudioGraphSourcePtr self, TTValue& arg
 	// at the moment we only receive one callback, which is for the object being deleted
 	self->mSourceObject = NULL;
 	self->mOutletNumber = 0;
-	self->mOwner->drop(*self);
+	if (self->mOwner)
+		self->mOwner->drop(*self);
 }
 
 
@@ -40,32 +41,68 @@ void TTAudioGraphSourceObserverCallback(TTAudioGraphSourcePtr self, TTValue& arg
 TTAudioGraphSource::TTAudioGraphSource() :
 	mSourceObject(NULL),
 	mOutletNumber(0),
-	mCallbackHandler(NULL),
+	mCallbackHandler("callback"),
 	mOwner(NULL)
 {
 	create();
 }
 
 
+TTAudioGraphSource::TTAudioGraphSource(const TTAudioGraphSource& original) :
+	mSourceObject(NULL),
+	mOutletNumber(0),
+	mCallbackHandler("callback"),
+	mOwner(NULL)
+{
+	create();
+	mOwner = original.mOwner;
+	
+	// NOTE: See notes below in TTAudioGraphInlet copy constructor...
+	// NOTE: When vector of sources is resized, it is possible for an object to be created and immediately copied -- prior to a 'connect' method call
+	// NOTE: Are we ever called after connecting?  If so, then we need to set up the connection...
+	
+	if (original.mSourceObject)
+		connect(original.mSourceObject, original.mOutletNumber);
+}
+
+
+
 TTAudioGraphSource::~TTAudioGraphSource()
 {
 	if (mSourceObject)
-		mSourceObject->unregisterObserverForNotifications(*mCallbackHandler);
-
-	TTObjectBaseRelease(&mCallbackHandler);
+		mSourceObject->unregisterObserverForNotifications(mCallbackHandler);
 	
 	mSourceObject = NULL;
 	mOutletNumber = 0;
-	mCallbackHandler = NULL;	
 }
 
 
 void TTAudioGraphSource::create()
 {
-	TTObjectBaseInstantiate(TT("callback"), &mCallbackHandler, kTTValNONE);
+	mCallbackHandler.set("function", TTPtr(&TTAudioGraphSourceObserverCallback));
+	mCallbackHandler.set("baton", TTPtr(this));
+}
+
+
+void TTAudioGraphSource::setOwner(TTAudioGraphInlet* theOwningInlet)
+{
+	mOwner = theOwningInlet;
+}
+
+
+TTAudioGraphSource& TTAudioGraphSource::operator=(const TTAudioGraphSource& original)
+{
+	mSourceObject = NULL;
+	mOutletNumber = 0;
+	mOwner = NULL;
 	
-	mCallbackHandler->setAttributeValue(TT("function"), TTPtr(&TTAudioGraphSourceObserverCallback));
-	mCallbackHandler->setAttributeValue(TT("baton"), TTPtr(this));	
+	create();
+	mOwner = original.mOwner;
+		
+	if (original.mSourceObject && original.mSourceObject->valid)
+		connect(original.mSourceObject, original.mOutletNumber);
+	
+	return *this;
 }
 
 
@@ -75,8 +112,8 @@ void TTAudioGraphSource::connect(TTAudioGraphObjectBasePtr anObject, TTUInt16 fr
 	mOutletNumber = fromOutletNumber;
 
 	// dynamically add a message to the callback object so that it can handle the 'objectFreeing' notification
-	mCallbackHandler->registerMessage(TT("objectFreeing"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
+	mCallbackHandler.instance()->registerMessage(TT("objectFreeing"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
 	
 	// tell the source that is passed in that we want to watch it
-	mSourceObject->registerObserverForNotifications(*mCallbackHandler);
+	mSourceObject->registerObserverForNotifications(mCallbackHandler);
 }	

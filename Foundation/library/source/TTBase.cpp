@@ -611,3 +611,40 @@ TTFloat64 TTRandom64()
 	MTRand twister;
 	return twister.rand();
 }
+
+
+
+// private: used in this file but not elsewhere, so not prototyped in the header file
+// This one from http://www.gamedev.net/community/forums/topic.asp?topic_id=315623
+TTPtr TTAlignedMalloc(size_t size, int byteAlign)
+{
+	void *mallocPtr = malloc(size + byteAlign + sizeof(void*));
+	size_t ptrInt = (size_t)mallocPtr;
+	
+	ptrInt = (ptrInt + byteAlign + sizeof(void*)) / byteAlign * byteAlign;
+	*(((void**)ptrInt) - 1) = mallocPtr;
+	
+    return (void*)ptrInt;
+}
+
+// private: used in this file but not elsewhere, so not prototyped in the header file
+void TTAlignedFree(void *ptr)
+{
+	if (ptr)
+		free(*(((void**)ptr) - 1));
+}
+
+
+
+TTPtr TTMalloc16(size_t numBytes)
+{
+	return TTAlignedMalloc(numBytes, 16);
+}
+
+
+void TTFree16(TTPtr ptr)
+{
+	TTAlignedFree(ptr);
+}
+
+

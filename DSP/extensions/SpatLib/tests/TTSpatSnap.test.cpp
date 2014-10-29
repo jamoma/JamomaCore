@@ -124,36 +124,36 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, in
 	anEntity.resize(4);
 	
 	// Set source 1: (-2., -3.14, -4.2)
-	anEntity.set(0, 1);
-	anEntity.set(1, -2.);
-	anEntity.set(2, -3.14);
-	anEntity.set(3, -4.2);
+	anEntity[0] = 1;
+	anEntity[1] = -2.;
+	anEntity[2] = -3.14;
+	anEntity[3] = -4.2;
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
 	// Source 2: Default = (0., 0., 0.) so we don't set it.
 	
 	// Set source 3: (3.1, 0.2, -0.2)
 	
-	anEntity.set(0, 3);
-	anEntity.set(1, 3.1);
-	anEntity.set(2, 0.2);
-	anEntity.set(3, -0.2);
+	anEntity[0] = 3;
+	anEntity[1] = 3.1;
+	anEntity[2] = 0.2;
+	anEntity[3] = -0.2;
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
 	// Set source 4: (0., 4.6, 0.)
 	
-	anEntity.set(0, 4);
-	anEntity.set(1, 0.);
-	anEntity.set(2, 4.6);
-	anEntity.set(3, 0.);
+	anEntity[0] = 4;
+	anEntity[1] = 0.;
+	anEntity[2] = 4.6;
+	anEntity[3] = 0.;
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
 	// Set source 5: (-0.1, 0.1, 5.5)
 	
-	anEntity.set(0, 5);
-	anEntity.set(1, -0.1);
-	anEntity.set(2, 0.1);
-	anEntity.set(3, 5.5);
+	anEntity[0] = 5;
+	anEntity[1] = -0.1;
+	anEntity[2] = 0.1;
+	anEntity[3] = 5.5;
 	this->sendMessage("setSourcePosition", anEntity, unused);
 	
 	// Now we test five source positions:
@@ -174,7 +174,7 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, in
 	TTTestLog(" ");
 	
 	anEntity.clear();
-	getChannel.set(0, 1);
+	getChannel[0] = 1;
 	
 	this->sendMessage("getSourcePosition", getChannel, anEntity);
 	
@@ -183,10 +183,10 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, in
 					aTestAssertionCount,
 					anErrorCount);
 	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
+	channelNumber = anEntity[0];
+	x = anEntity[1];
+	y = anEntity[2];
+	z = anEntity[3];
 	
 	TTTestAssertion("getSourcePosition[1]: Returning position for correct channel",
 					(channelNumber==1),
@@ -215,7 +215,7 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, in
 	TTTestLog(" ");
 	
 	anEntity.clear();
-	getChannel.set(0, 2);
+	getChannel[0] = 2;
 	
 	this->sendMessage("getSourcePosition", getChannel, anEntity);
 	
@@ -224,10 +224,10 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, in
 					aTestAssertionCount,
 					anErrorCount);
 	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
+	channelNumber = anEntity[0];
+	x = anEntity[1];
+	y = anEntity[2];
+	z = anEntity[3];
 	
 	TTTestAssertion("getSourcePosition[2]: Returning position for correct channel",
 					(channelNumber==2),
@@ -256,7 +256,7 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, in
 	TTTestLog(" ");
 	
 	anEntity.clear();
-	getChannel.set(0, 3);
+	getChannel[0] = 3;
 	
 	this->sendMessage("getSourcePosition", getChannel, anEntity);
 	
@@ -265,10 +265,10 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, in
 					aTestAssertionCount,
 					anErrorCount);
 	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
+	channelNumber = anEntity[0];
+	x = anEntity[1];
+	y = anEntity[2];
+	z = anEntity[3];
 	
 	TTTestAssertion("getSourcePosition[3]: Returning position for correct channel",
 					(channelNumber==3),
@@ -297,7 +297,7 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, in
 	TTTestLog(" ");
 	
 	anEntity.clear();
-	getChannel.set(0, 4);
+	getChannel[0] = 4;
 	
 	this->sendMessage("getSourcePosition", getChannel, anEntity);
 	
@@ -306,10 +306,10 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, in
 					aTestAssertionCount,
 					anErrorCount);
 	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
+	channelNumber = anEntity[0];
+	x = anEntity[1];
+	y = anEntity[2];
+	z = anEntity[3];
 	
 	TTTestAssertion("getSourcePosition[4]: Returning position for correct channel",
 					(channelNumber==4),
@@ -339,7 +339,7 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, in
 	TTTestLog(" ");
 	
 	anEntity.clear();
-	getChannel.set(0, 5);
+	getChannel[0] = 5;
 	
 	this->sendMessage("getSourcePosition", getChannel, anEntity);
 	
@@ -348,10 +348,10 @@ TTErr TTSpatSnap::testSourcePositionSetterAndGetter(int& aTestAssertionCount, in
 					aTestAssertionCount,
 					anErrorCount);
 	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
+	channelNumber = anEntity[0];
+	x = anEntity[1];
+	y = anEntity[2];
+	z = anEntity[3];
 	
 	TTTestAssertion("getSourcePosition[5]: Returning position for correct channel",
 					(channelNumber==5),
@@ -388,34 +388,34 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int&
 	
 	// Sink 2: (2.2, 0., 0.)
 	
-	anEntity.set(0, 2);
-	anEntity.set(1, 2.2);
-	anEntity.set(2, 0.);
-	anEntity.set(3, 0.);
+	anEntity[0] = 2;
+	anEntity[1] = 2.2;
+	anEntity[2] = 0.;
+	anEntity[3] = 0.;
 	this->sendMessage("setSinkPosition", anEntity, unused);
 	
 	// Sink 3: (0., 3.3, 0.)
 	
-	anEntity.set(0, 3);
-	anEntity.set(1, 0.);
-	anEntity.set(2, 3.3);
-	anEntity.set(3, 0.);
+	anEntity[0] = 3;
+	anEntity[1] = 0.;
+	anEntity[2] = 3.3;
+	anEntity[3] = 0.;
 	this->sendMessage("setSinkPosition", anEntity, unused);
 	
 	// Sink 4: (0., 0., 4.4)
 	
-	anEntity.set(0, 4);
-	anEntity.set(1, 0.);
-	anEntity.set(2, 0.);
-	anEntity.set(3, 4.4);
+	anEntity[0] = 4;
+	anEntity[1] = 0.;
+	anEntity[2] = 0.;
+	anEntity[3] = 4.4;
 	this->sendMessage("setSinkPosition", anEntity, unused);
 	
 	// Sink 5: (-2., -3.14, -4.)
 	
-	anEntity.set(0, 5);
-	anEntity.set(1, -2.);
-	anEntity.set(2, -3.14);
-	anEntity.set(3, -4.);
+	anEntity[0] = 5;
+	anEntity[1] = -2.;
+	anEntity[2] = -3.14;
+	anEntity[3] = -4.;
 	this->sendMessage("setSinkPosition", anEntity, unused);
 	
 	// Now we test five sink positions:
@@ -433,7 +433,7 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int&
 	TTTestLog(" ");
 	
 	anEntity.clear();
-	getChannel.set(0, 1);
+	getChannel[0] = 1;
 	
 	this->sendMessage("getSinkPosition", getChannel, anEntity);
 	
@@ -442,10 +442,10 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int&
 					aTestAssertionCount,
 					anErrorCount);
 	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
+	channelNumber = anEntity[0];
+	x = anEntity[1];
+	y = anEntity[2];
+	z = anEntity[3];
 	
 	TTTestAssertion("getSinkPosition[1]: Returning position for correct channel",
 					(channelNumber==1),
@@ -475,7 +475,7 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int&
 	TTTestLog(" ");
 	
 	anEntity.clear();
-	getChannel.set(0, 2);
+	getChannel[0] = 2;
 	
 	this->sendMessage("getSinkPosition", getChannel, anEntity);
 	
@@ -484,10 +484,10 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int&
 					aTestAssertionCount,
 					anErrorCount);
 	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
+	channelNumber = anEntity[0];
+	x = anEntity[1];
+	y = anEntity[2];
+	z = anEntity[3];
 	
 	TTTestAssertion("getSinkPosition[2]: Returning position for correct channel",
 					(channelNumber==2),
@@ -517,7 +517,7 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int&
 	TTTestLog(" ");
 	
 	anEntity.clear();
-	getChannel.set(0, 3);
+	getChannel[0] = 3;
 	
 	this->sendMessage("getSinkPosition", getChannel, anEntity);
 	
@@ -526,10 +526,10 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int&
 					aTestAssertionCount,
 					anErrorCount);
 	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
+	channelNumber = anEntity[0];
+	x = anEntity[1];
+	y = anEntity[2];
+	z = anEntity[3];
 	
 	TTTestAssertion("getSinkPosition[3]: Returning position for correct channel",
 					(channelNumber==3),
@@ -559,7 +559,7 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int&
 	TTTestLog(" ");
 	
 	anEntity.clear();
-	getChannel.set(0, 4);
+	getChannel[0] = 4;
 	
 	this->sendMessage("getSinkPosition", getChannel, anEntity);
 	
@@ -568,10 +568,10 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int&
 					aTestAssertionCount,
 					anErrorCount);
 	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
+	channelNumber = anEntity[0];
+	x = anEntity[1];
+	y = anEntity[2];
+	z = anEntity[3];
 	
 	TTTestAssertion("getSinkPosition[4]: Returning position for correct channel",
 					(channelNumber==4),
@@ -601,7 +601,7 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int&
 	TTTestLog(" ");
 	
 	anEntity.clear();
-	getChannel.set(0, 5);
+	getChannel[0] = 5;
 	
 	this->sendMessage("getSinkPosition", getChannel, anEntity);
 	
@@ -610,10 +610,10 @@ TTErr TTSpatSnap::testSinkPositionSetterAndGetter(int& aTestAssertionCount, int&
 					aTestAssertionCount,
 					anErrorCount);
 	
-	anEntity.get(0, channelNumber);
-	anEntity.get(1, x);
-	anEntity.get(2, y);
-	anEntity.get(3, z);
+	channelNumber = anEntity[0];
+	x = anEntity[1];
+	y = anEntity[2];
+	z = anEntity[3];
 	
 	TTTestAssertion("getSinkPosition[5]: Returning position for correct channel",
 					(channelNumber==5),

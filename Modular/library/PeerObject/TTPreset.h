@@ -17,7 +17,7 @@
 #ifndef __TT_PRESET_H__
 #define __TT_PRESET_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 class TTScript;
 typedef TTScript* TTScriptPtr;
@@ -27,7 +27,7 @@ typedef TTScript* TTScriptPtr;
  
  */
 
-class TTMODULAR_EXPORT TTPreset : public TTDataObjectBase
+class TTMODULAR_EXPORT TTPreset : public TTObjectBase
 {
 	TTCLASS_SETUP(TTPreset)
 	
@@ -38,7 +38,7 @@ private :
 	TTAddress                   mAddress;						///< ATTRIBUTE : the parent address from where to search object to store
 	
 	TTNodeDirectoryPtr			mDirectory;						///< a preset depends on a directory
-	TTScriptPtr					mScript;						///< a script containing relativeAddress and value
+	TTObject					mScript;						///< a script containing relativeAddress and value
 	
 	/** */
 	TTErr	setAddress(const TTValue& value);
@@ -67,11 +67,11 @@ private :
 	TTErr	ReadFromText(const TTValue& inputValue, TTValue& outputValue);
     
     /** a method to update each Data value */
-    TTErr   processUpdate(TTObjectBasePtr aScript);
+    TTErr   processUpdate(TTObject& aScript);
 	
-	friend TTErr TTMODULAR_EXPORT TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 position);
+	friend TTErr TTMODULAR_EXPORT TTPresetInterpolate(TTObject preset1, TTObject preset2, TTFloat64 position);
 	friend TTErr TTMODULAR_EXPORT TTPresetMix(const TTValue& presets, const TTValue& factors);
-	friend TTErr TTMODULAR_EXPORT TTPresetCopy(TTPreset* aPresetToCopy, TTPreset* aPresetCopy);
+	friend TTErr TTMODULAR_EXPORT TTPresetCopy(TTObject aPresetToCopy, TTObject aPresetCopy);
 };
 
 typedef TTPreset* TTPresetPtr;
@@ -79,10 +79,10 @@ typedef TTPreset* TTPresetPtr;
 /** Return Yes if the node have to be part of the preset */
 TTBoolean	TTMODULAR_EXPORT TTPresetTestObject(TTNodePtr node, TTPtr args);
 
-TTErr		TTMODULAR_EXPORT TTPresetInterpolate(TTPreset* preset1, TTPreset* preset2, TTFloat64 position);
+TTErr		TTMODULAR_EXPORT TTPresetInterpolate(TTObject preset1, TTObject preset2, TTFloat64 position);
 
 TTErr		TTMODULAR_EXPORT TTPresetMix(const TTValue& presets, const TTValue& factors);
 
-TTErr		TTMODULAR_EXPORT TTPresetCopy(TTPreset* aPresetToCopy, TTPreset* aPresetCopy);
+TTErr		TTMODULAR_EXPORT TTPresetCopy(TTObject aPresetToCopy, TTObject aPresetCopy);
 
 #endif // __TT_PRESET_H__

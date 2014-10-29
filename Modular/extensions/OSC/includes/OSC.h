@@ -30,10 +30,10 @@ class OSC : public Protocol {
 	
 private:
 	
-	TTSymbol				mIp;						///< ATTRIBUTE : IP of the local application                                (default : localhost, readonly)
-	TTUInt16				mPort;						///< ATTRIBUTE : port dedicated to data reception for local application     (default : OSC_RECEPTION_PORT)
+	PROTOCOL_PARAMETER(Ip);                             ///< PROTOCOL PARAMETER : each registered application have to setup its ip
+	PROTOCOL_PARAMETER(Port);                           ///< PROTOCOL PARAMETER : each registered application have to setup its port
 	
-	TTObjectBasePtr			mLocalApplicationOscReceiver;
+	TTObject                mLocalApplicationOscReceiver;
     
     TTHash                  mDistantApplicationOscReceivers;
 	
@@ -44,30 +44,34 @@ private:
     TTSymbol                mReceivedFrom;              // memorize who sent a message to us to avoid loop when receiving an address and resending the same
     TTAddress               mReceivedAddress;           // memorize received address to avoid loop when receiving an address and resending the same
 	
-	TTErr sendMessage(TTSymbol distantApplicationName, TTSymbol header, TTValue& message);
+	TTErr sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& message);
     TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
 	
 	/** Get parameters names needed by this protocol */
 	TTErr getParameterNames(TTValue& value);
 	
-	/** Scan to find remote applications and add them to the application manager */
-	TTErr Scan();
-	
-    /*!
-     * Run reception thread mechanism for each application
-     * \param inputValue			: the application to run (default the local application)
-	 * \param outputValue			: kTTValNONE
-     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start for the application or if it was running already
+	/** Scan to find remote applications and add them to the application manager
+     * \param inputValue			: anything needed for scanning
+	 * \param outputValue			: all remote application ip and port
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
-	TTErr Run(const TTValue& inputValue, TTValue& outputValue);
+    TTErr Scan(const TTValue& inputValue, TTValue& outputValue);
 	
 	/*!
-     * Stop the reception thread mechanism for each application
-     * \param inputValue			: the application to stop (default the local application)
-	 * \param outputValue			: kTTValNONE
-     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop for the application or if it was already stopped
+     * Run reception thread mechanism for the local application only
+     * \param inputValue			: nothing to run all registered applications or a #TTSymbol application name
+	 * \param outputValue			: when the running failed because of a port connection failure : the port number
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
-	TTErr Stop(const TTValue& inputValue, TTValue& outputValue);
+    TTErr Run(const TTValue& inputValue, TTValue& outputValue);
+	
+	/*!
+     * Stop the reception thread mechanism for the local application only
+     * \param inputValue			: nothing to stop all registered applications or a #TTSymbol application name
+	 * \param outputValue			: any informations relative to a failure when stopping the protocol
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop or if it was already stopped
+     */
+    TTErr Stop(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**************************************************************************************************************************
 	 *
@@ -189,7 +193,7 @@ private:
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
 	TTErr SendGetAnswer(TTSymbol to, TTAddress address, 
-						TTValue& returnedValue,
+						const TTValue& returnedValue,
 						TTErr err=kTTErrNone);
 	
 	/*!
@@ -200,12 +204,12 @@ private:
 	 * \param returnedValue			: the value of the attribute at the address
 	 */
 	TTErr SendListenAnswer(TTSymbol to, TTAddress address, 
-						   TTValue& returnedValue,
+						   const TTValue& returnedValue,
 						   TTErr err=kTTErrNone);
     
     
     
-    friend TTErr TT_EXTENSION_EXPORT OSCReceiveMessageCallback(TTPtr baton, TTValue& data);
+    friend TTErr TT_EXTENSION_EXPORT OSCReceiveMessageCallback(const TTValue& baton, const TTValue& data);
 	
 };
 typedef OSC* OSCPtr;
@@ -214,6 +218,6 @@ typedef OSC* OSCPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT OSCReceiveMessageCallback(TTPtr baton, TTValue& message);
+TTErr TT_EXTENSION_EXPORT OSCReceiveMessageCallback(const TTValue& baton, const TTValue& data);
 
 #endif // __OSC_H__

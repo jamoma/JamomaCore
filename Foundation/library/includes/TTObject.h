@@ -14,20 +14,23 @@
 #ifndef __TT_OBJECT_H__
 #define __TT_OBJECT_H__
 
-#include "TTObjectBase.h"
-#include "TTEnvironment.h"
+#include "TTSymbol.h"
+
+class TTObjectBase;
+class TTValue;
 
 /****************************************************************************************************/
 // Class Specifications
 
 /**
-	Create Jamoma object instances.
+	Create and use Jamoma object instances.
+	@see #TTObjectTest
 */
 class TTFOUNDATION_EXPORT TTObject {
 protected:
 	friend class TTEnvironment;
 
-	TTObjectBasePtr		mObjectInstance;
+	TTObjectBase*		mObjectInstance;
 
 public:
 	
@@ -36,59 +39,63 @@ public:
 		 @param arguments		Arguments to the constructor.
 	 */
 	// NOTE: arguments *must* be copied -- otherwise a reference to kTTValNONE may overwrite its value and corrupt memory
-	TTObject(const TTSymbol& aClassName, const TTValue arguments = TTValue()) :
-	mObjectInstance(NULL)
-	{
-		TTErr err = ttEnvironment->createInstance(aClassName, &mObjectInstance, arguments);
-		
-		if (err) {
-			TTLogError("TTObject -- error %i instantiating %s\n", err, aClassName.c_str());
-			throw TTException("object instantiation failed");
-		}
-	}
+	TTObject(const TTSymbol aClassName, const TTValue arguments);
+
 	
 	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
-	TTObject() :
-		mObjectInstance(NULL)
-	{
-		
-	}
+	TTObject(const TTSymbol aClassName);
+
+	
+	/** Constructor to create an empyt container which will be assigned/copied-to at a later point */
+	TTObject();
+	
+	
+	/** Special constructor to create new object that wraps an existing TTObjectBase pointer. 
+		Use of the constructor is generally discouraged as is using TTObjectBase pointers in general.
+	 */
+	TTObject(TTObjectBase* anObjectBase);
+	
+	
+	/** Copy constructor */
+	TTObject(const TTObject& anObjectToCopy);
+	
 	
 	/** Destructor.
 	 */
-	virtual ~TTObject()
-	{
-		ttEnvironment->releaseInstance(&mObjectInstance);
-	}
+	virtual ~TTObject();
 	
-	// TODO -- how do we do TTObjectReference?  Copy constructor and assignment operator, yes?
-	// Look at the Doxygen tutorial for a use case!
+		
+	/** Query #TTEnvironment for names of all registered #TTObjectBase classes
+     
+     @param[out]	classNames      #TTValue whose content will be set to an array of #TTSymbol names for available classes
+     @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	static TTErr GetRegisteredClassNames(TTValue& classNames);
+    
+    /** Query #TTEnvironment for names of all registered #TTObjectBase classes that share specific tags
+     
+     @param[out]	classNames      #TTValue whose content will be set to an array of #TTSymbol names for available classes     
+     @param[in]     searchTags      #TTValue array containing the tags used to limit search
+     @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	static TTErr GetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags);
 	
-	// class methods for querying the registry
-	static TTErr GetRegisteredClassNames(TTValue& classNames)
-	{
-		TTValue unused;
-		return ttEnvironment->getAllClassNames(unused, classNames);
-	}
-	
-	static TTErr GetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags)
-	{
-		return ttEnvironment->getClassNamesWithTags(classNames, searchTags);
-	}
-	
-	static TTErr GetRegisteredTags(TTValue& tags)
-	{
-		// TODO: Needs to be implemented!
-		return kTTErrMethodNotFound;
-	}
+    /** Query #TTEnvironment for all registered tags used by #TTObjectBase classes
+     
+     @param[out]     tags           #TTValue whose content will be set to an array of #TTSymbol names for available tags
+     @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+    static TTErr GetRegisteredTags(TTValue& tags);
 
+	
+	/**	Assign a TTObject instance to another TTObject
+     */
+    TTObject& operator = (TTObject object);
+    
 	
 	/** Return a direct pointer to the internal instance.
 		Not recommended in most cases. */
-	TTObjectBase* instance() const
-	{
-		return mObjectInstance;
-	}
+	TTObjectBase* instance() const;
 	
 	
 	/**	Set an attribute value for an object
@@ -99,10 +106,7 @@ public:
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	template <class T>
-	TTErr set(const TTSymbol aName, T aValue)
-	{
-		return mObjectInstance->setAttributeValue(aName, aValue);
-	}
+	TTErr set(const TTSymbol aName, T aValue);
 	
 	
 	/**	Get an attribute value for an object
@@ -111,49 +115,41 @@ public:
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.	 
 	 */
 	template <class T>
-	TTErr get(const TTSymbol aName, T& aReturnedValue)
-	{
-		return mObjectInstance->getAttributeValue(aName, aReturnedValue);
-	}
+	TTErr get(const TTSymbol aName, T& aReturnedValue) const;
 	
 	
 	/** Return a list of names of the available attributes.
 		@param attributeNameList		Pointer to a list of all attributes registered with this TTObjectBase.
 	 */
-	void attributes(TTValue& returnedAttributeNames)
-	{
-		mObjectInstance->getAttributeNames(returnedAttributeNames);
-	}
+	void attributes(TTValue& returnedAttributeNames) const;
+    
+	
+    /** Return the type of an attribute as a symbol.
+     @param aName                   The name of the attribute we want the type.
+     @return #TTSymbol : kTTSym__none, kTTSym_uint8, kTTSym_int8, kTTSym_uint16, kTTSym_int16, kTTSym_uint32, kTTSym_int32, kTTSym_uint64, kTTSym_int64, kTTSym_float32, kTTSym_float64, kTTSym__boolean, kTTSym_symbol, kTTSym_string, kTTSym_pointer, kTTSym_object, kTTSym_value. Returns kTTSymEmpty if the attribute doesn't exist.
+	 */
+	TTSymbol attributeType(const TTSymbol aName);
 	
 	
 	/** Return a list of names of the available messages.
 		@param messageNameList		Pointer to a list of all messages registered with this TTObjectBase.
 	 */
-	void messages(TTValue& returnedMessageNames)
-	{
-		mObjectInstance->getMessageNames(returnedMessageNames);
-	}
+	void messages(TTValue& returnedMessageNames) const;
 	
 	
 	/** Return the name of this class.
 		@return					The name of this object.
 	 */
-	TTSymbol name() const
-	{
-		return mObjectInstance->getName();
-	}
-
+	TTSymbol name() const;
+	
 	
 	/** Send a message to this object with no arguments.
 		@param aName	The name of the message to send.
 		@return			#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr send(const TTSymbol& aName)
-	{
-		return mObjectInstance->sendMessage(aName);
-	}
+	TTErr send(const TTSymbol aName);
 
-
+	
 	/** Send a message to this object with arguments.
 		All arguments for input must be packed into a #TTValue container.
 		Any return values from the message will be packed into a second #TTValue container, which you must provide.
@@ -162,11 +158,8 @@ public:
 		@param	anOutputValue	Will be filled-in with data upon return if the message returns data.
 		@return					#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr send(const TTSymbol& aName, const TTValue& anInputValue, TTValue& anOutputValue)
-	{
-		return mObjectInstance->sendMessage(aName, anInputValue, anOutputValue);
-	}
-
+	TTErr send(const TTSymbol aName, const TTValue& anInputValue, TTValue& anOutputValue);
+	
 	
 	/** Register an observer.
 		The observer will be monitoring this object.
@@ -174,49 +167,43 @@ public:
 		@param anObservingObject	Reference to the observing object.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr registerObserverForNotifications(const TTObjectBase& anObservingObject)
-	{
-		return mObjectInstance->registerObserverForNotifications(anObservingObject);
-	}
-	TTErr registerObserverForNotifications(const TTObject& anObservingObject)
-	{
-		return mObjectInstance->registerObserverForNotifications(*anObservingObject.instance());
-	}
-	
+	TTErr registerObserverForNotifications(const TTObject& anObservingObject);
 		
+	
 	/** Unregister an observer for notifications.
 		The observer wiln no longer be monitoring.
 
 		@param anObservingObject	Reference to the observing object.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr unregisterObserverForNotifications(const TTObjectBase& anObservingObject)
-	{
-		return mObjectInstance->unregisterObserverForNotifications(anObservingObject);
-	}
-	TTErr unregisterObserverForNotifications(const TTObject& anObservingObject)
-	{
-		return mObjectInstance->unregisterObserverForNotifications(*anObservingObject.instance());
-	}
-	
-	
-	/** Compare two objects for equality. */
-	inline friend bool operator == (const TTObject& anObject, const TTObject& anotherObject)
-	{
-		return (anObject.instance() == anotherObject.instance());
-	}
-
+	TTErr unregisterObserverForNotifications(const TTObject& anObservingObject);
 		
 	
+	/**	Determine if the object contained by this TTObject is truly ready for use.
+		@return If ready returns #YES otherwise #NO.
+	 */
+	TTBoolean valid() const;
+    
+    /**	Enable/Disable reference count tracking of the instance
+     @param newTrackingValue        #YES to enable the tracking, #NO to disable it
+	 */
+	void track(TTBoolean newTrackingValue);
 };
 
 
+/** Compare two objects for equality. */
+bool TTFOUNDATION_EXPORT operator == (const TTObject& anObject, const TTObject& anotherObject);
+
+/** Compare two objects for inequality. */
+bool TTFOUNDATION_EXPORT operator != (const TTObject& anObject, const TTObject& anotherObject);
+
+
 /** Macro to access the actual C++ class that is contained inside of the #TTObject as a pointer.
- @details In general we want to avoid using casting to access C++ class member directly rather than through their dynamic interface, but there might be some exceptions. E.g., this macro is used in the DSP #TTFilterLib where we have a number of complex filters that are constructed of smaller building-block filters (examples are #TTHalfband3, #TTHalfband5, #TTHalfband9, #TTHilbert9, #TTHilbert33, #TTMirror5 and #TTMirrorBandpass10). The smaller building block filters are full citizen objects, but to call them through the usual calculate methods for each and every sample is incredibly inefficient when compared to using C++ calls that the compiler can inline.
- @ingroup macros
- @param instance_	The #TTObject to peek inside.
- @param class_		The C++ class name represented by the #TTObject.
- @return			Pointer to the C++ class contained inside of the #TTObject.
+	@details In general we want to avoid using casting to access C++ class member directly rather than through their dynamic interface, but there might be some exceptions. E.g., this macro is used in the DSP #TTFilterLib where we have a number of complex filters that are constructed of smaller building-block filters (examples are #TTHalfband3, #TTHalfband5, #TTHalfband9, #TTHilbert9, #TTHilbert33, #TTMirror5 and #TTMirrorBandpass10). The smaller building block filters are full citizen objects, but to call them through the usual calculate methods for each and every sample is incredibly inefficient when compared to using C++ calls that the compiler can inline.
+	@ingroup macros
+	@param instance_	The #TTObject to peek inside.
+	@param class_		The C++ class name represented by the #TTObject.
+	@return				Pointer to the C++ class contained inside of the #TTObject.
  */
 #define TTBASE( instance_ , class_ )  ((class_*)instance_.instance())
 

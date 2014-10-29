@@ -14,8 +14,8 @@ TTErr TTMatrixGain::test(TTValue& returnedTestInfo)
 	int			errorCount = 0;
 	int			testAssertionCount = 0;
 	int			badValueCount = 0;
-	TTMatrixPtr	x = NULL;				// input matrix
-	TTMatrixPtr	y = NULL;				// output matrix
+	TTMatrixBasePtr	x = NULL;				// input matrix
+	TTMatrixBasePtr	y = NULL;				// output matrix
 	TTErr		err = kTTErrNone;
 	TTValue		v(16, 16);
 	TTValue		aColor;
@@ -27,11 +27,12 @@ TTErr TTMatrixGain::test(TTValue& returnedTestInfo)
 	x->setAttributeValue(kTTSym_dimensions,		v);
 	x->setAttributeValue(kTTSym_type,			kTTSym_uint8);
 	x->setAttributeValue(kTTSym_elementCount,	4);
-	aColor.setSize(4);
-	aColor.set(0, 200);
-	aColor.set(1, 196);
-	aColor.set(2, 24);
-	aColor.set(3, 240);
+	aColor.resize(4);
+	aColor[0] = 200;
+	aColor[1] = 196;
+	aColor[2] = 24;
+	aColor[3] = 240;
+
 	x->fill(aColor, aReturnWeDontCareAbout);
 	
 	this->setAttributeValue(kTTSym_gain, 0.125);

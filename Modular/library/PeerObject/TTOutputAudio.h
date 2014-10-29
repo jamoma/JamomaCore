@@ -17,7 +17,6 @@
 #define __TT_OUTPUT_AUDIO_H__
 
 #include "TTOutput.h"
-#include "TTInputAudio.h"
 
 /** An audio output component for Jamoma models.
  */
@@ -33,24 +32,24 @@ public:	// use public for quick acces during signal processing
 	// dsp
 	void setupAudioSignals(TTUInt16 aVectorSize, TTFloat64 aSampleRate)
 	{
-		mRampGainUnit->setAttributeValue(kTTSym_sampleRate, aSampleRate);	// convert midi to db for tap_gain
-		mGainUnit->setAttributeValue(TTSymbol("interpolated"), 1);
-		mRampMixUnit->setAttributeValue(kTTSym_sampleRate, aSampleRate);	// convert midi to db for tap_gain
+		mRampGainUnit.set(kTTSym_sampleRate, aSampleRate);	// convert midi to db for tap_gain
+		mGainUnit.set("interpolated", 1);
+		mRampMixUnit.set(kTTSym_sampleRate, aSampleRate);	// convert midi to db for tap_gain
 		
-		mSignalIn->setAttributeValue(kTTSym_numChannels, 1);
-		mSignalOut->setAttributeValue(kTTSym_numChannels, 1);
-		mSignalTemp->setAttributeValue(kTTSym_numChannels, 1);
-		mSignalZero->setAttributeValue(kTTSym_numChannels, 1);
+		mSignalIn.set(kTTSym_numChannels, 1);
+		mSignalOut.set(kTTSym_numChannels, 1);
+		mSignalTemp.set(kTTSym_numChannels, 1);
+		mSignalZero.set(kTTSym_numChannels, 1);
 		
-		mSignalIn->setAttributeValue(kTTSym_vectorSize, aVectorSize);
-		mSignalOut->setAttributeValue(kTTSym_vectorSize, aVectorSize);
-		mSignalTemp->setAttributeValue(kTTSym_vectorSize, aVectorSize);
-		mSignalZero->setAttributeValue(kTTSym_vectorSize, aVectorSize);
+		mSignalIn.set(kTTSym_vectorSize, aVectorSize);
+		mSignalOut.set(kTTSym_vectorSize, aVectorSize);
+		mSignalTemp.set(kTTSym_vectorSize, aVectorSize);
+		mSignalZero.set(kTTSym_vectorSize, aVectorSize);
 		
-		mSignalOut->sendMessage(kTTSym_alloc);
-		mSignalTemp->sendMessage(kTTSym_alloc);
-		mSignalZero->sendMessage(kTTSym_alloc);
-		mSignalZero->sendMessage(kTTSym_clear);
+		mSignalOut.send(kTTSym_alloc);
+		mSignalTemp.send(kTTSym_alloc);
+		mSignalZero.send(kTTSym_alloc);
+		mSignalZero.send(kTTSym_clear);
 	}
 };
 

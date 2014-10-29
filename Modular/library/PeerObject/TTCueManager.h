@@ -17,7 +17,7 @@
 #ifndef __TT_CUE_MANAGER_H__
 #define __TT_CUE_MANAGER_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 
 /**	TTCueManager ... TODO : an explanation
  
@@ -33,7 +33,7 @@ typedef TTXmlHandler* TTXmlHandlerPtr;
 // a namespace is a TTList
 typedef	TTList* NamespacePtr;
 
-class TTMODULAR_EXPORT TTCueManager : public TTDataObjectBase
+class TTMODULAR_EXPORT TTCueManager : public TTObjectBase
 {
 	TTCLASS_SETUP(TTCueManager)
 	
@@ -44,12 +44,12 @@ private:
 	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
 	TTSymbol			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
     TTAddress           mAddress;						///< ATTRIBUTE : an address to make the mangment relative to
-	TTHashPtr			mCues;							///< ATTRIBUTE : a hash table containing <name, TTCuePtr>
+	TTHash              mCues;							///< ATTRIBUTE : a hash table containing <name, #TTCue>
 	
-	TTCuePtr			mCurrentCue;					///< the current cue
+	TTObject			mCurrentCue;					///< the current cue
 	TTAddressItemPtr    mDefaultNamespace;				///< an internal default namespace
 	
-	TTCallbackPtr		mReturnLineCallback;			///< Callback to return back cue lines to the owner of this cuemanager
+	TTObject            mReturnLineCallback;			///< Callback to return back cue lines to the owner of this cuemanager
     
     TTSymbol			mLastCurrent;                   ///< ATTRIBUTE : remember the current cue when parsing a file
 	

@@ -31,14 +31,14 @@ protected:
 	
 	TTErr setPicks(const TTValueRef args)
 	{
-		if (args.getSize() != mNumPickChannels){
-			mNumPickChannels = args.getSize();
+		if (args.size() != mNumPickChannels){
+			mNumPickChannels = args.size();
 			mPickChannels.resize(mNumPickChannels);
 			outputNeedsResize = true;
 		}
 				
 		for (TTChannelCount i=0; i<mNumPickChannels; i++) {
-			args.get(i, mPickChannels[i]); //substracting offset (channel 1 is JAG-channel 0)
+			mPickChannels[i] = args[i]; //substracting offset (channel 1 is JAG-channel 0)
 			mPickChannels[i] = mPickChannels[i] - 1;
 		}
 		return kTTErrNone;
@@ -46,9 +46,9 @@ protected:
 	
 	TTErr getPicks(TTValueRef args)
 	{
-		args.setSize(mNumPickChannels);
+		args.resize(mNumPickChannels);
 		for (TTChannelCount i=0; i<mNumPickChannels; i++)
-			args.set(i, mPickChannels[i]+1); //re-adding offset 
+			args[i] = mPickChannels[i] + 1; //re-adding offset
 		return kTTErrNone;
 	}
 	

@@ -2,7 +2,7 @@
  *
  * @ingroup modularLibrary
  *
- * @brief #TTRamp class embedes a scheduling mechanism from #TTScheduler and a function from #TTFunction
+ * @brief #TTRamp class embedes a scheduling mechanism from #TTDrive and a function from #TTFunction
  *
  * @details
  *
@@ -17,7 +17,7 @@
 #ifndef __TT_RAMP_H__
 #define __TT_RAMP_H__
 
-#include "TTModular.h"
+#include "TTModularIncludes.h"
 #include "Scheduler.h"
 
 typedef void (*TTRampCallback)(void *, TTUInt32, TTFloat64 *);
@@ -27,20 +27,20 @@ typedef void (*TTRampCallback)(void *, TTUInt32, TTFloat64 *);
 
 
 // Specification of our base class
-class TTMODULAR_EXPORT TTRamp : public TTDataObjectBase {
+class TTMODULAR_EXPORT TTRamp : public TTObjectBase {
     
     TTCLASS_SETUP(TTRamp)
   	
 public: ///< It is public in order to be able to extend scheduler or function unit parameters as attributes of another object
     
-    TTObjectBasePtr         mSchedulerUnit;     ///< The actual scheduler unit object defined by mScheduler
+    TTObject                mDriveUnit;     ///< The actual scheduler unit object defined by mDrive // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 #ifndef TT_NO_DSP
-    TTAudioObjectBasePtr    mFunctionUnit;		///< The actual function unit object defined by mFunction
+    TTObject                mFunctionUnit;		///< The actual function unit object defined by mFunction // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 #endif
     
 private:
     
-    TTSymbol                mScheduler;			///< ATTRIBUTE : The name of the scheduler to drive the ramp
+    TTSymbol                mDrive;			///< ATTRIBUTE : The name of the scheduler to drive the ramp
 #ifndef TT_NO_DSP
     TTSymbol                mFunction;			///< ATTRIBUTE : The name of the function unit
 #endif
@@ -58,13 +58,15 @@ private:
     TTErr   getRunning(TTValue& value);
     
     /** Attribute setter */
-    TTErr   setScheduler(const TTValue& schedulerName);
-    TTErr   getSchedulerLibrary(TTValue& value);
-    TTErr   getSchedulerParameters(TTValue& value);
-    TTErr   getSchedulerParameterValue(TTValue& value);
-    TTErr   setSchedulerParameterValue(const TTValue& value);
+    // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
+    TTErr   setDrive(const TTValue& schedulerName);
+    TTErr   getDriveLibrary(TTValue& value);
+    TTErr   getDriveParameters(TTValue& value);
+    TTErr   getDriveParameterValue(TTValue& value);
+    TTErr   setDriveParameterValue(const TTValue& value);
     
-#ifndef TT_NO_DSP    
+#ifndef TT_NO_DSP
+    // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
     TTErr   setFunction(const TTValue& functionName);
     TTErr   getFunctionLibrary(TTValue& value);
     TTErr   getFunctionParameters(TTValue& value);
@@ -93,7 +95,7 @@ public: ///< It is public in order to be able to extend scheduler or function un
 #ifndef TT_NO_DSP
 
 #endif
-    friend void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 position, TTFloat64 date);
+    friend void TTMODULAR_EXPORT TTRampDriveCallback(TTPtr object, TTFloat64 position, TTFloat64 date);
 };
 typedef TTRamp* TTRampPtr;
 
@@ -101,6 +103,6 @@ typedef TTRamp* TTRampPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-void TTMODULAR_EXPORT TTRampSchedulerCallback(TTPtr object, TTFloat64 position, TTFloat64 date);
+void TTMODULAR_EXPORT TTRampDriveCallback(TTPtr object, TTFloat64 position, TTFloat64 date);
 
 #endif // __TT_RAMP_H__

@@ -19,13 +19,15 @@
 #endif
 
 // Unit Tests
-#include "TTMatrix.h"
+#include "TTMatrixBase.h"
 #include "TTMatrixArray.h"
+#include "TTObjectTest.h"
 #include "TTInterpolate.test.h"
 #include "TTString.test.h"
 #include "TTSymbol.test.h"
 #include "TTValue.test.h"
 #include "TTDictionary.test.h"
+#include "TTList.test.h"
 // Nodelib currently requires Boost Regex, which we don't have on the iOS
 #ifndef DISABLE_NODELIB
 #include "TTNodeLib.test.h"
@@ -53,7 +55,7 @@ static bool		TTFoundationHasInitialized = false;
 
 void            TTFoundationLoadExternalClasses(void);
 TTErr           TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath);
-TTObjectBasePtr	TTFoundationInstantiateInternalClass(TTSymbol& className, TTValue& arguments);
+TTObjectBasePtr	TTFoundationInstantiateInternalClass(TTSymbol className, TTValue& arguments);
 
 
 /****************************************************************************************************/
@@ -93,13 +95,15 @@ void TTFoundationInit(const char* pathToBinaries)
 
 		// register classes -- both internal and external
 		TTCallback::registerClass();
-		TTMatrix::registerClass();
+		TTMatrixBase::registerClass();
 		TTMatrixArray::registerClass();
+		TTObjectTest::registerClass();
 		TTStringTest::registerClass();
 		TTSymbolTest::registerClass();
 		TTValueTest::registerClass();
 		TTInterpolateTest::registerClass();
         TTDictionaryTest::registerClass();
+        TTListTest::registerClass();
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef DISABLE_NODELIB
 		TTNodeLibTest::registerClass();
@@ -333,9 +337,11 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 #else
 		handle = dlopen(fileFullpath.c_str(), RTLD_LAZY);
 #endif
-		//std::cout << "HANDLE: " << handle << std::endl;
-		if (!handle)
+		
+		if (!handle) {
+            std::cout << "ERROR: " << dlerror() << std::endl;
 			continue;
+        }
 		
 		// TODO: assert -- or at least do a log post -- if handle is NULL
 		initializerFunctionName = "TTLoadJamomaExtension_";

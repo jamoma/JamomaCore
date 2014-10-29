@@ -21,12 +21,10 @@
 #define thisTTClassTags		"node info"
 
 TT_MODULAR_CONSTRUCTOR,
-mTags(TTValue(kTTSym_none)),
+mDescription(kTTSym_none),
 mPriority(0),
-mDescription(kTTSym_none)
+mTags(TTValue(kTTSym_none))
 {
-	TT_ASSERT("Correct number of args to create TTNodeInfo", arguments.size() == 0);
-	
 	addAttributeWithSetter(Tags, kTypeLocalValue);
 	addAttributeWithSetter(Priority, kTypeInt32);
 	addAttributeWithSetter(Description, kTypeSymbol);

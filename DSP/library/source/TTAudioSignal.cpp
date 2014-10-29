@@ -60,6 +60,36 @@ TT_OBJECT_CONSTRUCTOR,
 }
 
 
+TTAudioSignal::TTAudioSignal(const TTAudioSignal& original) :
+	TTDataObjectBase(kTTValNONE),
+	mIsLocallyOwned(original.mIsLocallyOwned),
+	mMaxNumChannels(0),
+	mVectorSize(0),
+	mNumChannels(0),
+	mBitdepth(0),
+	mSampleRate(0),
+	mSampleVectors(NULL)
+{
+	addAttributeWithSetter(	VectorSize, kTypeUInt16);
+	addAttributeWithSetter(	NumChannels, kTypeUInt16);
+	addAttributeWithSetter(	MaxNumChannels, kTypeUInt16);
+	addAttribute(			Bitdepth, kTypeUInt8);
+	addAttributeProperty(	Bitdepth, readOnly, 1);
+	
+	addMessage(clear);
+	
+	addMessage(alloc);
+	addMessageWithArguments(allocWithNewVectorSize);
+	
+	addMessageProperty(alloc,					hidden, YES);
+	addMessageProperty(allocWithNewVectorSize,	hidden, YES);
+	
+//	setAttributeValue(kTTSym_maxNumChannels, original.maxNumChannels);
+//	setAttributeValue(kTTSym_numChannels, original.mNumChannels);
+	(*this) = original;
+}
+
+
 TTAudioSignal::~TTAudioSignal()
 {
 	chuck();

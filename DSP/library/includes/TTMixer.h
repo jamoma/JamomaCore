@@ -26,9 +26,10 @@ class TTMixer : TTAudioObjectBase {
 
 protected:
 
-	TTMatrixPtr		mGainMatrix;					///< A NxM matrix of mixing coefficients.
+	TTMatrix		mGainMatrix;					///< A NxM matrix of mixing coefficients.
 	TTBoolean		mInterpolated;					///< A flag determine if we will be interpolating towards new matrix values whenever a gain value is being updated.
-	TTMatrixPtr		oldGainMatrix, tempGainMatrix;	///< These matrixes are required for the process of resizing when changing the number of inputs or outputs.
+	TTMatrix        oldGainMatrix;                  ///< Required for the process of resizing when changing the number of inputs or outputs.
+    TTMatrix        tempGainMatrix;                  ///< Required for the process of resizing when changing the number of inputs or outputs.
 	TTChannelCount	mNumInputs;						///< The number of audio inputs.
 	TTChannelCount	mNumOutputs;					///< The number of audio outputs.
 	

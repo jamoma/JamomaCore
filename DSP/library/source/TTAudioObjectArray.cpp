@@ -121,7 +121,7 @@ TTErr TTAudioObjectBaseArray::set(TTValue& arguments, TTValue&)
 		if (arguments.size() < 3)
 			return kTTErrWrongNumValues;
 		else
-			arguments.get(1, attrName);
+			attrName = arguments[1];
 
 		if (!attrName)
 			return kTTErrInvalidAttribute;
@@ -136,7 +136,7 @@ TTErr TTAudioObjectBaseArray::set(TTValue& arguments, TTValue&)
 		if (arguments.size() < 2)
 			return kTTErrWrongNumValues;
 		else
-			arguments.get(0, attrName);
+			attrName = arguments[0];
 
 		if (!attrName)
 			return kTTErrInvalidAttribute;

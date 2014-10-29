@@ -22,13 +22,17 @@
 #define thisTTClassTags		"system"
 
 TT_BASE_OBJECT_CONSTRUCTOR,
-	mFunction(NULL),
-	mBaton(NULL),
-    mNotification(kTTSym_notify)
+mFunction(NULL),
+mNotification(kTTSym_notify)
 {
 	addAttribute(Function, kTypePointer);
-	addAttribute(Baton, kTypePointer);
+    addAttributeProperty(Function, hidden, YES);
+    
+	addAttributeWithSetter(Baton, kTypeLocalValue);
+    addAttributeProperty(Baton, hidden, YES);
+    
     addAttributeWithSetter(Notification, kTypeSymbol);
+    addAttributeProperty(Notification, hidden, YES);
 	
     // by default the callback is sensitive to the kTTSym_notify notification sent from a TTObject
     registerMessage(mNotification, (TTMethod)& TTCallback::notify);
@@ -37,7 +41,12 @@ TT_BASE_OBJECT_CONSTRUCTOR,
 TTCallback::~TTCallback()
 {
 	mFunction = NULL;
-	mBaton = NULL;
+}
+
+TTErr TTCallback::setBaton(const TTValue& value)
+{
+    mBaton = value;
+    return kTTErrNone;
 }
 
 TTErr TTCallback::setNotification(const TTValue& value)
@@ -60,7 +69,7 @@ TTErr TTCallback::setNotification(const TTValue& value)
 TTErr TTCallback::notify(const TTValue& anInputValue, TTValue &anUnusedOutputValue)
 {
 	if (mFunction)
-		mFunction(mBaton, anInputValue);
+		return mFunction(mBaton, anInputValue);
 	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }

@@ -28,16 +28,12 @@ mUpdate(YES),
 mSort(kTTSym_alphabetic),
 mDepth(0),
 mDirectory(NULL),
-mAddressObserver(NULL),
-mApplicationObserver(NULL),
-mReturnValueCallback(NULL),
-mReturnSelectionCallback(NULL),
 mFilterList(NULL),
 mTempNode(NULL),
 mResult(NULL)
 {
 	if(arguments.size() >= 1)
-		mReturnValueCallback = TTCallbackPtr((TTObjectBasePtr)arguments[0]);
+		mReturnValueCallback = arguments[0];
 	
 	// It is possible to pass a default filter bank
 	if(arguments.size() >= 2)
@@ -46,7 +42,7 @@ mResult(NULL)
 		mFilterBank = new TTHash();
 	
 	if(arguments.size() >= 3)
-		mReturnSelectionCallback = TTCallbackPtr((TTObjectBasePtr)arguments[2]);
+		mReturnSelectionCallback = arguments[2];
 	
 	addAttributeWithSetter(Namespace, kTypeSymbol);
 	
@@ -78,37 +74,30 @@ TTExplorer::~TTExplorer()
 	unbindAddress();	
 	unbindApplication();
 	
-	if (mReturnValueCallback) {
-		delete (TTValuePtr)mReturnValueCallback->getBaton();
-		TTObjectBaseRelease(TTObjectBaseHandle(&mReturnValueCallback));
-	}
-	
 	delete mFilterBank;
 	delete mFilterList;
 	delete mResult;
-	
-	// unregister from the namespace
-	setNamespace(kTTSymEmpty);
 }
 
 TTErr TTExplorer::setNamespace(const TTValue& value)
 {
-	TTAddressItemPtr aNamespace;
+	TTAddressItemPtr    aSelection;
+    TTObject            thisObject(this);
 	
 	// unregister from the former namespace
-	aNamespace = lookupNamespace(mNamespace);
+	aSelection = TTModularSelectionLookup(mNamespace);
 	
-	if (aNamespace)
-		aNamespace->unregisterHandler(*this);
+	if (aSelection)
+		aSelection->unregisterHandler(thisObject);
 	
 	// get new namespace
 	mNamespace = value;
 	
 	// register to the new namespace
-	aNamespace = lookupNamespace(mNamespace);
+	aSelection = TTModularSelectionLookup(mNamespace);
 	
-	if (aNamespace)
-		aNamespace->registerHandler(*this);
+	if (aSelection)
+		aSelection->registerHandler(thisObject);
 	
 	return kTTErrNone;
 }
@@ -140,7 +129,7 @@ TTErr TTExplorer::setAddress(const TTValue& value)
 	// change the address
 	mAddress = value[0];
 	
-	mDirectory = getDirectoryFrom(mAddress);
+	mDirectory = accessApplicationDirectoryFrom(mAddress);
 	if (mDirectory)
 		return bindAddress();
 	else
@@ -191,9 +180,6 @@ TTErr TTExplorer::setDepth(const TTValue& value)
 
 TTErr TTExplorer::bindAddress() 
 {
-	TTValuePtr	newBaton;
-    TTValue     none;
-	
 	// it works only for absolute address
 	if (mAddress.getType() == kAddressAbsolute) {
 		
@@ -201,13 +187,10 @@ TTErr TTExplorer::bindAddress()
 		if (mUpdate && mAddress != kTTAdrsEmpty) {
 			
 			// observe any creation or destruction below the address
-			mAddressObserver = NULL;				// without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-			TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mAddressObserver), none);
+			mAddressObserver = TTObject("callback");
 			
-			newBaton = new TTValue(TTObjectBasePtr(this));
-			
-			mAddressObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-			mAddressObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
+			mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
+			mAddressObserver.set(kTTSym_function, TTPtr(&TTExplorerDirectoryCallback));
 			
 			if (mDepth)
 				mDirectory->addObserverForNotifications(mAddress, mAddressObserver, mDepth);
@@ -224,11 +207,10 @@ TTErr TTExplorer::bindAddress()
 TTErr TTExplorer::unbindAddress() 
 {
 	// delete the old observer
-	if (mDirectory && mAddressObserver && mAddress != kTTSymEmpty) {
+	if (mDirectory && mAddressObserver.valid() && mAddress != kTTSymEmpty) {
 		
 		mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
-		TTObjectBaseRelease(TTObjectBaseHandle(&mAddressObserver));
-		mAddressObserver = NULL;
+		mAddressObserver = TTObject();
 		
 		return kTTErrNone;
 	}
@@ -238,20 +220,14 @@ TTErr TTExplorer::unbindAddress()
 
 TTErr TTExplorer::bindApplication()
 {
-	TTValuePtr	newBaton;
-    TTValue     none;
-	
-	if (!mApplicationObserver) {
+	if (!mApplicationObserver.valid()) {
 		
-		mApplicationObserver = NULL; // without this, TTObjectBaseInstantiate try to release an oldObject that doesn't exist ... Is it good ?
-		TTObjectBaseInstantiate(TTSymbol("callback"), TTObjectBaseHandle(&mApplicationObserver), none);
+		mApplicationObserver = TTObject("callback");
 		
-		newBaton = new TTValue(TTObjectBasePtr(this));
+		mApplicationObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
+		mApplicationObserver.set(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
 		
-		mApplicationObserver->setAttributeValue(kTTSym_baton, TTPtr(newBaton));
-		mApplicationObserver->setAttributeValue(kTTSym_function, TTPtr(&TTExplorerApplicationManagerCallback));
-		
-		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
+		return TTApplicationManagerAddApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
 	}
 	
 	return kTTErrGeneric;
@@ -261,12 +237,11 @@ TTErr TTExplorer::unbindApplication()
 {
 	TTErr err;
 	
-	if (mApplicationObserver) {
+	if (mApplicationObserver.valid()) {
 		
-		err = TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), *mApplicationObserver);
+		err = TTApplicationManagerRemoveApplicationObserver(mAddress.getDirectory(), mApplicationObserver);
 		
-		delete (TTValuePtr)mApplicationObserver->getBaton();
-		TTObjectBaseRelease(TTObjectBaseHandle(&mApplicationObserver));
+		mApplicationObserver = TTObject();
 	}
 	
 	mDirectory = NULL;
@@ -280,7 +255,7 @@ TTErr TTExplorer::Explore()
 	TTSymbol	attributeName;
 	TTList		aNodeList, internalFilterList, allObjectNodes;
 	TTNodePtr	aNode;
-	TTObjectBasePtr	o;
+	TTObject	o;
 	TTValue		v, args, none;
 	TTErr		err;
 	
@@ -303,9 +278,9 @@ TTErr TTExplorer::Explore()
 		if (mOutput == kTTSym_attributes) {
 			
 			o = mTempNode->getObject();
-			if (o) {
+			if (o.valid()) {
 				v.clear();
-				o->getAttributeNames(v);
+				o.attributes(v);
 				
 				// memorized the result in a hash table
 				for (TTUInt32 i = 0; i < v.size(); i++) {
@@ -378,13 +353,13 @@ TTErr TTExplorer::Explore()
 
 TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTAddressItemPtr    aNamespace = lookupNamespace(mNamespace);
+	TTAddressItemPtr    aSelection = TTModularSelectionLookup(mNamespace);
 	TTAddressItemPtr    anItem = NULL;
 	TTAddress           itemSymbol;
 	TTInt32				i, number;
-	TTBoolean			state;
+	TTBoolean			state = NO;
 	
-	if (aNamespace && inputValue.size()) {
+	if (aSelection && inputValue.size()) {
 		
 		// set one item selection state
 		if (inputValue[0].type() == kTypeSymbol) {
@@ -393,17 +368,17 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 			
 			// get the item
 			if (mOutput == kTTSym_children) {
-				aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendAddress(itemSymbol), &anItem);
 				anItem = anItem->getParent();
 			}
 			else if (mOutput == kTTSym_brothers)
-				aNamespace->find(mAddress.appendInstance(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendInstance(itemSymbol), &anItem);
 			
 			else if (itemSymbol.getType() == kAddressRelative)
-				aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendAddress(itemSymbol), &anItem);
 			
 			else
-				aNamespace->find(itemSymbol, &anItem);
+				aSelection->find(itemSymbol, &anItem);
 			
 			if (anItem) {
 				
@@ -421,7 +396,7 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 				anItem->setSelection(state, YES);
 				
 				// refresh all namespace handlers (TTExplorer only)
-                aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+                aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
                 
                 return kTTErrNone;
 			}
@@ -440,21 +415,21 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 				
 				// move to mAddress + itemSymbol namespace
 				if (mOutput == kTTSym_children) {
-					aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
+					aSelection->find(mAddress.appendAddress(itemSymbol), &anItem);
 					anItem = anItem->getParent();
 				}
 				else if (mOutput == kTTSym_brothers)
-					aNamespace->find(mAddress.appendInstance(itemSymbol), &anItem);
+					aSelection->find(mAddress.appendInstance(itemSymbol), &anItem);
 				
 				else
-					aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
+					aSelection->find(mAddress.appendAddress(itemSymbol), &anItem);
 				
 				if (anItem)
 					anItem->setSelection(state, YES);
 			}
 			
 			// refresh all namespace handlers (TTExplorer only)
-            aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+            aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
             
             return kTTErrNone;
 		}
@@ -465,12 +440,12 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTExplorer::SelectAll()
 {
-	TTAddressItemPtr    aNamespace = lookupNamespace(mNamespace);
+	TTAddressItemPtr    aSelection = TTModularSelectionLookup(mNamespace);
 	TTAddressItemPtr    anItem;
 	TTAddress           itemSymbol;	
 	TTInt32				i;
 	
-	if (aNamespace) {
+	if (aSelection) {
 		// set all selection state
 		for (i = 0; i < mLastResult.size(); i++) {
 			
@@ -478,21 +453,21 @@ TTErr TTExplorer::SelectAll()
 			
 			// move to mAddress + itemSymbol namespace
 			if (mOutput == kTTSym_children) {
-				aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendAddress(itemSymbol), &anItem);
 				anItem = anItem->getParent();
 			}
 			else if (mOutput == kTTSym_brothers)
-				aNamespace->find(mAddress.appendInstance(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendInstance(itemSymbol), &anItem);
 			
 			else
-				aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendAddress(itemSymbol), &anItem);
 			
 			if (anItem)
 				anItem->setSelection(YES, YES);
 		}
         
         // refresh all namespace handlers (TTExplorer only)
-        aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+        aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
         
         return kTTErrNone;
 	}
@@ -504,12 +479,12 @@ TTErr TTExplorer::SelectAll()
 /** Set all selection state to NO */
 TTErr TTExplorer::SelectNone()
 {
-	TTAddressItemPtr    aNamespace = lookupNamespace(mNamespace);
+	TTAddressItemPtr    aSelection = TTModularSelectionLookup(mNamespace);
 	TTAddressItemPtr    anItem;
 	TTAddress           itemSymbol;	
 	TTInt32				i;
 	
-	if (aNamespace) {
+	if (aSelection) {
         
 		// set all selection state
 		for (i = 0; i < mLastResult.size(); i++) {
@@ -518,20 +493,20 @@ TTErr TTExplorer::SelectNone()
 			
 			// move to mAddress + itemSymbol namespace
 			if (mOutput == kTTSym_children) {
-				aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendAddress(itemSymbol), &anItem);
 				anItem = anItem->getParent();
 			}
 			else if (mOutput == kTTSym_brothers)
-				aNamespace->find(mAddress.appendInstance(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendInstance(itemSymbol), &anItem);
 			else
-				aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendAddress(itemSymbol), &anItem);
 			
 			if (anItem)
 				anItem->setSelection(NO, YES);
 		}
         
         // refresh all namespace handlers (TTExplorer only)
-        aNamespace->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+        aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
         
         return kTTErrNone;
 	}
@@ -726,14 +701,14 @@ TTErr TTExplorer::setFilterList(const TTValue& value)
 TTErr TTExplorer::returnResultBack()
 {
 	TTValue				keys, result;
-	TTAddressItemPtr    aNamespace, anItem;
+	TTAddressItemPtr    aSelection, anItem;
 	TTAddress           relativeAddress;
 	TTSymbol			newName, lastName = kTTSymEmpty;
 	TTUInt32			i, j;
 	TTBoolean			found;
 	
 	// Return the value result back
-	if (mReturnValueCallback) {
+	if (mReturnValueCallback.valid()) {
 		
 		// sort keys if needed
 		if (mSort == kTTSym_alphabetic)
@@ -785,20 +760,20 @@ TTErr TTExplorer::returnResultBack()
 		if (!(result == mLastResult) || result.empty()) {
 			
 			// update namespace
-			aNamespace = lookupNamespace(mNamespace);
-			if (aNamespace) {
+			aSelection = TTModularSelectionLookup(mNamespace);
+			if (aSelection) {
 				
 				// append mAddress to the namespace 
 				// and go to mAddress namespace item
-                if (aNamespace->find(mAddress, &aNamespace) == kTTErrValueNotFound) {
+                if (aSelection->find(mAddress, &aSelection) == kTTErrValueNotFound) {
                     
-                    aNamespace->append(mAddress, &aNamespace);
-                    aNamespace->setSelection(YES, YES);
+                    aSelection->append(mAddress, &aSelection);
+                    aSelection->setSelection(YES, YES);
                 }
 				
 				// in brother case : go to the parent namespace item
 				if (mOutput == kTTSym_brothers)
-					aNamespace = aNamespace->getParent();
+					aSelection = aSelection->getParent();
 				
 				// append the result to the namespace
 				for (i = 0; i < result.size(); i++) {
@@ -806,9 +781,9 @@ TTErr TTExplorer::returnResultBack()
 					relativeAddress = result[i];
                     
                     // append relativeAddress to the namespace
-                    if (aNamespace->find(relativeAddress, &anItem) == kTTErrValueNotFound) {
+                    if (aSelection->find(relativeAddress, &anItem) == kTTErrValueNotFound) {
                         
-                        aNamespace->append(relativeAddress, &anItem);
+                        aSelection->append(relativeAddress, &anItem);
                         anItem->setSelection(YES, YES);
                     }
 				}
@@ -817,7 +792,7 @@ TTErr TTExplorer::returnResultBack()
 			
 
 			mLastResult = result;
-			mReturnValueCallback->notify(result, dummy);
+			mReturnValueCallback.send("notify", result, dummy);
 			
 			returnSelectionBack();
 		}
@@ -828,13 +803,13 @@ TTErr TTExplorer::returnResultBack()
 
 TTErr TTExplorer::returnSelectionBack()
 {
-	TTAddressItemPtr    aNamespace = lookupNamespace(mNamespace);
+	TTAddressItemPtr    aSelection = TTModularSelectionLookup(mNamespace);
 	TTAddressItemPtr    anItem;
 	TTAddress           itemSymbol;
 	TTValue				selection;
 	TTInt32				i;
 	
-	if (aNamespace) {
+	if (aSelection) {
 		
 		// return all selection state
 		for (i = 0; i < mLastResult.size(); i++) {
@@ -843,17 +818,17 @@ TTErr TTExplorer::returnSelectionBack()
 			
 			// get the item
 			if (mOutput == kTTSym_children) {
-				aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendAddress(itemSymbol), &anItem);
 				anItem = anItem->getParent();
 			}
 			else if (mOutput == kTTSym_brothers)
-				aNamespace->find(mAddress.appendInstance(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendInstance(itemSymbol), &anItem);
 			
 			else if (itemSymbol.getType() == kAddressRelative)
-				aNamespace->find(mAddress.appendAddress(itemSymbol), &anItem);
+				aSelection->find(mAddress.appendAddress(itemSymbol), &anItem);
 			
 			else
-				aNamespace->find(itemSymbol, &anItem);
+				aSelection->find(itemSymbol, &anItem);
 			
 			if (anItem)
 				selection.append(anItem->getSelection());
@@ -861,7 +836,7 @@ TTErr TTExplorer::returnSelectionBack()
 		TTValue dummy;
 		
 		
-		return mReturnSelectionCallback->notify(selection, dummy);
+		return mReturnSelectionCallback.send("notify", selection, dummy);
 	}
 	
 	return kTTErrGeneric;
@@ -872,28 +847,25 @@ TTErr TTExplorer::returnSelectionBack()
 #pragma mark Some Methods
 #endif
 
-TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
+TTErr TTExplorerDirectoryCallback(const TTValue& baton, const TTValue& data)
 {
 	TTValue			keys;
 	TTValue			t, v;
-	TTValuePtr		b;
+    TTObject        o, anObserver;
 	TTExplorerPtr	anExplorer;
 	TTAddress       anAddress, relativeAddress;
 	TTSymbol		key;
 	TTNodePtr		aNode;
 	TTUInt8			flag;
-	TTCallbackPtr	anObserver;
-	TTObjectBasePtr	o;
 		
-	// Unpack baton
-	b = (TTValuePtr)baton;
-    anExplorer = TTExplorerPtr((TTObjectBasePtr)(*b)[0]);
+	// Unpack baton (#TTExplorerPtr)
+    anExplorer = TTExplorerPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	
 	// Unpack data (anAddress, aNode, flag, anObserver)
 	anAddress = data[0];
 	aNode = TTNodePtr((TTPtr)data[1]);
 	flag = data[2];
-	anObserver = TTCallbackPtr((TTObjectBasePtr)data[3]);
+	anObserver = data[3];
 	
 	// get attributes names
 	if (anExplorer->mOutput == kTTSym_attributes) {
@@ -903,8 +875,8 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 			anExplorer->mResult->clear();
 			
 			o = aNode->getObject();
-			if (o)
-				o->getAttributeNames(keys);
+			if (o.valid())
+				o.attributes(keys);
 		}
 	}
 	
@@ -976,29 +948,27 @@ TTErr TTExplorerDirectoryCallback(TTPtr baton, TTValue& data)
 	return anExplorer->returnResultBack();
 }
 
-TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
+TTErr TTExplorerApplicationManagerCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr		b;
 	TTExplorerPtr	anExplorer;
 	TTSymbol		anApplicationName;
-	TTApplicationPtr anApplication;
+	TTObject        anApplication;
 	TTValue			v;
 	TTUInt8			flag;
-	
-	// unpack baton (a TTExplorerPtr)
-	b = (TTValuePtr)baton;
-	anExplorer = TTExplorerPtr((TTObjectBasePtr)(*b)[0]);
+    
+    // Unpack baton (#TTExplorerPtr)
+    anExplorer = TTExplorerPtr((TTPtr)baton[0]); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	
 	// Unpack data (applicationName, application, flag, observer)
 	anApplicationName = data[0];
-    anApplication = TTApplicationPtr((TTObjectBasePtr)data[1]);
+    anApplication = data[1];
 	flag = data[2];
 	
 	switch (flag) {
 			
-		case kApplicationAdded :
+		case kApplicationInstantiated :
 		{
-			anExplorer->mDirectory = getDirectoryFrom(anExplorer->mAddress);
+			anExplorer->mDirectory = accessApplicationDirectoryFrom(anExplorer->mAddress);
 			anExplorer->bindAddress();
 			break;
 		}
@@ -1014,7 +984,7 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 			break;
 		}
 			
-		case kApplicationRemoved :
+		case kApplicationReleased :
 		{
 			anExplorer->unbindAddress();
 			break;
@@ -1030,7 +1000,7 @@ TTErr TTExplorerApplicationManagerCallback(TTPtr baton, TTValue& data)
 TTBoolean TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2) 
 {
 	TTNodePtr	n1, n2;
-	TTObjectBasePtr o1, o2;
+	TTObject    o1, o2;
 	TTValue		v;
 	TTInt32		p1 = 0;
 	TTInt32		p2 = 0;
@@ -1040,8 +1010,8 @@ TTBoolean TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2)
 	if (n1) {
 		o1 = n1->getObject();
 		
-		if (o1)
-			if (!o1->getAttributeValue(kTTSym_priority, v))
+		if (o1.valid())
+			if (!o1.get(kTTSym_priority, v))
 				p1 = v[0];
 	}
 	
@@ -1050,8 +1020,8 @@ TTBoolean TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2)
 	if (n2) {
 		o2 = n2->getObject();
 		
-		if (o2)
-			if (!o2->getAttributeValue(kTTSym_priority, v))
+		if (o2.valid())
+			if (!o2.get(kTTSym_priority, v))
 				p2 = v[0];
 	}
 	

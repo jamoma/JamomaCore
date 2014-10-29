@@ -29,23 +29,18 @@
 //	3. (optional) Number of outlets, default = 1
 
 TT_OBJECT_CONSTRUCTOR,
-	mKernel(NULL)
+mKernel(arguments[0], 1) // first arg is the name of the class, second arg is initialChannelCount
 {
-	TTErr		err = kTTErrNone;
-	TTSymbol	wrappedObjectName = kTTSymEmpty;
-	TTUInt16	initialNumChannels = 1;
+	TT_ASSERT(graph_correct_instantiation_args, (arguments.size() > 0));
+	
 	TTUInt16	numInlets = 1;
 	TTUInt16	numOutlets = 1;
 	
-	TT_ASSERT(graph_correct_instantiation_args, arguments.getSize() > 0);
-	
-	arguments.get(0, wrappedObjectName);
 	if (arguments.size() > 1)
-		arguments.get(1, numInlets);
+		numInlets = arguments[1];
 	if (arguments.size() > 2)
-		arguments.get(2, numOutlets);
+		numOutlets = arguments[2];
 	
-	err = TTObjectBaseInstantiate(wrappedObjectName, &mKernel, initialNumChannels);
 	mDictionary = new TTDictionary;
 	
 	mInlets.resize(numInlets);
@@ -55,7 +50,6 @@ TT_OBJECT_CONSTRUCTOR,
 
 TTGraphObjectBase::~TTGraphObjectBase()
 {
-	TTObjectBaseRelease(&mKernel);
 	delete mDictionary;
 }
 
@@ -78,7 +72,7 @@ void TTGraphObjectBase::getDescription(TTGraphDescription& desc)
 		desc = mDescription;
 	}
 	else {					// create a new description for this object.
-		desc.mClassName = mKernel->getName();
+		desc.mClassName = mKernel.name();
 		desc.mObjectInstance = mKernel;
 		desc.mInputDescriptions.clear();
 		desc.mID = desc.sIndex++;
@@ -138,18 +132,18 @@ TTErr TTGraphObjectBase::push(const TTDictionary& aDictionary)
 	TTMessagePtr	message = NULL;
 	
 	// If an object defines a 'dictionary' message then this trumps all the others
-	err = mKernel->findMessage(TT("dictionary"), &message);
+	err = mKernel.instance()->findMessage(TT("dictionary"), &message);
 	if (!err && message) {
 		(*mDictionary) = aDictionary;
 		v.append(TTPtr(mDictionary));
-		err = mKernel->sendMessage(TT("dictionary"), v, v);	// returns an error if dictionary is unhandled
+		err = mKernel.send(TT("dictionary"), v, v);	// returns an error if dictionary is unhandled
 	}
 	
 	if (err) {
 		if (schema == TT("number")) {
 			aDictionary.getValue(v);
 			// TODO: maybe try seeing if there is a "number" message first and then prefer that if it exists?
-			err = mKernel->sendMessage(TT("calculate"), v, v);
+			err = mKernel.send(TT("calculate"), v, v);
 			
 			mDictionary->setSchema(TT("number"));
 			mDictionary->setValue(v);
@@ -161,8 +155,8 @@ TTErr TTGraphObjectBase::push(const TTDictionary& aDictionary)
 			
 			aDictionary.lookup(TT("name"), nameValue);
 			aDictionary.getValue(v);
-			nameValue.get(0, nameSymbol);
-			err = mKernel->sendMessage(nameSymbol, v, v);
+			nameSymbol = nameValue[0];
+			err = mKernel.send(nameSymbol, v, v);
 			
 			mDictionary->setSchema(TT("message"));
 			mDictionary->append(TT("name"), nameValue);
@@ -174,8 +168,8 @@ TTErr TTGraphObjectBase::push(const TTDictionary& aDictionary)
 			
 			aDictionary.lookup(TT("name"), nameValue);
 			aDictionary.getValue(v);
-			nameValue.get(0, nameSymbol);
-			err = mKernel->setAttributeValue(nameSymbol, v);
+			nameSymbol = nameValue[0];
+			err = mKernel.set(nameSymbol, v);
 			
 			mDictionary->setSchema(TT("attribute"));
 			mDictionary->remove(TT("name"));

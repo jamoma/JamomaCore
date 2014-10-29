@@ -15,14 +15,14 @@
 #include "TTMuteSolo.h"
 
 
-TTUInt16 verifyOutputSignal(TTAudioSignalPtr &output, TTFloat64 f0, TTFloat64 f1, TTFloat64 f2, TTFloat64 f3)
+TTUInt16 verifyOutputSignal(TTAudio &output, TTFloat64 f0, TTFloat64 f1, TTFloat64 f2, TTFloat64 f3)
 {
 	int	validSampleCount = 0;
 		
-	TTSampleValuePtr outSamples0 = output->mSampleVectors[0];
-	TTSampleValuePtr outSamples1 = output->mSampleVectors[1];
-	TTSampleValuePtr outSamples2 = output->mSampleVectors[2];
-	TTSampleValuePtr outSamples3 = output->mSampleVectors[3];
+	TTSampleValuePtr outSamples0 = output.rawSamples()[0];
+	TTSampleValuePtr outSamples1 = output.rawSamples()[1];
+	TTSampleValuePtr outSamples2 = output.rawSamples()[2];
+	TTSampleValuePtr outSamples3 = output.rawSamples()[3];
 	
 	for (int i=0; i<64; i++) {
 		validSampleCount += TTTestFloatEquivalence(f0, outSamples0[i]);
@@ -40,15 +40,11 @@ TTErr TTMutesolo::test(TTValue& returnedTestInfo)
 	int					testAssertionCount = 0;
 	TTUInt16			invalidSampleCount;
 	
-	TTAudioSignalPtr	input = NULL;
-	TTAudioSignalPtr	output = NULL;
-	
 	// Test 1: Test how many channels we store info for initially
 	TTTestAssertion("Default number of channels stored is 1",
 					this->mStoredStateNumChannels == 1,
 					testAssertionCount,
 					errorCount);
-	
 	
 	
 	// Test 2a: Mute a channel and confirm that the number of channels stored have been increased accordingly
@@ -108,18 +104,18 @@ TTErr TTMutesolo::test(TTValue& returnedTestInfo)
 	this->set(kTTSym_maxNumChannels, 4);
 		
 	// Create two 4-channel audio signals
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &input,  4);
-	TTObjectBaseInstantiate(kTTSym_audiosignal, &output, 4);
+	TTAudio input(4);
+	TTAudio output(4);
 	
-	input->allocWithVectorSize(64);
-	output->allocWithVectorSize(64);
+	input.allocWithVectorSize(64);
+	output.allocWithVectorSize(64);
 	
 	// Fill the input vectors:
 	for (int i=0; i<64; i++) {
-		input->mSampleVectors[0][i] = 1.;
-		input->mSampleVectors[1][i] = 2.;
-		input->mSampleVectors[2][i] = 4.;
-		input->mSampleVectors[3][i] = 8.;
+		input.rawSamples()[0][i] = 1.;
+		input.rawSamples()[1][i] = 2.;
+		input.rawSamples()[2][i] = 4.;
+		input.rawSamples()[3][i] = 8.;
 	}
 	
 	
@@ -175,11 +171,7 @@ TTErr TTMutesolo::test(TTValue& returnedTestInfo)
 					errorCount);
 	if (invalidSampleCount)
 		TTTestLog("Number of bad samples: %i", invalidSampleCount);;
-	
-	TTObjectBaseRelease(&input);
-	TTObjectBaseRelease(&output);
-	
-	
+
 	// Wrap up the test results to pass back to whoever called this test
 	return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

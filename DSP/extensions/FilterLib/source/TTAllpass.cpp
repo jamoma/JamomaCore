@@ -75,7 +75,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 		if (coefficients.size() >= 1) {
 			TTFloat64 alpha;
 			
-			coefficients.get(0, alpha);
+			alpha = coefficients[0];
 			err = mFilterObject->setAttributeValue(TT("alpha"), alpha);
 		}
 	}
@@ -84,8 +84,8 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 		if (coefficients.size() >= 2) {
 			TTFloat64 c1, c2;
 			
-			coefficients.get(0, c1);
-			coefficients.get(1, c2);
+			c1 = coefficients[0];
+			c2 = coefficients[1];
 			err = mFilterObject->setAttributeValue(TT("c1"), c1);
 			err = mFilterObject->setAttributeValue(TT("c2"), c2);
 		}
@@ -95,8 +95,8 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 		if (coefficients.size() >= 2) {
 			TTFloat64 e1, e2;
 			
-			coefficients.get(0, e1);
-			coefficients.get(1, e2);
+			e1 = coefficients[0];
+			e2 = coefficients[1];
 			err = mFilterObject->setAttributeValue(TT("e1"), e1);
 			err = mFilterObject->setAttributeValue(TT("e2"), e2);
 		}
@@ -106,10 +106,10 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 		if (coefficients.size() >= 4) {
 			TTFloat64 d1, d2, d3, d4;
 			
-			coefficients.get(0, d1);
-			coefficients.get(1, d2);
-			coefficients.get(2, d3);
-			coefficients.get(3, d4);
+			d1 = coefficients[0];
+			d2 = coefficients[1];
+			d3 = coefficients[2];
+			d4 = coefficients[3];
 			err = mFilterObject->setAttributeValue(TT("d1"), d1);
 			err = mFilterObject->setAttributeValue(TT("d2"), d2);
 			err = mFilterObject->setAttributeValue(TT("d3"), d3);
