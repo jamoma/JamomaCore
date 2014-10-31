@@ -134,6 +134,24 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 	TTSymbol		attribute12	= testAddress12.getAttribute();
 	TTAddressType	type12		= testAddress12.getType();
     
+    TTAddress		testAddress13("na-me13");
+	
+	TTSymbol		directory13	= testAddress13.getDirectory();
+	TTAddress		parent13	= testAddress13.getParent();
+	TTSymbol		name13		= testAddress13.getName();
+	TTSymbol		instance13	= testAddress13.getInstance();
+	TTSymbol		attribute13	= testAddress13.getAttribute();
+	TTAddressType	type13		= testAddress13.getType();
+    
+    TTAddress		testAddress14("direc-tory14:/par-ent14/na-me14.inst-ance14:attr-ibute14");
+	
+	TTSymbol		directory14	= testAddress14.getDirectory();
+	TTAddress		parent14	= testAddress14.getParent();
+	TTSymbol		name14		= testAddress14.getName();
+	TTSymbol		instance14	= testAddress14.getInstance();
+	TTSymbol		attribute14	= testAddress14.getAttribute();
+	TTAddressType	type14		= testAddress14.getType();
+    
 	// The first set of tests checks parsing of addresses
 	TTTestAssertion("TTAddress: Test fails if parsing of testAddress1 is bad",
 					directory1 == TTSymbol("directory1") &&
@@ -253,6 +271,26 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 					instance12 == NO_INSTANCE &&
 					attribute12 == NO_ATTRIBUTE &&
 					type12 == kAddressAbsolute,
+					testAssertionCount,
+					errorCount);
+    
+    TTTestAssertion("TTAddress: Test fails if parsing of testAddress13 is bad",
+					directory13 == NO_DIRECTORY &&
+					parent13 == NO_PARENT &&
+					name13 == TTSymbol("na-me13") &&
+					instance13 == NO_INSTANCE &&
+					attribute13 == NO_ATTRIBUTE &&
+					type13 == kAddressRelative,
+					testAssertionCount,
+					errorCount);
+    
+	TTTestAssertion("TTAddress: Test fails if parsing of testAddress14 is bad",
+					directory14 == TTSymbol("direc-tory14") &&
+					parent14 == TTAddress("direc-tory14:/par-ent14") &&
+					name14 == TTSymbol("na-me14") &&
+					instance14 == TTSymbol("inst-ance14") &&
+					attribute14 == TTSymbol("attr-ibute14") &&
+					type14 == kAddressAbsolute,
 					testAssertionCount,
 					errorCount);
 }
