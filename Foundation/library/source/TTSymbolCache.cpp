@@ -302,6 +302,7 @@ TTFOUNDATION_EXPORT TTSymbol         kTTSym_EventDateChanged               (("Ev
 TTFOUNDATION_EXPORT TTSymbol         kTTSym_EventStatusChanged             (("EventStatusChanged"));
 TTFOUNDATION_EXPORT TTSymbol         kTTSym_ProcessStarted                 (("ProcessStarted"));
 TTFOUNDATION_EXPORT TTSymbol         kTTSym_ProcessEnded                   (("ProcessEnded"));
+TTFOUNDATION_EXPORT TTSymbol         kTTSym_ProcessDisposed                (("ProcessDisposed"));
 
 // message name
 TTFOUNDATION_EXPORT TTSymbol         kTTSym_case                           (("case"));
