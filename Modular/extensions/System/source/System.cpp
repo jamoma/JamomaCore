@@ -106,25 +106,28 @@ TTErr System::Go()
 
 TTErr System::Stop()
 {
-	mRunning = NO;
-    mPaused = NO;
-    
-    // if a thread is running
-    if (mThread) {
+    if (mRunning) {
         
-        // stop thread execution
-		mThread->wait();
-        delete mThread;
-        mThread = NULL;
-    
-        // notify each observers
-        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+        mRunning = NO;
+        mPaused = NO;
+        
+        // if a thread is running
+        if (mThread) {
+            
+            // notify each observers BEFORE to kill the thread because we could be inside the thread !
+            sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+            
+            // stop thread execution
+            mThread->wait();
+            delete mThread;
+            mThread = NULL;
+        }
+        
+        // reset all time info
+        mOffset = 0.;
+        mPosition = 0.;
+        mDate = 0.;
     }
-    
-    // reset all time info
-    mOffset = 0.;
-    mPosition = 0.;
-    mDate = 0.;
     
     return kTTErrNone;
 }
@@ -160,8 +163,7 @@ TTErr System::Tick()
         
         // if the scheduler is still running : stop it
         // note : because it  is possible another thread stop the scheduler before
-        if (mRunning)
-            Stop();
+        Stop();
     }
     
     return kTTErrNone;
