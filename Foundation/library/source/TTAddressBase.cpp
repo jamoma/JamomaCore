@@ -240,23 +240,14 @@ TTErr TTAddressBase::parse()
 	TTStringIter begin = s_toParse.begin();
 	TTStringIter end = s_toParse.end();
 	
-	// ignore addresses with special regex characters (like -, [, {) to avoid crash
+	// warning : addresses with special regex characters (like [, {) that could be problematic
     // TODO : rewrite the parsing without regex because we want to use those special characters !
-    if (s_toParse.find_first_of('-') != -1 ||
-        s_toParse.find_first_of('{') != -1 ||
+    if (s_toParse.find_first_of('{') != -1 ||
         s_toParse.find_first_of('}') != -1 ||
         s_toParse.find_first_of('[') != -1 ||
         s_toParse.find_first_of(']') != -1)
     {
-        this->directory = NO_DIRECTORY;
-		this->parent = NO_PARENT.getBasePointer();
-		this->name = NO_NAME;
-		this->instance = NO_INSTANCE;
-		this->attribute = NO_ATTRIBUTE;
-		this->type = kAddressRelative;
-		this->parsed = YES;
-        this->normalized = this;
-        return kTTErrGeneric;
+        TTLogError("TTAddressBase::parse : special regex characters have been detected in %s address\n", s_toParse.data());
     }
 	
 	// parse directory
