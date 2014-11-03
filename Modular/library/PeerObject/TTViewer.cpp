@@ -191,12 +191,17 @@ TTErr TTViewer::setActive(const TTValue& value)
 {
 	mActive = value;
 	
-	mReceiver.set(kTTSym_active, mActive);
+    if (mReceiver.valid()) {
+        
+        mReceiver.set(kTTSym_active, mActive);
+        
+        if (mActive)
+            return mReceiver.send(kTTSym_Get);
+        else
+            return kTTErrNone;
+    }
     
-    if (mActive)
-        mReceiver.send(kTTSym_Get);
-	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 TTErr TTViewer::setHighlight(const TTValue& value)
@@ -218,11 +223,16 @@ TTErr TTViewer::setFreeze(const TTValue& value)
 {
 	mFreeze = value;
     
-    // update the value if the Viewer is unfreezed
-    if (!mFreeze)
-        return mReceiver.send(kTTSym_Get);
+    if (mReceiver.valid()) {
+    
+        // update the value if the Viewer is unfreezed
+        if (!mFreeze)
+            return mReceiver.send(kTTSym_Get);
+        else
+            return kTTErrNone;
+    }
 	
-	return kTTErrNone;
+	return kTTErrGeneric;
 }
 
 TTErr TTViewer::setReturnedValue(const TTValue& value)
@@ -259,7 +269,12 @@ TTErr TTViewer::Send(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTViewer::Grab(const TTValue& inputValue, TTValue& outputValue)
 {
-    return mReceiver.send(kTTSym_Grab, inputValue, outputValue);
+    if (mReceiver.valid()) {
+        
+        return mReceiver.send(kTTSym_Grab, inputValue, outputValue);
+    }
+    
+    return kTTErrGeneric;
 }
 
 TTErr TTViewer::setDataspaceUnit(const TTValue& value)
