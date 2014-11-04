@@ -63,17 +63,19 @@ endif()
 set(CMAKE_FIND_FRAMEWORK "NEVER")
 
 foreach(COMPONENT ${Gecode_FIND_COMPONENTS})
- set(GECODE_${COMPONENT}__UNIX gecode${COMPONENT})
- set(GECODE_${COMPONENT}__WIN32 Gecode${COMPONENT}-4-3-0-${GECODE_WIN32_BUILD_TYPE}-${GECODE_WIN32_ARCH})
-# message(STATUS "${GECODE_${COMPONENT}__}")
- find_library(GECODE_${COMPONENT} NAMES ${GECODE_${COMPONENT}__UNIX} ${GECODE_${COMPONENT}__WIN32}
+ if(NOT COMPONENT STREQUAL "gist" AND NOT COMPONENT STREQUAL "driver")
+   set(GECODE_${COMPONENT}__UNIX gecode${COMPONENT})
+   set(GECODE_${COMPONENT}__WIN32 Gecode${COMPONENT}-4-3-0-${GECODE_WIN32_BUILD_TYPE}-${GECODE_WIN32_ARCH})
+  # message(STATUS "${GECODE_${COMPONENT}__}")
+   find_library(GECODE_${COMPONENT} NAMES ${GECODE_${COMPONENT}__UNIX} ${GECODE_${COMPONENT}__WIN32}
 			  PATHS ${GECODE_LIB_WIN32_PATH_CMAKE})
- if (GECODE_${COMPONENT})
+   if (GECODE_${COMPONENT})
      message(STATUS "  ${COMPONENT}: ${GECODE_${COMPONENT}}")
      list(APPEND GECODE_LIBRARIES ${GECODE_${COMPONENT}})
- else()
-     message(FATAL_ERROR "  ${COMPONENT} not found")
- endif()
+   else()
+       message(FATAL_ERROR "  ${COMPONENT} not found")
+   endif()
+  endif()
 endforeach()
 
 # Also float was missing
