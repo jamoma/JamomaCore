@@ -26,6 +26,7 @@ mDuration(0.),
 mOffset(0.),
 mSpeed(1.),
 mExternalTick(NO),
+mInfinite(NO),
 mRunning(NO),
 mPaused(NO),
 mPosition(0.),
@@ -49,6 +50,7 @@ mBaton(NULL)
     addAttributeWithSetter(Offset, kTypeFloat64);
     addAttributeWithSetter(Speed, kTypeFloat64);
     addAttribute(ExternalTick, kTypeBoolean);
+    addAttribute(Infinite, kTypeBoolean);
 
 	addAttribute(Stretchable, kTypeBoolean);
 	addAttributeProperty(Stretchable, readOnly, YES);
