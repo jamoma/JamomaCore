@@ -126,13 +126,31 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
                 
                 keyAddress = hk[i];
                 
-                if (topAddress.compare(keyAddress, depth) == kAddressEqual)
+                TTAddressComparisonFlag comparison = topAddress.compare(keyAddress, depth);
+                
+                // is topAddress the address of cached container ?
+                if (comparison == kAddressEqual)
                 {
                     // replace relativeAddress by keyAddress
                     AddressAndValue[0] = keyAddress.appendAddress(belowAddress).appendAttribute(attrOrMess);
                     
                     if (this->Send(AddressAndValue, none))
                         err = kTTErrGeneric;
+                }
+                // or is it the top address part of a cached object ?
+                else if (comparison == kAddressUpper)
+                {
+                    // compare the relative address
+                    TTAddressComparisonFlag comparison = aRelativeAddress.compare(keyAddress, depth);
+                    
+                    if (comparison == kAddressEqual)
+                    {
+                        // replace relativeAddress by keyAddress
+                        AddressAndValue[0] = keyAddress.appendAttribute(attrOrMess);
+                        
+                        if (this->Send(AddressAndValue, none))
+                            err = kTTErrGeneric;
+                    }
                 }
             }
             
