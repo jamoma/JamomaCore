@@ -1,4 +1,0 @@
-#!/bin/sh
-
-ln -s /usr/local/jamoma/extensions/* /usr/local/jamoma/lib/
-ln -s /usr/local/jamoma/ /usr/local/lib/jamoma
