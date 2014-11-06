@@ -42,11 +42,7 @@ mInverse(NO),
 mFunction(kTTSymEmpty),
 #endif
 mRamp(0)
-#ifndef TT_NO_DSP
-,
-mValid(NO)
-#endif
-{	
+{
 	if(arguments.size() >= 1)
 		mReturnValueCallback = arguments[0];
     
@@ -102,6 +98,8 @@ mValid(NO)
 	
 	scaleInput();
 	scaleOutput();
+    
+    TTObject::GetRegisteredClassNamesForTags(mFunctionLibrary, kTTSym_function);
 }
 
 TTMapper::~TTMapper() // TODO : delete things...
@@ -474,6 +472,7 @@ TTErr TTMapper::setFunction(const TTValue& value)
 	long		n;
 	TTValue		names;
 	TTSymbol	aName;
+    TTBoolean   found = NO;
 	
 	if (mFunctionUnit.valid()) {
 
@@ -489,9 +488,19 @@ TTErr TTMapper::setFunction(const TTValue& value)
 		mFunctionParameters.clear();
 	}
 	
-	// Create a new function unit
-	mValid = false;
-	mFunction = value;
+    // Check the unit exist and create a new function unit
+    mFunction = value;
+    
+    for (TTElementIter it = mFunctionLibrary.begin() ; it != mFunctionLibrary.end() ; it++)
+    {
+        TTSymbol unitName = TTElement(*it);
+        if (unitName == mFunction)
+            found = YES;
+    }
+    
+    if (!found)
+        return kTTErrGeneric;
+    
     mFunctionUnit = TTObject(mFunction, 1);
 	
 	// Extend function unit attributes as attributes of this mapper
@@ -518,7 +527,6 @@ TTErr TTMapper::setFunction(const TTValue& value)
 		else
 			mFunctionParameters.append(kTTSym_none);
 		
-		mValid = true;
 		notifyObservers(kTTSym_function, value);
 		notifyObservers(TTSymbol("functionParameters"), mFunctionParameters);
 		return kTTErrNone;
@@ -654,7 +662,7 @@ TTErr TTMapper::processMapping(const TTValue& inputValue, TTValue& outputValue)
 		if (!mInverse)
 			outputValue.append(mC * f + mD);
 		else
-			outputValue.append(mC * (mOutputMax - f) + mD);
+			outputValue.append(mC * (1. - f) + mD);
 	}
 	
 	// clip output value

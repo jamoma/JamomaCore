@@ -127,7 +127,11 @@ TTErr System::Tick()
     if (mPaused)
         return kTTErrNone;
     
-    mPosition += delta / mDuration;
+    if (mInfinite)
+        mPosition = 0.;
+    else
+		mPosition += delta / mDuration;
+
     mDate += delta;
     
     if (mPosition < 1.) {
