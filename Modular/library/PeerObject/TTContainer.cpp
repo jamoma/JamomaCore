@@ -36,7 +36,7 @@ contentAttribute(NULL)
 		mReturnValueCallback = arguments[1];
 	}
 	
-	addAttributeWithSetter(Priority, kTypeUInt8);
+	addAttributeWithSetter(Priority, kTypeInt32);
 	addAttribute(Description, kTypeSymbol);
     
     addAttribute(Service, kTypeSymbol);
@@ -716,7 +716,7 @@ TTErr TTContainer::unbind()
 	TTObject		aValueObserver;
 	TTAttributePtr	anAttribute;
 	TTSymbol		key;
-	TTUInt8			i;
+	TTUInt32        i;
 	TTErr			err;
 	
 	// unregister all attribute/message observers of mDatasObserversCache
