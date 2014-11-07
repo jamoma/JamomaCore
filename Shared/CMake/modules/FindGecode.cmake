@@ -87,7 +87,7 @@ if (GECODE_float)
     message(STATUS "  float: ${GECODE_float}")
     list(APPEND GECODE_LIBRARIES ${GECODE_float})
 else()
-    message(FATAL_ERROR "  float not found")
+    message(STATUS "  float not found. We will try to build anyway.")
 endif()
 
 #message(STATUS "Gecode libraries: ${GECODE_LIBRARIES}")
