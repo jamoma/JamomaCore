@@ -294,15 +294,16 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_xmlHandlerReadingStarts          (("xm
 // TODO : sort them with the other symbol above
 
 // object classe name
-TTFOUNDATION_EXPORT TTSymbol         kTTSym_TimeEvent                      (("TimeEvent"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_TimeEvent                        (("TimeEvent"));
 
 // notifications
-TTFOUNDATION_EXPORT TTSymbol         kTTSym_ConditionReadyChanged          (("ConditionReadyChanged"));
-TTFOUNDATION_EXPORT TTSymbol         kTTSym_EventDateChanged               (("EventDateChanged"));
-TTFOUNDATION_EXPORT TTSymbol         kTTSym_EventStatusChanged             (("EventStatusChanged"));
-TTFOUNDATION_EXPORT TTSymbol         kTTSym_ProcessStarted                 (("ProcessStarted"));
-TTFOUNDATION_EXPORT TTSymbol         kTTSym_ProcessEnded                   (("ProcessEnded"));
-TTFOUNDATION_EXPORT TTSymbol         kTTSym_ProcessDisposed                (("ProcessDisposed"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_ConditionReadyChanged            (("ConditionReadyChanged"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_EventDateChanged                 (("EventDateChanged"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_EventStatusChanged               (("EventStatusChanged"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_ProcessStarted                   (("ProcessStarted"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_ProcessEnded                     (("ProcessEnded"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_ProcessDisposed                  (("ProcessDisposed"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_ProcessDurationMinReached        (("ProcessDurationMinReached"));
 
 // message name
 TTFOUNDATION_EXPORT TTSymbol         kTTSym_case                           (("case"));
