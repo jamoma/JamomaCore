@@ -139,23 +139,19 @@ TTErr System::Tick()
     if (mPaused)
         return kTTErrNone;
     
-    if (mInfinite)
-        mPosition = 0.;
-    else
-        mPosition += delta / mDuration;
-    
+    mPosition += delta / mDuration;
     mDate += delta;
     
-    if (mPosition < 1.) {
-        
+    if (mPosition < 1. || mInfinite)
+    {
         // notify the owner
         (mCallback)(mBaton, mPosition, mDate);
         
         // notify each observers
         sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
     }
-    else {
-        
+    else
+    {
         // forcing position to 1. to allow filtering
         mPosition = 1.;
         
