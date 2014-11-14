@@ -687,7 +687,106 @@ public:
 	friend bool operator == (const TTElement& a1, const TTElement& a2)
 	{
 		if (a1.mType != a2.mType)
-			return false;
+        {
+            // convert both value into TTFloat64 if possible
+            TTFloat64 f1, f2;
+            
+            switch (a1.mType)
+            {
+				case kTypeInt8:
+					f1 = a1.mValue.int8;
+					break;
+				case kTypeUInt8:
+					f1 = a1.mValue.uint8;
+					break;
+				case kTypeInt16:
+					f1 = a1.mValue.int16;
+					break;
+				case kTypeUInt16:
+					f1 = a1.mValue.uint16;
+					break;
+				case kTypeInt32:
+					f1 = a1.mValue.int32;
+					break;
+				case kTypeUInt32:
+					f1 = a1.mValue.uint32;
+					break;
+				case kTypeInt64:
+					f1 = a1.mValue.int64;
+					break;
+				case kTypeUInt64:
+					f1 = a1.mValue.uint64;
+					break;
+				case kTypeFloat32:
+					f1 = a1.mValue.float32;
+					break;
+				case kTypeFloat64:
+					f1 = a1.mValue.float64;
+					break;
+				case kTypeBoolean:
+					f1 = a1.mValue.boolean;
+					break;
+				case kTypeSymbol:
+					return false;
+				case kTypeString:
+					return false;
+				case kTypeObject:
+					return false;
+				case kTypePointer:
+					return false;
+				default:
+					return false;
+            }
+            
+            switch (a2.mType)
+            {
+				case kTypeInt8:
+					f2 = a2.mValue.int8;
+					break;
+				case kTypeUInt8:
+					f2 = a2.mValue.uint8;
+					break;
+				case kTypeInt16:
+					f2 = a2.mValue.int16;
+					break;
+				case kTypeUInt16:
+					f2 = a2.mValue.uint16;
+					break;
+				case kTypeInt32:
+					f2 = a2.mValue.int32;
+					break;
+				case kTypeUInt32:
+					f2 = a2.mValue.uint32;
+					break;
+				case kTypeInt64:
+					f2 = a2.mValue.int64;
+					break;
+				case kTypeUInt64:
+					f2 = a2.mValue.uint64;
+					break;
+				case kTypeFloat32:
+					f2 = a2.mValue.float32;
+					break;
+				case kTypeFloat64:
+					f2 = a2.mValue.float64;
+					break;
+				case kTypeBoolean:
+					f2 = a2.mValue.boolean;
+					break;
+				case kTypeSymbol:
+					return false;
+				case kTypeString:
+					return false;
+				case kTypeObject:
+					return false;
+				case kTypePointer:
+					return false;
+				default:
+					return false;
+            }
+            
+            return f1 == f2;
+        }
 		else {
 			switch (a1.mType) {
 				case kTypeInt8:
@@ -847,71 +946,176 @@ public:
 	// make sure this is a friend so that it can access the private members of the other atom
 	friend bool operator < (const TTElement& a1, const TTElement& a2)
 	{
-		switch(a1.mType) {
-			case kTypeInt8:
-				if ( a1.mValue.int8 >= a2.mValue.int8 )
-					return false;
-				break;
-			case kTypeUInt8:
-				if ( a1.mValue.uint8 >= a2.mValue.uint8 )
-					return false;
-				break;
-			case kTypeInt16:
-				if ( a1.mValue.int16 >= a2.mValue.int16 )
-					return false;
-				break;
-			case kTypeUInt16:
-				if ( a1.mValue.uint16 >= a2.mValue.uint16 )
-					return false;
-				break;
-			case kTypeInt32:
-				if ( a1.mValue.int32 >= a2.mValue.int32 )
-					return false;
-				break;
-			case kTypeUInt32:
-				if ( a1.mValue.uint32 >= a2.mValue.uint32 )
-					return false;
-				break;
-			case kTypeInt64:
-				if ( a1.mValue.int64 >= a2.mValue.int64 )
-					return false;
-				break;
-			case kTypeUInt64:
-				if ( a1.mValue.uint64 >= a2.mValue.uint64 )
-					return false;
-				break;
-			case kTypeFloat32:
-				if ( a1.mValue.float32 >= a2.mValue.float32 )
-					return false;
-				break;
-			case kTypeFloat64:
-				if ( a1.mValue.float64 >= a2.mValue.float64 )
-					return false;
-				break;
-			case kTypeBoolean:
-				if ( a1.mValue.boolean >= a2.mValue.boolean )
-					return false;
-				break;
-			case kTypeSymbol:
-				if ( strcmp( a1.mValue.mSymbol->c_str(), a2.mValue.mSymbol->c_str() ) >= 0 )
-					return false;
-				break;
-			case kTypeString:
-				if ( strcmp( a1.mValue.stringPtr->c_str(), a2.mValue.stringPtr->c_str() ) >= 0 )
-					return false;
-				break;
-			case kTypeObject: // TODO: how should we actually be sorting objects, if at all?
-				if ( a1.mValue.mObject >= a2.mValue.mObject )
-					return false;
-				break;
-			case kTypePointer:
-				if ( a1.mValue.ptr >= a2.mValue.ptr )
-					return false;
-				break;
-			default:
-				return false;
-		}
-		return true;
+        if (a1.mType != a2.mType)
+        {
+            // convert both value into TTFloat64 if possible
+            TTFloat64 f1, f2;
+            
+            switch (a1.mType)
+            {
+				case kTypeInt8:
+					f1 = a1.mValue.int8;
+					break;
+				case kTypeUInt8:
+					f1 = a1.mValue.uint8;
+					break;
+				case kTypeInt16:
+					f1 = a1.mValue.int16;
+					break;
+				case kTypeUInt16:
+					f1 = a1.mValue.uint16;
+					break;
+				case kTypeInt32:
+					f1 = a1.mValue.int32;
+					break;
+				case kTypeUInt32:
+					f1 = a1.mValue.uint32;
+					break;
+				case kTypeInt64:
+					f1 = a1.mValue.int64;
+					break;
+				case kTypeUInt64:
+					f1 = a1.mValue.uint64;
+					break;
+				case kTypeFloat32:
+					f1 = a1.mValue.float32;
+					break;
+				case kTypeFloat64:
+					f1 = a1.mValue.float64;
+					break;
+				case kTypeBoolean:
+					f1 = a1.mValue.boolean;
+					break;
+				case kTypeSymbol:
+					return true;
+				case kTypeString:
+					return true;
+				case kTypeObject:
+					return true;
+				case kTypePointer:
+					return true;
+				default:
+					return true;
+            }
+            
+            switch (a2.mType)
+            {
+				case kTypeInt8:
+					f2 = a2.mValue.int8;
+					break;
+				case kTypeUInt8:
+					f2 = a2.mValue.uint8;
+					break;
+				case kTypeInt16:
+					f2 = a2.mValue.int16;
+					break;
+				case kTypeUInt16:
+					f2 = a2.mValue.uint16;
+					break;
+				case kTypeInt32:
+					f2 = a2.mValue.int32;
+					break;
+				case kTypeUInt32:
+					f2 = a2.mValue.uint32;
+					break;
+				case kTypeInt64:
+					f2 = a2.mValue.int64;
+					break;
+				case kTypeUInt64:
+					f2 = a2.mValue.uint64;
+					break;
+				case kTypeFloat32:
+					f2 = a2.mValue.float32;
+					break;
+				case kTypeFloat64:
+					f2 = a2.mValue.float64;
+					break;
+				case kTypeBoolean:
+					f2 = a2.mValue.boolean;
+					break;
+				case kTypeSymbol:
+					return true;
+				case kTypeString:
+					return true;
+				case kTypeObject:
+					return true;
+				case kTypePointer:
+					return true;
+				default:
+					return true;
+            }
+            
+            return f1 < f2;
+        }
+		else
+        {
+            switch(a1.mType)
+            {
+                case kTypeInt8:
+                    if ( a1.mValue.int8 >= a2.mValue.int8 )
+                        return false;
+                    break;
+                case kTypeUInt8:
+                    if ( a1.mValue.uint8 >= a2.mValue.uint8 )
+                        return false;
+                    break;
+                case kTypeInt16:
+                    if ( a1.mValue.int16 >= a2.mValue.int16 )
+                        return false;
+                    break;
+                case kTypeUInt16:
+                    if ( a1.mValue.uint16 >= a2.mValue.uint16 )
+                        return false;
+                    break;
+                case kTypeInt32:
+                    if ( a1.mValue.int32 >= a2.mValue.int32 )
+                        return false;
+                    break;
+                case kTypeUInt32:
+                    if ( a1.mValue.uint32 >= a2.mValue.uint32 )
+                        return false;
+                    break;
+                case kTypeInt64:
+                    if ( a1.mValue.int64 >= a2.mValue.int64 )
+                        return false;
+                    break;
+                case kTypeUInt64:
+                    if ( a1.mValue.uint64 >= a2.mValue.uint64 )
+                        return false;
+                    break;
+                case kTypeFloat32:
+                    if ( a1.mValue.float32 >= a2.mValue.float32 )
+                        return false;
+                    break;
+                case kTypeFloat64:
+                    if ( a1.mValue.float64 >= a2.mValue.float64 )
+                        return false;
+                    break;
+                case kTypeBoolean:
+                    if ( a1.mValue.boolean >= a2.mValue.boolean )
+                        return false;
+                    break;
+                case kTypeSymbol:
+                    if ( strcmp( a1.mValue.mSymbol->c_str(), a2.mValue.mSymbol->c_str() ) >= 0 )
+                        return false;
+                    break;
+                case kTypeString:
+                    if ( strcmp( a1.mValue.stringPtr->c_str(), a2.mValue.stringPtr->c_str() ) >= 0 )
+                        return false;
+                    break;
+                case kTypeObject: // TODO: how should we actually be sorting objects, if at all?
+                    if ( a1.mValue.mObject >= a2.mValue.mObject )
+                        return false;
+                    break;
+                case kTypePointer:
+                    if ( a1.mValue.ptr >= a2.mValue.ptr )
+                        return false;
+                    break;
+                default:
+                    return false;
+            }
+        }
+        return true;
 	}
 
 	
