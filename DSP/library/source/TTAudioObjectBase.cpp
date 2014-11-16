@@ -261,34 +261,6 @@ TTErr TTAudioObjectBase::calculate(const TTValue& x, TTValue& y)
 }
 
 
-// Note that we can implement this function here like this, but unforunately, due to the dynamic binding
-// it can't inline the calculate method, and thus it we lose all of the benefits of block processing.
-// Therefore, we have a version of this in macro form that can be used.
-TTErr TTAudioObjectBase::calculateProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
-{
-	TTAudioSignal&	in = inputs->getSignal(0);
-	TTAudioSignal&	out = outputs->getSignal(0);
-	TTUInt16		vs;
-	TTSampleValue*	inSample;
-	TTSampleValue*	outSample;
-	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTPtrSizedInt	channel;
-	
-	for (channel=0; channel<numchannels; channel++) {
-		inSample = in.mSampleVectors[channel];
-		outSample = out.mSampleVectors[channel];
-		vs = in.getVectorSizeAsInt();
-		
-		while (vs--) {
-			calculate(*inSample, *outSample);
-			outSample++;
-			inSample++;
-		}
-	}
-	return kTTErrNone;
-}
-
-
 TTErr TTAudioObjectBase::process(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTErr	err = kTTErrGeneric;
