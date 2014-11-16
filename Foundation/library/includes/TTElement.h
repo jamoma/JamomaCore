@@ -230,6 +230,12 @@ public:
 			return value;
 		}
 	}
+	
+	// fast (but less safe) version of the above
+	TTFloat64 float64() const
+	{
+		return mValue.float64;
+	}
 
 	operator TTInt8() const
 	{
@@ -420,6 +426,13 @@ public:
 		mType = kTypeFloat64;
 		mValue.float64 = value;
 		return *this;
+	}
+	
+	// fast (but less safe) version of the above
+	void float64(TTFloat64 value)
+	{
+		mType = kTypeFloat64;
+		mValue.float64 = value;
 	}
 	
 	TTElement& operator = (TTInt8 value)
