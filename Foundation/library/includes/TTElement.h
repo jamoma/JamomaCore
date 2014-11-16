@@ -77,45 +77,6 @@ class TTDictionary;
 				break;\
 		}
 
-#define	CONVERT(dType) switch(*(type+index)) {\
-case kTypeInt8:\
-value = (dType)(data+index)->int8;\
-break;\
-case kTypeUInt8:\
-value = (dType)(data+index)->uint8;\
-break;\
-case kTypeInt16:\
-value = (dType)(data+index)->int16;\
-break;\
-case kTypeUInt16:\
-value = (dType)(data+index)->uint16;\
-break;\
-case kTypeFloat32:\
-value = (dType)(data+index)->float32;\
-break;\
-case kTypeFloat64:\
-value = (dType)(data+index)->float64;\
-break;\
-case kTypeInt32:\
-value = (dType)(data+index)->int32;\
-break;\
-case kTypeUInt32:\
-value = (dType)(data+index)->uint32;\
-break;\
-case kTypeInt64:\
-value = (dType)(data+index)->int64;\
-break;\
-case kTypeUInt64:\
-value = (dType)(data+index)->uint64;\
-break;\
-case kTypeBoolean:\
-value = (dType)(data+index)->boolean;\
-break;\
-default:\
-value = (dType)-1;\
-break;\
-}
-
 
 /****************************************************************************************************/
 // Class Specification
@@ -158,6 +119,11 @@ class TTFOUNDATION_EXPORT TT_ALIGN_16 TTElement {
 		TTSymbolBase*	dictionary;	///< dictionaries are referenced by name
 	};
 	
+	/*	It is _essential_ that the first item is the value itself.
+		This allows us to cast the memory directly to a primitive value (e.g. a double)
+		in performance sensitive code where we don't want to check types or sizes
+		returned by a function.
+	 */
 	TTDataValue		mValue;
 	TTDataType		mType;
 

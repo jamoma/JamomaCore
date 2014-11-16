@@ -1,19 +1,24 @@
 /** @file
- *
- * @ingroup foundationLibrary
- *
- * @brief Provides a common way of representing composite values.
- *
- * @details #TTValue is the primary interface used to pass values to and from methods in Jamoma Core. Methods for a given #TTObject should be passed both an input and output value to complete its operation, while the return is reserved for a #TTErr.
- @n@n Each #TTValue may be composed of a single element or many elements because it has been defined as a subclass of the C++ standard library's <a href="http://www.cplusplus.com/reference/vector/vector/">vector class</a>. This also enables our class to inherit familiar functions such as size() and from its parent class.
- @n@n Individual items within the #TTValue are defined by the #TTElement class. These individual elements may be one of the defined types in the #TTDataType enumeration.
- *
- * @authors Tim Place, Théo de la Hogue, Nathan Wolek, Julien Rabin, Nils Peters, Trond Lossius
- *
- * @copyright Copyright © 2008, Timothy Place @n
- * This code is licensed under the terms of the "New BSD License" @n
- * http://creativecommons.org/licenses/BSD/
- */
+ 
+ @ingroup	foundationLibrary
+ 
+ @brief		Provides a common way of representing composite values.
+ 
+ @details	#TTValue is the primary interface used to pass values to and from methods in Jamoma Core.
+			Methods for a given #TTObject should be passed both an input and output value to complete its operation, while the return is reserved for a #TTErr.
+			@n@n 
+			Each #TTValue may be composed of a single element or many elements because it has been defined as a subclass of the C++ standard library's <a href="http://www.cplusplus.com/reference/vector/vector/">vector class</a>. 
+			This also enables our class to inherit familiar functions such as size() and from its parent class.
+			@n@n 
+			Individual items within the #TTValue are defined by the #TTElement class. 
+			These individual elements may be one of the defined types in the #TTDataType enumeration.
+ 
+ @author	Tim Place, Théo de la Hogue, Nathan Wolek, Julien Rabin, Nils Peters, Trond Lossius
+ 
+ @copyright	Copyright © 2008, Timothy Place @n
+			This code is licensed under the terms of the "New BSD License" @n
+			http://creativecommons.org/licenses/BSD/
+*/
 
 
 #ifndef __TT_VALUE_H__
@@ -33,6 +38,10 @@ public:
 	/** @brief Constructor for an empty value */
 	TTValue()
 	{
+		// we originally reserved mem for this because older code often checked a type for TTValue by
+		// looking at the first item of the vector -- even if there was nothing in the vector.
+		// This should no longer be the case but before we remove this we need to
+		// evaluate if there are any lingering places in our code that wrongly employ this practice.
 		reserve(1);
 	}
 	
