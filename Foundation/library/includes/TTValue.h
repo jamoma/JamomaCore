@@ -50,7 +50,14 @@ public:
 	TTValue(const T& anInitialValue)
 	{
 		resize(1);
-		at(0) = anInitialValue;
+		(*this)[0] = anInitialValue;
+	}
+	
+	/** @brief Specialized constructor for the float64 case because it is so often performance sensitive. */
+	TTValue(const TTFloat64 v)
+	{
+		resize(1);
+		(*this)[0].float64(v);
 	}
 		
 	/** @brief Constructor with two initial elements. */
@@ -58,8 +65,8 @@ public:
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue)
 	{
 		resize(2);
-		at(0) = aFirstElementInitialValue;
-		at(1) = aSecondElementInitialValue;
+		(*this)[0] = aFirstElementInitialValue;
+		(*this)[1] = aSecondElementInitialValue;
 	}
 	
 	/** @brief Constructor with three initial elements. */
@@ -67,9 +74,9 @@ public:
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue, const V& aThirdElementInitialValue)
 	{
 		resize(3);
-		at(0) = aFirstElementInitialValue;
-		at(1) = aSecondElementInitialValue;
-		at(2) = aThirdElementInitialValue;
+		(*this)[0] = aFirstElementInitialValue;
+		(*this)[1] = aSecondElementInitialValue;
+		(*this)[2] = aThirdElementInitialValue;
 	}
 
 	/** @brief Constructor with four initial elements. */
@@ -77,10 +84,10 @@ public:
 	TTValue(const T& aFirstElementInitialValue, const U& aSecondElementInitialValue, const V& aThirdElementInitialValue, const W& aFourthElementInitialValue)
 	{
 		resize(4);
-		at(0) = aFirstElementInitialValue;
-		at(1) = aSecondElementInitialValue;
-		at(2) = aThirdElementInitialValue;
-		at(3) = aFourthElementInitialValue;
+		(*this)[0] = aFirstElementInitialValue;
+		(*this)[1] = aSecondElementInitialValue;
+		(*this)[2] = aThirdElementInitialValue;
+		(*this)[3] = aFourthElementInitialValue;
 	}
 
 	// force the destructor to be non-virtual
@@ -99,9 +106,28 @@ private:
 
 
 public:
+	
+	
+	/** Fast fetch of float64 elements without range/type checking or conversion */
+	TTFloat64 float64() const
+	{
+		return (*this)[0].float64();
+	}
+	
+	/** Fast assignment of float64 elements without range/type checking or conversion
+		@param	v the float to assign to this value.
+		@return	a reference to this value object.
+	 */
+	TTValue& float64(TTFloat64 v)
+	{
+		(*this)[0].float64(v);
+		return *this;
+	}
+	
 
     /** @brief Clear all values from the vector, leaving with size of 0 */
-	void clear() {
+	void clear()
+	{
 		TTElementVector::clear();
 	}
 
@@ -111,7 +137,7 @@ public:
 	{
 		resize(endIndex - startIndex);
 		for (size_t i=0; i<size(); i++)
-			at(i) = obj[startIndex+i];
+			(*this)[i] = obj[startIndex+i];
 	}
 	
 	
@@ -147,7 +173,7 @@ public:
 	TTValue& operator = (T value)
 	{
 		resize(1);
-		at(0) = value;
+		(*this)[0] = value;
 		return *this;
 	}
 	
@@ -156,7 +182,7 @@ public:
 	{
 		if (a.size() == b.size()) {
 			for (size_t i=0; i<a.size(); i++) {
-				if (a.at(i) != b.at(i)) {
+				if (a[i] != b[i]) {
 					return false;
 				}
 			}
@@ -183,7 +209,7 @@ public:
 	operator T() const
 	{
 		if (size())
-			return T(at(0));
+			return T((*this)[0]);
 		else
 			return T(0);
 	}
@@ -194,7 +220,7 @@ public:
 	operator TTSymbol() const
 	{
 		if (size())
-			return at(0);
+			return (*this)[0];
 		else
 			return kTTSymEmpty;
 	}
@@ -205,7 +231,7 @@ public:
 	operator TTObject() const
 	{
 		if (size())
-			return at(0);
+			return (*this)[0];
 		else
 			return TTObject();
 	}
@@ -239,7 +265,7 @@ public:
 		for (TTUInt32 i=0; i<appendingElementCount; i++) {
 			TTElement e = aValueToAppend[i];
 			
-			at(oldElementCount+i) = e;
+			(*this)[oldElementCount+i] = e;
 		}
 	}
 
@@ -303,8 +329,8 @@ public:
 		TTString temp;
 	
 		for (size_t i=0; i<size(); i++) {
-			at(i).string(temp, quotes);		// get a string for each item
-			if (i < (size()-1))				// add a space between each item, but no space at the end
+			(*this)[i].string(temp, quotes);	// get a string for each item
+			if (i < (size()-1))					// add a space between each item, but no space at the end
 				temp.append(" ");
 		}
 		
@@ -319,7 +345,7 @@ public:
 		TTString temp;
         
 		for (size_t i=0; i<size(); i++) {
-			at(i).string(temp, quotes);		// get a string for each item
+			(*this)[i].string(temp, quotes);		// get a string for each item
 			if (i < (size()-1))             // add a space between each item, but no space at the end
 				temp.append(" ");
 		}
