@@ -320,7 +320,7 @@ public:
         append(temp);
 	}
 	
-    /** @breif Convert a single string into individual elements using space to divide items
+    /** @brief Convert a single string into individual elements using space to divide items
      @param     numberAsSymbol  optional #TTBoolean determines whether method leaves numbers as symbols, default is NO
      @return    none
      */
@@ -398,7 +398,7 @@ public:
 	}
 		
 
-	/**	@breif Convert a comma-separated-value string into an array of TTSymbols.
+	/**	@brief Convert a comma-separated-value string into an array of TTSymbols.
      @return    kTTErrInvalidType if first item is not kTypeString, else kTTErrNone
 	 */
 	TTErr transformCSVStringToSymbolArray()
@@ -438,14 +438,14 @@ public:
     
 #ifdef _DOXY_
     
-    /** @breif Return the number of elements
+    /** @brief Return the number of elements
      @details Inherited from the C++ standard library's <a href="http://www.cplusplus.com/reference/vector/vector/">vector class</a>
      @param     none
      @return    number of elements currently in #TTValue
      */
     size_type size() const noexcept;
     
-    /** @breif Change the number of elements
+    /** @brief Change the number of elements
      @details Inherited from the C++ standard library's <a href="http://www.cplusplus.com/reference/vector/vector/">vector class</a>
      @param     n   number of elements for resulting #TTValue
      @return    void
