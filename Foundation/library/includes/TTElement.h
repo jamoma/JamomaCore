@@ -97,6 +97,9 @@ class TTFOUNDATION_EXPORT TT_ALIGN_16 TTElement {
 		That means also be careful in how we refcount and free these cases.
 	 
 		@see http://en.wikipedia.org/wiki/Data_structure_alignment
+	 
+		Additionally we can return an error using TTValue.
+		This permits you return a TTValue from a function while still maintaining the ability to return error codes.
 	 */
 	union TTDataValue {
 		TTFloat32		float32;
@@ -117,6 +120,7 @@ class TTFOUNDATION_EXPORT TT_ALIGN_16 TTElement {
 		TTMatrix*		mMatrix;
 		TTPtr			ptr;
 		TTSymbolBase*	dictionary;	///< dictionaries are referenced by name
+		TTErr			error;
 	};
 	
 	/*	It is _essential_ that the first item is the value itself.
