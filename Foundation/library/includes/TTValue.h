@@ -38,10 +38,11 @@ public:
 	/** @brief Constructor for an empty value */
 	TTValue()
 	{
-		// we originally reserved mem for this because older code often checked a type for TTValue by
-		// looking at the first item of the vector -- even if there was nothing in the vector.
-		// This should no longer be the case but before we remove this we need to
-		// evaluate if there are any lingering places in our code that wrongly employ this practice.
+		// we reserve 1 because we want to always be assured that there is a memory for at least one element.
+		// it is exceedingly rare that a TTValue will be used empty, and most common that it will have one element.
+		// for speed, it is possible to use abuse TTValue by setting and getting the first element without range or type checking
+		// and even bypassing the setter methods entirely.
+		// in these cases it is critical to be able to rely upon the memory being valid for the first element.
 		reserve(1);
 	}
 	
