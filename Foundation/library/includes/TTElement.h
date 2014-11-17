@@ -581,6 +581,14 @@ public:
 		mValue.ptr = value;
 		return *this;
 	}
+    
+    TTElement& operator = (TTErr value)
+	{
+		chuck();
+		mType = kTypeError;
+		mValue.error = value;
+		return *this;
+	}
 	
 	// TODO: an assignment to a different type (like the above) will leak the dictionary!
 	
