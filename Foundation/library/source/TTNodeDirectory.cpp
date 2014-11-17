@@ -734,7 +734,7 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
                             data.append(aNode);
                             data.append((TTInt8)flag);
                             data.append(anObserver);
-                            anObserver.send("notify", data, data);
+                            anObserver.send("notify", data);
                         }
                         
                         foundObsv = true;

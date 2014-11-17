@@ -6,7 +6,7 @@
  *
  * @details
  *
- * @authors Théo de la Hogue, Tim Place
+ * @author Théo de la Hogue, Tim Place
  *
  * @copyright Copyright © 2013, Théo de la Hogue, Tim Place @n
  * This code is licensed under the terms of the "New BSD License" @n

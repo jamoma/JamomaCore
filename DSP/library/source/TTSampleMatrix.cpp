@@ -333,7 +333,8 @@ TTErr TTSampleMatrix::fill(const TTValue& value, TTValue& unusedOutput)
 	return kTTErrNone;
 }
 
-TTErr   TTSampleMatrix::load(const TTValue& input, TTValue& unusedOutput)
+
+TTErr TTSampleMatrix::load(const TTValue& input, TTValue& unusedOutput)
 {
     /* * * 
      Beware this method is still in progress
@@ -350,16 +351,17 @@ TTErr   TTSampleMatrix::load(const TTValue& input, TTValue& unusedOutput)
         TTAudioObject fileToLoad("soundfile.loader");
         
         // then pass along the updated TTValue to its load() method
-        return fileToLoad.send("load", inputWithPointerPrepended, unusedOutput);
+        return fileToLoad.send("load", inputWithPointerPrepended);
         
-    } catch (...) {
+    }
+	catch (...) {
         return kTTErrInstantiateFailed;
     }
 
 }
 
 
-TTErr   TTSampleMatrix::resizeThenLoad(const TTValue& input, TTValue& unusedOutput)
+TTErr TTSampleMatrix::resizeThenLoad(const TTValue& input, TTValue& unusedOutput)
 {
     
     TTValue inputWithPointerPrepended = input;
@@ -372,14 +374,13 @@ TTErr   TTSampleMatrix::resizeThenLoad(const TTValue& input, TTValue& unusedOutp
         TTAudioObject fileToLoad("soundfile.loader");
         
         // then pass along the updated TTValue to its load() method
-        return fileToLoad.send("resizeThenLoad", inputWithPointerPrepended, unusedOutput);
-        
-    } catch (...) {
+        return fileToLoad.send("resizeThenLoad", inputWithPointerPrepended);
+    }
+	catch (...) {
         return kTTErrInstantiateFailed;
     }
     
 }
-
 
 
 TTErr TTSampleMatrix::normalize(const TTValue& aValue)

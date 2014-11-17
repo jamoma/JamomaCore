@@ -4,7 +4,7 @@
  *
  * @brief 2-dimensional matrix of compound values with N elements each.
  * 
- * @authors Timothy Place & Nathan Wolek
+ * @author Timothy Place & Nathan Wolek
  *
  * @copyright Copyright © 2011-2012, Timothy Place & Nathan Wolek @n
  * This code is licensed under the terms of the "New BSD License" @n
