@@ -142,6 +142,11 @@ public:
 		@return								Reference count.
 	 */
 	TTUInt16 getReferenceCount() {return referenceCount;}
+    
+    /**	Query an object to get the number of observers.
+     @return								Observers list size.
+	 */
+	TTUInt32 getObserversCount() const {return observers.getSize();}
 	
 	/** @brief Register an attribute
 		@details The theory on attributes is that the subclass calls registerAttribute()
