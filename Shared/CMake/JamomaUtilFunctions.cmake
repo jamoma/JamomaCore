@@ -79,23 +79,39 @@ function(addTestTarget)
 endFunction()
 
 ## Function to set install path ##
-function(setOutput)
-	if(DEFINED IS_EXTENSION)
-		setExtensionSuffix()
-		INSTALL(TARGETS ${PROJECT_NAME} 
-				DESTINATION "lib/jamoma"
-		)
-	elseif(DEFINED IS_EXTERNAL)
-		setExternalSuffix()
-		INSTALL(TARGETS ${PROJECT_NAME} 
-				DESTINATION "externals")
-	else()
-		INSTALL(TARGETS ${PROJECT_NAME} 
-		 		DESTINATION "lib"
-		)
-	endif()
-	INSTALL(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma")
-endFunction()
+if(APPLE)
+	function(setOutput)
+		if(DEFINED IS_EXTENSION)
+			setExtensionSuffix()
+			INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")
+		elseif(DEFINED IS_EXTERNAL)
+			setExternalSuffix()
+			INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "externals")
+		else()
+			INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
+		endif()
+
+			INSTALL(FILES ${PROJECT_HDRS} DESTINATION "include")
+	endFunction()
+else()
+	function(setOutput)
+		if(DEFINED IS_EXTENSION)
+			setExtensionSuffix()
+			INSTALL(TARGETS ${PROJECT_NAME} 
+					DESTINATION "lib/jamoma"
+			)
+		elseif(DEFINED IS_EXTERNAL)
+			setExternalSuffix()
+			INSTALL(TARGETS ${PROJECT_NAME} 
+					DESTINATION "externals")
+		else()
+			INSTALL(TARGETS ${PROJECT_NAME} 
+			 		DESTINATION "lib"
+			)
+		endif()
+		INSTALL(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma")
+	endFunction()
+endif()
 
 ## Function to add the Max/MSP includes ##
 function(addMaxsupport)
