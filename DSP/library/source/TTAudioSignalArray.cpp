@@ -96,3 +96,13 @@ void TTAudioSignalArray::setAllNumChannels(TTChannelCount newNumChannels)
 		mAudioSignals[i]->setNumChannels(newNumChannels);
 }
 
+
+TTErr TTAudioSignalArray::setSignal(TTChannelCount index, const TTAudioSignalPtr aSignal)
+{
+	if (mAudioSignals[index] != aSignal) {
+		TTObjectBaseRelease((TTObjectBase**)&mAudioSignals[index]);
+		mAudioSignals[index] = (TTAudioSignal*)TTObjectBaseReference(aSignal);
+	}
+	return kTTErrNone;
+}
+
