@@ -72,6 +72,9 @@ class TTDictionary;
 			case kTypeBoolean:\
 				value = mValue.boolean;\
 				break;\
+			case kTypeError:\
+				value = mValue.error;\
+				break;\
 			default:\
 				value = 0;\
 				break;\
@@ -733,6 +736,10 @@ public:
 					if ( a1.mValue.ptr != a2.mValue.ptr )
 						return false;
 					break;
+				case kTypeError:
+					if ( a1.mValue.error != a2.mValue.error )
+						return false;
+					break;
 				default: // the type is not currently handled
 					return false;
 			}
@@ -786,10 +793,23 @@ public:
 					return false;
 				break;
 			}
+			case kTypeError:
+				if ( a1.mValue.error != i )
+					return false;
+				break;
 			default: // the type is not currently handled
 				return false;
 		}
 		return true;
+	}
+	
+	// clang compiler considers TTErr conversion ambiguous so we manually need to overload for this case
+	friend bool operator == (const TTElement& a1, TTErr err)
+	{
+		if (a1.mType == kTypeError && a1.mValue.error == err)
+			return true;
+		else
+			return false;
 	}
 
 	
@@ -895,6 +915,10 @@ public:
 				break;
 			case kTypePointer:
 				if ( a1.mValue.ptr >= a2.mValue.ptr )
+					return false;
+				break;
+			case kTypeError:
+				if ( a1.mValue.error >= a2.mValue.error )
 					return false;
 				break;
 			default:

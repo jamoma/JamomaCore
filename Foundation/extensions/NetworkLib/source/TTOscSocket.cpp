@@ -91,23 +91,27 @@ void TTOscSocket::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 	TTValue		receivedMessage = TTSymbol(m.AddressPattern());
     TTValue     none;
 	
-	osc::ReceivedMessage::const_iterator arguments = m.ArgumentsBegin(); // get arguments
+	osc::ReceivedMessage::const_iterator arguments = m.ArgumentsBegin();
 	
-	while (arguments != m.ArgumentsEnd()) {
-		
+	while (arguments != m.ArgumentsEnd())
+    {
 		if (arguments->IsChar())
 			receivedMessage.append(arguments->AsChar());
 		
-		else if (arguments->IsInt32()) {
+		else if (arguments->IsInt32())
+        {
 			TTInt32 i = arguments->AsInt32();
 			receivedMessage.append((int)i);
-			
-		} else if (arguments->IsFloat())
+		}
+        else if (arguments->IsFloat())
 			receivedMessage.append((TTFloat64)arguments->AsFloat());
 		
 		else if (arguments->IsString())
 			receivedMessage.append(TTSymbol(arguments->AsString()));
-		
+        
+        else
+            TTLogError("TTOscSocket::ProcessMessage : the type of an argument is not handled");
+            
 		arguments++;
 	}
 	
