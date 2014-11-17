@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 2.6)
 project (JamomaCore)
 ### Configuration ###
-include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaConfiguration.txt NO_POLICY_SCOPE)
-include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaUtilFunctions.txt NO_POLICY_SCOPE)
+include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaConfiguration.cmake NO_POLICY_SCOPE)
+include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaUtilFunctions.cmake NO_POLICY_SCOPE)
 
 ### Platform-specific configuration ###
-include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaPlatformSpecific.txt NO_POLICY_SCOPE)
+include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaPlatformSpecific.cmake NO_POLICY_SCOPE)
 
 ### Testing ###
-include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaTests.txt NO_POLICY_SCOPE)
-include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaDoxygen.txt NO_POLICY_SCOPE)
+include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaTests.cmake NO_POLICY_SCOPE)
+include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaDoxygen.cmake NO_POLICY_SCOPE)
 
 ### Build of the Jamoma Submodules ###
 add_subdirectory(Foundation)
@@ -28,4 +28,4 @@ if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/../Implementations/Max" AND NOT DONT_BUIL
 endif()
 
 ### Creation of packages ###
-include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaPack.txt NO_POLICY_SCOPE)
+include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaPack.cmake NO_POLICY_SCOPE)
