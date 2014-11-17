@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.6)
 project(JamomaFoundation)
 
+if(UNIX AND NOT APPLE)
+	add_definitions("-DJAMOMA_EXTENSIONS_INSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}/lib/jamoma\"")
+endif()
 if(NOT ANDROID AND NOT WIN32)
 	if(DEFINED USE_EXTERNAL_BOOST)
 		find_package(Boost COMPONENTS REQUIRED filesystem)

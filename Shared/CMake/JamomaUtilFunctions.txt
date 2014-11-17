@@ -82,14 +82,19 @@ endFunction()
 function(setOutput)
 	if(DEFINED IS_EXTENSION)
 		setExtensionSuffix()
-		INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "extensions")
+		INSTALL(TARGETS ${PROJECT_NAME} 
+				DESTINATION "lib/jamoma"
+		)
 	elseif(DEFINED IS_EXTERNAL)
 		setExternalSuffix()
-		INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "externals")
+		INSTALL(TARGETS ${PROJECT_NAME} 
+				DESTINATION "externals")
 	else()
-		INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
+		INSTALL(TARGETS ${PROJECT_NAME} 
+		 		DESTINATION "lib"
+		)
 	endif()
-	INSTALL(FILES ${PROJECT_HDRS} DESTINATION "include")
+	INSTALL(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma")
 endFunction()
 
 ## Function to add the Max/MSP includes ##

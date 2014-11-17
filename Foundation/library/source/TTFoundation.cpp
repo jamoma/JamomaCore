@@ -266,7 +266,11 @@ void TTFoundationLoadExternalClasses(void)
 	line = std::string("/data/data/") + line + std::string("/lib");
 	TTFoundationLoadExternalClassesFromFolder(TTString(line.c_str()), true);
 #else
-	TTFoundationLoadExternalClassesFromFolder("/usr/local/lib/jamoma/extensions", true);
+	#if defined(JAMOMA_EXTENSIONS_INSTALL_PREFIX)
+		TTFoundationLoadExternalClassesFromFolder(JAMOMA_EXTENSIONS_INSTALL_PREFIX, true);
+	#else
+		TTFoundationLoadExternalClassesFromFolder("/usr/local/lib/jamoma/extensions", true);
+	#endif
 #endif
 #endif
 }
