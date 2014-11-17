@@ -120,6 +120,13 @@ TTErr TTReceiver::setActive(const TTValue& newValue)
                 
                 if (!err) {
                     
+                    TTObject anObserver = mNodesObserversCache.current()[1];
+                    
+                    if (mActive)
+                        anAttribute->registerObserverForNotifications(anObserver);
+                    else
+                        anAttribute->unregisterObserverForNotifications(anObserver);
+                    
                     if (anObject.name() == kTTSym_Mirror)
                         TTMirrorPtr(anObject.instance())->enableListening(*anAttribute, mActive);
                 }
