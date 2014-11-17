@@ -8,7 +8,7 @@
  * Internal objects may inherit directly from #TTObjectBase,
  * but most objects will inherit from #TTDataObject or #TTAudioObject.
  *
- * @authors Timothy Place, Theo de la Hogue, Trond Lossius
+ * @author Timothy Place, Theo de la Hogue, Trond Lossius
  *
  * @copyright Copyright © 2008, Timothy Place @n
  * This code is licensed under the terms of the "New BSD License" @n

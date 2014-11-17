@@ -345,7 +345,7 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName, TTValue& 
 		TTValue		unusedReturnValue;
 	
 		if (o.valid())
-			o.send(messageName, aValue, unusedReturnValue);
+			o.send(messageName, aValue);
 #endif
 	}
 	unlock();
