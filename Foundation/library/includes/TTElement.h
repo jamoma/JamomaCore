@@ -385,6 +385,14 @@ public:
 			return NULL;
 	}
 	
+	operator TTErr() const
+	{
+		if (mType == kTypeError)
+			return mValue.error;
+		else
+			return kTTErrNone;
+	}
+	
 	operator TTDictionary() const;
 
 	
