@@ -136,7 +136,8 @@ TTErr System::Tick()
 {
     TTFloat64 delta = computeDeltaTime() * mSpeed;
     
-    if (mPaused)
+    // test paused and running status after the computeDeltatTime because there is a sleep inside
+    if (mPaused || !mRunning)
         return kTTErrNone;
     
     mPosition += delta / mDuration;
@@ -162,7 +163,7 @@ TTErr System::Tick()
         sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
         
         // if the scheduler is still running : stop it
-        // note : because it  is possible another thread stop the scheduler before
+        // note : because it is possible another thread stop the scheduler before
         Stop();
     }
     
