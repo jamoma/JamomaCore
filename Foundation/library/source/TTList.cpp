@@ -36,7 +36,7 @@ TTList::TTList(TTList& that) :
 
 
 
-TTUInt32 TTList::getSize()
+TTUInt32 TTList::getSize() const
 {
 	return theList.size();
 }

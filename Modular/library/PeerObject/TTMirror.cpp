@@ -362,7 +362,15 @@ TTErr TTMirror::enableListening(const TTAttribute& anAttribute, TTBoolean enable
 {	
 	TTValue data, none;
     TTErr   err = kTTErrNone;
-	
+    
+    // disable the listening if there is no more observers on the attribute
+    if (!enable && anAttribute.getObserverCount() != 0)
+        return kTTErrGeneric;
+    
+    // enable the listening only one time for the first observer
+    if (enable && anAttribute.getObserverCount() != 1)
+        return kTTErrGeneric;
+    
 	if (mListenAttributeCallback.valid()) {
 		
 		data.append(anAttribute.name);
