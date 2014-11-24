@@ -34,9 +34,9 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_System(void)
 
 SCHEDULER_CONSTRUCTOR,
 mGranularity(20.0)
-{	
+{
 	SCHEDULER_INITIALIZE
-    
+
     addAttribute(Granularity, kTypeFloat64);
 }
 
@@ -51,7 +51,7 @@ TTErr System::getParameterNames(TTValue& value)
 	value.append(TTSymbol("granularity"));
     value.append(TTSymbol("offset"));
     value.append(TTSymbol("speed"));
-	
+
 	return kTTErrNone;
 }
 
@@ -65,23 +65,23 @@ TTErr System::Go()
         mPaused = NO;
         mPosition = 0.;
         mDate = 0.;
-        
+
         (mCallback)(mBaton, mPosition, mDate);
-        
+
         // notify each observers
         sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
         sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
     }
     else if (mExternalTick) {
-        
+
         // reset timing informations
         mRunning = true;
         mPaused = NO;
         mLastTime = 0.;
-        
+
         // notify each observers
         sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-        
+
         // launch a first tick if the duration is valid
         if (mDuration > 0.)
             Tick();
@@ -90,12 +90,12 @@ TTErr System::Go()
     else if (!mRunning) {
         if(mThread.joinable())
 			mThread.join();
-			
+
         // launch a new thread to run the scheduler execution
         mThread = std::thread(&System::SystemThreadCallback, this);
-    
+
     }
-    
+
     return kTTErrNone;
 }
 
@@ -104,19 +104,19 @@ TTErr System::Stop()
 	TTLogError("** System::Stop() CALLED **\r\n");
 
 	mPaused = NO;
-	
+
 	// stop thread execution
 	stopThread();
-	
+
 	// notify each observers
     sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-	
-	
+
+
 	// reset all time info
 	mOffset = 0.;
     mPosition = 0.;
     mDate = 0.;
-    
+
     return kTTErrNone;
 }
 
@@ -124,51 +124,52 @@ TTErr System::Tick()
 {
     TTFloat64 delta = computeDeltaTime() * mSpeed;
 
-    if (mPaused)
+    // test paused and running status after the computeDeltatTime because there is a sleep inside
+    if (mPaused || !mRunning)
         return kTTErrNone;
 
 	mPosition += delta / mDuration;
     mDate += delta;
-    
-    if (mPosition < 1. || mInfinite) 
-    {    
+
+    if (mPosition < 1. || mInfinite)
+    {
         // notify the owner
         (mCallback)(mBaton, mPosition, mDate);
-        
+
         // notify each observers
         sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
     }
-    else 
-    { 
+    else
+    {
         // forcing position to 1. to allow filtering
         mPosition = 1.;
-        
+
         // notify the owner
         (mCallback)(mBaton, mPosition, mDate);
-        
+
         // notify each observers
         sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
-        
+
         // if the scheduler is still running : stop it
-        // note : because it  is possible another thread stop the scheduler before
+        // note : because it is possible that another thread stops the scheduler before
         if (mRunning)
             Stop();
     }
-    
+
     return kTTErrNone;
 }
 
 TTErr System::Pause()
 {
     mPaused = YES;
-    
+
     return kTTErrNone;
 }
 
 TTErr System::Resume()
 {
     mPaused = NO;
-    
+
     return kTTErrNone;
 }
 
@@ -189,30 +190,30 @@ TTFloat64 System::computeDeltaTime()
 	#endif
 
 	TTUInt64 currentTime = tv.tv_sec * 1000000L + tv.tv_usec;
-    
+
 	if (mLastTime != 0) {
-        
+
         // it seems the currentTime is lower than the lastTime sometimes ...
         if (currentTime < mLastTime) {
-            
+
             TTLogMessage("System::computeDeltaTime() : currentTime (%Lu) is lower than lastTime (%Lu)\n", currentTime, mLastTime);
             deltaInUs = 0;
         }
         else
             deltaInUs = (currentTime - mLastTime);
-        
+
 		if (deltaInUs < granularityInUs) {
-            
+
             std::this_thread::sleep_for(std::chrono::microseconds(granularityInUs - deltaInUs));
-            
+
 			deltaInUs = granularityInUs;
 		}
-        
+
 		mLastTime += deltaInUs;
 	}
     else
 		mLastTime = currentTime;
-    
+
     // return the delta in ms
 	return TTFloat64(deltaInUs / 1000.);
 }
@@ -224,15 +225,15 @@ void System::SystemThreadCallback()
     mRunning = true;
     mPaused = NO;
     mLastTime = 0.;
-    
+
     // notify each observers
     sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-    
+
     // launch the tick if the duration is valid and while it have to run
     if (mDuration > 0.)
         while(mRunning)
 			Tick();
-			
+
 	TTLogError("** System::SystemThreadCallback() ENDED **\r\n");
 }
 
@@ -243,7 +244,7 @@ void System::stopThread()
         mRunning = false;
 		while(!mThread.joinable())
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
-		
+
 		try{
 		mThread.join();
 		}
