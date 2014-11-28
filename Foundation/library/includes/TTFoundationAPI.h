@@ -24,6 +24,7 @@
 #include "TTMutex.h"
 #include "TTObjectBase.h"
 #include "TTQueue.h"
+#include "TTState.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
 #include "TTSymbolCache.h"

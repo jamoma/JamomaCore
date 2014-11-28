@@ -33,6 +33,8 @@ sources:
   - source/TTSymbolCache.cpp
   - source/TTSymbolTable.cpp
   - source/TTRegex.cpp
+  - source/TTState.cpp
+  - tests/TTState.test.cpp
   - tests/TTMatrix.test.cpp
   - tests/TTString.test.cpp
   - tests/TTSymbol.test.cpp

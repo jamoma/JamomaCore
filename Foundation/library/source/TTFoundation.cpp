@@ -27,6 +27,7 @@
 #include "TTSymbol.test.h"
 #include "TTValue.test.h"
 #include "TTDictionary.test.h"
+#include "TTState.test.h"
 #include "TTList.test.h"
 // Nodelib currently requires Boost Regex, which we don't have on the iOS
 #ifndef DISABLE_NODELIB
@@ -103,6 +104,7 @@ void TTFoundationInit(const char* pathToBinaries)
 		TTValueTest::registerClass();
 		TTInterpolateTest::registerClass();
         TTDictionaryTest::registerClass();
+        TTStateTest::registerClass();
         TTListTest::registerClass();
 // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef DISABLE_NODELIB
