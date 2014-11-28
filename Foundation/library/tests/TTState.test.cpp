@@ -31,6 +31,7 @@ void TTStateTestStoreAndRecall(int& errorCount, int& testAssertionCount)
     object.set("baton", "bar");
 	
 	// get object state
+    // TODO: JamomaCore #319
     TTValue v;
     TTDictionary state;
     if (!object.get("state", v))

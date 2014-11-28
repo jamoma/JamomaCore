@@ -90,7 +90,7 @@ TTErr TTCallback::getState(TTValue& returnedState) const
 
 TTErr TTCallback::setState(const TTValue& newState)
 {
-    TTDictionary dictionary = newState[0];
+    TTDictionary dictionary = newState[0]; // TODO: JamomaCore #319
     if (dictionary.getSchema() == thisTTClassName)
     {
         TTValue value;

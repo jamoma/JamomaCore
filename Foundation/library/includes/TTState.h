@@ -73,7 +73,7 @@
  @n
      TTErr TTMyClass::setState(const TTValue& newState) @n
      { @n
-         TTDictionary dictionary = newState[0]; @n
+         TTDictionary dictionary = newState[0]; @n // TODO: JamomaCore #319
          if (dictionary.getSchema() == thisTTClassName) @n
          { @n
              dictionary.lookup("myAttribute", mMyAttribute); @n
