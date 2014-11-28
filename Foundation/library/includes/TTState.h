@@ -35,54 +35,54 @@
 /**	The #TTState class is made to extend #TTObjectBase class with state managment features.
  
  @details 
- To add state features to a TTObjectBase children class :
- 
- - Make the class to inherit from TTState and provide (or not) getState and setState methods.
-
-    class TTFOUNDATION_EXPORT TTMyClass : public TTObjectBase, public TTState
-    {
-        TTCLASS_SETUP(TTMyClass)
- 
-        ...
- 
-        TTErr getState(TTValue& returnedState) const override;
-        TTErr setState(const TTValue& newState) override;
-    }
-
- - Initialize the State in the contructor :
- 
-    TT_BASE_OBJECT_CONSTRUCTOR,
-    TT_STATE,
-    ...
-    {
-        ...
-    }
- 
- Here is an example for getState and setState :
- 
-     TTErr TTMyClass::getState(TTValue& returnedState) const
-     {
-         TTDictionary dictionary;
-         
-         dictionary.setSchema(thisTTClassName);
-         dictionary.append("myAttribute", mMyAttribute);
-         
-         returnedState = dictionary;
-         return kTTErrNone;
-     }
-     
-     TTErr TTMyClass::setState(const TTValue& newState)
-     {
-         TTDictionary dictionary = newState[0];
-         if (dictionary.getSchema() == thisTTClassName)
-         {
-             dictionary.lookup("myAttribute", mMyAttribute);
-             
-             return kTTErrNone;
-         }
-         
-         return kTTErrInvalidType;
-     }
+ To add state features to a TTObjectBase children class : @n
+  @n
+ - Make the class to inherit from TTState and provide (or not) getState and setState methods. @n
+ @n
+    class TTFOUNDATION_EXPORT TTMyClass : public TTObjectBase, public TTState @n
+    { @n
+        TTCLASS_SETUP(TTMyClass) @n
+  @n
+        ... @n
+  @n
+        TTErr getState(TTValue& returnedState) const override; @n
+        TTErr setState(const TTValue& newState) override; @n
+    } @n
+ @n
+ - Initialize the State in the contructor : @n
+  @n
+    TT_BASE_OBJECT_CONSTRUCTOR, @n
+    TT_STATE, @n
+    ... @n
+    { @n
+        ... @n
+    } @n
+ @n
+ Here is an example for getState and setState : @n
+  @n
+     TTErr TTMyClass::getState(TTValue& returnedState) const @n
+     { @n
+         TTDictionary dictionary; @n
+ @n
+         dictionary.setSchema(thisTTClassName); @n
+         dictionary.append("myAttribute", mMyAttribute); @n
+ @n
+         returnedState = dictionary; @n
+         return kTTErrNone; @n
+     } @n
+ @n
+     TTErr TTMyClass::setState(const TTValue& newState) @n
+     { @n
+         TTDictionary dictionary = newState[0]; @n
+         if (dictionary.getSchema() == thisTTClassName) @n
+         { @n
+             dictionary.lookup("myAttribute", mMyAttribute); @n
+ @n
+             return kTTErrNone; @n
+         } @n
+ @n
+         return kTTErrInvalidType; @n
+     } @n
  
  @see TTObjectBase
  */
