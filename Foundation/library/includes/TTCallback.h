@@ -68,17 +68,17 @@ public:
 	 */
 	TTPtr getBaton(){return mBaton;};
     
-private :
+private:
     
-    /** Query the state.
-	 @param returnedState   #TTState
-	 @return #kTTErrNone if a state can be returned, a #TTErr if not.
+    /** Get the state.
+	 @param returnedState   #TTDictionary containing function, baton and notification values
+	 @return #kTTErrNone if a state can be returned, a #kTTErrGeneric if no state can be built.
 	 */
 	TTErr getState(TTValue& returnedState) const override;
     
-    /** Set the state.
-	 @param newState       #TTState
-	 @return #kTTErrNone if the state cannot be handled, a #TTErr if not.
+    /** Set state.
+	 @param newState       #TTDictionary containing function, baton and notification values
+	 @return #kTTErrNone if the state cannot be handled, #kTTErrInvalidType if the schema is not appropriate.
 	 */
 	TTErr setState(const TTValue& newState) override;
 };
