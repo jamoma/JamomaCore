@@ -22,7 +22,6 @@
 #define thisTTClassTags		"system"
 
 TT_BASE_OBJECT_CONSTRUCTOR,
-TT_STATE,
 mFunction(NULL),
 mNotification(kTTSym_notify)
 {
@@ -73,38 +72,4 @@ TTErr TTCallback::notify(const TTValue& anInputValue, TTValue &anUnusedOutputVal
 		return mFunction(mBaton, anInputValue);
 	
 	return kTTErrGeneric;
-}
-
-TTErr TTCallback::getState(TTValue& returnedState) const
-{
-    TTDictionary dictionary;
-    
-    dictionary.setSchema(thisTTClassName);
-    dictionary.append("function", (TTPtr)mFunction);
-    dictionary.append("baton", mBaton);
-    dictionary.append("notification", mNotification);
-    
-    returnedState = dictionary;
-    return kTTErrNone;
-}
-
-TTErr TTCallback::setState(const TTValue& newState)
-{
-    TTDictionary dictionary = newState[0]; // TODO: JamomaCore #319
-    if (dictionary.getSchema() == thisTTClassName)
-    {
-        TTValue value;
-        
-        dictionary.lookup("function", value);
-        mFunction = TTFunctionWithBatonAndValue(TTPtr(value[0]));
-        
-        dictionary.lookup("baton", mBaton);
-        
-        dictionary.lookup("notification", value);
-        mNotification = value;
-        
-        return kTTErrNone;
-    }
-    
-    return kTTErrInvalidType;
 }

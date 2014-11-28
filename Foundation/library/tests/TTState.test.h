@@ -13,11 +13,19 @@
 #include "TTUnitTest.h"
 
 /**	Provide unit tests for state class */
-class TTStateTest : public TTDataObjectBase {
+class TTStateTest : public TTDataObjectBase, public TTState
+{
 	TTCLASS_SETUP(TTStateTest)
+    
+    TTValue mTestMember1;
+    TTValue mTestMember2;
 		
 	virtual TTErr test(TTValue& returnedTestInfo);
+    
+    TTErr getState(TTValue& returnedState) const override;
+    TTErr setState(const TTValue& newState) override;
+    
+    void TTStateTestStoreAndRecall(int& errorCount, int& testAssertionCount);
 };
-
 
 #endif // __TT_STATETEST_H__

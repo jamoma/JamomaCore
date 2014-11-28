@@ -25,7 +25,7 @@
  This class is used to be sensitive to any TTObject notifications and report them using a function with baton and value
  We will subclass TTObject in order to gain some functionality -- like observers and notifications.
  */
-class TTFOUNDATION_EXPORT TTCallback : public TTObjectBase, public TTState
+class TTFOUNDATION_EXPORT TTCallback : public TTObjectBase
 {
 	TTCLASS_SETUP(TTCallback)
 
@@ -67,20 +67,6 @@ public:
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTPtr getBaton(){return mBaton;};
-    
-private:
-    
-    /** Get the state.
-	 @param returnedState   #TTDictionary containing function, baton and notification values
-	 @return #kTTErrNone if a state can be returned, a #kTTErrGeneric if no state can be built.
-	 */
-	TTErr getState(TTValue& returnedState) const override;
-    
-    /** Set state.
-	 @param newState       #TTDictionary containing function, baton and notification values
-	 @return #kTTErrNone if the state cannot be handled, #kTTErrInvalidType if the schema is not appropriate.
-	 */
-	TTErr setState(const TTValue& newState) override;
 };
 
 /** Pointer to a #TTCallback object.

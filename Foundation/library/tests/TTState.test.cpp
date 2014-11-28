@@ -12,23 +12,55 @@
 #define thisTTClassName		"state.test"
 #define thisTTClassTags		"test, state"
 
-TT_OBJECT_CONSTRUCTOR
-{;}
+TT_OBJECT_CONSTRUCTOR,
+TT_STATE
+{
+    addAttribute(TestMember1, kTypeLocalValue);
+    addAttribute(TestMember2, kTypeLocalValue);
+}
 
 TTStateTest::~TTStateTest()
 {;}
 
-void TTStateTestStoreAndRecall(int& errorCount, int& testAssertionCount)
+TTErr TTStateTest::getState(TTValue& returnedState) const
+{
+    TTDictionary dictionary;
+    
+    dictionary.setSchema(thisTTClassName);
+    dictionary.append("testMember1", mTestMember1);
+    dictionary.append("testMember2", mTestMember2);
+    
+    returnedState = dictionary;
+    return kTTErrNone;
+}
+
+TTErr TTStateTest::setState(const TTValue& newState)
+{
+    TTDictionary dictionary = newState[0]; // TODO: JamomaCore #319
+    if (dictionary.getSchema() == thisTTClassName)
+    {
+        TTValue value;
+        
+        dictionary.lookup("testMember1", mTestMember1);
+        dictionary.lookup("testMember2", mTestMember2);
+        
+        return kTTErrNone;
+    }
+    
+    return kTTErrInvalidType;
+}
+
+void TTStateTest::TTStateTestStoreAndRecall(int& errorCount, int& testAssertionCount)
 {
 	TTTestLog("\n");
 	TTTestLog("Testing State Store and Recall");
     
     TTValue value, stored;
     
-    // setup callback object for test
-    TTObject object("callback");
-    object.set("notification", "foo");
-    object.set("baton", "bar");
+    // test on our self
+    TTObject object(this);
+    mTestMember1 = TTSymbol("foo");
+    mTestMember2 = TTSymbol("bar");
 	
 	// get object state
     // TODO: JamomaCore #319
@@ -44,38 +76,36 @@ void TTStateTestStoreAndRecall(int& errorCount, int& testAssertionCount)
 					errorCount);
 
     // compare object attribute value to what is stored into the state
-    object.get("notification", value);
-    state.lookup("notification", stored);
+    value = mTestMember1;
+    state.lookup("testMember1", stored);
 
-	TTTestAssertion("State store: Test passes if state content for notification is \"foo\"",
+	TTTestAssertion("State store: Test passes if state content for testMember1 is \"foo\"",
 					stored == value,
 					testAssertionCount,
 					errorCount);
     
     // compare another object attribute value to what is stored into the state
-    object.get("baton", value);
-    state.lookup("baton", stored);
+    value = mTestMember2;
+    state.lookup("testMember2", stored);
     
-	TTTestAssertion("State store: Test passes if state content for baton is \"bar\"",
+	TTTestAssertion("State store: Test passes if state content for testMember2 is \"bar\"",
 					stored == value,
 					testAssertionCount,
 					errorCount);
     
     // change object attributes values
-    object.set("notification", "so");
-    object.set("baton", "what");
+    mTestMember1 = TTSymbol("so");
+    mTestMember2 = TTSymbol("what");
     
     // set object state
     object.set("state", state);
     
     // check object attributes values
-    TTSymbol notification, baton;
-    object.get("notification", notification);
-    object.get("baton", baton);
-    
-    TTTestAssertion("State recall: Test passes if the content for notification is still \"foo\" and the baton is still \"bar\"",
-					notification == TTSymbol("foo") &&
-                    baton == TTSymbol("bar"),
+    TTSymbol testMember1 = mTestMember1[0];
+    TTSymbol testMember2 = mTestMember2[0];
+    TTTestAssertion("State recall: Test passes if the content for testMember1 is still \"foo\" and the testMember2 is still \"bar\"",
+					testMember1 == TTSymbol("foo") &&
+                    testMember2 == TTSymbol("bar"),
 					testAssertionCount,
 					errorCount);
 }
