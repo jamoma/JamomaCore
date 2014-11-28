@@ -1,11 +1,7 @@
 /** @file
  @ingroup foundationLibrary
  
- @brief The #TTState class inherits from #TTDictionary to handle the state of #TTObject.
- 
- @details each object to handle is stored under an 'objects' key. @n
- each attribute to handle is stored under its name. @n
- the order of the recall is stored under an 'order' key @n
+ @brief The #TTState class is made to extend #TTObjectBase class with state managment features.
  
  @author Theo de la Hogue
  
@@ -18,53 +14,46 @@
 #define __STATE_H__
 
 #include "TTDictionary.h"
+#include "TTObjectBase.h"
 
-/**	The #TTState class inherits from #TTDictionary to handle the state of #TTObject.
+#define TT_STATE TTState(this, (TTGetterMethod)& thisTTClass ::getState, (TTSetterMethod)& thisTTClass ::setState)
+
+/**	The #TTState class is made to extend #TTObjectBase class with state managment features.
  
- @see TTDictionary, TTObject
+ @see TTObjectBase
  */
-class TTState : public TTDictionary
+class TTState
 {
+    friend TTObjectBase;
+    
+    TTObjectBasePtr     mObject;     ///< a none referenced #TTObjectBase instance to extend.
+    
 public :
     
-	TTState(TTSymbol name);
-    ~TTState();
+    TTState(TTObjectBasePtr toExtend, TTGetterMethod getter, TTSetterMethod setter);
+    virtual ~TTState();
+
+private :
     
-    /** Append an attribute to the state
-	 @param element             #TTSymbol attribute to handle
-	 @return					#kTTErrNone.
+    /** Default (empty) template accessor to query the state of the object.
+	 @param returnedState   #TTDictionary
+	 @return #kTTErrNone if a state can be returned, a #TTErr if not.
 	 */
-    TTErr appendAttribute(const TTSymbol& attribute);
+	virtual TTErr getState(TTValue& returnedState) const
+	{
+		mObject->logMessage("No state can be returned for this class -- please supply a getState accessor.\n");
+		return kTTErrGeneric;
+	}
     
-    /** Remove an attribute from the state
-	 @param element             #TTSymbol attribute to not handle
-	 @return					#kTTErrNone.
+    /** Default (empty) template accessor to set the state of the object.
+	 @param newState       #TTDictionary
+	 @return #kTTErrNone if the state cannot be handled, kTTErrInvalidType if the schema is not appropriate.
 	 */
-    TTErr removeAttribute(const TTSymbol& attribute);
-    
-    /** Append a state to the state
-	 @param state               #TTState to append
-	 @return					#kTTErrNone.
-	 */
-    TTErr appendState(const TTState& state);
-    
-    /** Remove a state from the state
-	 @param state               #TTState to remove
-	 @return					#kTTErrNone.
-	 */
-    TTErr removeState(const TTState& state);
-    
-    /** Store values
-	 @return					#kTTErrNone.
-	 */
-    TTErr store();
-    
-    /** Recall values
-	 @return					#kTTErrNone.
-	 */
-    TTErr recall();
+	virtual TTErr setState(const TTValue& newState)
+	{
+		mObject->logMessage("No state can be passed to this class -- please supply a setState accessor.\n");
+		return kTTErrGeneric;
+	}
 };
 
-typedef TTState* TTStatePtr;
-
-#endif // __STATE_H__
+#endif // __STATE_MANAGER_H__
