@@ -175,7 +175,7 @@ TTErr TTSubscriber::Unsubscribe()
 	TTAddress			objectAddress, nameToAddress;
 	TTSymbol			k;
 	TTObject            anObject;
-	TTUInt8				i;
+	TTUInt32            i;
 	TTErr				err;
     
     if (mObject.valid()) {

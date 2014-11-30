@@ -734,7 +734,7 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
                             data.append(aNode);
                             data.append((TTInt8)flag);
                             data.append(anObserver);
-                            anObserver.send("notify", data, data);
+                            anObserver.send("notify", data);
                         }
                         
                         foundObsv = true;
@@ -1098,10 +1098,22 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
         name1.fromString();
         name2.fromString();
         
+        if (name1.size() != name2.size())
+            return YES;
+        
+        if (name1[0].type() != name2[0].type())
+            return YES;
+        
         if (name1 == name2) {
             
             instance1.fromString();
             instance2.fromString();
+            
+            if (instance1.size() != instance2.size())
+                return YES;
+            
+            if (instance1[0].type() != instance2[0].type())
+                return YES;
             
             if (instance1 == instance2)
                 return v1 < v2;

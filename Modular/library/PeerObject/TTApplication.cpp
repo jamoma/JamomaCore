@@ -1180,7 +1180,7 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
             
             anObject.attributes(attributeNameList);
             
-            for(TTUInt8 i = 0; i < attributeNameList.size(); i++)
+            for(TTUInt32 i = 0; i < attributeNameList.size(); i++)
             {
                 attributeName = attributeNameList[i];
                 

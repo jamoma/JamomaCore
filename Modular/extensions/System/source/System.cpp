@@ -106,25 +106,28 @@ TTErr System::Go()
 
 TTErr System::Stop()
 {
-	mRunning = NO;
-    mPaused = NO;
-    
-    // if a thread is running
-    if (mThread) {
+    if (mRunning) {
         
-        // stop thread execution
-		mThread->wait();
-        delete mThread;
-        mThread = NULL;
-    
-        // notify each observers
-        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+        mRunning = NO;
+        mPaused = NO;
+        
+        // if a thread is running
+        if (mThread) {
+            
+            // notify each observers BEFORE to kill the thread because we could be inside the thread !
+            sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+            
+            // stop thread execution
+            mThread->wait();
+            delete mThread;
+            mThread = NULL;
+        }
+        
+        // reset all time info
+        mOffset = 0.;
+        mPosition = 0.;
+        mDate = 0.;
     }
-    
-    // reset all time info
-    mOffset = 0.;
-    mPosition = 0.;
-    mDate = 0.;
     
     return kTTErrNone;
 }
@@ -133,22 +136,23 @@ TTErr System::Tick()
 {
     TTFloat64 delta = computeDeltaTime() * mSpeed;
     
-    if (mPaused)
+    // test paused and running status after the computeDeltatTime because there is a sleep inside
+    if (mPaused || !mRunning)
         return kTTErrNone;
     
     mPosition += delta / mDuration;
     mDate += delta;
     
-    if (mPosition < 1.) {
-        
+    if (mPosition < 1. || mInfinite)
+    {
         // notify the owner
         (mCallback)(mBaton, mPosition, mDate);
         
         // notify each observers
         sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
     }
-    else {
-        
+    else
+    {
         // forcing position to 1. to allow filtering
         mPosition = 1.;
         
@@ -159,9 +163,8 @@ TTErr System::Tick()
         sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
         
         // if the scheduler is still running : stop it
-        // note : because it  is possible another thread stop the scheduler before
-        if (mRunning)
-            Stop();
+        // note : because it is possible another thread stop the scheduler before
+        Stop();
     }
     
     return kTTErrNone;
