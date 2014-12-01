@@ -17,8 +17,13 @@
 
 /** ...
  @param anArgument		a TTOscSocket pointer
- @return				NULL					*/
-TTPtr TTOscSocketListener(TTPtr anArgument);
+ @return				NULL */
+TTPtr       TTOscSocketListenerCreate(TTPtr anArgument);
+
+/** ...
+ @param anArgument		a TTOscSocket pointer
+ @return				NO if the Osc listener should abort or YES if it should continue */
+TTBoolean   TTOscSocketListenerRun(TTPtr anArgument);
 
 /** \ingroup enums
     Connection flag used to know if the OSC socket manage to connect to a port
@@ -77,7 +82,8 @@ protected:
 	virtual void ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointName& remoteEndPoint);
 
 	
-	friend TTPtr TTOscSocketListener(TTPtr anArgument);
+	friend TTPtr TTOscSocketListenerCreate(TTPtr anArgument);
+    friend TTBoolean TTOscSocketListenerRun(TTPtr anArgument);
 };
 typedef TTOscSocket* TTOscSocketPtr;
 
