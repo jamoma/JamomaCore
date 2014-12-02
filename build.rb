@@ -19,3 +19,6 @@ load "build.rb"
 
 Dir.chdir "#{@mydir}/Modular"
 load "build.rb"
+
+Dir.chdir "#{@mydir}/Score"
+load "build.rb"
