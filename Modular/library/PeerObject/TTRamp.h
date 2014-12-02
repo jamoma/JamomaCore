@@ -33,14 +33,14 @@ class TTMODULAR_EXPORT TTRamp : public TTObjectBase {
   	
 public: ///< It is public in order to be able to extend scheduler or function unit parameters as attributes of another object
     
-    TTObject                mDriveUnit;     ///< The actual scheduler unit object defined by mDrive // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
+    TTObject                mDriveUnit;         ///< The actual scheduler unit object defined by mDrive // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 #ifndef TT_NO_DSP
     TTObject                mFunctionUnit;		///< The actual function unit object defined by mFunction // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 #endif
     
 private:
     
-    TTSymbol                mDrive;			///< ATTRIBUTE : The name of the scheduler to drive the ramp
+    TTSymbol                mDrive;             ///< ATTRIBUTE : The name of the scheduler to drive the ramp
 #ifndef TT_NO_DSP
     TTSymbol                mFunction;			///< ATTRIBUTE : The name of the function unit
 #endif
