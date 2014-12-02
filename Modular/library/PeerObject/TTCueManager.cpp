@@ -49,7 +49,7 @@ mDefaultNamespace(NULL)
 	registerAttribute(TTSymbol("currentDescription"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentDescription, (TTSetterMethod)&TTCueManager::setCurrentDescription);
 	registerAttribute(TTSymbol("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
 	
-	addAttribute(Cues, kTypePointer);
+	addAttributeWithGetter(Cues, kTypePointer);
 	addAttributeProperty(Cues, readOnly, YES);
 	addAttributeProperty(Cues, hidden, YES);
 	
@@ -92,6 +92,12 @@ TTCueManager::~TTCueManager()
 {
 	delete mDefaultNamespace;
 	mDefaultNamespace = NULL;
+}
+
+TTErr TTCueManager::getCues(TTValue& value)
+{
+    value = TTPtr(&mCues);
+    return kTTErrNone;
 }
 
 TTErr TTCueManager::getCurrentDescription(TTValue& value)

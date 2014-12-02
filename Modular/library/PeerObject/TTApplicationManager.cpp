@@ -29,7 +29,7 @@ mApplicationObserversMutex(NULL)
     TT_ASSERT("TTModularApplicationManager is NULL", (TTModularApplicationManager == NULL));
     
     // application attributes
-	addAttribute(Applications, kTypePointer);
+	addAttributeWithGetter(Applications, kTypePointer);
 	addAttributeProperty(Applications, readOnly, YES);
 	addAttributeProperty(Applications, hidden, YES);
 	
@@ -111,6 +111,12 @@ TTApplicationManager::~TTApplicationManager()
 #pragma mark -
 #pragma mark Application accesors
 #endif
+
+TTErr TTApplicationManager::getApplications(TTValue& value)
+{
+    value = TTPtr(&mApplications);
+    return kTTErrNone;
+}
 
 TTErr TTApplicationManager::getApplicationNames(TTValue& returnedApplicationNames)
 {
