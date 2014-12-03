@@ -23,6 +23,8 @@
 #else
 	#include <sys/time.h>
 #endif
+#include <thread>
+#include <mutex>
 
 class System : public Scheduler {
 	
@@ -31,7 +33,8 @@ class System : public Scheduler {
 private:
     
     TTFloat64                  mGranularity;           ///< ATTRIBUTE : the minimun time between each tick (in ms)
-    TTThreadPtr                mThread;                ///< ATTRIBUTE : a thread to launch the scheduler execution
+    std::thread                mThread;                ///< ATTRIBUTE : a thread to launch the scheduler execution
+    std::mutex				   mThreadMutex;		   ///< ATTRIBUTE : prevents the thread object from being used concurrently
     TTUInt64                   mLastTime;              ///< a time reference used to compute delta time between each tick (in µs)
     
 	/** Get specific parameters names needed by this scheduler
@@ -61,15 +64,15 @@ private:
     /** Internal method to compute the amount of time spent since the last call */
     TTFloat64 computeDeltaTime();
     
-    friend void TT_EXTENSION_EXPORT SystemThreadCallback(void* anSystemScheduler);
+    /** Called by the System queue
+	 @param	baton						..
+	 @param	data						..
+	 @return							an error code */
+    void SystemThreadCallback();
+    
+    void stopThread();
     
 };
 typedef System* SystemPtr;
-
-/** Called by the System queue
- @param	baton						..
- @param	data						..
- @return							an error code */
-void TT_EXTENSION_EXPORT SystemThreadCallback(void* aSystemScheduler);
 
 #endif // __SYSTEM_H__

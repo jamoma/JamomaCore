@@ -7,7 +7,8 @@
  */
 
 #include "TTOscSocket.h"
-
+#include <thread>
+#include <chrono>
 TTPtr TTOscSocketListenerCreate(TTPtr anArgument)
 {
 	TTOscSocketPtr anOscSocket = (TTOscSocketPtr) anArgument;
@@ -85,12 +86,8 @@ TTOscSocket::~TTOscSocket()
 		
 		mSocketListener->AsynchronousBreak();
 		
-#ifdef TT_PLATFORM_WIN
-		Sleep(usecToStopTheSelect/1000);
-#else
-		usleep(usecToStopTheSelect);
-#endif
-		
+		std::this_thread::sleep_for(std::chrono::microseconds(usecToStopTheSelect));
+
 		delete mSocketListener;
 		mSocketListener = NULL;
         

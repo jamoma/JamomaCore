@@ -1233,7 +1233,7 @@ static int pthread_cond_init(pthread_cond_t *cv, const void *unused)
     (void) unused;
     InitializeCriticalSection(&cv->threadIdSec);
     cv->waitingthreadcount = 0;
-    cv->waitingthreadhdls = calloc(MAX_WORKER_THREADS, sizeof(pthread_t));
+    cv->waitingthreadhdls = (pthread_t*) calloc(MAX_WORKER_THREADS, sizeof(pthread_t));
     return (cv->waitingthreadhdls!=NULL) ? 0 : -1;
 }
 
@@ -1651,7 +1651,7 @@ static int dlclose(void *handle)
 {
     int result;
 
-    if (FreeLibrary(handle) != 0) {
+    if (FreeLibrary((HMODULE) handle) != 0) {
         result = 0;
     } else {
         result = -1;
@@ -5398,7 +5398,7 @@ static int set_ports_option(struct mg_context *ctx)
                    /* On Windows, SO_REUSEADDR is recommended only for
                       broadcast UDP sockets */
                    setsockopt(so.sock, SOL_SOCKET, SO_REUSEADDR,
-                              (void *) &on, sizeof(on)) != 0 ||
+                              (const char *) &on, sizeof(on)) != 0 ||
 #if defined(USE_IPV6)
                    (so.lsa.sa.sa_family == AF_INET6 &&
                     setsockopt(so.sock, IPPROTO_IPV6, IPV6_V6ONLY, (void *) &off,
@@ -6121,8 +6121,8 @@ static int set_sock_timeout(SOCKET sock, int milliseconds)
     t.tv_sec = milliseconds / 1000;
     t.tv_usec = (milliseconds * 1000) % 1000000;
 #endif
-    return setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (void *) &t, sizeof(t)) ||
-           setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, (void *) &t, sizeof(t));
+    return setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char *) &t, sizeof(t)) ||
+           setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, (const char *) &t, sizeof(t));
 }
 
 static void accept_new_connection(const struct socket *listener,
@@ -6154,7 +6154,7 @@ static void accept_new_connection(const struct socket *listener,
            keep-alive, next keep-alive handshake will figure out that the
            client is down and will close the server end.
            Thanks to Igor Klopov who suggested the patch. */
-        if (setsockopt(so.sock, SOL_SOCKET, SO_KEEPALIVE, (void *) &on,
+        if (setsockopt(so.sock, SOL_SOCKET, SO_KEEPALIVE, (const char *) &on,
                        sizeof(on)) != 0) {
             mg_cry(fc(ctx),
                    "%s: setsockopt(SOL_SOCKET SO_KEEPALIVE) failed: %s",

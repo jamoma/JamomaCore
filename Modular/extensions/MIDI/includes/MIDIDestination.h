@@ -29,7 +29,7 @@ class MIDIDestination
     MIDIPtr                 mProtocol;          ///< The MIDI protocol object which manages all MIDI communications
     TTBoolean			    mRunning;			///< should the destination receive message ?
     
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
     TTPtr                   mClient;            ///< TODO : a client handle to the Windows MIDI server
     // TODO
 #else
@@ -42,12 +42,12 @@ public:
     TTSymbol			    mApplication;       ///< the application name this destination handles
     TTSymbol			    mName;			///< choosen device name
  
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
     /** Windows system-specific constructor
      @param protocol        #MIDI protocol object pointer
      @param application     #TTSymbol application name to handle
      @param name            #TTSymbol name of the destination */
-    MIDIDestination::MIDIDestination(MIDIPtr protocol, TTSymbol& application, TTPtr client);
+    MIDIDestination(MIDIPtr protocol, TTSymbol& application, TTPtr client);
 #else
     /** Mac OS X system-specific constructor
      @param protocol        #MIDI protocol object pointer
@@ -69,7 +69,7 @@ public:
      @return #TTErr error code */
     TTErr setRunning(TTBoolean running);
 
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
     // TODO
 #else
     friend void TT_EXTENSION_EXPORT MIDIDestinationPacketReceivedCallback(const MIDIPacketList *data, void *baton, void *connectionInfo);
@@ -77,7 +77,7 @@ public:
 };
 typedef MIDIDestination* MIDIDestinationPtr;
 
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
 // TODO
 #else
 /** Mac OS X system-specific destiantion callback to receive messages

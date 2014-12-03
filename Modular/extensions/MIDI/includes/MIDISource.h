@@ -29,7 +29,7 @@ class MIDISource
     MIDIPtr                 mProtocol;          ///< The MIDI protocol object which manages all MIDI communications
     TTBoolean			    mRunning;			///< should the source send messages ?
     
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
     TTPtr                   mClient;            ///< TODO : a client handle to the Windows MIDI server
     // TODO
 #else
@@ -42,7 +42,7 @@ public:
     TTSymbol			    mApplication;       ///< the application name this source handles
     TTSymbol			    mName;			///< choosen device name
     
-#ifdef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_MAC)
     /** Windows system-specific constructor
      @param protocol        #MIDI protocol object pointer
      @param application     #TTSymbol application name to handle

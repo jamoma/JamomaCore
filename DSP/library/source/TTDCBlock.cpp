@@ -15,6 +15,7 @@
 
 
 #include "TTDCBlock.h"
+#include <cmath>
 
 #define thisTTClass			TTDCBlock
 #define thisTTClassName		"dcblock"
@@ -25,7 +26,7 @@ TT_AUDIO_CONSTRUCTOR
 {
 	// make the clear method available to be called:
 	addMessage(clear);
-	
+
 	// this next one is called by the parent class so we can allocate memory as required
 	addUpdates(MaxNumChannels);
 
@@ -53,7 +54,7 @@ TTErr TTDCBlock::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&
 
 
 TTErr TTDCBlock::clear()
-{   
+{
 	mLastInput.assign(mMaxNumChannels, 0.0);
 	mLastOutput.assign(mMaxNumChannels, 0.0);
 	return kTTErrNone;

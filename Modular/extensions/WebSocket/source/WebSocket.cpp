@@ -822,9 +822,9 @@ TTErr WebSocket::receivedMessage(const TTValue& message, TTValue& outputValue)
 	TTErr		err;
 	
 	if (mActivity) ActivityInMessage(message);
-    
+	
     aString = message.toString();
-    
+	
 #ifdef TT_PROTOCOL_DEBUG
     cout << endl;
     cout << "Message received : " << aString.c_str() << endl;

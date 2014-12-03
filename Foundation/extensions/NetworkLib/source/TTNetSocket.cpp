@@ -31,7 +31,6 @@ mSocketAddressInfo(NULL),
 mSocketListenerThread(NULL),
 mOwner(owner)
 {
-#ifndef TT_PLATFORM_WIN
 	int			err = 0;
 	addrinfo	hints;
 	const char*	cAddress = NULL;
@@ -104,15 +103,11 @@ mOwner(owner)
 	else
 		Connect();
 
-#else
-	;
-#endif
 }
 
 
 void TTNetSocket::Accept()
 {
-#ifndef TT_PLATFORM_WIN
 	sockaddr_storage			client_addr;
 	socklen_t					client_addr_size = sizeof(client_addr);
 	int							clientSocketDescriptor = 0;
@@ -135,15 +130,11 @@ void TTNetSocket::Accept()
 out:
 	TTThread::sleep(100);	// TODO: is this interval appropriate?
 
-#else
-	;
-#endif
 }
 
 
 void TTNetSocketConnection::Receive()
 {
-#ifndef TT_PLATFORM_WIN
 	int		status;
 	TTValue	v, none;
 	
@@ -181,8 +172,5 @@ void TTNetSocketConnection::Receive()
 		}
 		TTThread::sleep(10); // TODO: is this appropriate?
 	}
-
-#else
-	;
-#endif
+	
 }

@@ -14,6 +14,8 @@
 
 
 #include "TTWebSocket.h"
+#include <chrono>
+#include <thread>
 
 // ws_server_thread()
 static void *ws_server_thread(void *parm)
@@ -24,7 +26,7 @@ static void *ws_server_thread(void *parm)
     
     /* While the connection is open, send periodic updates */
     while(!ws_conn[wsd].closing) {
-        usleep(100000); /* 0.1 second */
+        std::this_thread::sleep_for(std::chrono::milliseconds(100)); /* 0.1 second */
         timer++;
         
         /* Send periodic PING to assure websocket remains connected, except if we are closing */
@@ -159,13 +161,14 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
                         }
                     
                     
-                    char buffer[(int)data_len];
+                    char* buffer = new char[sizeof(char) * ((int)data_len)];
                     snprintf(buffer, (int)data_len+1, data);
                     
                     // send received datas to JamomaModular WebSocket plugin
                     receivedMessage.clear();
                     receivedMessage = TTString(buffer);
                     ((TTWebSocketPtr)(mg_get_request_info(conn)->user_data))->mOwner->sendMessage(TTSymbol("WebSocketReceive"), receivedMessage, kTTValNONE);
+                    delete buffer;
                 }
                 break;
             case WEBSOCKET_OPCODE_BINARY:
