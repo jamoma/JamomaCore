@@ -551,7 +551,7 @@ TTErr TTData::rampSetup()
         args.append((TTPtr)this); // we have to store this as a pointer
         
 		mRamper = TTObject("Ramp", args);
-        mRamper.set("scheduler", mRampDrive);
+        mRamper.set("drive", mRampDrive);
     }
 	
 #ifndef TT_NO_DSP	

@@ -367,7 +367,13 @@ TTErr TTContainer::setAlias(const TTValue& value)
 	TTUInt32		i;
 	TTString		aliasKey;
 	
-	mAlias = value[0];
+    TTAddress newAlias = value[0];
+    
+    // if the alias is relative append to our parent address
+    if (newAlias.getType() == kAddressRelative)
+        mAlias = mAddress.getParent().appendAddress(newAlias);
+    else
+        mAlias = newAlias;
 	
 	// check it changes
 	if (oldAlias != mAlias) {
