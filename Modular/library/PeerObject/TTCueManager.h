@@ -53,6 +53,9 @@ private:
     
     TTSymbol			mLastCurrent;                   ///< ATTRIBUTE : remember the current cue when parsing a file
 	
+    /** */
+	TTErr	getCues(TTValue& value);
+    
 	/** */
 	TTErr	getCurrentDescription(TTValue& value);
 	TTErr	setCurrentDescription(const TTValue& value);

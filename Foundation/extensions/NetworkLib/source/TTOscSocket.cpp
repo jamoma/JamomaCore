@@ -8,35 +8,50 @@
 
 #include "TTOscSocket.h"
 
-TTPtr TTOscSocketListener(TTPtr anArgument)
+TTPtr TTOscSocketListenerCreate(TTPtr anArgument)
 {
-	TTOscSocketPtr  anOscSocket= (TTOscSocketPtr) anArgument;
+	TTOscSocketPtr anOscSocket = (TTOscSocketPtr) anArgument;
     
-    try {
-        
+    try
+    {
         anOscSocket->mSocketListener = new UdpListeningReceiveSocket(IpEndpointName(IpEndpointName::ANY_ADDRESS, anOscSocket->mPort), anOscSocket);
-    
-    } catch (const std::runtime_error& error) {
-    
+    }
+    catch (const std::runtime_error& error)
+    {
         anOscSocket->mSocketListenerStatus = kOscSocketConnectionFailed;
         return NULL;
     }
 
-    if (anOscSocket->mSocketListener) {
-        
-        try {
-            
+    while (TTOscSocketListenerRun(anArgument))
+        ;
+    
+    return NULL;
+}
+
+TTBoolean TTOscSocketListenerRun(TTPtr anArgument)
+{
+    TTOscSocketPtr anOscSocket= (TTOscSocketPtr) anArgument;
+    
+    if (anOscSocket->mSocketListener)
+    {
+        try
+        {
             anOscSocket->mSocketListenerStatus = kOscSocketConnectionSucceeded;
             anOscSocket->mSocketListener->Run();
+        }
+        catch (const std::exception& exception)
+        {
+            TTLogError("TTOscSocketListener : \"%s\"\n", exception.what());
             
-        }  catch (const std::exception& exception) {
+            if (std::strcmp(exception.what(), "element size must be multiple of four") == 0)
+                return YES;
             
             anOscSocket->mSocketListenerStatus = kOscSocketConnectionFailed;
-            return NULL;
+            return NO;
         }
     }
-
-	return NULL;
+    
+	return NO;
 }
 
 TTOscSocket::TTOscSocket(const TTObjectBasePtr owner, const TTUInt16 port)
@@ -46,7 +61,7 @@ TTOscSocket::TTOscSocket(const TTObjectBasePtr owner, const TTUInt16 port)
     
 	mSocketListenerStatus = kOscSocketConnectionTrying;
 	mSocketListener = NULL;
-	mSocketListenerThread = new TTThread(TTOscSocketListener, this);
+	mSocketListenerThread = new TTThread(TTOscSocketListenerCreate, this);
 	
 	mSocketTransmitter = NULL;
 }
