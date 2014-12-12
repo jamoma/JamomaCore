@@ -56,6 +56,7 @@ endFunction()
 
 ## Add max externals recursively ##
 function(addExternals)
+	cmake_policy(SET CMP0014 OLD) # don't warn if folder doesn't contain a CMakeLists.txt file
 	SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
 	SET(IS_EXTERNAL 1)
 	FOREACH(subdir ${SUBDIRS})
