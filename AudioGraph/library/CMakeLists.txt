@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.6)
 project(JamomaAudioGraph)
 
+set(JAMOMA_AUDIOGRAPH_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/includes" 
+	CACHE 
+	STRING "${PROJECT_NAME} includes" FORCE)
+
 add_definitions(-DTTAUDIOGRAPH_EXPORTS)
 
 set(PROJECT_SRCS

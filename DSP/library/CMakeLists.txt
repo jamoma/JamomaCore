@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.6)
 project(JamomaDSP)
 
+set(JAMOMA_DSP_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/includes" 
+	CACHE 
+	STRING "${PROJECT_NAME} includes" FORCE)
+
 add_definitions(-DTTDSP_EXPORTS)
 
 set(PROJECT_SRCS

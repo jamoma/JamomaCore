@@ -1,6 +1,21 @@
 cmake_minimum_required(VERSION 2.6)
 project(JamomaModular)
 
+set(JAMOMA_MODULAR_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/includes" 
+	CACHE 
+	STRING "${PROJECT_NAME} includes" FORCE)
+	
+set(JAMOMA_MODULAR_PROTOCOLLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ProtocolLib" 
+	CACHE 
+	STRING "ProtocolLib includes" FORCE)
+set(JAMOMA_MODULAR_SCHEDULERLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/SchedulerLib" 
+	CACHE 
+	STRING "SchedulerLib includes" FORCE)
+set(JAMOMA_MODULAR_PEEROBJECT_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/PeerObject" 
+	CACHE 
+	STRING "PeerObject includes" FORCE)
+	
+
 add_definitions(-DTTMODULAR_EXPORTS)
 
 find_package(LibXml2 REQUIRED)
