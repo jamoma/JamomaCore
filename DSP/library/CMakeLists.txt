@@ -31,8 +31,8 @@ file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
 
+addJamomaLibrary()
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 
 ### Output ###

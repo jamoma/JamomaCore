@@ -119,8 +119,7 @@ include_directories("${PROJECT_SOURCE_DIR}/tests")
 include_directories("${PROJECT_SOURCE_DIR}/Mersenne-1.1")
 
 
-
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS} ${PROJECT_HDRS})
+addJamomaLibrary()
 
 if(WIN32)
 	if(CMAKE_SIZEOF_VOID_P EQUAL 4)

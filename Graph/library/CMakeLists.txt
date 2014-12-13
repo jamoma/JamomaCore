@@ -25,7 +25,7 @@ include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes")
 
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
+addJamomaLibrary()
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} JamomaDSP)
 

@@ -76,8 +76,7 @@ include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/libiconv/inc
 include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes")
 include_directories(${LIBXML2_INCLUDE_DIR})
 
-
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
+addJamomaLibrary()
 
 target_link_libraries(${PROJECT_NAME} JamomaFoundation)
 target_link_libraries(${PROJECT_NAME} JamomaDSP)
