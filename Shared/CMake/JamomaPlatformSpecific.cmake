@@ -8,6 +8,8 @@ if(UNIX)
 	if(NOT CMAKE_INSTALL_PREFIX_WITH_JAMOMA)
 		set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/jamoma/")
 	endif()
+	
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-unknown-pragmas -Wno-conversion -Wno-deprecated-declarations")
 
 	## OSX ##
 	if(APPLE)
@@ -41,6 +43,7 @@ if(UNIX)
 		SET(CPACK_GENERATOR "NSIS")
 	endif()
 elseif(WIN32)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4996 /wd4275 /wd4273 /wd4068 /LD")
 	add_definitions(-DTT_PLATFORM_WIN)
 	add_definitions(-DWIN_VERSION)
 	add_definitions(-DIDL=0)

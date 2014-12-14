@@ -1,27 +1,74 @@
 cmake_minimum_required(VERSION 2.6)
+
+function(addJamomaLibrary)
+	add_library(${PROJECT_NAME} 
+				SHARED 
+				${PROJECT_SRCS} ${PROJECT_HDRS})
+				
+	set_property(TARGET ${PROJECT_NAME} 
+				 PROPERTY OUTPUT_NAME Jamoma${PROJECT_NAME})
+				 
+	set_property(TARGET ${PROJECT_NAME} 
+				 PROPERTY VERSION ${Jamoma_VERSION})
+	set_property(TARGET ${PROJECT_NAME} 
+				 PROPERTY SOVERSION ${Jamoma_SOVERSION})
+	set_property(TARGET ${PROJECT_NAME} APPEND 
+				 PROPERTY COMPATIBLE_INTERFACE_STRING Jamoma_MAJOR_VERSION)
+				 
+	set_property(TARGET ${PROJECT_NAME} APPEND 
+				 PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+					$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
+					$<INSTALL_INTERFACE:include/jamoma>)
+				 
+	install(TARGETS ${PROJECT_NAME} 
+			EXPORT ${PROJECT_NAME}Targets
+			LIBRARY DESTINATION lib
+			ARCHIVE DESTINATION lib
+			RUNTIME DESTINATION bin
+			INCLUDES DESTINATION include)
+	if(APPLE)
+		INSTALL(FILES ${PROJECT_HDRS} DESTINATION "include")
+	else()
+		install(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma" COMPONENT Devel)
+	endif()
+	export(EXPORT ${PROJECT_NAME}Targets
+		   FILE "${CMAKE_CURRENT_BINARY_DIR}/Jamoma/JamomaTargets.cmake"
+		   NAMESPACE Jamoma::)
+	
+	install(EXPORT ${PROJECT_NAME}Targets
+			FILE JamomaTargets.cmake
+			NAMESPACE Jamoma::
+			DESTINATION ${ConfigPackageLocation})
+
+endFunction()
+
+#todo do the same for extensions / externals.
+
+
 ## Set suffixes according to the conventions of the Jamoma project ##
 function(setExtensionSuffix)
 	if(APPLE)
-		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES PREFIX "")
-		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdylib")
+		set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdylib")
 	elseif(ANDROID)
-		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".so")
+		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".so")
 	elseif(UNIX)
-		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".ttso")
+		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttso")
 	elseif(WIN32)
-		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdll")
+		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdll")
 	endif()
 endFunction(setExtensionSuffix)
 
 ## Set suffixes according to the conventions of the Jamoma project ##
 function(setExternalSuffix)
 	if(APPLE)
-		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES PREFIX "")
-		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".mxo")
+		set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".mxo")
 	elseif(WIN32)
-		SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES SUFFIX ".mxe")
+		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".mxe")
 	endif()
 endFunction(setExternalSuffix)
+
 
 ## Add Apple frameworks ##
 function(addAppleFramework FRAMEWORK_NAME)
@@ -32,6 +79,7 @@ IF(APPLE)
    SET(OSX_FRAMEWORKS "${OSX_FRAMEWORKS};${THE_LIBRARY}" PARENT_SCOPE)
 ENDIF (APPLE)
 endFunction(addAppleFramework)
+
 
 ## List subdirectories (for extensions) ##
 MACRO(SUBDIRLIST result curdir)
@@ -45,6 +93,7 @@ MACRO(SUBDIRLIST result curdir)
   SET(${result} ${dirlist})
 ENDMACRO()
 
+
 ## Add extensions recursively ##
 function(addExtensions)
 	SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
@@ -53,6 +102,7 @@ function(addExtensions)
 	    ADD_SUBDIRECTORY(${subdir})
 	ENDFOREACH()
 endFunction()
+
 
 ## Add max externals recursively ##
 function(addExternals)
@@ -79,6 +129,7 @@ function(addTestTarget)
 	endif()
 endFunction()
 
+
 ## Function to set install path ##
 if(APPLE)
 	function(setOutput)
@@ -89,10 +140,10 @@ if(APPLE)
 			setExternalSuffix()
 			INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "externals")
 		else()
-			INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
+			#INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
 		endif()
 
-			INSTALL(FILES ${PROJECT_HDRS} DESTINATION "include")
+		#INSTALL(FILES ${PROJECT_HDRS} DESTINATION "include")
 	endFunction()
 else()
 	function(setOutput)
@@ -106,13 +157,12 @@ else()
 			INSTALL(TARGETS ${PROJECT_NAME} 
 					DESTINATION "externals")
 		else()
-			INSTALL(TARGETS ${PROJECT_NAME} 
-			 		DESTINATION "lib"
-			)
+			#INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
 		endif()
-		INSTALL(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma")
+		#INSTALL(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma")
 	endFunction()
 endif()
+
 
 ## Function to add the Max/MSP includes ##
 function(addMaxsupport)
