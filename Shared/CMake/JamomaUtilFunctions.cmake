@@ -26,8 +26,11 @@ function(addJamomaLibrary)
 			ARCHIVE DESTINATION lib
 			RUNTIME DESTINATION bin
 			INCLUDES DESTINATION include)
-	install(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma" COMPONENT Devel)
-	
+	if(APPLE)
+		INSTALL(FILES ${PROJECT_HDRS} DESTINATION "include")
+	else()
+		install(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma" COMPONENT Devel)
+	endif()
 	export(EXPORT ${PROJECT_NAME}Targets
 		   FILE "${CMAKE_CURRENT_BINARY_DIR}/Jamoma/JamomaTargets.cmake"
 		   NAMESPACE Jamoma::)
