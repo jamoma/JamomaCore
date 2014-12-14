@@ -13,3 +13,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/Shared/CMake/m
 set(Jamoma_VERSION 0.6)
 set(Jamoma_SOVERSION 6)
 set(Jamoma_MAJOR_VERSION 6)
+
+
+

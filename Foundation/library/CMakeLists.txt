@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(JamomaFoundation)
-
-set(JAMOMA_FOUNDATION_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/includes" 
-	CACHE 
-	STRING "${PROJECT_NAME} includes" FORCE)
+project(Foundation)
 
 if(UNIX AND NOT APPLE)
 	add_definitions("-DJAMOMA_EXTENSIONS_INSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}/lib/jamoma\"")

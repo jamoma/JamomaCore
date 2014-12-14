@@ -4,6 +4,10 @@ function(addJamomaLibrary)
 	add_library(${PROJECT_NAME} 
 				SHARED 
 				${PROJECT_SRCS} ${PROJECT_HDRS})
+				
+	set_property(TARGET ${PROJECT_NAME} 
+				 PROPERTY OUTPUT_NAME Jamoma${PROJECT_NAME})
+				 
 	set_property(TARGET ${PROJECT_NAME} 
 				 PROPERTY VERSION ${Jamoma_VERSION})
 	set_property(TARGET ${PROJECT_NAME} 
@@ -11,11 +15,28 @@ function(addJamomaLibrary)
 	set_property(TARGET ${PROJECT_NAME} APPEND 
 				 PROPERTY COMPATIBLE_INTERFACE_STRING Jamoma_MAJOR_VERSION)
 				 
-	install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}Targets
+	set_property(TARGET ${PROJECT_NAME} APPEND 
+				 PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+					$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
+					$<INSTALL_INTERFACE:include/jamoma>)
+				 
+	install(TARGETS ${PROJECT_NAME} 
+			EXPORT ${PROJECT_NAME}Targets
 			LIBRARY DESTINATION lib
 			ARCHIVE DESTINATION lib
 			RUNTIME DESTINATION bin
 			INCLUDES DESTINATION include)
+	install(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma" COMPONENT Devel)
+	
+	export(EXPORT ${PROJECT_NAME}Targets
+		   FILE "${CMAKE_CURRENT_BINARY_DIR}/Jamoma/JamomaTargets.cmake"
+		   NAMESPACE Jamoma::)
+	
+	install(EXPORT ${PROJECT_NAME}Targets
+			FILE JamomaTargets.cmake
+			NAMESPACE Jamoma::
+			DESTINATION ${ConfigPackageLocation})
+
 endFunction()
 
 #todo do the same for extensions / externals.

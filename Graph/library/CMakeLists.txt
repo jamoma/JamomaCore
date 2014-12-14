@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(JamomaGraph)
-
-set(JAMOMA_GRAPH_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/includes" 
-	CACHE 
-	STRING "${PROJECT_NAME} includes" FORCE)
+project(Graph)
 
 add_definitions(-DTTGRAPH_EXPORTS)
 
@@ -21,13 +17,11 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTParameter.cpp
 
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes")
 
 
 addJamomaLibrary()
-target_link_libraries(${PROJECT_NAME} JamomaFoundation)
-target_link_libraries(${PROJECT_NAME} JamomaDSP)
+target_link_libraries(${PROJECT_NAME} Foundation)
+target_link_libraries(${PROJECT_NAME} DSP)
 
 addAppleFramework(Carbon)
 

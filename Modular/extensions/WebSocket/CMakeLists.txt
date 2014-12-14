@@ -31,7 +31,6 @@ ${CMAKE_CURRENT_SOURCE_DIR}/libjson/_internal/Source/libjson.cpp
 include_directories("${PROJECT_SOURCE_DIR}/")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../library/ProtocolLib")
-include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
 include_directories("${PROJECT_SOURCE_DIR}/libjson")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -41,7 +40,7 @@ endif()
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
-target_link_libraries(${PROJECT_NAME} JamomaFoundation)
+target_link_libraries(${PROJECT_NAME} Foundation)
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} winmm)
 endif()

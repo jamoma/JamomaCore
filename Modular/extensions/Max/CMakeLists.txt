@@ -20,7 +20,6 @@ ${CMAKE_CURRENT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/ma
 include_directories("${PROJECT_SOURCE_DIR}/")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../library/SchedulerLib")
-include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
 
 addMaxsupport()
 
@@ -30,7 +29,7 @@ endif()
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
-target_link_libraries(${PROJECT_NAME} JamomaFoundation)
+target_link_libraries(${PROJECT_NAME} Foundation)
 
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/MaxAPI.lib")

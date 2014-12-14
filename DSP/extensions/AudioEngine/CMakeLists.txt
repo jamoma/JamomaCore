@@ -19,14 +19,12 @@ ${CMAKE_CURRENT_SOURCE_DIR}/TTAudioEngine.cpp
 )
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../library/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
 include_directories(${PORTAUDIO_INCLUDE_DIR})
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
-target_link_libraries(${PROJECT_NAME} JamomaFoundation)
-target_link_libraries(${PROJECT_NAME} JamomaDSP)
+target_link_libraries(${PROJECT_NAME} Foundation)
+target_link_libraries(${PROJECT_NAME} DSP)
 target_link_libraries(${PROJECT_NAME} ${PORTAUDIO_LIBRARIES})
 
 addAppleFramework(Carbon)

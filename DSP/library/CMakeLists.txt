@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(JamomaDSP)
-
-set(JAMOMA_DSP_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/includes" 
-	CACHE 
-	STRING "${PROJECT_NAME} includes" FORCE)
+project(DSP)
 
 add_definitions(-DTTDSP_EXPORTS)
 
@@ -29,11 +25,10 @@ ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSampleMatrix.test.cpp
 
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
 
 addJamomaLibrary()
 
-target_link_libraries(${PROJECT_NAME} JamomaFoundation)
+target_link_libraries(${PROJECT_NAME} Foundation)
 
 ### Output ###
 setOutput()

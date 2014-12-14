@@ -31,12 +31,11 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/MIDISource.cpp
 include_directories("${PROJECT_SOURCE_DIR}/")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../library/ProtocolLib")
-include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
 include_directories("${PORTMIDI_INCLUDE_DIR}")
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
-target_link_libraries(${PROJECT_NAME} JamomaFoundation)
+target_link_libraries(${PROJECT_NAME} Foundation)
 target_link_libraries(${PROJECT_NAME} ${PORTMIDI_LIBRARIES})
 
 if(WIN32)
