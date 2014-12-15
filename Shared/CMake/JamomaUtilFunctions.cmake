@@ -1,26 +1,33 @@
 cmake_minimum_required(VERSION 2.6)
 
 function(addJamomaLibrary)
-	add_library(${PROJECT_NAME} 
-				SHARED 
+	add_library(${PROJECT_NAME}
+				SHARED
 				${PROJECT_SRCS} ${PROJECT_HDRS})
-				
-	set_property(TARGET ${PROJECT_NAME} 
+
+	set_property(TARGET ${PROJECT_NAME}
 				 PROPERTY OUTPUT_NAME Jamoma${PROJECT_NAME})
-				 
-	set_property(TARGET ${PROJECT_NAME} 
+
+	set_property(TARGET ${PROJECT_NAME}
 				 PROPERTY VERSION ${Jamoma_VERSION})
-	set_property(TARGET ${PROJECT_NAME} 
+	set_property(TARGET ${PROJECT_NAME}
 				 PROPERTY SOVERSION ${Jamoma_SOVERSION})
-	set_property(TARGET ${PROJECT_NAME} APPEND 
+	set_property(TARGET ${PROJECT_NAME} APPEND
 				 PROPERTY COMPATIBLE_INTERFACE_STRING Jamoma_MAJOR_VERSION)
-				 
-	set_property(TARGET ${PROJECT_NAME} APPEND 
+
+	if(APPLE)
+	set_property(TARGET ${PROJECT_NAME} APPEND
+				PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+					$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
+					$<INSTALL_INTERFACE:include>)
+	else()
+	set_property(TARGET ${PROJECT_NAME} APPEND
 				 PROPERTY INTERFACE_INCLUDE_DIRECTORIES
 					$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
 					$<INSTALL_INTERFACE:include/jamoma>)
-				 
-	install(TARGETS ${PROJECT_NAME} 
+	endif()
+
+	install(TARGETS ${PROJECT_NAME}
 			EXPORT ${PROJECT_NAME}Targets
 			LIBRARY DESTINATION lib
 			ARCHIVE DESTINATION lib
@@ -31,11 +38,11 @@ function(addJamomaLibrary)
 	else()
 		install(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma" COMPONENT Devel)
 	endif()
-	
+
 	export(EXPORT ${PROJECT_NAME}Targets
 		   FILE "${CMAKE_CURRENT_BINARY_DIR}/Jamoma/Jamoma${PROJECT_NAME}Targets.cmake"
 		   NAMESPACE Jamoma::)
-	
+
 	install(EXPORT ${PROJECT_NAME}Targets
 			FILE Jamoma${PROJECT_NAME}Targets.cmake
 			NAMESPACE Jamoma::
@@ -121,10 +128,10 @@ function(addTestTarget)
 	if(NOT WIN32)
 		if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp)
 			file(GLOB TEST_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp)
-	
+
 			add_executable("test_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
 			target_link_libraries("test_${PROJECT_NAME}" ${PROJECT_NAME})
-	
+
 			add_test("test_${PROJECT_NAME}" "test_${PROJECT_NAME}")
 		endif()
 	endif()
@@ -150,12 +157,12 @@ else()
 	function(setOutput)
 		if(DEFINED IS_EXTENSION)
 			setExtensionSuffix()
-			INSTALL(TARGETS ${PROJECT_NAME} 
+			INSTALL(TARGETS ${PROJECT_NAME}
 					DESTINATION "lib/jamoma"
 			)
 		elseif(DEFINED IS_EXTERNAL)
 			setExternalSuffix()
-			INSTALL(TARGETS ${PROJECT_NAME} 
+			INSTALL(TARGETS ${PROJECT_NAME}
 					DESTINATION "externals")
 		else()
 			#INSTALL(TARGETS ${PROJECT_NAME} DESTINATION "lib")
