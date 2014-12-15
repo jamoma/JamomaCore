@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.6)
 project(Foundation)
 
+set(JAMOMA_ICONV_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libiconv/include" 
+	CACHE 
+	STRING "libiconv includes" FORCE)
+
 if(UNIX AND NOT APPLE)
 	add_definitions("-DJAMOMA_EXTENSIONS_INSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}/lib/jamoma\"")
 endif()
