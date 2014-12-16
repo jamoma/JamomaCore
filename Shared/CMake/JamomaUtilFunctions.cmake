@@ -31,8 +31,7 @@ function(addJamomaLibrary)
 			EXPORT ${PROJECT_NAME}Targets
 			LIBRARY DESTINATION lib
 			ARCHIVE DESTINATION lib
-			RUNTIME DESTINATION bin
-			INCLUDES DESTINATION include)
+			RUNTIME DESTINATION bin)
 	if(APPLE)
 		install(FILES ${PROJECT_HDRS} DESTINATION "include")
 	else()
