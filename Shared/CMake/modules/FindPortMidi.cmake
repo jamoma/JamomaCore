@@ -35,6 +35,7 @@ find_library(PORTMIDI_LIBRARY portmidi
   $ENV{PORTMIDI_DIR}
   ${PORTMIDI_LIB_WIN32_PATH}
   PATHS
+  ${JamomaCore_SOURCE_DIR}/Graph/extensions/MidiLib/portmidi/pm_win_dynamic_lib
   /usr/lib
   /usr/local/lib
   /opt/local/lib

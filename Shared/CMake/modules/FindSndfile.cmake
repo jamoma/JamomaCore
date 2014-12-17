@@ -20,6 +20,31 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS(SNDFILE DEFAULT_MSG SNDFILE_LIBRARY SNDFILE_IN
 IF(SNDFILE_FOUND)
   SET(SNDFILE_LIBRARIES ${SNDFILE_LIBRARY})
   GET_FILENAME_COMPONENT(SNDFILE_LINK_DIRECTORIES ${SNDFILE_LIBRARY} PATH)
+ELSE()
+	FIND_PATH(SNDFILE_INCLUDE_DIR sndfile.h
+	  HINTS
+	  $ENV{SNDFILE_DIR}
+	  ${SNDFILE_INCLUDE_WIN32_PATH}
+	  PATHS
+	  ${JamomaCore_SOURCE_DIR}/DSP/extensions/SoundfileLib/libsndfile
+	  /usr/include
+	  /usr/local/include
+	  /opt/local/include
+	)
+
+	FIND_LIBRARY(SNDFILE_LIBRARY libsndfile-1
+	  HINTS
+	  $ENV{SNDFILE_DIR}
+	  ${SNDFILE_LIB_WIN32_PATH}
+	  PATHS
+	  ${JamomaCore_SOURCE_DIR}/DSP/extensions/SoundfileLib/libsndfile
+	  /usr/lib
+	  /usr/local/lib
+	  /opt/local/lib
+	)
+	
+	set(SNDFILE_LIBRARIES ${SNDFILE_LIBRARY})
+	set(SNDFILE_INCLUDE_DIR ${SNDFILE_INCLUDE_DIR})
 ENDIF(SNDFILE_FOUND)
 
 # Deprecated declarations.
