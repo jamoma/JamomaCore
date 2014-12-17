@@ -17,7 +17,10 @@ add_subdirectory(DSP)
 add_subdirectory(Graph)
 add_subdirectory(AudioGraph)
 add_subdirectory(Modular)
-add_subdirectory(Score)
+
+if(IS_DIRECTORY "Score")
+	add_subdirectory(Score)
+endif()
 
 if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/../Implementations/Max" AND NOT DONT_BUILD_JAMOMAMAX)
 	add_subdirectory(../Implementations/Max ../build/Max)
