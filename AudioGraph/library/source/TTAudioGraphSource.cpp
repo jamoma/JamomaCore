@@ -81,6 +81,7 @@ void TTAudioGraphSource::create()
 {
 	mCallbackHandler.set("function", TTPtr(&TTAudioGraphSourceObserverCallback));
 	mCallbackHandler.set("baton", TTPtr(this));
+    mCallbackHandler.set("notification", TTSymbol("objectFreeing"));
 }
 
 
@@ -110,9 +111,6 @@ void TTAudioGraphSource::connect(TTAudioGraphObjectBasePtr anObject, TTUInt16 fr
 {
 	mSourceObject = anObject;
 	mOutletNumber = fromOutletNumber;
-
-	// dynamically add a message to the callback object so that it can handle the 'objectFreeing' notification
-	mCallbackHandler.instance()->registerMessage(TT("objectFreeing"), (TTMethod)&TTCallback::notify, kTTMessagePassValue);
 	
 	// tell the source that is passed in that we want to watch it
 	mSourceObject->registerObserverForNotifications(mCallbackHandler);
