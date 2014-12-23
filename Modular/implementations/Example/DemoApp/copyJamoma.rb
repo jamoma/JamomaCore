@@ -38,6 +38,7 @@ FileUtils.mkdir_p("/usr/local/jamoma/lib") unless File.exist?("/usr/local/jamoma
 `cp "#{glibdir}"/../../../../Modular/extensions/Minuit/build/Minuit.ttdylib /usr/local/jamoma/extensions`
 `cp "#{glibdir}"/../../../../Modular/extensions/OSC/build/OSC.ttdylib /usr/local/jamoma/extensions`
 `cp "#{glibdir}"/../../../../Modular/extensions/System/build/System.ttdylib /usr/local/jamoma/extensions`
+`cp "#{glibdir}"/../../../../Modular/extensions/WebSocket/build/WebSocket.ttdylib /usr/local/jamoma/extensions`
 
 `cp "#{glibdir}"/../../../../Modular/library/includes/*.h /usr/local/jamoma/includes`
 `cp "#{glibdir}"/../../../../Modular/library/PeerObject/*.h /usr/local/jamoma/includes`
@@ -58,6 +59,7 @@ FileUtils.mkdir_p("/usr/local/jamoma/lib") unless File.exist?("/usr/local/jamoma
 `ln -s /usr/local/jamoma/extensions/DataspaceLib.ttdylib /usr/local/lib/DataspaceLib.ttdylib`
 `ln -s /usr/local/jamoma/extensions/Minuit.ttdylib /usr/local/lib/Minuit.ttdylib`
 `ln -s /usr/local/jamoma/extensions/OSC.ttdylib /usr/local/lib/OSC.ttdylib`
+`ln -s /usr/local/jamoma/extensions/WebSocket.ttdylib /usr/local/lib/WebSocket.ttdylib`
 
 puts "done"
 puts

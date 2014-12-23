@@ -8,7 +8,7 @@
  *
  * @todo Use the TTObjectBase class fonctionnality besause TTNode is also a TTObjectBase
  *
- * @authors Théo de la Hogue, Tim Place, Nathan Wolek, Trond Lossius
+ * @author Théo de la Hogue, Tim Place, Nathan Wolek, Trond Lossius
  *
  * @copyright Copyright © 2009, Théo de la Hogue and Timothy Place @n
  * This code is licensed under the terms of the "New BSD License" @n
@@ -26,8 +26,13 @@ mFunction(NULL),
 mNotification(kTTSym_notify)
 {
 	addAttribute(Function, kTypePointer);
+    addAttributeProperty(Function, hidden, YES);
+    
 	addAttributeWithSetter(Baton, kTypeLocalValue);
+    addAttributeProperty(Baton, hidden, YES);
+    
     addAttributeWithSetter(Notification, kTypeSymbol);
+    addAttributeProperty(Notification, hidden, YES);
 	
     // by default the callback is sensitive to the kTTSym_notify notification sent from a TTObject
     registerMessage(mNotification, (TTMethod)& TTCallback::notify);

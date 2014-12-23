@@ -50,24 +50,28 @@ private:
 	/** Get parameters names needed by this protocol */
 	TTErr getParameterNames(TTValue& value);
 	
-	/** Scan to find remote applications and add them to the application manager */
-	TTErr Scan();
-	
-    /*!
-     * Run reception thread mechanism for each application
-     * \param inputValue			: the application to run (default the local application)
-	 * \param outputValue			: kTTValNONE
-     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start for the application or if it was running already
+	/** Scan to find remote applications and add them to the application manager
+     * \param inputValue			: anything needed for scanning
+	 * \param outputValue			: all remote application ip and port
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
-	TTErr Run(const TTValue& inputValue, TTValue& outputValue);
+    TTErr Scan(const TTValue& inputValue, TTValue& outputValue);
 	
 	/*!
-     * Stop the reception thread mechanism for each application
-     * \param inputValue			: the application to stop (default the local application)
-	 * \param outputValue			: kTTValNONE
-     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop for the application or if it was already stopped
+     * Run reception thread mechanism for the local application only
+     * \param inputValue			: nothing to run all registered applications or a #TTSymbol application name
+	 * \param outputValue			: when the running failed because of a port connection failure : the port number
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
-	TTErr Stop(const TTValue& inputValue, TTValue& outputValue);
+    TTErr Run(const TTValue& inputValue, TTValue& outputValue);
+	
+	/*!
+     * Stop the reception thread mechanism for the local application only
+     * \param inputValue			: nothing to stop all registered applications or a #TTSymbol application name
+	 * \param outputValue			: any informations relative to a failure when stopping the protocol
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop or if it was already stopped
+     */
+    TTErr Stop(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**************************************************************************************************************************
 	 *

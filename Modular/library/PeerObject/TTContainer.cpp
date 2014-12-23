@@ -36,7 +36,7 @@ contentAttribute(NULL)
 		mReturnValueCallback = arguments[1];
 	}
 	
-	addAttributeWithSetter(Priority, kTypeUInt8);
+	addAttributeWithSetter(Priority, kTypeInt32);
 	addAttribute(Description, kTypeSymbol);
     
     addAttribute(Service, kTypeSymbol);
@@ -62,6 +62,10 @@ contentAttribute(NULL)
 	addMessageProperty(Send, hidden, YES);
 	
 	addMessage(Init);
+    
+    addMessageWithArguments(Rename);
+    addMessageProperty(Rename, hidden, YES);
+    
 	addMessage(AliasRemove);
 	
 	// needed to be handled by a TTTextHandler
@@ -106,26 +110,47 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
         else
             attrOrMess = kTTSym_value;
         
-        // If there is a wild card we need to retreive all the objects in mObjectsObserversCache
+        // If there is a wild card into relative address part
         if (strrchr(aRelativeAddress.c_str(), C_WILDCARD)) {
             
             mIsSending = false;
             
+            // split relative address
+            aRelativeAddress.splitAt(0, topAddress, belowAddress);
+            
             // Get each keys sorted by priority
             mObjectsObserversCache.getKeysSorted(hk, &TTContainerCompareObjectPriority);
             
-            // find each keyAddress equals to the relativeAddress
+            // find each keyAddress equals to the top address part
             for (i = 0; i < mObjectsObserversCache.getSize(); i++) {
                 
                 keyAddress = hk[i];
                 
-                if (aRelativeAddress.compare(keyAddress, depth) == kAddressEqual) {
-                    
+                TTAddressComparisonFlag comparison = topAddress.compare(keyAddress, depth);
+                
+                // is topAddress the address of cached container ?
+                if (comparison == kAddressEqual)
+                {
                     // replace relativeAddress by keyAddress
-                    AddressAndValue[0] = keyAddress.appendAttribute(attrOrMess);
+                    AddressAndValue[0] = keyAddress.appendAddress(belowAddress).appendAttribute(attrOrMess);
                     
                     if (this->Send(AddressAndValue, none))
                         err = kTTErrGeneric;
+                }
+                // or is it the top address part of a cached object ?
+                else if (comparison == kAddressUpper)
+                {
+                    // compare the relative address
+                    TTAddressComparisonFlag comparison = aRelativeAddress.compare(keyAddress, depth);
+                    
+                    if (comparison == kAddressEqual)
+                    {
+                        // replace relativeAddress by keyAddress
+                        AddressAndValue[0] = keyAddress.appendAttribute(attrOrMess);
+                        
+                        if (this->Send(AddressAndValue, none))
+                            err = kTTErrGeneric;
+                    }
                 }
             }
             
@@ -184,8 +209,10 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
         // maybe the relative address is for Container below ourself
         else {
             
-            // split relative address and retry using only the first (top) part of the relative address
+            // split relative address
             aRelativeAddress.splitAt(0, topAddress, belowAddress);
+            
+            // retry using only the first (top) part of the relative address
             err = mObjectsObserversCache.lookup(topAddress, cacheElement);
             
             // if the object is in our cache : we replace the relative addres by the belowAddress and send the value
@@ -283,6 +310,34 @@ TTErr TTContainer::initNode(TTNodePtr aNode)
     return kTTErrNone;
 }
 
+TTErr TTContainer::Rename(const TTValue& inputValue, TTValue& outputValue)
+{
+    if (inputValue.size() == 1) {
+        
+        if (inputValue[0].type() == kTypeSymbol) {
+            
+            TTSymbol    newNameInstance = inputValue[0];
+            TTAddress   oldAddress = mAddress;
+            TTValue     args(TTObject(this), newNameInstance);
+            
+            unbind();
+            
+            TTErr err = accessApplicationFrom(mAddress)->sendMessage("ObjectRename", args, outputValue);
+            
+            if (!err)
+                newNameInstance = outputValue[0];
+            
+            mAddress = oldAddress.getParent().appendAddress(TTAddress(newNameInstance));
+            
+            bind();
+            
+            return err;
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
 /** */
 TTErr TTContainer::AliasRemove()
 {
@@ -312,7 +367,13 @@ TTErr TTContainer::setAlias(const TTValue& value)
 	TTUInt32		i;
 	TTString		aliasKey;
 	
-	mAlias = value[0];
+    TTAddress newAlias = value[0];
+    
+    // if the alias is relative append to our parent address
+    if (newAlias.getType() == kAddressRelative)
+        mAlias = mAddress.getParent().appendAddress(newAlias);
+    else
+        mAlias = newAlias;
 	
 	// check it changes
 	if (oldAlias != mAlias) {
@@ -661,7 +722,7 @@ TTErr TTContainer::unbind()
 	TTObject		aValueObserver;
 	TTAttributePtr	anAttribute;
 	TTSymbol		key;
-	TTUInt8			i;
+	TTUInt32        i;
 	TTErr			err;
 	
 	// unregister all attribute/message observers of mDatasObserversCache
@@ -744,7 +805,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	*buffer =  "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">";	
 	*buffer += "<html>";
 	*buffer += "\t<head>";
-	*buffer += "\t\t<meta http-equiv=\"content-type\" content=\"text/html;charset=ISO-8859-1\">";
+	*buffer += "\t\t<meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-16\">";
 	*buffer += "<title>";
 	*buffer += this->mAddress.c_str();
 	*buffer += "</title>";	
@@ -1336,22 +1397,34 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 
 TTBoolean TTContainerCompareObjectPriority(TTValue& v1, TTValue& v2) 
 {
+    TTSymbol    k1, k2;
+    TTValuePtr  s1, s2;
 	TTObject    o1, o2;
 	TTValue		v;
 	TTInt32		p1 = 0;
 	TTInt32		p2 = 0;
+    
+    // get key and stored value
+    k1 = v1[0];
+    k2 = v2[0];
+    s1 = TTValuePtr(TTPtr(v1[1]));
+    s2 = TTValuePtr(TTPtr(v2[1]));
 	
-	// get priority of v1
-	o1 = v1[1];
-	if (o1.valid())
-		if (!o1.get(kTTSym_priority, v))
-			p1 = v[0];
+	// get priority of the object stored in v1
+    if (s1) {
+        o1 = (*s1)[1];
+        if (o1.valid())
+            if (!o1.get(kTTSym_priority, v))
+                p1 = v[0];
+    }
 	
-	// get priority of v2
-    o2 = v2[1];
-	if (o2.valid())
-		if (!o2.get(kTTSym_priority, v))
-			p2 = v[0];
+	// get priority of the object stored in v2
+    if (s2) {
+        o2 = (*s2)[1];
+        if (o2.valid())
+            if (!o2.get(kTTSym_priority, v))
+                p2 = v[0];
+    }
 	
 	if (p1 == 0 && p2 == 0) return v1 < v2;
 	

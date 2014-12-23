@@ -8,43 +8,60 @@
 
 #include "TTOscSocket.h"
 
-TTPtr TTOscSocketListener(TTPtr anArgument)
+TTPtr TTOscSocketListenerCreate(TTPtr anArgument)
 {
-	TTOscSocketPtr anOscSocket= (TTOscSocketPtr) anArgument;
+	TTOscSocketPtr anOscSocket = (TTOscSocketPtr) anArgument;
     
-    try {
-        
+    try
+    {
         anOscSocket->mSocketListener = new UdpListeningReceiveSocket(IpEndpointName(IpEndpointName::ANY_ADDRESS, anOscSocket->mPort), anOscSocket);
-    
-    } catch (const std::runtime_error& error) {
-    
-        TTLogError("TTOscSocketListener -- error when intantiating udp listening on port %ld : %s\n", anOscSocket->mPort, error.what());
+    }
+    catch (const std::runtime_error& error)
+    {
+        anOscSocket->mSocketListenerStatus = kOscSocketConnectionFailed;
         return NULL;
     }
 
-    if (anOscSocket->mSocketListener) {
-        
-        try {
-            
+    while (TTOscSocketListenerRun(anArgument))
+        ;
+    
+    return NULL;
+}
+
+TTBoolean TTOscSocketListenerRun(TTPtr anArgument)
+{
+    TTOscSocketPtr anOscSocket= (TTOscSocketPtr) anArgument;
+    
+    if (anOscSocket->mSocketListener)
+    {
+        try
+        {
+            anOscSocket->mSocketListenerStatus = kOscSocketConnectionSucceeded;
             anOscSocket->mSocketListener->Run();
+        }
+        catch (const std::exception& exception)
+        {
+            TTLogError("TTOscSocketListener : \"%s\"\n", exception.what());
             
-        }  catch (const std::exception& exception) {
+            if (std::strcmp(exception.what(), "element size must be multiple of four") == 0)
+                return YES;
             
-            TTLogError("TTOscSocketListener -- exception when running udp listening on port %ld : %s\n", anOscSocket->mPort, exception.what());
-            return NULL;
+            anOscSocket->mSocketListenerStatus = kOscSocketConnectionFailed;
+            return NO;
         }
     }
     
-	return NULL;
+	return NO;
 }
 
 TTOscSocket::TTOscSocket(const TTObjectBasePtr owner, const TTUInt16 port)
 {
 	mOwner = owner;
 	mPort = port;
-	
+    
+	mSocketListenerStatus = kOscSocketConnectionTrying;
 	mSocketListener = NULL;
-	mSocketListenerThread = new TTThread(TTOscSocketListener, this);
+	mSocketListenerThread = new TTThread(TTOscSocketListenerCreate, this);
 	
 	mSocketTransmitter = NULL;
 }
@@ -56,6 +73,7 @@ TTOscSocket::TTOscSocket(const TTString& address, const TTUInt16 port)
 	
 	mSocketTransmitter = new UdpTransmitSocket(IpEndpointName(address.data(), port));
 	
+    mSocketListenerStatus = kOscSocketConnectionTrying;
 	mSocketListener = NULL;
 }
 
@@ -75,6 +93,8 @@ TTOscSocket::~TTOscSocket()
 		
 		delete mSocketListener;
 		mSocketListener = NULL;
+        
+        mSocketListenerStatus = kOscSocketConnectionTrying;
 	}
 	
 	if (mSocketTransmitter) {
@@ -89,23 +109,27 @@ void TTOscSocket::ProcessMessage(const osc::ReceivedMessage&m, const IpEndpointN
 	TTValue		receivedMessage = TTSymbol(m.AddressPattern());
     TTValue     none;
 	
-	osc::ReceivedMessage::const_iterator arguments = m.ArgumentsBegin(); // get arguments
+	osc::ReceivedMessage::const_iterator arguments = m.ArgumentsBegin();
 	
-	while (arguments != m.ArgumentsEnd()) {
-		
+	while (arguments != m.ArgumentsEnd())
+    {
 		if (arguments->IsChar())
 			receivedMessage.append(arguments->AsChar());
 		
-		else if (arguments->IsInt32()) {
+		else if (arguments->IsInt32())
+        {
 			TTInt32 i = arguments->AsInt32();
 			receivedMessage.append((int)i);
-			
-		} else if (arguments->IsFloat())
+		}
+        else if (arguments->IsFloat())
 			receivedMessage.append((TTFloat64)arguments->AsFloat());
 		
 		else if (arguments->IsString())
 			receivedMessage.append(TTSymbol(arguments->AsString()));
-		
+        
+        else
+            TTLogError("TTOscSocket::ProcessMessage : the type of an argument is not handled");
+            
 		arguments++;
 	}
 	
@@ -179,9 +203,9 @@ TTErr TTOscSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
 	return kTTErrNone;
 }
 
-TTBoolean TTOscSocket::isBound()
+TTOscSocketConnectionFlag TTOscSocket::getSocketListenerStatus()
 {
-    return YES; // théo : the following test is wrong because the socket listener is created in an other thread so it can return false : mSocketListener != NULL;
+    return mSocketListenerStatus;
 }
 
 TTUInt32 TTOscSocket::computeMessageSize(TTSymbol& message, const TTValue& arguments)

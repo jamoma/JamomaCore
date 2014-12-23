@@ -49,7 +49,7 @@ mDefaultNamespace(NULL)
 	registerAttribute(TTSymbol("currentDescription"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentDescription, (TTSetterMethod)&TTCueManager::setCurrentDescription);
 	registerAttribute(TTSymbol("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
 	
-	addAttribute(Cues, kTypePointer);
+	addAttributeWithGetter(Cues, kTypePointer);
 	addAttributeProperty(Cues, readOnly, YES);
 	addAttributeProperty(Cues, hidden, YES);
 	
@@ -92,6 +92,12 @@ TTCueManager::~TTCueManager()
 {
 	delete mDefaultNamespace;
 	mDefaultNamespace = NULL;
+}
+
+TTErr TTCueManager::getCues(TTValue& value)
+{
+    value = TTPtr(&mCues);
+    return kTTErrNone;
 }
 
 TTErr TTCueManager::getCurrentDescription(TTValue& value)
@@ -222,7 +228,7 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 	}
     
     // refresh all namespace handlers (TTExplorer only)
-    aSelection->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+    aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
 	
 	return kTTErrNone;
 }
@@ -254,7 +260,7 @@ TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& output
 	}
     
     // refresh all namespace handlers (TTExplorer only)
-    aSelection->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+    aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
 	
 	return kTTErrNone;
 }
@@ -293,7 +299,7 @@ TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValu
         mCurrentCue.send("Select", (TTPtr)aSelection, none);
         
         // refresh all namespace handlers (TTExplorer only)
-        aSelection->iterateHandlersSendingMessage(TTSymbol("SelectionRefresh"));
+        aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
         
         return kTTErrNone;
 	}
@@ -1226,8 +1232,8 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 				// get cue name
 				if (!line->getValue(v)) {
 					
-                    // convert in string in case of int or float name
-                    v.toString();
+                    // convert in string in case of int or float name with no quotes for internal symbol
+                    v.toString(NO);
 					mCurrent = TTSymbol(TTString(v[0]));
 					
                     if (mCurrent != kTTSymEmpty) {

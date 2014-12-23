@@ -6,7 +6,7 @@
  *
  * @details
  *
- * @authors Tim Place, Théo de la Hogue, Nathan Wolek, Julien Rabin, Nils Peters, Trond Lossius
+ * @author Tim Place, Théo de la Hogue, Nathan Wolek, Julien Rabin, Nils Peters, Trond Lossius
  *
  * @copyright Copyright © 2011, Timothy Place @n
  * This code is licensed under the terms of the "New BSD License" @n

@@ -44,7 +44,7 @@ mCurrentPosition(0)
 	addAttribute(CurrentPosition, kTypeUInt32);
 	addAttributeProperty(CurrentPosition, readOnly, YES);
 	
-	addAttribute(Presets, kTypePointer);
+	addAttributeWithGetter(Presets, kTypePointer);
 	addAttributeProperty(Presets, readOnly, YES);
 	addAttributeProperty(Presets, hidden, YES);
 	
@@ -78,6 +78,12 @@ mCurrentPosition(0)
 TTPresetManager::~TTPresetManager()
 {
     ;
+}
+
+TTErr TTPresetManager::getPresets(TTValue& value)
+{
+    value = TTPtr(&mPresets);
+    return kTTErrNone;
 }
 
 TTErr TTPresetManager::setAddress(const TTValue& value)

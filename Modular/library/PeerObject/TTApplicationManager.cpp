@@ -29,7 +29,7 @@ mApplicationObserversMutex(NULL)
     TT_ASSERT("TTModularApplicationManager is NULL", (TTModularApplicationManager == NULL));
     
     // application attributes
-	addAttribute(Applications, kTypePointer);
+	addAttributeWithGetter(Applications, kTypePointer);
 	addAttributeProperty(Applications, readOnly, YES);
 	addAttributeProperty(Applications, hidden, YES);
 	
@@ -112,6 +112,12 @@ TTApplicationManager::~TTApplicationManager()
 #pragma mark Application accesors
 #endif
 
+TTErr TTApplicationManager::getApplications(TTValue& value)
+{
+    value = TTPtr(&mApplications);
+    return kTTErrNone;
+}
+
 TTErr TTApplicationManager::getApplicationNames(TTValue& returnedApplicationNames)
 {
 	return mApplications.getKeys(returnedApplicationNames);
@@ -176,6 +182,10 @@ TTErr TTApplicationManager::ApplicationInstantiateLocal(const TTValue& inputValu
             anApplication = TTObject(kTTSym_Application);
             anApplication.set(kTTSym_name, applicationName);
             
+            // register the application under its own root
+            v = TTValue(kTTAdrsRoot, anApplication);
+            anApplication.send("ObjectRegister", v, none);
+            
             // register the application as any application
             mApplications.append(applicationName, anApplication);
             
@@ -219,6 +229,11 @@ TTErr TTApplicationManager::ApplicationInstantiateDistant(const TTValue& inputVa
             // create an application
             anApplication = TTObject(kTTSym_Application);
             anApplication.set(kTTSym_name, applicationName);
+            anApplication.set(kTTSym_type, kTTSym_mirror);
+            
+            // register the application under its own root
+            v = TTValue(kTTAdrsRoot, anApplication);
+            anApplication.send("ObjectRegister", v, none);
             
             // register the application as any application
             mApplications.append(applicationName, anApplication);
@@ -269,6 +284,9 @@ TTErr TTApplicationManager::ApplicationRelease(const TTValue& inputValue, TTValu
                     aProtocol = v[0];
                     aProtocol.send("ApplicationUnregister", applicationName, none);
                 }
+                
+                // unregister the application from its own root
+                anApplication.send("ObjectUnregister", kTTAdrsRoot, none);
                 
                 // if the application is the local one : forget it
                 if (anApplication.instance() == mApplicationLocal.instance())
@@ -1016,7 +1034,7 @@ TTErr TTApplicationManager::WriteAsXml(const TTValue& inputValue, TTValue& outpu
 
 TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, TTObject aProtocol)
 {
-    TTSymbol  name;
+    TTSymbol  name, type;
     TTBoolean registered;
     TTValue   v, none, applicationNames, parametersNames;
     TTString  s;
@@ -1053,9 +1071,12 @@ TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, TTOb
             for (TTElementIter it2 = parametersNames.begin() ; it2 != parametersNames.end() ; it2++)
             {
                 name = TTElement(*it2);
+                type = aProtocol.attributeType(name);
+                
                 aProtocol.get(name, v);
-                v.toString();
+                v.toString(type != kTTSym_symbol);
                 s = TTString(v[0]);
+                
                 xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST name.c_str(), BAD_CAST s.data());
             }
             
@@ -1078,7 +1099,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 		return kTTErrGeneric;
     
 	TTSymbol			applicationName, applicationType, currentApplicationName;
-    TTSymbol			protocolName, currentProtocolName, parameterName;
+    TTSymbol			protocolName, currentProtocolName, parameterName, parameterType;
 	TTValue				v, args, applicationNames, protocolNames, parameterValue, out, none;
     TTUInt16            i, j;
     TTErr               err;
@@ -1190,8 +1211,10 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
                         
                         parameterName = v[0];
                         
+                        parameterType = mCurrentProtocol.attributeType(parameterName);
+                        
                         // get parameter's value
-                        aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), parameterValue);
+                        aXmlHandler->fromXmlChar(xmlTextReaderValue((xmlTextReaderPtr)aXmlHandler->mReader), parameterValue, parameterType == kTTSym_symbol);
                         
                         // set parameter
                         mCurrentProtocol.set(parameterName, parameterValue);
@@ -1279,11 +1302,8 @@ TTApplicationPtr TTApplicationManager::findApplication(TTSymbol applicationName)
         TTObject anApplication = v[0];
         return TTApplicationPtr(anApplication.instance());
     }
-    else {
-        
-        TTLogError("TTApplicationManager::findApplicationFrom : wrong application name\n");
+    else
         return NULL;
-    }
 }
 
 TTNodeDirectoryPtr TTApplicationManager::findApplicationDirectory(TTSymbol applicationName)

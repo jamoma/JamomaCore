@@ -78,7 +78,6 @@ private:
 	PROTOCOL_PARAMETER(Port);					///< PROTOCOL PARAMETER : each registered application have to setup its port
     
 	TTObject                mOscReceive;
-    TTThreadPtr             mWaitThread;                // a thread used to wait in some case
 	
 	MinuitAnswerManagerPtr	mAnswerManager;
     MinuitSenderManagerPtr	mSenderManager;
@@ -87,24 +86,28 @@ private:
 	TTErr receivedMessage(const TTValue& message, TTValue& outputValue);
 	
 	
-	/** Scan to find remote applications and add them to the application manager */
-	TTErr Scan();
+	/** Scan to find remote applications and add them to the application manager
+     * \param inputValue			: anything needed for scanning
+	 * \param outputValue			: all remote application name
+     * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
+     */
+    TTErr Scan(const TTValue& inputValue, TTValue& outputValue);
 	
 	/*!
      * Run reception thread mechanism for the local application only
-     * \param inputValue			: kTTValNONE
-	 * \param outputValue			: kTTValNONE
+     * \param inputValue			: nothing to run all registered applications or a #TTSymbol application name
+	 * \param outputValue			: when the running failed because of a port connection failure : the port number
      * \return errorcode			: return a kTTErrGeneric if the protocol fails to start or if it was running already
      */
-	TTErr Run(const TTValue& inputValue, TTValue& outputValue);
+    TTErr Run(const TTValue& inputValue, TTValue& outputValue);
 	
-    /*!
+	/*!
      * Stop the reception thread mechanism for the local application only
-     * \param inputValue			: kTTValNONE
-	 * \param outputValue			: kTTValNONE
+     * \param inputValue			: nothing to stop all registered applications or a #TTSymbol application name
+	 * \param outputValue			: any informations relative to a failure when stopping the protocol
      * \return errorcode			: return a kTTErrGeneric if the protocol fails to stop or if it was already stopped
      */
-	TTErr Stop(const TTValue& inputValue, TTValue& outputValue);
+    TTErr Stop(const TTValue& inputValue, TTValue& outputValue);
 	
 	/**************************************************************************************************************************
 	 *

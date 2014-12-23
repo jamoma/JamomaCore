@@ -26,6 +26,7 @@ mDuration(0.),
 mOffset(0.),
 mSpeed(1.),
 mExternalTick(NO),
+mInfinite(NO),
 mRunning(NO),
 mPaused(NO),
 mPosition(0.),
@@ -49,6 +50,7 @@ mBaton(NULL)
     addAttributeWithSetter(Offset, kTypeFloat64);
     addAttributeWithSetter(Speed, kTypeFloat64);
     addAttribute(ExternalTick, kTypeBoolean);
+    addAttribute(Infinite, kTypeBoolean);
 
 	addAttribute(Stretchable, kTypeBoolean);
 	addAttributeProperty(Stretchable, readOnly, YES);
@@ -130,9 +132,14 @@ TTErr Scheduler::setSpeed(const TTValue& value)
         
         if (value[0].type() == kTypeFloat64) {
             
-            mSpeed = value[0];
+            TTFloat64 newSpeed = value[0];
             
-            sendNotification(TTSymbol("SchedulerSpeedChanged"), mSpeed);
+            if (newSpeed != mSpeed) {
+            
+                mSpeed = value[0];
+            
+                sendNotification(TTSymbol("SchedulerSpeedChanged"), mSpeed);
+            }
             
             return kTTErrNone;
         }

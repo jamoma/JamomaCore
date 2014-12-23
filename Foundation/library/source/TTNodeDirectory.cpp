@@ -218,7 +218,7 @@ TTErr TTNodeDirectory::fillAddressItem(TTAddressItemPtr anAddressItem, TTAddress
     return kTTErrGeneric;
 }
 
-TTErr TTNodeDirectory::TTNodeCreate(TTAddress& anAddress, TTObject newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
+TTErr TTNodeDirectory::TTNodeCreate(TTAddress& anAddress, TTObject& newObject, void *aContext, TTNodePtr *returnedTTNode, TTBoolean *newInstanceCreated)
 {
 	TTAddress	normalizedAddress, effectiveAddress;
 	TTSymbol	newInstance;
@@ -296,21 +296,24 @@ TTErr TTNodeDirectory::TTNodeRemove(TTAddress& anAddress)
 	TTList			childrenList;
 	TTValue			v;
 	TTObject		obj;
-	TTAddress		parentAddress;
+	TTAddress		parentAddress, normalizedAddress;
+    
+    // remove any directory or attribute part
+    normalizedAddress = anAddress.normalize();
 
 	// can't destroy the root (use the TTNodeDirectory destructor)
-	if (anAddress != kTTAdrsRoot) {
+	if (normalizedAddress != kTTAdrsRoot) {
 
 		// find the TTNode in the directory
-		err = this->getTTNode(anAddress, &oldNode);
+		err = this->getTTNode(normalizedAddress, &oldNode);
 
 		if (!err) {
 
 			// Notify observers that a node will be destroyed BEFORE the destruction
-			this->notifyObservers(anAddress, oldNode, kAddressDestroyed);
+			this->notifyObservers(normalizedAddress, oldNode, kAddressDestroyed);
 
 			// Remove his address
-			err = directory.remove(anAddress);
+			err = directory.remove(normalizedAddress);
 
 			// Get parent node
 			parentNode = oldNode->getParent();
@@ -731,7 +734,7 @@ TTErr TTNodeDirectory::notifyObservers(TTAddress anAddress, TTNodePtr aNode, TTA
                             data.append(aNode);
                             data.append((TTInt8)flag);
                             data.append(anObserver);
-                            anObserver.send("notify", data, data);
+                            anObserver.send("notify", data);
                         }
                         
                         foundObsv = true;
@@ -1057,10 +1060,10 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 	TTNodePtr	n1, n2;
 	TTObject    o1, o2;
 	TTValue		v;
-    TTValue    name1;
-    TTValue    name2;
-    TTValue    instance1;
-    TTValue    instance2;
+    TTValue     name1;
+    TTValue     name2;
+    TTValue     instance1;
+    TTValue     instance2;
 	TTInt32		p1 = 0;
 	TTInt32		p2 = 0;
 	
@@ -1068,8 +1071,8 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 	n1 = TTNodePtr((TTPtr)v1[0]);
 	if (n1) {
         
-        name1 = n1->getName();
-        instance1 = n1->getInstance();
+        name1 = TTString(n1->getName().c_str());            // to convert number name
+        instance1 = TTString(n1->getInstance().c_str());    // to convert number instance
 		o1 = n1->getObject();
 		
 		if (o1.valid())
@@ -1081,8 +1084,8 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 	n2 = TTNodePtr((TTPtr)v2[0]);
 	if (n2) {
         
-        name2 = n2->getName();
-        instance2 = n2->getInstance();
+        name2 = TTString(n2->getName().c_str());
+        instance2 = TTString(n2->getInstance().c_str());
 		o2 = n2->getObject();
 		
 		if (o2.valid())
@@ -1092,7 +1095,25 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
 	
 	if (p1 == p2) {
         
+        name1.fromString();
+        name2.fromString();
+        
+        if (name1.size() != name2.size())
+            return YES;
+        
+        if (name1[0].type() != name2[0].type())
+            return YES;
+        
         if (name1 == name2) {
+            
+            instance1.fromString();
+            instance2.fromString();
+            
+            if (instance1.size() != instance2.size())
+                return YES;
+            
+            if (instance1[0].type() != instance2[0].type())
+                return YES;
             
             if (instance1 == instance2)
                 return v1 < v2;

@@ -337,9 +337,11 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath)
 #else
 		handle = dlopen(fileFullpath.c_str(), RTLD_LAZY);
 #endif
-		//std::cout << "HANDLE: " << handle << std::endl;
-		if (!handle)
+		
+		if (!handle) {
+            std::cout << "ERROR: " << dlerror() << std::endl;
 			continue;
+        }
 		
 		// TODO: assert -- or at least do a log post -- if handle is NULL
 		initializerFunctionName = "TTLoadJamomaExtension_";

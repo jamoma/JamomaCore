@@ -1,5 +1,6 @@
 defines:
   - TTMODULAR_EXPORTS
+  - LIBICONV_STATIC
 
 sources:
   - source/TTModular.cpp

@@ -4,7 +4,7 @@
  *
  * @brief Create Jamoma object instances.
  *
- * @authors Timothy Place
+ * @author Timothy Place
  *
  * @copyright Copyright © 2014, Timothy Place @n
  * This code is licensed under the terms of the "New BSD License" @n
@@ -137,12 +137,20 @@ TTErr TTObject::send(const TTSymbol aName)
 	return mObjectInstance->sendMessage(aName);
 }
 
+TTValue TTObject::send(const TTSymbol aName, const TTValue& anInputValue)
+{
+	TTValue anOutputValue;
+	
+	mObjectInstance->sendMessage(aName, anInputValue, anOutputValue);
+	return anOutputValue;
+}
 
+#ifdef SUPPORT_OLD_SEND_SYNTAX
 TTErr TTObject::send(const TTSymbol aName, const TTValue& anInputValue, TTValue& anOutputValue)
 {
 	return mObjectInstance->sendMessage(aName, anInputValue, anOutputValue);
 }
-
+#endif
 
 TTErr TTObject::registerObserverForNotifications(const TTObject& anObservingObject)
 {

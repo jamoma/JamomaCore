@@ -15,21 +15,32 @@
 
 TT_OBJECT_CONSTRUCTOR,
 mPort(0),
-mSocket(NULL)
+mSocket(NULL),
+mWaitThread(NULL)
 {
     if (arguments.size() == 1)
         mCallback = arguments[0];
     
 	addAttributeWithSetter(Port, kTypeUInt16);
 
-	// callback from mSocket
+	// callbacks from mSocket
 	addMessageWithArguments(oscSocketReceive);
 	addMessageProperty(oscSocketReceive, hidden, YES);
+    
+    mWaitThread = new TTThread(NULL, NULL);
 }
 
 TTOscReceive::~TTOscReceive()
 {
 	delete mSocket;
+    
+    // théo : is it necessary ? we used to do this in Minuit::Stop and OSC::Stop to avoid strange crash ...
+    mWaitThread->sleep(1);
+    
+    if (mWaitThread)
+		mWaitThread->wait();
+    
+	delete mWaitThread;
 }
 
 TTErr TTOscReceive::bind()
@@ -40,7 +51,12 @@ TTErr TTOscReceive::bind()
 
         mSocket = new TTOscSocket((TTObjectBasePtr)this, mPort);
         
-        if (mSocket->isBound())
+        do {
+            mWaitThread->sleep(1);
+        }
+        while (mSocket->getSocketListenerStatus() == kOscSocketConnectionTrying);
+        
+        if (mSocket->getSocketListenerStatus() == kOscSocketConnectionSucceeded)
             return kTTErrNone;
 	}
     

@@ -23,7 +23,6 @@
 TT_MODULAR_CONSTRUCTOR,
 mAddress(kTTAdrsEmpty),
 mActive(YES),
-mDirectory(NULL),
 mObjectCache(NULL)
 {
 	if (arguments.size() >= 1)
@@ -59,7 +58,7 @@ TTReceiver::~TTReceiver()
     // disable reception to avoid crash
     mActive = NO;
     
-    unbindAddress();
+    unbindAddress(accessApplicationDirectoryFrom(mAddress));
 	unbindApplication();
     
     delete mObjectCache;
@@ -73,19 +72,13 @@ TTErr TTReceiver::setAddress(const TTValue& newValue)
     // disable reception to avoid crash
     mActive = NO;
     
-	unbindAddress();
+	unbindAddress(accessApplicationDirectoryFrom(mAddress));
 	unbindApplication();
 	
 	mAddress = newValue[0];
     
-    if (mAddress != kTTAdrsEmpty) {
-        
-        mDirectory = accessApplicationDirectoryFrom(mAddress);
-        if (mDirectory)
-            err = bindAddress();
-        else
-            err = bindApplication();
-    }
+    if (mAddress != kTTAdrsEmpty)
+        err = bindAddress(accessApplicationDirectoryFrom(mAddress));
     
     // enable reception
     mActive = memoActive;
@@ -126,6 +119,13 @@ TTErr TTReceiver::setActive(const TTValue& newValue)
                 err = anObject.instance()->findAttribute(ttAttributeName, &anAttribute);
                 
                 if (!err) {
+                    
+                    TTObject anObserver = mNodesObserversCache.current()[1];
+                    
+                    if (mActive)
+                        anAttribute->registerObserverForNotifications(anObserver);
+                    else
+                        anAttribute->unregisterObserverForNotifications(anObserver);
                     
                     if (anObject.name() == kTTSym_Mirror)
                         TTMirrorPtr(anObject.instance())->enableListening(*anAttribute, mActive);
@@ -179,12 +179,16 @@ TTErr TTReceiver::Get()
                         
                         // output the address of the node (in case we use * inside the binded address)
                         aNode->getAddress(anAddress);
-                        anAddress = anAddress.appendAttribute(mAddress.getAttribute());
                         
                         // return the address
                         if (mReturnAddressCallback.valid())
-                            mReturnAddressCallback.send("notify", anAddress, none);
-                            
+                        {
+                            if (ttAttributeName == kTTSym_value)
+                                mReturnAddressCallback.send("notify", anAddress, none);
+                            else
+                                mReturnAddressCallback.send("notify", anAddress.appendAttribute(ToAppName(ttAttributeName)), none);
+                        }
+                        
                         // return the value
                         if (mReturnValueCallback.valid())
                             mReturnValueCallback.send("notify", data, none);
@@ -230,7 +234,7 @@ TTErr TTReceiver::Grab(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrGeneric;
 }
 
-TTErr TTReceiver::bindAddress()
+TTErr TTReceiver::bindAddress(TTNodeDirectoryPtr aDirectory)
 {
 	TTAddress   anAddress;
 	TTSymbol    ttAttributeName;
@@ -238,8 +242,8 @@ TTErr TTReceiver::bindAddress()
 	TTNodePtr   aNode;
 	TTErr       err;
 	
-	if (!mDirectory)
-		return kTTErrGeneric;
+	if (!aDirectory)
+		return bindApplication();
 	
 	// for any attribute observation except created, destroyed
 	ttAttributeName = ToTTName(mAddress.getAttribute());
@@ -251,7 +255,7 @@ TTErr TTReceiver::bindAddress()
 	if ((ttAttributeName != kTTSym_created) && (ttAttributeName != kTTSym_destroyed))
 	{
 		// Look for node(s) into the directory
-		err = mDirectory->Lookup(mAddress, aNodeList, &aNode);
+		err = aDirectory->Lookup(mAddress, aNodeList, &aNode);
 		
 		// Start attribute observation on each existing node of the selection
 		if (!err) {
@@ -274,7 +278,7 @@ TTErr TTReceiver::bindAddress()
 	mAddressObserver.set(kTTSym_baton, TTPtr(this)); // théo -- we have to register our self as a #TTPtr to not reference this instance otherwhise the destructor will never be called
 	mAddressObserver.set(kTTSym_function, TTPtr(&TTReceiverDirectoryCallback));
 	
-	mDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
+	aDirectory->addObserverForNotifications(mAddress, mAddressObserver, 0); // ask for notification only for equal addresses
 	
 	return kTTErrNone;
 }
@@ -295,7 +299,10 @@ void TTReceiver::cacheNodeObserver(TTNodePtr aNode, TTAddress& anAddress, TTSymb
             TTObject    newObserver = TTObject("callback");
             
             baton = TTValue(TTObject(this));
-            baton.append(anAddress);
+            if (anAttributeName == kTTSym_value)
+                baton.append(anAddress);
+            else
+                baton.append(anAddress.appendAttribute(ToAppName(anAttributeName)));
             
             newObserver.set(kTTSym_baton, baton);
             newObserver.set(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
@@ -326,7 +333,12 @@ void TTReceiver::cacheNodeObserver(TTNodePtr aNode, TTAddress& anAddress, TTSymb
                         
                         // return the address of the node (in case we use * inside the binded address)
                         if (mReturnAddressCallback.valid())
-                            mReturnAddressCallback.send("notify", anAddress.appendAttribute(ToAppName(anAttributeName)), none);
+                        {
+                            if (anAttributeName == kTTSym_value)
+                                mReturnAddressCallback.send("notify", anAddress, none);
+                            else
+                                mReturnAddressCallback.send("notify", anAddress.appendAttribute(ToAppName(anAttributeName)), none);
+                        }
                         
                         // return the value
                         if (mReturnValueCallback.valid())
@@ -339,7 +351,7 @@ void TTReceiver::cacheNodeObserver(TTNodePtr aNode, TTAddress& anAddress, TTSymb
     }
 }
 
-TTErr TTReceiver::unbindAddress()
+TTErr TTReceiver::unbindAddress(TTNodeDirectoryPtr aDirectory)
 {
 	TTValue     oldElement;
 	TTNodePtr   aNode;
@@ -378,9 +390,9 @@ TTErr TTReceiver::unbindAddress()
         mObjectCache->clear();
 		
 		// stop life cycle observation
-		if (mAddressObserver.valid() && mDirectory) {
+		if (mAddressObserver.valid() && aDirectory) {
 			
-			mDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
+			aDirectory->removeObserverForNotifications(mAddress, mAddressObserver);
 			
 			mAddressObserver = TTObject();
 		}
@@ -433,8 +445,6 @@ TTErr TTReceiver::unbindApplication()
 		
 		mApplicationObserver = TTObject();
 	}
-	
-	mDirectory = NULL;
 	
 	return kTTErrNone;
 }
@@ -602,8 +612,7 @@ TTErr TTReceiverApplicationManagerCallback(const TTValue& baton, const TTValue& 
 			
 		case kApplicationInstantiated :
 		{
-			aReceiver->mDirectory = accessApplicationDirectoryFrom(aReceiver->mAddress);
-			aReceiver->bindAddress();
+			aReceiver->bindAddress(accessApplicationDirectoryFrom(aReceiver->mAddress));
 			break;
 		}
 			
@@ -621,7 +630,7 @@ TTErr TTReceiverApplicationManagerCallback(const TTValue& baton, const TTValue& 
 			
 		case kApplicationReleased :
 		{
-			aReceiver->unbindAddress();
+			aReceiver->unbindAddress(accessApplicationDirectoryFrom(aReceiver->mAddress));
 			break;
 		}
 			

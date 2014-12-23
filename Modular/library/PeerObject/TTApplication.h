@@ -75,7 +75,9 @@ private:
 	TTHash                      mTTToApp;			///< hash table to convert TT names into Application names
 	TTValue						mAllTTNames;		///< all TT names
 	
-	TTAddress					mTempAddress;		///< a temporary address to parse opml file
+	TTAddress					mTempAddress;		///< a temporary address to parse xml file
+    TTAddress					mFoldAddress;		///< a temporary address to duplicate address content
+    TTUInt32                    mFolderSize;        ///< how many times the fold address have to be duplicated
 
 #if 0
 #pragma mark -
@@ -154,8 +156,8 @@ private:
     TTErr buildNode(ProtocolPtr aProtocol, TTAddress anAddress);
     
     /** Observe the directory of an application (for distant application only) 
-     @param inputValue
-     @param outputValue     
+     @param inputValue      #TTBoolean to enable or disable directory observation
+     @param outputValue     nothing
      @return #TTErr error code */
 	TTErr DirectoryObserve(const TTValue& inputValue, TTValue& outputValue);
     

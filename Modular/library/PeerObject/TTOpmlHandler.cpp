@@ -80,9 +80,7 @@ TTErr TTOpmlHandler::Write(const TTValue& args, TTValue& outputValue)
 				return kTTErrGeneric;
 			}
 			
-			/* Start the document with the opml default for the version,
-			 * encoding ISO 8859-1 and the default for the standalone
-			 * declaration. */
+			// Start the document with the xml default for the version, the choosen encoding and yes for standalone status
 			ret = xmlTextWriterStartDocument((xmlTextWriterPtr)mWriter, NULL, TTMODULAR_OPML_ENCODING, "yes");
 			if (ret < 0) {
 				TT_ASSERT("testOpmlwriterFilename: Error at opmlTextWriterStartDocument\n", true);
