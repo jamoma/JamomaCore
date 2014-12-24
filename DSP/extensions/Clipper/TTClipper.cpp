@@ -12,7 +12,7 @@
 
 #include "TTDSP.h"
 
-#define thisTTClass				Clipper
+#define thisTTClass				TTClipper
 #define thisTTClassName			"clipper"
 #define thisTTClassDescription	"Limits the amplitude of signals."
 #define thisTTClassTags			"audio, processor"
@@ -20,8 +20,8 @@
 
 /**	Hard-clip signals to a low and high bound. */
  
-class Clipper : TTAudioObjectBase {
-	TTCLASS_SETUP(Clipper)
+class TTClipper : TTAudioObjectBase {
+	TTCLASS_SETUP(TTClipper)
 
 	TTFloat64	mLowBound;		///< Attribute: low bound for clipping
 	TTFloat64	mHighBound;		///< Attribute: high bound for clipping
@@ -54,5 +54,5 @@ TT_AUDIO_CONSTRUCTOR_EXPORT(Clipper)
 }
 
 
-Clipper::~Clipper()
+TTClipper::~TTClipper()
 {;}
