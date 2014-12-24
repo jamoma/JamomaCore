@@ -538,46 +538,43 @@ TTErr Minuit::SendListenAnswer(TTSymbol to, TTAddress address,
 
 TTErr Minuit::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& arguments)
 {
-	TTHashPtr	parameters = NULL;
-    TTObject    anOscSender;
-	TTValue		v, vIp, vPort, message, none;
-	TTErr		err, errIp, errPort;
-    
     if (!mSenderManager)
         return kTTErrGeneric;
-	
-	// Check the application registration
-	err = mApplicationParameters.lookup(applicationName, v);
-	
-	if (!err) {
-		parameters = TTHashPtr((TTPtr)v[0]);
-		
-		if (parameters) {
-			
-			errIp = parameters->lookup(TTSymbol("ip"), vIp);
-			errPort = parameters->lookup(TTSymbol("port"), vPort);
-			
-			if (errIp || errPort)
-				return kTTErrGeneric;
-			
-			anOscSender = mSenderManager->lookup(applicationName, vIp, vPort);
-			if (anOscSender.valid()) {
 
-				message = TTValue(header);
-				message.append((TTPtr)&arguments);
-				
-				err = anOscSender.send("send", message, none);
-            
-				if (!err && mActivity) {
-					v = arguments;
-					v.prepend(header);
-					ActivityOutMessage(v);
-				}
-			}
-		}
-	}
+	// Check application registration
+    TTValue v;
+	TTErr   err = mApplicationParameters.lookup(applicationName, v);
+	
+	if (!err)
+    {
+		TTHashPtr   parameters = TTHashPtr((TTPtr)v[0]);
+		TTValue     vIp, vPort;
+        TTErr       errIp = parameters->lookup(TTSymbol("ip"), vIp);
+        TTErr       errPort = parameters->lookup(TTSymbol("port"), vPort);
+        
+        if (errIp || errPort)
+            return kTTErrGeneric;
+        
+        TTValue message(header);
+        message.append((TTPtr)&arguments);
+        
+        err = mSenderManager->send(applicationName, vIp, vPort, message);
+        
+        if (err)
+        {
+            ; // can't send message to the application because the osc.sender is busy
+            ; // TODO : have bundle system
+        }
+        
+        else if (mActivity)
+        {
+            v = arguments;
+            v.prepend(header);
+            ActivityOutMessage(v);
+        }
+    }
 
-	return err;
+    return err;
 }
 
 TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)

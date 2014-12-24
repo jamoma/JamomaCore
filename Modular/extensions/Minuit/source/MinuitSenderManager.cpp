@@ -17,60 +17,65 @@
 #include "MinuitSenderManager.h"
 
 MinuitSenderManager::MinuitSenderManager()
-{}
+{
+    mSenders.setThreadProtection(YES);
+    mSending.setThreadProtection(YES);
+}
 
 MinuitSenderManager::~MinuitSenderManager()
 {}
 
-TTObject MinuitSenderManager::lookup(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
+TTErr MinuitSenderManager::send(TTSymbol applicationName, TTSymbol ip, TTUInt16 port, const TTValue& message)
 {
-    TTValue  last, v;
-    TTObject lastObject;
-    TTSymbol lastIp;
-    TTUInt16 lastPort;
-    TTErr    err;
+    TTValue  last;
     
-    err = mSenders.lookup(applicationName, last);
-    
-    if (err)
-        return this->add(applicationName, ip, port);
-    
-    else {
+    // if nothing is being sent to an application
+    if (mSending.findEquals(applicationName, last))
+    {
+        // lock application
+        mSending.append(applicationName);
         
-        lastObject = last[0];
-        lastIp = last[1];
-        lastPort = last[2];
+        TTObject anOscSender;
         
-        if (lastIp == ip && lastPort == port)
-            ;
+        TTErr err = mSenders.lookup(applicationName, last);
         
-        else {
+        if (err)
+        {
+            anOscSender = TTObject("osc.send");
             
-            v.append(lastObject);
-            v.append(ip);
-            v.append(port);
+            anOscSender.set("address", ip);
+            anOscSender.set("port", port);
             
-            mSenders.remove(applicationName);
-            mSenders.append(applicationName,v);
+            TTValue cache(anOscSender, ip, port);
+            mSenders.append(applicationName, cache);
         }
+        else
+        {
+            anOscSender = last[0];
+            TTSymbol lastIp = last[1];
+            TTUInt16 lastPort = last[2];
+            
+            if (lastIp == ip && lastPort == port)
+                ;
+            
+            else
+            {
+                anOscSender.set("address", ip);
+                anOscSender.set("port", port);
+                
+                TTValue cache(anOscSender, ip, port);
+                mSenders.remove(applicationName);
+                mSenders.append(applicationName, cache);
+            }
+        }
+        
+        err = anOscSender.send("send", message);
+        
+        // unlock application
+        mSending.remove(applicationName);
+        
+        return kTTErrNone;
     }
-    
-    return lastObject;
-}
 
-TTObject MinuitSenderManager::add(TTSymbol applicationName, TTSymbol ip, TTUInt16 port)
-{
-    TTValue     v;
-    TTObject    anObject("osc.send");
-    
-    anObject.set("address", ip);
-    anObject.set("port", port);
-        
-    v.append(anObject);
-    v.append(ip);
-    v.append(port);
-        
-    mSenders.append(applicationName, v);
-    
-    return anObject;
+    return kTTErrGeneric;
 }
