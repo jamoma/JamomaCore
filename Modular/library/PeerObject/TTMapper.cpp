@@ -37,6 +37,7 @@ mOutputThresholdUp(1.),
 mOutputGoingDown(NO),
 mOutputGoingUp(NO),
 mActive(YES),
+mClipmode(kTTSym_none),
 mInverse(NO),
 #ifndef TT_NO_DSP
 mFunction(kTTSymEmpty),
@@ -77,6 +78,8 @@ mRamp(0)
 	addAttribute(OutputThresholdUp, kTypeFloat64);
     
 	addAttributeWithSetter(Active, kTypeBoolean);
+	
+	addAttributeWithSetter(Clipmode, kTypeSymbol);
 	
 	addAttribute(Inverse, kTypeBoolean);
 #ifndef TT_NO_DSP	
@@ -612,6 +615,14 @@ TTErr TTMapper::setActive(const TTValue& value)
 	return kTTErrNone;
 }
 
+TTErr TTMapper::setClipmode(const TTValue& value)
+{
+	TTValue n = value;				// use new value to protect the attribute
+	mClipmode = value;
+	notifyObservers(kTTSym_clipmode, n);
+	return kTTErrNone;
+}
+
 // Recalculate values to use for scaling of input values
 TTErr TTMapper::scaleInput()
 {
@@ -645,7 +656,15 @@ TTErr TTMapper::processMapping(const TTValue& inputValue, TTValue& outputValue)
 	size = inputCopy.size();
 	
 	// clip input value
-	inputCopy.clip(mInputMin, mInputMax);
+	if (mClipmode != kTTSym_none) {
+		if (mClipmode == kTTSym_low)
+			inputCopy.cliplow(mInputMin);
+		else if (mClipmode == kTTSym_high)
+			inputCopy.cliphigh(mInputMax);
+		else if (mClipmode == kTTSym_both)
+			inputCopy.clip(mInputMin, mInputMax);
+		// Invalid values for mClipmode will result in no clipping
+	}
 	
 	// scale input value
 	for (i = 0; i < size; i++) {
@@ -677,8 +696,9 @@ TTErr TTMapper::processMapping(const TTValue& inputValue, TTValue& outputValue)
 			outputValue.append(mC * (1. - f) + mD);
 	}
 	
-	// clip output value
-	outputValue.clip(mOutputMin, mOutputMax);
+	// If input value has been clipped, there is generally no need to clip output value
+	// Some easing functions are going beyond boundaries (e.g. the easeBack functions), but we assume that if the user opt for one of these easing functions, this is desired behaviour.
+	//outputValue.clip(mOutputMin, mOutputMax);
 	
 	return kTTErrNone;
 }
