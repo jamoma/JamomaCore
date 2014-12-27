@@ -179,12 +179,16 @@ TTErr TTReceiver::Get()
                         
                         // output the address of the node (in case we use * inside the binded address)
                         aNode->getAddress(anAddress);
-                        anAddress = anAddress.appendAttribute(mAddress.getAttribute());
                         
                         // return the address
                         if (mReturnAddressCallback.valid())
-                            mReturnAddressCallback.send("notify", anAddress, none);
-                            
+                        {
+                            if (ttAttributeName == kTTSym_value)
+                                mReturnAddressCallback.send("notify", anAddress, none);
+                            else
+                                mReturnAddressCallback.send("notify", anAddress.appendAttribute(ToAppName(ttAttributeName)), none);
+                        }
+                        
                         // return the value
                         if (mReturnValueCallback.valid())
                             mReturnValueCallback.send("notify", data, none);
@@ -295,7 +299,10 @@ void TTReceiver::cacheNodeObserver(TTNodePtr aNode, TTAddress& anAddress, TTSymb
             TTObject    newObserver = TTObject("callback");
             
             baton = TTValue(TTObject(this));
-            baton.append(anAddress);
+            if (anAttributeName == kTTSym_value)
+                baton.append(anAddress);
+            else
+                baton.append(anAddress.appendAttribute(ToAppName(anAttributeName)));
             
             newObserver.set(kTTSym_baton, baton);
             newObserver.set(kTTSym_function, TTPtr(&TTReceiverAttributeCallback));
@@ -326,7 +333,12 @@ void TTReceiver::cacheNodeObserver(TTNodePtr aNode, TTAddress& anAddress, TTSymb
                         
                         // return the address of the node (in case we use * inside the binded address)
                         if (mReturnAddressCallback.valid())
-                            mReturnAddressCallback.send("notify", anAddress.appendAttribute(ToAppName(anAttributeName)), none);
+                        {
+                            if (anAttributeName == kTTSym_value)
+                                mReturnAddressCallback.send("notify", anAddress, none);
+                            else
+                                mReturnAddressCallback.send("notify", anAddress.appendAttribute(ToAppName(anAttributeName)), none);
+                        }
                         
                         // return the value
                         if (mReturnValueCallback.valid())

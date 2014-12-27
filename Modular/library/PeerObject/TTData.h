@@ -40,8 +40,8 @@ private:
 	TTBoolean		mActive;					///< ATTRIBUTE: this used by return only to stop sending values
 	TTBoolean		mInitialized;				///< ATTRIBUTE: is the Value attribute has been initialized ?
 	
-	TTValue			mRangeBounds;				///< ATTRIBUTE: 
-	TTSymbol		mRangeClipmode;				///< ATTRIBUTE: 
+	TTValue			mRangeBounds;				///< ATTRIBUTE: the range bounds for this data's value
+	TTSymbol		mRangeClipmode;				///< ATTRIBUTE: what clip mode to apply if proposed value is outside the range set by #mRangeBounds. Implemented options are none, both, low or high.
 	
 	TTBoolean		mDynamicInstances;			///< ATTRIBUTE: is the data can be dynamically instanciated
 	TTValue			mInstanceBounds;			///< ATTRIBUTE: two TTValues for a range of dynamic instances (-1 = infini)

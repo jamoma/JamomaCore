@@ -1109,6 +1109,12 @@ TTBoolean compareNodePriorityThenNameThenInstance(TTValue& v1, TTValue& v2)
             instance1.fromString();
             instance2.fromString();
             
+            if (instance1.size() != instance2.size())
+                return YES;
+            
+            if (instance1[0].type() != instance2[0].type())
+                return YES;
+            
             if (instance1 == instance2)
                 return v1 < v2;
             else

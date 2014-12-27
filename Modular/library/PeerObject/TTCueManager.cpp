@@ -49,7 +49,7 @@ mDefaultNamespace(NULL)
 	registerAttribute(TTSymbol("currentDescription"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentDescription, (TTSetterMethod)&TTCueManager::setCurrentDescription);
 	registerAttribute(TTSymbol("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
 	
-	addAttribute(Cues, kTypePointer);
+	addAttributeWithGetter(Cues, kTypePointer);
 	addAttributeProperty(Cues, readOnly, YES);
 	addAttributeProperty(Cues, hidden, YES);
 	
@@ -92,6 +92,12 @@ TTCueManager::~TTCueManager()
 {
 	delete mDefaultNamespace;
 	mDefaultNamespace = NULL;
+}
+
+TTErr TTCueManager::getCues(TTValue& value)
+{
+    value = TTPtr(&mCues);
+    return kTTErrNone;
 }
 
 TTErr TTCueManager::getCurrentDescription(TTValue& value)
@@ -1226,8 +1232,8 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 				// get cue name
 				if (!line->getValue(v)) {
 					
-                    // convert in string in case of int or float name
-                    v.toString();
+                    // convert in string in case of int or float name with no quotes for internal symbol
+                    v.toString(NO);
 					mCurrent = TTSymbol(TTString(v[0]));
 					
                     if (mCurrent != kTTSymEmpty) {

@@ -40,11 +40,11 @@ TTAudioGraphSig::~TTAudioGraphSig()
 
 TTErr TTAudioGraphSig::dictionary(TTValue& input, TTValue&)
 {
-	TTDictionaryPtr	d = NULL;
+	TTDictionary*	d = NULL;
 	TTValue			v;
 	TTErr			err;
 	
-	input.get(0, (TTPtr*)(&d));
+	d = (TTDictionary*)TTPtr(input[0]);
 	err = d->getValue(v);
 	if (!err)
 		mValue = v;
