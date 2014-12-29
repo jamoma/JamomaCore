@@ -25,10 +25,12 @@ TTObjectBasePtr TTData::instantiate (TTSymbol name, TTValue arguments)
 	return new TTData(arguments);
 }
 
+
 extern "C" void TTData::registerClass()
 {
 	TTClassRegister(TTSymbol("Data"), thisTTClassTags, TTData::instantiate);
 }
+
 
 TTData::TTData(const TTValue& arguments) :
 TTCallback(arguments),
@@ -136,10 +138,12 @@ mService(kTTSymEmpty)
     externalRampTime = 0;
 }
 
+
 TTData::~TTData()
 {
     ;
 }
+
 
 TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -211,6 +215,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
+
 TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTUInt32	i;
@@ -281,6 +286,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
+
 TTErr TTData::getValue(TTValue& value)
 {
     // can't get the value before the data has been initialized
@@ -293,11 +299,13 @@ TTErr TTData::getValue(TTValue& value)
 		return kTTErrGeneric;
 }
 
+
 TTErr TTData::getValueDefault(TTValue& value)
 {
 	value = mValueDefault;
 	return kTTErrNone;
 }
+
 
 TTErr TTData::setValueDefault(const TTValue& value)
 {
@@ -307,11 +315,13 @@ TTErr TTData::setValueDefault(const TTValue& value)
 	return kTTErrNone;
 }
 
+
 TTErr TTData::getValueStepsize(TTValue& value)
 {
 	value = mValueStepsize;
 	return kTTErrNone;
 }
+
 
 TTErr TTData::setValueStepsize(const TTValue& value)
 {
@@ -337,6 +347,7 @@ TTErr TTData::setRepetitionsFilter(const TTValue& value)
 	return kTTErrNone;
 }
 
+
 TTErr TTData::setActive(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
@@ -344,6 +355,7 @@ TTErr TTData::setActive(const TTValue& value)
 	this->notifyObservers(kTTSym_active, n);
 	return kTTErrNone;
 }
+
 
 TTErr TTData::setRangeBounds(const TTValue& value)
 {	
@@ -359,6 +371,7 @@ TTErr TTData::setRangeBounds(const TTValue& value)
 	return kTTErrNone;
 }
 
+
 TTErr TTData::setRangeClipmode(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
@@ -366,6 +379,7 @@ TTErr TTData::setRangeClipmode(const TTValue& value)
 	this->notifyObservers(kTTSym_rangeClipmode, n);
 	return kTTErrNone;
 }
+
 
 TTErr TTData::setInstanceBounds(const TTValue& value)
 {
@@ -379,6 +393,7 @@ TTErr TTData::setInstanceBounds(const TTValue& value)
 	return kTTErrNone;
 }
 
+
 TTErr TTData::setRampDrive(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
@@ -389,6 +404,8 @@ TTErr TTData::setRampDrive(const TTValue& value)
 	this->notifyObservers(kTTSym_rampDrive, n);
 	return kTTErrNone;
 }
+
+
 #ifndef TT_NO_DSP
 TTErr TTData::setRampFunction(const TTValue& value)
 {
@@ -439,6 +456,8 @@ TTErr TTData::setRampFunction(const TTValue& value)
 	return kTTErrNone;
 }
 #endif
+
+
 TTErr TTData::setDataspace(const TTValue& value)
 {
 	TTErr   err;
@@ -472,6 +491,7 @@ TTErr TTData::setDataspace(const TTValue& value)
 	return kTTErrNone;
 }
 
+
 TTErr TTData::setDataspaceUnit(const TTValue& value)
 {
 	TTValue n = value;				// use new value to protect the attribute
@@ -487,6 +507,7 @@ TTErr TTData::setDataspaceUnit(const TTValue& value)
     
     return kTTErrGeneric;
 }
+
 
 TTErr TTData::setDescription(const TTValue& value)
 {
@@ -506,25 +527,30 @@ TTErr TTData::setPriority(const TTValue& value)
 	return kTTErrNone;
 }
 
+
 TTErr TTData::RampSet(const TTValue& inputValue, TTValue& outputValue)
 {
     return mRamper.send("Set", inputValue, outputValue);
 }
+
 
 TTErr TTData::RampTarget(const TTValue& inputValue, TTValue& outputValue)
 {
     return mRamper.send("Target", inputValue, outputValue);
 }
 
+
 TTErr TTData::RampGo(const TTValue& inputValue, TTValue& outputValue)
 {
     return mRamper.send(kTTSym_Go, inputValue, outputValue);
 }
 
+
 TTErr TTData::RampSlide(const TTValue& inputValue, TTValue& outputValue)
 {
     return mRamper.send("Slide", inputValue, outputValue);
 }
+
 
 TTErr TTData::rampSetup()
 {
@@ -562,10 +588,12 @@ TTErr TTData::rampSetup()
 #endif
 }
 
+
 TTErr TTData::convertUnit(const TTValue& inputValue, TTValue& outputValue)
 {
     return mDataspaceConverter.send("convert", inputValue, outputValue);
 }
+
 
 TTErr TTData::notifyObservers(TTSymbol attrName, const TTValue& value)
 {
@@ -579,6 +607,7 @@ TTErr TTData::notifyObservers(TTSymbol attrName, const TTValue& value)
 	
 	return kTTErrNone;
 }
+
 
 TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -651,10 +680,12 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 	return kTTErrNone;
 }
 
+
 #if 0
 #pragma mark -
 #pragma mark Some Methods
 #endif
+
 
 TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue, TTBoolean parseUnitAndRamp)
 {
@@ -795,6 +826,7 @@ TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue, TTBoolean pa
 	
 	return command;
 }
+
 
 void TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 {
