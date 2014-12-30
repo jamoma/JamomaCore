@@ -14,6 +14,9 @@
  */
 
 
+// TODO: ramp should only be enabled (for real) for mType = "integer", "decimal" and "array"
+// TODO: dataspace should only be enabled (for real) for mType = "integer", "decimal" and "array"
+
 #ifndef __TT_DATA_H__
 #define __TT_DATA_H__
 
@@ -57,7 +60,9 @@ private:
 	
 	TTSymbol		mDataspace;					///< ATTRIBUTE: The dataspace that this data uses (default is 'none') // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 	TTSymbol		mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
+	TTBoolean		mIsOverridingDataspaceUnit;	///< FLag indicating that this object is currently ramping to a new value using a dataspace unit that temporarily overrides #mDataspaceUnit
 	TTObject        mDataspaceConverter;		///< Performs conversions from input unit to the data unit
+	TTObject		mDataspaceInverseConverter;	///< Used to convert current #mValue from default #mDataspaceUnit to temporary dataspace unit when setting up a ramp that will temporarily override the default unit.
 	
 	TTSymbol		mService;					///< how the data flows into our environnement :
 												///<	as parameter : the data is in full access mode
@@ -361,9 +366,14 @@ private:
 	TTErr       WriteAsText(const TTValue& inputValue, TTValue& outputValue);
     
 	
-	/**
+	/** Convert value from temporary dataspace unit to the unit specified by #mDataspaceUnit
 	 */
 	TTErr		convertUnit(const TTValue& inputValue, TTValue& outputValue);
+	
+	
+	/** Convert value from the dataspace unit specified by #mDataspaceUnit to the temporary unit
+	 */
+	TTErr		inverseConvertUnit(const TTValue& inputValue, TTValue& outputValue);
 	
 	
 	/**

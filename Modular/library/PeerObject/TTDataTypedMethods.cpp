@@ -731,17 +731,130 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
     TTValue			c, v, aValue, none;
     
     if (inputValue.size()) {
-        
-        // 1. Get the command TTDictionnary
-        ///////////////////////////////////////////////////
+		
+		// 1. New command stop any ongoing ramp
+		if (mRampStatus) {
+			mRamper.send(kTTSym_Stop);
+		}
+		
+        // 2. Get the command TTDictionnary
+		// This contains the new value and optional information on ramp and unit
         if (inputValue[0].type() == kTypePointer)
             command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
-        // 2. Get the value
+        // 3. Get the new target value. This might be specified in an overriding unit
         command->getValue(aValue);
-        
+		
+		// 4. Set up ramp if requested, this might include overriding dataspace unit
+		if (mRamper.valid()) {
+			if (!command->lookup(kTTSym_ramp, v)) {
+			
+				time = v[0];
+				
+				// Is a valid ramp time requested?
+				if (time > 0) {
+				
+					// Is the dataspace unit to be temporarily overridden during the ramp?
+					if ((mDataspaceConverter.valid()) && (!command->lookup(kTTSym_unit, v))) {
+					
+						TTValue convertedStartValue;
+					
+						unit = v[0];
+					
+						mIsOverridingDataspaceUnit = true;
+					
+						// Set up units for conversions
+						mDataspaceConverter.set(kTTSym_inputUnit, unit);
+						mDataspaceInverseConverter.set(kTTSym_outputUnit, unit);
+					
+						// Convert current value to temporary unit, and use as ramp start value
+						inverseConvertUnit(mValue, convertedStartValue);
+						mRamper.send("Set", convertedStartValue, none);
+					
+						// Set the end value using the overriding unit
+						mRamper.send("Target", aValue, none);
+					
+						// Set ramp time and start the ramp, , we don't output any value immediately
+						mRamper.send(kTTSym_Go, (int)time, none);
+					
+						// Update the ramp status attribute
+						mRamper.get(kTTSym_running, isRunning);
+						if (mRampStatus != isRunning) {
+							mRampStatus = isRunning;
+							notifyObservers(kTTSym_rampStatus, mRampStatus);
+						}
+					
+						return kTTErrNone;
+					}
+					else {
+						// No dataspace unit conversion is needed during the ramp
+						mIsOverridingDataspaceUnit = false;
+					
+						// set the start (current) value
+						mRamper.send("Set", mValue, none);
+					
+						// set the end value
+						mRamper.send("Target", aValue, none);
+					
+						// set how long it going to take and start the ramp, we don't output any value immediately
+						mRamper.send(kTTSym_Go, (int)time, none);
+					
+						// update the ramp status attribute
+						mRamper.get(kTTSym_running, isRunning);
+						if (mRampStatus != isRunning) {
+							mRampStatus = isRunning;
+							notifyObservers(kTTSym_rampStatus, mRampStatus);
+						}
+					
+						return kTTErrNone;
+					}
+				}
+			}
+		}
+		// 5. External ramp drive case
+		else if (mRampDrive == kTTSym_external) {
+			
+			// TODO: How do we deal with overriding units in this case?
+			// TODO: Do mRampStatus need to be updated?
+			
+			if (!command->lookup(kTTSym_ramp, v))
+				v.get(0, externalRampTime);
+		}
+		
+		// 6. No ramping, target vale will be set immediately
+		
+		// (This part of the method will only be executed if (a) no ramp was requested, (b) ramp time was less or equal to 0, or (c) we are using an external ramp drive.)
+		
+		// 6.a Check for overriding unit, convert to default unit if necessary
+		if ((mDataspaceConverter.valid()) && (!command->lookup(kTTSym_unit, v))) {
+			
+			TTValue convertedValue;
+			
+			unit = v[0];
+			mDataspaceConverter.set(kTTSym_inputUnit, unit);
+			convertUnit(aValue, convertedValue);
+			aValue = convertedValue;
+		}
+
+		mIsOverridingDataspaceUnit = false;
+		
+		// update the ramp status attribute
+		mRamper.get(kTTSym_running, isRunning);
+		if (mRampStatus != isRunning) {
+			mRampStatus = isRunning;
+			notifyObservers(kTTSym_rampStatus, mRampStatus);
+		}
+		
+		// 6b. Set the value directly
+		return this->setDecimalValue(aValue);
+	}
+	
+		
+		
+		/*
+		
         // 3. Set Dataspace input unit and convert the value
         // Note : The current implementation does not override the active unit temporarily or anything fancy.
         // It just sets the input unit and then runs with it...
@@ -823,11 +936,13 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
     
     // 6. Set the value directly
     return this->setDecimalValue(aValue);
+		 
+	*/
 }
 
 TTErr TTData::setDecimalValue(const TTValue& value)
 {
-    if (!mIsSending && mActive) {
+	if (!mIsSending && mActive) {
 		
         // We are locking while updating, in order to prevent returned values from clients to cause an infinite loop.
 		mIsSending = YES;
@@ -836,23 +951,24 @@ TTErr TTData::setDecimalValue(const TTValue& value)
 			
             // don't update the internal value with empty value
             if (value.size() == 1) {
-                
-                // set internal value
-                mValue = value;
-                
-                // then stop the ramping
-                // why are we only clipping if we are ramping ?
-                // why are we stopping the ramping after setting the value ?
-                // TODO #JamomaCore issue #211 : review this question when porting dataspace ramping
-                if (mRamper.valid())
-                    if (clipValue())
-                        mRamper.send(kTTSym_Stop);
-
+				
+				TTValue lPreviousValue = mValue;
+				
+				// If ramp is performed using non-default dataspace unit, the returned values need to be converted
+				if (mIsOverridingDataspaceUnit)
+					convertUnit(value, mValue);
+				else
+					mValue = value;
+				
+				// Clipping
+				clipValue();
+				
+				// NOTE: If ramps reach the end prematurely (due to requests for ramp targets beyond the accepted range), the ramp will not be stopped.
+				
+				// Filter repetitions, and return the internal value - this is passing it to the owner of the #TTData and will notify all value observers
+				if (mValue != lPreviousValue)
+					returnValue();
             }
-            
-            // return the internal value - this is passing it to the owner of the #TTData and notify all value observers
-            returnValue();
-            
             // unlock
             mIsSending = NO;
             
