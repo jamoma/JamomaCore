@@ -836,8 +836,14 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 			mDataspaceConverter.set(kTTSym_inputUnit, unit);
 			convertUnit(aValue, convertedValue);
 			aValue = convertedValue;
+		} else {
+			// Ramp and unit conversion implicitly ensure that type is kTypeFloat64
+			// If we don't have ramp or unit, we need to ensure correct type
+			if (aValue.size())
+				if (aValue[0].type() != kTypeFloat64)
+					aValue = (TTFloat64)aValue[0];
 		}
-
+		
 		mIsOverridingDataspaceUnit = false;
 		
 		// update the ramp status attribute
