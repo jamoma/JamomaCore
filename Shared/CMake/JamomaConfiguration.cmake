@@ -11,7 +11,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/Shared/CMake/m
 set(ConfigPackageLocation share/cmake/Jamoma)
 
 # Jamoma configuration
-set(Jamoma_VERSION 0.6)
+set(Jamoma_VERSION 6)
 set(Jamoma_SOVERSION 6)
 set(Jamoma_MAJOR_VERSION 6)
 
