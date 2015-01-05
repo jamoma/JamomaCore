@@ -92,6 +92,10 @@ mApplicationObserversMutex(NULL)
     
     // filled the TTModularApplicationManager pointer
     TTModularApplicationManager = this;
+    
+    // protect applications and protocol from multithreading access
+    mApplications.setThreadProtection(YES);
+    mProtocols.setThreadProtection(YES);
 }
 
 #if 0

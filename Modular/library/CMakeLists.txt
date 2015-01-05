@@ -1,5 +1,16 @@
 cmake_minimum_required(VERSION 2.6)
-project(JamomaModular)
+project(Modular)
+	
+set(JAMOMA_MODULAR_PROTOCOLLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ProtocolLib" 
+	CACHE 
+	STRING "ProtocolLib includes" FORCE)
+set(JAMOMA_MODULAR_SCHEDULERLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/SchedulerLib" 
+	CACHE 
+	STRING "SchedulerLib includes" FORCE)
+set(JAMOMA_MODULAR_PEEROBJECT_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/PeerObject" 
+	CACHE 
+	STRING "PeerObject includes" FORCE)
+	
 
 add_definitions(-DTTMODULAR_EXPORTS)
 
@@ -56,16 +67,13 @@ include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/PeerObject")
 include_directories("${PROJECT_SOURCE_DIR}/ProtocolLib")
 include_directories("${PROJECT_SOURCE_DIR}/SchedulerLib")
-include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/libiconv/include")
-include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes")
 include_directories(${LIBXML2_INCLUDE_DIR})
 
+addJamomaLibrary()
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
-
-target_link_libraries(${PROJECT_NAME} JamomaFoundation)
-target_link_libraries(${PROJECT_NAME} JamomaDSP)
+target_link_libraries(${PROJECT_NAME} Foundation)
+target_link_libraries(${PROJECT_NAME} DSP)
 target_link_libraries(${PROJECT_NAME} ${LIBXML2_LIBRARIES})
 
 addAppleFramework(Carbon)

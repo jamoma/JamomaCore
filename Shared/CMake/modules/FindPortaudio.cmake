@@ -54,6 +54,7 @@ else (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
       NAMES
         portaudio
       PATHS
+		${JamomaCore_SOURCE_DIR}/DSP/extensions/AudioEngine/portaudio/${CMAKE_BUILD_TYPE}
         /usr/lib
         /usr/local/lib
         /opt/local/lib
@@ -64,6 +65,7 @@ else (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
       NAMES
         portaudio
       PATHS
+		${JamomaCore_SOURCE_DIR}/DSP/extensions/AudioEngine/portaudio/${CMAKE_BUILD_TYPE}
         /usr/lib
         /usr/local/lib
         /opt/local/lib

@@ -18,13 +18,11 @@ ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSpatSnap.test.cpp
 
 include_directories("${PROJECT_SOURCE_DIR}/")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../library/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
-target_link_libraries(${PROJECT_NAME} JamomaFoundation)
-target_link_libraries(${PROJECT_NAME} JamomaDSP)
+target_link_libraries(${PROJECT_NAME} Foundation)
+target_link_libraries(${PROJECT_NAME} DSP)
 
 ### Output ###
 setOutput()

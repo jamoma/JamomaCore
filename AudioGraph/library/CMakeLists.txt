@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(JamomaAudioGraph)
+project(AudioGraph)
 
 add_definitions(-DTTAUDIOGRAPH_EXPORTS)
 
@@ -13,18 +13,16 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAudioGraphInput.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAudioGraphOutput.cpp
 )
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
+
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../Graph/library/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/portaudio/include")
 
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
+addJamomaLibrary()
 
-target_link_libraries(${PROJECT_NAME} JamomaFoundation)
-target_link_libraries(${PROJECT_NAME} JamomaDSP)
-target_link_libraries(${PROJECT_NAME} JamomaGraph)
+target_link_libraries(${PROJECT_NAME} Foundation)
+target_link_libraries(${PROJECT_NAME} DSP)
+target_link_libraries(${PROJECT_NAME} Graph)
 
 addAppleFramework(Carbon)
 

@@ -9,6 +9,8 @@ if(UNIX)
 		set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/jamoma/")
 	endif()
 
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-unknown-pragmas -Wno-conversion -Wno-deprecated-declarations")
+
 	## OSX ##
 	if(APPLE)
 		add_definitions(-DTT_PLATFORM_MAC)
@@ -41,20 +43,20 @@ if(UNIX)
 		SET(CPACK_GENERATOR "NSIS")
 	endif()
 elseif(WIN32)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4996 /wd4275 /wd4273 /wd4068 /LD")
 	add_definitions(-DTT_PLATFORM_WIN)
 	add_definitions(-DWIN_VERSION)
 	add_definitions(-DIDL=0)
-	
+
 	# C'est en supposant qu'on compile sur une machine 64-bits... Comment le tester?
 	if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 		set(WIN32_PROGRAMFILES "C:\\Program Files (x86)")
 	else()
 		set(WIN32_PROGRAMFILES "C:\\Program Files")
 	endif()
-	
+
 	SET(CPACK_GENERATOR "NSIS")
 	set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\vcredist_x86.exe\\\" /q:a'")
 endif()
 
 message("CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}")
-

@@ -1232,8 +1232,8 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
 				// get cue name
 				if (!line->getValue(v)) {
 					
-                    // convert in string in case of int or float name
-                    v.toString();
+                    // convert in string in case of int or float name with no quotes for internal symbol
+                    v.toString(NO);
 					mCurrent = TTSymbol(TTString(v[0]));
 					
                     if (mCurrent != kTTSymEmpty) {

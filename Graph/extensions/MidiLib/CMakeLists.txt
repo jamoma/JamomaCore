@@ -21,16 +21,13 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMidiOutput.cpp
 )
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../library/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../../DSP/library/includes")
 include_directories(${PORTMIDI_INCLUDE_DIR})
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
-target_link_libraries(${PROJECT_NAME} JamomaFoundation)
-target_link_libraries(${PROJECT_NAME} JamomaDSP)
-target_link_libraries(${PROJECT_NAME} JamomaGraph)
+target_link_libraries(${PROJECT_NAME} Foundation)
+target_link_libraries(${PROJECT_NAME} DSP)
+target_link_libraries(${PROJECT_NAME} Graph)
 target_link_libraries(${PROJECT_NAME} ${PORTMIDI_LIBRARIES})
 
 addAppleFramework(CoreMIDI)

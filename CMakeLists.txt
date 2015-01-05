@@ -18,8 +18,7 @@ add_subdirectory(Graph)
 add_subdirectory(AudioGraph)
 add_subdirectory(Modular)
 
-if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/Score")
-	set(BUILD_SCORE_FROM_JAMOMACORE 1)
+if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Score")
 	add_subdirectory(Score)
 endif()
 
@@ -29,3 +28,5 @@ endif()
 
 ### Creation of packages ###
 include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaPack.cmake NO_POLICY_SCOPE)
+include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaExports.cmake NO_POLICY_SCOPE)
+

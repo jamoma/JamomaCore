@@ -544,7 +544,10 @@ TTErr TTMapper::setInputMin(const TTValue& value)
 	mObserveInputRange = false;
 	
 	if (mInputRangeObserver.valid())
+    {
+        mInputRangeObserver.set(kTTSym_address, kTTAdrsEmpty);
 		mInputRangeObserver = TTObject();
+    }
 	
 	notifyObservers(TTSymbol("inputMin"), value);
 	return scaleInput();
@@ -558,7 +561,10 @@ TTErr TTMapper::setInputMax(const TTValue& value)
 	mObserveInputRange = false;
 	
 	if (mInputRangeObserver.valid())
+    {
+        mInputRangeObserver.set(kTTSym_address, kTTAdrsEmpty);
 		mInputRangeObserver = TTObject();
+    }
 	
 	notifyObservers(TTSymbol("inputMax"), value);
 	return scaleInput();
@@ -572,7 +578,10 @@ TTErr TTMapper::setOutputMin(const TTValue& value)
 	mObserveOutputRange = false;
 	
 	if (mOutputRangeObserver.valid())
+    {
+        mOutputRangeObserver.set(kTTSym_address, kTTAdrsEmpty);
 		mOutputRangeObserver = TTObject();
+    }
 	
 	notifyObservers(TTSymbol("outputMin"), value);
 	return scaleOutput();
@@ -586,7 +595,10 @@ TTErr TTMapper::setOutputMax(const TTValue& value)
 	mObserveOutputRange = false;
 	
 	if (mOutputRangeObserver.valid())
+    {
+        mOutputRangeObserver.set(kTTSym_address, kTTAdrsEmpty);
 		mOutputRangeObserver = TTObject();
+    }
 	
 	notifyObservers(TTSymbol("outputMax"), value);
 	return scaleOutput();

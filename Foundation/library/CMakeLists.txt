@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 2.6)
-project(JamomaFoundation)
+project(Foundation)
+
+set(JAMOMA_ICONV_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libiconv/include" 
+	CACHE 
+	STRING "libiconv includes" FORCE)
 
 if(UNIX AND NOT APPLE)
 	add_definitions("-DJAMOMA_EXTENSIONS_INSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}/lib/jamoma\"")
@@ -115,8 +119,7 @@ include_directories("${PROJECT_SOURCE_DIR}/tests")
 include_directories("${PROJECT_SOURCE_DIR}/Mersenne-1.1")
 
 
-
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS} ${PROJECT_HDRS})
+addJamomaLibrary()
 
 if(WIN32)
 	if(CMAKE_SIZEOF_VOID_P EQUAL 4)

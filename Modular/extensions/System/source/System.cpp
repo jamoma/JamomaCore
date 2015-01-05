@@ -195,8 +195,8 @@ TTFloat64 System::computeDeltaTime()
 
         // it seems the currentTime is lower than the lastTime sometimes ...
         if (currentTime < mLastTime) {
-
-            TTLogMessage("System::computeDeltaTime() : currentTime (%Lu) is lower than lastTime (%Lu)\n", currentTime, mLastTime);
+            
+            TTLogMessage("System::computeDeltaTime() : current time is lower than last time\n");
             deltaInUs = 0;
         }
         else
