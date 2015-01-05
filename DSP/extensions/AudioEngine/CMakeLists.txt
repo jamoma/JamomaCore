@@ -13,6 +13,7 @@ if(NOT PORTAUDIO_FOUND)
   return()
 endif()
 
+add_definitions(-DTTDSP_EXPORTS)
 
 set(PROJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/TTAudioEngine.cpp
