@@ -183,12 +183,12 @@ function(addMaxsupport)
 	MARK_AS_ADVANCED (MaxAPI_LIB)
 	SET(MaxAPI_LIB ${MaxAPI_LIB})
 	
-	FIND_LIBRARY(MaxAudio_LIB MaxAudio
+	FIND_LIBRARY(MaxAudio_LIB NAMES MaxAudio MaxAudioAPI
 				 PATH ${CMAKE_CURRENT_SOURCE_DIR}/../source/c74support/msp-includes/)
 	MARK_AS_ADVANCED (MaxAudio_LIB)
 	SET(MaxAudio_LIB ${MaxAudio_LIB})
 	
-	FIND_LIBRARY(Jitter_LIB jitlib
+	FIND_LIBRARY(Jitter_LIB NAMES jitlib JitterAPI
 				 PATH ${CMAKE_CURRENT_SOURCE_DIR}/../source/c74support/jit-includes/)
 	MARK_AS_ADVANCED (Jitter_LIB)
 	SET(Jitter_LIB ${Jitter_LIB})
