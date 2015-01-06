@@ -173,23 +173,37 @@ endif()
 
 ## Function to add the Max/MSP includes ##
 function(addMaxsupport)
-	include_directories("${CMAKE_SOURCE_DIR}/../Implementations/Max/source/c74support/max-includes")
-	include_directories("${CMAKE_SOURCE_DIR}/../Implementations/Max/source/c74support/msp-includes")
-	include_directories("${CMAKE_SOURCE_DIR}/../Implementations/Max/source/c74support/jit-includes")
+	set(MAXSDK_PATH "${CMAKE_SOURCE_DIR}/../Implementations/Max/source/c74support")
+	include_directories("${MAXSDK_PATH}/max-includes")
+	include_directories("${MAXSDK_PATH}/msp-includes")
+	include_directories("${MAXSDK_PATH}/jit-includes")
 	include_directories("${CMAKE_SOURCE_DIR}/../Implementations/Max/library/includes")
 
-	FIND_LIBRARY(MaxAPI_LIB MaxAPI
-				 PATH ${CMAKE_CURRENT_SOURCE_DIR}/../source/c74support/max-includes/)
+	FIND_LIBRARY(MaxAPI_LIB 
+				 NAMES MaxAPI
+				 PATHS ${MAXSDK_PATH}/max-includes/)
 	MARK_AS_ADVANCED (MaxAPI_LIB)
 	SET(MaxAPI_LIB ${MaxAPI_LIB})
 	
-	FIND_LIBRARY(MaxAudio_LIB NAMES MaxAudio MaxAudioAPI
-				 PATH ${CMAKE_CURRENT_SOURCE_DIR}/../source/c74support/msp-includes/)
+	FIND_LIBRARY(MaxAudio_LIB 
+				 NAMES
+				 	MaxAudio 
+				 	MaxAudioAPI
+				 PATHS
+				 	${MAXSDK_PATH}/msp-includes
+				 	${MAXSDK_PATH}/msp-includes/x64
+	)
 	MARK_AS_ADVANCED (MaxAudio_LIB)
 	SET(MaxAudio_LIB ${MaxAudio_LIB})
-	
-	FIND_LIBRARY(Jitter_LIB NAMES jitlib JitterAPI
-				 PATH ${CMAKE_CURRENT_SOURCE_DIR}/../source/c74support/jit-includes/)
+
+	FIND_LIBRARY(Jitter_LIB 
+				 NAMES
+				 	jitlib 
+				 	JitterAPI
+				 PATHS
+				 	${MAXSDK_PATH}/jit-includes
+				 	${MAXSDK_PATH}/jit-includes/x64
+	)
 	MARK_AS_ADVANCED (Jitter_LIB)
 	SET(Jitter_LIB ${Jitter_LIB})
 
