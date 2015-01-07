@@ -732,22 +732,26 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (inputValue.size()) {
 		
-		// 1. New command stop any ongoing ramp
+		// New command stop any ongoing ramp
 		if (mRampStatus) {
 			mRamper.send(kTTSym_Stop);
 		}
 		
-        // 2. Get the command TTDictionnary
+        // Get the command TTDictionnary
 		// This contains the new value and optional information on ramp and unit
         if (inputValue[0].type() == kTypePointer)
             command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
         else
             return kTTErrGeneric;
 
-        // 3. Get the new target value. This might be specified in an overriding unit
+        // Get the new target value. This might be specified in an overriding unit
         command->getValue(aValue);
 		
-		// 4. Set up ramp if requested, this might include overriding dataspace unit
+		// For mType = "decimal" it does not make sense to have more than one item in aValue.
+		if (aValue.size()>1)
+			aValue.resize(1);
+		
+		// Set up ramp if requested, this might include overriding dataspace unit
 		if (mRamper.valid()) {
 			if (!command->lookup(kTTSym_ramp, v)) {
 			
@@ -837,8 +841,8 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 			convertUnit(aValue, convertedValue);
 			aValue = convertedValue;
 		} else {
-			// Ramp and unit conversion implicitly ensure that type is kTypeFloat64
-			// If we don't have ramp or unit, we need to ensure correct type
+			// Ramp and unit conversion implicitly ensure that type is kTypeFloat64, but if we don't have ramp or unit, we need to ensure that mValue is set as kTypeFloat64.
+			// We do not run this test if (aValue.size() == 0.). That will be the case in e.g. the Max implementation when sending a "bang" to j.parameter.
 			if (aValue.size())
 				if (aValue[0].type() != kTypeFloat64)
 					aValue = (TTFloat64)aValue[0];
@@ -846,14 +850,14 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 		
 		mIsOverridingDataspaceUnit = false;
 		
-		// update the ramp status attribute
+		// Update the ramp status attribute
 		mRamper.get(kTTSym_running, isRunning);
 		if (mRampStatus != isRunning) {
 			mRampStatus = isRunning;
 			notifyObservers(kTTSym_rampStatus, mRampStatus);
 		}
 		
-		// 6b. Set the value directly
+		// Set the value directly
 		return this->setDecimalValue(aValue);
 	}
 	
@@ -948,23 +952,29 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTData::setDecimalValue(const TTValue& value)
 {
+	// Storing locally to protect the input value
+	TTValue lValue = value;
+	
 	if (!mIsSending && mActive) {
 		
         // We are locking while updating, in order to prevent returned values from clients to cause an infinite loop.
 		mIsSending = YES;
         
-		if (checkDecimalType(value)) {
+		if (checkDecimalType(lValue)) {
 			
-            // don't update the internal value with empty value
-            if (value.size() == 1) {
+            // Resize if the value contains more than one element
+			//if (lValue.size() > 1)
+			//	lValue.resize(1);
+			// Only update if the value contains an element (it's not empty). We have already made sure in DecimalCommand that lValue.size does not exceed 1.
+			if (lValue.size() == 1) {
 				
 				TTValue lPreviousValue = mValue;
 				
 				// If ramp is performed using non-default dataspace unit, the returned values need to be converted
 				if (mIsOverridingDataspaceUnit)
-					convertUnit(value, mValue);
+					convertUnit(lValue, mValue);
 				else
-					mValue = value;
+					mValue = lValue;
 				
 				// Clipping
 				clipValue();
@@ -974,7 +984,11 @@ TTErr TTData::setDecimalValue(const TTValue& value)
 				// Filter repetitions, and return the internal value - this is passing it to the owner of the #TTData and will notify all value observers
 				if (mValue != lPreviousValue)
 					returnValue();
-            }
+			} else {
+				// If the value is empty, return current value. This is the case in the Max implementation when a "bang" is sent to j.parameter.
+				returnValue();
+			}
+			
             // unlock
             mIsSending = NO;
             
