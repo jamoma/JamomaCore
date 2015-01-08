@@ -563,6 +563,11 @@ void TTValueTestBasic(int& errorCount, int&testAssertionCount)
 					testAssertionCount,
 					errorCount);
 #endif
+    
+    
+    TTSymbol a("a");
+    TTSymbol b("b");
+    TT_ASSERT("TT_ASSERT do strange stuff with the following expression", a != b);
 	
 }
 
