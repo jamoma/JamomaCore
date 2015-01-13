@@ -1040,9 +1040,6 @@ TTErr TTData::DecimalInit()
 	if (checkDecimalType(mValueDefault))
 		if (!(mValueDefault.empty()))
 			this->setAttributeValue(kTTSym_value, mValueDefault);
-	
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(0.));
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
