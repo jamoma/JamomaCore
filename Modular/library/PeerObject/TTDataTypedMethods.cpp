@@ -392,7 +392,10 @@ TTErr TTData::GenericInit()
     
     // if valueDefault type is right
     if (!mValueDefault.empty())
-        this->setAttributeValue(kTTSym_value, mValueDefault);
+    {
+        TTValue empty;
+        this->Command(mValueDefault, empty);
+    }
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
@@ -540,7 +543,10 @@ TTErr TTData::BooleanInit()
     // if valueDefault type is right
 	if (checkBooleanType(mValueDefault))
 		if (!(mValueDefault.empty()))
-			this->setAttributeValue(kTTSym_value, mValueDefault);
+        {
+            TTValue empty;
+			this->Command(mValueDefault, empty);
+        }
 	
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
@@ -719,7 +725,10 @@ TTErr TTData::IntegerInit()
     // if valueDefault type is right
 	if (checkIntegerType(mValueDefault))
 		if (!(mValueDefault.empty()))
-			this->setAttributeValue(kTTSym_value, mValueDefault);
+        {
+            TTValue empty;
+			this->Command(mValueDefault, empty);
+        }
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
@@ -1039,7 +1048,10 @@ TTErr TTData::DecimalInit()
     // if valueDefault type is right
 	if (checkDecimalType(mValueDefault))
 		if (!(mValueDefault.empty()))
-			this->setAttributeValue(kTTSym_value, mValueDefault);
+        {
+            TTValue empty;
+			this->Command(mValueDefault, empty);
+        }
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
@@ -1202,7 +1214,10 @@ TTErr TTData::ArrayInit()
     // if valueDefault type is right
 	if (checkArrayType(mValueDefault))
 		if (!(mValueDefault.empty()))
-			this->setAttributeValue(kTTSym_value, mValueDefault);
+        {
+            TTValue empty;
+			this->Command(mValueDefault, empty);
+        }
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
@@ -1328,7 +1343,10 @@ TTErr TTData::StringInit()
     // if valueDefault type is right
 	if (checkStringType(mValueDefault))
 		if (!(mValueDefault.empty()))
-			this->setAttributeValue(kTTSym_value, mValueDefault);
+        {
+            TTValue empty;
+			this->Command(mValueDefault, empty);
+        }
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
