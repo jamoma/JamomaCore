@@ -45,6 +45,7 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeInt32;
 			valueStepSizeAttribute->type = kTypeInt32;
 			mValue = TTValue(0);
+            mValueDefault = TTValue(0);
             
             // if mValueStepsize still equals to the value passed in constructor
             if (mValueStepsize == TTValue(0.1))
@@ -68,6 +69,7 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
+            mValueDefault = TTValue(0.);
 			
             // don't reset mValueStepsize as the default values is equals to the value passed in constructor
             
@@ -85,6 +87,7 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeSymbol;
 			valueStepSizeAttribute->type = kTypeSymbol;
 			mValue = TTValue(kTTSymEmpty);
+            mValueDefault = TTValue(kTTSymEmpty);
             
             // if mValueStepsize still equals to the value passed in constructor
             if (mValueStepsize == TTValue(0.1))
@@ -104,6 +107,7 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeBoolean;
 			valueStepSizeAttribute->type = kTypeBoolean;
 			mValue = TTValue(NO);
+            mValueDefault = TTValue(NO);
             
             // if mValueStepsize still equals to the value passed in constructor
             if (mValueStepsize == TTValue(0.1))
@@ -125,6 +129,7 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
+            mValueDefault = TTValue(0.);
             
 			// don't reset mValueStepsize as the default values is equals to the value passed in constructor
 			
@@ -142,6 +147,7 @@ TTErr TTData::setType(const TTValue& value)
 			valueDefaultAttribute->type = kTypeNone;
 			valueStepSizeAttribute->type = kTypeNone;
 			mValue.clear();
+            mValueDefault.clear();
             
             // if mValueStepsize still equals to the value passed in constructor
             if (mValueStepsize == TTValue(0.1))
@@ -162,6 +168,7 @@ TTErr TTData::setType(const TTValue& value)
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mType = kTTSym_generic;
 			mValue = TTValue(0.);
+            mValueDefault = TTValue(0.);
             
 			// don't reset mValueStepsize as the default values is equals to the value passed in constructor
 			
@@ -380,12 +387,12 @@ TTErr TTData::setGenericValue(const TTValue& value)
 
 TTErr TTData::GenericInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
     if (!mValueDefault.empty())
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-    
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(0.));
+        this->setAttributeValue(kTTSym_value, mValueDefault);
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
@@ -527,15 +534,14 @@ TTBoolean TTData::checkBooleanType(const TTValue& value)
 
 TTErr TTData::BooleanInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
 	if (checkBooleanType(mValueDefault))
-		if (!(mValueDefault.empty())) {
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-		}
+		if (!(mValueDefault.empty()))
+			this->setAttributeValue(kTTSym_value, mValueDefault);
 	
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(NO));
-    
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
@@ -707,14 +713,13 @@ TTBoolean TTData::checkIntegerType(const TTValue& value)
 
 TTErr TTData::IntegerInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
 	if (checkIntegerType(mValueDefault))
-		if (!(mValueDefault.empty())) {
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-		}
-    
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(0));
+		if (!(mValueDefault.empty()))
+			this->setAttributeValue(kTTSym_value, mValueDefault);
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
@@ -1028,11 +1033,13 @@ TTBoolean TTData::checkDecimalType(const TTValue& value)
 
 TTErr TTData::DecimalInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
 	if (checkDecimalType(mValueDefault))
-		if (!(mValueDefault.empty())) {
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-		}
+		if (!(mValueDefault.empty()))
+			this->setAttributeValue(kTTSym_value, mValueDefault);
 	
     // the value is not initialized if the value equals to the start value
     mInitialized = !(mValue == TTValue(0.));
@@ -1192,14 +1199,13 @@ TTBoolean TTData::checkArrayType(const TTValue& value)
 
 TTErr TTData::ArrayInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
 	if (checkArrayType(mValueDefault))
-		if (!(mValueDefault.empty())) {
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-		}
-	
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(0.));
+		if (!(mValueDefault.empty()))
+			this->setAttributeValue(kTTSym_value, mValueDefault);
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
@@ -1319,14 +1325,13 @@ TTBoolean TTData::checkStringType(const TTValue& value)
 
 TTErr TTData::StringInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
 	if (checkStringType(mValueDefault))
-		if (!(mValueDefault.empty())) {
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-		}
-    
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(kTTSymEmpty));
+		if (!(mValueDefault.empty()))
+			this->setAttributeValue(kTTSym_value, mValueDefault);
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);

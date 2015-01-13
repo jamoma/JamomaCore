@@ -35,6 +35,7 @@ extern "C" void TTData::registerClass()
 TTData::TTData(const TTValue& arguments) :
 TTCallback(arguments),
 mValue(TTValue(0.0)),
+mValueDefault(TTValue(0.0)),
 mValueStepsize(TTValue(0.1)),       // this default value is expected in #TTData::setType method
 mType(kTTSym_generic),
 mTags(TTValue(kTTSym_none)),
