@@ -982,7 +982,18 @@ TTErr TTData::setDecimalValue(const TTValue& value)
 				// NOTE: If ramps reach the end prematurely (due to requests for ramp targets beyond the accepted range), the ramp will not be stopped.
 				
 				// Filter repetitions, and return the internal value - this is passing it to the owner of the #TTData and will notify all value observers
-				if (mValue != lPreviousValue)
+				if (mRepetitionsFilter) {
+					if (mInitialized) {
+						if (mValue != lPreviousValue)
+							returnValue();
+					}
+					else {
+						returnValue();
+						mInitialized = true;
+					}
+						
+				}
+				else
 					returnValue();
 			} else {
 				// If the value is empty, return current value. This is the case in the Max implementation when a "bang" is sent to j.parameter.
