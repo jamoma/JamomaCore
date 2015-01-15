@@ -13,18 +13,25 @@ if(UNIX)
 
 	## OSX ##
 	if(APPLE)
-		add_definitions(-DTT_PLATFORM_MAC)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+		if(IOS)
+			add_definitions(-DTT_PLATFORM_IOS)
+			set(CMAKE_MACOSX_BUNDLE YES)
+			set(CMAKE_OSX_SYSROOT "iphoneos")
+			set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer") #todo
+			set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.jamoma")
+		else()
+			add_definitions(-DTT_PLATFORM_MAC)
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 
-	# Independent shared libraries
-		set(CMAKE_MACOSX_RPATH 1)
+			# Independent shared libraries
+			set(CMAKE_MACOSX_RPATH 1)
 
-	# CPack
-		SET(CPACK_GENERATOR "Bundle")
-		SET(CPACK_BUNDLE_NAME "Jamoma")
-		SET(CPACK_BUNDLE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Shared/packaging/MacOS/icone.icns")
-		SET(CPACK_BUNDLE_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Shared/packaging/MacOS/jamoma-Info.plist")
-
+			# CPack
+			SET(CPACK_GENERATOR "Bundle")
+			SET(CPACK_BUNDLE_NAME "Jamoma")
+			SET(CPACK_BUNDLE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Shared/packaging/MacOS/icone.icns")
+			SET(CPACK_BUNDLE_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Shared/packaging/MacOS/jamoma-Info.plist")
+		endif()
 	## Linux ##
 	elseif(UNIX)
 		add_definitions(-DTT_PLATFORM_LINUX)

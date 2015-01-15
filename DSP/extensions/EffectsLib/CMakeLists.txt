@@ -25,8 +25,11 @@ add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 target_link_libraries(${PROJECT_NAME} Foundation)
 target_link_libraries(${PROJECT_NAME} DSP)
 
-### Output ###
+### Output ###
 setOutput()
 
-### Tests ###
-addTestTarget()
+### Tests ###
+# TODO find out why this one does not work ??
+if(NOT IOS)
+	addTestTarget()
+endif()
