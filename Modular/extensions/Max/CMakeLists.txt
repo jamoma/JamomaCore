@@ -31,6 +31,7 @@ add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
 target_link_libraries(${PROJECT_NAME} Foundation)
 
+# TODO generalize this in a max module file.
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/MaxAPI.lib")
 	if(CMAKE_BUILD_TYPE STREQUAL "Release")
