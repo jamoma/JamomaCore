@@ -54,6 +54,12 @@ find_library(GECODE_SUPPORT_LIBRARY NAMES gecodesupport GecodeSupport-4-3-0-${GE
 			 PATHS ${GECODE_LIB_WIN32_PATH_CMAKE})
 
 if(GECODE_LIBRARY AND GECODE_SUPPORT_LIBRARY)
+  osx_check_architecture(GECODE ${GECODE_LIBRARY})
+  if(NOT GECODE_DYLIB_ARCHS_MATCH_REQUIRED_ARCHS)
+    set(GECODE_FOUND False)
+    return()
+  endif()
+
   list(APPEND GECODE_LIBRARIES ${GECODE_LIBRARY} ${GECODE_SUPPORT_LIBRARY})
 else()
   message("Main libraries of Gecode were not found")

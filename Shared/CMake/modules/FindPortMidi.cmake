@@ -53,4 +53,11 @@ include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(PortMidi
   REQUIRED_VARS PORTMIDI_INCLUDE_DIRS PORTMIDI_LIBRARIES)
 
+if(PORTMIDI_LIBRARIES)
+  osx_check_architecture(PORTMIDI ${PORTMIDI_LIBRARIES})
+  if(NOT PORTMIDI_DYLIB_ARCHS_MATCH_REQUIRED_ARCHS)
+    set(PORTMIDI_FOUND False)
+  endif()
+endif()
+
 mark_as_advanced(PORTMIDI_LIBRARY PORTTIME_LIBRARY)
