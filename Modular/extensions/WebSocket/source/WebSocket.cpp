@@ -743,10 +743,10 @@ TTErr WebSocket::parseJSON(const JSONNode &n, TTString address, TTValue& value)
     
     while (i != n.end())
     {
-        if (*i == NULL)
+        /*if (*i == NULL)
         {
             return kTTErrGeneric;
-        }
+        }*/
         
         // get the node name
         std::string node_name = i->name();
@@ -774,7 +774,6 @@ TTErr WebSocket::parseJSON(const JSONNode &n, TTString address, TTValue& value)
             // recursively call ourselves to dig deeper into the tree
             if (i->type() == JSON_NODE)
             {
-                std::cout << "JSON_NODE" << std::endl;
                 parseJSON(*i, address, value);
             }
             else
@@ -822,9 +821,9 @@ TTErr WebSocket::receivedMessage(const TTValue& message, TTValue& outputValue)
 	TTErr		err;
 	
 	if (mActivity) ActivityInMessage(message);
-    
+	
     aString = message.toString();
-    
+	
 #ifdef TT_PROTOCOL_DEBUG
     cout << endl;
     cout << "Message received : " << aString.c_str() << endl;
@@ -1019,23 +1018,27 @@ void addAttributeToJson(TTObject param, JSONNode* jsonNode, TTSymbol attrName)
     TTString        stringValue;
     TTInt32			intValue;
     TTFloat64		floatValue;
-    TTDataType		valueType;
+    TTDataType		valueType = kTypeNone;
     TTBoolean       boolValue;
+	TTErr			err = kTTErrNone;
     
 	// get the Value of an attribute
 	v.clear();
-	param.get(attrName, v);
+	err = param.get(attrName, v);
     
-    // add this attribute in json tree
-    valueType = v[0].type();
-    
+	if (v.size() == 0)
+		return;
+
     if (attrName == TTSymbol("rangeBounds"))
     {
         valueType = kTypeSymbol;
-        v.toString();
+		v.toString();
         v.get(0, stringValue);
     }
-    
+	else
+		valueType = v[0].type();
+
+	// add this attribute in json tree
     if (valueType == kTypeSymbol && attrName == TTSymbol("rangeBounds")) {
         //        std::cout << attrName.c_str() << " " << stringValue.data() << std::endl;
         jsonNode->push_back(JSONNode(attrName.c_str(), stringValue.data()));

@@ -159,12 +159,12 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
                         }
                     
                     
-                    char buffer[(int)data_len];
-                    snprintf(buffer, (int)data_len+1, data);
+                    // add end character to received string
+					data[data_len] = '\0';
                     
                     // send received datas to JamomaModular WebSocket plugin
                     receivedMessage.clear();
-                    receivedMessage = TTString(buffer);
+					receivedMessage = TTString(data);
                     ((TTWebSocketPtr)(mg_get_request_info(conn)->user_data))->mOwner->sendMessage(TTSymbol("WebSocketReceive"), receivedMessage, kTTValNONE);
                 }
                 break;
@@ -251,7 +251,7 @@ TTErr TTWebSocket::bind()
     return kTTErrGeneric;
 }
 
-TTErr TTWebSocket::SendMessage(TTSymbol& message, const TTValue& arguments)
+TTErr TTWebSocket::SendMessage(TTSymbol& message)
 {
     if (mLastConnection) {
         int result = mg_websocket_write(mLastConnection, WEBSOCKET_OPCODE_TEXT, message.c_str(), message.string().size());
