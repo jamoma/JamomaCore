@@ -738,6 +738,7 @@ TTErr TTData::IntegerInit()
     return kTTErrNone;
 }
 
+
 TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr command = NULL;
@@ -840,7 +841,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 			// TODO: Do mRampStatus need to be updated?
 			
 			if (!command->lookup(kTTSym_ramp, v))
-				v.get(0, externalRampTime);
+				externalRampTime = v[0];
 		}
 		
 		// 6. No ramping, target vale will be set immediately
@@ -872,99 +873,12 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 			mRampStatus = isRunning;
 			notifyObservers(kTTSym_rampStatus, mRampStatus);
 		}
-		
-		// Set the value directly
-		return this->setDecimalValue(aValue);
 	}
 	
-		
-		
-		/*
-		
-        // 3. Set Dataspace input unit and convert the value
-        // Note : The current implementation does not override the active unit temporarily or anything fancy.
-        // It just sets the input unit and then runs with it...
-        // For this initial implementation we are converting the values prior to ramping, as it is easier.
-        // Ultimately though, we actually want to convert the units after the ramping,
-        // for example to perform a sweep that is linear vs logarithmic
-        ////////////////////////////////////////////////////////////////
-        if (mDataspaceConverter.valid()) {
-            
-            if (!command->lookup(kTTSym_unit, v)) {
-                
-                TTValue convertedValue;
-                
-                unit = v[0];
-                mDataspaceConverter.set(kTTSym_inputUnit, unit);
-                convertUnit(aValue, convertedValue);
-                aValue = convertedValue;
-            }
-        }
-        
-        // 4. Filter repetitions
-        //////////////////////////////////
-        if (mRepetitionsFilter && mInitialized) {
-            
-            if (mValue == aValue)
-                return kTTErrNone;	// nothing to do
-        }
-        
-        // 5. Ramp the convertedValue
-        /////////////////////////////////
-        if (mRamper.valid()) {
-            
-            if (!command->lookup(kTTSym_ramp, v)) {
-                
-                time = v[0];
-                
-                if (time > 0) {
-                    
-                    // set the start (current) value
-                    mRamper.send("Set", mValue, none);
-                    
-                    // set the end value
-                    mRamper.send("Target", aValue, none);
-                    
-                    // set how long it going to take and start the ramp, we don't output any value immediately
-                    mRamper.send(kTTSym_Go, (int)time, none);
-                    
-                    // update the ramp status attribute
-                    mRamper.get(kTTSym_running, isRunning);
-                    if (mRampStatus != isRunning) {
-                        mRampStatus = isRunning;
-                        notifyObservers(kTTSym_rampStatus, mRampStatus);
-                    }
-                    
-                    return kTTErrNone;
-                }
-            }
-            
-            // in any other cases :
-            // stop ramping before to set a value
-            mRamper.send(kTTSym_Stop);
-            
-            // update the ramp status attribute
-            mRamper.get(kTTSym_running, isRunning);
-            if (mRampStatus != isRunning) {
-                mRampStatus = isRunning;
-                notifyObservers(kTTSym_rampStatus, mRampStatus);
-            }
-        }
-        
-        // external ramp drive case
-        else if (mRampDrive == kTTSym_external) {
-            
-            if (!command->lookup(kTTSym_ramp, v))
-                v.get(0, externalRampTime);
-            
-        }
-    }
-    
-    // 6. Set the value directly
-    return this->setDecimalValue(aValue);
-		 
-	*/
+	// Set the value directly
+	return this->setDecimalValue(aValue);
 }
+
 
 TTErr TTData::setDecimalValue(const TTValue& value)
 {
