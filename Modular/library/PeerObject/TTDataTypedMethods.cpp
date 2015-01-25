@@ -792,13 +792,13 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 					
 						// Convert current value to temporary unit, and use as ramp start value
 						inverseConvertUnit(mValue, convertedStartValue);
-						mRamper.send("Set", convertedStartValue, none);
+						mRamper.send("Set", convertedStartValue);
 					
 						// Set the end value using the overriding unit
-						mRamper.send("Target", aValue, none);
+						mRamper.send("Target", aValue);
 					
 						// Set ramp time and start the ramp, , we don't output any value immediately
-						mRamper.send(kTTSym_Go, (int)time, none);
+						mRamper.send(kTTSym_Go, (int)time);
 					
 						// Update the ramp status attribute
 						mRamper.get(kTTSym_running, isRunning);
@@ -814,13 +814,13 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 						mIsOverridingDataspaceUnit = false;
 					
 						// set the start (current) value
-						mRamper.send("Set", mValue, none);
+						mRamper.send("Set", mValue);
 					
 						// set the end value
-						mRamper.send("Target", aValue, none);
+						mRamper.send("Target", aValue);
 					
 						// set how long it going to take and start the ramp, we don't output any value immediately
-						mRamper.send(kTTSym_Go, (int)time, none);
+						mRamper.send(kTTSym_Go, (int)time);
 					
 						// update the ramp status attribute
 						mRamper.get(kTTSym_running, isRunning);
