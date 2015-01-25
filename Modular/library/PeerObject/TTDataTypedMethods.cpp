@@ -244,10 +244,12 @@ TTBoolean TTData::clipValue()
 			mValue.cliphigh(TTFloat64(mRangeBounds[1]));
 		else if (mRangeClipmode == kTTSym_both)
 			mValue.clip(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
+		else if (mRangeClipmode == kTTSym_wrap)
+			mValue = TTInfWrap(TTFloat64(mValue), TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
 		//else if (mRangeClipmode == kTTSym_wrap)
-            ;//mValue.clipwrap(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
-		//else if (mRangeClipmode == kTTSym_fold)
-            ;//mValue.clipfold(TTFloat64(mRangeBounds[0]), mTTFloat64(mRangeBounds[1]));
+            //mValue.clipwrap(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
+		else if (mRangeClipmode == kTTSym_fold)
+			mValue = TTFold(TTFloat64(mValue), TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
 	}
 	
 	return false;
@@ -746,7 +748,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
     
     if (inputValue.size()) {
 		
-		// New command stop any ongoing ramp
+		// New command terminates any ongoing ramp
 		if (mRampStatus) {
 			mRamper.send(kTTSym_Stop);
 		}
