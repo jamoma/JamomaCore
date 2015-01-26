@@ -62,10 +62,10 @@ TTErr TTData::setType(const TTValue& value)
                 mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_decimal) {
-            commandMethod = (TTMethodValue)&TTData::DecimalCommand;
+            commandMethod = (TTMethodValue)&TTData::IntegerDecimalArrayCommand;
             initMessage->method = (TTMethod)&TTData::DecimalInit;
 			valueAttribute->type = kTypeFloat64;
-            valueAttribute->setter = (TTSetterMethod)&TTData::setDecimalValue;
+            valueAttribute->setter = (TTSetterMethod)&TTData::setIntegerDecimalArrayValue;
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mValue = TTValue(0.);
@@ -737,7 +737,7 @@ TTErr TTData::IntegerInit()
 }
 
 
-TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
@@ -762,9 +762,11 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
         // Get the new target value. This might be specified in an overriding unit
         command->getValue(aValue);
 		
-		// For mType = "decimal" it does not make sense to have more than one item in aValue.
-		if (aValue.size()>1)
-			aValue.resize(1);
+		// For mType = "decimal" or "integer" it does not make sense to have more than one item in aValue.
+		if ((mType == kTTSym_decimal) || (mType == kTTSym_integer)) {
+			if (aValue.size()>1)
+				aValue.resize(1);
+		}
 		
 		// Set up ramp if requested, this might include overriding dataspace unit
 		if (mRamper.valid()) {
@@ -852,9 +854,15 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 			aValue = convertedValue;
 		} else {
 			// Ramp and unit conversion implicitly ensure that type is kTypeFloat64, but if we don't have ramp or unit, we need to ensure that mValue is set as kTypeFloat64. We do not run this test if (aValue.size() == 0.). That will be the case in the Max implementation when sending a "bang" to j.parameter.
-			if (aValue.size())
-				if (aValue[0].type() != kTypeFloat64)
-					aValue = (TTFloat64)aValue[0];
+			// TODO: This need to be reconsidered if this method is to cater for integers and arrays as well.
+			if (mType==kTTSym_decimal) {
+				if (aValue.size())
+					if (aValue[0].type() != kTypeFloat64)
+						aValue = (TTFloat64)aValue[0];
+			}
+			else if (mType==kTTSym_integer)
+				if (aValue.size())
+					aValue[0].truncate();
 		}
 		
 		mIsOverridingDataspaceUnit = false;
@@ -870,11 +878,11 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
 	// Set the value directly
-	return this->setDecimalValue(aValue);
+	return this->setIntegerDecimalArrayValue(aValue);
 }
 
 
-TTErr TTData::setDecimalValue(const TTValue& value)
+TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
 {
 	// Storing locally to protect the input value
 	TTValue lValue = value;
@@ -884,7 +892,7 @@ TTErr TTData::setDecimalValue(const TTValue& value)
         // We are locking while updating, in order to prevent returned values from clients to cause an infinite loop.
 		mIsSending = YES;
         
-		if (checkDecimalType(lValue)) {
+		if (checkIntegerDecimalArrayType(lValue)) {
 			
 			if (lValue.size() == 1) {
 				
@@ -898,6 +906,11 @@ TTErr TTData::setDecimalValue(const TTValue& value)
 				
 				// Clipping
 				clipValue();
+				
+				
+				// Truncate if type is integer
+				if (mType == kTTSym_integer)
+					mValue.truncate();
 				
 				// NOTE: If ramps reach the end prematurely (due to requests for ramp targets beyond the accepted range), the ramp will not be stopped.
 				
@@ -937,24 +950,30 @@ TTErr TTData::setDecimalValue(const TTValue& value)
 	return kTTErrGeneric;
 }
 
-TTBoolean TTData::checkDecimalType(const TTValue& value)
+TTBoolean TTData::checkIntegerDecimalArrayType(const TTValue& value)
 {
-    if (value.size() == 0)
-        return YES;
+	if (mType == kTTSym_array)
+		return YES;
+	else if ((mType == kTTSym_integer) || (mType == kTTSym_decimal)) {
+	
+		if (value.size() == 0)
+			return YES;
     
-    TTDataType type = value[0].type();
+		TTDataType type = value[0].type();
     
-    return  //type == kTypeNone       ||
-            type == kTypeFloat32    ||
-            type == kTypeFloat64    ||
-            type == kTypeInt8       ||
-            type == kTypeUInt8      ||
-            type == kTypeInt16      ||
-            type == kTypeUInt16     ||
-            type == kTypeInt32      ||
-            type == kTypeUInt32     ||
-            type == kTypeInt64      ||
-            type == kTypeUInt64;
+		return	type == kTypeFloat32    ||
+				type == kTypeFloat64    ||
+				type == kTypeInt8       ||
+				type == kTypeUInt8      ||
+				type == kTypeInt16      ||
+				type == kTypeUInt16     ||
+				type == kTypeInt32      ||
+				type == kTypeUInt32     ||
+				type == kTypeInt64      ||
+				type == kTypeUInt64;
+	}
+	else
+		return NO;
 }
 
 TTErr TTData::DecimalInit()
@@ -963,7 +982,7 @@ TTErr TTData::DecimalInit()
     mInitialized = NO;
     
     // if valueDefault type is right
-	if (checkDecimalType(mValueDefault))
+	if (checkIntegerDecimalArrayType(mValueDefault))
 		if (!(mValueDefault.empty()))
         {
             TTValue empty;
