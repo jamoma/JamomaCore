@@ -795,7 +795,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 						// Set the end value using the overriding unit
 						mRamper.send("Target", aValue);
 					
-						// Set ramp time and start the ramp, , we don't output any value immediately
+						// Set ramp time and start the ramp, we don't output any value immediately
 						mRamper.send(kTTSym_Go, (int)time);
 					
 						// Update the ramp status attribute
@@ -807,20 +807,21 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 					
 						return kTTErrNone;
 					}
+					
+					// No dataspace unit conversion is needed during the ramp
 					else {
-						// No dataspace unit conversion is needed during the ramp
 						mIsOverridingDataspaceUnit = false;
 					
-						// set the start (current) value
+						// Set the start (current) value
 						mRamper.send("Set", mValue);
 					
-						// set the end value
+						// Set the end value
 						mRamper.send("Target", aValue);
 					
-						// set how long it going to take and start the ramp, we don't output any value immediately
+						// Set ramp time and start the ramp, we don't output any value immediately
 						mRamper.send(kTTSym_Go, (int)time);
 					
-						// update the ramp status attribute
+						// Udate the ramp status attribute
 						mRamper.get(kTTSym_running, isRunning);
 						if (mRampStatus != isRunning) {
 							mRampStatus = isRunning;
@@ -832,19 +833,13 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 				}
 			}
 		}
-		// External ramp drive case
+		// External ramp drive case - this is used with the j.parameter~ abstraction in Max. This is just a prototype until a proper C++ solution can be coded, and we do not bother to deal with ramp function or dataspace.
 		else if (mRampDrive == kTTSym_external) {
-			
-			// TODO: How do we deal with overriding units in this case?
-			// TODO: Do mRampStatus need to be updated?
-			
 			if (!command->lookup(kTTSym_ramp, v))
 				externalRampTime = v[0];
 		}
 		
-		// No ramping, target vale will be set immediately
-		
-		// (This part of the method will only be executed if (a) no ramp was requested, (b) ramp time was less or equal to 0, or (c) we are using an external ramp drive.)
+		// No ramping, target vale will be set immediately. This part of the method will only be executed if (a) no ramp was requested, (b) ramp time was less or equal to 0, or (c) we are using an external ramp drive.
 		
 		// Check for overriding unit, convert to default unit if necessary
 		if ((mDataspaceConverter.valid()) && (!command->lookup(kTTSym_unit, v))) {
@@ -856,8 +851,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 			convertUnit(aValue, convertedValue);
 			aValue = convertedValue;
 		} else {
-			// Ramp and unit conversion implicitly ensure that type is kTypeFloat64, but if we don't have ramp or unit, we need to ensure that mValue is set as kTypeFloat64.
-			// We do not run this test if (aValue.size() == 0.). That will be the case in e.g. the Max implementation when sending a "bang" to j.parameter.
+			// Ramp and unit conversion implicitly ensure that type is kTypeFloat64, but if we don't have ramp or unit, we need to ensure that mValue is set as kTypeFloat64. We do not run this test if (aValue.size() == 0.). That will be the case in the Max implementation when sending a "bang" to j.parameter.
 			if (aValue.size())
 				if (aValue[0].type() != kTypeFloat64)
 					aValue = (TTFloat64)aValue[0];
@@ -865,7 +859,7 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 		
 		mIsOverridingDataspaceUnit = false;
 		
-		// Update the ramp status attribute
+		// Update the ramp status attribute, unless we use external ramp drive
 		if (mRampDrive != kTTSym_external) {
 			mRamper.get(kTTSym_running, isRunning);
 			if (mRampStatus != isRunning) {
@@ -892,15 +886,11 @@ TTErr TTData::setDecimalValue(const TTValue& value)
         
 		if (checkDecimalType(lValue)) {
 			
-            // Resize if the value contains more than one element
-			//if (lValue.size() > 1)
-			//	lValue.resize(1);
-			// Only update if the value contains an element (it's not empty). We have already made sure in DecimalCommand that lValue.size does not exceed 1.
 			if (lValue.size() == 1) {
 				
 				TTValue lPreviousValue = mValue;
 				
-				// If ramp is performed using non-default dataspace unit, the returned values need to be converted
+				// If ramp is performed using non-default dataspace unit, the returned values need to be converted.
 				if (mIsOverridingDataspaceUnit)
 					convertUnit(lValue, mValue);
 				else
@@ -911,7 +901,7 @@ TTErr TTData::setDecimalValue(const TTValue& value)
 				
 				// NOTE: If ramps reach the end prematurely (due to requests for ramp targets beyond the accepted range), the ramp will not be stopped.
 				
-				// Filter repetitions, and return the internal value - this is passing it to the owner of the #TTData and will notify all value observers
+				// Filter repetitions, and return the internal value - this is passing it to the owner of the #TTData and will notify all value observers.
 				if (mRepetitionsFilter) {
 					if (mInitialized) {
 						if (mValue != lPreviousValue)
