@@ -64,8 +64,6 @@ private:
 	TTObject        mDataspaceConverter;		///< Performs conversions from input unit to the data unit
 	TTObject		mDataspaceInverseConverter;	///< Used to convert current #mValue from default #mDataspaceUnit to temporary dataspace unit when setting up a ramp that will temporarily override the default unit.
 	
-	TTFloat64		mPreviousValue;				///< Only used with external ramp mechanism.
-
 	TTSymbol		mService;					///< how the data flows into our environnement :
 												///<	as parameter : the data is in full access mode
 												///<	as message : the data don't notify observers it's changing but the value is still returned to his owner

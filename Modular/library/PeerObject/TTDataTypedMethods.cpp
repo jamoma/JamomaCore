@@ -258,25 +258,14 @@ TTBoolean TTData::clipValue()
 TTErr TTData::returnValue()
 {
     // used a new value to protect the internal value
-	TTValue v;
+	TTValue v = mValue;;
 	
-	// If using external ramp engine, describe desired curve as a piecewise linear function with 128 segments
     // COMMENT: This is a temporary solution to have audio rate ramping outside the #TTData
     // TODO: JamomaCore #212 : when Trond ports dataspace ramp we need to think about how that works with audio rate ramps
     if (mRampDrive == kTTSym_external) {
-		if (externalRampTime > 0) {
-			TTFloat64 lIncTime = externalRampTime / 128.;
-			TTFloat64 lIncStep = (TTFloat64(mValue) - mPreviousValue)/ 128.;
-			TTFloat64 lStepValue = mPreviousValue;
-			for (TTInt16 i=0; i<128; i++) {
-				lStepValue += lIncStep;
-				v.append(lStepValue);
-				v.append(lIncTime);
-			}
-		}
+		if (externalRampTime > 0)
+			v.append(externalRampTime);
     }
-	else
-		 v = mValue;
     
     // we have had our value set at least once
     // only parameters notify their initialisation
@@ -849,10 +838,8 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 			// TODO: How do we deal with overriding units in this case?
 			// TODO: Do mRampStatus need to be updated?
 			
-			if (!command->lookup(kTTSym_ramp, v)) {
+			if (!command->lookup(kTTSym_ramp, v))
 				externalRampTime = v[0];
-				mPreviousValue = mValue;
-			}
 		}
 		
 		// No ramping, target vale will be set immediately
