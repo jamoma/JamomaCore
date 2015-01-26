@@ -258,16 +258,25 @@ TTBoolean TTData::clipValue()
 TTErr TTData::returnValue()
 {
     // used a new value to protect the internal value
-    TTValue v = mValue;
+	TTValue v;
 	
-    
-    // This is a temporary solution to have audio rate ramping outside the #TTData
-    // TODO JamomaCore #212 : when Trond ports dataspace ramp we need to think about how that works with audio rate ramps
+	// If using external ramp engine, describe desired curve as a piecewise linear function with 128 segments
+    // COMMENT: This is a temporary solution to have audio rate ramping outside the #TTData
+    // TODO: JamomaCore #212 : when Trond ports dataspace ramp we need to think about how that works with audio rate ramps
     if (mRampDrive == kTTSym_external) {
-        
-        if (externalRampTime > 0)
-            v.append(externalRampTime);
+		if (externalRampTime > 0) {
+			TTFloat64 lIncTime = externalRampTime / 128.;
+			TTFloat64 lIncStep = (TTFloat64(mValue) - mPreviousValue)/ 128.;
+			TTFloat64 lStepValue = mPreviousValue;
+			for (TTInt16 i=0; i<128; i++) {
+				lStepValue += lIncStep;
+				v.append(lStepValue);
+				v.append(lIncTime);
+			}
+		}
     }
+	else
+		 v = mValue;
     
     // we have had our value set at least once
     // only parameters notify their initialisation
@@ -834,21 +843,23 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 				}
 			}
 		}
-		// 5. External ramp drive case
+		// External ramp drive case
 		else if (mRampDrive == kTTSym_external) {
 			
 			// TODO: How do we deal with overriding units in this case?
 			// TODO: Do mRampStatus need to be updated?
 			
-			if (!command->lookup(kTTSym_ramp, v))
+			if (!command->lookup(kTTSym_ramp, v)) {
 				externalRampTime = v[0];
+				mPreviousValue = mValue;
+			}
 		}
 		
-		// 6. No ramping, target vale will be set immediately
+		// No ramping, target vale will be set immediately
 		
 		// (This part of the method will only be executed if (a) no ramp was requested, (b) ramp time was less or equal to 0, or (c) we are using an external ramp drive.)
 		
-		// 6.a Check for overriding unit, convert to default unit if necessary
+		// Check for overriding unit, convert to default unit if necessary
 		if ((mDataspaceConverter.valid()) && (!command->lookup(kTTSym_unit, v))) {
 			
 			TTValue convertedValue;
@@ -868,10 +879,12 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
 		mIsOverridingDataspaceUnit = false;
 		
 		// Update the ramp status attribute
-		mRamper.get(kTTSym_running, isRunning);
-		if (mRampStatus != isRunning) {
-			mRampStatus = isRunning;
-			notifyObservers(kTTSym_rampStatus, mRampStatus);
+		if (mRampDrive != kTTSym_external) {
+			mRamper.get(kTTSym_running, isRunning);
+			if (mRampStatus != isRunning) {
+				mRampStatus = isRunning;
+				notifyObservers(kTTSym_rampStatus, mRampStatus);
+			}
 		}
 	}
 	
