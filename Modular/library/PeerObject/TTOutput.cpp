@@ -86,13 +86,13 @@ TTErr TTOutput::Send(const TTValue& inputValue, TTValue& outputValue)
 	
 	else if (mFreeze) {
 		
-		err = mReturnSignalCallback.send("notify", mLast, none);
+		err = mReturnSignalCallback.send("notify", mLast);
 		
 		notifySignalObserver(mLast);
 	}
 	else {
 		
-		err = mReturnSignalCallback.send("notify", inputValue, none);
+		err = mReturnSignalCallback.send("notify", inputValue);
 		
 		notifySignalObserver(inputValue);
 	}

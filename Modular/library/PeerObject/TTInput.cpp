@@ -80,10 +80,10 @@ TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 		return kTTErrNone;
     
 	else if (mBypass && mOutputObject.valid())
-		err = mOutputObject.send("SendBypassed", inputValue, none);
+		err = mOutputObject.send("SendBypassed", inputValue);
     
 	else
-		err = mReturnSignalCallback.send("notify", inputValue, none);
+		err = mReturnSignalCallback.send("notify", inputValue);
     
     notifySignalObserver(inputValue);
     

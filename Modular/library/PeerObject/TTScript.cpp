@@ -285,7 +285,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
                     c = TTValue((TTPtr)aLine);
                     v.append((TTPtr)&c);
                     
-                    aParentContainer.send(kTTSym_Send, v, none);
+                    aParentContainer.send(kTTSym_Send, v);
                 }
 			}
 			// or retreive the node
@@ -322,7 +322,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
                             // send the line using the command message
                             if (attribute == kTTSym_value) {
                                 
-                                anObject.send(kTTSym_Command, (TTPtr)aLine, none);
+                                anObject.send(kTTSym_Command, (TTPtr)aLine);
                                 continue;
                             }
                         }
@@ -383,7 +383,7 @@ TTErr TTScript::Run(const TTValue& inputValue, TTValue& outputValue)
             if (aContainer.valid())
                 v.append(aContainer);
                 
-            mSubScript.send(kTTSym_Run, v, none);
+            mSubScript.send(kTTSym_Run, v);
         }
 	}
 
@@ -440,7 +440,7 @@ TTErr TTScript::RunFlattened()
                     // send the line using the command message
                     if (attribute == kTTSym_value) {
                         
-                        anObject.send(kTTSym_Command, (TTPtr)aLine, none);
+                        anObject.send(kTTSym_Command, (TTPtr)aLine);
                         continue;
                     }
                 }
@@ -515,7 +515,7 @@ TTErr TTScript::RunCommand(const TTValue& inputValue, TTValue& outputValue)
                             // send the line using the command message
                             if (attribute == kTTSym_value) {
                                 
-                                anObject.send(kTTSym_Command, (TTPtr)aLine, none);
+                                anObject.send(kTTSym_Command, (TTPtr)aLine);
                                 continue;
                             }
                         }
@@ -628,7 +628,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			valueToDump.prepend(kTTSym_dash);
 			
 			// output line value
-			mReturnLineCallback.send("notify", valueToDump, none);
+			mReturnLineCallback.send("notify", valueToDump);
 		}	
 		else if (schema == kTTSym_comment) {
 			
@@ -639,7 +639,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			valueToDump.prepend(kTTSym_sharp);
 			
 			// output line value
-			mReturnLineCallback.send("notify", valueToDump, none);
+			mReturnLineCallback.send("notify", valueToDump);
 		}
 		else if (schema == kTTSym_command) {
 			
@@ -671,7 +671,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 			valueToDump.prepend(address);
 			
 			// output line value
-			mReturnLineCallback.send("notify", valueToDump, none);
+			mReturnLineCallback.send("notify", valueToDump);
 		}
 		else if (schema == kTTSym_script) {
 			
@@ -690,7 +690,7 @@ TTErr TTScript::Dump(const TTValue& inputValue, TTValue& outputValue)
 				address = parentAddress.appendAddress(address);
 			
 			// dump the subscript
-			mSubScript.send(kTTSym_Dump, address, none);
+			mSubScript.send(kTTSym_Dump, address);
 		}
 	}
 	
@@ -739,7 +739,7 @@ TTErr TTScript::DumpFlattened()
         valueToDump.prepend(address);
         
         // output line value
-        mReturnLineCallback.send("notify", valueToDump, none);
+        mReturnLineCallback.send("notify", valueToDump);
     }
     
     return kTTErrNone;
@@ -797,7 +797,7 @@ TTErr TTScript::DumpLine(const TTValue& inputValue, TTValue& outputValue)
                 valueToDump.prepend(address);
                 
                 // output line value
-                mReturnLineCallback.send("notify", valueToDump, none);
+                mReturnLineCallback.send("notify", valueToDump);
             }
         }
         
@@ -1774,13 +1774,13 @@ TTErr TTScriptInterpolate(TTObject script1, TTObject script2, TTFloat64 position
                         if (function != kTTSym_none) {
                     
                             // set the starting value
-                            aData.send(kTTSym_RampSet, v1, none);
+                            aData.send(kTTSym_RampSet, v1);
                             
                             // set the target value
-                            aData.send(kTTSym_RampTarget, v2, none);
+                            aData.send(kTTSym_RampTarget, v2);
                             
                             // set interpolate using the ramp function
-                            aData.send(kTTSym_RampSlide, position, none);
+                            aData.send(kTTSym_RampSlide, position);
                         }
                         
                         // process the interpolation our self

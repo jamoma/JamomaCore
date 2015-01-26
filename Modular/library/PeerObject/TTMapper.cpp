@@ -37,11 +37,11 @@ mOutputThresholdUp(1.),
 mOutputGoingDown(NO),
 mOutputGoingUp(NO),
 mActive(YES),
-mClipmode(kTTSym_none),
 mInverse(NO),
 #ifndef TT_NO_DSP
 mFunction(kTTSymEmpty),
 #endif
+mClipmode(kTTSym_none),
 mRamp(0)
 {
 	if(arguments.size() >= 1)
@@ -150,22 +150,22 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
                 
                 valueAndRamp = TTValue((TTPtr)command);
                 
-                mSender.send(kTTSym_Send, valueAndRamp, none);
+                mSender.send(kTTSym_Send, valueAndRamp);
                 
                 delete command;
             }
             else
-                mSender.send(kTTSym_Send, outputValue, none);
+                mSender.send(kTTSym_Send, outputValue);
         }
 		
-        mReturnValueCallback.send("notify", outputValue, none);
+        mReturnValueCallback.send("notify", outputValue);
         
         // notify if input going down
         TTBoolean newInputGoingDown = inputValue <= TTValue(mInputThresholdDown);
         if (newInputGoingDown != mInputGoingDown) {
             
             mInputGoingDown = newInputGoingDown;
-            mReturnInputGoingDownCallback.send("notify", mInputGoingDown, none);
+            mReturnInputGoingDownCallback.send("notify", mInputGoingDown);
         }
         
         // notify if input going up
@@ -173,7 +173,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
         if (newInputGoingUp != mInputGoingUp) {
             
             mInputGoingUp = newInputGoingUp;
-            mReturnInputGoingUpCallback.send("notify", mInputGoingUp, none);
+            mReturnInputGoingUpCallback.send("notify", mInputGoingUp);
         }
         
         // notify if output going down
@@ -181,7 +181,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
         if (newOutputGoingDown != mOutputGoingDown) {
             
             mOutputGoingDown = newOutputGoingDown;
-            mReturnOutputGoingDownCallback.send("notify", mOutputGoingDown, none);
+            mReturnOutputGoingDownCallback.send("notify", mOutputGoingDown);
         }
         
         // notify if output going up
@@ -189,7 +189,7 @@ TTErr TTMapper::Map(TTValue& inputValue, TTValue& outputValue)
         if (newOutputGoingUp != mOutputGoingUp) {
             
             mOutputGoingUp = newOutputGoingUp;
-            mReturnOutputGoingUpCallback.send("notify", mOutputGoingUp, none);
+            mReturnOutputGoingUpCallback.send("notify", mOutputGoingUp);
         }
 	}
 	
@@ -895,22 +895,22 @@ TTErr TTMapperReceiveValueCallback(const TTValue& baton, const TTValue& inputVal
                 
                 valueAndRamp = TTValue((TTPtr)command);
                 
-                aMapper->mSender.send(kTTSym_Send, valueAndRamp, none);
+                aMapper->mSender.send(kTTSym_Send, valueAndRamp);
                 
                 delete command;
             }
             else
-                aMapper->mSender.send(kTTSym_Send, outputValue, none);
+                aMapper->mSender.send(kTTSym_Send, outputValue);
         }
 		
-        aMapper->mReturnValueCallback.send("notify", outputValue, none);
+        aMapper->mReturnValueCallback.send("notify", outputValue);
         
         // notify if input going down
         TTBoolean newInputGoingDown = inputValue <= TTValue(aMapper->mInputThresholdDown);
         if (newInputGoingDown != aMapper->mInputGoingDown) {
             
             aMapper->mInputGoingDown = newInputGoingDown;
-            aMapper->mReturnInputGoingDownCallback.send("notify", aMapper->mInputGoingDown, none);
+            aMapper->mReturnInputGoingDownCallback.send("notify", aMapper->mInputGoingDown);
         }
         
         // notify if input going up
@@ -918,7 +918,7 @@ TTErr TTMapperReceiveValueCallback(const TTValue& baton, const TTValue& inputVal
         if (newInputGoingUp != aMapper->mInputGoingUp) {
             
             aMapper->mInputGoingUp = newInputGoingUp;
-            aMapper->mReturnInputGoingUpCallback.send("notify", aMapper->mInputGoingUp, none);
+            aMapper->mReturnInputGoingUpCallback.send("notify", aMapper->mInputGoingUp);
         }
         
         // notify if output going down
@@ -926,7 +926,7 @@ TTErr TTMapperReceiveValueCallback(const TTValue& baton, const TTValue& inputVal
         if (newOutputGoingDown != aMapper->mOutputGoingDown) {
             
             aMapper->mOutputGoingDown = newOutputGoingDown;
-            aMapper->mReturnOutputGoingDownCallback.send("notify", aMapper->mOutputGoingDown, none);
+            aMapper->mReturnOutputGoingDownCallback.send("notify", aMapper->mOutputGoingDown);
         }
         
         // notify if output going up
@@ -934,7 +934,7 @@ TTErr TTMapperReceiveValueCallback(const TTValue& baton, const TTValue& inputVal
         if (newOutputGoingUp != aMapper->mOutputGoingUp) {
             
             aMapper->mOutputGoingUp = newOutputGoingUp;
-            aMapper->mReturnOutputGoingUpCallback.send("notify", aMapper->mOutputGoingUp, none);
+            aMapper->mReturnOutputGoingUpCallback.send("notify", aMapper->mOutputGoingUp);
         }
 	}
 	

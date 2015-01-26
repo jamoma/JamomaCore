@@ -514,7 +514,7 @@ TTErr TTSubscriberMessageReturnValueCallback(const TTValue& baton, const TTValue
 		v = data;
 		
 		// send data
-		o.send(messageName, data, none);
+		o.send(messageName, data);
 		
 		return kTTErrNone;
 	}

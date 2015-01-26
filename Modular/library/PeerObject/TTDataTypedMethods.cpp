@@ -32,8 +32,8 @@ TTErr TTData::setType(const TTValue& value)
 		this->findAttribute(kTTSym_valueDefault, &valueDefaultAttribute);
 		this->findAttribute(kTTSym_valueStepsize, &valueStepSizeAttribute);
         
-		mInstanceBounds.set(0, TTInt16(0));
-		mInstanceBounds.set(1, TTInt16(-1));
+		mInstanceBounds[0] = TTInt16(0);
+		mInstanceBounds[1] = TTInt16(-1);
 		
 		// register mValue Attribute and prepare memory
         // We establish the behavior of TTData based on the attribute type. We do this by setting a funciton pointer that depends on the type.
@@ -53,8 +53,8 @@ TTErr TTData::setType(const TTValue& value)
             
             // if mRangeBounds still equals to the value passed in constructor
             if (mRangeBounds == TTValue(0.0, 1.0)) {
-                mRangeBounds.set(0, TTUInt16(0));
-                mRangeBounds.set(1, TTUInt16(1));
+                mRangeBounds[0] = TTUInt16(0);
+                mRangeBounds[1] = TTUInt16(1);
             }
             
             // if mRampDrive still equals to the value passed in constructor
@@ -115,8 +115,8 @@ TTErr TTData::setType(const TTValue& value)
             
             // if mRangeBounds still equals to the value passed in constructor
             if (mRangeBounds == TTValue(0.0, 1.0)) {
-                mRangeBounds.set(0, NO);
-                mRangeBounds.set(1, YES);
+                mRangeBounds[0] = NO;
+                mRangeBounds[1] = YES;
             }
             
             mRampDrive = kTTSym_none;
@@ -443,9 +443,9 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    mRamper.send("Set", mValue, none);
-                    mRamper.send("Target", aValue, none);
-                    mRamper.send(kTTSym_Go, (int)time, none);
+                    mRamper.send("Set", mValue);
+                    mRamper.send("Target", aValue);
+                    mRamper.send(kTTSym_Go, (int)time);
                     
                     // update the ramp status attribute
                     mRamper.get(kTTSym_running, isRunning);
@@ -587,7 +587,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 TTValue convertedValue;
                 
-                v.get(0, unit);
+                unit = v[0];
                 mDataspaceConverter.set(kTTSym_inputUnit, unit);
                 convertUnit(aValue, convertedValue);
                 aValue = convertedValue;
@@ -610,7 +610,7 @@ TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
             
             if (!command->lookup(kTTSym_ramp, v)) {
                 
-                v.get(0, time);
+                time = v[0];
                 
                 if (time > 0) {
                     

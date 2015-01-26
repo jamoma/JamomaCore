@@ -266,7 +266,7 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentPreset = v[0];
 		
-        err = mCurrentPreset.send(kTTSym_Recall, mAddress.appendAddress(anAddress), none);
+        err = mCurrentPreset.send(kTTSym_Recall, mAddress.appendAddress(anAddress));
             
         notifyValueObservers();
             
@@ -320,7 +320,7 @@ TTErr TTPresetManager::Output(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentPreset = v[0];
         
-        err = mCurrentPreset.send("Output", mAddress.appendAddress(anAddress), none);
+        err = mCurrentPreset.send("Output", mAddress.appendAddress(anAddress));
             
         notifyValueObservers();
             

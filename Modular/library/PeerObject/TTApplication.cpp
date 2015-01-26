@@ -289,9 +289,9 @@ TTErr TTApplication::cacheAttributeNode(TTNodePtr aNode, TTSymbol attributeName,
     if (anObject.valid()) {
         
         if (cacheOrUncache)
-            anObject.send("AttributeCache", attributeName, none);
+            anObject.send("AttributeCache", attributeName);
         else
-            anObject.send("AttributeUncache", attributeName, none);
+            anObject.send("AttributeUncache", attributeName);
     }
     
     // Cache attribute of node's object below
@@ -410,7 +410,7 @@ TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
                             // cache the attribute value
                             args = cachedAttribute;
                             args.append((TTPtr)&v);
-                            anObject.send("AttributeCache", args, none);
+                            anObject.send("AttributeCache", args);
                         }
                     }
                 }
@@ -951,7 +951,7 @@ TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
                         if (anObject.name() == kTTSym_Data) {
                             
                             if (address.getAttribute() == kTTSym_value)
-                                err = anObject.send(kTTSym_Command, valueToSend, none);
+                                err = anObject.send(kTTSym_Command, valueToSend);
                             else
                                 err = anObject.set(address.getAttribute(), valueToSend);
                         }
@@ -961,7 +961,7 @@ TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
                             
                             // try to use a message
                             if (err == address)
-                                err = anObject.send(address.getAttribute(), valueToSend, none);
+                                err = anObject.send(address.getAttribute(), valueToSend);
                         }
                     }
                     
@@ -1606,7 +1606,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                     
                                     // cache the attribute with no value (see after)
                                     args = cachedAttribute;
-                                    anObject.send("AttributeCache", args, none);
+                                    anObject.send("AttributeCache", args);
                                 }
                             }
                         }
@@ -1753,7 +1753,7 @@ TTObject TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAd
         // if the Mirror cannot instantiate attributes
         aMirror.attributes(v);
         if (v.size() == 0)
-            aMirror.send("AttributesInstantiate", attributesName, none);
+            aMirror.send("AttributesInstantiate", attributesName);
         
         // register object into the directory
         this->mDirectory->TTNodeCreate(anAddress, aMirror, NULL, &aNode, &newInstanceCreated);

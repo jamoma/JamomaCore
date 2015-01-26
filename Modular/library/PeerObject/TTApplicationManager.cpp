@@ -188,7 +188,7 @@ TTErr TTApplicationManager::ApplicationInstantiateLocal(const TTValue& inputValu
             
             // register the application under its own root
             v = TTValue(kTTAdrsRoot, anApplication);
-            anApplication.send("ObjectRegister", v, none);
+            anApplication.send("ObjectRegister", v);
             
             // register the application as any application
             mApplications.append(applicationName, anApplication);
@@ -237,7 +237,7 @@ TTErr TTApplicationManager::ApplicationInstantiateDistant(const TTValue& inputVa
             
             // register the application under its own root
             v = TTValue(kTTAdrsRoot, anApplication);
-            anApplication.send("ObjectRegister", v, none);
+            anApplication.send("ObjectRegister", v);
             
             // register the application as any application
             mApplications.append(applicationName, anApplication);
@@ -286,11 +286,11 @@ TTErr TTApplicationManager::ApplicationRelease(const TTValue& inputValue, TTValu
                     mProtocols.lookup(protocolName, v);
                     
                     aProtocol = v[0];
-                    aProtocol.send("ApplicationUnregister", applicationName, none);
+                    aProtocol.send("ApplicationUnregister", applicationName);
                 }
                 
                 // unregister the application from its own root
-                anApplication.send("ObjectUnregister", kTTAdrsRoot, none);
+                anApplication.send("ObjectUnregister", kTTAdrsRoot);
                 
                 // if the application is the local one : forget it
                 if (anApplication.instance() == mApplicationLocal.instance())
@@ -710,7 +710,7 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
                 if (objectType == kTTSym_Data) {
 				
                     if (whereToSet.getAttribute() == kTTSym_value)
-                        err = anObject.send(kTTSym_Command, *newValue, none);
+                        err = anObject.send(kTTSym_Command, *newValue);
                     else
                         err = anObject.set(whereToSet.getAttribute(), *newValue);
                 }
@@ -720,7 +720,7 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 					
 					// try to use a message
                 	if (err == kTTErrInvalidAttribute)
-                    	err = anObject.send(whereToSet.getAttribute(), *newValue, none);
+                    	err = anObject.send(whereToSet.getAttribute(), *newValue);
 				}
             }
             
@@ -767,11 +767,11 @@ TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue
                 
                 // start local directory listening
                 if (whereToListen.getAttribute() == TTSymbol("life")) // TODO : find a better name
-                    return applicationToListen.send("AddDirectoryListener", args, none);
+                    return applicationToListen.send("AddDirectoryListener", args);
                 
                 // start local attribute listening
                 else
-                    return applicationToListen.send("AddAttributeListener", args, none);
+                    return applicationToListen.send("AddAttributeListener", args);
             }
             // remove listener
             else {
@@ -781,11 +781,11 @@ TTErr TTApplicationManager::ApplicationListen(const TTValue& inputValue, TTValue
                 
                 // stop local directory listening
                 if (whereToListen.getAttribute() == TTSymbol("life")) // TODO : find a better name
-                    return applicationToListen.send("RemoveDirectoryListener", args, none);
+                    return applicationToListen.send("RemoveDirectoryListener", args);
                 
                 // stop local attribute listening
                 else
-                    return applicationToListen.send("RemoveAttributeListener", args, none);
+                    return applicationToListen.send("RemoveAttributeListener", args);
             }
         }
     }
@@ -816,11 +816,11 @@ TTErr TTApplicationManager::ApplicationListenAnswer(const TTValue& inputValue, T
         
         // notify directory updates
         if (whereComesFrom.getAttribute() == TTSymbol("life")) // TODO : find a better name
-            return anApplication.send("UpdateDirectory", args, none);
+            return anApplication.send("UpdateDirectory", args);
         
         // notify attribute updates
         else
-            return anApplication.send("UpdateAttribute", args, none);
+            return anApplication.send("UpdateAttribute", args);
     }
 	
 	return kTTErrGeneric;
@@ -1065,7 +1065,7 @@ TTErr TTApplicationManager::writeProtocolAsXml(TTXmlHandlerPtr aXmlHandler, TTOb
         if (registered)
         {
             // select an application to get its parameters
-            err = aProtocol.send("ApplicationSelect", name, none);
+            err = aProtocol.send("ApplicationSelect", name);
             
             // Start an xml node for distant application parameters
             xmlTextWriterStartElement((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST name.c_str());
@@ -1126,7 +1126,7 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
 			
 			mApplications.getKeys(applicationNames);
             for (j = 0; j < applicationNames.size(); j++)
-                mCurrentProtocol.send("ApplicationUnregister", applicationNames[j], none);
+                mCurrentProtocol.send("ApplicationUnregister", applicationNames[j]);
             
 		}
 		
@@ -1196,12 +1196,12 @@ TTErr TTApplicationManager::ReadFromXml(const TTValue& inputValue, TTValue& outp
         // the node name is the name of an application
         
         // register the application to the current protocol
-        err = mCurrentProtocol.send("ApplicationRegister", aXmlHandler->mXmlNodeName, none);
+        err = mCurrentProtocol.send("ApplicationRegister", aXmlHandler->mXmlNodeName);
         
         if (!err) {
             
             // select the application to set its parameters
-            mCurrentProtocol.send("ApplicationSelect", aXmlHandler->mXmlNodeName, none);
+            mCurrentProtocol.send("ApplicationSelect", aXmlHandler->mXmlNodeName);
                 
             // get all protocol attributes and their value for this application
             while (xmlTextReaderMoveToNextAttribute((xmlTextReaderPtr)aXmlHandler->mReader) == 1) {

@@ -245,7 +245,7 @@ TTErr TTCue::setRamp(const TTValue& value)
     flattened = v[0];
     
     if (!flattened)
-        mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
+        mScript.send(kTTSym_Flatten, kTTAdrsRoot);
 	
 	// TODO : don't change line with a ramp value different from the mRamp
 	return processRamp(mScript, mRamp);
@@ -582,7 +582,7 @@ TTErr TTCue::Update(const TTValue& inputValue, TTValue& outputValue)
     flattened = v[0];
     
     if (!flattened)
-        mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
+        mScript.send(kTTSym_Flatten, kTTAdrsRoot);
 	
 	return processUpdate(mScript);
 }
@@ -676,15 +676,15 @@ TTErr TTCue::Recall(const TTValue& inputValue, TTValue& outputValue)
     flattened = v[0];
     
     if (!flattened)
-        mScript.send(kTTSym_Flatten, mAddress, none);
+        mScript.send(kTTSym_Flatten, mAddress);
     
     // if an address is passed, run the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript.send("RunCommand", anAddress, none);
+        return mScript.send("RunCommand", anAddress);
     
     // else run all the script
     else
-        return mScript.send(kTTSym_Run, inputValue, none);
+        return mScript.send(kTTSym_Run, inputValue);
 }
 
 TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
@@ -707,15 +707,15 @@ TTErr TTCue::Output(const TTValue& inputValue, TTValue& outputValue)
     flattened = v[0];
     
     if (!flattened)
-        mScript.send(kTTSym_Flatten, mAddress, none);
+        mScript.send(kTTSym_Flatten, mAddress);
     
     // if an address is passed, dump the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript.send("DumpLine", anAddress, none);
+        return mScript.send("DumpLine", anAddress);
     
     // else dump all the script
     else
-        return mScript.send(kTTSym_Dump, inputValue, none);
+        return mScript.send(kTTSym_Dump, inputValue);
 }
 
 TTErr TTCue::Select(const TTValue& inputValue, TTValue& outputValue)
@@ -947,14 +947,14 @@ TTErr TTCueInterpolate(TTObject cue1, TTObject cue2, TTFloat64 position)
     flattened1 = v[0];
     
     if (!flattened1)
-        TTCuePtr(cue1.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
+        TTCuePtr(cue1.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot);
     
     // is the cue2 already flattened ?
     TTCuePtr(cue2.instance())->mScript.get(kTTSym_flattened, v);
     flattened2 = v[0];
     
     if (!flattened2)
-        TTCuePtr(cue2.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
+        TTCuePtr(cue2.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot);
     
 	return TTScriptInterpolate(TTCuePtr(cue1.instance())->mScript, TTCuePtr(cue2.instance())->mScript, position);
 }
@@ -976,7 +976,7 @@ TTErr TTCueMix(const TTValue& cues, const TTValue& factors)
         flattened = v[0];
         
         if (!flattened)
-            TTCuePtr(aCue.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
+            TTCuePtr(aCue.instance())->mScript.send(kTTSym_Flatten, kTTAdrsRoot);
         
 		scripts.append(TTCuePtr(aCue.instance())->mScript);
 	}

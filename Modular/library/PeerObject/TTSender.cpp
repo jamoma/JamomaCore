@@ -110,7 +110,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 					if (anObject.name() == kTTSym_Data && ttAttributeName == kTTSym_value) {
 						
 						// set the value attribute using a command
-						anObject.send(kTTSym_Command, valueToSend, none);
+						anObject.send(kTTSym_Command, valueToSend);
 					}
 					// CONTAINER CASE for value attribute
 					else if (anObject.name() == kTTSym_Container && ttAttributeName == kTTSym_value) {
@@ -124,7 +124,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
                                 v.append((TTPtr*)&c);
                                 
                                 // send the value
-                                anObject.send(kTTSym_Send, v, none);
+                                anObject.send(kTTSym_Send, v);
                             }
                             else
                                 err = kTTErrGeneric;
@@ -136,7 +136,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 					else if ((anObject.name() == kTTSym_Input || anObject.name() == kTTSym_InputAudio) && ttAttributeName == kTTSym_signal) {
 						
 						// send the value
-						anObject.send(kTTSym_Send, valueToSend, none);
+						anObject.send(kTTSym_Send, valueToSend);
 					}
 					// DEFAULT CASE
 					// Look for attribute and set it
@@ -145,7 +145,7 @@ TTErr TTSender::Send(TTValue& valueToSend, TTValue& outputValue)
 					
 					// Or look for message and send it
 					else if (!anObject.instance()->findMessage(ttAttributeName, &aMessage))
-						anObject.send(ttAttributeName, valueToSend, none);
+						anObject.send(ttAttributeName, valueToSend);
 				}
 			}
 		}
