@@ -36,7 +36,10 @@ PKG_CHECK_MODULES(PC_LIBXML QUIET libxml-2.0)
 set(LIBXML2_DEFINITIONS ${PC_LIBXML_CFLAGS_OTHER})
 
 find_path(LIBXML2_INCLUDE_DIR NAMES libxml/xpath.h
-   PATHS "C://Program Files (x86)//libxml2*//include" "Foundation//library//libxml2//win32//include"
+   PATHS 
+   "C://Program Files (x86)//libxml2*//include" 
+   "Foundation//library//libxml2//win32//include" 
+   "include"
    HINTS
    ${PC_LIBXML_INCLUDEDIR}
    ${PC_LIBXML_INCLUDE_DIRS}
@@ -45,7 +48,9 @@ find_path(LIBXML2_INCLUDE_DIR NAMES libxml/xpath.h
 
 find_library(LIBXML2_LIBRARIES NAMES xml2 libxml2
    HINTS
-   PATHS "C://Program Files (x86)//libxml2*//lib"
+   PATHS 
+   "C://Program Files (x86)//libxml2*//lib"
+   "arm-linux-androideabi/local/lib"
    ${PC_LIBXML_LIBDIR}
    ${PC_LIBXML_LIBRARY_DIRS}
    )

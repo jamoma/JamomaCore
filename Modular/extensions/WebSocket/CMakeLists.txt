@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
 project(WebSocket)
 
-if(WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8)
-	message("Does not work yet on Win64")
+if(ANDROID OR (WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8))
+	message("Does not work yet on Win64 and android")
 	return()
 endif()
 
