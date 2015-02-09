@@ -1,0 +1,226 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		462B30921A1F2C1100F26504 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		464FE81317F570C300529725 /* TTTimeCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeCondition.h; path = includes/TTTimeCondition.h; sourceTree = SOURCE_ROOT; };
+		4659534217870BCC0094F82C /* TTScore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTScore.h; path = includes/TTScore.h; sourceTree = SOURCE_ROOT; };
+		465A654217F081A200B70364 /* TTTimeCondition.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeCondition.cpp; path = source/TTTimeCondition.cpp; sourceTree = SOURCE_ROOT; };
+		468AC7DB197FB23600FB2B18 /* TTCurve.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTCurve.cpp; path = source/TTCurve.cpp; sourceTree = SOURCE_ROOT; };
+		468AC7DC197FB23E00FB2B18 /* TTCurve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTCurve.h; path = includes/TTCurve.h; sourceTree = SOURCE_ROOT; };
+		468EBBFB17847064008BE2AC /* TTTimeContainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeContainer.cpp; path = source/TTTimeContainer.cpp; sourceTree = SOURCE_ROOT; };
+		46A0B5D417F9B5070046756C /* TTTimeContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeContainer.h; path = includes/TTTimeContainer.h; sourceTree = SOURCE_ROOT; };
+		46B5553D177B043C00F50D89 /* TTTimeEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeEvent.h; path = includes/TTTimeEvent.h; sourceTree = SOURCE_ROOT; };
+		46B5553E177B044500F50D89 /* TTTimeEvent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeEvent.cpp; path = source/TTTimeEvent.cpp; sourceTree = SOURCE_ROOT; };
+		46B5553F177B11FB00F50D89 /* JamomaScore.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaScore.yml; sourceTree = "<group>"; };
+		46B55540177B123C00F50D89 /* TTTimeProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeProcess.h; path = includes/TTTimeProcess.h; sourceTree = SOURCE_ROOT; };
+		46B55541177B124500F50D89 /* TTTimeProcess.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeProcess.cpp; path = source/TTTimeProcess.cpp; sourceTree = SOURCE_ROOT; };
+		46B9018B192331A700AC93ED /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		46B9018E19233C3300AC93ED /* Expression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Expression.h; path = includes/Expression.h; sourceTree = SOURCE_ROOT; };
+		46B9018F19233C3B00AC93ED /* Expression.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Expression.cpp; path = source/Expression.cpp; sourceTree = SOURCE_ROOT; };
+		46BFD37D170DAE9900B99389 /* TTScore.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTScore.test.cpp; sourceTree = "<group>"; };
+		46BFD37E170DAE9900B99389 /* TTScore.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTScore.test.h; sourceTree = "<group>"; };
+		46D6FF0C18576004005D49AF /* TTScore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTScore.cpp; path = source/TTScore.cpp; sourceTree = SOURCE_ROOT; };
+		46F5057A166699BE00CFC3A2 /* TTScoreIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTScoreIncludes.h; path = includes/TTScoreIncludes.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		46BFD37C170DAE9900B99389 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				46BFD37E170DAE9900B99389 /* TTScore.test.h */,
+				46BFD37D170DAE9900B99389 /* TTScore.test.cpp */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+		46F5055F166698EB00CFC3A2 = {
+			isa = PBXGroup;
+			children = (
+				46B5553F177B11FB00F50D89 /* JamomaScore.yml */,
+				46B9018B192331A700AC93ED /* Makefile */,
+				462B30921A1F2C1100F26504 /* test.cpp */,
+				46F5056F1666991700CFC3A2 /* includes */,
+				46F505731666991700CFC3A2 /* source */,
+				46BFD37C170DAE9900B99389 /* tests */,
+			);
+			sourceTree = "<group>";
+		};
+		46F5056F1666991700CFC3A2 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				4659534217870BCC0094F82C /* TTScore.h */,
+				46F5057A166699BE00CFC3A2 /* TTScoreIncludes.h */,
+				468AC7DC197FB23E00FB2B18 /* TTCurve.h */,
+				46B9018E19233C3300AC93ED /* Expression.h */,
+				464FE81317F570C300529725 /* TTTimeCondition.h */,
+				46A0B5D417F9B5070046756C /* TTTimeContainer.h */,
+				46B5553D177B043C00F50D89 /* TTTimeEvent.h */,
+				46B55540177B123C00F50D89 /* TTTimeProcess.h */,
+			);
+			name = includes;
+			path = ../includes;
+			sourceTree = "<group>";
+		};
+		46F505731666991700CFC3A2 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				46D6FF0C18576004005D49AF /* TTScore.cpp */,
+				468AC7DB197FB23600FB2B18 /* TTCurve.cpp */,
+				46B9018F19233C3B00AC93ED /* Expression.cpp */,
+				465A654217F081A200B70364 /* TTTimeCondition.cpp */,
+				468EBBFB17847064008BE2AC /* TTTimeContainer.cpp */,
+				46B5553E177B044500F50D89 /* TTTimeEvent.cpp */,
+				46B55541177B124500F50D89 /* TTTimeProcess.cpp */,
+			);
+			name = source;
+			path = ../sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		46F50566166698EB00CFC3A2 /* JamomaScore */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION) $(Configuration)";
+			buildConfigurationList = 46F50569166698EB00CFC3A2 /* Build configuration list for PBXLegacyTarget "JamomaScore" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = JamomaScore;
+			passBuildSettingsInEnvironment = 1;
+			productName = JamomaScore;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		46F50561166698EB00CFC3A2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = OSSIA;
+			};
+			buildConfigurationList = 46F50564166698EB00CFC3A2 /* Build configuration list for PBXProject "JamomaScore" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 46F5055F166698EB00CFC3A2;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				46F50566166698EB00CFC3A2 /* JamomaScore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		46F50567166698EB00CFC3A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		46F50568166698EB00CFC3A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		46F5056A166698EB00CFC3A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		46F5056B166698EB00CFC3A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		46F50564166698EB00CFC3A2 /* Build configuration list for PBXProject "JamomaScore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46F50567166698EB00CFC3A2 /* Debug */,
+				46F50568166698EB00CFC3A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		46F50569166698EB00CFC3A2 /* Build configuration list for PBXLegacyTarget "JamomaScore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46F5056A166698EB00CFC3A2 /* Debug */,
+				46F5056B166698EB00CFC3A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46F50561166698EB00CFC3A2 /* Project object */;
+}
