@@ -38,7 +38,7 @@ TTErr TTData::setType(const TTValue& value)
 		// register mValue Attribute and prepare memory
         // We establish the behavior of TTData based on the attribute type. We do this by setting a funciton pointer that depends on the type.
 		if (mType == kTTSym_integer) {
-            commandMethod = (TTMethodValue)&TTData::IntegerCommand;
+            stateSetter = (TTMethodValue)&TTData::setIntegerState;
             initMessage->method = (TTMethod)&TTData::IntegerInit;
 			valueAttribute->type = kTypeInt32;
             valueAttribute->setter = (TTSetterMethod)&TTData::setIntegerValue;
@@ -61,7 +61,7 @@ TTErr TTData::setType(const TTValue& value)
                 mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_decimal) {
-            commandMethod = (TTMethodValue)&TTData::DecimalCommand;
+            stateSetter = (TTMethodValue)&TTData::setDecimalState;
             initMessage->method = (TTMethod)&TTData::DecimalInit;
 			valueAttribute->type = kTypeFloat64;
             valueAttribute->setter = (TTSetterMethod)&TTData::setDecimalValue;
@@ -78,7 +78,7 @@ TTErr TTData::setType(const TTValue& value)
                 mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_string) {
-            commandMethod = (TTMethodValue)&TTData::StringCommand;
+            stateSetter = (TTMethodValue)&TTData::setStringState;
             initMessage->method = (TTMethod)&TTData::StringInit;
 			valueAttribute->type = kTypeSymbol;
             valueAttribute->setter = (TTSetterMethod)&TTData::setStringValue;
@@ -97,7 +97,7 @@ TTErr TTData::setType(const TTValue& value)
             mRampDrive = kTTSym_none;
 		}
 		else if (mType == kTTSym_boolean) {
-            commandMethod = (TTMethodValue)&TTData::BooleanCommand;
+            stateSetter = (TTMethodValue)&TTData::setBooleanState;
             initMessage->method = (TTMethod)&TTData::BooleanInit;
 			valueAttribute->type = kTypeBoolean;
             valueAttribute->setter = (TTSetterMethod)&TTData::setBooleanValue;
@@ -118,7 +118,7 @@ TTErr TTData::setType(const TTValue& value)
             mRampDrive = kTTSym_none;
 		}
 		else if (mType == kTTSym_array) {
-            commandMethod = (TTMethodValue)&TTData::ArrayCommand;
+            stateSetter = (TTMethodValue)&TTData::setArrayState;
             initMessage->method = (TTMethod)&TTData::ArrayInit;
 			valueAttribute->type = kTypeFloat64;
             valueAttribute->setter = (TTSetterMethod)&TTData::setArrayValue;
@@ -135,7 +135,7 @@ TTErr TTData::setType(const TTValue& value)
                 mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_none) {
-            commandMethod = (TTMethodValue)&TTData::NoneCommand;
+            stateSetter = (TTMethodValue)&TTData::setNoneState;
             initMessage->method = (TTMethod)&TTData::NoneInit;
 			valueAttribute->type = kTypeNone;
             valueAttribute->setter = (TTSetterMethod)&TTData::setNoneValue;
@@ -154,7 +154,7 @@ TTErr TTData::setType(const TTValue& value)
             mRampDrive = kTTSym_none;
 		}
 		else {
-            commandMethod = (TTMethodValue)&TTData::GenericCommand;
+            stateSetter = (TTMethodValue)&TTData::setGenericState;
             initMessage->method = (TTMethod)&TTData::GenericInit;
 			valueAttribute->type = kTypeFloat64;
             valueAttribute->setter = (TTSetterMethod)&TTData::setGenericValue;
@@ -183,39 +183,43 @@ TTErr TTData::setType(const TTValue& value)
 	return kTTErrNone;
 }
 
-TTErr TTData::Command(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::setState(const TTValue& newState)
 {
     externalRampTime = 0;
     
-    // Is the command already parsed ?
-    if (inputValue.size()) {
-        
-        if (inputValue[0].type() == kTypePointer)
-            
-            // call the specific command method depending on mType
-            return (this->*commandMethod)(inputValue, outputValue);
+    if (newState.size() == 1)
+    {
+        if (newState[0].type() == kTypeDictionary)
+        {
+            TTDictionary dictionary = newState[0]; // TODO: JamomaCore #319
+            if (dictionary.getSchema() == mObject->getName())
+            {
+                // call the specific state setter depending on mType
+                return (this->*stateSetter)(newState);
+            }
+        }
     }
     
-    // else we parse command locally (and we need to free the parsed command afterwards)
-    TTDictionaryBasePtr command = NULL;
+    // else we parse state locally
+    TTDictionary    dictionary;
     TTErr           err;
 
     // for string type : keep only the first element
     if (mType == kTTSym_string && inputValue.size())
-        command = TTDataParseCommand(inputValue[0], NO);
+        state = TTDataParseState(inputValue[0], NO);
     
     // for integer, decimal or array type : parse unit and ramp
     else
-        command = TTDataParseCommand(inputValue, mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_array);
+        state = TTDataParseState(inputValue, mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_array);
     
-    if (!command)
+    if (!state)
         return kTTErrGeneric;
     
-    // call the specific command method depending on mType
-    err = (this->*commandMethod)((TTPtr)command, outputValue);
+    // call the specific state method depending on mType
+    err = (this->*stateSetter)((TTPtr)command, outputValue);
     
-    // free the command
-    delete command;
+    // free the state
+    delete state;
     
     return err;
 }
@@ -278,7 +282,7 @@ TTErr TTData::returnValue()
     return kTTErrNone;
 }
 
-TTErr TTData::NoneCommand(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::setNoneState(const TTValue& inputValue, TTValue& outputValue)
 {
     TTValue none;
     return this->setNoneValue(none);
@@ -320,7 +324,7 @@ TTErr TTData::NoneInit()
     return kTTErrNone;
 }
 
-TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::GenericState(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr command = NULL;
     TTValue			c, aValue;
@@ -393,7 +397,7 @@ TTErr TTData::GenericInit()
     return kTTErrNone;
 }
 
-TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::BooleanState(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
@@ -542,7 +546,7 @@ TTErr TTData::BooleanInit()
     return kTTErrNone;
 }
 
-TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::IntegerState(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
@@ -722,7 +726,7 @@ TTErr TTData::IntegerInit()
     return kTTErrNone;
 }
 
-TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::DecimalState(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
@@ -907,7 +911,7 @@ TTErr TTData::DecimalInit()
     return kTTErrNone;
 }
 
-TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::ArrayState(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
@@ -1071,7 +1075,7 @@ TTErr TTData::ArrayInit()
     return kTTErrNone;
 }
 
-TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::StringState(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr command = NULL;
     TTValue			c, aValue;

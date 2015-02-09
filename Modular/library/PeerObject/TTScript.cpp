@@ -1650,7 +1650,7 @@ TTDictionaryBasePtr TTScriptParseCommand(const TTValue& newCommand)
         
         commandValue.copyFrom(newCommand, 1);
         
-        line = TTDataParseCommand(commandValue);
+        line = TTDataParseState(commandValue);
         
         if (line)
             line->append(kTTSym_address, firstSymbol);

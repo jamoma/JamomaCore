@@ -22,7 +22,7 @@
 /**	TTData establishes a control point, which is to say a TTNode that is dramaticly expanded, for a model to get/set its state.
  @details In Max the externals j.parameter, j.message and j.return externals are based on #TTData
  */
-class TTMODULAR_EXPORT TTData : public TTCallback
+class TTMODULAR_EXPORT TTData : public TTCallback, public TTState
 {
 	TTCLASS_SETUP(TTData)
 	
@@ -69,8 +69,8 @@ private:
 
     TTObject        mRamper;                    ///< Ramp object to ramp value
 
-    TTMethodValue	commandMethod;              ///< a specific method depending on mType.
-                                                ///< we need to wrap the call on specific command methods because a command can be parsed locally (so it have to be deleted after to not create memory leaks)
+    TTMethodValue	stateSetter;                ///< a specific state setter depending on mType.
+                                                ///< we need to wrap the call on specific state setter because a state can be parsed locally (so it have to be deleted after to not create memory leaks)
     
     TTAttributePtr  valueAttribute;             ///< cache value attribute for observer notification
     TTAttributePtr  initializedAttribute;       ///< cache value message for observer notification
@@ -78,76 +78,68 @@ private:
     TTFloat64       externalRampTime;           ///< only usefull for external ramp drive
 	
 	
-	/** Prepares a command to update the value of TTValue. 
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
+	/** Update the mValue member using a specific #TTState setter
+	 @param[in] newState	A #TTDictionary to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. It is passed directly on to the appropriate state setter for the #TTData type (decimal, integer, etc..).
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
+	 @see #TTDataParseState
 	 */
-    TTErr       Command(const TTValue& inputValue, TTValue& outputValue);
+    TTErr       setState(const TTValue& newState) override;
 	
 	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_none.
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
+	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_none.
+	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
+	 @see #TTDataParseState
 	 */
-	TTErr       NoneCommand(const TTValue& inputValue, TTValue& outputValue);
+	TTErr       setNoneState(const TTValue& newState);
 	
 	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_generic.
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
+	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_generic.
+	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
+	 @see #TTDataParseState
 	 */
-    TTErr       GenericCommand(const TTValue& inputValue, TTValue& outputValue);
+    TTErr       setGenericState(const TTValue& newState);
 	
 	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_boolean.
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
+	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_boolean.
+	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
+	 @see #TTDataParseState
 	 */
-    TTErr       BooleanCommand(const TTValue& inputValue, TTValue& outputValue);
+    TTErr       setBooleanState(const TTValue& newState);;
 	
 	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_integer.
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
+	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_integer.
+	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
+	 @see #TTDataParseState
 	 */
-    TTErr       IntegerCommand(const TTValue& inputValue, TTValue& outputValue);
+    TTErr       setIntegerState(const TTValue& newState);
 	
 	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_decimal.
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
+	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_decimal.
+	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
+	 @see #TTDataParseState
 	 */
-    TTErr       DecimalCommand(const TTValue& inputValue, TTValue& outputValue);
+    TTErr       setDecimalState(const TTValue& newState);
 	
 	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_array.
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
+	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_array.
+	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
+	 @see #TTDataParseState
 	 */
-    TTErr       ArrayCommand(const TTValue& inputValue, TTValue& outputValue);
+    TTErr       setArrayState(const TTValue& newState);
 	
 	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_string.
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
+	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_string.
+	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
+	 @see #TTDataParseState
 	 */
-    TTErr       StringCommand(const TTValue& inputValue, TTValue& outputValue);
+    TTErr       setStringState(const TTValue& newState);
 	
 	
 	/**	Setter for #mValue attribute, performs typechecking and calls the appropriate optimised setter method.
@@ -283,7 +275,7 @@ private:
 	
 	
 	/**	Setter for #mType attribute.
-	 @details This methods also sets what type-optimised methods to use to initiate #TTData and for commands. Commands are used to update mValue instantly or by ramping to a new target value over time, and might also specify new (target) value using various dataspace units.
+	 @details This methods also sets what type-optimised methods to use to initiate #TTData and for state setting using #TTDictionary. #TTDictionary are used to update mValue instantly or by ramping to a new target value over time, and might also specify new (target) value using various dataspace units.
 	 @param value		The desired value for #mType.
 	 @return		#TTErrorNone if the method executes successfully, else an error code.
 	 */
@@ -383,7 +375,7 @@ private:
 typedef TTData* TTDataPtr;
 
 
-/** Format the command to update the value of #TTData as a #TTDictionary. When updating the value we can make use of the #TTDapaspaceLib to provide new value with various measurement units, and we can set it to ramp (ease) to the new value over time making use of #TTDataRamp.
+/** Format the value as #TTDictionary to update the value of #TTData. When updating the value we can make use of the #TTDapaspaceLib to provide new value with various measurement units, and we can set it to ramp (ease) to the new value over time making use of #TTDataRamp.
  @param[in] commandValue    A #TTValue containing one or more elements, taking the form of @n
 	< value (unit:optional) (ramp ramptime : optional) >
 	@n
@@ -403,7 +395,7 @@ typedef TTData* TTDataPtr;
  @param[in] parseUnitAndRamp to just store the commandValue into a dictionary whithout processing any parsing
  @return	A dictionary with one or more keys: It always has a value. If it is ramping, it also has a ramp key, and if it has a unit, it also has a unit key.
  */
-TTDictionaryBasePtr	TTMODULAR_EXPORT TTDataParseCommand(const TTValue& commandValue, TTBoolean parseUnitAndRamp = YES);
+TTDictionary	TTMODULAR_EXPORT TTDataParseState(const TTValue& stateValue, TTBoolean parseUnitAndRamp = YES);
 
 
 /**

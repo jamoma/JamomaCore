@@ -34,6 +34,7 @@ extern "C" void TTData::registerClass()
 
 TTData::TTData(const TTValue& arguments) :
 TTCallback(arguments),
+TT_STATE_SETTER,
 mValue(TTValue(0.0)),
 mValueStepsize(TTValue(0.1)),       // this default value is expected in #TTData::setType method
 mType(kTTSym_generic),
@@ -110,9 +111,6 @@ mService(kTTSymEmpty)
 	addMessageWithArguments(Inc);
 	addMessageWithArguments(Dec);
     
-    addMessageWithArguments(Command);
-	addMessageProperty(Command, hidden, YES);
-    
     addMessageWithArguments(RampSet);
     addMessageProperty(RampSet, hidden, YES);
     addMessageWithArguments(RampTarget);
@@ -128,7 +126,7 @@ mService(kTTSymEmpty)
 	
 	mIsSending = NO;
     
-    commandMethod = (TTMethodValue)&TTData::GenericCommand;
+    stateSetter = (TTMethodValue)&TTData::setGenericState;
     
     // cache some message and attribute for observer notification
     this->findAttribute(kTTSym_value, &valueAttribute);
@@ -686,17 +684,16 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark Some Methods
 #endif
 
-
-TTDictionaryBasePtr TTDataParseCommand(const TTValue& commandValue, TTBoolean parseUnitAndRamp)
+TTDictionary TTDataParseState(const TTValue& stateValue, TTBoolean parseUnitAndRamp)
 {
-	TTDictionaryBasePtr		command = new TTDictionaryBase();
+	TTDictionary state;
     
     // don't parse the value, just store it into a dictionary
     // this is useful when unit or ramp doesn't mean anything (e.g. generic case)
-    if (!parseUnitAndRamp) {
-        
-        command->setValue(commandValue);
-        command->setSchema(kTTSym_command);
+    if (!parseUnitAndRamp)
+    {
+        state->setValue(commandValue);
+        state->setSchema(kTTSym_Data);
         return command;
     }
     
