@@ -148,7 +148,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt32	i;
 	TTFloat64	inc, ramptime, v, vStepsize;
 	TTSymbol	ramp;
-	TTValue		command, none;
+	TTValue		value, none;
 	
     if (mType == kTTSym_string)
         return kTTErrGeneric;
@@ -165,7 +165,7 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 				
 				for (i = 0; i < mValue.size(); i++) {
 					v = mValue[i];
-					command.append(v + inc * vStepsize);
+					value.append(v + inc * vStepsize);
 				}
 			}
 			break;
@@ -179,16 +179,16 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 				
 				for (i = 0; i < mValue.size(); i++) {
 					v = mValue[i];
-					command.append(v + inc * vStepsize);
+					value.append(v + inc * vStepsize);
 				}
 				
 				if (inputValue[1].type() == kTypeSymbol) {
 					ramp = inputValue[1];
 					if (ramp == kTTSym_ramp) {
-						command.append(ramp);
+						value.append(ramp);
 						if (inputValue[2].type() == kTypeFloat64 || inputValue[2].type()  == kTypeInt32) {
 							ramptime = inputValue[2];
-							command.append(ramptime);
+							value.append(ramptime);
 						}
 					}
 				}
@@ -201,14 +201,14 @@ TTErr TTData::Inc(const TTValue& inputValue, TTValue& outputValue)
 		{
 			for (i = 0; i < mValue.size(); i++) {
 				v = mValue[i];
-				command.append(v + vStepsize);
+				value.append(v + vStepsize);
 			}
 			
 			break;	
 		}
 	}
 	
-	this->sendMessage(kTTSym_Command, command, none);
+	this->setState(value);
 	
 	return kTTErrNone;
 }
@@ -219,7 +219,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 	TTUInt32	i;
 	TTFloat64	dec, ramptime, v, vStepsize;
 	TTSymbol	ramp;
-	TTValue		command, none;
+	TTValue		value, none;
     
     if (mType == kTTSym_string)
         return kTTErrGeneric;
@@ -236,7 +236,7 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 				
 				for (i = 0; i < mValue.size(); i++) {
 					v = mValue[i];
-					command.append(v - dec * vStepsize);
+					value.append(v - dec * vStepsize);
 				}
 			}
 			break;
@@ -250,16 +250,16 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 				
 				for (i = 0; i < mValue.size(); i++) {
 					v = mValue[i];
-					command.append(v - dec * vStepsize);
+					value.append(v - dec * vStepsize);
 				}
 				
 				if (inputValue[1].type() == kTypeSymbol) {
 					ramp = inputValue[1];
 					if (ramp == kTTSym_ramp) {
-						command.append(ramp);
+						value.append(ramp);
 						if (inputValue[2].type() == kTypeFloat64 || inputValue[2].type()  == kTypeInt32) {
 							ramptime = inputValue[2];
-							command.append(ramptime);
+							value.append(ramptime);
 						}
 					}
 				}
@@ -272,14 +272,14 @@ TTErr TTData::Dec(const TTValue& inputValue, TTValue& outputValue)
 		{
 			for (i = 0; i < mValue.size(); i++) {
 				v = mValue[i];
-				command.append(v - vStepsize);
+				value.append(v - vStepsize);
 			}
 			
 			break;	
 		}
 	}
 	
-	this->sendMessage(kTTSym_Command, command, none);
+	this->setState(value);
 	
 	return kTTErrNone;
 }
@@ -684,7 +684,7 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 #pragma mark Some Methods
 #endif
 
-TTDictionary TTDataParseState(const TTValue& stateValue, TTBoolean parseUnitAndRamp)
+TTDictionary TTDataParseValue(const TTValue& value, TTBoolean parseUnitAndRamp)
 {
 	TTDictionary state;
     
@@ -692,23 +692,23 @@ TTDictionary TTDataParseState(const TTValue& stateValue, TTBoolean parseUnitAndR
     // this is useful when unit or ramp doesn't mean anything (e.g. generic case)
     if (!parseUnitAndRamp)
     {
-        state->setValue(commandValue);
+        state->setValue(value);
         state->setSchema(kTTSym_Data);
-        return command;
+        return state;
     }
     
 	TTUInt32			time;
-	TTUInt32			commandSize;
+	TTUInt32			valueSize;
 	TTSymbol			unit, ramp;
 	TTValue				aValue, c;
 	TTBoolean			hasRamp = false;
 	TTBoolean			hasUnit = false;
 	
-	// Parse the command to handle unit and ramp
+	// Parse the value to handle unit and ramp
 	///////////////////////////////////////////////////
-	commandSize = commandValue.size();
-	switch(commandSize) {
-			
+	valueSize = value.size();
+	switch(valueSize)
+    {
 			// no value	
 		case 0 :
 		{
@@ -727,9 +727,10 @@ TTDictionary TTDataParseState(const TTValue& stateValue, TTBoolean parseUnitAndR
 		case 2 :
 		{
 			// Is the second element is a unit symbol ?
-			if (commandValue[0].type() != kTypeSymbol && commandValue[1].type() == kTypeSymbol) {
+			if (value[0].type() != kTypeSymbol && value[1].type() == kTypeSymbol)
+            {
 				hasUnit = true;
-				unit = commandValue[1];
+				unit = value[1];
 			}
 			
 			break;	
@@ -739,15 +740,17 @@ TTDictionary TTDataParseState(const TTValue& stateValue, TTBoolean parseUnitAndR
 		case 3 :
 		{
 			// Is the second element is a ramp symbol ?
-			if (commandValue[1].type() == kTypeSymbol) {
-				ramp = commandValue[1];
+			if (value[1].type() == kTypeSymbol)
+            {
+				ramp = value[1];
 				if (ramp == kTTSym_ramp)
 					hasRamp = true;
 			}
 			// or is the last element is a unit symbol ?
-			else if (commandValue[0].type() != kTypeSymbol && commandValue[2].type() == kTypeSymbol) {
+			else if (value[0].type() != kTypeSymbol && value[2].type() == kTypeSymbol)
+            {
 				hasUnit = true;
-				unit = commandValue[2];
+				unit = value[2];
 			}
 			
 			break;	
@@ -757,30 +760,33 @@ TTDictionary TTDataParseState(const TTValue& stateValue, TTBoolean parseUnitAndR
 		default :
 		{
 			// Is the X-2 element is a ramp symbol ?
-			if (commandValue[commandSize - 2].type() == kTypeSymbol) {
-				ramp = commandValue[commandSize - 2];
+			if (value[valueSize - 2].type() == kTypeSymbol)
+            {
+				ramp = value[valueSize - 2];
 				if (ramp == kTTSym_ramp)
 					hasRamp = true;
 			}
 			
 			// Is the X-3 or last element a unit symbol ?
-			if (commandValue[0].type() != kTypeSymbol) {
+			if (value[0].type() != kTypeSymbol)
+            {
 				if (hasRamp) {
-					if (commandValue[commandSize - 3].type() == kTypeSymbol) {
+					if (value[valueSize - 3].type() == kTypeSymbol)
+                    {
 						hasUnit = true;
-						unit = commandValue[commandSize - 3];
+						unit = value[valueSize - 3];
 					}
 				}
-                else if (commandValue[commandSize - 1].type() == kTypeSymbol) {
-                    
+                else if (value[valueSize - 1].type() == kTypeSymbol)
+                {
                     // only if all values before are numerical
                     TTBoolean numerical = YES;
-                    for (TTUInt32 i = 0; i < commandSize - 1; i++)
-                        numerical &= commandValue[i].type() != kTypeSymbol;
+                    for (TTUInt32 i = 0; i < valueSize - 1; i++)
+                        numerical &= value[i].type() != kTypeSymbol;
                     
                     if (numerical) {
                         hasUnit = true;
-                        unit = commandValue[commandSize - 1];
+                        unit = value[valueSize - 1];
                     }
                 }
 			}
@@ -790,38 +796,41 @@ TTDictionary TTDataParseState(const TTValue& stateValue, TTBoolean parseUnitAndR
 	}
 	
 	// 3. Strip ramp or unit informations if needed
-	if (hasRamp && hasUnit) {
-		aValue = commandValue;
-		aValue.resize(commandSize - 3);
+	if (hasRamp && hasUnit)
+    {
+		aValue = value;
+		aValue.resize(valueSize - 3);
 	}
-	else if (hasRamp) {
-		aValue = commandValue;
-		aValue.resize(commandSize - 2);
+	else if (hasRamp)
+    {
+		aValue = value;
+		aValue.resize(valueSize - 2);
 	}
-	else if (hasUnit) {
-		aValue = commandValue;
-		aValue.resize(commandSize - 1);
+	else if (hasUnit)
+    {
+		aValue = value;
+		aValue.resize(valueSize - 1);
 	}
 	else
-		aValue = commandValue;
+		aValue = value;
 	
-	// 4. Edit command
+	// 4. Edit specific Data state dictionary
 	if (hasUnit)
-		command->append(kTTSym_unit, unit);
+		state->append(kTTSym_unit, unit);
 	
-	if (hasRamp) {
-        
+	if (hasRamp)
+    {
         // any other case it is a ramp time
-        time = commandValue[commandSize - 1];
-        command->append(kTTSym_ramp, (int)time);
+        time = value[valueSize - 1];
+        state->append(kTTSym_ramp, (int)time);
 	}
 	
-    command->setValue(aValue);
-	command->setSchema(kTTSym_command);
+    state->setValue(aValue);
+	state->setSchema(kTTSym_Data);
     
     // We return a dictionary with one or more keys. It always has a value. If it is ramping, it also has a ramp key, and if it has a unit, it also has a unit key.
 	
-	return command;
+	return state;
 }
 
 

@@ -79,9 +79,9 @@ private:
 	
 	
 	/** Update the mValue member using a specific #TTState setter
-	 @param[in] newState	A #TTDictionary to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. It is passed directly on to the appropriate state setter for the #TTData type (decimal, integer, etc..).
+	 @param[in] newState	A #TTDictionary to update the value of #TTData. The dictionary might set value, specify a unit for it, and also request that the change happens as a ramp. It is passed directly on to the appropriate state setter for the #TTData type (decimal, integer, etc..).
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseState
+	 @see #TTDataParseValue
 	 */
     TTErr       setState(const TTValue& newState) override;
 	
@@ -89,7 +89,7 @@ private:
 	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_none.
 	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseState
+	 @see #TTDataParseValue
 	 */
 	TTErr       setNoneState(const TTValue& newState);
 	
@@ -97,7 +97,7 @@ private:
 	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_generic.
 	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseState
+	 @see #TTDataParseValue
 	 */
     TTErr       setGenericState(const TTValue& newState);
 	
@@ -105,7 +105,7 @@ private:
 	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_boolean.
 	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseState
+	 @see #TTDataParseValue
 	 */
     TTErr       setBooleanState(const TTValue& newState);;
 	
@@ -113,7 +113,7 @@ private:
 	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_integer.
 	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseState
+	 @see #TTDataParseValue
 	 */
     TTErr       setIntegerState(const TTValue& newState);
 	
@@ -121,7 +121,7 @@ private:
 	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_decimal.
 	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseState
+	 @see #TTDataParseValue
 	 */
     TTErr       setDecimalState(const TTValue& newState);
 	
@@ -129,7 +129,7 @@ private:
 	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_array.
 	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseState
+	 @see #TTDataParseValue
 	 */
     TTErr       setArrayState(const TTValue& newState);
 	
@@ -137,7 +137,7 @@ private:
 	/** Update the mValue member using a specific #TTState setter, optimised for Data of #mType #kTTSym_string.
 	 @param[in] newState	A #TTDictionary to update the value of #TTData.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseState
+	 @see #TTDataParseValue
 	 */
     TTErr       setStringState(const TTValue& newState);
 	
@@ -244,7 +244,7 @@ private:
     TTErr       RampSlide(const TTValue& inputValue, TTValue& outputValue);
     
     /**	Increment mValue attribute (and ramp this incrementation)
-     It depends on the command size :
+     It depends on the inputValue size :
      1		: 1 incrementation step
      3		: 1 incrementation step + ramp ramptime
      default	: no value or wrong value
@@ -253,7 +253,7 @@ private:
 	
 	
 	/**	Decrement mValue attribute (and ramp this decrementation)
-     It depends on the command size :
+     It depends on the inputValue size :
      1		: 1 decrementation step
      3		: 1 decrementation step + ramp ramptime
      default	: no value or wrong value
@@ -375,11 +375,11 @@ private:
 typedef TTData* TTDataPtr;
 
 
-/** Format the value as #TTDictionary to update the value of #TTData. When updating the value we can make use of the #TTDapaspaceLib to provide new value with various measurement units, and we can set it to ramp (ease) to the new value over time making use of #TTDataRamp.
- @param[in] commandValue    A #TTValue containing one or more elements, taking the form of @n
+/** Format a value as #TTDictionary to update #TTData mValue member. When updating the value we can make use of the #TTDataspaceLib to provide new value with various measurement units, and we can set it to ramp (ease) to the new value over time making use of #TTDataRamp.
+ @param[in] value    A #TTValue containing one or more elements, taking the form of @n
 	< value (unit:optional) (ramp ramptime : optional) >
 	@n
-	Interprtation of the command depends on the command size : @n
+	Interpretation of the value depends on its size : @n
 	@n
 	@n When parsing, we check how many elements we have, and interprete as follows:
 		- 1 element:	A new value @n
@@ -392,10 +392,10 @@ typedef TTData* TTDataPtr;
 						an array of X-1 values and a unit OR
 						an array of X-2 values, the "ramp" symbol and a ramp time OR
 						X-3 values, a unit, the "ramp" string and a ramp time.
- @param[in] parseUnitAndRamp to just store the commandValue into a dictionary whithout processing any parsing
+ @param[in] parseUnitAndRamp to just store the value into a dictionary whithout processing any parsing
  @return	A dictionary with one or more keys: It always has a value. If it is ramping, it also has a ramp key, and if it has a unit, it also has a unit key.
  */
-TTDictionary	TTMODULAR_EXPORT TTDataParseState(const TTValue& stateValue, TTBoolean parseUnitAndRamp = YES);
+TTDictionary	TTMODULAR_EXPORT TTDataParseValue(const TTValue& value, TTBoolean parseUnitAndRamp = YES);
 
 
 /**

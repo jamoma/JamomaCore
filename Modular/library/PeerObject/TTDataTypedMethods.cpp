@@ -27,7 +27,7 @@ TTErr TTData::setType(const TTValue& value)
 		TTValue n = value;				// use new value to protect the attribute
 		mType = value;
 		
-		// Get ValueDefault and ValueStepsize attributes (because commande message and value attribute are already cached)
+		// Get ValueDefault and ValueStepsize attributes (because state setter and value setter are already cached)
         this->findMessage(kTTSym_Init, &initMessage);
 		this->findAttribute(kTTSym_valueDefault, &valueDefaultAttribute);
 		this->findAttribute(kTTSym_valueStepsize, &valueStepSizeAttribute);
@@ -200,26 +200,20 @@ TTErr TTData::setState(const TTValue& newState)
         }
     }
     
-    // else we parse state locally
+    // else we parse dictionary locally
     TTDictionary    dictionary;
     TTErr           err;
 
     // for string type : keep only the first element
     if (mType == kTTSym_string && inputValue.size())
-        state = TTDataParseState(inputValue[0], NO);
+        dictionary = TTDataParseValue(inputValue[0], NO);
     
     // for integer, decimal or array type : parse unit and ramp
     else
-        state = TTDataParseState(inputValue, mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_array);
+        dictionary = TTDataParseValue(inputValue, mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_array);
     
-    if (!state)
-        return kTTErrGeneric;
-    
-    // call the specific state method depending on mType
-    err = (this->*stateSetter)((TTPtr)command, outputValue);
-    
-    // free the state
-    delete state;
+    // call the specific state setter depending on mType
+    err = (this->*stateSetter)(dictionary);
     
     return err;
 }
@@ -255,7 +249,6 @@ TTErr TTData::returnValue()
     // used a new value to protect the internal value
     TTValue v = mValue;
 	
-    
     // This is a temporary solution to have audio rate ramping outside the #TTData
     // TODO JamomaCore #212 : when Trond ports dataspace ramp we need to think about how that works with audio rate ramps
     if (mRampDrive == kTTSym_external) {
@@ -282,7 +275,7 @@ TTErr TTData::returnValue()
     return kTTErrNone;
 }
 
-TTErr TTData::setNoneState(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::setNoneState(const TTValue& newState)
 {
     TTValue none;
     return this->setNoneValue(none);
@@ -324,22 +317,22 @@ TTErr TTData::NoneInit()
     return kTTErrNone;
 }
 
-TTErr TTData::GenericState(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::setGenericState(const TTValue& newState)
 {
-    TTDictionaryBasePtr command = NULL;
-    TTValue			c, aValue;
+    TTDictionary    dictionary;
+    TTValue         c, aValue;
 
-    if (inputValue.size()) {
+    if (newState.size()) {
         
-        // 1. Get the command TTDictionnary
+        // 1. Get the state dictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
+        if (newState[0].type() == kTypeDictionary)
+            dictionary = newState[0]; // TODO: JamomaCore #319
         else
             return kTTErrGeneric;
 
         // 2. Get the value
-        command->getValue(aValue);
+        dictionary.getValue(aValue);
         
         // 3. Filter repetitions
         //////////////////////////////////
@@ -397,9 +390,9 @@ TTErr TTData::GenericInit()
     return kTTErrNone;
 }
 
-TTErr TTData::BooleanState(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::setBooleanState(const TTValue& newState)
 {
-    TTDictionaryBasePtr command = NULL;
+    TTDictionary    dictionary;
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
@@ -407,15 +400,15 @@ TTErr TTData::BooleanState(const TTValue& inputValue, TTValue& outputValue)
  
     if (inputValue.size()) {
         
-        // 1. Get the command TTDictionnary
+        // 1. Get the state dictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
+        if (inputValue[0].type() == kTypeDictionary)
+            dictionary = inputValue[0]; // TODO: JamomaCore #319
         else
             return kTTErrGeneric;
 
         // 2. Get the value
-        command->getValue(aValue);
+        dictionary.getValue(aValue);
         
         // 3. Filter repetitions
         //////////////////////////////////
@@ -431,7 +424,7 @@ TTErr TTData::BooleanState(const TTValue& inputValue, TTValue& outputValue)
         /////////////////////////////////
         if (mRamper.valid()) {
             
-            if (!command->lookup(kTTSym_ramp, v)) {
+            if (!dictionary.lookup(kTTSym_ramp, v)) {
                 
                 v.get(0, time);
                 
@@ -546,9 +539,9 @@ TTErr TTData::BooleanInit()
     return kTTErrNone;
 }
 
-TTErr TTData::IntegerState(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::setIntegerState(const TTValue& newState)
 {
-    TTDictionaryBasePtr command = NULL;
+    TTDictionary    dictionary;
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
@@ -556,15 +549,15 @@ TTErr TTData::IntegerState(const TTValue& inputValue, TTValue& outputValue)
     
     if (inputValue.size()) {
         
-        // 1. Get the command TTDictionnary
+        // 1. Get the state dictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
+        if (inputValue[0].type() == kTypeDictionary)
+            dictionary = inputValue[0]; // TODO: JamomaCore #319
         else
             return kTTErrGeneric;
 
         // 2. Get the value
-        command->getValue(aValue);
+        dictionary.getValue(aValue);
         
         // 3. Set Dataspace input unit and convert the value
         // Note : The current implementation does not override the active unit temporarily or anything fancy.
@@ -575,7 +568,7 @@ TTErr TTData::IntegerState(const TTValue& inputValue, TTValue& outputValue)
         ////////////////////////////////////////////////////////////////
         if (mDataspaceConverter.valid()) {
             
-            if (!command->lookup(kTTSym_unit, v)) {
+            if (!dictionary.lookup(kTTSym_unit, v)) {
                 
                 TTValue convertedValue;
                 
@@ -600,7 +593,7 @@ TTErr TTData::IntegerState(const TTValue& inputValue, TTValue& outputValue)
         /////////////////////////////////
         if (mRamper.valid()) {
             
-            if (!command->lookup(kTTSym_ramp, v)) {
+            if (!dictionary.lookup(kTTSym_ramp, v)) {
                 
                 v.get(0, time);
                 
@@ -636,7 +629,7 @@ TTErr TTData::IntegerState(const TTValue& inputValue, TTValue& outputValue)
         // external ramp drive case
         else if (mRampDrive == kTTSym_external) {
             
-            if (!command->lookup(kTTSym_ramp, v))
+            if (!dictionary.lookup(kTTSym_ramp, v))
                 v.get(0, externalRampTime);
             
         }
@@ -726,9 +719,9 @@ TTErr TTData::IntegerInit()
     return kTTErrNone;
 }
 
-TTErr TTData::DecimalState(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::setDecimalState(const TTValue& newState)
 {
-    TTDictionaryBasePtr command = NULL;
+    TTDictionary    dictionary;
     TTSymbol		unit;
     TTUInt32        time;
     TTBoolean       isRunning;
@@ -736,15 +729,15 @@ TTErr TTData::DecimalState(const TTValue& inputValue, TTValue& outputValue)
     
     if (inputValue.size()) {
         
-        // 1. Get the command TTDictionnary
+        // 1. Get the state dictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
+        if (inputValue[0].type() == kTypeDictionary)
+            dictionary = inputValue[0]; // TODO: JamomaCore #319
         else
             return kTTErrGeneric;
 
         // 2. Get the value
-        command->getValue(aValue);
+        dictionary.getValue(aValue);
         
         // 3. Set Dataspace input unit and convert the value
         // Note : The current implementation does not override the active unit temporarily or anything fancy.
@@ -755,7 +748,7 @@ TTErr TTData::DecimalState(const TTValue& inputValue, TTValue& outputValue)
         ////////////////////////////////////////////////////////////////
         if (mDataspaceConverter.valid()) {
             
-            if (!command->lookup(kTTSym_unit, v)) {
+            if (!dictionary.lookup(kTTSym_unit, v)) {
                 
                 TTValue convertedValue;
                 
@@ -778,7 +771,7 @@ TTErr TTData::DecimalState(const TTValue& inputValue, TTValue& outputValue)
         /////////////////////////////////
         if (mRamper.valid()) {
             
-            if (!command->lookup(kTTSym_ramp, v)) {
+            if (!dictionary.lookup(kTTSym_ramp, v)) {
                 
                 time = v[0];
                 
@@ -819,7 +812,7 @@ TTErr TTData::DecimalState(const TTValue& inputValue, TTValue& outputValue)
         // external ramp drive case
         else if (mRampDrive == kTTSym_external) {
             
-            if (!command->lookup(kTTSym_ramp, v))
+            if (!dictionary.lookup(kTTSym_ramp, v))
                 v.get(0, externalRampTime);
             
         }
@@ -911,9 +904,9 @@ TTErr TTData::DecimalInit()
     return kTTErrNone;
 }
 
-TTErr TTData::ArrayState(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::setArrayState(const TTValue& newState)
 {
-    TTDictionaryBasePtr command = NULL;
+    TTDictionary    dictionary;
     TTSymbol		unit;
     TTFloat64		time;
     TTBoolean       isRunning;
@@ -921,15 +914,15 @@ TTErr TTData::ArrayState(const TTValue& inputValue, TTValue& outputValue)
     
     if (inputValue.size()) {
         
-        // 1. Get the command TTDictionnary
+        // 1. Get the state dictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
+        if (inputValue[0].type() == kTypeDictionary)
+            dictionary = inputValue[0]; // TODO: JamomaCore #319
         else
             return kTTErrGeneric;
 
         // 2. Get the value
-        command->getValue(aValue);
+        dictionary.getValue(aValue);
         
         // 3. Set Dataspace input unit and convert the value
         // Note : The current implementation does not override the active unit temporarily or anything fancy.
@@ -940,7 +933,7 @@ TTErr TTData::ArrayState(const TTValue& inputValue, TTValue& outputValue)
         ////////////////////////////////////////////////////////////////
         if (mDataspaceConverter.valid()) {
             
-            if (!command->lookup(kTTSym_unit, v)) {
+            if (!dictionary.lookup(kTTSym_unit, v)) {
                 
                 TTValue convertedValue;
                 
@@ -963,7 +956,7 @@ TTErr TTData::ArrayState(const TTValue& inputValue, TTValue& outputValue)
         /////////////////////////////////
         if (mRamper.valid()) {
             
-            if (!command->lookup(kTTSym_ramp, v)) {
+            if (!dictionary.lookup(kTTSym_ramp, v)) {
                 
                 v.get(0, time);
                 
@@ -1002,7 +995,7 @@ TTErr TTData::ArrayState(const TTValue& inputValue, TTValue& outputValue)
         // external ramp drive case
         else if (mRampDrive == kTTSym_external) {
             
-            if (!command->lookup(kTTSym_ramp, v))
+            if (!dictionary.lookup(kTTSym_ramp, v))
                 v.get(0, externalRampTime);
             
         }
@@ -1075,22 +1068,22 @@ TTErr TTData::ArrayInit()
     return kTTErrNone;
 }
 
-TTErr TTData::StringState(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTData::setStringState(const TTValue& newState)
 {
-    TTDictionaryBasePtr command = NULL;
+    TTDictionary    dictionary;
     TTValue			c, aValue;
     
-    if (inputValue.size()) {
+    if (newState.size()) {
         
-        // 1. Get the command TTDictionnary
+        // 1. Get the state dictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
+        if (newState[0].type() == kTypeDictionary)
+            dictionary = newState[0]; // TODO: JamomaCore #319
         else
             return kTTErrGeneric;
 
         // 2. Get the value
-        command->getValue(aValue);
+        dictionary.getValue(aValue);
         
         // 3. Filter repetitions
         //////////////////////////////////
