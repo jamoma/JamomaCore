@@ -9,7 +9,7 @@ if(UNIX)
 		set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/jamoma/")
 	endif()
 
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-unknown-pragmas -Wno-conversion -Wno-deprecated-declarations")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-unknown-pragmas -Wno-conversion -Wno-deprecated-declarations -Wno-trigraphs")
 
 	## OSX ##
 	if(APPLE)
@@ -21,10 +21,17 @@ if(UNIX)
 			set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.jamoma")
 		else()
 			add_definitions(-DTT_PLATFORM_MAC)
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+			
+			#todo check if these options are really necessary.
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ 
+								-msse3 -mfpmath=sse -gdwarf-2 -fvisibility=hidden") 
+			
 
 			# Independent shared libraries
 			set(CMAKE_MACOSX_RPATH 1)
+			
+			## TODO ##
+			# LDFLAGS += -install_name "@loader_path/../../../../support/$(NAME).dylib" 
 
 			# CPack
 			SET(CPACK_GENERATOR "Bundle")

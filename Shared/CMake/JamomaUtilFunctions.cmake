@@ -4,6 +4,21 @@ function(addJamomaLibrary)
 	add_library(${PROJECT_NAME}
 				SHARED
 				${PROJECT_SRCS} ${PROJECT_HDRS})
+	
+	if(APPLE)
+		add_library(${PROJECT_NAME}-i386-static
+					STATIC
+					${PROJECT_SRCS} ${PROJECT_HDRS})
+		set_property(TARGET ${PROJECT_NAME}-i386-static
+					 PROPERTY OSX_ARCHITECTURES i386)
+					
+		add_library(${PROJECT_NAME}-x86_64-static
+					STATIC
+					${PROJECT_SRCS} ${PROJECT_HDRS})
+					
+		set_property(TARGET ${PROJECT_NAME}-x86_64-static
+					 PROPERTY OSX_ARCHITECTURES x86_64)
+	endif()
 
 	set_property(TARGET ${PROJECT_NAME}
 				 PROPERTY OUTPUT_NAME Jamoma${PROJECT_NAME})
@@ -53,6 +68,7 @@ endFunction()
 
 
 ## Set suffixes according to the conventions of the Jamoma project ##
+# todo instead make properties sets.
 function(setExtensionSuffix)
 	if(APPLE)
 		set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
@@ -66,7 +82,6 @@ function(setExtensionSuffix)
 	endif()
 endFunction(setExtensionSuffix)
 
-## Set suffixes according to the conventions of the Jamoma project ##
 function(setExternalSuffix)
 	if(APPLE)
 		set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
@@ -128,10 +143,27 @@ function(addTestTarget)
 		if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp)
 			file(GLOB TEST_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp)
 
-			add_executable("test_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
-			target_link_libraries("test_${PROJECT_NAME}" ${PROJECT_NAME})
-
-			add_test("test_${PROJECT_NAME}" "test_${PROJECT_NAME}")
+			if(APPLE)
+				# i386
+				add_executable("test32_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
+				set_property(TARGET "test32_${PROJECT_NAME}"
+							 PROPERTY OSX_ARCHITECTURES i386)
+				target_link_libraries("test32_${PROJECT_NAME}" ${PROJECT_NAME}-i386-static)
+				add_test("test32_${PROJECT_NAME}" "test32_${PROJECT_NAME}")
+				
+				# x86_64
+				add_executable("test64_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
+				set_property(TARGET "test64_${PROJECT_NAME}"
+							 PROPERTY OSX_ARCHITECTURES x86_64)
+				target_link_libraries("test64_${PROJECT_NAME}" ${PROJECT_NAME}-x86_64-static)
+	
+				add_test("test64_${PROJECT_NAME}" "test64_${PROJECT_NAME}")
+			else()
+				add_executable("test_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
+				target_link_libraries("test_${PROJECT_NAME}" ${PROJECT_NAME})
+	
+				add_test("test_${PROJECT_NAME}" "test_${PROJECT_NAME}")
+			endif()
 		endif()
 	endif()
 endFunction()
@@ -227,6 +259,7 @@ if(NOT WIN32)
 endif() # Todo : find something equivalent for windows
 endFunction()
 
+# This function checks the architectures of a library on OS X
 function(osx_check_architecture LIBNAME LIBFILE)
 	if(APPLE)
 		if("${CMAKE_OSX_ARCHITECTURES}" STREQUAL "")
