@@ -153,7 +153,6 @@ endFunction()
 function(addTestTarget)
 	if(NOT WIN32)
 		if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp)
-			file(GLOB TEST_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp)
 
 			if(APPLE AND NOT IS_EXTENSION AND STATIC_TESTING)
 				# i386
