@@ -1,49 +1,32 @@
 cmake_minimum_required(VERSION 2.6)
 
-function(addJamomaLibrary)
-	add_library(${PROJECT_NAME}
-				SHARED
-				${PROJECT_SRCS} ${PROJECT_HDRS})
-	
-	if(APPLE)
-		add_library(${PROJECT_NAME}-i386-static
-					STATIC
-					${PROJECT_SRCS} ${PROJECT_HDRS})
-		set_property(TARGET ${PROJECT_NAME}-i386-static
-					 PROPERTY OSX_ARCHITECTURES i386)
-					
-		add_library(${PROJECT_NAME}-x86_64-static
-					STATIC
-					${PROJECT_SRCS} ${PROJECT_HDRS})
-					
-		set_property(TARGET ${PROJECT_NAME}-x86_64-static
-					 PROPERTY OSX_ARCHITECTURES x86_64)
-	endif()
 
-	set_property(TARGET ${PROJECT_NAME}
-				 PROPERTY OUTPUT_NAME Jamoma${PROJECT_NAME})
+function(setupJamomaLibraryProperties LIBNAME)
+	set_property(TARGET ${LIBNAME}
+				 PROPERTY OUTPUT_NAME Jamoma${LIBNAME})
 
-	set_property(TARGET ${PROJECT_NAME}
+	set_property(TARGET ${LIBNAME}
 				 PROPERTY VERSION ${Jamoma_VERSION})
-	set_property(TARGET ${PROJECT_NAME}
+	set_property(TARGET ${LIBNAME}
 				 PROPERTY SOVERSION ${Jamoma_SOVERSION})
-	set_property(TARGET ${PROJECT_NAME} APPEND
+	set_property(TARGET ${LIBNAME} APPEND
 				 PROPERTY COMPATIBLE_INTERFACE_STRING Jamoma_MAJOR_VERSION)
 
+	# TODO replace with target_include_directories
 	if(APPLE)
-	set_property(TARGET ${PROJECT_NAME} APPEND
+	set_property(TARGET ${LIBNAME} APPEND
 				PROPERTY INTERFACE_INCLUDE_DIRECTORIES
 					$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
 					$<INSTALL_INTERFACE:include>)
 	else()
-	set_property(TARGET ${PROJECT_NAME} APPEND
+	set_property(TARGET ${LIBNAME} APPEND
 				 PROPERTY INTERFACE_INCLUDE_DIRECTORIES
 					$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
 					$<INSTALL_INTERFACE:include/jamoma>)
 	endif()
 
-	install(TARGETS ${PROJECT_NAME}
-			EXPORT ${PROJECT_NAME}Targets
+	install(TARGETS ${LIBNAME}
+			EXPORT ${LIBNAME}Targets
 			LIBRARY DESTINATION lib
 			ARCHIVE DESTINATION lib
 			RUNTIME DESTINATION bin)
@@ -53,14 +36,43 @@ function(addJamomaLibrary)
 		install(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma" COMPONENT Devel)
 	endif()
 
-	export(EXPORT ${PROJECT_NAME}Targets
-		   FILE "${CMAKE_CURRENT_BINARY_DIR}/Jamoma/Jamoma${PROJECT_NAME}Targets.cmake"
+	export(EXPORT ${LIBNAME}Targets
+		   FILE "${CMAKE_CURRENT_BINARY_DIR}/Jamoma/Jamoma${LIBNAME}Targets.cmake"
 		   NAMESPACE Jamoma::)
 
-	install(EXPORT ${PROJECT_NAME}Targets
-			FILE Jamoma${PROJECT_NAME}Targets.cmake
+	install(EXPORT ${LIBNAME}Targets
+			FILE Jamoma${LIBNAME}Targets.cmake
 			NAMESPACE Jamoma::
 			DESTINATION ${ConfigPackageLocation})
+endFunction()
+
+function(addJamomaLibrary)
+	# Dynamic
+	add_library(${PROJECT_NAME}
+				SHARED
+				${PROJECT_SRCS} ${PROJECT_HDRS})
+
+	setupJamomaLibraryProperties(${PROJECT_NAME})
+	
+	# Static
+	if(APPLE AND STATIC_TESTING)
+		# i386
+		add_library(${PROJECT_NAME}-i386-static
+					STATIC
+					${PROJECT_SRCS} ${PROJECT_HDRS})
+		set_property(TARGET ${PROJECT_NAME}-i386-static
+					 PROPERTY OSX_ARCHITECTURES i386)
+		setupJamomaLibraryProperties(${PROJECT_NAME}-i386-static)
+				
+		# x86_64	
+		add_library(${PROJECT_NAME}-x86_64-static
+					STATIC
+					${PROJECT_SRCS} ${PROJECT_HDRS})
+					
+		set_property(TARGET ${PROJECT_NAME}-x86_64-static
+					 PROPERTY OSX_ARCHITECTURES x86_64)
+		setupJamomaLibraryProperties(${PROJECT_NAME}-x86_64-static)
+	endif()
 
 endFunction()
 
@@ -143,18 +155,16 @@ function(addTestTarget)
 		if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp)
 			file(GLOB TEST_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp)
 
-			if(APPLE)
+			if(APPLE AND NOT IS_EXTENSION AND STATIC_TESTING)
 				# i386
 				add_executable("test32_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
-				set_property(TARGET "test32_${PROJECT_NAME}"
-							 PROPERTY OSX_ARCHITECTURES i386)
+				set_property(TARGET "test32_${PROJECT_NAME}" PROPERTY OSX_ARCHITECTURES i386)
 				target_link_libraries("test32_${PROJECT_NAME}" ${PROJECT_NAME}-i386-static)
 				add_test("test32_${PROJECT_NAME}" "test32_${PROJECT_NAME}")
 				
 				# x86_64
 				add_executable("test64_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
-				set_property(TARGET "test64_${PROJECT_NAME}"
-							 PROPERTY OSX_ARCHITECTURES x86_64)
+				set_property(TARGET "test64_${PROJECT_NAME}" PROPERTY OSX_ARCHITECTURES x86_64)
 				target_link_libraries("test64_${PROJECT_NAME}" ${PROJECT_NAME}-x86_64-static)
 	
 				add_test("test64_${PROJECT_NAME}" "test64_${PROJECT_NAME}")

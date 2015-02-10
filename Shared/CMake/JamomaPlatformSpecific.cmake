@@ -23,10 +23,7 @@ if(UNIX)
 			add_definitions(-DTT_PLATFORM_MAC)
 			
 			#todo check if these options are really necessary.
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ 
-								-msse3 -mfpmath=sse -gdwarf-2 -fvisibility=hidden") 
-			
-
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -msse3 -mfpmath=sse -gdwarf-2 -fvisibility=hidden")
 			# Independent shared libraries
 			set(CMAKE_MACOSX_RPATH 1)
 			
