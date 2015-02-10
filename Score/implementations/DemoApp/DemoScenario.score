@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<jamoma version="0.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd">
+ <Scenario name="Demo Scenario">
+  <startEvent name="start" date="0u"/>
+  <endEvent name="end" date="36000000u"/>
+  <event name="Start Fade In" date="1000u">
+   <command address="demo:/myParameter">0</command>
+  </event>
+  <event name="End Fade In" date="5000u">
+   <command address="demo:/myParameter">1</command>
+  </event>
+  <event name="Start Fade Out" date="6000u">
+   <command address="demo:/myParameter">1</command>
+  </event>
+  <event name="End Fade Out" date="10000u">
+   <command address="demo:/myParameter">0</command>
+  </event>
+  <Automation name="Fade In" start="Start Fade In" end="End Fade In">
+   <indexedCurves address="demo:/myParameter">
+    <curve active="1" redundancy="0" sampleRate="40u" function="0.000000 0.000000 1.000000 1.000000 1.000000 1.000000"/>
+   </indexedCurves>
+  </Automation>
+  <Interval name="Wait before to Fade Out" start="End Fade In" end="Start Fade Out"/>
+  <Automation name="Fade Out" start="Start Fade Out" end="End Fade Out">
+   <indexedCurves address="demo:/myParameter">
+    <curve active="1" redundancy="0" sampleRate="40u" function="0.000000 1.000000 1.000000 1.000000 0.000000 1.000000"/>
+   </indexedCurves>
+  </Automation>
+  <condition name="Wait for a key">
+    <case event="Start Fade Out" trigger="demo:/myMessage == a" default="1"/>
+  </condition>
+ </Scenario>
+</jamoma>
