@@ -259,7 +259,7 @@ TTErr TTTimeCondition::EventAdd(const TTValue& inputValue, TTValue& outputValue)
             event = inputValue[0];
             
             // insert the event with an expression
-            mCases.insert({{event.instance(), aComportment}});
+            mCases.insert({event.instance(), aComportment});
             
             // increment the "not pending event" counter
             mNotPendingEventCounter++;
