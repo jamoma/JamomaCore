@@ -126,7 +126,7 @@ mService(kTTSymEmpty)
 	
 	mIsSending = NO;
     
-    stateSetter = (TTMethodValue)&TTData::setGenericState;
+    stateSetter = (TTSetterMethod)&TTData::setGenericState;
     
     // cache some message and attribute for observer notification
     this->findAttribute(kTTSym_value, &valueAttribute);
@@ -686,15 +686,15 @@ TTErr TTData::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 
 TTDictionary TTDataParseValue(const TTValue& value, TTBoolean parseUnitAndRamp)
 {
-	TTDictionary state;
+	TTDictionary dictionary;
     
     // don't parse the value, just store it into a dictionary
     // this is useful when unit or ramp doesn't mean anything (e.g. generic case)
     if (!parseUnitAndRamp)
     {
-        state->setValue(value);
-        state->setSchema(kTTSym_Data);
-        return state;
+        dictionary.setValue(value);
+        dictionary.setSchema(kTTSym_Data);
+        return dictionary;
     }
     
 	TTUInt32			time;
@@ -814,23 +814,23 @@ TTDictionary TTDataParseValue(const TTValue& value, TTBoolean parseUnitAndRamp)
 	else
 		aValue = value;
 	
-	// 4. Edit specific Data state dictionary
+	// 4. Edit specific Data dictionary
 	if (hasUnit)
-		state->append(kTTSym_unit, unit);
+		dictionary.append(kTTSym_unit, unit);
 	
 	if (hasRamp)
     {
         // any other case it is a ramp time
         time = value[valueSize - 1];
-        state->append(kTTSym_ramp, (int)time);
+        dictionary.append(kTTSym_ramp, (int)time);
 	}
 	
-    state->setValue(aValue);
-	state->setSchema(kTTSym_Data);
+    dictionary.setValue(aValue);
+	dictionary.setSchema(kTTSym_Data);
     
     // We return a dictionary with one or more keys. It always has a value. If it is ramping, it also has a ramp key, and if it has a unit, it also has a unit key.
 	
-	return state;
+	return dictionary;
 }
 
 

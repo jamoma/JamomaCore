@@ -69,8 +69,8 @@ private:
 
     TTObject        mRamper;                    ///< Ramp object to ramp value
 
-    TTMethodValue	stateSetter;                ///< a specific state setter depending on mType.
-                                                ///< we need to wrap the call on specific state setter because a state can be parsed locally (so it have to be deleted after to not create memory leaks)
+    TTSetterMethod	stateSetter;                ///< a specific state setter depending on mType.
+                                                ///< we need to wrap the call on specific state setter because a state can be parsed locally
     
     TTAttributePtr  valueAttribute;             ///< cache value attribute for observer notification
     TTAttributePtr  initializedAttribute;       ///< cache value message for observer notification

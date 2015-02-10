@@ -38,7 +38,7 @@ TTErr TTData::setType(const TTValue& value)
 		// register mValue Attribute and prepare memory
         // We establish the behavior of TTData based on the attribute type. We do this by setting a funciton pointer that depends on the type.
 		if (mType == kTTSym_integer) {
-            stateSetter = (TTMethodValue)&TTData::setIntegerState;
+            stateSetter = (TTSetterMethod)&TTData::setIntegerState;
             initMessage->method = (TTMethod)&TTData::IntegerInit;
 			valueAttribute->type = kTypeInt32;
             valueAttribute->setter = (TTSetterMethod)&TTData::setIntegerValue;
@@ -61,7 +61,7 @@ TTErr TTData::setType(const TTValue& value)
                 mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_decimal) {
-            stateSetter = (TTMethodValue)&TTData::setDecimalState;
+            stateSetter = (TTSetterMethod)&TTData::setDecimalState;
             initMessage->method = (TTMethod)&TTData::DecimalInit;
 			valueAttribute->type = kTypeFloat64;
             valueAttribute->setter = (TTSetterMethod)&TTData::setDecimalValue;
@@ -78,7 +78,7 @@ TTErr TTData::setType(const TTValue& value)
                 mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_string) {
-            stateSetter = (TTMethodValue)&TTData::setStringState;
+            stateSetter = (TTSetterMethod)&TTData::setStringState;
             initMessage->method = (TTMethod)&TTData::StringInit;
 			valueAttribute->type = kTypeSymbol;
             valueAttribute->setter = (TTSetterMethod)&TTData::setStringValue;
@@ -97,7 +97,7 @@ TTErr TTData::setType(const TTValue& value)
             mRampDrive = kTTSym_none;
 		}
 		else if (mType == kTTSym_boolean) {
-            stateSetter = (TTMethodValue)&TTData::setBooleanState;
+            stateSetter = (TTSetterMethod)&TTData::setBooleanState;
             initMessage->method = (TTMethod)&TTData::BooleanInit;
 			valueAttribute->type = kTypeBoolean;
             valueAttribute->setter = (TTSetterMethod)&TTData::setBooleanValue;
@@ -118,7 +118,7 @@ TTErr TTData::setType(const TTValue& value)
             mRampDrive = kTTSym_none;
 		}
 		else if (mType == kTTSym_array) {
-            stateSetter = (TTMethodValue)&TTData::setArrayState;
+            stateSetter = (TTSetterMethod)&TTData::setArrayState;
             initMessage->method = (TTMethod)&TTData::ArrayInit;
 			valueAttribute->type = kTypeFloat64;
             valueAttribute->setter = (TTSetterMethod)&TTData::setArrayValue;
@@ -135,7 +135,7 @@ TTErr TTData::setType(const TTValue& value)
                 mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
 		}
 		else if (mType == kTTSym_none) {
-            stateSetter = (TTMethodValue)&TTData::setNoneState;
+            stateSetter = (TTSetterMethod)&TTData::setNoneState;
             initMessage->method = (TTMethod)&TTData::NoneInit;
 			valueAttribute->type = kTypeNone;
             valueAttribute->setter = (TTSetterMethod)&TTData::setNoneValue;
@@ -154,7 +154,7 @@ TTErr TTData::setType(const TTValue& value)
             mRampDrive = kTTSym_none;
 		}
 		else {
-            stateSetter = (TTMethodValue)&TTData::setGenericState;
+            stateSetter = (TTSetterMethod)&TTData::setGenericState;
             initMessage->method = (TTMethod)&TTData::GenericInit;
 			valueAttribute->type = kTypeFloat64;
             valueAttribute->setter = (TTSetterMethod)&TTData::setGenericValue;
@@ -192,30 +192,29 @@ TTErr TTData::setState(const TTValue& newState)
         if (newState[0].type() == kTypeDictionary)
         {
             TTDictionary dictionary = newState[0]; // TODO: JamomaCore #319
-            if (dictionary.getSchema() == mObject->getName())
+            if (dictionary.getSchema() == kTTSym_Data)
             {
                 // call the specific state setter depending on mType
-                return (this->*stateSetter)(newState);
+                TTMethodInputValue setter = (TTMethodInputValue)this->stateSetter;
+				return (this->*setter)(newState);
             }
         }
     }
     
     // else we parse dictionary locally
-    TTDictionary    dictionary;
-    TTErr           err;
+    TTDictionary dictionary;
 
     // for string type : keep only the first element
-    if (mType == kTTSym_string && inputValue.size())
-        dictionary = TTDataParseValue(inputValue[0], NO);
+    if (mType == kTTSym_string && newState.size())
+        dictionary = TTDataParseValue(newState[0], NO);
     
     // for integer, decimal or array type : parse unit and ramp
     else
-        dictionary = TTDataParseValue(inputValue, mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_array);
+        dictionary = TTDataParseValue(newState, mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_array);
     
     // call the specific state setter depending on mType
-    err = (this->*stateSetter)(dictionary);
-    
-    return err;
+    TTMethodInputValue setter = (TTMethodInputValue)this->stateSetter;
+    return (this->*setter)(newState);
 }
 
 TTBoolean TTData::clipValue()
@@ -398,12 +397,12 @@ TTErr TTData::setBooleanState(const TTValue& newState)
     TTBoolean       isRunning;
     TTValue			c, v, aValue, none;
  
-    if (inputValue.size()) {
+    if (newState.size()) {
         
         // 1. Get the state dictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypeDictionary)
-            dictionary = inputValue[0]; // TODO: JamomaCore #319
+        if (newState[0].type() == kTypeDictionary)
+            dictionary = newState[0]; // TODO: JamomaCore #319
         else
             return kTTErrGeneric;
 
@@ -547,12 +546,12 @@ TTErr TTData::setIntegerState(const TTValue& newState)
     TTBoolean       isRunning;
     TTValue			c, v, aValue, none;
     
-    if (inputValue.size()) {
+    if (newState.size()) {
         
         // 1. Get the state dictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypeDictionary)
-            dictionary = inputValue[0]; // TODO: JamomaCore #319
+        if (newState[0].type() == kTypeDictionary)
+            dictionary = newState[0]; // TODO: JamomaCore #319
         else
             return kTTErrGeneric;
 
@@ -727,12 +726,12 @@ TTErr TTData::setDecimalState(const TTValue& newState)
     TTBoolean       isRunning;
     TTValue			c, v, aValue, none;
     
-    if (inputValue.size()) {
+    if (newState.size()) {
         
         // 1. Get the state dictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypeDictionary)
-            dictionary = inputValue[0]; // TODO: JamomaCore #319
+        if (newState[0].type() == kTypeDictionary)
+            dictionary = newState[0]; // TODO: JamomaCore #319
         else
             return kTTErrGeneric;
 
@@ -912,12 +911,12 @@ TTErr TTData::setArrayState(const TTValue& newState)
     TTBoolean       isRunning;
     TTValue			c, v, aValue, none;
     
-    if (inputValue.size()) {
+    if (newState.size()) {
         
         // 1. Get the state dictionnary
         ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypeDictionary)
-            dictionary = inputValue[0]; // TODO: JamomaCore #319
+        if (newState[0].type() == kTypeDictionary)
+            dictionary = newState[0]; // TODO: JamomaCore #319
         else
             return kTTErrGeneric;
 
