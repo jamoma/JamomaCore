@@ -24,6 +24,7 @@
 #define thisTTClassTags		"modularLibrary, application"
 
 TT_MODULAR_CONSTRUCTOR,
+TT_STATE,
 mDirectory(NULL),
 mName(kTTSymEmpty),
 mType(kTTSym_local),
@@ -143,6 +144,135 @@ TTApplication::~TTApplication()
 	// TODO : delete observers
 	if (mDirectory)
         delete mDirectory;
+}
+
+#if 0
+#pragma mark -
+#pragma mark State accesors
+#endif
+
+TTErr TTApplication::getState(TTValue& newState) const
+{
+    if (newState.size() == 1)
+    {
+        if (newState[0].type() == kTypeDictionary)
+        {
+            TTDictionary dictionary = newState[0]; // TODO: JamomaCore #319
+            
+            // "snapshot" dictionary case : each key is an absolute address with a dictionary to pass to the object under the address
+            if (dictionary.getSchema() == TTSymbol("snapshot"))
+            {
+                // for each keys of the dictionary
+                TTValue keys;
+                dictionary.getKeys(keys);
+                
+                for (TTUInt32 i = 0; i < keys.size(); i++)
+                {
+                    TTAddress address = keys[i];
+                    
+                    // absolute address case : retreive the object under the address (no wilcard allowed)
+                    if (address.getType() == kAddressAbsolute)
+                    {
+                        TTNodePtr aNode;
+
+                        if (!mDirectory->getTTNode(address, &aNode))
+                        {
+                            TTObject anObject = aNode->getObject();
+                            
+                            // pass the dictionary to the object to get its state
+                            if (anObject.valid())
+                            {
+                                TTValue valueDictionary;
+                            
+                                dictionary.lookup(address, valueDictionary);
+                                anObject.get("state", valueDictionary);
+                            }
+                        }
+                    }
+                    // relative address case : get application attribute value
+                    else
+                    {
+                        TTValue value;
+                        
+                        TTObjectBasePtr(this)->getAttributeValue(address, value);
+                        dictionary.append(address, value);
+                    }
+                }
+                
+                return kTTErrNone;
+            }
+            
+            // "namespace" dictionary case : keys are filtering options ?
+            if (dictionary.getSchema() == TTSymbol("namespace"))
+            {
+                return kTTErrGeneric;
+            }
+        }
+    }
+
+    return kTTErrGeneric;
+}
+
+TTErr TTApplication::setState(const TTValue& newState)
+{
+    if (newState.size() == 1)
+    {
+        if (newState[0].type() == kTypeDictionary)
+        {
+            TTDictionary dictionary = newState[0]; // TODO: JamomaCore #319
+            
+            // "snapshot" dictionary case : each key is an absolute address with a dictionary to pass to the object under the address
+            if (dictionary.getSchema() == TTSymbol("snapshot"))
+            {
+                // for each keys of the dictionary
+                TTValue keys;
+                dictionary.getKeys(keys);
+                
+                for (TTUInt32 i = 0; i < keys.size(); i++)
+                {
+                    TTAddress address = keys[i];
+                    
+                    // absolute address case : retreive the object under the address (no wilcard allowed)
+                    if (address.getType() == kAddressAbsolute)
+                    {
+                        TTNodePtr aNode;
+                        
+                        if (!mDirectory->getTTNode(address, &aNode))
+                        {
+                            TTObject anObject = aNode->getObject();
+                            
+                            // pass the dictionary to the object to set its state
+                            if (anObject.valid())
+                            {
+                                TTValue valueDictionary;
+                                
+                                dictionary.lookup(address, valueDictionary);
+                                anObject.set("state", valueDictionary);
+                            }
+                        }
+                    }
+                    // relative address case : set application attribute value
+                    else
+                    {
+                        TTValue value;
+                        
+                        dictionary.lookup(address, value);
+                        TTObjectBasePtr(this)->setAttributeValue(address, value);
+                    }
+                }
+                
+                return kTTErrNone;
+            }
+            
+            // "namespace" dictionary case : is it possible ?
+            if (dictionary.getSchema() == TTSymbol("namespace"))
+            {
+                return kTTErrGeneric;
+            }
+        }
+    }
+    
+    return kTTErrGeneric;
 }
 
 #if 0
@@ -877,10 +1007,10 @@ TTErr TTApplication::ObjectRename(const TTValue& inputValue, TTValue& outputValu
 TTErr TTApplication::ObjectRetreive(const TTValue& inputValue, TTValue& outputValue)
 {
     // get address
-    if (inputValue.size() == 1) {
-        
-        if (inputValue[0].type() == kTypeSymbol) {
-            
+    if (inputValue.size() == 1)
+    {
+        if (inputValue[0].type() == kTypeSymbol)
+        {
             TTAddress   address = inputValue[0];
             TTList		aNodeList;
             TTNodePtr	aNode;
@@ -897,8 +1027,8 @@ TTErr TTApplication::ObjectRetreive(const TTValue& inputValue, TTValue& outputVa
                     
                     TTObject anObject = aNode->getObject();
                     
-                    if (anObject.valid()) {
-                        
+                    if (anObject.valid())
+                    {
                         // return the object
                         outputValue.append(anObject);
                     }

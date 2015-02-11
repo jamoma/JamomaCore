@@ -49,7 +49,7 @@ typedef TTXmlHandler* TTXmlHandlerPtr;
  *
  * @see TTApplicationManager, Protocol
  */
-class TTMODULAR_EXPORT TTApplication : public TTObjectBase
+class TTMODULAR_EXPORT TTApplication : public TTObjectBase, public TTState
 {
 	TTCLASS_SETUP(TTApplication)
 	
@@ -83,6 +83,18 @@ private:
 #pragma mark -
 #pragma mark Attribute accesors
 #endif
+    
+    /** a specific #TTState getter to get the state of any object register inside the application
+	 @param[in] newState	#TTDictionary to fill and returned. it is possible to pass "snapshot" or "namespace" schema dictionary.
+	 @return #TTErrorNone if the method executes successfully, else an error code.
+	 */
+    TTErr getState(TTValue& newState) const override;
+    
+    /** a specific #TTState setter to set the state of any object register inside the application
+	 @param[in] newState	#TTDictionary to apply.
+	 @return #TTErrorNone if the method executes successfully, else an error code.
+	 */
+    TTErr setState(const TTValue& newState) override;
 	
 	/** Attribute accesor: set the name of the application
      @details set also the name of his #TTNodeDirectory
