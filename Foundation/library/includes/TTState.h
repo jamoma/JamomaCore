@@ -86,7 +86,7 @@
  
  @see TTObjectBase
  */
-class TTState
+class TTFOUNDATION_EXPORT TTState
 {
     friend TTObjectBase;
     
