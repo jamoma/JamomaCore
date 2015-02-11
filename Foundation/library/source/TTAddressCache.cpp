@@ -1,7 +1,7 @@
-/* 
+/*
  * TTBlue Class for caching common address for speed
  * Copyright © 2011, Théo de la Hogue
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */

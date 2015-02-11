@@ -44,7 +44,7 @@ TTErr TTWebSend::send(const TTValue& value, TTValue& unusedOutput)
         if (value.size()) {
             if (value[0].type() == kTypeSymbol) {
                 message = value[0];
-                return mSocket->SendMessage(message, *arguments);
+                return mSocket->SendMessage(message);
             }
         }
 	}

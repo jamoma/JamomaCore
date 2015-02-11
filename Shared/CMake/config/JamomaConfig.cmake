@@ -1,0 +1,6 @@
+include("${CMAKE_CURRENT_LIST_DIR}/JamomaFoundationTargets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/JamomaDSPTargets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/JamomaGraphTargets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/JamomaAudioGraphTargets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/JamomaModularTargets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/JamomaScoreTargets.cmake")

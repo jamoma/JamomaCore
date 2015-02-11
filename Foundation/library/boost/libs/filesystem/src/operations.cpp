@@ -8,17 +8,17 @@
 
 //  See library home page at http://www.boost.org/libs/filesystem
 
-//--------------------------------------------------------------------------------------// 
+//--------------------------------------------------------------------------------------//
 
-//  define 64-bit offset macros BEFORE including boost/config.hpp (see ticket #5355) 
+//  define 64-bit offset macros BEFORE including boost/config.hpp (see ticket #5355)
 #if !(defined(__HP_aCC) && defined(_ILP32) && !defined(_STATVFS_ACPP_PROBLEMS_FIXED))
 #define _FILE_OFFSET_BITS 64 // at worst, these defines may have no effect,
 #endif
 #if !defined(__PGI)
 #define __USE_FILE_OFFSET64 // but that is harmless on Windows and on POSIX
-      // 64-bit systems or on 32-bit systems which don't have files larger 
-      // than can be represented by a traditional POSIX/UNIX off_t type. 
-      // OTOH, defining them should kick in 64-bit off_t's (and thus 
+      // 64-bit systems or on 32-bit systems which don't have files larger
+      // than can be represented by a traditional POSIX/UNIX off_t type.
+      // OTOH, defining them should kick in 64-bit off_t's (and thus
       // st_size)on 32-bit systems that provide the Large File
       // Support (LFS)interface, such as Linux, Solaris, and IRIX.
       // The defines are given before any headers are included to
@@ -31,9 +31,9 @@
 
 // define BOOST_FILESYSTEM_SOURCE so that <boost/filesystem/config.hpp> knows
 // the library is being built (possibly exporting rather than importing code)
-#define BOOST_FILESYSTEM_SOURCE 
+#define BOOST_FILESYSTEM_SOURCE
 
-#ifndef BOOST_SYSTEM_NO_DEPRECATED 
+#ifndef BOOST_SYSTEM_NO_DEPRECATED
 # define BOOST_SYSTEM_NO_DEPRECATED
 #endif
 
@@ -44,11 +44,11 @@
 #include <boost/filesystem/operations.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/detail/workaround.hpp>
-#include <vector> 
+#include <vector>
 #include <cstdlib>     // for malloc, free
 #include <cstring>
 #include <cstdio>      // for remove, rename
-#if defined(__QNXNTO__)  // see ticket #5355 
+#if defined(__QNXNTO__)  // see ticket #5355
 # include <stdio.h>
 #endif
 #include <cerrno>
@@ -74,7 +74,13 @@ using std::wstring;
 #   include <sys/types.h>
 #   include <sys/stat.h>
 #   if !defined(__APPLE__) && !defined(__OpenBSD__)
-#     include <sys/statvfs.h>
+#     ifndef __ANDROID__
+#       include <sys/statvfs.h>
+#     else
+#       include <sys/vfs.h>
+#       define statvfs statfs
+#       define fstatvfs fstatfs
+#     endif
 #     define BOOST_STATVFS statvfs
 #     define BOOST_STATVFS_F_FRSIZE vfs.f_frsize
 #   else
@@ -115,7 +121,7 @@ using std::wstring;
 #     include <sys/utime.h>
 #   endif
 
-//  REPARSE_DATA_BUFFER related definitions are found in ntifs.h, which is part of the 
+//  REPARSE_DATA_BUFFER related definitions are found in ntifs.h, which is part of the
 //  Windows Device Driver Kit. Since that's inconvenient, the definitions are provided
 //  here. See http://msdn.microsoft.com/en-us/library/ms791514.aspx
 
@@ -168,7 +174,7 @@ typedef struct _REPARSE_DATA_BUFFER {
 # endif
 
 # ifndef IO_REPARSE_TAG_SYMLINK
-#   define IO_REPARSE_TAG_SYMLINK (0xA000000CL)       
+#   define IO_REPARSE_TAG_SYMLINK (0xA000000CL)
 # endif
 
 # endif  // BOOST_WINDOWS_API
@@ -195,7 +201,7 @@ typedef struct _REPARSE_DATA_BUFFER {
 # if defined(BOOST_POSIX_API)
 
 //  POSIX uses a 0 return to indicate success
-#   define BOOST_ERRNO    errno 
+#   define BOOST_ERRNO    errno
 #   define BOOST_SET_CURRENT_DIRECTORY(P)(::chdir(P)== 0)
 #   define BOOST_CREATE_DIRECTORY(P)(::mkdir(P, S_IRWXU|S_IRWXG|S_IRWXO)== 0)
 #   define BOOST_CREATE_HARD_LINK(F,T)(::link(T, F)== 0)
@@ -254,7 +260,7 @@ namespace
     {
       if (ec != 0) ec->clear();
     }
-    else  
+    else
     { //  error
       if (ec == 0)
         BOOST_FILESYSTEM_THROW(filesystem_error(message,
@@ -271,7 +277,7 @@ namespace
     {
       if (ec != 0) ec->clear();
     }
-    else  
+    else
     { //  error
       if (ec == 0)
         BOOST_FILESYSTEM_THROW(filesystem_error(message,
@@ -289,7 +295,7 @@ namespace
     {
       if (ec != 0) ec->clear();
     }
-    else  
+    else
     { //  error
       if (ec == 0)
         BOOST_FILESYSTEM_THROW(filesystem_error(message,
@@ -308,7 +314,7 @@ namespace
     {
       if (ec != 0) ec->clear();
     }
-    else  
+    else
     { //  error
       if (ec == 0)
         BOOST_FILESYSTEM_THROW(filesystem_error(message, p, result));
@@ -326,7 +332,7 @@ namespace
     {
       if (ec != 0) ec->clear();
     }
-    else  
+    else
     { //  error
       if (ec == 0)
         BOOST_FILESYSTEM_THROW(filesystem_error(message, p1, p2, result));
@@ -343,10 +349,10 @@ namespace
 
   bool remove_directory(const path& p) // true if succeeds
     { return BOOST_REMOVE_DIRECTORY(p.c_str()); }
-  
+
   bool remove_file(const path& p) // true if succeeds
     { return BOOST_DELETE_FILE(p.c_str()); }
-  
+
   // called by remove and remove_all_aux
   bool remove_file_or_directory(const path& p, fs::file_type type, error_code* ec)
     // return true if file removed, false if not removed
@@ -425,7 +431,7 @@ namespace
 
     struct stat from_stat;
     if (::stat(from_p.c_str(), &from_stat)!= 0)
-    { 
+    {
       ::close(infile);
       return false;
     }
@@ -453,7 +459,7 @@ namespace
       {
         if ((sz = ::write(outfile, buf.get() + sz_write,
           sz_read - sz_write))< 0)
-        { 
+        {
           sz_read = sz; // cause read loop termination
           break;        //  and error to be thrown after closes
         }
@@ -544,7 +550,7 @@ namespace
   }
 
   // Thanks to Jeremy Maitin-Shepard for much help and for permission to
-  // base the equivalent()implementation on portions of his 
+  // base the equivalent()implementation on portions of his
   // file-equivalence-win32.cpp experimental code.
 
   struct handle_wrapper
@@ -577,14 +583,14 @@ namespace
     if (h.handle == INVALID_HANDLE_VALUE)
       return false;
 
-    boost::scoped_array<char> buf(new char [MAXIMUM_REPARSE_DATA_BUFFER_SIZE]);    
- 
+    boost::scoped_array<char> buf(new char [MAXIMUM_REPARSE_DATA_BUFFER_SIZE]);
+
     // Query the reparse data
     DWORD dwRetLen;
     BOOL result = ::DeviceIoControl(h.handle, FSCTL_GET_REPARSE_POINT, NULL, 0, buf.get(),
       MAXIMUM_REPARSE_DATA_BUFFER_SIZE, &dwRetLen, NULL);
     if (!result) return false;
- 
+
     return reinterpret_cast<const REPARSE_DATA_BUFFER*>(buf.get())
       ->ReparseTag == IO_REPARSE_TAG_SYMLINK;
   }
@@ -905,7 +911,7 @@ namespace detail
       new_symlink, existing_symlink, ec,
       "boost::filesystem::copy_symlink");
 
-# else  // modern Windows or BOOST_POSIX_API 
+# else  // modern Windows or BOOST_POSIX_API
     path p(read_symlink(existing_symlink, ec));
     if (ec != 0 && *ec) return;
     create_symlink(p, new_symlink, ec);
@@ -1063,7 +1069,7 @@ namespace detail
       if (::getcwd(buf.get(), static_cast<std::size_t>(path_max))== 0)
       {
         if (error(errno != ERANGE
-      // bug in some versions of the Metrowerks C lib on the Mac: wrong errno set 
+      // bug in some versions of the Metrowerks C lib on the Mac: wrong errno set
 #         if defined(__MSL__) && (defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__))
           && errno != 0
 #         endif
@@ -1178,7 +1184,7 @@ namespace detail
     // In theory, volume serial numbers are sufficient to distinguish between
     // devices, but in practice VSN's are sometimes duplicated, so last write
     // time and file size are also checked.
-      return 
+      return
         info1.dwVolumeSerialNumber == info2.dwVolumeSerialNumber
         && info1.nFileIndexHigh == info2.nFileIndexHigh
         && info1.nFileIndexLow == info2.nFileIndexLow
@@ -1275,7 +1281,7 @@ namespace detail
     struct stat path_stat;
     if (error(::stat(p.c_str(), &path_stat)!= 0,
         p, ec, "boost::filesystem::is_empty"))
-      return false;        
+      return false;
     return S_ISDIR(path_stat.st_mode)
       ? is_empty_directory(p)
       : path_stat.st_size == 0;
@@ -1287,7 +1293,7 @@ namespace detail
         return false;
 
     if (ec != 0) ec->clear();
-    return 
+    return
       (fad.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
         ? is_empty_directory(p)
         : (!fad.nFileSizeHigh && !fad.nFileSizeLow);
@@ -1511,7 +1517,7 @@ namespace detail
 #     endif
     return symlink_path;
   }
-  
+
   BOOST_FILESYSTEM_DECL
   bool remove(const path& p, error_code* ec)
   {
@@ -1564,9 +1570,9 @@ namespace detail
     if (!error(::BOOST_STATVFS(p.c_str(), &vfs)!= 0,
       p, ec, "boost::filesystem::space"))
     {
-      info.capacity 
+      info.capacity
         = static_cast<boost::uintmax_t>(vfs.f_blocks)* BOOST_STATVFS_F_FRSIZE;
-      info.free 
+      info.free
         = static_cast<boost::uintmax_t>(vfs.f_bfree)* BOOST_STATVFS_F_FRSIZE;
       info.available
         = static_cast<boost::uintmax_t>(vfs.f_bavail)* BOOST_STATVFS_F_FRSIZE;
@@ -1751,23 +1757,23 @@ namespace detail
   {
 #   ifdef BOOST_POSIX_API
       const char* val = 0;
-      
+
       (val = std::getenv("TMPDIR" )) ||
       (val = std::getenv("TMP"    )) ||
       (val = std::getenv("TEMP"   )) ||
       (val = std::getenv("TEMPDIR"));
-      
+
       path p((val!=0) ? val : "/tmp");
-      
+
       if (p.empty() || (ec&&!is_directory(p, *ec))||(!ec&&!is_directory(p)))
       {
         errno = ENOTDIR;
         error(true, p, ec, "boost::filesystem::temp_directory_path");
         return p;
       }
-        
+
       return p;
-      
+
 #   else  // Windows
 
       std::vector<path::value_type> buf(GetTempPathW(0, NULL));
@@ -1778,22 +1784,22 @@ namespace detail
         error(true, ec, "boost::filesystem::temp_directory_path");
         return path();
       }
-          
+
       buf.pop_back();
-      
+
       path p(buf.begin(), buf.end());
-          
+
       if ((ec&&!is_directory(p, *ec))||(!ec&&!is_directory(p)))
       {
         ::SetLastError(ENOTDIR);
         error(true, p, ec, "boost::filesystem::temp_directory_path");
         return path();
       }
-      
+
       return p;
 #   endif
   }
-  
+
   BOOST_FILESYSTEM_DECL
   path system_complete(const path& p, system::error_code* ec)
   {
@@ -1844,7 +1850,7 @@ namespace detail
       // symlink status to the regular status.
       if (status_known(m_symlink_status)
         && !is_symlink(m_symlink_status))
-      { 
+      {
         m_status = m_symlink_status;
         if (ec != 0) ec->clear();
       }
@@ -1863,7 +1869,7 @@ namespace detail
     return m_symlink_status;
   }
 
-//  dispatch directory_entry supplied here rather than in 
+//  dispatch directory_entry supplied here rather than in
 //  <boost/filesystem/path_traits.hpp>, thus avoiding header circularity.
 //  test cases are in operations_unit_test.cpp
 
@@ -1872,7 +1878,7 @@ namespace path_traits
   void dispatch(const directory_entry & de,
 #                ifdef BOOST_WINDOWS_API
                  std::wstring& to,
-#                else   
+#                else
                  std::string& to,
 #                endif
                  const codecvt_type &)
@@ -1939,7 +1945,7 @@ namespace
     buffer = std::malloc((sizeof(dirent) - sizeof(de.d_name))
       +  path_size + 1); // + 1 for "/0"
     return ok;
-  }  
+  }
 
   // warning: the only dirent member updated is d_name
   inline int readdir_r_simulator(DIR * dirp, struct dirent * entry,
@@ -2020,11 +2026,11 @@ namespace
     WIN32_FIND_DATAW data;
     if ((handle = ::FindFirstFileW(dirpath.c_str(), &data))
       == INVALID_HANDLE_VALUE)
-    { 
+    {
       handle = 0;  // signal eof
       return error_code( (::GetLastError() == ERROR_FILE_NOT_FOUND
-                       // Windows Mobile returns ERROR_NO_MORE_FILES; see ticket #3551                                           
-                       || ::GetLastError() == ERROR_NO_MORE_FILES) 
+                       // Windows Mobile returns ERROR_NO_MORE_FILES; see ticket #3551
+                       || ::GetLastError() == ERROR_NO_MORE_FILES)
         ? 0 : ::GetLastError(), system_category() );
     }
     target = data.cFileName;
@@ -2096,7 +2102,7 @@ namespace
 #     ifdef BOOST_WINDOWS_API
         ERROR_PATH_NOT_FOUND
 #     else
-        ENOENT 
+        ENOENT
 #     endif
         , system_category());
 
@@ -2109,7 +2115,7 @@ namespace filesystem
 
 namespace detail
 {
-  //  dir_itr_close is called both from the ~dir_itr_imp()destructor 
+  //  dir_itr_close is called both from the ~dir_itr_imp()destructor
   //  and dir_itr_increment()
   BOOST_FILESYSTEM_DECL
   system::error_code dir_itr_close( // never throws
@@ -2139,7 +2145,7 @@ namespace detail
   }
 
   void directory_iterator_construct(directory_iterator& it,
-    const path& p, system::error_code* ec)    
+    const path& p, system::error_code* ec)
   {
     if (error(p.empty(), not_found_error_code, p, ec,
               "boost::filesystem::directory_iterator::construct"))
@@ -2160,7 +2166,7 @@ namespace detail
         ec, "boost::filesystem::directory_iterator::construct");
       return;
     }
-    
+
     if (it.m_imp->handle == 0)
       it.m_imp.reset(); // eof, so make end iterator
     else // not eof
@@ -2179,7 +2185,7 @@ namespace detail
   {
     BOOST_ASSERT_MSG(it.m_imp.get(), "attempt to increment end iterator");
     BOOST_ASSERT_MSG(it.m_imp->handle != 0, "internal program error");
-    
+
     path::string_type filename;
     file_status file_stat, symlink_file_stat;
     system::error_code temp_ec;

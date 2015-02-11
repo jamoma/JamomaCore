@@ -53,7 +53,7 @@ TTErr TTSpatBase::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 
 TTErr TTSpatBase::getSourceCount(TTValue& value)
 {
-	value = mSources.size();
+	value = TTUInt32(mSources.size());
 	return kTTErrNone;
 }
 
@@ -71,7 +71,7 @@ TTErr TTSpatBase::setSourceCount(const TTValue& value)
 
 TTErr TTSpatBase::getSinkCount(TTValue& value)
 {
-	value = mSinks.size();
+	value = TTUInt32(mSinks.size());
 	return kTTErrNone;
 }
 

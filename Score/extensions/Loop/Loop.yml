@@ -1,0 +1,33 @@
+#defines:
+#  - TIME_PROCESS_DEBUG
+
+sources:
+  - ../TimePluginLib.cpp	
+  - source/Loop.cpp
+  
+includes:
+  - "."
+  - ".."
+  - "includes"
+  - "../../library/includes"
+  - "../../library/tests"
+  
+  - ../../../Foundation/library/includes
+  - ../../../DSP/library/includes
+  - ../../../Modular/library/includes
+  - ../../../Modular/library/PeerObject
+  - ../../../Modular/library/ProtocolLib
+  - ../../../Modular/library/SchedulerLib
+  
+  # to use xml file format
+  - /usr/include/libxml2
+
+libraries:
+  - FOUNDATION
+  - DSP
+  - MODULAR
+  - SCORE
+  
+  # to link with the xml library
+  - mac /usr/lib/libxml2.dylib
+  #- win 

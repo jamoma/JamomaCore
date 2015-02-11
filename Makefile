@@ -1,4 +1,5 @@
-
+maxiclean:
+	zsh -c 'rm **/*.o **/*.so **/*.ttso'
 debug:
 	cd Foundation; ruby build.rb Development
 	cd DSP; ruby build.rb Development
