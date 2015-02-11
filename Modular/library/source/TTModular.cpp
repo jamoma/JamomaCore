@@ -67,8 +67,6 @@ void TTModularInit(const char* binaries)
         TTApplication::registerClass();
         TTApplicationManager::registerClass();
         TTContainer::registerClass();
-        TTCue::registerClass();
-        TTCueManager::registerClass();
         TTData::registerClass();
         TTExplorer::registerClass();
         TTInput::registerClass();
@@ -79,12 +77,10 @@ void TTModularInit(const char* binaries)
 		TTNodeInfo::registerClass();
         TTOutput::registerClass();
         TTOutputAudio::registerClass();
-        TTPreset::registerClass();
-        TTPresetManager::registerClass();
         TTRamp::registerClass();
         TTReceiver::registerClass();
         TTSender::registerClass();
-        TTScript::registerClass();
+        TTStateManager::registerClass();
         TTSubscriber::registerClass();
         TTTextHandler::registerClass();
         TTViewer::registerClass();

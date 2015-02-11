@@ -7,8 +7,6 @@ sources:
   - PeerObject/TTApplication.cpp
   - PeerObject/TTApplicationManager.cpp
   - PeerObject/TTContainer.cpp
-  - PeerObject/TTCue.cpp
-  - PeerObject/TTCueManager.cpp
   - PeerObject/TTData.cpp
   - PeerObject/TTDataTypedMethods.cpp
   - PeerObject/TTExplorer.cpp
@@ -20,12 +18,10 @@ sources:
   - PeerObject/TTNodeInfo.cpp
   - PeerObject/TTOutput.cpp
   - PeerObject/TTOutputAudio.cpp
-  - PeerObject/TTPreset.cpp
-  - PeerObject/TTPresetManager.cpp
   - PeerObject/TTRamp.cpp
   - PeerObject/TTReceiver.cpp
   - PeerObject/TTSender.cpp
-  - PeerObject/TTScript.cpp
+  - PeerObject/TTStateManager.cpp
   - PeerObject/TTSubscriber.cpp
   - PeerObject/TTTextHandler.cpp
   - PeerObject/TTViewer.cpp
