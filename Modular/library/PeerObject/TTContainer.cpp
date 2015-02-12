@@ -607,13 +607,6 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		// 1 : cache observer
 		cacheElement.append(activityObserver);
 	}
-    
-    // Special case for PresetManager : do nothing ?
-	else if (anObject.name() == kTTSym_PresetManager) {
-		
-		// 1 : cache empty object
-		cacheElement.append(empty);
-	}
 	
 	else
 		// 1 : cache empty object
