@@ -66,6 +66,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_value;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_vectorSize;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_sampleRate;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_schema;
+extern TTFOUNDATION_EXPORT TTSymbol kTTSym_state;
 
 // networking
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_tcp;
@@ -128,8 +129,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_string;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Application;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_ApplicationManager;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Container;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Cue;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_CueManager;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_StateManager;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Data;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Explorer;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Input;
@@ -141,8 +141,6 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_NodeInfo;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_OpmlHandler;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Output;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_OutputAudio;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Preset;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_PresetManager;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Ramp;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Receiver;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Sender;

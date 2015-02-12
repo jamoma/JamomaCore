@@ -65,6 +65,7 @@ TTFOUNDATION_EXPORT TTSymbol		kTTSym_value					(("value"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_vectorSize				(("vectorSize"));
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_sampleRate				(("sampleRate"));
 TTFOUNDATION_EXPORT TTSymbol        kTTSym_schema                   (("schema"));
+TTFOUNDATION_EXPORT TTSymbol        kTTSym_state                    (("state"));
 
 // networking
 TTFOUNDATION_EXPORT TTSymbol		kTTSym_tcp						(("tcp"));
@@ -127,8 +128,7 @@ TTFOUNDATION_EXPORT TTSymbol		kTTSym_string					(("string"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Application                      (("Application"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_ApplicationManager				(("ApplicationManager"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Container                        (("Container"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_Cue                              (("Cue"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_CueManager                       (("CueManager"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_StateManager                       (("StateManager"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Data                             (("Data"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Explorer                         (("Explorer"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Input                            (("Input"));
