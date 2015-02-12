@@ -180,28 +180,6 @@ void TTFoundationLoadExternalClasses(void)
 		  return; // if we loaded classes out of a standalone app, then we don't want to be corrupted by global extensions Redmine #348
 		// it could be that you want to create a standalone with a plug-in architecture -- for now that problem is ignored.
 
-#ifdef OLD_MAC_EXTENSIONS_PATH
-		// Look in ~/Library/Application Support/Jamoma/Extensions
-		err = FSFindFolder(kLocalDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
-		if (!err) {
-			FSRefMakePath(&ref, path, 4096);
-			fullpath = (char*)path;
-			fullpath += "/Jamoma/Extensions";
-			TTFoundationLoadExternalClassesFromFolder(fullpath, true);
-		}
-
-		// Look in /Library/Application Support/Jamoma/Extensions
-		err = FSFindFolder(kUserDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
-		if (!err) {
-			FSRefMakePath(&ref, path, 4096);
-			fullpath = (char*)path;
-			fullpath += "/Jamoma/Extensions";
-			TTFoundationLoadExternalClassesFromFolder(fullpath, true);
-		}
-#else // NEW_MAC_EXTENSIONS_PATH
-		TTFoundationLoadExternalClassesFromFolder("/usr/local/jamoma/extensions", true);
-#endif
-
 	}
 #elif defined(TT_PLATFORM_WIN)
 	TTString	fullpath;
@@ -279,9 +257,6 @@ void TTFoundationLoadExternalClasses(void)
 
 TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath, bool isExtension)
 {
-  std::cerr<<"TTFoundationLoadExternalClassesFromFolder("<<fullpath<<", "<<isExtension<<")\n";
-
-
 #if defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX) || defined(TT_PLATFORM_WIN)
  	TTExtensionInitializationMethod	initializer;
 	TTString						initializerFunctionName;
@@ -343,34 +318,31 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath, bool i
     const TTString ext= isExtension ? ".ttdll" : ".dll";
 #endif
 
-    const int dlExtSize = ext.size();
-
-
 	DIR* dirp = opendir(fullpath.c_str());
 	dirent* dp;
-	while ((dp = readdir(dirp))) {
+	while ((dp = readdir(dirp)))
+    {
 		TTString fileName(dp->d_name);
+        
 		const char *cFileSuffix = strrchr(fileName.c_str(), '.');
 		if (!cFileSuffix)
 			continue;
+        
 		TTString fileSuffix(cFileSuffix);
-
-		TTString fileBaseName = fileName.substr(0, fileName.size() - dlExtSize);
+		TTString fileBaseName = fileName.substr(0, fileName.size() - fileSuffix.size());
 		TTString fileFullpath(fullpath);
+        
 		void *handle = NULL;
 
 		fileFullpath += "/";
 		fileFullpath += fileName;
 
-		// make sure the files have the correct extension before trying to load them
-		if (fileSuffix != ext)
-		  {
-		    if (fileName != "." && fileName != "..")
-		      std::cerr<<"file: "<<fileName<<" has wrong suffix: \""<<fileSuffix<<"\" instead of \""<<ext<<"\" for platform. It will not be loaded\n";
-
-		    continue;
-		  }
-
+        if (fileName == "." ||
+            fileName == ".."||
+            fileName == ".DS_Store")
+        {
+            continue;
+        }
 
 #if defined(TT_PLATFORM_WIN)
 		handle = LoadLibrary(fileFullpath.c_str());
@@ -378,7 +350,8 @@ TTErr TTFoundationLoadExternalClassesFromFolder(const TTString& fullpath, bool i
 		handle = dlopen(fileFullpath.c_str(), RTLD_LAZY);
 #endif
 		
-		if (!handle) {
+		if (!handle)
+        {
             std::cout << "ERROR: " << dlerror() << std::endl;
 			continue;
         }
