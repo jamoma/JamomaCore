@@ -144,7 +144,6 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_OutputAudio;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Ramp;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Receiver;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Sender;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Script;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Subscriber;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_TextHandler;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Viewer;

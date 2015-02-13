@@ -429,11 +429,11 @@ TTErr Scenario::Goto(const TTValue& inputValue, TTValue& outputValue)
             
             if (!muteRecall && !mMute)
             {
-                // create a temporary state to compile all the event states before the time offset
-                state = TTObject(kTTSym_Script);
+                // TODO : create a temporary state to compile all the event states before the time offset
+                //state = TTObject(kTTSym_Script);
                 
-                // add the state of the scenario start
-                TTScriptMerge(getTimeEventState(getStartEvent()), state);;
+                // TODO : add the state of the scenario start
+                //TTScriptMerge(getTimeEventState(getStartEvent()), state);
                 
                 // add the state of each event before the time offset (expect those which are muted)
                 for (mTimeEvents.begin(); mTimeEvents.end(); mTimeEvents.next())
@@ -447,9 +447,9 @@ TTErr Scenario::Goto(const TTValue& inputValue, TTValue& outputValue)
                     
                     if (!mute) {
                         
-                        // merge the event state into the temporary state
+                        // TODO : merge the event state into the temporary state
                         if (date < timeOffset)
-                            TTScriptMerge(getTimeEventState( getStartEvent()), state);
+                            ;//TTScriptMerge(getTimeEventState( getStartEvent()), state);
                     }
                 }
                 

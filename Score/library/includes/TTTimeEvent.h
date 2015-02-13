@@ -45,7 +45,7 @@ protected :
     
     TTBoolean                       mMute;                          ///< to not push the state
     
-    TTObject                        mState;                         ///< a state handled by the event
+    TTDictionary                    mState;                         ///< a state handled by the event
     
     TTObject                        mCondition;                     ///< a pointer to an optional condition object to make the event interactive
     
@@ -81,12 +81,12 @@ private :
     /** Set the state relative to the event
      @param	value           a state
      @return                #kTTErrNone*/
-    TTErr           setState(const TTValue& value);
+    //TTErr           setState(const TTValue& value);
     
     /** Get the state relative to the event
      @param	value           a state
      @return                #kTTErrNone*/
-    TTErr           getState(TTValue& value);
+    //TTErr           getState(TTValue& value);
     
     /** Request to make the event to wait
      @details the request will be apply on next StatusUpdate call

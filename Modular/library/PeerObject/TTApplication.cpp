@@ -159,8 +159,8 @@ TTErr TTApplication::getState(TTValue& newState) const
         {
             TTDictionary dictionary = newState[0]; // TODO: JamomaCore #319
             
-            // "snapshot" dictionary case : each key is an absolute address with a dictionary to pass to the object under the address
-            if (dictionary.getSchema() == TTSymbol("snapshot"))
+            // "Application" dictionary case : each key is an absolute address with a dictionary to pass to the object under the address
+            if (dictionary.getSchema() == kTTSym_Application)
             {
                 // for each keys of the dictionary
                 TTValue keys;
@@ -200,12 +200,6 @@ TTErr TTApplication::getState(TTValue& newState) const
                 }
                 
                 return kTTErrNone;
-            }
-            
-            // "namespace" dictionary case : keys are filtering options ?
-            if (dictionary.getSchema() == TTSymbol("namespace"))
-            {
-                return kTTErrGeneric;
             }
         }
     }

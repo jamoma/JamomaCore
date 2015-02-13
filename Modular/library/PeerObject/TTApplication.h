@@ -78,23 +78,28 @@ private:
 	TTAddress					mTempAddress;		///< a temporary address to parse xml file
     TTAddress					mFoldAddress;		///< a temporary address to duplicate address content
     TTUInt32                    mFolderSize;        ///< how many times the fold address have to be duplicated
-
+    
 #if 0
 #pragma mark -
-#pragma mark Attribute accesors
+#pragma mark State accesors
 #endif
     
     /** a specific #TTState getter to get the state of any object register inside the application
-	 @param[in] newState	#TTDictionary to fill and returned. it is possible to pass "snapshot" or "namespace" schema dictionary.
-	 @return #TTErrorNone if the method executes successfully, else an error code.
+	 @param[in] newState	#TTDictionary where each key is an absolute address with an "Object" dictionary to pass to the object under the address
+	 @return #TTErrorNone if the method executes successfully, else an error code
 	 */
     TTErr getState(TTValue& newState) const override;
     
     /** a specific #TTState setter to set the state of any object register inside the application
-	 @param[in] newState	#TTDictionary to apply.
-	 @return #TTErrorNone if the method executes successfully, else an error code.
+	 @param[in] newState	#TTDictionary where each key is an absolute address with an "Object" dictionary to pass to the object under the address
+	 @return #TTErrorNone if the method executes successfully, else an error code
 	 */
     TTErr setState(const TTValue& newState) override;
+    
+#if 0
+#pragma mark -
+#pragma mark Attribute accesors
+#endif
 	
 	/** Attribute accesor: set the name of the application
      @details set also the name of his #TTNodeDirectory

@@ -32,7 +32,6 @@ mName(kTTSymEmpty),
 mDate(0),
 mStatus(kTTSym_eventWaiting),
 mMute(NO),
-mState(kTTSym_Script),
 mMinReachedProcessesCounter(0),
 mEndedProcessesCounter(0),
 mDisposedProcessesCounter(0),
@@ -54,7 +53,6 @@ mPushing(NO)
     addAttribute(Name, kTypeSymbol);
    	addAttributeWithSetter(Date, kTypeUInt32);
     addAttribute(Mute, kTypeBoolean);
-    addAttributeWithGetterAndSetter(State, kTypeObject);
     addAttributeWithSetter(Condition, kTypeObject);
     addAttributeWithSetter(Status, kTypeSymbol);
     
@@ -89,9 +87,6 @@ mPushing(NO)
     
     // generate a random name
     mName = mName.random();
-    
-    // set state script as flattened
-    mState.set("flattened", TTBoolean(YES));
 }
 
 TTTimeEvent::~TTTimeEvent()
@@ -158,34 +153,35 @@ TTErr TTTimeEvent::setStatus(const TTValue& value)
     return applyStatus(value);
 }
 
+/*
 TTErr TTTimeEvent::setState(const TTValue& value)
 {
     mState = value;
-  /*
+  
     // check if the state is flattened
     TTBoolean flattened;
     mState.get("flattened", flattened);
     if (!flattened)
         mState.send("Flatten");
-   */
-   
+
     return kTTErrNone;
 }
+*/
 
+/*
 TTErr TTTimeEvent::getState(TTValue& value)
 {
-    /*
      // check if the state is flattened
      TTBoolean flattened;
      mState.get("flattened", flattened);
      if (!flattened)
      mState.send("Flatten");
-     */
     
     value = mState;
     
     return  kTTErrNone;
 }
+*/
 
 #if 0
 #pragma mark -
@@ -422,8 +418,9 @@ TTErr TTTimeEvent::StatePush()
     {
         mPushing = YES;
         
-        // recall the state
-        TTErr err = mState.send(kTTSym_Run);
+        // TODO : recall the state
+        TTErr err;
+        //TTErr err = mState.send(kTTSym_Run);
         
         mPushing = NO;
         
@@ -435,9 +432,8 @@ TTErr TTTimeEvent::StatePush()
 
 TTErr TTTimeEvent::StateClear()
 {
-    TTErr err = mState.send("Clear");
-    mState.set("flattened", TTBoolean(YES));
-    return err;
+    mState.clear();
+    return kTTErrNone;
 }
 
 TTErr TTTimeEvent::StateAddressGetValue(const TTValue& inputValue, TTValue& outputValue)
@@ -449,13 +445,8 @@ TTErr TTTimeEvent::StateAddressGetValue(const TTValue& inputValue, TTValue& outp
             TTValue     v;
             TTAddress   address = inputValue[0];
             
-            // check if the state is flattened
-            TTBoolean flattened;
-            mState.get("flattened", flattened);
-            if (!flattened)
-                mState.send("Flatten");
-            
-            // get the lines of the state
+            // TODO : get the lines of the state
+            /*
             mState.get("flattenedLines", v);
             TTListPtr flattenedLines = TTListPtr(TTPtr(v[0]));
             
@@ -471,6 +462,7 @@ TTErr TTTimeEvent::StateAddressGetValue(const TTValue& inputValue, TTValue& outp
             aLine->getValue(outputValue);
             
             return  kTTErrNone;
+             */
         }
     }
     
@@ -486,13 +478,8 @@ TTErr TTTimeEvent::StateAddressSetValue(const TTValue& inputValue, TTValue& outp
             TTValue     v;
             TTAddress   address = inputValue[0];
             
-            // check if the state is flattened
-            TTBoolean flattened;
-            mState.get("flattened", flattened);
-            if (!flattened)
-                mState.send("Flatten");
-            
-            // get the lines of the state
+            // TODO : get the lines of the state
+            /*
             mState.get("flattenedLines", v);
             TTListPtr flattenedLines = TTListPtr(TTPtr(v[0]));
             
@@ -516,6 +503,7 @@ TTErr TTTimeEvent::StateAddressSetValue(const TTValue& inputValue, TTValue& outp
                 
                 return  kTTErrNone;
             }
+             */
         }
     }
     
@@ -530,8 +518,8 @@ TTErr TTTimeEvent::StateAddressClear(const TTValue& inputValue, TTValue& outputV
     {
         if (inputValue[0].type() == kTypeSymbol)
         {
-            // remove the lines of the state
-            return mState.send("RemoveCommand", inputValue);
+            // TODO : remove the lines of the state
+            //return mState.send("RemoveCommand", inputValue);
         }
     }
     
@@ -540,13 +528,8 @@ TTErr TTTimeEvent::StateAddressClear(const TTValue& inputValue, TTValue& outputV
 
 TTErr TTTimeEvent::StateAddresses(const TTValue& inputValue, TTValue& outputValue)
 {
-    // check if the state is flattened
-    TTBoolean flattened;
-    mState.get("flattened", flattened);
-    if (!flattened)
-        mState.send("Flatten");
-    
-    // get the state lines
+    // TODO : get the state lines
+    /*
     TTValue out;
     mState.get("flattenedLines", out);
     TTListPtr flattenedLines = TTListPtr((TTPtr)out[0]);
@@ -569,7 +552,7 @@ TTErr TTTimeEvent::StateAddresses(const TTValue& inputValue, TTValue& outputValu
         
         return kTTErrNone;
     }
-    
+    */
     return kTTErrGeneric;
 }
 
@@ -729,8 +712,8 @@ TTErr TTTimeEvent::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
         xmlTextWriterWriteAttribute((xmlTextWriterPtr)aXmlHandler->mWriter, BAD_CAST "condition", BAD_CAST s.data());
     }
     
-    // write the state
-    aXmlHandler->setAttributeValue(kTTSym_object, mState);
+    // TODO : write the state
+    //aXmlHandler->setAttributeValue(kTTSym_object, mState);
     aXmlHandler->sendMessage(kTTSym_Write);
     
 	return kTTErrNone;
@@ -789,8 +772,8 @@ TTErr TTTimeEvent::ReadFromXml(const TTValue& inputValue, TTValue& outputValue)
     // Command node
     if (aXmlHandler->mXmlNodeName == kTTSym_command) {
         
-        // Pass the xml handler to the current state to fill his data structure
-        aXmlHandler->setAttributeValue(kTTSym_object, mState);
+        // TODO : Pass the xml handler to the current state to fill his data structure
+        //aXmlHandler->setAttributeValue(kTTSym_object, mState);
         return aXmlHandler->sendMessage(kTTSym_Read);
     }
 	

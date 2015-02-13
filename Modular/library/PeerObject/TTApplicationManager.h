@@ -63,7 +63,7 @@ enum TTApplicationNotificationFlag {
  
  @see TTApplication, ProtocolLib
  */
-class TTMODULAR_EXPORT TTApplicationManager : public TTObjectBase
+class TTMODULAR_EXPORT TTApplicationManager : public TTObjectBase, public TTState
 {
 	TTCLASS_SETUP(TTApplicationManager)
 	
@@ -79,7 +79,24 @@ private:
 	TTMutexPtr			mApplicationObserversMutex;			///< a Mutex to protect the mObservers hash table.
     
     TTObject            mCurrentProtocol;                   ///< used for ReadFromXml mechanism
-
+    
+#if 0
+#pragma mark -
+#pragma mark State accesors
+#endif
+    
+    /** a specific #TTState getter to get the state of any application
+	 @param[in] newState	#TTDictionary where each key is an application name with a dictionary to pass to the application
+	 @return #TTErrorNone if the method executes successfully, else an error code
+	 */
+    TTErr getState(TTValue& newState) const override;
+    
+    /** a specific #TTState setter to set the state of any application
+	 @param[in] newState	#TTDictionary where each key is an application name with a dictionary to pass to the application
+	 @return #TTErrorNone if the method executes successfully, else an error code
+	 */
+    TTErr setState(const TTValue& newState) override;
+    
 #if 0
 #pragma mark -
 #pragma mark Application accesors

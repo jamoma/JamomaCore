@@ -55,7 +55,7 @@ public:
 	TTErr append(const TTPtr key, const TTValue& value);
 
 	/** Find the value for the given key. */
-	TTErr lookup(const TTSymbol key, TTValue& value);
+	TTErr lookup(const TTSymbol key, TTValue& value) const;
 	
 	// This is used by the Ruby extension
 	TTErr lookup(const TTPtr key, TTValue& value);

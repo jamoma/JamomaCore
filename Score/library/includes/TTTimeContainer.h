@@ -54,8 +54,8 @@ protected :
     
     /** Getter on state time event protected member
      @param aTimeEvent      a time event object
-     @return                a state object */
-    TTObject&               getTimeEventState(TTObject& aTimeEvent);
+     @return                a state dictionary */
+    TTDictionary&           getTimeEventState(TTObject& aTimeEvent);
     
     /** Getter on condition time event protected member
      @param aTimeEvent      a time event object

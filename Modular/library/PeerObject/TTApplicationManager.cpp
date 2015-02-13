@@ -24,6 +24,7 @@
 #define thisTTClassTags		"application, manager"
 
 TT_MODULAR_CONSTRUCTOR,
+TT_STATE,
 mApplicationObserversMutex(NULL)
 {
     TT_ASSERT("TTModularApplicationManager is NULL", (TTModularApplicationManager == NULL));
@@ -109,6 +110,89 @@ TTApplicationManager::~TTApplicationManager()
     
     // reset the TTModularApplicationManager pointer
     TTModularApplicationManager = NULL;
+}
+
+#if 0
+#pragma mark -
+#pragma mark State accesors
+#endif
+
+TTErr TTApplicationManager::getState(TTValue& newState) const
+{
+    if (newState.size() == 1)
+    {
+        if (newState[0].type() == kTypeDictionary)
+        {
+            TTDictionary dictionary = newState[0]; // TODO: JamomaCore #319
+            
+            // "ApplicationManager" dictionary : each key is an application name with a dictionary to pass to the application
+            if (dictionary.getSchema() == kTTSym_ApplicationManager)
+            {
+                // for each keys of the dictionary
+                TTValue keys;
+                dictionary.getKeys(keys);
+                
+                for (TTUInt32 i = 0; i < keys.size(); i++)
+                {
+                    TTSymbol    applicationName = keys[i];
+                    TTValue     applicationValue;
+                    
+                    // get the application
+                    if (!mApplications.lookup(applicationName, applicationValue))
+                    {
+                        TTObject    application = applicationValue;
+                        TTValue     applicationDictionary;
+                        
+                        dictionary.lookup(applicationName, applicationDictionary);
+                        application.get(kTTSym_state, applicationDictionary);
+                    }
+                }
+            }
+            
+            return kTTErrNone;
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTApplicationManager::setState(const TTValue& newState)
+{
+    if (newState.size() == 1)
+    {
+        if (newState[0].type() == kTypeDictionary)
+        {
+            TTDictionary dictionary = newState[0]; // TODO: JamomaCore #319
+            
+            // "ApplicationManager" dictionary : each key is an application name with a dictionary to pass to the application
+            if (dictionary.getSchema() == kTTSym_ApplicationManager)
+            {
+                // for each keys of the dictionary
+                TTValue keys;
+                dictionary.getKeys(keys);
+                
+                for (TTUInt32 i = 0; i < keys.size(); i++)
+                {
+                    TTSymbol    applicationName = keys[i];
+                    TTValue     applicationValue;
+                    
+                    // get the application
+                    if (!mApplications.lookup(applicationName, applicationValue))
+                    {
+                        TTObject    application = applicationValue;
+                        TTValue     applicationDictionary;
+                        
+                        dictionary.lookup(applicationName, applicationDictionary);
+                        application.set(kTTSym_state, applicationDictionary);
+                    }
+                }
+            }
+            
+            return kTTErrNone;
+        }
+    }
+    
+    return kTTErrGeneric;
 }
 
 #if 0

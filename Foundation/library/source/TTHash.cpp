@@ -73,7 +73,7 @@ TTErr TTHash::append(const TTSymbol key, const TTValue& value)
 }
 
 
-TTErr TTHash::lookup(const TTSymbol key, TTValue& value)
+TTErr TTHash::lookup(const TTSymbol key, TTValue& value) const
 {
 	return lookup(TTPtr(key.rawpointer()), value);
 }

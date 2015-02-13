@@ -59,7 +59,7 @@ TTSymbol& TTTimeContainer::getTimeEventStatus(TTObject& aTimeEvent)
     return TTTimeEventPtr(aTimeEvent.instance())->mStatus;
 }
 
-TTObject& TTTimeContainer::getTimeEventState(TTObject& aTimeEvent)
+TTDictionary& TTTimeContainer::getTimeEventState(TTObject& aTimeEvent)
 {
     return TTTimeEventPtr(aTimeEvent.instance())->mState;
 }
