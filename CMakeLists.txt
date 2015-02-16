@@ -22,7 +22,7 @@ if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Score" AND NOT IOS)
 	add_subdirectory(Score)
 endif()
 
-if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/../Implementations/Max" AND NOT DONT_BUILD_JAMOMAMAX AND NOT IOS)
+if(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/../Implementations/Max" AND BUILD_JAMOMAMAX AND NOT IOS)
 	add_subdirectory(../Implementations/Max ../build/Max)
 endif()
 
