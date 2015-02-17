@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
-project (Score)
+
+set(JAMOMA_CURRENT_LIBRARY_NAME "Score")
 
 add_subdirectory(library)
 add_subdirectory(extensions)

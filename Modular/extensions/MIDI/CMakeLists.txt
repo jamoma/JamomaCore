@@ -33,9 +33,9 @@ include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../library/ProtocolLib")
 include_directories("${PORTMIDI_INCLUDE_DIR}")
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
+add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME} Foundation)
 target_link_libraries(${PROJECT_NAME} ${PORTMIDI_LIBRARIES})
 
 if(WIN32)
@@ -46,13 +46,7 @@ addAppleFramework(CoreMIDI)
 addAppleFramework(CoreFoundation)
 addAppleFramework(CoreAudio)
 addAppleFramework(Carbon)
+
 if(APPLE)
-	message("Linking with: ${OSX_FRAMEWORKS}")
 	target_link_libraries(${PROJECT_NAME} ${OSX_FRAMEWORKS})
 endif()
-
-### Output ###
-setOutput()
-
-### Tests ###
-addTestTarget()

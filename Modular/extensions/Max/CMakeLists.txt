@@ -27,9 +27,8 @@ if(APPLE)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include../../../../Implementations/Max/source/c74support/max-includes/macho-prefix.pch")
 endif()
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
-
-target_link_libraries(${PROJECT_NAME} Foundation)
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
+add_jamoma_extension()
 
 # TODO generalize this in a max module file.
 if(WIN32)
@@ -41,9 +40,3 @@ if(WIN32)
 		target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/maxcrt_p.lib")
 	endif()
 endif()
-
-### Output ###
-setOutput()
-
-### Tests ###
-addTestTarget()

@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(Modular)
-	
+
+# TODO Make proper libraries for these three
 set(JAMOMA_MODULAR_PROTOCOLLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ProtocolLib" 
 	CACHE 
 	STRING "ProtocolLib includes" FORCE)

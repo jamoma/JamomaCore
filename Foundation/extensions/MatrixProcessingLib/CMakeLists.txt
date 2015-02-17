@@ -7,19 +7,14 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMatrixStencil.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMatrixGain.cpp
 
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTMatrixGain.test.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/tests/TTMatrixStencil.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTMatrixStencil.test.cpp)
 
-)
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
 
-target_link_libraries(${PROJECT_NAME} Foundation)
+add_jamoma_extension()
 
-### Output ###
-setOutput()
 
-### Tests ###
-addTestTarget()

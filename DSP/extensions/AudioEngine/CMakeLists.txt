@@ -22,19 +22,12 @@ ${CMAKE_CURRENT_SOURCE_DIR}/TTAudioEngine.cpp
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories(${PORTAUDIO_INCLUDE_DIR})
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
+add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME} Foundation)
-target_link_libraries(${PROJECT_NAME} DSP)
 target_link_libraries(${PROJECT_NAME} ${PORTAUDIO_LIBRARIES})
 
 addAppleFramework(Carbon)
 addAppleFramework(CoreAudio)
 addAppleFramework(AudioUnit)
 addAppleFramework(AudioToolbox)
-
-### Output ###
-setOutput()
-
-### Tests ###
-addTestTarget()

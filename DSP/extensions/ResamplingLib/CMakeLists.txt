@@ -9,13 +9,5 @@ ${CMAKE_CURRENT_SOURCE_DIR}/TTStaircase.cpp
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
-
-target_link_libraries(${PROJECT_NAME} Foundation)
-target_link_libraries(${PROJECT_NAME} DSP)
-
-### Output ###
-setOutput()
-
-### Tests ###
-addTestTarget()
+file(GLOB PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+add_jamoma_extension()

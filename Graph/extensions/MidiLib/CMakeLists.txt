@@ -20,14 +20,14 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMidiInput.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMidiOutput.cpp
 )
 
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
+
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories(${PORTMIDI_INCLUDE_DIR})
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
+add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME} Foundation)
-target_link_libraries(${PROJECT_NAME} DSP)
-target_link_libraries(${PROJECT_NAME} Graph)
+
 target_link_libraries(${PROJECT_NAME} ${PORTMIDI_LIBRARIES})
 
 addAppleFramework(CoreMIDI)
@@ -35,8 +35,3 @@ addAppleFramework(CoreFoundation)
 addAppleFramework(CoreAudio)
 addAppleFramework(Carbon)
 
-### Output ###
-setOutput()
-
-### Tests ###
-addTestTarget()

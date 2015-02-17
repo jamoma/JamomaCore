@@ -29,16 +29,7 @@ if(ANDROID)
 include_directories("${CMAKE_FIND_ROOT_PATH}/include")
 endif()
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS} ${PROJECT_HDRS})
+add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME} Foundation)
-target_link_libraries(${PROJECT_NAME} DSP)
-target_link_libraries(${PROJECT_NAME} Modular)
-target_link_libraries(${PROJECT_NAME} Score)
 target_link_libraries(${PROJECT_NAME} ${LIBXML2_LIBRARIES})
 
-### Output ###
-setOutput()
-
-### Tests ###
-addTestTarget()

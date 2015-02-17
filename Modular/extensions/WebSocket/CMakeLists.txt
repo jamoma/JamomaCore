@@ -38,15 +38,10 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 	add_definitions(-DJAMOMA_WEBSOCKET_JSON_DEBUG)
 endif()
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
+add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME} Foundation)
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} winmm)
 endif()
 
-### Output ###
-setOutput()
-
-### Tests ###
-addTestTarget()

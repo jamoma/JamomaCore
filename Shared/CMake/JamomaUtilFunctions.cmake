@@ -14,15 +14,15 @@ function(setupJamomaLibraryProperties LIBNAME)
 
 	# TODO replace with target_include_directories
 	if(APPLE)
-	set_property(TARGET ${LIBNAME} APPEND
-				PROPERTY INTERFACE_INCLUDE_DIRECTORIES
-					$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
-					$<INSTALL_INTERFACE:include>)
+		set_property(TARGET ${LIBNAME} APPEND
+					 PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+						$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
+						$<INSTALL_INTERFACE:include>)
 	else()
-	set_property(TARGET ${LIBNAME} APPEND
-				 PROPERTY INTERFACE_INCLUDE_DIRECTORIES
-					$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
-					$<INSTALL_INTERFACE:include/jamoma>)
+		set_property(TARGET ${LIBNAME} APPEND
+					 PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+						$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
+						$<INSTALL_INTERFACE:include/jamoma>)
 	endif()
 
 	install(TARGETS ${LIBNAME}
@@ -30,6 +30,8 @@ function(setupJamomaLibraryProperties LIBNAME)
 			LIBRARY DESTINATION lib
 			ARCHIVE DESTINATION lib
 			RUNTIME DESTINATION bin)
+
+	# TODO make a single variable for the include folder.
 	if(APPLE)
 		install(FILES ${PROJECT_HDRS} DESTINATION "include")
 	else()
@@ -45,6 +47,42 @@ function(setupJamomaLibraryProperties LIBNAME)
 			NAMESPACE Jamoma::
 			DESTINATION ${ConfigPackageLocation})
 endFunction()
+
+
+function(add_jamoma_extension)
+	# TODO : static extensions
+	add_library(${PROJECT_NAME}
+				SHARED
+				${PROJECT_SRCS} ${PROJECT_HDRS})
+
+	target_link_libraries(${PROJECT_NAME} ${JAMOMA_CURRENT_LIBRARY_NAME})
+
+	# Install the extension
+	if(APPLE)
+		set(JAMOMA_EXTENSION_FOLDER "extensions")
+	else()
+		set(JAMOMA_EXTENSION_FOLDER "lib/jamoma")
+	endif()
+
+	install(TARGETS ${PROJECT_NAME}
+			EXPORT ${JAMOMA_CURRENT_LIBRARY_NAME}Targets
+			DESTINATION "${JAMOMA_EXTENSION_FOLDER}")
+
+	# Set extension suffix according to platform conventions
+	if(APPLE)
+		set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdylib")
+	elseif(ANDROID)
+		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".so")
+	elseif(UNIX)
+		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttso")
+	elseif(WIN32)
+		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdll")
+	endif()
+
+	### Tests ###
+	addTestTarget()
+endfunction()
 
 function(addJamomaLibrary)
 	# Dynamic
@@ -82,16 +120,7 @@ endFunction()
 ## Set suffixes according to the conventions of the Jamoma project ##
 # todo instead make properties sets.
 function(setExtensionSuffix)
-	if(APPLE)
-		set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
-		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdylib")
-	elseif(ANDROID)
-		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".so")
-	elseif(UNIX)
-		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttso")
-	elseif(WIN32)
-		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdll")
-	endif()
+	
 endFunction(setExtensionSuffix)
 
 function(setExternalSuffix)
@@ -179,32 +208,15 @@ endFunction()
 
 
 ## Function to set install path ##
-if(APPLE)
-	function(setOutput)
-		if(DEFINED IS_EXTENSION)
-			setExtensionSuffix()
-			INSTALL(TARGETS ${PROJECT_NAME} 
-					DESTINATION "extensions")
-		elseif(DEFINED IS_EXTERNAL)
-			setExternalSuffix()
-			INSTALL(TARGETS ${PROJECT_NAME} 
-					DESTINATION "externals")
-		endif()
-	endFunction()
-else()
-	function(setOutput)
-		if(DEFINED IS_EXTENSION)
-			setExtensionSuffix()
-			INSTALL(TARGETS ${PROJECT_NAME}
-					DESTINATION "lib/jamoma"
-			)
-		elseif(DEFINED IS_EXTERNAL)
-			setExternalSuffix()
-			INSTALL(TARGETS ${PROJECT_NAME}
-					DESTINATION "externals")
-		endif()
-	endFunction()
-endif()
+function(setOutput)
+	if(DEFINED IS_EXTENSION)
+		
+	elseif(DEFINED IS_EXTERNAL)
+		setExternalSuffix()
+		INSTALL(TARGETS ${PROJECT_NAME} 
+				DESTINATION "externals")
+	endif()
+endFunction()
 
 
 ## Function to add the Max/MSP includes ##

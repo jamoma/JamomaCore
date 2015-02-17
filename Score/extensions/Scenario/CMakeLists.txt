@@ -45,21 +45,11 @@ if(WIN32)
 	add_definitions("/DNOMINMAX")
 endif()
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS} ${PROJECT_HDRS})
+add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME} Foundation)
-target_link_libraries(${PROJECT_NAME} DSP)
-target_link_libraries(${PROJECT_NAME} Modular)
-target_link_libraries(${PROJECT_NAME} Score)
 target_link_libraries(${PROJECT_NAME} ${LIBXML2_LIBRARIES})
 
 # TODO make FindPthreadWin32.cmake
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} "${PTHREAD_WIN32_PATH_CMAKE}/lib/x86/pthreadVC2.lib")
 endif()
-
-### Output ###
-setOutput()
-
-### Tests ###
-addTestTarget()
