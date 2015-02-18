@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 project(Max)
 
 if(IOS OR (NOT APPLE AND NOT WIN32))

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 project(Foundation)
 
 set(JAMOMA_ICONV_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libiconv/include" 

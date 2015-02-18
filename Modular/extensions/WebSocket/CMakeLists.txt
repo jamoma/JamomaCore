@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 project(WebSocket)
 
 if(ANDROID OR (WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8))

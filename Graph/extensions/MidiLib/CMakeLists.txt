@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 project(MidiLib)
 
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID)
