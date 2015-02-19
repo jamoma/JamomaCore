@@ -31,10 +31,10 @@ if(UNIX)
 			# LDFLAGS += -install_name "@loader_path/../../../../support/$(NAME).dylib" 
 
 			# CPack
-			SET(CPACK_GENERATOR "Bundle")
+			SET(CPACK_GENERATOR "DragNDrop")
 			SET(CPACK_BUNDLE_NAME "Jamoma")
-			SET(CPACK_BUNDLE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Shared/CMake/packaging/MacOS/icone.icns")
-			SET(CPACK_BUNDLE_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Shared/CMake/packaging/MacOS/jamoma-Info.plist")
+			SET(CPACK_BUNDLE_ICON "${CMAKE_CURRENT_LIST_DIR}/packaging/MacOS/icone.icns")
+			SET(CPACK_BUNDLE_PLIST "${CMAKE_CURRENT_LIST_DIR}/packaging/MacOS/jamoma-Info.plist")
 		endif()
 	## Linux ##
 	elseif(UNIX)

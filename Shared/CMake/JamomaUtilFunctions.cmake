@@ -222,11 +222,15 @@ endFunction()
 ## Function to add the Max/MSP includes ##
 # TODO put this in a module file instead.
 function(addMaxsupport)
-	set(MAXSDK_PATH "${CMAKE_SOURCE_DIR}/../Implementations/Max/source/c74support")
+	find_path(JAMOMAMAX_PATH "source/c74support/max-includes/commonsyms.h"
+			  HINTS "${CMAKE_SOURCE_DIR}/../Implementations/Max"
+			  		"${CMAKE_SOURCE_DIR}/Implementations/Max")
+	set(MAXSDK_PATH "${JAMOMAMAX_PATH}/source/c74support/")
+
 	include_directories("${MAXSDK_PATH}/max-includes")
 	include_directories("${MAXSDK_PATH}/msp-includes")
 	include_directories("${MAXSDK_PATH}/jit-includes")
-	include_directories("${CMAKE_SOURCE_DIR}/../Implementations/Max/library/includes")
+	include_directories("${JAMOMAMAX_PATH}/library/includes")
 
 	FIND_LIBRARY(MaxAPI_LIB 
 				 NAMES MaxAPI
