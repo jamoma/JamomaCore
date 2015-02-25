@@ -437,24 +437,14 @@ inline void TTAtomicAssign(TTAtomicInt& value, const TTAtomicInt& newValue, cons
 		so that it can be defined in the header file and then inlined in other libraries.	*/
 inline TTFloat64 TTGetTimeInMilliseconds()
 {
-	// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
-#if	CLOCKS_PER_SEC == 1000000
-	return clock() / 1000.0;
-#else
 	return (clock() * 1000.0) / CLOCKS_PER_SEC;
-#endif
 }
 
 
 	/**	Return the current system time in microseconds.	*/
 inline TTFloat64 TTGetTimeInMicroseconds()
 {
-	// On the Mac, CLOCKS_PER_SEC is 1000000, so we optimize
-#if	CLOCKS_PER_SEC == 1000000
-	return clock();
-#else
 	return (clock() * 1000000.0) / CLOCKS_PER_SEC;
-#endif
 }
 
 
