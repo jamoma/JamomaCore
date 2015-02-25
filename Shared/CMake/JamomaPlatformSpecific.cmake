@@ -39,6 +39,7 @@ if(UNIX)
 	## Linux ##
 	elseif(UNIX)
 		add_definitions(-DTT_PLATFORM_LINUX)
+		set(CMAKE_POSITION_INDEPENDENT_CODE True)
 		if(ANDROID)
 			#set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};/opt/android-toolchain/arm-linux-androideabi/local/lib")
 			#set(CMAKE_INCLUDE_PATH "${CMAKE_INCLUDE_PATH};/opt/android-toolchain/arm-linux-androideabi/local/include")

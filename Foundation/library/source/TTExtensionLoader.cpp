@@ -85,19 +85,19 @@ template<typename OS, typename Loader, typename GetProc>
 // GetProc : a callable object that takes a handle and a function name, 
 //           and returns a pointer to the function.
 bool loadClass(const string& filename, 
-			   const string& fullpath, 
+			   const string& folder,
 			   Loader&& handle_fun, 
 			   GetProc&& getproc_fun)
 {
 	// Check if the file is a Jamoma extension
 	if(!isExtensionFilename<OS>(filename))
 		return false;
-	
+
 	// Get a handle
-	void *handle = handle_fun(filename.c_str());
+	void *handle = handle_fun((folder + "/" + filename).c_str());
 	if (!handle)
 	{
-		TTLogMessage("Error when trying to get an handle on %s.", filename.c_str());
+		TTLogMessage("Error when trying to get an handle on %s.\n", filename.c_str());
 		return false;
 	}
 
@@ -109,7 +109,7 @@ bool loadClass(const string& filename,
 		auto err = initializer();
 		if(err != kTTErrNone)
 		{
-			TTLogMessage("Error when initializing extension %s\n", filename.c_str());
+			TTLogMessage("Error when initializing extension %s.\n", filename.c_str());
 			return false;
 		}
 		return true;
@@ -154,9 +154,9 @@ class UnixCommon
 
 		template<typename OS>
 		// Try to load extensions. Returns "true" only if at least one extension was loaded.
-		static bool loadClassesFromFolder(const string& fullpath)
+		static bool loadClassesFromFolder(const string& folder)
 		{
-			DIR* dirp = opendir(fullpath.c_str());
+			DIR* dirp = opendir(folder.c_str());
 			if(!dirp)
 				return false;
 
@@ -165,7 +165,7 @@ class UnixCommon
 			while ((dp = readdir(dirp)))
 			{
 				if(loadClass<OS>(dp->d_name, 
-								 fullpath, 
+								 folder,
 								[] (const char * file) 
 								{ return dlopen(file, RTLD_LAZY); },
 								[] (void* handle, const char * fun) 
@@ -179,7 +179,7 @@ class UnixCommon
 			
 			if(count > 0)
 			{
-				TTFoundationBinaryPath = fullpath.c_str();
+				TTFoundationBinaryPath = folder.c_str();
 				return true;
 			}
 			
@@ -302,7 +302,7 @@ class WinSpecific
 		static string computedRelativePath();
 		static StringVector builtinRelativePaths();
 		static StringVector builtinAbsolutePaths();
-		static bool loadClassesFromFolder(const string& fullpath);
+		static bool loadClassesFromFolder(const string& folder);
 };
 
 // Specializations since windows does not support constexpr yet.
@@ -366,9 +366,9 @@ StringVector WinSpecific::builtinAbsolutePaths()
 	};
 }
 
-bool WinSpecific::loadClassesFromFolder(const string& fullpath)
+bool WinSpecific::loadClassesFromFolder(const string& folder)
 {
-	auto windowsPathSpec = fullpath 
+	auto windowsPathSpec = folder
 							+ "/*" 
 							+ string{WinSpecific::extensionSuffix};
 	WIN32_FIND_DATA FindFileData;
@@ -381,7 +381,7 @@ bool WinSpecific::loadClassesFromFolder(const string& fullpath)
 	do {
 		if(loadClass<WinSpecific>(
 						 FindFileData.cFileName, 
-						 fullpath, 
+						 folder,
 						[] (const char * file) 
 						{ return LoadLibrary(file); },
 						[] (void* handle, const char * fun) 
@@ -395,7 +395,7 @@ bool WinSpecific::loadClassesFromFolder(const string& fullpath)
 	
 	if(count > 0)
 	{
-		TTFoundationBinaryPath = fullpath.c_str();
+		TTFoundationBinaryPath = folder.c_str();
 		return true;
 	}
 			

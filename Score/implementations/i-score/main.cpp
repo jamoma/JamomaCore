@@ -38,7 +38,7 @@ int main(int argc, const char * argv[])
             TTSymbol filepath = args[0];    // .score file to load
             
             // initialisation of Modular environnement (passing the folder path where all the dylibs are)
-            TTModularInit("/usr/local/jamoma");
+            TTModularInit("/usr/local/jamoma", true);
             
             // create an application manager
             TTObject applicationManager("ApplicationManager");

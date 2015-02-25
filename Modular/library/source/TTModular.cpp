@@ -42,10 +42,10 @@ int main(void)
 }
 #endif
 
-void TTModularInit(const char* binaries)
+void TTModularInit(const char* binaries, bool loadFromBuiltinPaths)
 {
     // Initialized Foundation framework
-	TTFoundationInit(binaries);
+	TTFoundationInit(binaries, loadFromBuiltinPaths);
     
 //#define TO_DEBUG
 #ifdef TO_DEBUG
