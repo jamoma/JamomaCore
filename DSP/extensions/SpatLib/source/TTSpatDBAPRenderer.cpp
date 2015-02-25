@@ -49,7 +49,7 @@ void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatSourceVector& aSour
 	mMixerMatrixCoefficients->setRowCount(TTUInt32(aSources.size()));
 	mMixerMatrixCoefficients->setColumnCount(TTUInt32(aSinks.size()));
 
-	for (TTInt32 source=0; source<aSources.size(); source++) {
+	for (TTInt32 source=0; source < (TTInt32) aSources.size(); source++) {
 		TTSpatDBAPSource* dbapSource = getDBAPSource(aSources, source);
 
 		// The source that we want to locate the nearest sink DBAPor:
@@ -67,7 +67,7 @@ void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatSourceVector& aSour
 		mMixerMatrixCoefficients->set2d(source, 0., 0.);
 
 		// Now we iterate over the remaining sinks to see iDBAP any oDBAP them are closer
-		for (TTInt32 sink=1; sink<aSinks.size(); sink++) {
+		for (TTInt32 sink=1; sink < (TTInt32) aSinks.size(); sink++) {
 
 			aSinks[sink].getPosition(sinkX, sinkY, sinkZ);
 

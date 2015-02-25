@@ -41,7 +41,7 @@ private:
     
 	TTValue				mNames;							///< ATTRIBUTE : cues are ordered by name
 	TTSymbol			mCurrent;						///< ATTRIBUTE : the current cue name
-	TTInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
+	TTUInt32				mCurrentPosition;				///< ATTRIBUTE : the current cue position
 	TTSymbol			mNamespace;						///< ATTRIBUTE : the name of the namespace selection to use
     TTAddress           mAddress;						///< ATTRIBUTE : an address to make the mangment relative to
 	TTHash              mCues;							///< ATTRIBUTE : a hash table containing <name, #TTCue>

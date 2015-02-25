@@ -162,7 +162,7 @@ TTErr MIDI::Scan(const TTValue& inputValue, TTValue& outputValue)
                 return kTTErrGeneric;
             }
             
-            for (TTUInt32 i = 0; i < deviceCount; i++) {
+			for (TTInt32 i = 0; i < deviceCount; i++) {
                 
                 deviceInfo = Pm_GetDeviceInfo(i);
                 
