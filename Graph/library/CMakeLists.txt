@@ -18,16 +18,10 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTParameter.cpp
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 
+add_jamoma_library()
 
-addJamomaLibrary()
 target_link_libraries(${PROJECT_NAME} Foundation)
 target_link_libraries(${PROJECT_NAME} DSP)
 
-addAppleFramework(Carbon)
-
-
-### Output ###
-setOutput()
-
-### Tests ###
+### Tests ###
 addTestTarget()

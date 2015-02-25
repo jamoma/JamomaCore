@@ -12,6 +12,12 @@ if(NOT PORTMIDI_FOUND)
   return()
 endif()
 
+if(WIN32)
+	message("We can't build ${PROJECT_NAME} on Windows Release yet")
+	message("TODO : Rebuild PortMidi with /MD")
+	return()
+endif()
+
 set(PROJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/MidiLib.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMidiFilter.cpp
@@ -23,15 +29,19 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMidiOutput.cpp
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories(${PORTMIDI_INCLUDE_DIR})
+include_directories(${PORTMIDI_INCLUDE_DIRS})
 
 add_jamoma_extension()
 
+target_link_libraries(${PROJECT_NAME}
+					  debug ${PORTMIDI_LIBRARIES_DEBUG}
+					  optimized ${PORTMIDI_LIBRARIES_DEBUG})
 
-target_link_libraries(${PROJECT_NAME} ${PORTMIDI_LIBRARIES})
+if(WIN32)
+	target_link_libraries(${PROJECT_NAME} winmm)
+endif()
 
-addAppleFramework(CoreMIDI)
-addAppleFramework(CoreFoundation)
-addAppleFramework(CoreAudio)
-addAppleFramework(Carbon)
+target_link_frameworks(TARGET ${PROJECT_NAME}
+					   FRAMEWORKS Carbon CoreAudio CoreMIDI CoreFoundation)
+
 

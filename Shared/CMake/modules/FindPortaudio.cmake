@@ -13,6 +13,33 @@
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 #
 
+# Use the libraries in the Jamoma tree
+if(APPLE OR WIN32)
+	find_path(PORTAUDIO_INCLUDE_DIRS portaudio.h
+			  PATHS
+			  ${CMAKE_CURRENT_LIST_DIR}/../../../DSP/extensions/AudioEngine/portaudio/include)
+	if(APPLE)
+		find_library(PORTAUDIO_LIBRARIES portaudio-jamoma
+					 PATHS
+					 ${CMAKE_CURRENT_LIST_DIR}/../../../DSP/extensions/AudioEngine/portaudio/)
+		set(PORTAUDIO_LIBRARIES_DEBUG ${PORTAUDIO_LIBRARIES})
+		set(PORTAUDIO_LIBRARIES_RELEASE ${PORTAUDIO_LIBRARIES})
+	elseif(WIN32)
+		find_library(PORTAUDIO_LIBRARIES_DEBUG PortAudio
+					 PATHS
+					 ${CMAKE_CURRENT_LIST_DIR}/../../../DSP/extensions/AudioEngine/portaudio/Debug)
+		find_library(PORTAUDIO_LIBRARIES_RELEASE PortAudio
+					 PATHS
+					 ${CMAKE_CURRENT_LIST_DIR}/../../../DSP/extensions/AudioEngine/portaudio/Release)
+		set(PORTAUDIO_LIBRARIES ${PORTAUDIO_LIBRARIES_DEBUG} ${PORTAUDIO_LIBRARIES_RELEASE})
+	endif()
+
+	include(FindPackageHandleStandardArgs)
+	FIND_PACKAGE_HANDLE_STANDARD_ARGS(PORTAUDIO DEFAULT_MSG PORTAUDIO_LIBRARIES PORTAUDIO_INCLUDE_DIRS)
+	return()
+endif()
+
+
 
 if (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
   # in cache already

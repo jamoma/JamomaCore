@@ -8,7 +8,7 @@ write_basic_package_version_file(
 
 configure_file(${CMAKE_CURRENT_LIST_DIR}/config/JamomaConfig.cmake
 			  "${CMAKE_CURRENT_BINARY_DIR}/Jamoma/JamomaConfig.cmake"
-			   COPY_ONLY)
+			   COPYONLY)
 
 install(FILES 
 			${CMAKE_CURRENT_LIST_DIR}/config/JamomaConfig.cmake
