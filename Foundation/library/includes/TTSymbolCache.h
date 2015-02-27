@@ -1,5 +1,5 @@
 /* 
- * TTBlue Class for caching common symbols for speed
+ * Cache of commonly used symbols for speed
  * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the "New BSD License"

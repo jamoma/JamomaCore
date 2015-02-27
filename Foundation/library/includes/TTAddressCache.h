@@ -1,5 +1,5 @@
 /* 
- * TTBlue Class for caching common address for speed
+ * Cache of common node addresses for speed
  * Copyright © 2011, Théo de la Hogue
  * 
  * License: This code is licensed under the terms of the "New BSD License"

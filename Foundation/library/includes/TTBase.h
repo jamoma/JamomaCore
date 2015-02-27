@@ -263,9 +263,9 @@ typedef void (*TTFunctionMatch)(const TTValue& valueToCheck, TTPtr baton, TTBool
 
 
 /**	\ingroup enums
- TTBlue Data Types
- Enumeration of data types used through out TTBlue, including the TTValue class and declaring the types of
- TTAttribute objects.																			*/
+	Kinds of data used throughout Jamoma,
+	most notably in the TTValue class and declaring the types of TTAttribute objects.
+ */
 enum TTDataType {
 	kTypeNone = 0,
 	kTypeFloat32,		///< 32-bit floating point
@@ -338,7 +338,7 @@ public:
 
 /**	\ingroup enums
  Jamoma Error Codes
- Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
+ Error codes returned by Jamoma functions and methods.	*/
 enum TTErr {
 	kTTErrNone = 0,			///< No Error.
 	kTTErrGeneric,			///< Something went wrong, but what exactly is not known.  Typically used for context-specific problems.
@@ -364,7 +364,7 @@ typedef TTErr (*TTFunctionWithBatonAndValue)(const TTValue&, const TTValue&);
 // Class Specifications
 
 
-/**	A TTBlue exception is thown with this object. */
+/**	The standard Jamoma exception is thown with this object. */
 class TTException {
 	TTImmutableCString	reason;
 public:
