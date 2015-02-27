@@ -14,7 +14,6 @@
 #include "TTBase.h"
 #include "TTString.h"
 #include "TTThread.h"
-#include "TTFifo.h"
 #include "TTSymbolCache.h"
 #include "TTNodeLib.h"
 

@@ -272,7 +272,7 @@ TTErr TTObjectBase::setAttributeSetterFlags(const TTSymbol name, TTAttributeFlag
 void TTObjectBase::getAttributeNames(TTValue& attributeNameList)
 {
 	TTValue			unfilteredNameList;
-	TTUInt32		attributeCount;
+	size_t			attributeCount;
 
 	attributes->getKeys(unfilteredNameList);
 	attributeCount = unfilteredNameList.size();
@@ -328,7 +328,7 @@ TTErr TTObjectBase::registerMessageProperty(const TTSymbol messageName, const TT
 void TTObjectBase::getMessageNames(TTValue& messageNameList)
 {
 	TTValue			unfilteredNameList;
-	TTUInt32		messageCount;
+	size_t			messageCount;
 
 	messages->getKeys(unfilteredNameList);
 	messageCount = unfilteredNameList.size();

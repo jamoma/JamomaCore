@@ -357,9 +357,7 @@ public:
 	}
 
 
-	// This avoids a warning in GCC 4.7 about ambiguity between using an int vs. a size_t where
-	// the int could also be considered an index into a char array
-	char& operator[] (const int index)
+	char& operator[] (const size_t index)
 	{
 		return this->at(index);
 	}
@@ -376,7 +374,7 @@ public:
 	{
 		char * pEnd;
 
-		convertedInt = strtol(c_str(), &pEnd, 10);
+		convertedInt = (TTInt32)strtol(c_str(), &pEnd, 10);
 		return *pEnd == 0;
 	}
 
@@ -385,7 +383,7 @@ public:
 	{
 		char * pEnd;
 
-		convertedUInt = strtoul(c_str(), &pEnd, 10);
+		convertedUInt = (TTUInt32)strtoul(c_str(), &pEnd, 10);
 
         // is the last letter is a 'u' ?
 		return *pEnd == 'u' && pEnd == (c_str() + length() - 1);

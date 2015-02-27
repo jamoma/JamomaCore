@@ -162,7 +162,7 @@ TTErr TTDictionaryBase::getKeys(TTValue& hashKeys)
 
 TTUInt32 TTDictionaryBase::getSize()
 {
-	return mMap.size();
+	return (TTUInt32)mMap.size();
 }
 
 

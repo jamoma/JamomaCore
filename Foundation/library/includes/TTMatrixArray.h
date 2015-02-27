@@ -39,7 +39,7 @@ public:
 			return NULL;
 	}
 	
-	TTUInt32 getMatrixCount() const
+	size_t getMatrixCount() const
 	{
 		return mMatrices.size();
 	}

@@ -13,7 +13,7 @@
 void TTString::random()
 {
 	MTRand			twister;
-	unsigned int	i = twister.randInt();
+	unsigned int	i = (unsigned int)twister.randInt();
 	char			s[16];
 		
 	snprintf(s, 16, "j%u", i);

@@ -257,13 +257,13 @@ public:
 	 */
 	void append(const TTValue& aValueToAppend)
 	{
-		TTUInt32 appendingElementCount = aValueToAppend.size();
-		TTUInt32 oldElementCount = size();
-		TTUInt32 newElementCount = oldElementCount + appendingElementCount;
+		size_t appendingElementCount = aValueToAppend.size();
+		size_t oldElementCount = size();
+		size_t newElementCount = oldElementCount + appendingElementCount;
 
 		resize(newElementCount);
 
-		for (TTUInt32 i=0; i<appendingElementCount; i++) {
+		for (size_t i=0; i<appendingElementCount; i++) {
 			TTElement e = aValueToAppend[i];
 
 			(*this)[oldElementCount+i] = e;

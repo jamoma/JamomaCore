@@ -219,7 +219,7 @@ TTErr TTEnvironment::isClassRegistered(const TTSymbol& className)
 TTErr TTEnvironment::createInstance(const TTSymbol className, TTObjectBasePtr* anObject, const TTValue& anArgument)
 {
 	TTValue		v;
-	TTClassPtr	theClass;
+	TTClassPtr	theClass = nullptr;
 	TTErr		err;
 	TTObjectBasePtr	newObject = NULL;
 	TTObjectBasePtr	oldObject = NULL;

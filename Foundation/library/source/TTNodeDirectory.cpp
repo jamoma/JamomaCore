@@ -126,7 +126,8 @@ TTErr TTNodeDirectory::getAlias(TTAddress anAddress, TTAddress& returnedAlias)
 TTErr TTNodeDirectory::replaceAlias(TTAddress& anAddress)
 {
 	TTInt8		d;
-	TTUInt32    s, i, c;
+	TTUInt32    i, c;
+	size_t		s;
 	TTAddress	alias;
 	TTAddress	aliasAddress;
 	TTAddress	p1;
@@ -815,7 +816,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	TTObject		anObject;
 	TTAddress		anAddress;
 	TTValue			v;
-	TTBoolean		resultFilter, result;
+	TTBoolean		resultFilter = false, result = false;
 	TTBoolean		firstFilter = YES;
 	TTErr			err;
 	

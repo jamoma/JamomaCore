@@ -251,9 +251,9 @@ template<class T>
 static TTInt32 TTRound(T value)
 {
 	if (value > 0)
-		return((long)(value + 0.5));
+		return((TTInt32)(value + 0.5));
 	else
-		return((long)(value - 0.5));
+		return((TTInt32)(value - 0.5));
 }
 
 

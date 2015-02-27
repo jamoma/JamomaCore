@@ -23,7 +23,6 @@
 #include "TTMatrixArray.h"
 #include "TTMutex.h"
 #include "TTObjectBase.h"
-#include "TTQueue.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
 #include "TTSymbolCache.h"

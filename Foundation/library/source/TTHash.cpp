@@ -198,7 +198,7 @@ TTErr TTHash::iterate(const TTPtr target, const TTHashIteratorType callback)
 
 TTUInt32 TTHash::getSize()
 {
-	return HASHMAP->size();
+	return (TTUInt32)HASHMAP->size();
 }
 
 

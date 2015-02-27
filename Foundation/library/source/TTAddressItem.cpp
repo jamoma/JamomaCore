@@ -256,7 +256,7 @@ TTErr TTAddressItem::destroy(const TTAddressItemPtr anItemToRemove)
 
 TTBoolean TTAddressItem::exist(TTAddressItemPtr anItemToCheck, TTAddressItemPtr *returnedItem)
 {
-	TTAddressItemPtr	anItem;
+	TTAddressItemPtr	anItem = nullptr;
 	TTBoolean			same = anItemToCheck->getSymbol() == this->symbol;
 
 	if (same) {

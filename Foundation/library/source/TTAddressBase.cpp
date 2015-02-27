@@ -457,7 +457,7 @@ TTAddressComparisonFlag TTAddressBase::compare(TTAddressBase* toCompare, TTInt8&
 TTErr TTAddressBase::splitAt(TTUInt32 whereToSplit, TTAddressBase* *returnedPart1, TTAddressBase* *returnedPart2)
 {
 	TTErr		err = kTTErrNone;
-	TTUInt32	nb, pos, i;
+	size_t	nb, pos, i;
 	TTString	part1, part2;
 
 	i = 0;
@@ -506,7 +506,7 @@ TTUInt32 TTAddressBase::countSeparator()
 {
 	std::string toCount = this->getCString();
 
-	return count(toCount.begin(), toCount.end(), C_SEPARATOR);
+	return (TTUInt32)count(toCount.begin(), toCount.end(), C_SEPARATOR);
 }
 
 TTErr TTAddressBase::listNameInstance(TTList& nameInstanceList)

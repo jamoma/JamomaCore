@@ -112,7 +112,7 @@ TTSymbolBase* TTSymbolTable::lookup(const TTString& aString)
 	if (iter == ((TTSymbolTableHash*)(mSymbolTable))->end()) {
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbolBase*	newSymbol = createEntry(aString, ((TTSymbolTableHash*)(mSymbolTable))->size());
+		TTSymbolBase*	newSymbol = createEntry(aString, (TTInt32)((TTSymbolTableHash*)(mSymbolTable))->size());
 		((TTSymbolTableHash*)(mSymbolTable))->insert(TTSymbolTablePair(newSymbol->string(), newSymbol));
 		sMutex->unlock();
 		return newSymbol;

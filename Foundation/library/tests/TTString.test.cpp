@@ -311,7 +311,7 @@ void TTStringTestParsing(int& errorCount, int&testAssertionCount)
     TTString    testString2 = "Test?try";
     TTString    testString3 = "Test?try?this";
     TTString    partA, partB;
-    TTInt32     pos, pos2;
+    size_t		pos, pos2;
     
     TTTestAssertion("check a char using [] string operator",
                     testString1[0] == '/' &&

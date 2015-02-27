@@ -71,7 +71,7 @@ public:
 	}
 	
     /**	Return this symboltable's unique id. */
-	TTUInt32 getSymbolTableId() const
+	TTPtrSizedInt getSymbolTableId() const
 	{
 		return mSymbolTableId;
 	}

@@ -477,7 +477,8 @@ TTPtr TTNode::getContext()
 
 TTErr TTNode::getAddress(TTAddress& returnedAddress, TTAddress from)
 {
-	unsigned int	i, nb_ancestor, len = 0;
+	unsigned int	i, nb_ancestor;
+	size_t			len = 0;
 	TTAddress		fromNorm;
 	TTAddress		returnedPart1;
 	TTAddress		returnedPart2;
