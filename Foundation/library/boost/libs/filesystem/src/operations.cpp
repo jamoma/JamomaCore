@@ -251,7 +251,7 @@ namespace
 
   boost::filesystem::directory_iterator end_dir_itr;
 
-  const std::size_t buf_size(128);
+//  const std::size_t buf_size(128);
   const error_code ok;
 
   bool error(bool was_error, error_code* ec, const string& message)
@@ -324,7 +324,7 @@ namespace
     return was_error;
   }
 
-  bool error(bool was_error, const error_code& result,
+/*  bool error(bool was_error, const error_code& result,
     const path& p1, const path& p2, error_code* ec, const string& message)
     //  Overwrites ec if there has already been an error
   {
@@ -341,7 +341,7 @@ namespace
     }
     return was_error;
   }
-
+*/
   bool is_empty_directory(const path& p)
   {
     return fs::directory_iterator(p)== end_dir_itr;

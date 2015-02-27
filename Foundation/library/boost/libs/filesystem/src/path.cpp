@@ -73,7 +73,7 @@ namespace
   typedef path::string_type       string_type;
   typedef string_type::size_type  size_type;
 
-  const std::size_t default_codecvt_buf_size = BOOST_FILESYSTEM_CODECVT_BUF_SIZE;
+//  const std::size_t default_codecvt_buf_size = BOOST_FILESYSTEM_CODECVT_BUF_SIZE;
 
 # ifdef BOOST_WINDOWS_API
 
@@ -98,7 +98,7 @@ namespace
   const char* const separators = "/";
   const char* separator_string = "/";
   const char* preferred_separator_string = "/";
-  const char colon = ':';
+//  const char colon = ':';
   const char dot = '.';
   const fs::path dot_path(".");
   const fs::path dot_dot_path("..");
