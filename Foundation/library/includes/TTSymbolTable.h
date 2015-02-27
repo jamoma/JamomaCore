@@ -28,7 +28,7 @@ private:
 protected:
 	/**	Overridable method used internally when constructing a new
 		TTSymbolBase */
-	virtual TTSymbolBase*	createEntry(const TTString& aString, TTInt32 newSymbolId);
+	virtual TTSymbolBase*	createEntry(const std::string& aString, TTInt32 newSymbolId);
 	
 public:
 	TTSymbolTable(TTBoolean createEmptyTable = false);
@@ -40,7 +40,7 @@ public:
 
 	/** Look in the symbol table for this string.  If it exists then return its id.
 		If it does not exist then it is created, added to the symbol table and this new symbol's id is returned.	*/
-	TTSymbolBase* lookup(const TTString& aString);
+	TTSymbolBase* lookup(const std::string& aString);
 
 	/** Look in the symbol table for a string with this number as its content.
 		If it exists then return its id.

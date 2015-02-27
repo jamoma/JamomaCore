@@ -16,20 +16,11 @@
 #include<unordered_map>
 
 
-typedef std::unordered_map<TTString, TTSymbolBase*>		TTSymbolTableHash;
+typedef std::unordered_map<std::string, TTSymbolBase*>	TTSymbolTableHash;
+typedef std::pair<std::string, TTSymbolBase*>			TTSymbolTablePair;
+typedef TTSymbolTableHash::const_iterator				TTSymbolTableIter;
 
-
-/** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
-typedef std::pair<TTString, TTSymbolBase*>				TTSymbolTablePair;
-
-
-/** An iterator for the STL hash_map used by TTSymbolTable. */
-typedef TTSymbolTableHash::const_iterator			TTSymbolTableIter;
-
-
-
-static TTMutex*				sMutex = NULL;
-
+static TTMutex*		sMutex = NULL;
 
 #define mSYMBOLTABLE ((TTSymbolTableHash*)(mSymbolTable))
 
@@ -44,7 +35,7 @@ TTSymbolTable::TTSymbolTable(TTBoolean createEmptyTable)
 	
 	// subclasses of the symbol table will want to initialize this themselves
 	if (!createEmptyTable)
-		mSYMBOLTABLE->insert(TTSymbolTablePair(TTString(""), createEntry(TTString(""), 0)) );
+		mSYMBOLTABLE->insert(TTSymbolTablePair(std::string(""), createEntry(std::string(""), 0)) );
 }
 
 
@@ -60,7 +51,7 @@ TTSymbolTable::~TTSymbolTable()
 }
 
 
-TTSymbolBase* TTSymbolTable::createEntry(const TTString& aString, TTInt32 newSymbolId)
+TTSymbolBase* TTSymbolTable::createEntry(const std::string& aString, TTInt32 newSymbolId)
 {
 	return new TTSymbolBase(aString, TTPtrSizedInt(this), newSymbolId);
 }
@@ -94,7 +85,7 @@ TTSymbolBase* TTSymbolTable::lookup(const char* aString)
 }
 
 
-TTSymbolBase* TTSymbolTable::lookup(const TTString& aString)
+TTSymbolBase* TTSymbolTable::lookup(const std::string& aString)
 {
 //	if (!gTTSymbolTable)					// symbol table hasn't been created yet!
 //		gTTSymbolTable = new TTSymbolTable;
@@ -113,7 +104,7 @@ TTSymbolBase* TTSymbolTable::lookup(const TTString& aString)
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
 		TTSymbolBase*	newSymbol = createEntry(aString, (TTInt32)((TTSymbolTableHash*)(mSymbolTable))->size());
-		((TTSymbolTableHash*)(mSymbolTable))->insert(TTSymbolTablePair(newSymbol->string(), newSymbol));
+		((TTSymbolTableHash*)(mSymbolTable))->insert(TTSymbolTablePair(newSymbol->string().c_str(), newSymbol));
 		sMutex->unlock();
 		return newSymbol;
 	}
