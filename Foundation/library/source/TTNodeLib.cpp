@@ -11,16 +11,12 @@
 
 void TTNodeLibInit()
 {
-#ifndef DISABLE_NODELIB
-
 	// Global regex for TTAddress parsing
 	ttRegexForDirectory = new TTRegex("([-\\w]+)\\:\\/");
 	ttRegexForAttribute = new TTRegex(":+");
 	ttRegexForParent = new TTRegex("(.*)\\/+(\\S+)");
 	ttRegexForInstance = new TTRegex("[.]");
 	ttRegexForInstanceZero = new TTRegex("\\.0");
-		
-#endif
 }
 
 TTErr convertUpperCasedNameInAddress(TTSymbol upperCasedName, TTAddress& convertedInAddress)

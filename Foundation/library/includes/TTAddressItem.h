@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#if !defined( __TT_NODE_ADDRESS_ITEM_H__ ) && !defined ( DISABLE_NODELIB )
+#if !defined( __TT_NODE_ADDRESS_ITEM_H__ )
 #define __TT_NODE_ADDRESS_ITEM_H__
 
 #ifdef WIN_VERSION

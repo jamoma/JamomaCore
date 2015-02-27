@@ -6,8 +6,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef DISABLE_NODELIB
-
 #include "TTNode.h"
 
 TTNode::TTNode(TTSymbol& aName, TTSymbol& anInstance, TTObject& anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
@@ -610,6 +608,3 @@ TTErr TTNode::generateInstance(TTSymbol& childName, TTSymbol& newInstance)
 		return kTTErrNone;
 	}
 }
-
-#endif
-

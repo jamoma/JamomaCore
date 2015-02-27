@@ -6,8 +6,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef DISABLE_NODELIB
-
 #include "TTFoundationAPI.h"
 #include "TTAddressItem.h"
 
@@ -339,5 +337,3 @@ void TTAddressItemFind(const TTValue& itemValue, TTPtr aSymbolBaseToMatch, TTBoo
 	
 	found = anItem->getSymbol() == TTSymbol(aSymbolBaseToMatch);
 }
-
-#endif

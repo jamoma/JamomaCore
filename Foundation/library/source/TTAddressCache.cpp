@@ -6,8 +6,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef DISABLE_NODELIB
-
 #include "TTAddressCache.h"
 
 
@@ -17,5 +15,3 @@ TTFOUNDATION_EXPORT TTAddressTable	gTTAddressTable;
 TTFOUNDATION_EXPORT TTAddress	kTTAdrsEmpty("");
 TTFOUNDATION_EXPORT TTAddress	kTTAdrsRoot("/");
 TTFOUNDATION_EXPORT TTAddress	kTTAdrsZero("0");
-
-#endif

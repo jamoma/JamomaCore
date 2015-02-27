@@ -6,8 +6,6 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef DISABLE_NODELIB
-
 #include "TTFoundationAPI.h"
 
 #if BOOST_REGEX
@@ -538,5 +536,3 @@ TTErr TTAddressBase::listNameInstance(TTList& nameInstanceList)
 
 	return kTTErrNone;
 }
-
-#endif

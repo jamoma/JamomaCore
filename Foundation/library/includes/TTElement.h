@@ -25,11 +25,9 @@
 #include "TTObject.h"
 #include "TTMatrix.h"
 
-#ifndef DISABLE_NODELIB
 #include "TTAddress.h"
 #include "TTAddressTable.h"
 #include "TTAddressCache.h"
-#endif
 
 #include <cinttypes>
 class TTDictionary;
@@ -319,7 +317,6 @@ public:
 			return kTTSymEmpty;
 	}
 
-#ifndef DISABLE_NODELIB
 	operator TTAddress() const
 	{
         // TODO: JamomaCore #281 : review the use of TTAddress
@@ -330,7 +327,6 @@ public:
         else
 			return kTTAdrsEmpty;
 	}
-#endif
 	
 	operator TTString() const
 	{
@@ -502,7 +498,6 @@ public:
 		return *this;
 	}
 
-#ifndef DISABLE_NODELIB
 	TTElement& operator = (const TTAddress value)
 	{
 		chuck();
@@ -514,7 +509,6 @@ public:
         mValue.mSymbol = new TTAddress(value);
 		return *this;
 	}
-#endif
 	
 	TTElement& operator = (const TTString value)
 	{
