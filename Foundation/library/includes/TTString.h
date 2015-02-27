@@ -21,7 +21,6 @@
 
 	In many cases we try to mimic the interface of std::string for ease of compatibility.
 
-
 	FROM http://cboard.cprogramming.com/cplusplus-programming/86598-std-vector-char-vs-std-string.html
 	1. std::string has a huge number of string-related functions which make it easy to manipulate strings.
 	2. std::vector, on the other hand, is guaranteed to be contiguous in memory -- that is, &data[x + 1] = &data[x] + sizeof(data[x]).
@@ -373,8 +372,6 @@ public:
 	void TTFOUNDATION_EXPORT random();
 
 
-
-//	TTBoolean toTTInt32( const TTString & str, TTInt32 & convertedInt )
 	TTBoolean toTTInt32(TTInt32& convertedInt) const
 	{
 		char * pEnd;
@@ -383,7 +380,7 @@ public:
 		return *pEnd == 0;
 	}
 
-    //	TTBoolean toTTUInt32( const TTString & str, TTInt32 & convertedUInt )
+
 	TTBoolean toTTUInt32(TTUInt32& convertedUInt) const
 	{
 		char * pEnd;
@@ -395,9 +392,8 @@ public:
 	}
 
 	/*	note : isTTFloat32 works only because the TTInt32 case is matched before
-	 see in TTValue::fromString method
+		see in TTValue::fromString method
 	 */
-//	TTBoolean toTTFloat32( const TTString & str, TTFloat32 & convertedFloat )
 	TTBoolean toTTFloat32(TTFloat32& convertedFloat) const
 	{
 		char * pEnd;

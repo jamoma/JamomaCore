@@ -1,4 +1,3 @@
-#compiler: gcc47
 
 sources:
   - source/TTFoundation.cpp
@@ -75,41 +74,17 @@ sources:
   - tests/TTNodeLib.test.cpp
   - tests/TTObjectTest.cpp
   - tests/TTInterpolate.test.cpp
-#  - win source/TTNodeLib.cpp
-#  - win source/TTNode.cpp
-#  - win source/TTAddress.cpp
-#  - win source/TTAddressTable.cpp
-#  - win source/TTAddressCache.cpp
-#  - win source/TTNodeDirectory.cpp
-#  - win tests/TTNodeLib.test.cpp
-#  
-# See the note below about us not including the NodeLib on Linux (or iOS)
-  
+
 includes:
   - "includes"
   - "tests"
   - "Mersenne-1.1"
   - "boost"
 
-#libraries:
-#  - win RELEASE boost/lib-windows/libboost_regex-vc90-mt-s-1_46.lib
-#  - win DEBUG boost/lib-windows/libboost_regex-vc90-mt-sgd-1_46.lib
-#  - win RELEASE boost/lib-windows/libboost_filesystem-vc90-mt-s-1_46.lib
-#  - win DEBUG boost/lib-windows/libboost_filesystem-vc90-mt-sgd-1_46.lib
-#  - win RELEASE boost/lib-windows/libboost_system-vc90-mt-s-1_46.lib
-#  - win DEBUG boost/lib-windows/libboost_system-vc90-mt-sgd-1_46.lib
-
 defines:
   - TTFOUNDATION_EXPORTS
   - BOOST_REGEX
   - BOOST_REGEX_USE_C_LOCALE
-#  - DISABLE_NODELIB
-  
-# BOOST_REGEX_USE_C_LOCALE is a Boost Regex definition option (see boost/regex/user.hpp file)
-
-# For the moment we aren't going to add the dependency on Boost for the Linux platforms.
-# We do have compiled libs for the i386 arch but not for 64-bit or ARM architectures.
-# The only real dependency we have for Boost is the NodeLib.
 
 frameworks:
   - Carbon
