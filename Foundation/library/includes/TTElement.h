@@ -35,52 +35,6 @@
 class TTDictionary;
 
 
-//#define USE_TTInt32				// to -- To easily change for TTInt32 instead of int in order to make test
-
-// macro for converting from one type to another regardless of type
-#define	TTELEMENT_CONVERT switch(mType) {\
-			case kTypeInt8:\
-				value = mValue.int8;\
-				break;\
-			case kTypeUInt8:\
-				value = mValue.uint8;\
-				break;\
-			case kTypeInt16:\
-				value = mValue.int16;\
-				break;\
-			case kTypeUInt16:\
-				value = mValue.uint16;\
-				break;\
-			case kTypeFloat32:\
-				value = mValue.float32;\
-				break;\
-			case kTypeFloat64:\
-				value = mValue.float64;\
-				break;\
-			case kTypeInt32:\
-				value = mValue.int32;\
-				break;\
-			case kTypeUInt32:\
-				value = mValue.uint32;\
-				break;\
-			case kTypeInt64:\
-				value = mValue.int64;\
-				break;\
-			case kTypeUInt64:\
-				value = mValue.uint64;\
-				break;\
-			case kTypeBoolean:\
-				value = mValue.boolean;\
-				break;\
-			case kTypeError:\
-				value = mValue.error;\
-				break;\
-			default:\
-				value = 0;\
-				break;\
-		}
-
-
 /****************************************************************************************************/
 // Class Specification
 
@@ -199,6 +153,58 @@ private:
 		mType = kTypeNone;
 	}
 	
+	
+	/** Convert from the internal representation to whatever type is requested. */
+	template<typename T>
+	T convert() const
+	{
+		T value;
+		
+		switch(mType) {
+			case kTypeInt8:
+				value = mValue.int8;
+				break;
+			case kTypeUInt8:
+				value = mValue.uint8;
+				break;
+			case kTypeInt16:
+				value = mValue.int16;
+				break;
+			case kTypeUInt16:
+				value = mValue.uint16;
+				break;
+			case kTypeFloat32:
+				value = mValue.float32;
+				break;
+			case kTypeFloat64:
+				value = mValue.float64;
+				break;
+			case kTypeInt32:
+				value = mValue.int32;
+				break;
+			case kTypeUInt32:
+				value = mValue.uint32;
+				break;
+			case kTypeInt64:
+				value = (T)mValue.int64;
+				break;
+			case kTypeUInt64:
+				value = (T)mValue.uint64;
+				break;
+			case kTypeBoolean:
+				value = mValue.boolean;
+				break;
+			case kTypeError:
+				value = mValue.error;
+				break;
+			default:
+				value = 0;
+				break;
+		}
+		return value;
+	}
+	
+	
 public:
 	/**	query an element for its type */
 	TTDataType type() const
@@ -215,22 +221,16 @@ public:
 	{
 		if (mType == kTypeFloat32)
 			return mValue.float32;
-		else {
-			TTFloat32 value;
-			TTELEMENT_CONVERT;
-			return value;
-		}
+		else
+			return convert<TTFloat32>();
 	}
 
 	operator TTFloat64() const
 	{
 		if (mType == kTypeFloat64)
 			return mValue.float64;
-		else {
-			TTFloat64 value;
-			TTELEMENT_CONVERT;
-			return value;
-		}
+		else
+			return convert<TTFloat64>();
 	}
 	
 	// fast (but less safe) version of the above
@@ -243,100 +243,72 @@ public:
 	{
 		if (mType == kTypeInt8)
 			return mValue.int8;
-		else {
-			TTInt8 value;
-			TTELEMENT_CONVERT;
-			return value;
-		}
+		else
+			return convert<TTInt8>();
 	}
 	
 	operator TTUInt8() const
 	{
 		if (mType == kTypeUInt8)
 			return mValue.uint8;
-		else {
-			TTUInt8 value;
-			TTELEMENT_CONVERT;
-			return value;
-		}
+		else
+			return convert<TTUInt8>();
 	}
 
 	operator TTInt16() const
 	{
 		if (mType == kTypeInt16)
 			return mValue.int16;
-		else {
-			TTInt16 value;
-			TTELEMENT_CONVERT;
-			return value;
-		}
+		else
+			return convert<TTInt16>();
 	}
 
 	operator TTUInt16() const
 	{
 		if (mType == kTypeUInt16)
 			return mValue.uint16;
-		else {
-			TTUInt16 value;
-			TTELEMENT_CONVERT;
-			return value;
-		}
+		else
+			return convert<TTUInt16>();
 	}
 
 	operator TTInt32() const
 	{
 		if (mType == kTypeInt32)
 			return mValue.int32;
-		else {
-			TTInt32 value;
-			TTELEMENT_CONVERT;
-			return value;
-		}
+		else
+			return convert<TTInt32>();
 	}
 
 	operator TTUInt32() const
 	{
 		if (mType == kTypeUInt32)
 			return mValue.uint32;
-		else {
-			TTUInt32 value;
-			TTELEMENT_CONVERT;
-			return value;
-		}
+		else
+			return convert<TTUInt32>();
 	}
 	
 	operator TTInt64() const
 	{
 		if (mType == kTypeInt64)
 			return mValue.int64;
-		else {
-			TTInt64 value;
-			TTELEMENT_CONVERT;
-			return value;
-		}
+		else
+			return convert<TTInt64>();
 	}
 	
 	operator TTUInt64() const
 	{
 		if (mType == kTypeUInt64)
 			return mValue.uint64;
-		else {
-			TTUInt64 value;
-			TTELEMENT_CONVERT;
-			return value;
-		}
+		else
+			return convert<TTUInt64>();
 	}
 	
 	operator TTBoolean() const
 	{
 		if (mType == kTypeBoolean)
 			return mValue.boolean;
-		else {
-			// setting as int and then casting after the macro (with the extra logic) is done to silence warnings on MSVC
-			int value;
-			TTELEMENT_CONVERT;
-			return (TTBoolean)(value != 0);
-		}
+		else
+			return convert<TTBoolean>();
 	}
 		
 	operator TTSymbol() const
