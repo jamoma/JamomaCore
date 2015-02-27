@@ -132,7 +132,7 @@ TTErr TTDataspaceConverter::getAvailableDataspaces(const TTValue& anUnusedInputV
 	err = TTObject::GetRegisteredClassNamesForTags(dataspaceNames, TT("dataspace"));
 	if (!err) {
 		// strip the leading "dataspace." prefix off all the names
-		for (int i=0; i < dataspaceNames.size(); i++) {
+		for (TTUInt32 i=0; i < dataspaceNames.size(); i++) {
 			TTSymbol s;
 			//TTString	str;
 			const char* cStr;

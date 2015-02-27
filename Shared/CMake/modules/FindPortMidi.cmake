@@ -9,8 +9,31 @@
 # See documentation on how to write CMake scripts at
 # http://www.cmake.org/Wiki/CMake:How_To_Find_Libraries
 
-SET(PORTMIDI_INCLUDE_WIN32_PATH "${WIN32_PROGRAMFILES}\\Portmidi\\include" )
-SET(PORTMIDI_LIB_WIN32_PATH "${WIN32_PROGRAMFILES}\\Portmidi\\lib" )
+# Use the libraries in the Jamoma tree
+if(APPLE OR WIN32)
+	find_path(PORTMIDI_INCLUDE_DIRS portmidi.h
+			  PATHS
+			  ${CMAKE_CURRENT_LIST_DIR}/../../../Graph/extensions/MidiLib/portmidi/pm_common)
+	if(APPLE)
+		find_library(PORTMIDI_LIBRARIES portmidi-jamoma
+					 PATHS
+					 ${CMAKE_CURRENT_LIST_DIR}/../../../Graph/extensions/MidiLib/portmidi/)
+		set(PORTMIDI_LIBRARIES_DEBUG ${PORTMIDI_LIBRARIES})
+		set(PORTMIDI_LIBRARIES_RELEASE ${PORTMIDI_LIBRARIES})
+	elseif(WIN32)
+		find_library(PORTMIDI_LIBRARIES_DEBUG libportmidi_s_jamoma portmidi_s_jamoma portmidi_s
+					 PATHS
+					 ${CMAKE_CURRENT_LIST_DIR}/../../../Graph/extensions/MidiLib/portmidi/pm_win_static_lib/Debug_)
+		find_library(PORTMIDI_LIBRARIES_RELEASE libportmidi_s_jamoma portmidi_s_jamoma portmidi_s
+					 PATHS
+					 ${CMAKE_CURRENT_LIST_DIR}/../../../Graph/extensions/MidiLib/portmidi/pm_win_static_lib/Release_)
+		set(PORTMIDI_LIBRARIES ${PORTMIDI_LIBRARIES_DEBUG} ${PORTMIDI_LIBRARIES_RELEASE})
+	endif()
+
+	include(FindPackageHandleStandardArgs)
+	FIND_PACKAGE_HANDLE_STANDARD_ARGS(PORTMIDI DEFAULT_MSG PORTMIDI_LIBRARIES PORTMIDI_INCLUDE_DIRS)
+	return()
+endif()
 
 include(FindPkgConfig)
 pkg_check_modules(PORTMIDIPKG portmidi)
@@ -22,7 +45,6 @@ else()
 find_path(PORTMIDI_INCLUDE_DIR portmidi.h
   HINTS
   $ENV{PORTMIDI_DIR}
-  ${PORTMIDI_INCLUDE_WIN32_PATH}
   PATHS
   ${JamomaCore_SOURCE_DIR}/Graph/extensions/MidiLib/portmidi/pm_common
   /usr/include
@@ -33,7 +55,6 @@ find_path(PORTMIDI_INCLUDE_DIR portmidi.h
 find_library(PORTMIDI_LIBRARY portmidi
   HINTS
   $ENV{PORTMIDI_DIR}
-  ${PORTMIDI_LIB_WIN32_PATH}
   PATHS
   ${JamomaCore_SOURCE_DIR}/Graph/extensions/MidiLib/portmidi/pm_win_dynamic_lib
   /usr/lib
@@ -58,6 +79,8 @@ if(PORTMIDI_LIBRARIES)
   if(NOT PORTMIDI_DYLIB_ARCHS_MATCH_REQUIRED_ARCHS)
     set(PORTMIDI_FOUND False)
   endif()
+  set(PORTMIDI_LIBRARIES_DEBUG ${PORTMIDI_LIBRARIES})
+  set(PORTMIDI_LIBRARIES_RELEASE ${PORTMIDI_LIBRARIES})
 endif()
 
 mark_as_advanced(PORTMIDI_LIBRARY PORTTIME_LIBRARY)

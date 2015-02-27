@@ -170,7 +170,7 @@ TTErr TTAudioGraphObjectBase::connectAudio(TTAudioGraphObjectBasePtr anObject, T
 
 	sSharedMutex->lock();
 	
-	if (toInletNumber+1 > mAudioInlets.size())
+	if (toInletNumber+1 > (TTInt32) mAudioInlets.size())
 		setNumAudioInlets(toInletNumber+1);
 	
 	err = mAudioInlets[toInletNumber].connect(anObject, fromOutletNumber);

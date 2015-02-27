@@ -189,7 +189,8 @@ TTErr TTPresetManager::Update(const TTValue& inputValue, TTValue& outputValue)
             mCurrent = inputValue[0];
             
             TTSymbol name;
-            for (TTInt32 i = 0; i < mNames.size(); i++) {
+			// TODO refactor this code : it is everywhere in this file.
+			for (TTUInt32 i = 0; i < mNames.size(); i++) {
                 name = mNames[i];
                 if (name == mCurrent) {
                     mCurrentPosition = i+1;
@@ -235,7 +236,7 @@ TTErr TTPresetManager::Recall(const TTValue& inputValue, TTValue& outputValue)
             mCurrent = inputValue[0];
             
             TTSymbol name;
-            for (TTInt32 i = 0; i < mNames.size(); i++) {
+			for (TTUInt32 i = 0; i < mNames.size(); i++) {
                 name = mNames[i];
                 if (name == mCurrent) {
                     mCurrentPosition = i+1;
@@ -289,7 +290,7 @@ TTErr TTPresetManager::Output(const TTValue& inputValue, TTValue& outputValue)
             mCurrent = inputValue[0];
             
             TTSymbol name;
-            for (TTInt32 i = 0; i < mNames.size(); i++) {
+			for (TTUInt32 i = 0; i < mNames.size(); i++) {
                 name = mNames[i];
                 if (name == mCurrent) {
                     mCurrentPosition = i+1;
@@ -352,13 +353,13 @@ TTErr TTPresetManager::Interpolate(const TTValue& inputValue, TTValue& outputVal
         else if (inputValue[0].type() == kTypeInt32 && inputValue[1].type() == kTypeInt32 && inputValue[2].type() == kTypeFloat64) {
             
             i1 = inputValue[0] ;
-            if (i1 > 0 && i1 <= mNames.size())
+			if (i1 > 0 && i1 <= (TTInt32) mNames.size())
                 name1 = mNames[i1-1];
             else
                 return kTTErrGeneric;
             
             i2 = inputValue[1];
-            if (i2 > 0 && i2 <= mNames.size())
+			if (i2 > 0 && i2 <= (TTInt32) mNames.size())
                 name2 = mNames[i2-1];
             else
                 return kTTErrGeneric;
@@ -399,7 +400,7 @@ TTErr TTPresetManager::Mix(const TTValue& inputValue, TTValue& outputValue)
         else if (inputValue[i].type() == kTypeInt32 && inputValue[i+1].type() == kTypeFloat64) {
             
             id = inputValue[i];
-            if (id > 0 && id <= mNames.size())
+			if (id > 0 && id <= (TTInt32) mNames.size())
                 name = mNames[id-1];
             else
                 return kTTErrGeneric;

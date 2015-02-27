@@ -168,7 +168,6 @@ public:
 		mValue.ptr = NULL;	// windows doesn't permit using an initializer for a union?
 	}
 	
-	
 	template<class T>
 	TTElement(const T& anInitialValue) :
 	mType(kTypeNone)

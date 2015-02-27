@@ -156,7 +156,7 @@ void TTList::merge(TTList& newList)
 }
 
 
-void TTList::sort(TTBoolean(comparisonFunction)(TTValue&, TTValue&))
+void TTList::sort(TTBoolean(*comparisonFunction)(TTValue&, TTValue&))
 {
 	lock();
 	

@@ -22,8 +22,7 @@ add_jamoma_extension()
 
 target_link_libraries(${PROJECT_NAME} ${SNDFILE_LIBRARIES})
 
-addAppleFramework(Carbon)
-addAppleFramework(AudioUnit)
-
+file(COPY ding_b2.aiff geese_clip.aif
+	 DESTINATION .)
 
 endif(SNDFILE_FOUND)

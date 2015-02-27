@@ -1,14 +1,18 @@
 cmake_minimum_required(VERSION 3.0)
 project(Max)
-
+### TODO REVIEW ME
 if(IOS OR (NOT APPLE AND NOT WIN32))
 	message("Max extension requires OS X or Windows.")
-	return() 
+	return()
 endif()
 
 if(WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8)
 	message("Does not work yet on Win64")
 	return()
+endif()
+
+if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Release")
+	add_definitions(-DMAXAPI_USE_MSCRT)
 endif()
 
 set(PROJECT_SRCS
@@ -33,10 +37,4 @@ add_jamoma_extension()
 # TODO generalize this in a max module file.
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/MaxAPI.lib")
-	if(CMAKE_BUILD_TYPE STREQUAL "Release")
-		add_definitions(-DMAXAPI_USE_MSCRT)
-		
-		target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/maxcrt.lib")
-		target_link_libraries(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/maxcrt_p.lib")
-	endif()
 endif()

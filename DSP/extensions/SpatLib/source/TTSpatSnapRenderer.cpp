@@ -41,7 +41,7 @@ void TTSpatSnapRenderer::recalculateMatrixCoefficients(TTSpatSourceVector& sourc
 	mMixerMatrixCoefficients->setRowCount(TTUInt32(sources.size()));
 	mMixerMatrixCoefficients->setColumnCount(TTUInt32(sinks.size()));
 
-	for (TTInt32 source=0; source<sources.size(); source++) {
+	for (TTInt32 source=0; source < (TTInt32) sources.size(); source++) {
 
 		// The source that we want to locate the nearest sink for:
 		sources[source].getPosition(sourceX, sourceY, sourceZ);
@@ -58,7 +58,7 @@ void TTSpatSnapRenderer::recalculateMatrixCoefficients(TTSpatSourceVector& sourc
 		mMixerMatrixCoefficients->set2d(source, 0., 0.);
 
 		// Now we iterate over the remaining sinks to see if any of them are closer
-		for (TTInt32 sink=1; sink<sinks.size(); sink++) {
+		for (TTInt32 sink=1; sink < (TTInt32) sinks.size(); sink++) {
 
 			sinks[sink].getPosition(sinkX, sinkY, sinkZ);
 

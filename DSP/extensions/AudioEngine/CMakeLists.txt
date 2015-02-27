@@ -3,7 +3,7 @@ project(AudioEngine)
 
 # Doesn't yet work on ARM
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID)
-  message(STATUS "We can't build this for Android / ARM for now.")
+  message(STATUS "We can't build ${PROJECT_NAME} for Android / ARM for now.")
   return()
 endif()
 
@@ -20,14 +20,14 @@ ${CMAKE_CURRENT_SOURCE_DIR}/TTAudioEngine.cpp
 )
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories(${PORTAUDIO_INCLUDE_DIR})
+include_directories("${PORTAUDIO_INCLUDE_DIRS}")
 
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME} ${PORTAUDIO_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}
+					  debug ${PORTAUDIO_LIBRARIES_DEBUG}
+					  optimized ${PORTAUDIO_LIBRARIES_RELEASE})
 
-addAppleFramework(Carbon)
-addAppleFramework(CoreAudio)
-addAppleFramework(AudioUnit)
-addAppleFramework(AudioToolbox)
+target_link_frameworks(TARGET ${PROJECT_NAME}
+					   FRAMEWORKS Carbon CoreAudio AudioUnit AudioToolbox)

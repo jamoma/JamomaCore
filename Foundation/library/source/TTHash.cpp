@@ -145,7 +145,7 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 }
 
 
-TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(comparisonFunction)(TTValue&, TTValue&))
+TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(*comparisonFunction)(TTValue&, TTValue&))
 {
 	lock();
 	TTList		listToSort;

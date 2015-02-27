@@ -1932,7 +1932,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
                             mixedValue[0] = TTFloat64(mixedValue[0]) / sumFactors;
                         
                         else if (type == kTTSym_array)
-                            for (int i = 0; i < mixedValue.size(); i++)
+							for (TTUInt32 i = 0; i < mixedValue.size(); i++)
                                 mixedValue[i] = TTFloat64(mixedValue[i]) / sumFactors;
                         // for any other type : remove the coef at the end of the value
                         else

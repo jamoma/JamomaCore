@@ -17,7 +17,7 @@ TTPtr TTOscSocketListenerCreate(TTPtr anArgument)
     {
         anOscSocket->mSocketListener = new UdpListeningReceiveSocket(IpEndpointName(IpEndpointName::ANY_ADDRESS, anOscSocket->mPort), anOscSocket);
     }
-    catch (const std::runtime_error& error)
+	catch (const std::runtime_error& /*error*/)
     {
         anOscSocket->mSocketListenerStatus = kOscSocketConnectionFailed;
         return NULL;
