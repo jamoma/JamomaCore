@@ -2,7 +2,7 @@
  *
  * @ingroup foundationLibrary
  *
- * @brief Jamoma's lowest-level base class and related infrastructure.
+ * @brief Jamoma's lowest-level infrastructure and definitions
  *
  * @details The Jamoma base class.
  *

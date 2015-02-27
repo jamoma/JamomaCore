@@ -15,17 +15,10 @@
 
 #include "TTFoundationAPI.h"
 
-//typedef TTString::const_iterator	TTRegexStringPosition;
-//typedef TTString::iterator			TTRegexStringIterator;
-
-
 
 /****************************************************************************************************/
 // Class Specifications
 
-/**
- 
- */
 
 class TTFOUNDATION_EXPORT TTRegex {
 	
@@ -46,13 +39,8 @@ public:
 		@param	begin					the beginning of the string to parse
 		@param	end						the end of the string to parse
 		@return							a error code	*/
-//	TTErr parse(TTRegexStringPosition& begin, TTRegexStringPosition& end);
 	TTErr parse(TTStringIter& begin, TTStringIter& end);
 	
-//	TTErr parse(TTRegexStringIterator& begin, TTRegexStringIterator& end)
-//	{
-//		return parse((TTRegexStringPosition&)begin, (TTRegexStringPosition&)end);
-//	}
 
 	/** Get where start the result */
 	//TTRegexStringPosition	begin();
