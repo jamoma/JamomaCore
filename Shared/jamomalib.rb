@@ -251,7 +251,10 @@ else
 			xcode_env_vars = ""
 		end
 
-		str = "nice xcodebuild -project #{projectname} -configuration #{configuration} #{xcode_env_vars} #{"clean" if clean == true} build"
+    configuration = "Debug" if configuration == "Development"
+    configuration = "Release" if configuration == "Deployment"
+
+		str = "nice xcodebuild -project #{projectname} -target 'Build All & Test' -configuration #{configuration} #{xcode_env_vars} #{"clean" if clean == true} build"
 		Open3.popen3(str) do |stdin, stdout, stderr|
 			if(@debug)
 				puts str
@@ -259,7 +262,7 @@ else
 			out = stdout.read
 			err = stderr.read
 		end
-		if /BUILD SUCCEEDED/.match(out)
+		if /Build succeeded/.match(out)
 			@cur_count+=1
 			projectname = "#{projectname}".ljust(27)
 			puts "#{projectname} BUILD SUCCEEDED"
