@@ -362,6 +362,12 @@ public:
 		return this->at(index);
 	}
 
+	// version of the above required on i386 when compiling with c++14
+	char& operator[] (const int index)
+	{
+		return this->at(index);
+	}
+
 
 	// NOTE: we do not export TTString because it is defined in a header as a subclass of a stl template
 	// but we do want to export this method, which is not defined inline so that we don't pick up a direct
