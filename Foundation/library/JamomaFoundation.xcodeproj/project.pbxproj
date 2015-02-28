@@ -1030,7 +1030,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = build/JamomaFoundation.a;
+				OTHER_LDFLAGS = build/libJamomaFoundation.a;
 				PRODUCT_NAME = "jamoma-test";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1045,7 +1045,7 @@
 				CONFIGURATION_BUILD_DIR = build;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = build/JamomaFoundation.a;
+				OTHER_LDFLAGS = build/libJamomaFoundation.a;
 				PRODUCT_NAME = "jamoma-test";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
