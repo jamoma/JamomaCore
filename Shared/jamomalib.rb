@@ -262,7 +262,7 @@ else
 			out = stdout.read
 			err = stderr.read
 		end
-		if /Build succeeded/.match(out)
+		if /Build succeeded/.match(out) || /BUILD SUCCEEDED/.match(out)
 			@cur_count+=1
 			projectname = "#{projectname}".ljust(27)
 			puts "#{projectname} BUILD SUCCEEDED"
