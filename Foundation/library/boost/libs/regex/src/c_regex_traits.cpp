@@ -179,7 +179,7 @@ int BOOST_REGEX_CALL c_regex_traits<char>::value(char c, int radix)
 {
    char b[2] = { c, '\0', };
    char* ep;
-   int result = std::strtol(b, &ep, radix);
+   int result = (int)std::strtol(b, &ep, radix);
    if(ep == b)
       return -1;
    return result;

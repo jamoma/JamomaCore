@@ -263,8 +263,8 @@ BOOST_REGEX_DECL int BOOST_REGEX_CCALL regexecA(const regex_tA* expression, cons
       std::size_t i;
       for(i = 0; (i < n) && (i < expression->re_nsub + 1); ++i)
       {
-         array[i].rm_so = (m[i].matched == false) ? -1 : (m[i].first - buf);
-         array[i].rm_eo = (m[i].matched == false) ? -1 : (m[i].second - buf);
+         array[i].rm_so = (int)((m[(int)i].matched == false) ? -1 : (m[(int)i].first - buf));
+         array[i].rm_eo = (int)((m[(int)i].matched == false) ? -1 : (m[(int)i].second - buf));
       }
       // and set anything else to -1:
       for(i = expression->re_nsub + 1; i < n; ++i)

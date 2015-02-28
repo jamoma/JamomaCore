@@ -251,7 +251,7 @@ int BOOST_REGEX_CALL c_regex_traits<wchar_t>::value(wchar_t c, int radix)
 #endif
    wchar_t b[2] = { c, '\0', };
    wchar_t* ep;
-   int result = std::wcstol(b, &ep, radix);
+   int result = (int)std::wcstol(b, &ep, radix);
    if(ep == b)
       return -1;
    return result;
