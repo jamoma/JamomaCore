@@ -323,10 +323,10 @@
 		2209F9321AA109FE00FB8D49 /* unique_path.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = unique_path.cpp; path = boost/libs/filesystem/src/unique_path.cpp; sourceTree = "<group>"; };
 		2209F9331AA109FE00FB8D49 /* utf8_codecvt_facet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utf8_codecvt_facet.cpp; path = boost/libs/filesystem/src/utf8_codecvt_facet.cpp; sourceTree = "<group>"; };
 		2209F93B1AA10A3400FB8D49 /* error_code.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = error_code.cpp; path = boost/libs/system/src/error_code.cpp; sourceTree = "<group>"; };
-		2209F9741AA12CBC00FB8D49 /* Build Dynamic.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "Build Dynamic.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2209F9741AA12CBC00FB8D49 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaFoundation.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		2209F9B71AA1364F00FB8D49 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		2209F9BC1AA1369300FB8D49 /* jamoma-test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "jamoma-test"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2209FA0E1AA13AA800FB8D49 /* JamomaFoundation.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2209FA0E1AA13AA800FB8D49 /* libJamomaFoundation.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libJamomaFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		22AF9BD91AA141B0005DD997 /* c_regex_traits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = c_regex_traits.cpp; path = boost/libs/regex/src/c_regex_traits.cpp; sourceTree = "<group>"; };
 		22AF9BDA1AA141B0005DD997 /* cpp_regex_traits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cpp_regex_traits.cpp; path = boost/libs/regex/src/cpp_regex_traits.cpp; sourceTree = "<group>"; };
 		22AF9BDB1AA141B0005DD997 /* cregex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cregex.cpp; path = boost/libs/regex/src/cregex.cpp; sourceTree = "<group>"; };
@@ -401,9 +401,9 @@
 		2209F87D1AA0E5C800FB8D49 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2209F9741AA12CBC00FB8D49 /* Build Dynamic.dylib */,
+				2209F9741AA12CBC00FB8D49 /* JamomaFoundation.dylib */,
 				2209F9BC1AA1369300FB8D49 /* jamoma-test */,
-				2209FA0E1AA13AA800FB8D49 /* JamomaFoundation.a */,
+				2209FA0E1AA13AA800FB8D49 /* libJamomaFoundation.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -620,7 +620,7 @@
 			);
 			name = "Build Dynamic";
 			productName = JamomaFoundation;
-			productReference = 2209F9741AA12CBC00FB8D49 /* Build Dynamic.dylib */;
+			productReference = 2209F9741AA12CBC00FB8D49 /* JamomaFoundation.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		2209F9BB1AA1369300FB8D49 /* Build Test */ = {
@@ -655,7 +655,7 @@
 			);
 			name = "Build Static";
 			productName = JamomaFoundation;
-			productReference = 2209FA0E1AA13AA800FB8D49 /* JamomaFoundation.a */;
+			productReference = 2209FA0E1AA13AA800FB8D49 /* libJamomaFoundation.a */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -678,7 +678,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2209F8771AA0E5C800FB8D49 /* Build configuration list for PBXProject "foundation" */;
+			buildConfigurationList = 2209F8771AA0E5C800FB8D49 /* Build configuration list for PBXProject "JamomaFoundation" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -911,6 +911,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -945,6 +946,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -987,8 +989,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = JamomaFoundation;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = boost;
 			};
@@ -1011,7 +1012,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = JamomaFoundation;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = boost;
 			};
@@ -1029,7 +1030,6 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = build/JamomaFoundation.a;
 				PRODUCT_NAME = "jamoma-test";
 				SDKROOT = macosx;
@@ -1074,6 +1074,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CONFIGURATION_BUILD_DIR = build;
 				EXECUTABLE_EXTENSION = a;
+				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1086,7 +1087,6 @@
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = JamomaFoundation;
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = boost;
@@ -1101,6 +1101,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CONFIGURATION_BUILD_DIR = build;
 				EXECUTABLE_EXTENSION = a;
+				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1121,7 +1122,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2209F8771AA0E5C800FB8D49 /* Build configuration list for PBXProject "foundation" */ = {
+		2209F8771AA0E5C800FB8D49 /* Build configuration list for PBXProject "JamomaFoundation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2209F88C1AA0E5C800FB8D49 /* Debug */,
