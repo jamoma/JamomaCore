@@ -29,19 +29,19 @@ class TTSymbolBase {
 private:
 	TTPtrSizedInt	mSymbolTableId;		///< a unique identifier for the symbol table that owns this symbol
 	TTUInt32		mSymbolId;			///< a unique identifier for the given string
-	TTString		mString;			///< the actual string represented by this symbol
+	std::string		mString;			///< the actual string represented by this symbol
 
 protected:
 
 	/** used by the constructors to create the new symbol */
-	void init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
+	void init(const std::string& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
 
 
 public:
 		
 	/** The constructor is intended only for use by the TTSymbolBaseTable object when creating new symbols
 		in the table.  Perhaps this could be made private and then the class made a friend... */
-	TTSymbolBase(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
+	TTSymbolBase(const std::string& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId);
 
 	
 	virtual	~TTSymbolBase();
@@ -58,7 +58,7 @@ public:
 	}
 	
 	
-	const TTString& string() const
+	const std::string& string() const
 	{
 		return mString;
 	}
@@ -106,7 +106,7 @@ public:
 
 	
 	/** Cast a symbol to a TTStringRef. */
-	operator const TTString&() const
+	operator const std::string&() const
 	{
 		return mString;
 	}

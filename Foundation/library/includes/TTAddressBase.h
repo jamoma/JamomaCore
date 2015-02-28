@@ -103,7 +103,7 @@ private:
 public:
 	
 	/** Constructor */
-	TTAddressBase(const TTString& newAddressString, TTPtrSizedInt newAddressTableId, TTInt32 newId);
+	TTAddressBase(const std::string& newAddressString, TTPtrSizedInt newAddressTableId, TTInt32 newId);
 	
 	/** Destructor */
 	virtual ~TTAddressBase();

@@ -31,7 +31,7 @@ public:
 	{;}
 	
 	/**	Override the method used internally when constructing a new TTSymbolBase */
-	virtual TTSymbolBase* createEntry(const TTString& aString, TTInt32 newSymbolId);
+	virtual TTSymbolBase* createEntry(const std::string& aString, TTInt32 newSymbolId);
 	
 };
 

@@ -80,7 +80,7 @@ public:
 	}
 	
 	
-	const TTString& string() const
+	const std::string& string() const
 	{
 		return mSymbolPointer->string();
 	}
@@ -122,7 +122,7 @@ public:
 
 	
 	/** Cast a symbol to a TTStringRef. */
-	operator const TTString&() const
+	operator const std::string&() const
 	{
 		return mSymbolPointer->string();
 	}

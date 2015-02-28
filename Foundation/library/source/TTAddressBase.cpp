@@ -21,7 +21,7 @@ TTFOUNDATION_EXPORT TTRegex* ttRegexForAttribute = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForParent = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForInstance = NULL;
 
-TTAddressBase::TTAddressBase(const TTString& newAddressString, TTPtrSizedInt newAddressTableId, TTInt32 newId) :
+TTAddressBase::TTAddressBase(const std::string& newAddressString, TTPtrSizedInt newAddressTableId, TTInt32 newId) :
 	TTSymbolBase(newAddressString, newAddressTableId, newId),
 	directory(NO_DIRECTORY),
 	parent(NO_PARENT.getBasePointer()),

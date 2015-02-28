@@ -16,7 +16,7 @@
 
 /****************************************************************************************************/
 
-TTSymbolBase* TTAddressTable::createEntry(const TTString& aString, TTInt32 newSymbolId)
+TTSymbolBase* TTAddressTable::createEntry(const std::string& aString, TTInt32 newSymbolId)
 {
 	return new TTAddressBase(aString, TTPtrSizedInt(this), newSymbolId);
 }

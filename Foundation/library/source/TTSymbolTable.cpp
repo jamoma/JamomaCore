@@ -79,7 +79,7 @@ TTSymbolBase* TTSymbolTable::lookup(const char* aString)
 		return iter->second;
 	}
 #else
-	const TTString s(aString);
+	const std::string s(aString);
 	return lookup(s);
 #endif
 }

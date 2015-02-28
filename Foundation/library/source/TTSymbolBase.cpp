@@ -13,7 +13,7 @@
 /****************************************************************************************************/
 
 
-TTSymbolBase::TTSymbolBase(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
+TTSymbolBase::TTSymbolBase(const std::string& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
 {
 	init(newString, newSymbolTableId, newSymbolId);
 }
@@ -34,7 +34,7 @@ TTSymbolBase::TTSymbolBase(const TTSymbolBase& oldSymbol)
 }
 
 
-void TTSymbolBase::init(const TTString& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
+void TTSymbolBase::init(const std::string& newString, TTPtrSizedInt newSymbolTableId, TTInt32 newSymbolId)
 {
 	mSymbolId = newSymbolId;
 	mSymbolTableId = newSymbolTableId;

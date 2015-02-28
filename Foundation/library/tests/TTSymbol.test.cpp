@@ -88,11 +88,15 @@ void TTSymbolTestBasic(int& errorCount, int&testAssertionCount)
 					r.string().at(0) == 'f' && r.string().at(1) == 'o' && r.string().at(2) == 'o',
 					testAssertionCount,
 					errorCount);
+/*	// This assertion may or may not be a valid test depending on the internal implementation.
+	// When TTSymbol is built on std::string there is not an extra NULL char to test -- that is out of range and will crash
+	// But When TTSymbol is build std::vector<char> we do NULL terminal like C-String.
+
 	TTTestAssertion("created from = correctly null terminated",
 					r.string().at(3) == 0,
 					testAssertionCount,
 					errorCount);
-					
+*/					
 	TTTestLog("\n");
 	TTTestLog("Testing == operator for symbols");
 	
