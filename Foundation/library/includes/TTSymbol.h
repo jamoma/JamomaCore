@@ -79,11 +79,18 @@ public:
 		return mSymbolPointer->getCString();
 	}
 	
-	
+#if sane
 	const std::string& string() const
 	{
 		return mSymbolPointer->string();
 	}
+#else
+	const TTString string() const
+	{
+		TTString s(mSymbolPointer->string());
+		return s;
+	}
+#endif
 	
 	
 	/**	Return this symbol's unique id. */
