@@ -127,6 +127,13 @@ public:
 		return mSymbolPointer->string();
 	}
 
+	/** Cast a symbol to a std::string. */
+	operator const TTString() const
+	{
+		TTString s = mSymbolPointer->string();
+		return s;
+	}
+	
 	
 	/** Get the value of the raw pointer into the symbol table. 
 		Do not use this unless you absolutely know what you are doing.
