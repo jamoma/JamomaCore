@@ -14,9 +14,7 @@
  */
 
 
-#ifndef __TTGRAPH_H__
-#define __TTGRAPH_H__
-
+#pragma once
 #include "TTDSP.h"
 
 
@@ -39,38 +37,9 @@
 #endif
 
 
-/******************************************************************************************/
-
-
-/** \ingroup bitmasks
- Flags to be used as a bitmask.
-*/
-enum TTGraphFlags {
-	kTTGraphFlagsNone = 0x00,				///< No flags are set.
-};
-
-
-// data passed to all nodes in the graph when the graph is initialized
-class TTGraphInitData {
-public:
-	TTUInt16 vectorSize;	// the global/recommended/initial vectorSize (which can be overriden during process)
-};
-
-
 class	TTGraphObjectBase;
 typedef TTGraphObjectBase*					TTGraphObjectBasePtr;
 typedef std::vector<TTGraphObjectBasePtr>	TTGraphObjectBaseVector;
 typedef TTGraphObjectBaseVector::iterator	TTGraphObjectBaseIter;
 
-//#include "TTGraphInlet.h"
-//#include "TTGraphOutlet.h"
-//class	TTGraphOutlet;
-
-//#include "TTGraphDescription.h"
-
-/******************************************************************************************/
-
 TTGRAPH_EXPORT void TTGraphInit(void);
-
-
-#endif // __TTGRAPH_H__

@@ -26,11 +26,13 @@
 /******************************************************************************************/
 
 /**
-	The #TTGraphObjectBase wraps a TTDSP object such that it is possible to 
-	build a dynamic graph of audio processing units.
+	An instance of this class wraps a TTObject such that it is possible to
+	build a dynamic graph of such objects.
  
-	It is implemented as a TTObjectBase so that it can receive dynamically bound messages, 
-	incliding notifications from other objects.
+	It is itself implemented as a TTObjectBase so that it can receive dynamically bound messages,
+	including notifications from other objects.
+ 
+	We can also then create a graph of graphs.
 */
 class TTGRAPH_EXPORT TTGraphObjectBase : public TTDataObjectBase {
 	TTCLASS_SETUP(TTGraphObjectBase)
@@ -39,11 +41,11 @@ protected:
 	TTGraphInletVector		mInlets;		///< The inlets through which we pull audio from sources
 	TTGraphOutletVector		mOutlets;		///< The inlets through which we pull audio from sources
 	TTDictionaryPtr			mDictionary;	/// our copy of the data, from which we pass out references to the outlets 
-	TTGraphDescription		mDescription;	///< Used to pr	event feedback loops etc. when describing a graph
+	TTGraphDescription		mDescription;	///< Used to prevent feedback loops etc. when describing a graph
 
 public:	
-	TTObject				mKernel;		///< The actual TT object doing the processing.
-			
+	TTObject				mKernel;		///< The actual TTObject
+	
 	
 	TTErr push(const TTDictionary& aDictionary);
 	

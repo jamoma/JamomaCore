@@ -86,7 +86,5 @@ public:
 	
 };
 
-typedef TTGraphDescription*	TTGraphDescriptionPtr;
-
 
 #endif // __TTGRAPH_DESCRIPTION_H__
