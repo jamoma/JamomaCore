@@ -1,10 +1,15 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 
-
+### Core libraries ### 
 function(setupJamomaLibraryProperties LIBNAME)
+	# Filename
 	set_property(TARGET ${LIBNAME}
 				 PROPERTY OUTPUT_NAME Jamoma${LIBNAME})
+	set_property(TARGET ${PROJECT_NAME}
+				 PROPERTY INSTALL_RPATH "@loader_path/../../../../support;@loader_path")
+	
 
+	# Version
 	set_property(TARGET ${LIBNAME}
 				 PROPERTY VERSION ${Jamoma_VERSION})
 	set_property(TARGET ${LIBNAME}
@@ -14,24 +19,27 @@ function(setupJamomaLibraryProperties LIBNAME)
 
 	# TODO replace with target_include_directories
 	if(APPLE)
-	set_property(TARGET ${LIBNAME} APPEND
-				PROPERTY INTERFACE_INCLUDE_DIRECTORIES
-					$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
-					$<INSTALL_INTERFACE:include>)
+		set_property(TARGET ${LIBNAME} APPEND
+					 PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+						$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
+						$<INSTALL_INTERFACE:include>)
 	else()
-	set_property(TARGET ${LIBNAME} APPEND
-				 PROPERTY INTERFACE_INCLUDE_DIRECTORIES
-					$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
-					$<INSTALL_INTERFACE:include/jamoma>)
+		set_property(TARGET ${LIBNAME} APPEND
+					 PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+						$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
+						$<INSTALL_INTERFACE:include/jamoma>)
 	endif()
 
 	install(TARGETS ${LIBNAME}
 			EXPORT ${LIBNAME}Targets
 			LIBRARY DESTINATION lib
 			ARCHIVE DESTINATION lib
-			RUNTIME DESTINATION bin)
+			RUNTIME DESTINATION bin
+			COMPONENT Devel)
+
+	# TODO make a single variable for the include folder.
 	if(APPLE)
-		install(FILES ${PROJECT_HDRS} DESTINATION "include")
+		install(FILES ${PROJECT_HDRS} DESTINATION "include" COMPONENT Devel)
 	else()
 		install(FILES ${PROJECT_HDRS} DESTINATION "include/jamoma" COMPONENT Devel)
 	endif()
@@ -43,10 +51,12 @@ function(setupJamomaLibraryProperties LIBNAME)
 	install(EXPORT ${LIBNAME}Targets
 			FILE Jamoma${LIBNAME}Targets.cmake
 			NAMESPACE Jamoma::
-			DESTINATION ${ConfigPackageLocation})
+			DESTINATION ${ConfigPackageLocation}
+			COMPONENT Devel)
 endFunction()
 
-function(addJamomaLibrary)
+
+function(add_jamoma_library)
 	# Dynamic
 	add_library(${PROJECT_NAME}
 				SHARED
@@ -74,48 +84,84 @@ function(addJamomaLibrary)
 		setupJamomaLibraryProperties(${PROJECT_NAME}-x86_64-static)
 	endif()
 
+	if(BUILD_JAMOMAMAX)
+		install(TARGETS ${PROJECT_NAME}
+				DESTINATION "${JAMOMAMAX_INSTALL_FOLDER}/Jamoma/support"
+				COMPONENT JamomaMax)
+	endif()
 endFunction()
 
-#todo do the same for extensions / externals.
 
 
-## Set suffixes according to the conventions of the Jamoma project ##
-# todo instead make properties sets.
-function(setExtensionSuffix)
+### Extensions ###
+function(add_jamoma_extension)
+	# TODO : static extensions
+	add_library(${PROJECT_NAME}
+				SHARED
+				${PROJECT_SRCS} ${PROJECT_HDRS})
+
+	target_link_libraries(${PROJECT_NAME} ${JAMOMA_CURRENT_LIBRARY_NAME})
+
+	# Rpath
+	set_property(TARGET ${PROJECT_NAME}
+				 PROPERTY INSTALL_RPATH "@loader_path")
+
+	# Install the extension
 	if(APPLE)
-		set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+		set(JAMOMA_EXTENSION_FOLDER "extensions")
+	else()
+		set(JAMOMA_EXTENSION_FOLDER "lib/jamoma")
+	endif()
+
+	# TODO 1 component per extension ? Maybe overkill...
+	install(TARGETS ${PROJECT_NAME}
+			EXPORT ${JAMOMA_CURRENT_LIBRARY_NAME}Targets
+			DESTINATION "${JAMOMA_EXTENSION_FOLDER}"
+			COMPONENT Extensions)
+
+	# Set extension suffix according to platform conventions
+	set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+	if(APPLE)
 		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdylib")
 	elseif(ANDROID)
+		set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "lib")
 		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".so")
 	elseif(UNIX)
 		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttso")
 	elseif(WIN32)
 		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdll")
 	endif()
-endFunction(setExtensionSuffix)
 
-function(setExternalSuffix)
-	if(APPLE)
-		set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
-		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX "")
-	elseif(WIN32)
-		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".mxe")
+	### Tests ###
+	addTestTarget()
+
+	if(BUILD_JAMOMAMAX)
+		install(TARGETS ${PROJECT_NAME}
+				DESTINATION "${JAMOMAMAX_INSTALL_FOLDER}/Jamoma/support"
+				COMPONENT JamomaMax)
 	endif()
-endFunction(setExternalSuffix)
+endfunction()
+
 
 
 ## Add Apple frameworks ##
-function(addAppleFramework FRAMEWORK_NAME)
-IF(APPLE)
-   UNSET(THE_LIBRARY CACHE)
-   FIND_LIBRARY(THE_LIBRARY ${FRAMEWORK_NAME})
-   MARK_AS_ADVANCED (THE_LIBRARY)
-   SET(OSX_FRAMEWORKS "${OSX_FRAMEWORKS};${THE_LIBRARY}" PARENT_SCOPE)
-ENDIF (APPLE)
-endFunction(addAppleFramework)
 
+function(target_link_frameworks)
+	set(oneValueArgs TARGET)
+	set(multiValueArgs FRAMEWORKS)
+	cmake_parse_arguments(target_link_frameworks "" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
 
-## List subdirectories (for extensions) ##
+	if(APPLE)
+	foreach(THE_FRAMEWORK ${target_link_frameworks_FRAMEWORKS})
+		unset(THE_LIBRARY CACHE)
+		find_library(THE_LIBRARY ${THE_FRAMEWORK})
+		target_link_libraries(${target_link_frameworks_TARGET} ${THE_LIBRARY})
+		message("Linking ${target_link_frameworks_TARGET} with ${THE_LIBRARY}")
+	endforeach()
+	endif()
+endFunction()
+
+## List subdirectories (for extensions) ##
 MACRO(SUBDIRLIST result curdir)
   FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
   SET(dirlist "")
@@ -137,19 +183,7 @@ function(addExtensions)
 	ENDFOREACH()
 endFunction()
 
-
-## Add max externals recursively ##
-function(addExternals)
-	cmake_policy(SET CMP0014 OLD) # don't warn if folder doesn't contain a CMakeLists.txt file
-	SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
-	SET(IS_EXTERNAL 1)
-	FOREACH(subdir ${SUBDIRS})
-	    ADD_SUBDIRECTORY(${subdir})
-	ENDFOREACH()
-endFunction()
-
-
-## Function to create test targets ##
+## Function to create test targets ##
 function(addTestTarget)
 	if(NOT WIN32)
 		if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp)
@@ -177,44 +211,18 @@ function(addTestTarget)
 	endif()
 endFunction()
 
-
-## Function to set install path ##
-if(APPLE)
-	function(setOutput)
-		if(DEFINED IS_EXTENSION)
-			setExtensionSuffix()
-			INSTALL(TARGETS ${PROJECT_NAME} 
-					DESTINATION "extensions")
-		elseif(DEFINED IS_EXTERNAL)
-			setExternalSuffix()
-			INSTALL(TARGETS ${PROJECT_NAME} 
-					DESTINATION "externals")
-		endif()
-	endFunction()
-else()
-	function(setOutput)
-		if(DEFINED IS_EXTENSION)
-			setExtensionSuffix()
-			INSTALL(TARGETS ${PROJECT_NAME}
-					DESTINATION "lib/jamoma"
-			)
-		elseif(DEFINED IS_EXTERNAL)
-			setExternalSuffix()
-			INSTALL(TARGETS ${PROJECT_NAME}
-					DESTINATION "externals")
-		endif()
-	endFunction()
-endif()
-
-
 ## Function to add the Max/MSP includes ##
 # TODO put this in a module file instead.
 function(addMaxsupport)
-	set(MAXSDK_PATH "${CMAKE_SOURCE_DIR}/../Implementations/Max/source/c74support")
+	find_path(JAMOMAMAX_PATH "source/c74support/max-includes/commonsyms.h"
+			  HINTS "${CMAKE_SOURCE_DIR}/../Implementations/Max"
+			  		"${CMAKE_SOURCE_DIR}/Implementations/Max")
+	set(MAXSDK_PATH "${JAMOMAMAX_PATH}/source/c74support/")
+
 	include_directories("${MAXSDK_PATH}/max-includes")
 	include_directories("${MAXSDK_PATH}/msp-includes")
 	include_directories("${MAXSDK_PATH}/jit-includes")
-	include_directories("${CMAKE_SOURCE_DIR}/../Implementations/Max/library/includes")
+	include_directories("${JAMOMAMAX_PATH}/library/includes")
 
 	FIND_LIBRARY(MaxAPI_LIB 
 				 NAMES MaxAPI
@@ -226,16 +234,16 @@ function(addMaxsupport)
 		if(CMAKE_BUILD_TYPE STREQUAL "Release")
 			add_definitions(-DMAXAPI_USE_MSCRT)
 		endif()
-		FIND_LIBRARY(MaxCRT_LIB 
-					 NAMES maxcrt
-					 PATHS ${MAXSDK_PATH}/max-includes/)
-		MARK_AS_ADVANCED (MaxCRT_LIB)
-		SET(MaxCRT_LIB ${MaxCRT_LIB})
-		FIND_LIBRARY(MaxCRT_P_LIB 
-					 NAMES maxcrt_p
-					 PATHS ${MAXSDK_PATH}/max-includes/)
-		MARK_AS_ADVANCED (MaxCRT_P_LIB)
-		SET(MaxCRT_P_LIB ${MaxCRT_P_LIB})
+		# FIND_LIBRARY(MaxCRT_LIB 
+					 # NAMES maxcrt
+					 # PATHS ${MAXSDK_PATH}/max-includes/)
+		# MARK_AS_ADVANCED (MaxCRT_LIB)
+		# SET(MaxCRT_LIB ${MaxCRT_LIB})
+		# FIND_LIBRARY(MaxCRT_P_LIB 
+					 # NAMES maxcrt_p
+					 # PATHS ${MAXSDK_PATH}/max-includes/)
+		# MARK_AS_ADVANCED (MaxCRT_P_LIB)
+		# SET(MaxCRT_P_LIB ${MaxCRT_P_LIB})
 	endif()
 	
 	FIND_LIBRARY(MaxAudio_LIB 
@@ -265,10 +273,12 @@ if(NOT WIN32)
 
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${C74_SYM_LINKER_FLAGS}" PARENT_SCOPE)
 	set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${C74_SYM_LINKER_FLAGS}" PARENT_SCOPE)
+	set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${C74_SYM_LINKER_FLAGS}" PARENT_SCOPE)
 endif() # Todo : find something equivalent for windows
 endFunction()
 
-# This function checks the architectures of a library on OS X
+
+# This function checks the architectures of a given library on OS X
 function(osx_check_architecture LIBNAME LIBFILE)
 	if(APPLE)
 		if("${CMAKE_OSX_ARCHITECTURES}" STREQUAL "")

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 project(MIDI)
 
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID)
@@ -17,8 +17,14 @@ if(NOT PORTMIDI_FOUND)
   return()
 endif()
 
+if(WIN32)
+	message("We can't build ${PROJECT_NAME} on Windows Release yet")
+	message("TODO : Rebuild PortMidi with /MD")
+	return()
+endif()
+
 set(PROJECT_SRCS
-${CMAKE_CURRENT_SOURCE_DIR}/../../library/ProtocolLib/Protocol.cpp		
+$<TARGET_OBJECTS:ProtocolLib>
 ${CMAKE_CURRENT_SOURCE_DIR}/source/MIDI.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/MIDIDestination.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/MIDIInput.cpp
@@ -30,29 +36,20 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/MIDISource.cpp
 
 include_directories("${PROJECT_SOURCE_DIR}/")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../library/ProtocolLib")
-include_directories("${PORTMIDI_INCLUDE_DIR}")
+include_directories($<TARGET_PROPERTY:ProtocolLib,INTERFACE_INCLUDE_DIRECTORIES>)
+include_directories("${PORTMIDI_INCLUDE_DIRS}")
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
+add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME} Foundation)
-target_link_libraries(${PROJECT_NAME} ${PORTMIDI_LIBRARIES})
+
+target_link_libraries(${PROJECT_NAME}
+					  debug ${PORTMIDI_LIBRARIES_DEBUG}
+					  optimized ${PORTMIDI_LIBRARIES_DEBUG})
+
+target_link_frameworks(TARGET ${PROJECT_NAME}
+					   FRAMEWORKS Carbon CoreAudio CoreMIDI CoreFoundation)
 
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} winmm)
 endif()
-
-addAppleFramework(CoreMIDI)
-addAppleFramework(CoreFoundation)
-addAppleFramework(CoreAudio)
-addAppleFramework(Carbon)
-if(APPLE)
-	message("Linking with: ${OSX_FRAMEWORKS}")
-	target_link_libraries(${PROJECT_NAME} ${OSX_FRAMEWORKS})
-endif()
-
-### Output ###
-setOutput()
-
-### Tests ###
-addTestTarget()

@@ -1,29 +1,30 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 project(Modular)
-	
-set(JAMOMA_MODULAR_PROTOCOLLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ProtocolLib" 
-	CACHE 
-	STRING "ProtocolLib includes" FORCE)
-set(JAMOMA_MODULAR_SCHEDULERLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/SchedulerLib" 
-	CACHE 
-	STRING "SchedulerLib includes" FORCE)
-set(JAMOMA_MODULAR_PEEROBJECT_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/PeerObject" 
-	CACHE 
-	STRING "PeerObject includes" FORCE)
-	
 
 add_definitions(-DTTMODULAR_EXPORTS)
 
 find_package(LibXml2 REQUIRED)
-if(NOT LIBXML2_FOUND)
-  message(FATAL_ERROR "Package libxml2 required, but not found!")
+if(WIN32)
+	find_package(Libiconv REQUIRED)
+	include_directories(${LIBICONV_INCLUDE_DIR})
 endif()
-# libiconv headers were included but not used: here is the proper way to include it (from installed packages)
-#find_package(Libiconv REQUIRED)
-#include_directories(${LIBICONV_INCLUDE_DIR})
 
-set(PROJECT_SRCS
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTModular.cpp
+#### ProtocolLib ####
+set(PROTOCOLLIB_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/ProtocolLib/Protocol.cpp)
+add_library(ProtocolLib OBJECT ${PROTOCOLLIB_SRCS})
+target_include_directories(ProtocolLib PUBLIC "${PROJECT_SOURCE_DIR}/ProtocolLib")
+target_include_directories(ProtocolLib PUBLIC $<TARGET_PROPERTY:Foundation,INTERFACE_INCLUDE_DIRECTORIES>)
+
+#### SchedulerLib ####
+set(SCHEDULERLIB_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/SchedulerLib/Scheduler.cpp)
+add_library(SchedulerLib OBJECT ${SCHEDULERLIB_SRCS})
+target_include_directories(SchedulerLib PUBLIC "${PROJECT_SOURCE_DIR}/SchedulerLib")
+target_include_directories(SchedulerLib PUBLIC $<TARGET_PROPERTY:Foundation,INTERFACE_INCLUDE_DIRECTORIES>)
+
+#### PeerObject ####
+set(PEEROBJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTApplication.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTApplicationManager.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTContainer.cpp
@@ -49,37 +50,50 @@ ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTScript.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTSubscriber.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTTextHandler.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTViewer.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTXmlHandler.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/ProtocolLib/Protocol.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/SchedulerLib/Scheduler.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/TTXmlHandler.cpp)
 
+add_library(PeerObject OBJECT ${PEEROBJECT_SRCS})
+target_include_directories(PeerObject PUBLIC "${PROJECT_SOURCE_DIR}/PeerObject")
+target_include_directories(PeerObject PUBLIC $<TARGET_PROPERTY:Foundation,INTERFACE_INCLUDE_DIRECTORIES>)
+target_include_directories(PeerObject PUBLIC $<TARGET_PROPERTY:DSP,INTERFACE_INCLUDE_DIRECTORIES>)
+target_include_directories(PeerObject PUBLIC $<TARGET_PROPERTY:ProtocolLib,INTERFACE_INCLUDE_DIRECTORIES>)
+target_include_directories(PeerObject PUBLIC $<TARGET_PROPERTY:SchedulerLib,INTERFACE_INCLUDE_DIRECTORIES>)
+
+#### Modular library ####
+set(PROJECT_SRCS
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTModular.cpp
+$<TARGET_OBJECTS:PeerObject>
+$<TARGET_OBJECTS:ProtocolLib>
+$<TARGET_OBJECTS:SchedulerLib>
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTApplication.test.cpp
 )
 
 file(GLOB_RECURSE PROJECT_HDRS
-    ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/*.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/ProtocolLib/*.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/SchedulerLib/*.h
+	${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h
+	${CMAKE_CURRENT_SOURCE_DIR}/ProtocolLib/*.h
+	${CMAKE_CURRENT_SOURCE_DIR}/SchedulerLib/*.h
+	${CMAKE_CURRENT_SOURCE_DIR}/PeerObject/*.h
 )
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories("${PROJECT_SOURCE_DIR}/PeerObject")
-include_directories("${PROJECT_SOURCE_DIR}/ProtocolLib")
-include_directories("${PROJECT_SOURCE_DIR}/SchedulerLib")
-include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/libiconv/include")
 include_directories(${LIBXML2_INCLUDE_DIR})
 
-addJamomaLibrary()
+if(WIN32)
+	include_directories(${LIBICONV_INCLUDE_DIR})
+endif()
+include_directories(
+$<TARGET_PROPERTY:ProtocolLib,INTERFACE_INCLUDE_DIRECTORIES>
+$<TARGET_PROPERTY:SchedulerLib,INTERFACE_INCLUDE_DIRECTORIES>
+$<TARGET_PROPERTY:PeerObject,INTERFACE_INCLUDE_DIRECTORIES>)
+
+add_jamoma_library()
 
 target_link_libraries(${PROJECT_NAME} Foundation)
 target_link_libraries(${PROJECT_NAME} DSP)
 target_link_libraries(${PROJECT_NAME} ${LIBXML2_LIBRARIES})
+if(WIN32)
+	target_link_libraries(${PROJECT_NAME} ws2_32)
+endif()
 
-addAppleFramework(Carbon)
-
-### Output ###
-setOutput()
-
-### Tests ###
+### Tests ###
 addTestTarget()

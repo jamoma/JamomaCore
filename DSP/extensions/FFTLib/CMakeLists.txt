@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 project(FFTLib)
 
 set(PROJECT_SRCS
@@ -12,13 +12,5 @@ include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/mayer")
 include_directories("${PROJECT_SOURCE_DIR}/fft")
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
-
-target_link_libraries(${PROJECT_NAME} Foundation)
-target_link_libraries(${PROJECT_NAME} DSP)
-
-### Output ###
-setOutput()
-
-### Tests ###
-addTestTarget()
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
+add_jamoma_extension()

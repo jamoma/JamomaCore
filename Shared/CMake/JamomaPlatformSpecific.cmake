@@ -21,35 +21,36 @@ if(UNIX)
 			set(MACOSX_BUNDLE_GUI_IDENTIFIER "org.jamoma")
 		else()
 			add_definitions(-DTT_PLATFORM_MAC)
-			
+
 			#todo check if these options are really necessary.
 			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -msse3 -mfpmath=sse -gdwarf-2 -fvisibility=hidden")
 			# Independent shared libraries
 			set(CMAKE_MACOSX_RPATH 1)
-			
+
 			## TODO ##
-			# LDFLAGS += -install_name "@loader_path/../../../../support/$(NAME).dylib" 
+			# LDFLAGS += -install_name "@loader_path/../../../../support/$(NAME).dylib"
 
 			# CPack
-			SET(CPACK_GENERATOR "Bundle")
+			SET(CPACK_GENERATOR "DragNDrop")
 			SET(CPACK_BUNDLE_NAME "Jamoma")
-			SET(CPACK_BUNDLE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Shared/CMake/packaging/MacOS/icone.icns")
-			SET(CPACK_BUNDLE_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/Shared/CMake/packaging/MacOS/jamoma-Info.plist")
+			SET(CPACK_BUNDLE_ICON "${CMAKE_CURRENT_LIST_DIR}/packaging/MacOS/icone.icns")
+			#SET(CPACK_BUNDLE_PLIST "${CMAKE_CURRENT_LIST_DIR}/packaging/MacOS/jamoma-Info.plist")
 		endif()
 	## Linux ##
 	elseif(UNIX)
 		add_definitions(-DTT_PLATFORM_LINUX)
+		set(CMAKE_POSITION_INDEPENDENT_CODE True)
 		if(ANDROID)
 			#set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH};/opt/android-toolchain/arm-linux-androideabi/local/lib")
 			#set(CMAKE_INCLUDE_PATH "${CMAKE_INCLUDE_PATH};/opt/android-toolchain/arm-linux-androideabi/local/include")
-			
+
 		else()
 			SET(CMAKE_INSTALL_PREFIX /usr)
 			SET(CPACK_GENERATOR "DEB")
 			SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jamoma <jamoma@jamoma.org>")
 			SET(CPACK_SET_DESTDIR true)
 			SET(CPACK_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
-	
+
 			if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 				include_directories("/usr/include/i386-linux-gnu/c++/4.9/")
 				include_directories("/usr/include/i386-linux-gnu/c++/4.8/")
@@ -60,7 +61,7 @@ if(UNIX)
 		SET(CPACK_GENERATOR "NSIS")
 	endif()
 elseif(WIN32)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4996 /wd4275 /wd4273 /wd4068 /LD")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4996 /wd4275 /wd4273 /wd4068 /LD /MD")
 	add_definitions(-DTT_PLATFORM_WIN)
 	add_definitions(-DWIN_VERSION)
 	add_definitions(-DIDL=0)

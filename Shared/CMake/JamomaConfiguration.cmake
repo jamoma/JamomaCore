@@ -6,14 +6,11 @@ endif()
 
 
 # General settings
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/Shared/CMake/modules/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/modules/")
 set(ConfigPackageLocation share/cmake/Jamoma)
 
 # Jamoma configuration
 set(Jamoma_VERSION 6)
 set(Jamoma_SOVERSION 6)
 set(Jamoma_MAJOR_VERSION 6)
-
-
 

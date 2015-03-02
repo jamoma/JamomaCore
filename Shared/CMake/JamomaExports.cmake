@@ -6,13 +6,12 @@ write_basic_package_version_file(
   COMPATIBILITY AnyNewerVersion
 )
 
-configure_file(${PROJECT_SOURCE_DIR}/Shared/CMake/config/JamomaConfig.cmake
-  "${CMAKE_CURRENT_BINARY_DIR}/Jamoma/JamomaConfig.cmake"
-  COPY_ONLY
-)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/config/JamomaConfig.cmake
+			  "${CMAKE_CURRENT_BINARY_DIR}/Jamoma/JamomaConfig.cmake"
+			   COPYONLY)
 
 install(FILES 
-			${PROJECT_SOURCE_DIR}/Shared/CMake/config/JamomaConfig.cmake
-			"${CMAKE_CURRENT_BINARY_DIR}/Jamoma/JamomaConfigVersion.cmake"
+			${CMAKE_CURRENT_LIST_DIR}/config/JamomaConfig.cmake
+		   "${CMAKE_CURRENT_BINARY_DIR}/Jamoma/JamomaConfigVersion.cmake"
 		DESTINATION ${ConfigPackageLocation}
 		COMPONENT Devel)

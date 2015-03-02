@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 find_package(Sndfile)
 
 if(SNDFILE_FOUND)
@@ -17,19 +17,12 @@ ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSoundfileLoader.test.cpp
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
+add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME} Foundation)
-target_link_libraries(${PROJECT_NAME} DSP)
 target_link_libraries(${PROJECT_NAME} ${SNDFILE_LIBRARIES})
 
-addAppleFramework(Carbon)
-addAppleFramework(AudioUnit)
-
-### Output ###
-setOutput()
-
-### Tests ###
-addTestTarget()
+file(COPY ding_b2.aiff geese_clip.aif
+	 DESTINATION .)
 
 endif(SNDFILE_FOUND)

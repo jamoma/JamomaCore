@@ -1,9 +1,5 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 project(Foundation)
-
-set(JAMOMA_ICONV_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libiconv/include" 
-	CACHE 
-	STRING "libiconv includes" FORCE)
 
 if(UNIX AND NOT APPLE)
 	add_definitions("-DJAMOMA_EXTENSIONS_INSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}/lib/jamoma\"")
@@ -40,6 +36,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTThread.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTUnitTest.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAttribute.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTDataObjectBase.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTExtensionLoader.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTBase.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMessage.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTObject.cpp
@@ -118,8 +115,7 @@ include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/tests")
 include_directories("${PROJECT_SOURCE_DIR}/Mersenne-1.1")
 
-
-addJamomaLibrary()
+add_jamoma_library()
 
 if(WIN32)
 	if(CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -139,12 +135,6 @@ if(NOT ANDROID AND NOT WIN32)
 	target_link_libraries(${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
 	target_link_libraries(${PROJECT_NAME} ${DL_LIBRARY})
 endif()
-# OS X :
-addAppleFramework(Carbon)
-addAppleFramework(CoreServices)
 
-### Output ###
-setOutput()
-
-### Tests ###
+### Tests ###
 addTestTarget()

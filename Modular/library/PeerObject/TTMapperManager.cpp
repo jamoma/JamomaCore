@@ -70,7 +70,7 @@ TTErr TTMapperManager::WriteAsXml(const TTValue& inputValue, TTValue& outputValu
 
 		// Get mapper attributes
 		aMapper.attributes(attributes);
-		for (int i = 0; i < attributes.size(); i++) {
+		for (TTInt32 i = 0; i < (TTInt32) attributes.size(); i++) {
 
 			attributeName = attributes[i];
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 project(EffectsLib)
 
 set(PROJECT_SRCS
@@ -20,16 +20,11 @@ add_definitions(-DTT_EFFECTS_LIB)
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SRCS})
-
-target_link_libraries(${PROJECT_NAME} Foundation)
-target_link_libraries(${PROJECT_NAME} DSP)
-
-### Output ###
-setOutput()
+file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
+add_jamoma_extension()
 
 ### Tests ###
 # TODO find out why this one does not work ??
-if(NOT IOS)
-	addTestTarget()
-endif()
+#if(NOT IOS)
+#	addTestTarget()
+#endif()

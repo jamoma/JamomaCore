@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.0)
 project(DSP)
 
 add_definitions(-DTTDSP_EXPORTS)
@@ -26,12 +26,9 @@ ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSampleMatrix.test.cpp
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 
-addJamomaLibrary()
+add_jamoma_library()
 
 target_link_libraries(${PROJECT_NAME} Foundation)
 
-### Output ###
-setOutput()
-
-### Tests ###
+### Tests ###
 addTestTarget()

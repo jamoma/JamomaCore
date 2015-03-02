@@ -278,7 +278,7 @@ TTErr TTContainer::initNode(TTNodePtr aNode)
     aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
     
     // Sort children by priority order
-    nodeList.sort(compareNodePriorityThenNameThenInstance);
+	nodeList.sort(&compareNodePriorityThenNameThenInstance);
     
     for (nodeList.begin(); nodeList.end(); nodeList.next())
     {
