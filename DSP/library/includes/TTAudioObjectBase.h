@@ -437,7 +437,7 @@ inline TTFloat64 TTLinearGainToMidi(TTFloat64 value)
  */
 inline TTUInt32 TTPrime(TTUInt32 value)
 {
-	long	candidate, last, i, isPrime;
+	TTUInt32	candidate, last, i, isPrime;
 
    	if (value < 2)
   		candidate = 2;
