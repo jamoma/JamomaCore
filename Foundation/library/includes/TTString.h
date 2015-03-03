@@ -6,10 +6,32 @@
  http://creativecommons.org/licenses/BSD/
  */
 
+#pragma once
+
+//#include <string>
+#include "TTBase.h"
+
+using TTString = std::string;
+
+// NOTE: we do not export TTString because it is defined in a header as a subclass of a stl template
+// but we do want to export this method, which is not defined inline so that we don't pick up a direct
+// dependency on Mersenne Twister
+/** Replace contents with a pseudo-random string. */
+std::string TTFOUNDATION_EXPORT TTGenerateRandomString();
+
+// TODO: These conversions seem a bit misguided, but are being maintained momentarily for backward compatibility.
+// Should be replaced with standard calls like std::stoi() and friends.
+
+TTBoolean TTFOUNDATION_EXPORT TTStringToTTInt32(const std::string s, TTInt32& convertedInt);
+TTBoolean TTFOUNDATION_EXPORT TTStringToTTUInt32(const std::string s, TTUInt32& convertedUInt);
+TTBoolean TTFOUNDATION_EXPORT TTStringToTTFloat32(const std::string s, TTFloat32& convertedFloat);
+
+
+#define __TT_STRING_H__
+
 #ifndef __TT_STRING_H__
 #define __TT_STRING_H__
 
-#include "TTBase.h"
 
 
 /****************************************************************************************************/
@@ -369,42 +391,8 @@ public:
 	}
 
 
-	// NOTE: we do not export TTString because it is defined in a header as a subclass of a stl template
-	// but we do want to export this method, which is not defined inline so that we don't pick up a direct
-	// dependency on Mersenne Twister
-	/** Replace contents with a pseudo-random string. */
-	void TTFOUNDATION_EXPORT random();
 
 
-	TTBoolean toTTInt32(TTInt32& convertedInt) const
-	{
-		char * pEnd;
-
-		convertedInt = (TTInt32)strtol(c_str(), &pEnd, 10);
-		return *pEnd == 0;
-	}
-
-
-	TTBoolean toTTUInt32(TTUInt32& convertedUInt) const
-	{
-		char * pEnd;
-
-		convertedUInt = (TTUInt32)strtoul(c_str(), &pEnd, 10);
-
-        // is the last letter is a 'u' ?
-		return *pEnd == 'u' && pEnd == (c_str() + length() - 1);
-	}
-
-	/*	note : isTTFloat32 works only because the TTInt32 case is matched before
-		see in TTValue::fromString method
-	 */
-	TTBoolean toTTFloat32(TTFloat32& convertedFloat) const
-	{
-		char * pEnd;
-
-		convertedFloat = strtod(c_str(), &pEnd);
-		return *pEnd == 0;
-	}
 
 };
 

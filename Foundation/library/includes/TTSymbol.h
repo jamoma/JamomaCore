@@ -48,12 +48,10 @@ public:
 		mSymbolPointer = gTTSymbolTable.lookup(aString);
 	}
 	
-	
+	// TODO: make this a template for all numeric values
 	TTSymbol(const int int_to_convert_to_string)
 	{
-		TTString s;
-		
-		s.append(int_to_convert_to_string);
+		TTString s = std::to_string(int_to_convert_to_string);
 		mSymbolPointer = gTTSymbolTable.lookup(s);
 	}
 	
@@ -154,9 +152,7 @@ public:
 	/** Generate a pseudo-random symbol */
 	static TTSymbol random()
 	{
-		TTString s;
-		
-		s.random();
+		TTString s = TTGenerateRandomString();
 		return TTSymbol(s);
 	}
 

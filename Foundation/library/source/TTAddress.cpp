@@ -27,13 +27,13 @@ TTErr TTAddress::parseInstanceZero(const char* cstr, TTString& parsed)
         
         parsed = toParse;
         
-        TTStringIter begin = parsed.begin();
-        TTStringIter end = parsed.end();
+        TTString::iterator begin = parsed.begin();
+        TTString::iterator end = parsed.end();
         
         // parse and remove ".0"
         while (!ttRegexForInstanceZero->parse(begin, end)) {
-            TTStringIter z_begin = ttRegexForInstanceZero->begin() - 2;
-            TTStringIter z_end = ttRegexForInstanceZero->end();
+            TTString::iterator z_begin = ttRegexForInstanceZero->begin() - 2;
+            TTString::iterator z_end = ttRegexForInstanceZero->end();
             
             TTString a(begin, z_begin);
             TTString b(z_end, end);

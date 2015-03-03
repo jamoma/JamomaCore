@@ -323,7 +323,7 @@ public:
 		//if (mType == kTypeAddress)
 		//	return *mValue.mAddress;
 		if (mType == kTypeSymbol)
-			return TTAddress(*mValue.mSymbol);
+			return TTAddress(*mValue.mSymbol->c_str());
         else
 			return kTTAdrsEmpty;
 	}

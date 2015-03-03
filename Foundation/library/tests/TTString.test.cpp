@@ -38,10 +38,14 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					empty.length() == 0,
 					testAssertionCount,
 					errorCount);
+#ifdef ILLEGAL_TEST_ASSERTION__WILL_CRASH
+	// With a std::string of size zero, this element is out of range and accessing it will crash!
+	// The old std::vector implementation of size zero was actually implemented with a size of 1, which led to this misleading test assertion!
 	TTTestAssertion("created from static const char* arg correctly null terminated",
 					empty.at(0) == 0,
 					testAssertionCount,
 					errorCount);
+#endif // ILLEGAL_TEST_ASSERTION__WILL_CRASH
 	
 	// TEST: c-string init
 	
@@ -62,10 +66,14 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					foo.at(0) == 'f' && foo.at(1) == 'o' && foo.at(2) == 'o',
 					testAssertionCount,
 					errorCount);
+#ifdef ILLEGAL_TEST_ASSERTION__WILL_CRASH
+	// With a std::string of size 3, this element is out of range and accessing it will crash!
+	// The old std::vector implementation of size 3 was actually implemented with a size of 4, which led to this misleading test assertion!
 	TTTestAssertion("created from static const char* arg correctly null terminated",
 					foo.at(3) == 0,
 					testAssertionCount,
 					errorCount);
+#endif // ILLEGAL_TEST_ASSERTION__WILL_CRASH
 	
 	// TEST: = init
 	
@@ -87,11 +95,13 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					jet.at(0) == 'j' && jet.at(1) == 'e' && jet.at(2) == 't',
 					testAssertionCount,
 					errorCount);
+#ifdef ILLEGAL_TEST_ASSERTION__WILL_CRASH
 	TTTestAssertion("created from = correctly null terminated",
 					jet.at(3) == 0,
 					testAssertionCount,
 					errorCount);
-    
+#endif
+	
     // TEST: clear
     
     TTTestLog("\n");
@@ -106,10 +116,6 @@ void TTStringTestBasic(int& errorCount, int&testAssertionCount)
 					errorCount);
 	TTTestAssertion("cleared string with correct length",
 					empty.length() == 0,
-					testAssertionCount,
-					errorCount);
-	TTTestAssertion("cleared string correctly null terminated",
-					empty.at(0) == 0,
 					testAssertionCount,
 					errorCount);
 
@@ -204,10 +210,6 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 					sub.at(0) == '3' && sub.at(1) == '4' && sub.at(2) == '5',
 					testAssertionCount,
 					errorCount);
-	TTTestAssertion("created from substr correctly null terminated",
-					sub.at(3) == 0,
-					testAssertionCount,
-					errorCount);
 	
 	TTTestLog("\n");
 	TTTestLog("Testing summing operation");
@@ -223,10 +225,6 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 					sumA.length() == 1,
 					testAssertionCount,
 					errorCount);
-	TTTestAssertion("created from += operator correctly null terminated",
-					sumA.at(1) == 0,
-					testAssertionCount,
-					errorCount);
 	
 	TTString sumB;
 	sumB += '/';
@@ -237,10 +235,6 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 					errorCount);
 	TTTestAssertion("created from += operator with correct length",
 					sumB.length() == 1,
-					testAssertionCount,
-					errorCount);
-	TTTestAssertion("created from += operator correctly null terminated",
-					sumB.at(1) == 0,
 					testAssertionCount,
 					errorCount);
 	
@@ -254,9 +248,9 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 	TTString b("Pi is roughly 7/22");
 
 	a += "Pi is roughly ";
-	a += 7u;
+	a += std::to_string(7u);
 	a += "/";
-	a += 22;
+	a += std::to_string(22);
 	TTTestAssertion("string built-up with a couple of ints in it",
 					a == b,
 					testAssertionCount,
@@ -264,7 +258,7 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 	
 	b = "Pi is roughly 3.140000";
 	a = "Pi is roughly ";
-	a += 3.14f;
+	a += std::to_string(3.14f);
 	
 	TTTestAssertion("string built-up with a float in it",
 					a == b,
@@ -272,7 +266,7 @@ void TTStringTestNumeric(int& errorCount, int&testAssertionCount)
 					errorCount);
 	
 	a = "Pi is roughly ";
-	a += 3.14;
+	a += std::to_string(3.14);
 	TTTestAssertion("string built-up with a double in it",
 					a == b,
 					testAssertionCount,

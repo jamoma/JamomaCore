@@ -855,7 +855,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				
 				TTRegex* aRegex;
 				TTString s_toParse;
-				TTStringIter begin, end;
+				TTString::iterator begin, end;
 				
 				// get filter
 				aFilter = TTDictionaryBasePtr((TTPtr)v[0]);

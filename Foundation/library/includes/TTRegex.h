@@ -39,16 +39,16 @@ public:
 		@param	begin					the beginning of the string to parse
 		@param	end						the end of the string to parse
 		@return							a error code	*/
-	TTErr parse(TTStringIter& begin, TTStringIter& end);
+	TTErr parse(TTString::iterator& begin, TTString::iterator& end);
 	
 
 	/** Get where start the result */
 	//TTRegexStringPosition	begin();
-	TTStringIter	begin();
+	TTString::iterator	begin();
 	
 	/** Get where end the result */
 	//TTRegexStringPosition	end();
-	TTStringIter	end();
+	TTString::iterator	end();
 };
 
 	

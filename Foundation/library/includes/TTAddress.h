@@ -58,11 +58,14 @@ public:
 	}
 	
 	
+	TTAddress(const TTString& s) : TTAddress(s.c_str()) {}
+	TTAddress(const TTSymbol& s) : TTAddress(s.c_str()) {}
+	
+	
+	// TODO: address code duplication between TTAddress and TTSymbol
 	TTAddress(const int int_to_convert_to_string)
 	{
-		TTString s;
-		
-		s.append(int_to_convert_to_string);
+		TTString s = std::to_string(int_to_convert_to_string);
 		mSymbolPointer = gTTAddressTable.lookup(s);
 	}
 	

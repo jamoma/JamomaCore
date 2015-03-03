@@ -235,8 +235,8 @@ TTErr TTAddressBase::parse()
 	TTString s_instance;
 	TTString s_attribute;
 
-	TTStringIter begin = s_toParse.begin();
-	TTStringIter end = s_toParse.end();
+	TTString::iterator begin = s_toParse.begin();
+	TTString::iterator end = s_toParse.end();
 	
 	// warning : addresses with special regex characters (like [, {) that could be problematic
     // TODO : rewrite the parsing without regex because we want to use those special characters !
@@ -252,8 +252,8 @@ TTErr TTAddressBase::parse()
 	// parse directory
 	if (!ttRegexForDirectory->parse(begin, end))
 	{
-		TTStringIter temp_begin = ttRegexForDirectory->begin();
-		TTStringIter temp_end = ttRegexForDirectory->end();
+		TTString::iterator temp_begin = ttRegexForDirectory->begin();
+		TTString::iterator temp_end = ttRegexForDirectory->end();
 
 		s_directory = TTString(temp_begin, temp_end);
 
@@ -285,8 +285,8 @@ TTErr TTAddressBase::parse()
 	// parse attribute
 	if (!ttRegexForAttribute->parse(begin, end))
 	{
-		TTStringIter temp_begin = ttRegexForAttribute->begin();
-		TTStringIter temp_end = ttRegexForAttribute->end();
+		TTString::iterator temp_begin = ttRegexForAttribute->begin();
+		TTString::iterator temp_end = ttRegexForAttribute->end();
 
 		s_attribute = TTString(temp_begin, end);
 		s_toParse = TTString(begin, temp_end-1);                            // -1 to remove ":"
@@ -316,7 +316,7 @@ TTErr TTAddressBase::parse()
         else
 			s_parent += TTString(ttRegexForParent->begin(), ttRegexForParent->end());
 
-		s_toParse = TTString(ttRegexForParent->end()+1, end-1);               // +1 to remove "/", -1 to remove a useless \0
+		s_toParse = TTString(ttRegexForParent->end()+1, end);               // +1 to remove "/"
 
 		begin = s_toParse.begin();
 		end = s_toParse.end();
@@ -329,7 +329,10 @@ TTErr TTAddressBase::parse()
 	// parse instance
 	if (!ttRegexForInstance->parse(begin, end))
 	{
-		s_instance = TTString(ttRegexForInstance->end(), end-1);            // -1 to remove a '\0' at the end
+		// s_instance = TTString(ttRegexForInstance->end(), end-1);            // -1 to remove a '\0' at the end
+		// The above changed to the below when going from std::vector-based TTString to std::string-based TTString because of crashes in the unit test
+		// The std::vector version used a NULL termination char whereas the std::string version does not.
+		s_instance = TTString(ttRegexForInstance->end(), end);
 		s_toParse = TTString(begin, ttRegexForInstance->begin()-1);			// -1 to remove "."
 
 		begin = s_toParse.begin();

@@ -390,18 +390,15 @@ public:
 		for (unsigned int i = 0; i < strList.size(); ++i) {
 			TTString	currentString = strList.at(i).c_str();
 
-			if (currentString.toTTInt32(convertedInt) && !numberAsSymbol) {
-
+			if (TTStringToTTInt32(currentString, convertedInt) && !numberAsSymbol) {
 				at(n) = int(convertedInt);
 				n++;
 			}
-            else if (currentString.toTTUInt32(convertedUInt) && !numberAsSymbol) {
-
+            else if (TTStringToTTUInt32(currentString, convertedUInt) && !numberAsSymbol) {
 				at(n) = TTUInt32(convertedUInt);
 				n++;
 			}
-			else if (currentString.toTTFloat32(convertedFloat) && !numberAsSymbol) {
-
+			else if (TTStringToTTFloat32(currentString, convertedFloat) && !numberAsSymbol) {
 				at(n) = TTFloat64(convertedFloat);  // cast float32 into float64
 				n++;
 			}
