@@ -6,45 +6,113 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		22609A531AA649EB008DF31A /* Build All & Test */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 22609A541AA649EB008DF31A /* Build configuration list for PBXAggregateTarget "Build All & Test" */;
+			buildPhases = (
+				22609A5D1AA64A07008DF31A /* ShellScript */,
+			);
+			dependencies = (
+				22609A581AA649F1008DF31A /* PBXTargetDependency */,
+				22609A5A1AA649F3008DF31A /* PBXTargetDependency */,
+				22609A5C1AA649F4008DF31A /* PBXTargetDependency */,
+			);
+			name = "Build All & Test";
+			productName = "Build All & Test";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		226099B21AA4E4EA008DF31A /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 226099B11AA4E4EA008DF31A /* JamomaFoundation.dylib */; };
-		226099B31AA4E51B008DF31A /* TTScore.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46BFD37D170DAE9900B99389 /* TTScore.test.cpp */; };
-		226099B41AA4E51F008DF31A /* TTTimeProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B55541177B124500F50D89 /* TTTimeProcess.cpp */; };
-		226099B51AA4E523008DF31A /* TTTimeContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468EBBFB17847064008BE2AC /* TTTimeContainer.cpp */; };
-		226099B61AA4E528008DF31A /* TTTimeEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B5553E177B044500F50D89 /* TTTimeEvent.cpp */; };
-		226099B71AA4E52E008DF31A /* TTTimeCondition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465A654217F081A200B70364 /* TTTimeCondition.cpp */; };
-		226099B81AA4E531008DF31A /* Expression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B9018F19233C3B00AC93ED /* Expression.cpp */; };
-		226099B91AA4E534008DF31A /* TTCurve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468AC7DB197FB23600FB2B18 /* TTCurve.cpp */; };
-		226099BA1AA4E537008DF31A /* TTScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D6FF0C18576004005D49AF /* TTScore.cpp */; };
-		226099BC1AA4E8BF008DF31A /* JamomaModular.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 226099BB1AA4E8BF008DF31A /* JamomaModular.dylib */; };
 		226099BE1AA4E945008DF31A /* JamomaDSP.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 226099BD1AA4E945008DF31A /* JamomaDSP.dylib */; };
+		22609A501AA649B2008DF31A /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462B30921A1F2C1100F26504 /* test.cpp */; };
+		22609A6D1AA6532D008DF31A /* Expression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A661AA6532D008DF31A /* Expression.cpp */; };
+		22609A6E1AA6532D008DF31A /* Expression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A661AA6532D008DF31A /* Expression.cpp */; };
+		22609A6F1AA6532D008DF31A /* TTCurve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A671AA6532D008DF31A /* TTCurve.cpp */; };
+		22609A701AA6532D008DF31A /* TTCurve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A671AA6532D008DF31A /* TTCurve.cpp */; };
+		22609A711AA6532D008DF31A /* TTScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A681AA6532D008DF31A /* TTScore.cpp */; };
+		22609A721AA6532D008DF31A /* TTScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A681AA6532D008DF31A /* TTScore.cpp */; };
+		22609A731AA6532D008DF31A /* TTTimeCondition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A691AA6532D008DF31A /* TTTimeCondition.cpp */; };
+		22609A741AA6532D008DF31A /* TTTimeCondition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A691AA6532D008DF31A /* TTTimeCondition.cpp */; };
+		22609A751AA6532D008DF31A /* TTTimeContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A6A1AA6532D008DF31A /* TTTimeContainer.cpp */; };
+		22609A761AA6532D008DF31A /* TTTimeContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A6A1AA6532D008DF31A /* TTTimeContainer.cpp */; };
+		22609A771AA6532D008DF31A /* TTTimeEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A6B1AA6532D008DF31A /* TTTimeEvent.cpp */; };
+		22609A781AA6532D008DF31A /* TTTimeEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A6B1AA6532D008DF31A /* TTTimeEvent.cpp */; };
+		22609A791AA6532D008DF31A /* TTTimeProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A6C1AA6532D008DF31A /* TTTimeProcess.cpp */; };
+		22609A7A1AA6532D008DF31A /* TTTimeProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A6C1AA6532D008DF31A /* TTTimeProcess.cpp */; };
+		22609A7F1AA65414008DF31A /* TTScore.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A7E1AA65414008DF31A /* TTScore.test.cpp */; };
+		22609A801AA65414008DF31A /* TTScore.test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22609A7E1AA65414008DF31A /* TTScore.test.cpp */; };
+		22609A821AA6544E008DF31A /* JamomaModular.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22609A811AA6544E008DF31A /* JamomaModular.dylib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22609A511AA649BE008DF31A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F50561166698EB00CFC3A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22609A1C1AA6490E008DF31A;
+			remoteInfo = "Build Static";
+		};
+		22609A571AA649F1008DF31A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F50561166698EB00CFC3A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 226099A41AA4E432008DF31A;
+			remoteInfo = "Build Dynamic";
+		};
+		22609A591AA649F3008DF31A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F50561166698EB00CFC3A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22609A1C1AA6490E008DF31A;
+			remoteInfo = "Build Static";
+		};
+		22609A5B1AA649F4008DF31A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F50561166698EB00CFC3A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22609A481AA6499B008DF31A;
+			remoteInfo = "Build Test";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		22609A471AA6499B008DF31A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		226099A51AA4E432008DF31A /* JamomaScore.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = JamomaScore.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		226099B11AA4E4EA008DF31A /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../Foundation/library/build/JamomaFoundation.dylib; sourceTree = "<group>"; };
-		226099BB1AA4E8BF008DF31A /* JamomaModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaModular.dylib; path = ../../Modular/library/build/JamomaModular.dylib; sourceTree = "<group>"; };
 		226099BD1AA4E945008DF31A /* JamomaDSP.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaDSP.dylib; path = ../../DSP/library/build/JamomaDSP.dylib; sourceTree = "<group>"; };
+		22609A441AA6490E008DF31A /* libJamomaScore.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libJamomaScore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		22609A491AA6499B008DF31A /* jamoma-test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "jamoma-test"; sourceTree = BUILT_PRODUCTS_DIR; };
+		22609A5E1AA6531C008DF31A /* Expression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Expression.h; path = includes/Expression.h; sourceTree = SOURCE_ROOT; };
+		22609A5F1AA6531C008DF31A /* TTCurve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTCurve.h; path = includes/TTCurve.h; sourceTree = SOURCE_ROOT; };
+		22609A601AA6531C008DF31A /* TTScore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTScore.h; path = includes/TTScore.h; sourceTree = SOURCE_ROOT; };
+		22609A611AA6531C008DF31A /* TTScoreIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTScoreIncludes.h; path = includes/TTScoreIncludes.h; sourceTree = SOURCE_ROOT; };
+		22609A621AA6531C008DF31A /* TTTimeCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeCondition.h; path = includes/TTTimeCondition.h; sourceTree = SOURCE_ROOT; };
+		22609A631AA6531C008DF31A /* TTTimeContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeContainer.h; path = includes/TTTimeContainer.h; sourceTree = SOURCE_ROOT; };
+		22609A641AA6531C008DF31A /* TTTimeEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeEvent.h; path = includes/TTTimeEvent.h; sourceTree = SOURCE_ROOT; };
+		22609A651AA6531C008DF31A /* TTTimeProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeProcess.h; path = includes/TTTimeProcess.h; sourceTree = SOURCE_ROOT; };
+		22609A661AA6532D008DF31A /* Expression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Expression.cpp; path = source/Expression.cpp; sourceTree = SOURCE_ROOT; };
+		22609A671AA6532D008DF31A /* TTCurve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCurve.cpp; path = source/TTCurve.cpp; sourceTree = SOURCE_ROOT; };
+		22609A681AA6532D008DF31A /* TTScore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTScore.cpp; path = source/TTScore.cpp; sourceTree = SOURCE_ROOT; };
+		22609A691AA6532D008DF31A /* TTTimeCondition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeCondition.cpp; path = source/TTTimeCondition.cpp; sourceTree = SOURCE_ROOT; };
+		22609A6A1AA6532D008DF31A /* TTTimeContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeContainer.cpp; path = source/TTTimeContainer.cpp; sourceTree = SOURCE_ROOT; };
+		22609A6B1AA6532D008DF31A /* TTTimeEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeEvent.cpp; path = source/TTTimeEvent.cpp; sourceTree = SOURCE_ROOT; };
+		22609A6C1AA6532D008DF31A /* TTTimeProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeProcess.cpp; path = source/TTTimeProcess.cpp; sourceTree = SOURCE_ROOT; };
+		22609A7E1AA65414008DF31A /* TTScore.test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTScore.test.cpp; path = source/TTScore.test.cpp; sourceTree = SOURCE_ROOT; };
+		22609A811AA6544E008DF31A /* JamomaModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaModular.dylib; path = ../../Modular/library/build/JamomaModular.dylib; sourceTree = "<group>"; };
 		462B30921A1F2C1100F26504 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
-		464FE81317F570C300529725 /* TTTimeCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeCondition.h; path = includes/TTTimeCondition.h; sourceTree = SOURCE_ROOT; };
-		4659534217870BCC0094F82C /* TTScore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTScore.h; path = includes/TTScore.h; sourceTree = SOURCE_ROOT; };
-		465A654217F081A200B70364 /* TTTimeCondition.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeCondition.cpp; path = source/TTTimeCondition.cpp; sourceTree = SOURCE_ROOT; };
-		468AC7DB197FB23600FB2B18 /* TTCurve.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTCurve.cpp; path = source/TTCurve.cpp; sourceTree = SOURCE_ROOT; };
-		468AC7DC197FB23E00FB2B18 /* TTCurve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTCurve.h; path = includes/TTCurve.h; sourceTree = SOURCE_ROOT; };
-		468EBBFB17847064008BE2AC /* TTTimeContainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeContainer.cpp; path = source/TTTimeContainer.cpp; sourceTree = SOURCE_ROOT; };
-		46A0B5D417F9B5070046756C /* TTTimeContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeContainer.h; path = includes/TTTimeContainer.h; sourceTree = SOURCE_ROOT; };
-		46B5553D177B043C00F50D89 /* TTTimeEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeEvent.h; path = includes/TTTimeEvent.h; sourceTree = SOURCE_ROOT; };
-		46B5553E177B044500F50D89 /* TTTimeEvent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeEvent.cpp; path = source/TTTimeEvent.cpp; sourceTree = SOURCE_ROOT; };
-		46B5553F177B11FB00F50D89 /* JamomaScore.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaScore.yml; sourceTree = "<group>"; };
-		46B55540177B123C00F50D89 /* TTTimeProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeProcess.h; path = includes/TTTimeProcess.h; sourceTree = SOURCE_ROOT; };
-		46B55541177B124500F50D89 /* TTTimeProcess.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeProcess.cpp; path = source/TTTimeProcess.cpp; sourceTree = SOURCE_ROOT; };
-		46B9018B192331A700AC93ED /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		46B9018E19233C3300AC93ED /* Expression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Expression.h; path = includes/Expression.h; sourceTree = SOURCE_ROOT; };
-		46B9018F19233C3B00AC93ED /* Expression.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Expression.cpp; path = source/Expression.cpp; sourceTree = SOURCE_ROOT; };
-		46BFD37D170DAE9900B99389 /* TTScore.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTScore.test.cpp; sourceTree = "<group>"; };
-		46BFD37E170DAE9900B99389 /* TTScore.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTScore.test.h; sourceTree = "<group>"; };
-		46D6FF0C18576004005D49AF /* TTScore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTScore.cpp; path = source/TTScore.cpp; sourceTree = SOURCE_ROOT; };
-		46F5057A166699BE00CFC3A2 /* TTScoreIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTScoreIncludes.h; path = includes/TTScoreIncludes.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,9 +120,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				226099BC1AA4E8BF008DF31A /* JamomaModular.dylib in Frameworks */,
 				226099BE1AA4E945008DF31A /* JamomaDSP.dylib in Frameworks */,
 				226099B21AA4E4EA008DF31A /* JamomaFoundation.dylib in Frameworks */,
+				22609A821AA6544E008DF31A /* JamomaModular.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22609A3D1AA6490E008DF31A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22609A461AA6499B008DF31A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				226099A51AA4E432008DF31A /* JamomaScore.dylib */,
+				22609A441AA6490E008DF31A /* libJamomaScore.a */,
+				22609A491AA6499B008DF31A /* jamoma-test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,8 +156,7 @@
 		46BFD37C170DAE9900B99389 /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				46BFD37E170DAE9900B99389 /* TTScore.test.h */,
-				46BFD37D170DAE9900B99389 /* TTScore.test.cpp */,
+				22609A7E1AA65414008DF31A /* TTScore.test.cpp */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -81,15 +164,13 @@
 		46F5055F166698EB00CFC3A2 = {
 			isa = PBXGroup;
 			children = (
-				46B5553F177B11FB00F50D89 /* JamomaScore.yml */,
-				46B9018B192331A700AC93ED /* Makefile */,
 				462B30921A1F2C1100F26504 /* test.cpp */,
 				46F5056F1666991700CFC3A2 /* includes */,
 				46F505731666991700CFC3A2 /* source */,
 				46BFD37C170DAE9900B99389 /* tests */,
 				226099B11AA4E4EA008DF31A /* JamomaFoundation.dylib */,
 				226099BD1AA4E945008DF31A /* JamomaDSP.dylib */,
-				226099BB1AA4E8BF008DF31A /* JamomaModular.dylib */,
+				22609A811AA6544E008DF31A /* JamomaModular.dylib */,
 				226099A61AA4E432008DF31A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -97,14 +178,14 @@
 		46F5056F1666991700CFC3A2 /* includes */ = {
 			isa = PBXGroup;
 			children = (
-				4659534217870BCC0094F82C /* TTScore.h */,
-				46F5057A166699BE00CFC3A2 /* TTScoreIncludes.h */,
-				468AC7DC197FB23E00FB2B18 /* TTCurve.h */,
-				46B9018E19233C3300AC93ED /* Expression.h */,
-				464FE81317F570C300529725 /* TTTimeCondition.h */,
-				46A0B5D417F9B5070046756C /* TTTimeContainer.h */,
-				46B5553D177B043C00F50D89 /* TTTimeEvent.h */,
-				46B55540177B123C00F50D89 /* TTTimeProcess.h */,
+				22609A5E1AA6531C008DF31A /* Expression.h */,
+				22609A5F1AA6531C008DF31A /* TTCurve.h */,
+				22609A601AA6531C008DF31A /* TTScore.h */,
+				22609A611AA6531C008DF31A /* TTScoreIncludes.h */,
+				22609A621AA6531C008DF31A /* TTTimeCondition.h */,
+				22609A631AA6531C008DF31A /* TTTimeContainer.h */,
+				22609A641AA6531C008DF31A /* TTTimeEvent.h */,
+				22609A651AA6531C008DF31A /* TTTimeProcess.h */,
 			);
 			name = includes;
 			path = ../includes;
@@ -113,13 +194,13 @@
 		46F505731666991700CFC3A2 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				46D6FF0C18576004005D49AF /* TTScore.cpp */,
-				468AC7DB197FB23600FB2B18 /* TTCurve.cpp */,
-				46B9018F19233C3B00AC93ED /* Expression.cpp */,
-				465A654217F081A200B70364 /* TTTimeCondition.cpp */,
-				468EBBFB17847064008BE2AC /* TTTimeContainer.cpp */,
-				46B5553E177B044500F50D89 /* TTTimeEvent.cpp */,
-				46B55541177B124500F50D89 /* TTTimeProcess.cpp */,
+				22609A661AA6532D008DF31A /* Expression.cpp */,
+				22609A671AA6532D008DF31A /* TTCurve.cpp */,
+				22609A681AA6532D008DF31A /* TTScore.cpp */,
+				22609A691AA6532D008DF31A /* TTTimeCondition.cpp */,
+				22609A6A1AA6532D008DF31A /* TTTimeContainer.cpp */,
+				22609A6B1AA6532D008DF31A /* TTTimeEvent.cpp */,
+				22609A6C1AA6532D008DF31A /* TTTimeProcess.cpp */,
 			);
 			name = source;
 			path = ../sources;
@@ -135,24 +216,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXHeadersBuildPhase section */
-
-/* Begin PBXLegacyTarget section */
-		46F50566166698EB00CFC3A2 /* JamomaScore-Makefile */ = {
-			isa = PBXLegacyTarget;
-			buildArgumentsString = "$(ACTION) $(Configuration)";
-			buildConfigurationList = 46F50569166698EB00CFC3A2 /* Build configuration list for PBXLegacyTarget "JamomaScore-Makefile" */;
-			buildPhases = (
+		22609A401AA6490E008DF31A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
-			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "";
-			dependencies = (
-			);
-			name = "JamomaScore-Makefile";
-			passBuildSettingsInEnvironment = 1;
-			productName = JamomaScore;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXLegacyTarget section */
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		226099A41AA4E432008DF31A /* Build Dynamic */ = {
@@ -172,6 +243,41 @@
 			productReference = 226099A51AA4E432008DF31A /* JamomaScore.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
+		22609A1C1AA6490E008DF31A /* Build Static */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22609A411AA6490E008DF31A /* Build configuration list for PBXNativeTarget "Build Static" */;
+			buildPhases = (
+				22609A1D1AA6490E008DF31A /* Sources */,
+				22609A3D1AA6490E008DF31A /* Frameworks */,
+				22609A401AA6490E008DF31A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Build Static";
+			productName = score;
+			productReference = 22609A441AA6490E008DF31A /* libJamomaScore.a */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		22609A481AA6499B008DF31A /* Build Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22609A4D1AA6499B008DF31A /* Build configuration list for PBXNativeTarget "Build Test" */;
+			buildPhases = (
+				22609A451AA6499B008DF31A /* Sources */,
+				22609A461AA6499B008DF31A /* Frameworks */,
+				22609A471AA6499B008DF31A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22609A521AA649BE008DF31A /* PBXTargetDependency */,
+			);
+			name = "Build Test";
+			productName = "Build Test";
+			productReference = 22609A491AA6499B008DF31A /* jamoma-test */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -182,6 +288,12 @@
 				ORGANIZATIONNAME = OSSIA;
 				TargetAttributes = {
 					226099A41AA4E432008DF31A = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					22609A481AA6499B008DF31A = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					22609A531AA649EB008DF31A = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
 				};
@@ -198,29 +310,93 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				46F50566166698EB00CFC3A2 /* JamomaScore-Makefile */,
 				226099A41AA4E432008DF31A /* Build Dynamic */,
+				22609A1C1AA6490E008DF31A /* Build Static */,
+				22609A481AA6499B008DF31A /* Build Test */,
+				22609A531AA649EB008DF31A /* Build All & Test */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		22609A5D1AA64A07008DF31A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "build/jamoma-test\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		226099A11AA4E432008DF31A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				226099BA1AA4E537008DF31A /* TTScore.cpp in Sources */,
-				226099B91AA4E534008DF31A /* TTCurve.cpp in Sources */,
-				226099B81AA4E531008DF31A /* Expression.cpp in Sources */,
-				226099B71AA4E52E008DF31A /* TTTimeCondition.cpp in Sources */,
-				226099B51AA4E523008DF31A /* TTTimeContainer.cpp in Sources */,
-				226099B61AA4E528008DF31A /* TTTimeEvent.cpp in Sources */,
-				226099B41AA4E51F008DF31A /* TTTimeProcess.cpp in Sources */,
-				226099B31AA4E51B008DF31A /* TTScore.test.cpp in Sources */,
+				22609A791AA6532D008DF31A /* TTTimeProcess.cpp in Sources */,
+				22609A6D1AA6532D008DF31A /* Expression.cpp in Sources */,
+				22609A6F1AA6532D008DF31A /* TTCurve.cpp in Sources */,
+				22609A7F1AA65414008DF31A /* TTScore.test.cpp in Sources */,
+				22609A751AA6532D008DF31A /* TTTimeContainer.cpp in Sources */,
+				22609A731AA6532D008DF31A /* TTTimeCondition.cpp in Sources */,
+				22609A711AA6532D008DF31A /* TTScore.cpp in Sources */,
+				22609A771AA6532D008DF31A /* TTTimeEvent.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22609A1D1AA6490E008DF31A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22609A7A1AA6532D008DF31A /* TTTimeProcess.cpp in Sources */,
+				22609A6E1AA6532D008DF31A /* Expression.cpp in Sources */,
+				22609A701AA6532D008DF31A /* TTCurve.cpp in Sources */,
+				22609A801AA65414008DF31A /* TTScore.test.cpp in Sources */,
+				22609A761AA6532D008DF31A /* TTTimeContainer.cpp in Sources */,
+				22609A741AA6532D008DF31A /* TTTimeCondition.cpp in Sources */,
+				22609A721AA6532D008DF31A /* TTScore.cpp in Sources */,
+				22609A781AA6532D008DF31A /* TTTimeEvent.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22609A451AA6499B008DF31A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22609A501AA649B2008DF31A /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		22609A521AA649BE008DF31A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22609A1C1AA6490E008DF31A /* Build Static */;
+			targetProxy = 22609A511AA649BE008DF31A /* PBXContainerItemProxy */;
+		};
+		22609A581AA649F1008DF31A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 226099A41AA4E432008DF31A /* Build Dynamic */;
+			targetProxy = 22609A571AA649F1008DF31A /* PBXContainerItemProxy */;
+		};
+		22609A5A1AA649F3008DF31A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22609A1C1AA6490E008DF31A /* Build Static */;
+			targetProxy = 22609A591AA649F3008DF31A /* PBXContainerItemProxy */;
+		};
+		22609A5C1AA649F4008DF31A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22609A481AA6499B008DF31A /* Build Test */;
+			targetProxy = 22609A5B1AA649F4008DF31A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		226099AF1AA4E432008DF31A /* Debug */ = {
@@ -234,13 +410,15 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CONFIGURATION_BUILD_DIR = build;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
+					TTSCORE_EXPORTS,
+					LIBICONV_STATIC,
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
@@ -263,7 +441,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
-				USER_HEADER_SEARCH_PATHS = "includes $(PROJECT_DIR)/../../Modular/library/includes $(PROJECT_DIR)/../../Foundation/library/includes $(PROJECT_DIR)/../../DSP/library/includes";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "includes $(PROJECT_DIR)/../../Foundation/library/includes $(PROJECT_DIR)/../../DSP/library/includes $(PROJECT_DIR)/../../Modular/library/includes";
 			};
 			name = Debug;
 		};
@@ -278,12 +457,17 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CONFIGURATION_BUILD_DIR = build;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TTSCORE_EXPORTS,
+					LIBICONV_STATIC,
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -304,7 +488,203 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
-				USER_HEADER_SEARCH_PATHS = "includes $(PROJECT_DIR)/../../Modular/library/includes $(PROJECT_DIR)/../../Foundation/library/includes $(PROJECT_DIR)/../../DSP/library/includes";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "includes $(PROJECT_DIR)/../../Foundation/library/includes $(PROJECT_DIR)/../../DSP/library/includes $(PROJECT_DIR)/../../Modular/library/includes";
+			};
+			name = Release;
+		};
+		22609A421AA6490E008DF31A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CONFIGURATION_BUILD_DIR = build;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_EXTENSION = a;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TTSCORE_EXPORTS,
+					LIBICONV_STATIC,
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/tim/Code/Jamoma/Core/Foundation/library/build,
+					/Users/tim/Code/Jamoma/Core/Modular/library/build,
+					/Users/tim/Code/Jamoma/Core/DSP/library/build,
+				);
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "includes $(PROJECT_DIR)/../../Foundation/library/includes $(PROJECT_DIR)/../../DSP/library/includes $(PROJECT_DIR)/../../Modular/library/includes";
+			};
+			name = Debug;
+		};
+		22609A431AA6490E008DF31A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CONFIGURATION_BUILD_DIR = build;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_EXTENSION = a;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TTSCORE_EXPORTS,
+					LIBICONV_STATIC,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/tim/Code/Jamoma/Core/Foundation/library/build,
+					/Users/tim/Code/Jamoma/Core/Modular/library/build,
+					/Users/tim/Code/Jamoma/Core/DSP/library/build,
+				);
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "includes $(PROJECT_DIR)/../../Foundation/library/includes $(PROJECT_DIR)/../../DSP/library/includes $(PROJECT_DIR)/../../Modular/library/includes";
+			};
+			name = Release;
+		};
+		22609A4E1AA6499B008DF31A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CONFIGURATION_BUILD_DIR = build;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/tim/Code/Jamoma/Core/Foundation/library/build,
+					/Users/tim/Code/Jamoma/Core/Modular/library/build,
+					/Users/tim/Code/Jamoma/Core/DSP/library/build,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = (
+					"-lJamomaModular",
+					"-lJamomaFoundation",
+					"-lJamomaDSP",
+					"-lxml2",
+				);
+				PRODUCT_NAME = "jamoma-test";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "../../Foundation/library/includes ../../DSP/library/includes $(PROJECT_DIR)/../../Modular/library/includes";
+			};
+			name = Debug;
+		};
+		22609A4F1AA6499B008DF31A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CONFIGURATION_BUILD_DIR = build;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/tim/Code/Jamoma/Core/Foundation/library/build,
+					/Users/tim/Code/Jamoma/Core/Modular/library/build,
+					/Users/tim/Code/Jamoma/Core/DSP/library/build,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-lJamomaModular",
+					"-lJamomaFoundation",
+					"-lJamomaDSP",
+					"-lxml2",
+				);
+				PRODUCT_NAME = "jamoma-test";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "../../Foundation/library/includes ../../DSP/library/includes $(PROJECT_DIR)/../../Modular/library/includes";
+			};
+			name = Release;
+		};
+		22609A551AA649EB008DF31A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		22609A561AA649EB008DF31A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -357,31 +737,6 @@
 			};
 			name = Release;
 		};
-		46F5056A166698EB00CFC3A2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUGGING_SYMBOLS = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		46F5056B166698EB00CFC3A2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -392,21 +747,40 @@
 				226099B01AA4E432008DF31A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22609A411AA6490E008DF31A /* Build configuration list for PBXNativeTarget "Build Static" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22609A421AA6490E008DF31A /* Debug */,
+				22609A431AA6490E008DF31A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22609A4D1AA6499B008DF31A /* Build configuration list for PBXNativeTarget "Build Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22609A4E1AA6499B008DF31A /* Debug */,
+				22609A4F1AA6499B008DF31A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22609A541AA649EB008DF31A /* Build configuration list for PBXAggregateTarget "Build All & Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22609A551AA649EB008DF31A /* Debug */,
+				22609A561AA649EB008DF31A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		46F50564166698EB00CFC3A2 /* Build configuration list for PBXProject "JamomaScore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				46F50567166698EB00CFC3A2 /* Debug */,
 				46F50568166698EB00CFC3A2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		46F50569166698EB00CFC3A2 /* Build configuration list for PBXLegacyTarget "JamomaScore-Makefile" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				46F5056A166698EB00CFC3A2 /* Debug */,
-				46F5056B166698EB00CFC3A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
