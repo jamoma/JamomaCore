@@ -223,7 +223,7 @@ TTErr TTWebSocket::bind()
     struct mg_callbacks callbacks;
     const char *options[] = {
         "listening_ports", portString,
-        "document_root", mHtmlPath,
+        "document_root", mHtmlPath.c_str(),
         NULL
     };
     
