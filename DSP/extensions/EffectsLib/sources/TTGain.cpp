@@ -42,6 +42,11 @@ TTGain::~TTGain()
 TTErr TTGain::setGain(const TTValue& newValue)
 {   
 	mGain = TTDecibelsToLinearGain(newValue);
+	
+	// TODO: Why the #$^@! are we setting the process method when we change the gain value ?!?!?!?
+	// This is horrible!
+	// It should only be set when the interpolation attr is set!
+	
 	if (mInterpolated) 
 		setProcessMethod(processAudioInterpolated);
 	return kTTErrNone;
