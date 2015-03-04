@@ -1,8 +1,8 @@
-#defines:
+defines:
+  - TT_NO_DSP	
 #  - TT_PROTOCOL_DEBUG
 
-sources:
-  - ../../library/ProtocolLib/Protocol.cpp		
+sources:	
   - source/Minuit.cpp
   - source/MinuitAnswer.cpp
   - source/MinuitAnswerManager.cpp
@@ -11,9 +11,10 @@ sources:
 includes:
   - "."
   - "includes"
-  - "../../library/ProtocolLib"
+  - "../../library/includes"
   - "../../../../Core/Foundation/library/includes"
 
 libraries:
   - FOUNDATION
+  - MODULAR
   - win winmm.lib

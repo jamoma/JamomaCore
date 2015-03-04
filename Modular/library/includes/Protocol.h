@@ -17,7 +17,7 @@
 #ifndef __PROTOCOL_H__
 #define __PROTOCOL_H__
 
-#include "TTFoundationAPI.h"
+#include "TTModularIncludes.h"
 
 /** Declares instantiation and registration methods to add the protocol class as any #TTObject class */
 #define PROTOCOL_CONSTRUCTOR \
@@ -57,7 +57,7 @@ TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##nam
 /**	Protocol is the base class for all protocol protocol.
  It still has knowledge and support for ...
  */
-class Protocol : public TTObjectBase {
+class TTMODULAR_EXPORT Protocol : public TTObjectBase {
 	
 protected:																																	
 	TTObject                    mApplicationManager;				///< the application manager of the Modular framework.					

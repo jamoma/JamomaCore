@@ -9,15 +9,12 @@
 /* Begin PBXFileReference section */
 		46F4622116F127DF0092840F /* System.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = System.cpp; sourceTree = "<group>"; };
 		46F4622316F127E90092840F /* System.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = System.h; sourceTree = "<group>"; };
-		46F4622516F128510092840F /* Scheduler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scheduler.cpp; sourceTree = "<group>"; };
-		46F4622616F128510092840F /* Scheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		46F4621316F127C10092840F = {
 			isa = PBXGroup;
 			children = (
-				46F4622416F128510092840F /* SchedulerLib */,
 				46F4622216F127E90092840F /* includes */,
 				46F4621E16F127DF0092840F /* source */,
 			);
@@ -37,16 +34,6 @@
 				46F4622316F127E90092840F /* System.h */,
 			);
 			path = includes;
-			sourceTree = "<group>";
-		};
-		46F4622416F128510092840F /* SchedulerLib */ = {
-			isa = PBXGroup;
-			children = (
-				46F4622616F128510092840F /* Scheduler.h */,
-				46F4622516F128510092840F /* Scheduler.cpp */,
-			);
-			name = SchedulerLib;
-			path = ../../library/SchedulerLib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

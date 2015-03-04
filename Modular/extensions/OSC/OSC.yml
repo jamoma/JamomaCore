@@ -1,16 +1,17 @@
-#defines:
+defines:
+  - TT_NO_DSP	
 #  - TT_PROTOCOL_DEBUG
 
 sources:
-  - ../../library/ProtocolLib/Protocol.cpp		
   - source/OSC.cpp
   - source/OSCSenderManager.cpp
     
 includes:
   - "."
   - "includes"
-  - "../../library/ProtocolLib"
+  - "../../library/includes"
   - "../../../../Core/Foundation/library/includes"
 
 libraries:
   - FOUNDATION
+  - MODULAR

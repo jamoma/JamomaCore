@@ -1,8 +1,8 @@
-#defines:
+defines:
+  - TT_NO_DSP	
 #  - TT_PROTOCOL_DEBUG
 
-sources:
-  - ../../library/ProtocolLib/Protocol.cpp		
+sources:		
   - source/MIDI.cpp
   - source/MIDIDestination.cpp
   - source/MIDIInput.cpp
@@ -15,11 +15,12 @@ includes:
   - "."
   - "includes"
   - "../../../Graph/extensions/MidiLib/portmidi/pm_common"
-  - "../../library/ProtocolLib"
+  - "../../library/includes"
   - "../../../Foundation/library/includes"
 
 libraries:
   - FOUNDATION
+  - MODULAR
   - mac "../../../Graph/extensions/MidiLib/portmidi/libportmidi-jamoma.a"
   - win "../../../Graph/extensions/MidiLib/portmidi/pm_win_static_lib/Release_/libportmidi_s_jamoma.lib"
   - win winmm.lib

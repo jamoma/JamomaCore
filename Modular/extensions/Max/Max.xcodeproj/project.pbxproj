@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		22609AA21AA73FE6008DF31A /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		22609AA31AA73FE6008DF31A /* Max.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = Max.yml; sourceTree = "<group>"; };
 		46A6E85216CA83FB002E6A40 /* Max.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Max.h; sourceTree = "<group>"; };
 		46A6E85516CA8401002E6A40 /* Max.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Max.cpp; sourceTree = "<group>"; };
 		46A6E86416CABFEB002E6A40 /* Scheduler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scheduler.cpp; sourceTree = "<group>"; };
@@ -17,6 +19,8 @@
 		46A6E84116CA83C6002E6A40 = {
 			isa = PBXGroup;
 			children = (
+				22609AA21AA73FE6008DF31A /* Makefile */,
+				22609AA31AA73FE6008DF31A /* Max.yml */,
 				46A6E85616CA840D002E6A40 /* SchedulerLib */,
 				46A6E85116CA83FB002E6A40 /* includes */,
 				46A6E85416CA8401002E6A40 /* source */,

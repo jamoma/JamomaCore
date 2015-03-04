@@ -1,16 +1,17 @@
-#defines:
+defines:
+  - TT_NO_DSP	
 #  - SHEDULER_DEBUG
 
 sources:
-  - ../../library/SchedulerLib/Scheduler.cpp
   - source/System.cpp
     
 includes:
   - "."
   - "includes"
-  - "../../library/SchedulerLib"
+  - "../../library/includes"
   - "../../../../Core/Foundation/library/includes"
 
 libraries:
   - FOUNDATION
+  - MODULAR
   - win winmm.lib

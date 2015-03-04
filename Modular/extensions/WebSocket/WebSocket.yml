@@ -1,8 +1,8 @@
 defines:
+  - TT_NO_DSP	
   - TT_PROTOCOL_DEBUG
 
 sources:
-  - ../../library/ProtocolLib/Protocol.cpp
   - source/WebSocket.cpp
   - source/WebSocketAnswer.cpp
   - source/WebSocketAnswerManager.cpp
@@ -25,9 +25,10 @@ sources:
 includes:
   - "."
   - "includes"
-  - "../../library/ProtocolLib"
+  - "../../library/includes"
   - "../../../../Core/Foundation/library/includes"
   - "libjson"
 
 libraries:
   - FOUNDATION
+  - MODULAR

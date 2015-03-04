@@ -1,20 +1,22 @@
-#defines:
+defines:
+- TT_NO_DSP
 #  - SHEDULER_DEBUG
 
 sources:
-  - ../../library/SchedulerLib/Scheduler.cpp		
+#  - ../../library/SchedulerLib/Scheduler.cpp
   - source/Max.cpp
   - ../../../../Implementations/Max/source/c74support/max-includes/common/commonsyms.cpp
     
 includes:
   - "."
   - "includes"
-  - "../../library/SchedulerLib"
+  - "../../library/includes"
   - "../../../Foundation/library/includes"
   - C74-INCLUDES
 
 libraries:
   - FOUNDATION
+  - MODULAR
   - C74
 
 prefix: ../../../../Implementations/Max/source/c74support/max-includes/macho-prefix.pch

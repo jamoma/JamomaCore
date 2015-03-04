@@ -17,7 +17,8 @@
 #ifndef __SCHEDULER_H__
 #define __SCHEDULER_H__
 
-#include "TTFoundationAPI.h"
+#include "TTModularIncludes.h"
+//#include "TTFoundationAPI.h"
 #include <atomic>
 
 #define SCHEDULER_CONSTRUCTOR \
@@ -43,7 +44,7 @@ typedef void (*SchedulerPositionCallback)(TTPtr, TTFloat64, TTFloat64);
 /**	Scheduler is the base class for all Scheduler Unit.
  It still has knowledge and support for ...
  */
-class Scheduler : public TTObjectBase {
+class TTMODULAR_EXPORT Scheduler : public TTObjectBase {
 
 public:
     
