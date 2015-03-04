@@ -85,11 +85,10 @@ TTLimiter::~TTLimiter()
 // TODO: These message receiver args should be reversed -- this is a change that should be applied throughout TTBlue
 TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&)
 {
-	TTChannelCount	channel;
-	TTChannelCount	numChannels = oldMaxNumChannels;
+	auto numChannels = static_cast<TTChannelCount>(oldMaxNumChannels);
 
 	if (lookaheadBuffer) {
-		for (channel=0; channel<numChannels; channel++)
+		for (auto channel=0; channel<numChannels; channel++)
 			delete [] lookaheadBuffer[channel];
 		delete [] lookaheadBuffer;
 	}
@@ -97,7 +96,7 @@ TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&
 
 	gain = new TTSampleValue[maxBufferSize];
 	lookaheadBuffer = new TTSampleValuePtr[mMaxNumChannels];
-	for (channel=0; channel<mMaxNumChannels; channel++)
+	for (auto channel=0; channel<mMaxNumChannels; channel++)
 		lookaheadBuffer[channel] = new TTSampleValue[maxBufferSize];
 
 	clear();
