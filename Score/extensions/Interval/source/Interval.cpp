@@ -7,9 +7,6 @@
  */
 
 #include "Interval.h"
-#include <libxml/encoding.h>
-#include <libxml/xmlwriter.h>
-#include <libxml/xmlreader.h>
 
 #define thisTTClass         Interval
 #define thisTTClassName     "Interval"
