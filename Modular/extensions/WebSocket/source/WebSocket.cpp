@@ -490,7 +490,7 @@ TTErr WebSocket::SendDiscoverAnswer(TTSymbol to, TTAddress address,
             
             for (TTUInt32 i = 0; i < returnedAttributes.size(); ++i) {
                 symValue = returnedAttributes[i];
-                attributesString += symValue;
+                attributesString += symValue.string();
                 if (i < returnedAttributes.size()-1)
                     attributesString += " ";
             }
@@ -501,7 +501,7 @@ TTErr WebSocket::SendDiscoverAnswer(TTSymbol to, TTAddress address,
         if (returnedChildren.size()) {
             for (TTUInt32 i = 0; i < returnedChildren.size(); ++i) {
                 symValue = returnedChildren[i];
-                childrenString += symValue;
+                childrenString += symValue.string();
                 if (i < returnedChildren.size()-1)
                     childrenString += " ";
             }
@@ -721,7 +721,7 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
                 
 				if (!err && mActivity) {
                     header = mLocalApplicationName.c_str();
-                    header += operation;
+                    header += operation.string();
                     
 					v = header;
 					ActivityOutMessage(v);
@@ -842,7 +842,7 @@ TTErr WebSocket::receivedMessage(const TTValue& message, TTValue& outputValue)
     
     // get operation
     operation = jsonContent[1];
-    TTString operationString = operation;
+    TTString operationString = operation.string();
     if (!operation)
         return kTTErrGeneric;
     
