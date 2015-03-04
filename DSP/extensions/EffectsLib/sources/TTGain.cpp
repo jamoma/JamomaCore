@@ -20,7 +20,6 @@
 
 
 TT_AUDIO_CONSTRUCTOR
-, oldGain(0.0), mInterpolated(0)
 {
 	registerAttribute(TT("linearGain"),	kTypeFloat64,	&mGain);
 	registerAttribute(TT("gain"),		kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);

@@ -25,13 +25,12 @@ class TTGain : public TTAudioObjectBase {
 
 private:
 	
-	TTFloat64		oldGain;		///< Temporarily stored old gain value, required for linear interpolation.
+	TTFloat64		oldGain {0};		///< Temporarily stored old gain value, required for linear interpolation.
 	
 protected:
 
-	TTFloat64		mGain;			///< Linear gain to be applied to the input signal.
-	
-	TTBoolean		mInterpolated;	///< Flag indicating whether interpolation will be applied when gain is changed.
+	TTFloat64		mGain {0};			///< Linear gain to be applied to the input signal.
+	TTBoolean		mInterpolated {NO};	///< Flag indicating whether interpolation will be applied when gain is changed.
 	
 	
 	/**	A standard audio processing method as used by TTBlue objects.
