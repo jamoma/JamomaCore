@@ -42,20 +42,20 @@ class TTLimiter : public TTAudioObjectBase {
 
 protected:
 
-	TTFloat64			recover;				///< 
-	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead attribute
-	TTUInt32			lookaheadBufferIndex;
-	TTSampleValue**		lookaheadBuffer;		///< keep a lookahead buffer for each channel
+	TTFloat64			recover {0};				///<
+	TTFloat64			lookaheadInv;				///< reciprocal (inverse) of the lookahead attribute
+	TTUInt32			lookaheadBufferIndex {0};
+	TTSampleValue**		lookaheadBuffer;			///< keep a lookahead buffer for each channel
 	TTSampleValue*		gain;
-	TTSampleValue		last;
-	TTBoolean			isLinear;				///< is attrMode set to linear?
+	TTSampleValue		last {0};
+	TTBoolean			isLinear;					///< is attrMode set to linear?
 
-	TTAudioObject		dcBlocker;				///< #TTDCBlock object
-	TTAudioObject		preamp;					///< #TTGain object to apply preamp
+	TTAudioObject		dcBlocker {kTTSym_dcblock};	///< #TTDCBlock object
+	TTAudioObject		preamp {kTTSym_gain};		///< #TTGain object to apply preamp
 
-	TTUInt32			maxBufferSize;			///< TODO: make this settable
-	TTBoolean			attrDCBlocker;			///< If toggled to NO, the internal DC Blocker will be turned off.
-	TTSymbol			attrMode;				///< may be one of two symbols: "linear" or "exponential".
+	TTUInt32			maxBufferSize {512};		///< TODO: make this settable
+	TTBoolean			attrDCBlocker;				///< If toggled to NO, the internal DC Blocker will be turned off.
+	TTSymbol			attrMode {"exponential"};	///< may be one of two symbols: "linear" or "exponential".
 	TTFloat64			attrRelease;			///< number of seconds for the release to recover after a peak in the audio signal.
 	TTUInt32			attrLookahead;			///< number of samples by which to look forward.
 	TTFloat64			attrThreshold;			///< linear amplitude threshold at which the limiting should kick in (attr setter used dB).

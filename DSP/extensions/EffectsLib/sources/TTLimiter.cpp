@@ -26,15 +26,8 @@
 
 
 TT_AUDIO_CONSTRUCTOR,
-	recover(0.0),
-	lookaheadBufferIndex(0),
 	lookaheadBuffer(NULL),
-	gain(NULL),
-	last(0.0),
-	dcBlocker(kTTSym_dcblock),
-	preamp(kTTSym_gain),
-	maxBufferSize(512),
-	attrMode(TT("exponential"))
+	gain(NULL)
 {
 	TTChannelCount	initialMaxNumChannels = arguments;
 	
@@ -73,9 +66,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 TTLimiter::~TTLimiter()
 {
-	short i;
-	
-	for (i=0; i<mMaxNumChannels; i++)
+	for (auto i=0; i<mMaxNumChannels; i++)
 		delete [] lookaheadBuffer[i];
 	delete [] lookaheadBuffer;
 	delete [] gain;
