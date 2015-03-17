@@ -103,7 +103,6 @@ mDurationMinReached(NO)
     addMessageProperty(ProcessPaused, hidden, YES);
     
     addMessageWithArguments(Goto);
-    addMessageProperty(Goto, hidden, YES);
     
     addMessageWithArguments(Move);
     addMessageWithArguments(Limit);
