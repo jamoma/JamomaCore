@@ -93,7 +93,7 @@ DemoApp::Setup()
     /////////////////////////////////////////////////////////////////////
     
     // Init the Modular library (passing the folder path where all the dylibs are)
-    TTModularInit("/usr/local/jamoma");
+    TTModularInit("/usr/local/jamoma/extensions");
     
     // Create an application manager
     mApplicationManager = TTObject("ApplicationManager");
@@ -103,14 +103,8 @@ DemoApp::Setup()
     ////////////////////////////////////////////////////////////////////////////////
     
     // Create a local application called "myDemoApp" and get it back
-    err = mApplicationManager.send("ApplicationInstantiateLocal", "myDemoApp", out);
+    mApplicationDemo = mApplicationManager.send("ApplicationInstantiateLocal", "myDemoApp");
     
-    if (err) {
-        TTLogError("Error : can't create myDemoApp application \n");
-        return;
-    }
-    else
-        mApplicationDemo = out[0];
     
     // Get registered application names
     mApplicationManager.get("applicationNames", out);
@@ -180,14 +174,7 @@ DemoApp::Setup()
     ////////////////////////////////////////////////////////////////////////
     
     // Create a WebSocket protocol unit
-    err = mApplicationManager.send("ProtocolInstantiate", "WebSocket", out);
-    
-    if (err) {
-        TTLogError("Error : can't create WebSocket protocol unit \n");
-        return;
-    }
-    else
-        mProtocolWebSocket = out[0];
+    mProtocolWebSocket = mApplicationManager.send("ProtocolInstantiate", "WebSocket");
     
     // Get WebSocket Protocol attribute names and types
     mProtocolWebSocket.get("parameterNames", out);
@@ -197,12 +184,12 @@ DemoApp::Setup()
     }
     
     // Register myDemoApp and myRemoteApp to the WebSocket protocol
-    mProtocolWebSocket.send("ApplicationRegister", "myDemoApp", out);
+    mProtocolWebSocket.send("ApplicationRegister", "myDemoApp");
     
     // Select myDemoApp to set its protocol parameters
-    mProtocolWebSocket.send("ApplicationSelect", "myDemoApp", out);
-    /*mProtocolWebSocket.set("htmlPath", "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");*/
-	mProtocolWebSocket.set("htmlPath", "C:/Users/Laugre/Travail/09-ossia/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");
+    mProtocolWebSocket.send("ApplicationSelect", "myDemoApp");
+    mProtocolWebSocket.set("htmlPath", "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");
+//	mProtocolWebSocket.set("htmlPath", "C:/Users/Laugre/Travail/09-ossia/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");
     mProtocolWebSocket.set("port", 9001);
     
     // Get WebSocket parameters for each registered application
@@ -210,7 +197,7 @@ DemoApp::Setup()
     for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
         TTSymbol name = TTElement(*it);
         
-        mProtocolWebSocket.send("ApplicationSelect", name, out);
+        mProtocolWebSocket.send("ApplicationSelect", name);
         TTLogMessage("WebSocket setup for %s application : \n", name.c_str());
         
         mProtocolWebSocket.get("htmlPath", v);
@@ -249,13 +236,14 @@ DemoApp::Setup()
     mDataDemoDecimalParameter.set("function", TTPtr(&DemoAppDataReturnValueCallback));
     
     // Setup the data attributes depending of its use inside the application
-    mDataDemoDecimalParameter.set("type", "decimal");
+    
     mDataDemoDecimalParameter.set("rangeBounds", TTValue(-1., 1.));
     mDataDemoDecimalParameter.set("rangeClipmode", "both");
-    mDataDemoDecimalParameter.set("rampDrive", "System");
+//    mDataDemoDecimalParameter.set("rampDrive", "System");
     mDataDemoDecimalParameter.set("description", "this parameter is useful for demo purpose");
     mDataDemoDecimalParameter.set("valueDefault", 0);
     mDataDemoDecimalParameter.set("value", 0.9);
+    mDataDemoDecimalParameter.set("type", "decimal");
     
     // Register the parameter data into myDemoApp at an address
     args = TTValue("/myParameterDecimal", mDataDemoDecimalParameter);
@@ -366,7 +354,7 @@ DemoApp::Setup()
     mDataDemoReturn.set("function", TTPtr(&DemoAppDataReturnValueCallback));
     
     // Setup the data attributes depending of its use inside the application
-    mDataDemoReturn.set("type", "integer");
+//    mDataDemoReturn.set("type", "integer");
     mDataDemoReturn.set("description", "this return is useful for demo purpose");
     mDataDemoReturn.set("valueDefault", 0);
     mDataDemoReturn.set("value", 0);
@@ -428,38 +416,38 @@ DemoApp::Quit()
     /////////////////////////////////////////////////////
     
     // Unregister the parameter
-    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterDecimal", out))
+    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterDecimal"))
         TTLogError("Error : can't unregister data at /myParameterDecimal address \n");
     
     // Unregister the parameter
-    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterString", out))
+    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterString"))
         TTLogError("Error : can't unregister data at /myParameterString address \n");
     
     // Unregister the parameter
-    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterBool", out))
+    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterBool"))
         TTLogError("Error : can't unregister data at /myParameterBool address \n");
     
     // Unregister the message
-    if (mApplicationDemo.send("ObjectUnregister", "/myMessage", out))
+    if (mApplicationDemo.send("ObjectUnregister", "/myMessage"))
         TTLogError("Error : can't unregister data at /myMessage address \n");
     
     // Unregister the return
-    if (mApplicationDemo.send("ObjectUnregister", "/myReturn", out))
+    if (mApplicationDemo.send("ObjectUnregister", "/myReturn"))
         TTLogError("Error : can't unregister data at /myReturn address \n");
     
     
     TTLogMessage("\n*** Release protocols ***\n");
     ///////////////////////////////////////////////
     
-    mApplicationManager.send("ProtocolRelease", "Minuit", out);
-    mApplicationManager.send("ProtocolRelease", "WebSocket", out);
+    mApplicationManager.send("ProtocolRelease", "Minuit");
+    mApplicationManager.send("ProtocolRelease", "WebSocket");
     
     
     TTLogMessage("\n*** Release applications ***\n");
     //////////////////////////////////////////////////
     
-    mApplicationManager.send("ApplicationRelease", "myRemoteApp", out);
-    mApplicationManager.send("ApplicationRelease", "myDemoApp", out);
+    mApplicationManager.send("ApplicationRelease", "myRemoteApp");
+    mApplicationManager.send("ApplicationRelease", "myDemoApp");
 }
 
 TTErr

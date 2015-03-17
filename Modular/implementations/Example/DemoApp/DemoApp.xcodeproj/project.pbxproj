@@ -6,276 +6,714 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		369BCF56624C443A8C0736CC /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 2254855E68754EBC960318C5 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				F4B2D63F96C54E17B6D103F2 /* CMake Rules */,
+			);
+			dependencies = (
+				AFBD41B4C53541C9A33E981E /* PBXTargetDependency */,
+				533C1761A3CE4E08840F66C8 /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		45FA4307946749A1BD128C38 /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 9944D904BF834D358D6C7B58 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				1D83F079BF1947D881F43D48 /* CMake Rules */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
-		46A92B2418B6146400E88F79 /* JamomaFoundation.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A92B2318B6146400E88F79 /* JamomaFoundation.dylib */; };
-		46A92B2618B6147000E88F79 /* JamomaModular.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A92B2518B6147000E88F79 /* JamomaModular.dylib */; };
-		B5B16FB11816B41300F939C5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5B16FB01816B41300F939C5 /* main.cpp */; };
+		0A427D986C8A4212A98989F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2FDE29DA24EE4C7EB6A3FE0C /* main.cpp */; settings = {COMPILER_FLAGS = ""; }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		B5B16FA21816B30800F939C5 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
+/* Begin PBXContainerItemProxy section */
+		4E49465AE05F4ABCA230583B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1F6FCB5644F4B71B06D440E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCA3A76B5F95452D9406F5F6;
+			remoteInfo = DemoApp;
 		};
-/* End PBXCopyFilesBuildPhase section */
+		A0E51EAD30BE4396A1E81ACB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1F6FCB5644F4B71B06D440E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 45FA4307946749A1BD128C38;
+			remoteInfo = ZERO_CHECK;
+		};
+		DDBE7E17A6C241AB944A4543 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B1F6FCB5644F4B71B06D440E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 45FA4307946749A1BD128C38;
+			remoteInfo = ZERO_CHECK;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		46A92B2318B6146400E88F79 /* JamomaFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaFoundation.dylib; path = ../../../../Foundation/library/build/JamomaFoundation.dylib; sourceTree = "<group>"; };
-		46A92B2518B6147000E88F79 /* JamomaModular.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = JamomaModular.dylib; path = ../../../library/build/JamomaModular.dylib; sourceTree = "<group>"; };
-		B5B16FA41816B30800F939C5 /* DemoApp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DemoApp; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5B16FB01816B41300F939C5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = main.cpp; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		2FDE29DA24EE4C7EB6A3FE0C /* main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = main.cpp; sourceTree = SOURCE_ROOT; };
+		491BE7420E614772BD49A989 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		60DA6F2D316E490EB90B0C8D /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		7EE3CAE430CD43FF95AB161C /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		CF64F644E3FB4B24857BC53A /* DemoApp */ = {isa = PBXFileReference; explicitFileType = "wrapper.pb-project"; path = DemoApp; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFrameworksBuildPhase section */
-		B5B16FA11816B30800F939C5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				46A92B2618B6147000E88F79 /* JamomaModular.dylib in Frameworks */,
-				46A92B2418B6146400E88F79 /* JamomaFoundation.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
-		B5B16F9B1816B30800F939C5 = {
+		0064877101964503BA0F1180 /* ALL_BUILD */ = {
 			isa = PBXGroup;
 			children = (
-				46A92B2318B6146400E88F79 /* JamomaFoundation.dylib */,
-				46A92B2518B6147000E88F79 /* JamomaModular.dylib */,
-				B5B16FA61816B30800F939C5 /* DemoApp */,
-				B5B16FA51816B30800F939C5 /* Products */,
+				CEA2D394F3D54D0EA6EA7BDB /* CMake Rules */,
+				60DA6F2D316E490EB90B0C8D /* CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		1D39266F2E2F4388B04CC306 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		23A8DE56196949BEB2E1FC14 = {
+			isa = PBXGroup;
+			children = (
+				A2884BA2A9054A04A5C24776 /* Sources */,
+				D9BA14AA7521430AB0CE5EB1 /* Resources */,
+				4875760645014E1D902BA6BF /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		B5B16FA51816B30800F939C5 /* Products */ = {
+		3F7729207FDE4EF0AEDAA692 /* DemoApp */ = {
 			isa = PBXGroup;
 			children = (
-				B5B16FA41816B30800F939C5 /* DemoApp */,
+				E5E95F2552F545A7A3B2A470 /* Source Files */,
+				491BE7420E614772BD49A989 /* CMakeLists.txt */,
+			);
+			name = DemoApp;
+			sourceTree = "<group>";
+		};
+		4875760645014E1D902BA6BF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CF64F644E3FB4B24857BC53A /* DemoApp */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B5B16FA61816B30800F939C5 /* DemoApp */ = {
+		8D0B058B8C884D80864C3765 /* ZERO_CHECK */ = {
 			isa = PBXGroup;
 			children = (
-				B5B16FB01816B41300F939C5 /* main.cpp */,
+				1D39266F2E2F4388B04CC306 /* CMake Rules */,
+				7EE3CAE430CD43FF95AB161C /* CMakeLists.txt */,
 			);
-			path = DemoApp;
+			name = ZERO_CHECK;
+			sourceTree = "<group>";
+		};
+		A2884BA2A9054A04A5C24776 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				0064877101964503BA0F1180 /* ALL_BUILD */,
+				3F7729207FDE4EF0AEDAA692 /* DemoApp */,
+				8D0B058B8C884D80864C3765 /* ZERO_CHECK */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		CEA2D394F3D54D0EA6EA7BDB /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		D9BA14AA7521430AB0CE5EB1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		E5E95F2552F545A7A3B2A470 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				2FDE29DA24EE4C7EB6A3FE0C /* main.cpp */,
+			);
+			name = "Source Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B5B16FA31816B30800F939C5 /* DemoApp */ = {
+		DCA3A76B5F95452D9406F5F6 /* DemoApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B5B16FAD1816B30800F939C5 /* Build configuration list for PBXNativeTarget "DemoApp" */;
+			buildConfigurationList = 24152D2DB24E48F4AF4FC9E0 /* Build configuration list for PBXNativeTarget "DemoApp" */;
 			buildPhases = (
-				B5B16FA01816B30800F939C5 /* Sources */,
-				B5B16FA11816B30800F939C5 /* Frameworks */,
-				B5B16FA21816B30800F939C5 /* CopyFiles */,
+				5DC4966081D34F6B8EFF6B5F /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DD90FEA6FC6A4582B46FFE45 /* PBXTargetDependency */,
 			);
 			name = DemoApp;
 			productName = DemoApp;
-			productReference = B5B16FA41816B30800F939C5 /* DemoApp */;
+			productReference = CF64F644E3FB4B24857BC53A /* DemoApp */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		B5B16F9C1816B30800F939C5 /* Project object */ = {
+		B1F6FCB5644F4B71B06D440E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
-				ORGANIZATIONNAME = "Laurent Garnier";
+				BuildIndependentTargetsInParallel = YES;
 			};
-			buildConfigurationList = B5B16F9F1816B30800F939C5 /* Build configuration list for PBXProject "DemoApp" */;
+			buildConfigurationList = 5718DB87B7EA414AB243DA63 /* Build configuration list for PBXProject "DemoApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = B5B16F9B1816B30800F939C5;
-			productRefGroup = B5B16FA51816B30800F939C5 /* Products */;
+			mainGroup = 23A8DE56196949BEB2E1FC14;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B5B16FA31816B30800F939C5 /* DemoApp */,
+				369BCF56624C443A8C0736CC /* ALL_BUILD */,
+				DCA3A76B5F95452D9406F5F6 /* DemoApp */,
+				45FA4307946749A1BD128C38 /* ZERO_CHECK */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1D83F079BF1947D881F43D48 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp -f /Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		F4B2D63F96C54E17B6D103F2 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp -f /Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		B5B16FA01816B30800F939C5 /* Sources */ = {
+		5DC4966081D34F6B8EFF6B5F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5B16FB11816B41300F939C5 /* main.cpp in Sources */,
+				0A427D986C8A4212A98989F2 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		533C1761A3CE4E08840F66C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 45FA4307946749A1BD128C38 /* ZERO_CHECK */;
+			targetProxy = DDBE7E17A6C241AB944A4543 /* PBXContainerItemProxy */;
+		};
+		AFBD41B4C53541C9A33E981E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCA3A76B5F95452D9406F5F6 /* DemoApp */;
+			targetProxy = 4E49465AE05F4ABCA230583B /* PBXContainerItemProxy */;
+		};
+		DD90FEA6FC6A4582B46FFE45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 45FA4307946749A1BD128C38 /* ZERO_CHECK */;
+			targetProxy = A0E51EAD30BE4396A1E81ACB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		B5B16FAB1816B30800F939C5 /* Debug */ = {
+		0793048F217448A7B0D185CB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				HEADER_SEARCH_PATHS = /usr/local/jamoma/include;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /usr/local/jamoma/lib;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "    ";
+				OTHER_CPLUSPLUSFLAGS = "-std=c++11     ";
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					/usr/local/jamoma/lib/libJamomaFoundation.6.dylib,
+					/usr/local/jamoma/lib/libJamomaModular.6.dylib,
+					/usr/local/jamoma/lib/libJamomaDSP.6.dylib,
+					/usr/local/jamoma/lib/libJamomaFoundation.6.dylib,
+					/usr/lib/libdl.dylib,
+					/usr/lib/libxml2.dylib,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = DemoApp;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
 			};
 			name = Debug;
 		};
-		B5B16FAC1816B30800F939C5 /* Release */ = {
+		0FEEF6885F0041FFAF4F3698 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				SDKROOT = macosx;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		11D7A55E41F04F8780B0B2E1 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		21829BF7736D49798F863BF2 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = /usr/local/jamoma/include;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /usr/local/jamoma/lib;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "    -DNDEBUG  ";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++11",
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					/usr/local/jamoma/lib/libJamomaFoundation.6.dylib,
+					/usr/local/jamoma/lib/libJamomaModular.6.dylib,
+					/usr/local/jamoma/lib/libJamomaDSP.6.dylib,
+					/usr/local/jamoma/lib/libJamomaFoundation.6.dylib,
+					/usr/lib/libdl.dylib,
+					/usr/lib/libxml2.dylib,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = DemoApp;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		2A27842C8BE141EE9CF8DF35 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = /usr/local/jamoma/include;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /usr/local/jamoma/lib;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "       -DNDEBUG  ";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++11",
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					/usr/local/jamoma/lib/libJamomaFoundation.6.dylib,
+					/usr/local/jamoma/lib/libJamomaModular.6.dylib,
+					/usr/local/jamoma/lib/libJamomaDSP.6.dylib,
+					/usr/local/jamoma/lib/libJamomaFoundation.6.dylib,
+					/usr/lib/libdl.dylib,
+					/usr/lib/libxml2.dylib,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = DemoApp;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		85F320B05B004CF18FBFD24E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk;
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/build";
+			};
+			name = Debug;
+		};
+		8921BF881B8E4EB0B3B130FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
 			};
 			name = Release;
 		};
-		B5B16FAE1816B30800F939C5 /* Debug */ = {
+		9D0CA4C1591F476380499C19 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = Debug;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TT_PLATFORM_MAC,
-					TT_PROTOCOL_DEBUG,
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					../../../../Foundation/library/includes,
-					../../../../DSP/library/includes,
-					../../../library/includes,
-					../../../library/PeerObject,
-					../../../library/ProtocolLib,
-					../../../library/SchedulerLib,
+			};
+			name = MinSizeRel;
+		};
+		A4EC81AC62EE4E23B12545A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/WALL-E/Documents/Jamoma/Core/Modular/library/build",
-					"/Users/WALL-E/Documents/Jamoma/Core/Foundation/library/build",
+			};
+			name = Release;
+		};
+		A99C8BA8234E4D22B8FB92C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		B5B16FAF1816B30800F939C5 /* Release */ = {
+		AE4474B8488840EF8565C830 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = Release;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TT_PLATFORM_MAC,
-					TT_PROTOCOL_DEBUG,
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk;
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/build";
+			};
+			name = MinSizeRel;
+		};
+		BCF61258C1C44FC5A3733CD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = /usr/local/jamoma/include;
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = /usr/local/jamoma/lib;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "    -DNDEBUG  ";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++11",
+					"-DNDEBUG",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					../../../../Foundation/library/includes,
-					../../../../DSP/library/includes,
-					../../../library/includes,
-					../../../library/PeerObject,
-					../../../library/ProtocolLib,
-					../../../library/SchedulerLib,
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					/usr/local/jamoma/lib/libJamomaFoundation.6.dylib,
+					/usr/local/jamoma/lib/libJamomaModular.6.dylib,
+					/usr/local/jamoma/lib/libJamomaDSP.6.dylib,
+					/usr/local/jamoma/lib/libJamomaFoundation.6.dylib,
+					/usr/lib/libdl.dylib,
+					/usr/lib/libxml2.dylib,
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/WALL-E/Documents/Jamoma/Core/Modular/library/build",
-					"/Users/WALL-E/Documents/Jamoma/Core/Foundation/library/build",
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = DemoApp;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C2858A7D3CD34954A095F481 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		CD0C9506510449F5BC1B2BA6 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk;
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/build";
+			};
+			name = RelWithDebInfo;
+		};
+		D6B081A59950459CA81FBFEC /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		F18517EA6B144B64B0427005 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk;
+				SYMROOT = "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/build";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B5B16F9F1816B30800F939C5 /* Build configuration list for PBXProject "DemoApp" */ = {
+		2254855E68754EBC960318C5 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B5B16FAB1816B30800F939C5 /* Debug */,
-				B5B16FAC1816B30800F939C5 /* Release */,
+				0FEEF6885F0041FFAF4F3698 /* Debug */,
+				8921BF881B8E4EB0B3B130FF /* Release */,
+				11D7A55E41F04F8780B0B2E1 /* MinSizeRel */,
+				D6B081A59950459CA81FBFEC /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		B5B16FAD1816B30800F939C5 /* Build configuration list for PBXNativeTarget "DemoApp" */ = {
+		24152D2DB24E48F4AF4FC9E0 /* Build configuration list for PBXNativeTarget "DemoApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B5B16FAE1816B30800F939C5 /* Debug */,
-				B5B16FAF1816B30800F939C5 /* Release */,
+				0793048F217448A7B0D185CB /* Debug */,
+				BCF61258C1C44FC5A3733CD5 /* Release */,
+				21829BF7736D49798F863BF2 /* MinSizeRel */,
+				2A27842C8BE141EE9CF8DF35 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
+		};
+		5718DB87B7EA414AB243DA63 /* Build configuration list for PBXProject "DemoApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85F320B05B004CF18FBFD24E /* Debug */,
+				F18517EA6B144B64B0427005 /* Release */,
+				AE4474B8488840EF8565C830 /* MinSizeRel */,
+				CD0C9506510449F5BC1B2BA6 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9944D904BF834D358D6C7B58 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A99C8BA8234E4D22B8FB92C1 /* Debug */,
+				A4EC81AC62EE4E23B12545A6 /* Release */,
+				9D0CA4C1591F476380499C19 /* MinSizeRel */,
+				C2858A7D3CD34954A095F481 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = B5B16F9C1816B30800F939C5 /* Project object */;
+	rootObject = B1F6FCB5644F4B71B06D440E /* Project object */;
 }
