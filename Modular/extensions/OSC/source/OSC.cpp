@@ -519,6 +519,7 @@ TTErr OSC::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& argum
         {
             ; // can't send message to the application because the osc.sender is busy
             ; // TODO : have bundle system
+            
         }
         
         else if (mActivity)

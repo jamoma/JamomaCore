@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		46046E011AB82F480071BBED /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		468776AD1725DB430096DA35 /* Automation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Automation.cpp; sourceTree = "<group>"; };
 		468776B11725DB4B0096DA35 /* Automation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Automation.h; sourceTree = "<group>"; };
 		468EBBFE1784BB1E008BE2AC /* TimePluginLib.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TimePluginLib.cpp; path = ../TimePluginLib.cpp; sourceTree = "<group>"; };
@@ -19,6 +20,7 @@
 			isa = PBXGroup;
 			children = (
 				46B55545177B276A00F50D89 /* Automation.yml */,
+				46046E011AB82F480071BBED /* Makefile */,
 				46B55546177B27C400F50D89 /* TimePluginLib */,
 				468776B01725DB4B0096DA35 /* includes */,
 				468776AC1725DB430096DA35 /* source */,
