@@ -407,7 +407,7 @@ TTErr Scenario::Goto(const TTValue& inputValue, TTValue& outputValue)
     
     if (inputValue.size() >= 1)
     {
-        if (inputValue[0].type() == kTypeUInt32 || inputValue[0].type() == kTypeInt32)
+        if (inputValue[0].type() == kTypeUInt32 || inputValue[0].type() == kTypeInt32 || inputValue[0].type() == kTypeFloat64)
         {
             this->getAttributeValue(kTTSym_duration, v);
             

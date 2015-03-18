@@ -2002,7 +2002,7 @@ TTErr TTScriptMerge(TTObject scriptToMerge, TTObject mergedScript)
 	TTBoolean			merged = NO; // to know if a line have already been merged
 	TTErr				err;
 	
-	if (TTScriptPtr(scriptToMerge.instance())->mLines->isEmpty() || TTScriptPtr(mergedScript.instance())->mLines->isEmpty())
+	if (TTScriptPtr(scriptToMerge.instance())->mLines->isEmpty())
 		return kTTErrGeneric;
 	
 	for (TTScriptPtr(scriptToMerge.instance())->mLines->begin(); TTScriptPtr(scriptToMerge.instance())->mLines->end(); TTScriptPtr(scriptToMerge.instance())->mLines->next()) {
