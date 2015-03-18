@@ -195,6 +195,6 @@ TTErr TTDictionaryBase::unregisterObserverForNotifications(const TTObjectBase& o
 
 TTErr TTDictionaryBase::sendNotification(const TTSymbol name, const TTValue& arguments)
 {
-	return mObservers.iterateObjectsSendingMessage(name, TTValueRef(arguments));
+	return mObservers.iterateObjectsSendingMessage(name, (arguments));
 }
 

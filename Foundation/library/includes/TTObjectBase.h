@@ -34,10 +34,10 @@ class TTClass;
 
 typedef TTAttribute*	TTAttributePtr;
 typedef TTMessage*		TTMessagePtr;
-typedef TTObjectBase*	TTObjectBasePtr;
-typedef TTObjectBase**	TTObjectBaseHandle;
-typedef TTObjectBase&	TTObjectBaseRef;
-typedef TTClass*		TTClassPtr;
+//typedef TTObjectBase*	TTObjectBasePtr;
+//typedef TTObjectBase**	TTObjectBaseHandle;
+//typedef TTObjectBase&	TTObjectBaseRef;
+//typedef TTClass*		TTClassPtr;
 
 
 /** A type that can be used to store a pointer to a message for an object.
@@ -110,7 +110,7 @@ class TTFOUNDATION_EXPORT TTObjectBase {
 private:
 	friend class TTEnvironment;
 
-	TTClassPtr			classPtr;			///< The class definition for this object
+	TTClass*			classPtr;			///< The class definition for this object
 	TTHash*				messages;			///< The collection of all messages for this object, keyed on the message name.
 	TTHash*				attributes;			///< The collection of all attributes for this object, keyed on the attribute name.
 protected:

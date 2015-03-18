@@ -161,7 +161,7 @@ TTErr TTDataObjectBase::resetBenchmarking()
 }
 
 
-TTErr TTDataObjectBase::getProcessingBenchmark(TTValueRef v)
+TTErr TTDataObjectBase::getProcessingBenchmark(TTValue& v)
 {
 	v = mAccumulatedProcessingTime / mAccumulatedProcessingCalls;
 	return kTTErrNone;

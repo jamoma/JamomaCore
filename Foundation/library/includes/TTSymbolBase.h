@@ -114,8 +114,4 @@ public:
 };
 
 
-/**	A reference to a symbol.  This is the way symbols are typically communicated throughout the environment. */
-typedef TTSymbolBase& TTSymbolBaseRef;
-
-
 #endif // __TT_SYMBOLBASE_H__

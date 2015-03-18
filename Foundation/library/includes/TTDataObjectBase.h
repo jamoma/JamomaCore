@@ -101,7 +101,7 @@ protected:
 	/** Do performance benchmarking.
 		@return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getProcessingBenchmark(TTValueRef v);
+	TTErr getProcessingBenchmark(TTValue& v);
 	
 	
 public:
