@@ -6,8 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_LIST_H__
-#define __TT_LIST_H__
+#pragma once
 
 #include "TTBase.h"
 #include "TTValue.h"
@@ -143,7 +142,7 @@ public:
 	
 	/**	Traverse the entire list, and if the item in the list is an object, then send it the specified message.		*/
 	TTErr iterateObjectsSendingMessage(const TTSymbol messageName);
-	TTErr iterateObjectsSendingMessage(const TTSymbol messageName, TTValue& aValue);
+	TTErr iterateObjectsSendingMessage(const TTSymbol messageName, const TTValue& aValue);
 	
 	
 	void setThreadProtection(TTBoolean threadProtection)
@@ -154,7 +153,4 @@ public:
 
 
 typedef TTList* TTListPtr;
-
-
-#endif // __TT_LIST_H__
 

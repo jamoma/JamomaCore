@@ -305,48 +305,28 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName)
 
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
-#ifdef OLD
-		TTObjectBasePtr obj = NULL;
-		
-		//(iter)->get(0, &obj);
-		obj = iter->at(0);
-		if (obj && obj->valid)
-			obj->sendMessage(messageName);
-#else // NEW
 		TTObject o = iter->at(0);
 		
 		if (o.valid())
 			o.send(messageName);
-#endif
 	}
 	unlock();
 	return kTTErrNone;
 }
 
 
-TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName, TTValue& aValue)
+TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName, const TTValue& aValue)
 {
 	if (theList.empty())
 		return kTTErrNone;
 	
 	lock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
-#ifdef OLD
-		TTObjectBasePtr obj = NULL;
-		
-		//(iter)->get(0, &obj);
-		obj = iter->at(0);
-		if (obj && obj->valid) {
-			TTValue v;
-			obj->sendMessage(messageName, aValue, v);
-		}
-#else // NEW
 		TTObject	o = iter->at(0);
 		TTValue		unusedReturnValue;
 	
 		if (o.valid())
 			o.send(messageName, aValue);
-#endif
 	}
 	unlock();
 	return kTTErrNone;
