@@ -805,12 +805,12 @@ TTBoolean testNodeUsingCallback(TTNodePtr n, TTPtr args)
 
 TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 {
-	TTValuePtr		argsValue = (TTValuePtr)args;
-	TTHashPtr		filterBank;
-	TTListPtr		filterList;
+	TTValue*		argsValue = (TTValue*)args;
+	TTHash*			filterBank;
+	TTList*			filterList;
 	TTSymbol		aFilterName;
 	TTSymbol		filterMode;
-	TTDictionaryBasePtr aFilter;
+	TTDictionaryBase* aFilter;
 	TTObject		anObject;
 	TTAddress		anAddress;
 	TTValue			v;
