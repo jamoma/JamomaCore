@@ -74,7 +74,7 @@ static T TTAntiDenormal(const T input)
 // On Windows, the __SSE3__ symbol is always UNdefined, despite any changes you make to compiler settings
 // So this symbol is completely useless.
 
-#if defined ( TT_DISABLE_DENORMAL_FIX ) || defined ( TT_USE_SSE3_INSTRUCTIONS )
+#if defined ( TT_DISABLE_DENORMAL_FIX )
 //	#error hooray!
 	// When SSE3 is available, then we rely on the denormals being turned-off using a bit in the processor's control register
 	// http://software.intel.com/sites/products/documentation/studio/composer/en-us/2011/compiler_c/fpops/common/fpops_set_ftz_daz.htm
