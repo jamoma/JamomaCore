@@ -55,19 +55,19 @@ public:
 	
 	// public method to check out the mActiveMatrix
 	TTErr checkOutMatrix(TTSampleMatrixPtr& startUsingThisMatrix);
-    TTErr checkOutMatrixValues(const TTValueRef unusedInput, TTValueRef output);
+    TTErr checkOutMatrixValues(const TTValue& unusedInput, TTValue& output);
 	
 	// public method to check in TTSampleMatrix. if it is no longer mActiveMatrix, action is taken.
 	TTErr checkInMatrix(TTSampleMatrixPtr& doneUsingThisMatrix);
-    TTErr checkInMatrixValues(const TTValueRef input, TTValueRef unusedOutput);
+    TTErr checkInMatrixValues(const TTValue& input, TTValue& unusedOutput);
 	
-	TTErr getNames(const TTValueRef unusedInput, TTValueRef returnedNames)
+	TTErr getNames(const TTValue& unusedInput, TTValue& returnedNames)
 	{
 		return gTTBufferNameMap->getKeys(returnedNames);
 	}
 	
 		
-	TTErr setName(const TTValueRef newName)
+	TTErr setName(const TTValue& newName)
 	{
 		TTSymbol			name = kTTSymEmpty;
 		TTSymbol			oldName = mName;
@@ -209,19 +209,19 @@ public:
 		return (TTBufferPtr)mObjectInstance;
 	}
     
-    TTErr fill(const TTValue &value)
+    TTErr fill(const TTValue& value)
     {
         TTValue unusedOuput;
         return instance()->fill(value, unusedOuput);
     }
     
-    TTErr load(const TTValue &value)
+    TTErr load(const TTValue& value)
     {
         TTValue unusedOuput;
         return instance()->load(value, unusedOuput);
     }
     
-    TTErr resizeThenLoad(const TTValue &value)
+    TTErr resizeThenLoad(const TTValue& value)
     {
         TTValue unusedOutput;
         return instance()->resizeThenLoad(value, unusedOutput);

@@ -54,13 +54,13 @@ protected:
 	/**
 	 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setSize(const TTValueRef newSize);
+	TTErr setSize(const TTValue& newSize);
 	
 	
 	/**
 	 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setClass(const TTValueRef newClass);
+	TTErr setClass(const TTValue& newClass);
 
 	//// access the objects inside the array ///
 	

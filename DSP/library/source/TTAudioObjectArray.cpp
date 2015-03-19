@@ -60,7 +60,7 @@ TTErr TTAudioObjectBaseArray::updateMaxNumChannels(const TTValue& oldMaxNumChann
 }
 
 
-TTErr TTAudioObjectBaseArray::setSize(const TTValueRef newSize)
+TTErr TTAudioObjectBaseArray::setSize(const TTValue& newSize)
 {
 	// TODO: lock so that audio is not processed when we are resizing!
 
@@ -84,7 +84,7 @@ TTErr TTAudioObjectBaseArray::setSize(const TTValueRef newSize)
 }
 
 
-TTErr TTAudioObjectBaseArray::setClass(const TTValueRef newClass)
+TTErr TTAudioObjectBaseArray::setClass(const TTValue& newClass)
 {
 	TTSymbol	theClassName = newClass;
 	int			err = 0;

@@ -108,7 +108,7 @@ TTErr TTBuffer::chuckMatrix(TTSampleMatrixPtr oldMatrix)
 {
 	if (oldMatrix->getUserCount() < 1)
 	{
-		return TTObjectBaseRelease(TTObjectBaseHandle(&oldMatrix));
+		return TTObjectBaseRelease((TTObjectBase**)(&oldMatrix));
 	} else {
 		return kTTErrFreeFailed;
 	}
@@ -180,7 +180,7 @@ TTErr TTBuffer::checkOutMatrix(TTSampleMatrixPtr& startUsingThisMatrix)
 	return kTTErrNone;
 }
 
-TTErr TTBuffer::checkOutMatrixValues(const TTValueRef unusedInput, TTValueRef output)
+TTErr TTBuffer::checkOutMatrixValues(const TTValue& unusedInput, TTValue& output)
 {
     TTSampleMatrixPtr startUsingThisMatrix = NULL;
     
@@ -219,7 +219,7 @@ TTErr TTBuffer::checkInMatrix(TTSampleMatrixPtr& doneUsingThisMatrix)
 	return kTTErrNone;
 }
 
-TTErr TTBuffer::checkInMatrixValues(const TTValueRef input, const TTValueRef unusedOutput)
+TTErr TTBuffer::checkInMatrixValues(const TTValue& input, TTValue& unusedOutput)
 {
     TTObject doneUsingThisObject = input[0];
     

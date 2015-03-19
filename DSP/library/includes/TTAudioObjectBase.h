@@ -140,7 +140,7 @@ protected:
 	/**	Return the average time spent by this object processing audio since the last reset.
 	 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr getProcessingBenchmark(TTValueConstRef, TTValueRef v);
+	TTErr getProcessingBenchmark(const TTValue&, TTValue& v);
 	
 	
 public:
@@ -215,7 +215,7 @@ public:
 	/**
 	 @return			#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr calculateMessage(TTValueConstRef input, TTValueRef output);
+	TTErr calculateMessage(const TTValue& input, TTValue& output);
 
 	
 	/** Process the input signal, resulting in an output signal. This method wraps the actual process method that will be called.
