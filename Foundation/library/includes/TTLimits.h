@@ -19,11 +19,7 @@
 
 
 #include <limits>
-#ifdef TT_PLATFORM_LINUX
 #include <cmath>
-#define FLT_MAX std::numeric_limits<float>::max()
-#define DBL_MAX std::numeric_limits<double>::max()
-#endif
 
 
 /** Filter out denormaled values, which can make processing extremely slow when present.  Calculation is performed in-place.
