@@ -29,47 +29,50 @@ int main(int argc, const char * argv[])
         TTSymbol arg(argv[i]);
         args.append(arg);
     }
-    
+
     // check for file path
     if (args.size() == 1)
     {
         if (args[0].type() == kTypeSymbol)
         {
             TTSymbol filepath = args[0];    // .score file to load
-            
+
             // initialisation of Modular environnement (passing the folder path where all the dylibs are)
             TTModularInit("/usr/local/jamoma", true);
-            
+
             // create an application manager
             TTObject applicationManager("ApplicationManager");
-            
+
             // create a local application named i-score
             TTObject applicationLocal = applicationManager.send("ApplicationInstantiateLocal", "i-score");
-            
+
             // loads protocol unit
             // TODO : when parsing project file
             {
                 // create Minuit protocol unit
                 TTObject protocolMinuit = applicationManager.send("ProtocolInstantiate", "Minuit");
-                
+
                 // create OSC protocol unit
                 TTObject protocolOSC = applicationManager.send("ProtocolInstantiate", "OSC");
+
+                // create WebSocket protocol unit
+                TTObject protocolWebSocket = applicationManager.send("ProtocolInstantiate", "WebSocket");
             }
-            
+
             // initialisation of Score environnement (passing the folder path where all the dylibs are)
             TTScoreInit("/usr/local/jamoma");
-            
+
             // create a scenario
             TTObject scenario("Scenario");
-            
+
             // load project file
             TTObject xmlHandler("XmlHandler");
             xmlHandler.set("object", TTValue(applicationManager, scenario));
             xmlHandler.send("Read", filepath);
-            
+
             // run scenario
             scenario.send("Start");
-            
+
             // wait for scenario
             TTBoolean running;
             do
@@ -78,11 +81,11 @@ int main(int argc, const char * argv[])
                 scenario.get("running", running);
             }
             while (running);
-            
+
             return EXIT_SUCCESS;
         }
     }
-    
+
     return EXIT_FAILURE;
 }
 
