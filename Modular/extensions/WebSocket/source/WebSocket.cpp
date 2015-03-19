@@ -294,7 +294,7 @@ TTErr WebSocket::SendDiscoverAllRequest(TTSymbol to, TTAddress address,
 //	if (!sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode)) {
 //		
 //#ifdef TT_PROTOCOL_DEBUG
-//		std::cout << "WebSocket : applicationSendDiscoverRequest " << std::endl;
+//		std::cout << "WebSocket : applicationSendDiscoverAllRequest " << std::endl;
 //#endif
 //		
 //		// Wait for an answer
@@ -386,27 +386,27 @@ TTErr WebSocket::SendSetRequest(TTSymbol to, TTAddress address,
 							 TTValue& value,
                              TTUInt8 tryCount)
 {
-//    TTValue		arguments;
-//    TTString	localAppName, operation;
-//    JSONNode*   jsonNode;
-//    
-//    // create JSonNode
-//    jsonNode = new JSONNode(JSON_NODE);
-//    
-//    // edit local app name and operation
-//    localAppName = mLocalApplicationName.c_str();
-//	operation = WEBSOCKET_REQUEST_SET;
-//    
-//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
-//    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
-//    addChildToJson(jsonNode, address.c_str(), value);
-//		
-//#ifdef TT_PROTOCOL_DEBUG
-//		std::cout << "WebSocket : applicationSendSetRequest " << std::endl;
-//#endif
-//    
-//    // TODO : add possibility to set several attributes
-//    return sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode);
+    TTValue		arguments;
+    TTString	localAppName, operation;
+    JSONNode*   jsonNode;
+    
+    // create JSonNode
+    jsonNode = new JSONNode(JSON_NODE);
+    
+    // edit local app name and operation
+    localAppName = mLocalApplicationName.c_str();
+	operation = WEBSOCKET_REQUEST_SET;
+    
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+    addChildToJson(jsonNode, address.c_str(), value);
+		
+#ifdef TT_PROTOCOL_DEBUG
+		std::cout << "WebSocket : applicationSendSetRequest " << std::endl;
+#endif
+    
+    // TODO : add possibility to set several attributes
+    return sendMessage(to, TTSymbol(localAppName), TTSymbol(operation), jsonNode);
     
     return kTTErrGeneric;
 }
@@ -689,10 +689,9 @@ TTErr WebSocket::SendListenAnswer(TTSymbol to, TTAddress address,
 
 TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localApplicationName, TTSymbol operation, JSONNode* jsonNode)
 {
-	TTHashPtr       parameters = NULL;
     TTObject        aWebSender;
     TTString        header;
-	TTValue         v, message, none;
+	TTValue         v, message;
 	TTErr           err;
     
     if (!mSenderManager)
@@ -717,7 +716,7 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
                 message = TTSymbol(js);
 				
                 // send message
-				err = aWebSender.send(TTSymbol("send"), message, none);
+				err = aWebSender.send(TTSymbol("send"), message);
                 
 				if (!err && mActivity) {
                     header = mLocalApplicationName.c_str();

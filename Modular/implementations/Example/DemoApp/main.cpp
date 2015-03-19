@@ -105,6 +105,9 @@ DemoApp::Setup()
     // Create a local application called "myDemoApp" and get it back
     mApplicationDemo = mApplicationManager.send("ApplicationInstantiateLocal", "myDemoApp");
     
+    // Create a remote application called "myRemoteApp" and get it back
+    mApplicationRemote = mApplicationManager.send("ApplicationInstantiateDistant", "myRemoteApp");
+    
     
     // Get registered application names
     mApplicationManager.get("applicationNames", out);
@@ -112,63 +115,6 @@ DemoApp::Setup()
         TTSymbol name = TTElement(*it);
         TTLogMessage("%s application is well registered into the application manager \n", name.c_str());
     }
-    
-    
-    //TTLogMessage("\n*** Enable Minuit communication ***\n");
-    //////////////////////////////////////////////////////////////////////////
-    //
-    //// Create a Minuit protocol unit
-    //err = mApplicationManager.send("ProtocolInstantiate", "Minuit", out);
-    //
-    //if (err) {
-    //    TTLogError("Error : can't create Minuit protocol unit \n");
-    //    return;
-    //}
-    //else
-    //    mProtocolMinuit = out[0];
-    //
-    //// Get Minuit Protocol attribute names and types
-    //mProtocolMinuit.get("parameterNames", out);
-    //for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
-    //    TTSymbol name = TTElement(*it);
-    //    TTSymbol type = mProtocolMinuit.attributeType(name);
-    //    TTLogMessage("Minuit %s parameter is a %s \n", name.c_str(), type.c_str());
-    //}
-    //
-    //// Register mymyRemoteAppApp and myRemoteApp to the Minuit protocol
-    //mProtocolMinuit.send("ApplicationRegister", "myDemoApp", out);
-    //mProtocolMinuit.send("ApplicationRegister", "myRemoteApp", out);
-    //
-    //// Select myDemoApp to set its protocol parameters
-    //mProtocolMinuit.send("ApplicationSelect", "myDemoApp", out);
-    //mProtocolMinuit.set("port", 9998);
-    //mProtocolMinuit.set("ip", "127.0.0.1");
-    //
-    //// Select myRemoteApp to set its protocol parameters
-    //mProtocolMinuit.send("ApplicationSelect", "myRemoteApp", out);
-    //mProtocolMinuit.set("port", 13579);
-    //mProtocolMinuit.set("ip", "127.0.0.1");
-    //
-    //// Get Minuit parameters for each registered application
-    //mProtocolMinuit.get("applicationNames", out);
-    //for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
-    //    TTSymbol name = TTElement(*it);
-    //    
-    //    mProtocolMinuit.send("ApplicationSelect", name, out);
-    //    TTLogMessage("Minuit setup for %s application : \n", name.c_str());
-    //    
-    //    mProtocolMinuit.get("ip", v);
-    //    TTSymbol ip = v[0];
-    //    TTLogMessage("- ip = %s \n", ip.c_str());
-    //    
-    //    mProtocolMinuit.get("port", v);
-    //    TTUInt16 port = v[0];
-    //    TTLogMessage("- port = %d \n", port);
-    //}
-    //
-    //// Enable Minuit communication
-    //mProtocolMinuit.send("Run");
-    
     
     TTLogMessage("\n*** Enable WebSocket communication ***\n");
     ////////////////////////////////////////////////////////////////////////
@@ -185,6 +131,7 @@ DemoApp::Setup()
     
     // Register myDemoApp and myRemoteApp to the WebSocket protocol
     mProtocolWebSocket.send("ApplicationRegister", "myDemoApp");
+    mProtocolWebSocket.send("ApplicationRegister", "myRemoteApp");
     
     // Select myDemoApp to set its protocol parameters
     mProtocolWebSocket.send("ApplicationSelect", "myDemoApp");
@@ -220,169 +167,18 @@ DemoApp::Setup()
         TTLogMessage("%s protocol is well registered into the application manager \n", name.c_str());
     }
     
-    
-	TTLogMessage("\n*** Creation and registration of datas into myDemoApp ***\n");
-    /////////////////////////////////////////////////////////
-    
-    TTLogMessage("\n*** Creation and registration of a decimal parameter ***\n");
-    /////////////////////////////////////////////////////////
-    
-    // Create a decimal parameter data and set its callback function and baton and some attributes
-    mDataDemoDecimalParameter = TTObject("Data", "parameter");
-    
-    // Setup the callback mechanism to get the value back
-    args = TTValue(TTPtr(this), mDataDemoDecimalParameter);
-    mDataDemoDecimalParameter.set("baton", args);
-    mDataDemoDecimalParameter.set("function", TTPtr(&DemoAppDataReturnValueCallback));
-    
-    // Setup the data attributes depending of its use inside the application
-    
-    mDataDemoDecimalParameter.set("rangeBounds", TTValue(-1., 1.));
-    mDataDemoDecimalParameter.set("rangeClipmode", "both");
-//    mDataDemoDecimalParameter.set("rampDrive", "System");
-    mDataDemoDecimalParameter.set("description", "this parameter is useful for demo purpose");
-    mDataDemoDecimalParameter.set("valueDefault", 0);
-    mDataDemoDecimalParameter.set("value", 0.9);
-    mDataDemoDecimalParameter.set("type", "decimal");
-    
-    // Register the parameter data into myDemoApp at an address
-    args = TTValue("/myParameterDecimal", mDataDemoDecimalParameter);
-    err = mApplicationDemo.send("ObjectRegister", args, out);
-    
-    if (err)
-        TTLogError("Error : can't register data at /myParameterDecimal address \n");
-    
-    else {
-        address = out[0];
-        TTLogMessage("\n /myParameterDecimal : effective registration address is %s \n", address.c_str());
-    }
-    
-    TTLogMessage("\n*** Creation and registration of a string parameter ***\n");
-    /////////////////////////////////////////////////////////
-    
-    // Create a string parameter data and set its callback function and baton and some attributes
-    mDataDemoStringParameter = TTObject("Data", "parameter");
-    
-    // Setup the callback mechanism to get the value back
-    args = TTValue(TTPtr(this), mDataDemoStringParameter);
-    mDataDemoStringParameter.set("baton", args);
-    mDataDemoStringParameter.set("function", TTPtr(&DemoAppDataReturnValueCallback));
-    
-    // Setup the data attributes depending of its use inside the application
-    mDataDemoStringParameter.set("type", "string");
-    mDataDemoStringParameter.set("description", "this parameter is useful for demo purpose");
-    mDataDemoStringParameter.set("valueDefault", "myDemoApp");
-    mDataDemoStringParameter.set("value", "test");
-    
-    // Register the parameter data into myDemoApp at an address
-    args = TTValue("/myParameterString", mDataDemoStringParameter);
-    err = mApplicationDemo.send("ObjectRegister", args, out);
-    
-    if (err)
-        TTLogError("Error : can't register data at /myParameterString address \n");
-    
-    else {
-        address = out[0];
-        TTLogMessage("\n /myParameterString : effective registration address is %s \n", address.c_str());
-    }
-    
-    TTLogMessage("\n*** Creation and registration of a bool parameter ***\n");
-    /////////////////////////////////////////////////////////
-    
-    // Create a bool parameter data and set its callback function and baton and some attributes
-    mDataDemoBoolParameter = TTObject("Data", "parameter");
-    
-    // Setup the callback mechanism to get the value back
-    args = TTValue(TTPtr(this), mDataDemoBoolParameter);
-    mDataDemoBoolParameter.set("baton", args);
-    mDataDemoBoolParameter.set("function", TTPtr(&DemoAppDataReturnValueCallback));
-    
-    // Setup the data attributes depending of its use inside the application
-    mDataDemoBoolParameter.set("type", "boolean");
-    mDataDemoBoolParameter.set("description", "this parameter is useful for demo purpose");
-    mDataDemoBoolParameter.set("valueDefault", true);
-    mDataDemoBoolParameter.set("value", true);
-    
-    // Register the parameter data into myDemoApp at an address
-    args = TTValue("/myParameterBool", mDataDemoBoolParameter);
-    err = mApplicationDemo.send("ObjectRegister", args, out);
-    
-    if (err)
-        TTLogError("Error : can't register data at /myParameterBool address \n");
-    
-    else {
-        address = out[0];
-        TTLogMessage("\n /myParameterBool : effective registration address is %s \n", address.c_str());
-    }
-    
-    TTLogMessage("\n*** Creation and registration of a message ***\n");
-    /////////////////////////////////////////////////////////
-    
-    // Create a message data and set its callback function and baton and some attributes
-    mDataDemoMessage = TTObject("Data", "message");
-    
-    // Setup the callback mechanism to get the value back
-    args = TTValue(TTPtr(this), mDataDemoMessage);
-    mDataDemoMessage.set("baton", args);
-    mDataDemoMessage.set("function", TTPtr(&DemoAppDataReturnValueCallback));
-    
-    // Setup the data attributes depending of its use inside the application
-    mDataDemoMessage.set("type", "none");
-    mDataDemoMessage.set("description", "this message is useful for demo purpose");
-    
-    // Register the message data into myDemoApp at an address
-    args = TTValue("/myMessage", mDataDemoMessage);
-    err = mApplicationDemo.send("ObjectRegister", args, out);
-    
-    if (err)
-        TTLogError("Error : can't register data at /myMessage address \n");
-    
-    else {
-        address = out[0];
-        TTLogMessage("\n /myMessage : effective registration address is %s \n", address.c_str());
-    }
-    
-    TTLogMessage("\n*** Creation and registration of a return ***\n");
-    /////////////////////////////////////////////////////////
-    
-    // Create a return data and set its callback function and baton and some attributes
-    mDataDemoReturn = TTObject("Data", "return");
-    
-    // Setup the callback mechanism to get the value back
-    args = TTValue(TTPtr(this), mDataDemoReturn);
-    mDataDemoReturn.set("baton", args);
-    mDataDemoReturn.set("function", TTPtr(&DemoAppDataReturnValueCallback));
-    
-    // Setup the data attributes depending of its use inside the application
-//    mDataDemoReturn.set("type", "integer");
-    mDataDemoReturn.set("description", "this return is useful for demo purpose");
-    mDataDemoReturn.set("valueDefault", 0);
-    mDataDemoReturn.set("value", 0);
-    
-    // Register the return data into myDemoApp at an address
-    args = TTValue("/myReturn", mDataDemoReturn);
-    err = mApplicationDemo.send("ObjectRegister", args, out);
-    
-    if (err)
-        TTLogError("Error : can't register data at /myReturn address \n");
-    
-    else {
-        address = out[0];
-        TTLogMessage("\n /myReturn : effective registration address is %s \n", address.c_str());
-    }
-    
     TTLogMessage("\n*** Exploration of myRemoteApp ***\n");
     /////////////////////////////////////////////////////////
 
     // Explore the namespace of the myRemoteApp application (myRemoteApp have to be opened and configured with a Minuit "myDemoApp" device)
-//    mApplicationRemote.send("DirectoryBuild");
+    mApplicationRemote.send("DirectoryBuild");
     
     
     TTLogMessage("\n*** Control of myRemoteApp ***\n");
     /////////////////////////////////////////////////////////
     
-//    v = TTValue("/Main:externalTick", 1);
-//    mApplicationRemote.send("ObjectSend", v, out);
+//    v = TTValue("/test", 1);
+//    mApplicationRemote.send("ObjectSend", v);
 }
 
 void
@@ -399,12 +195,12 @@ DemoApp::Export()
 void
 DemoApp::Execute(std::string command)
 {
-    //// parse the command : address value
-    //TTValue out, v = TTString(command);
-    //v.fromString();
-    //
-    //// Send the command to the object at the given address
-    //mApplicationDemo.send("ObjectSend", v, out);
+    // parse the command : address value
+    TTValue v = TTString(command);
+    v.fromString();
+    
+    // Send the command to the object at the given address
+    mApplicationRemote.send("ObjectSend", v);
 }
 
 void
@@ -414,27 +210,6 @@ DemoApp::Quit()
     
     TTLogMessage("\n*** Release myDemoApp datas ***\n");
     /////////////////////////////////////////////////////
-    
-    // Unregister the parameter
-    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterDecimal"))
-        TTLogError("Error : can't unregister data at /myParameterDecimal address \n");
-    
-    // Unregister the parameter
-    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterString"))
-        TTLogError("Error : can't unregister data at /myParameterString address \n");
-    
-    // Unregister the parameter
-    if ( mApplicationDemo.send("ObjectUnregister", "/myParameterBool"))
-        TTLogError("Error : can't unregister data at /myParameterBool address \n");
-    
-    // Unregister the message
-    if (mApplicationDemo.send("ObjectUnregister", "/myMessage"))
-        TTLogError("Error : can't unregister data at /myMessage address \n");
-    
-    // Unregister the return
-    if (mApplicationDemo.send("ObjectUnregister", "/myReturn"))
-        TTLogError("Error : can't unregister data at /myReturn address \n");
-    
     
     TTLogMessage("\n*** Release protocols ***\n");
     ///////////////////////////////////////////////
@@ -448,49 +223,4 @@ DemoApp::Quit()
     
     mApplicationManager.send("ApplicationRelease", "myRemoteApp");
     mApplicationManager.send("ApplicationRelease", "myDemoApp");
-}
-
-TTErr
-DemoAppDataReturnValueCallback(const TTValue& baton, const TTValue& value)
-{
-    DemoApp*    demoApp = (DemoApp*)TTPtr(baton[0]);
-    TTObject    anObject = baton[1];
-    
-	// Reteive which data has been updated
-    if (anObject.instance() == demoApp->mDataDemoDecimalParameter.instance()) {
-        
-        // print the returned value
-        TTLogMessage("/myParameterDecimal has been updated to %s \n", value.toString().data());
-        return kTTErrNone;
-    }
-    
-    if (anObject.instance() == demoApp->mDataDemoStringParameter.instance()) {
-        
-        // print the returned value
-        TTLogMessage("/myParameterString has been updated to %s \n", value.toString().data());
-        return kTTErrNone;
-    }
-    
-    if (anObject.instance() == demoApp->mDataDemoBoolParameter.instance()) {
-        
-        // print the returned value
-        TTLogMessage("/myParameterBool has been updated to %s \n", value.toString().data());
-        return kTTErrNone;
-    }
-    
-    if (anObject.instance() == demoApp->mDataDemoMessage.instance()) {
-        
-        // print the returned value
-        TTLogMessage("/myMessage has been updated to %s \n", value.toString().data());
-        return kTTErrNone;
-    }
-    
-    if (anObject.instance() == demoApp->mDataDemoReturn.instance()) {
-        
-        // print the returned value
-        TTLogMessage("/myReturn has been updated to %s \n", value.toString().data());
-        return kTTErrNone;
-    }
-    
-    return kTTErrGeneric;
 }
