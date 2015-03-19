@@ -14,21 +14,27 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __TT_LIMITS_H__
-#define __TT_LIMITS_H__
-
+#pragma once
 
 #include <limits>
 #include <cmath>
 
 
-/** Filter out denormaled values, which can make processing extremely slow when present.  Calculation is performed in-place.
- @seealso	TTZeroDenormal
+/** Filter out denormaled values, which can make processing extremely slow when present.  
+	Calculation is performed in-place.
+ 
+	When SSE3 is available, then we rely on the denormals being turned-off using a bit in the processor's control register
+	http://software.intel.com/sites/products/documentation/studio/composer/en-us/2011/compiler_c/fpops/common/fpops_set_ftz_daz.htm
+
+	Otherwise you need to define the preprocessor macro TT_ZERO_DENORMALS for manual denormal suppression.
+	See #56.
+ 
+	@seealso	TTAntiDenormal
  */
 template<class T>
 static void TTZeroDenormal(T& value)
 {
-#ifndef TT_DISABLE_DENORMAL_FIX
+#ifdef TT_ZERO_DENORMALS
 	if (!std::isnormal(value))
 		value = 0;
 #endif
@@ -46,43 +52,7 @@ static T TTAntiDenormal(const T input)
 	T output = input;
 	TTZeroDenormal(output);
 	return output;
-
-	// This function used to be implemented using the following algorithm:
-	//
-	// value += kTTAntiDenormalValue;
-	// value -= kTTAntiDenormalValue;
-	//
-	// That algorithm has the advantage of not branching.  On the PPC this yielded a dramatic performance improvement.
-	// When benchmarked on Intel processors, however, it was significantly slightly slower (roughly 50%) than the more traditional
-	// branching version, which is now implemented in the TTZeroDenormal() function.
 }
-
-
-// Macros wrapping the above C++ templates
-// We do this so that we can easily change the behavior of the routines for squashing denormals.
-// On the PPC we don't want to waste cycles unneccessarily;
-// On the Intel processors we can use SSE intrinsics as suggested by Nils Peters (see redmine ticket #799)
-// or we can use SSE intrinsics to disable denormals on a processor completely, in which case these functions should not waste cycles doing anything;
-// On ARM processors what happens?  We might still need to squash denormals, or maybe there is an option as indicated @ http://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html
-//
-// Implementation Note:  The __SSE3__ symbol is always defined in Xcode despite any changes you make to compiler settings
-// On Linux, the __SSE3__ symbol is toggled based on passing the -msse3 flag to GCC
-// On Windows, the __SSE3__ symbol is always UNdefined, despite any changes you make to compiler settings
-// So this symbol is completely useless.
-
-#if defined ( TT_DISABLE_DENORMAL_FIX )
-//	#error hooray!
-	// When SSE3 is available, then we rely on the denormals being turned-off using a bit in the processor's control register
-	// http://software.intel.com/sites/products/documentation/studio/composer/en-us/2011/compiler_c/fpops/common/fpops_set_ftz_daz.htm
-
-	// Do nothing for denormals
-	#define TT_ZERO_DENORMAL
-	#define TT_ANTI_DENORMAL
-#else
-	#define TT_ZERO_DENORMAL(v) TTZeroDenormal(v)
-	#define TT_ANTI_DENORMAL(v) TTAntiDenormal(v) (v)
-#endif
-
 
 
 /** Constrain a number to within a range.  Calculation is performed in-place.
@@ -107,16 +77,6 @@ static T TTClip(const T input, const T lowBound, const T highBound)
 	T output = input;
 	TTLimit(output, lowBound, highBound);
 	return output;
-
-	// This function used to be implemented using the following algorithm:
-	//
-	// value = T(((fabs(value - double(low_bound))) + (low_bound + high_bound)) - fabs(value - double(high_bound)));
-	// value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
-	// return value;
-	//
-	// That algorithm has the advantage of not branching.  On the PPC this yielded a dramatic performance improvement.
-	// When benchmarked on Intel processors, however, it was actually very slightly slower than the more traditional
-	// branching version, which is now implemented in the TTLimit() function.
 }
 
 
@@ -126,17 +86,6 @@ static void TTLimitMax(T& value, const T highBound)
 {
 	if (value > highBound)
 		value = highBound;
-
-	// old algorithm -- see comments in TTClip() for details
-	// value = high_bound - value;
-	// #ifdef TT_PLATFORM_MAC
-	//	value += fabs(value);
-	// #else
-	//	value = T(value + fabs((double)value));
-	// #endif
-	// value = T(value * 0.5);
-	// value = high_bound - value;
-	// return value;
 }
 
 
@@ -147,17 +96,6 @@ static void TTLimitMin(T& value, const T lowBound)
 {
 	if (value < lowBound)
 		value = lowBound;
-
-	// old algorithm -- see comments in TTClip() for details
-	// value -= low_bound;
-	// #ifdef TT_PLATFORM_MAC
-	//	value += fabs(value);
-	// #else
-	//	value = T(value + fabs((double)value));
-	// #endif
-	// value = T(value * 0.5);
-	// value = T(value + low_bound);
-	// return value;
 }
 
 
@@ -253,12 +191,6 @@ static TTInt32 TTRound(T value)
 }
 
 
-#if 0
-#pragma mark -
-#pragma mark - new code from Tristan
-#endif
-
-
 template <class T>
 static T limitMin(T value, T low_bound)
 {
@@ -333,34 +265,4 @@ static TTUInt64 limitMin(TTUInt64 value, TTUInt64 low_bound)
 	return value;
 }
 
-
-/*
-int main(int argc, char* argv[])
-{
-	if (argc != 3) {
-	    std::cout << "Usage: limitMin <value> <lowerBound>\n";
-	    return 1;
-	}
-
-	TTUInt16 u, l;
-
-	std::cout << "Enter a value:\n";
-	u = atoi(argv[1]);
-	std::cout << "u is " << u << std::endl;
-	std::cout << "Enter a lower bound:\n";
-	l = atoi(argv[2]);
-	std::cout << "l is " << l << std::endl;
-
-	long long iterations = 100000000LL;
-
-	// execute a lot of times
-	while (iterations--)
-	    TTUInt16 v = limitMin<TTUInt16>(u, l);
-
-	return 0;
-}
-*/
-
-
-#endif // __TT_LIMITS_H__
 
