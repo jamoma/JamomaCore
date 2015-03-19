@@ -487,7 +487,7 @@ TTErr TTObjectBase::unregisterObserverForNotifications(const TTObject& observing
 
 TTErr TTObjectBase::sendNotification(const TTSymbol name, const TTValue& arguments)
 {
-	return observers.iterateObjectsSendingMessage(name, TTValueRef(arguments));
+	return observers.iterateObjectsSendingMessage(name, arguments);
 }
 
 
