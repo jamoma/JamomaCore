@@ -554,15 +554,15 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 {
 	TTNodeDirectoryPtr	directory;
 	TTAddress           whereToDiscover;
-    TTSymbol            *returnedType = NULL;
-	TTValuePtr			returnedChildren;
-	TTValuePtr			returnedAttributes;
+    TTSymbol*			returnedType = NULL; // ???
+	TTValue*			returnedChildren;
+	TTValue*			returnedAttributes;
 	
 	whereToDiscover = inputValue[0];
 	
 	returnedType = (TTSymbol*)((TTPtr)outputValue[0]);
-	returnedChildren = TTValuePtr((TTPtr)outputValue[1]);
-	returnedAttributes = TTValuePtr((TTPtr)outputValue[2]);
+	returnedChildren = (TTValue*)((TTPtr)outputValue[1]);
+	returnedAttributes = (TTValue*)((TTPtr)outputValue[2]);
 	
 	TTList		nodeList, childList;
 	TTNodePtr	firstNode, aNode;
@@ -673,10 +673,10 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 {
 	TTNodeDirectoryPtr	directory;
 	TTAddress           whereToSet;
-	TTValuePtr			newValue;
+	TTValue*			newValue;
 	
 	whereToSet = inputValue[0];
-	newValue = TTValuePtr((TTPtr)inputValue[1]);
+	newValue = (TTValue*)((TTPtr)inputValue[1]);
 	
 	TTList		aNodeList;
 	TTNodePtr	nodeToSet;
@@ -798,12 +798,12 @@ TTErr TTApplicationManager::ApplicationListenAnswer(const TTValue& inputValue, T
     TTObject     anApplication;
 	TTSymbol     appAnswering;
 	TTAddress    whereComesFrom;
-	TTValuePtr   newValue;
+	TTValue*   newValue;
 	TTValue      v, args, none;
 	
 	appAnswering = inputValue[0];
 	whereComesFrom = inputValue[1];
-	newValue = TTValuePtr((TTPtr)inputValue[2]);
+	newValue = (TTValue*)((TTPtr)inputValue[2]);
 	
     if (!mApplications.lookup(appAnswering, v)) {
         

@@ -65,7 +65,7 @@ TTErr TTOscSend::setPort(const TTValue& newValue)
 TTErr TTOscSend::send(const TTValue& value, TTValue& unusedOutput)
 {
 	TTSymbol    message;
-	TTValuePtr	arguments;
+	TTValue*	arguments;
 	
 	if (mSocket) {
 		
@@ -75,7 +75,7 @@ TTErr TTOscSend::send(const TTValue& value, TTValue& unusedOutput)
             if (value[0].type() == kTypeSymbol && value[1].type() == kTypePointer) {
                 
                 message = value[0];
-                arguments = TTValuePtr((TTPtr)value[1]);
+                arguments = (TTValue*)((TTPtr)value[1]);
                 
                 return mSocket->SendMessage(message, *arguments);
             }

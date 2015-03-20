@@ -88,7 +88,7 @@ TTContainer::~TTContainer()
 TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
 {
 	TTValue			hk, cacheElement, v, none;
-	TTValuePtr		valueToSend;
+	TTValue*		valueToSend;
 	TTObject        anObject;
 	TTAddress       aRelativeAddress, topAddress, belowAddress, keyAddress;
 	TTSymbol		attrOrMess, service;
@@ -157,7 +157,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
             return err;
         }
         
-        valueToSend = TTValuePtr((TTPtr)AddressAndValue[1]);
+        valueToSend = (TTValue*)((TTPtr)AddressAndValue[1]);
         
         // get the object
         err = mObjectsObserversCache.lookup(aRelativeAddress.removeAttribute(), cacheElement);
@@ -1367,11 +1367,11 @@ TTErr TTContainerValueAttributeCallback(const TTValue& baton, const TTValue& dat
 TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 {
 	TTValue		v;
-	TTValuePtr	av;
+	TTValue*	av;
 	TTPtr		c, t_c, p_c = NULL;
 	
 	// our context
-	av = (TTValuePtr)args;
+	av = (TTValue*)args;
 	t_c = (*av)[0];
 	
 	// context of the tested node
@@ -1398,7 +1398,8 @@ TTBoolean TTContainerTestObjectAndContext(TTNodePtr n, TTPtr args)
 TTBoolean TTContainerCompareObjectPriority(TTValue& v1, TTValue& v2) 
 {
     TTSymbol    k1, k2;
-    TTValuePtr  s1, s2;
+	TTValue*	s1;
+	TTValue*	s2;
 	TTObject    o1, o2;
 	TTValue		v;
 	TTInt32		p1 = 0;
@@ -1407,8 +1408,8 @@ TTBoolean TTContainerCompareObjectPriority(TTValue& v1, TTValue& v2)
     // get key and stored value
     k1 = v1[0];
     k2 = v2[0];
-    s1 = TTValuePtr(TTPtr(v1[1]));
-    s2 = TTValuePtr(TTPtr(v2[1]));
+    s1 = (TTValue*)(TTPtr(v1[1]));
+    s2 = (TTValue*)(TTPtr(v2[1]));
 	
 	// get priority of the object stored in v1
     if (s1) {

@@ -673,7 +673,7 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTAddress	whereComesFrom;
-	TTValuePtr	newValue;
+	TTValue*	newValue;
     TTValue     none;
 	TTSymbol	type, protocolName;;
     TTList      aNodeList;
@@ -682,7 +682,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
     TTErr       err;
 	
 	whereComesFrom = inputValue[0];
-	newValue = TTValuePtr((TTPtr)inputValue[1]);
+	newValue = (TTValue*)((TTPtr)inputValue[1]);
 	
     // in learn mode we can only create Data
     if (mLearn)
@@ -731,7 +731,7 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
 {
 	TTNodePtr	nodeToUpdate;
 	TTAddress	whereComesFrom;
-	TTValuePtr	newValue;
+	TTValue*	newValue;
 	TTObject	anObject;
 	TTErr		err;
 
@@ -739,7 +739,7 @@ TTErr TTApplication::UpdateAttribute(const TTValue& inputValue, TTValue& outputV
         UpdateDirectory(inputValue, outputValue);
 	
 	whereComesFrom = inputValue[0];
-	newValue = TTValuePtr((TTPtr)inputValue[1]);
+	newValue = (TTValue*)((TTPtr)inputValue[1]);
 	
 	err = mDirectory->getTTNode(whereComesFrom, &nodeToUpdate);
 	

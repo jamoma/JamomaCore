@@ -111,7 +111,7 @@ TTSymbol& TTDataspace::getOutputUnit()
 
 void TTDataspace::registerUnit(const TTSymbol& className, const TTSymbol& unitName)
 {
-	TTValuePtr v = new TTValue(className);
+	TTValue* v = new TTValue(className);
 
 	unitHash->append(unitName, *v);
 }

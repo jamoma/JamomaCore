@@ -487,7 +487,7 @@ TTErr ProtocolAttributeCallback(const TTValue& baton, const TTValue& data)
 
 TTErr ProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr	value;
+	TTValue*	value;
 	TTObject	aProtocol;
 	TTSymbol	anApplicationName;
 	TTAddress	anAddress;
@@ -500,7 +500,7 @@ TTErr ProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data)
 	
 	// unpack data
 	attribute = data[0];
-	value = TTValuePtr((TTPtr)data[1]);
+	value = (TTValue*)((TTPtr)data[1]);
 	
 	// send a get request
     if (ProtocolPtr(aProtocol.instance())->mRunning)
@@ -511,7 +511,7 @@ TTErr ProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data)
 
 TTErr ProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr	value;
+	TTValue*	value;
 	TTObject	aProtocol;
 	TTSymbol	anApplicationName;
 	TTAddress	anAddress;
@@ -524,7 +524,7 @@ TTErr ProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data)
 	
 	// unpack data
 	attribute = data[0];
-	value = TTValuePtr((TTPtr)data[1]);
+	value = (TTValue*)((TTPtr)data[1]);
 	
 	// send a set request
     if (ProtocolPtr(aProtocol.instance())->mRunning)
@@ -535,7 +535,7 @@ TTErr ProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data)
 
 TTErr ProtocolSendMessageCallback(const TTValue& baton, const TTValue& data)
 {
-	TTValuePtr	value;
+	TTValue*	value;
 	TTObject	aProtocol;
 	TTSymbol	anApplicationName;
 	TTAddress	anAddress;
@@ -548,7 +548,7 @@ TTErr ProtocolSendMessageCallback(const TTValue& baton, const TTValue& data)
 	
 	// unpack data
 	message = data[0];
-	value = TTValuePtr((TTPtr)data[1]);
+	value = (TTValue*)((TTPtr)data[1]);
 	
 	// send a set request
     if (ProtocolPtr(aProtocol.instance())->mRunning)

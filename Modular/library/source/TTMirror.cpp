@@ -165,7 +165,7 @@ TTErr TTMirror::AttributeCache(const TTValue& inputValue, TTValue& outputValue)
             
             TTSymbol    name = inputValue[0];
             TTValue     v;
-            TTValuePtr  valueToCache;
+            TTValue*  valueToCache;
             
             // if the attribute is not already cached
             if (mAttributeValueCache.lookup(name, v)) {
@@ -183,7 +183,7 @@ TTErr TTMirror::AttributeCache(const TTValue& inputValue, TTValue& outputValue)
                         
                         if (inputValue[1].type() == kTypePointer) {
                             
-                            valueToCache = TTValuePtr(TTPtr(inputValue[1]));
+                            valueToCache = (TTValue*)(TTPtr(inputValue[1]));
                             
                             // add it as a cached attribute with the given value
                             mAttributeValueCache.append(name, *valueToCache);

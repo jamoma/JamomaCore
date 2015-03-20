@@ -34,7 +34,7 @@ public:
 	TTObjectBasePtr				mAudioEngine;	///< The audio engine that signals are output to.
 	TTAudioSignalPtr			placeHolder;	///< An unused audio signal that we pass
 	TTAudioGraphObjectBasePtr	owner;			///< The owning AudioGraph instance
-	TTValuePtr					me;
+	TTValue*					me;
 	TTAudioGraphPreprocessData	mInitData;
 	TTSymbol					mDevice;		///< Name of the audio interface
 	TTUInt64					mSampleStamp;	///< The current time in samples

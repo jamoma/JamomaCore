@@ -47,7 +47,7 @@ public:	// use public for recursive access
 	TTString	*mWriter;						///< the text where to write
 	TTString	*mReader;						///< the text to read
 	
-	TTValuePtr	mLine;							///< the line being read by the Reader
+	TTValue*	mLine;							///< the line being read by the Reader
 	TTUInt8		mTabCount;						///< count the number of tabulation at the beginning of the line
 	TTUInt8		mSpaceNumberForTab;				///< ATTRIBUTE : depending on the text editor a tab can be equal to 4, 5, 8 white space
 	

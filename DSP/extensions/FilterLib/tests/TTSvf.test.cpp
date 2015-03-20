@@ -172,10 +172,10 @@ TTErr TTSvf::test(TTValue& returnedTestInfo)
 		5.2230617263729118e+305
 	};
 	
-	//TTTestLog("\nRESULTING VALUES");
+	TTTestLog("\nRESULTING VALUES");
 	for (int i=0; i<128; i++) {
 		TTBoolean result = !TTTestFloatEquivalence(output->mSampleVectors[0][i], expectedImpulseResponse[i]);
-		//TTTestLog("%.16e,", output->mSampleVectors[0][i]);
+		TTTestLog("%.16e,", output->mSampleVectors[0][i]);
 		badSampleCount += result;
 		if (result)
 			TTTestLog("BAD SAMPLE @ i=%i  ( value=%.10f   expected=%.10f )", i, output->mSampleVectors[0][i], expectedImpulseResponse[i]);
