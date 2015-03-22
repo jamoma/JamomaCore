@@ -38,10 +38,10 @@ TTErr TTData::setType(const TTValue& value)
 		// register mValue Attribute and prepare memory
         // We establish the behavior of TTData based on the attribute type. We do this by setting a funciton pointer that depends on the type.
 		if (mType == kTTSym_integer) {
-            commandMethod = (TTMethodValue)&TTData::IntegerCommand;
+            commandMethod = (TTMethodValue)&TTData::IntegerDecimalArrayCommand;
             initMessage->method = (TTMethod)&TTData::IntegerInit;
 			valueAttribute->type = kTypeInt32;
-            valueAttribute->setter = (TTSetterMethod)&TTData::setIntegerValue;
+            valueAttribute->setter = (TTSetterMethod)&TTData::setIntegerDecimalArrayValue;
 			valueDefaultAttribute->type = kTypeInt32;
 			valueStepSizeAttribute->type = kTypeInt32;
 			mValue = TTValue(0);
@@ -854,7 +854,7 @@ TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& out
 			aValue = convertedValue;
 		} else {
 			// Ramp and unit conversion implicitly ensure that type is kTypeFloat64, but if we don't have ramp or unit, we need to ensure that mValue is set as kTypeFloat64. We do not run this test if (aValue.size() == 0.). That will be the case in the Max implementation when sending a "bang" to j.parameter.
-			// TODO: This need to be reconsidered if this method is to cater for integers and arrays as well.
+			// TODO: The following need to be reconsidered if this method is to cater for integers and arrays as well.
 			if (mType==kTTSym_decimal) {
 				if (aValue.size())
 					if (aValue[0].type() != kTypeFloat64)
