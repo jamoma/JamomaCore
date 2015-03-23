@@ -221,7 +221,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 					
 					// check for a next line
 					last = found+1;
-					if (last < size) {
+					if (last <= size) {
 						found = mReader->find_first_of('\n', last);
 						found = found < size ? found : size;
 					}
