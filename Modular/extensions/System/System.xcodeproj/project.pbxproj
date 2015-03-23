@@ -7,17 +7,20 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		4689BADA1ABA175700D1BA4E /* TTClock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTClock.h; path = ../../../library/includes/TTClock.h; sourceTree = "<group>"; };
+		4689BADB1ABA176100D1BA4E /* TTClock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTClock.cpp; path = ../../../library/source/TTClock.cpp; sourceTree = "<group>"; };
+		4689BADC1ABA180000D1BA4E /* System.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = System.yml; sourceTree = "<group>"; };
+		4689BADD1ABA180500D1BA4E /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		46F4622116F127DF0092840F /* System.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = System.cpp; sourceTree = "<group>"; };
 		46F4622316F127E90092840F /* System.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = System.h; sourceTree = "<group>"; };
-		46F4622516F128510092840F /* Scheduler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scheduler.cpp; sourceTree = "<group>"; };
-		46F4622616F128510092840F /* Scheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		46F4621316F127C10092840F = {
 			isa = PBXGroup;
 			children = (
-				46F4622416F128510092840F /* SchedulerLib */,
+				4689BADC1ABA180000D1BA4E /* System.yml */,
+				4689BADD1ABA180500D1BA4E /* Makefile */,
 				46F4622216F127E90092840F /* includes */,
 				46F4621E16F127DF0092840F /* source */,
 			);
@@ -26,6 +29,7 @@
 		46F4621E16F127DF0092840F /* source */ = {
 			isa = PBXGroup;
 			children = (
+				4689BADB1ABA176100D1BA4E /* TTClock.cpp */,
 				46F4622116F127DF0092840F /* System.cpp */,
 			);
 			path = source;
@@ -34,19 +38,10 @@
 		46F4622216F127E90092840F /* includes */ = {
 			isa = PBXGroup;
 			children = (
+				4689BADA1ABA175700D1BA4E /* TTClock.h */,
 				46F4622316F127E90092840F /* System.h */,
 			);
 			path = includes;
-			sourceTree = "<group>";
-		};
-		46F4622416F128510092840F /* SchedulerLib */ = {
-			isa = PBXGroup;
-			children = (
-				46F4622616F128510092840F /* Scheduler.h */,
-				46F4622516F128510092840F /* Scheduler.cpp */,
-			);
-			name = SchedulerLib;
-			path = ../../library/SchedulerLib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -40,13 +40,13 @@ TTTimeContainer :: TTTimeContainer (const TTValue& arguments) :
 TTTimeProcess(arguments)
 {
     TTObject thisObject(this);
-    mScheduler.registerObserverForNotifications(thisObject);
+    mClock.registerObserverForNotifications(thisObject);
 }
 
 TTTimeContainer::~TTTimeContainer()
 {
     TTObject thisObject(this);
-    mScheduler.unregisterObserverForNotifications(thisObject);
+    mClock.unregisterObserverForNotifications(thisObject);
 }
 
 TTUInt32 TTTimeContainer::getTimeEventDate(TTObject& aTimeEvent)

@@ -4,41 +4,38 @@ defines:
 
 sources:
   - source/TTModular.cpp
-  - PeerObject/TTApplication.cpp
-  - PeerObject/TTApplicationManager.cpp
-  - PeerObject/TTContainer.cpp
-  - PeerObject/TTCue.cpp
-  - PeerObject/TTCueManager.cpp
-  - PeerObject/TTData.cpp
-  - PeerObject/TTDataTypedMethods.cpp
-  - PeerObject/TTExplorer.cpp
-  - PeerObject/TTInput.cpp
-  - PeerObject/TTInputAudio.cpp
-  - PeerObject/TTMapper.cpp
-  - PeerObject/TTMapperManager.cpp
-  - PeerObject/TTMirror.cpp
-  - PeerObject/TTNodeInfo.cpp
-  - PeerObject/TTOutput.cpp
-  - PeerObject/TTOutputAudio.cpp
-  - PeerObject/TTPreset.cpp
-  - PeerObject/TTPresetManager.cpp
-  - PeerObject/TTRamp.cpp
-  - PeerObject/TTReceiver.cpp
-  - PeerObject/TTSender.cpp
-  - PeerObject/TTScript.cpp
-  - PeerObject/TTSubscriber.cpp
-  - PeerObject/TTTextHandler.cpp
-  - PeerObject/TTViewer.cpp
-  - PeerObject/TTXmlHandler.cpp
-  - ProtocolLib/Protocol.cpp
-  - SchedulerLib/Scheduler.cpp
+  - source/TTApplication.cpp
+  - source/TTApplicationManager.cpp
+  - source/TTContainer.cpp
+  - source/TTCue.cpp
+  - source/TTCueManager.cpp
+  - source/TTData.cpp
+  - source/TTDataTypedMethods.cpp
+  - source/TTExplorer.cpp
+  - source/TTInput.cpp
+  - source/TTInputAudio.cpp
+  - source/TTMapper.cpp
+  - source/TTMapperManager.cpp
+  - source/TTMirror.cpp
+  - source/TTNodeInfo.cpp
+  - source/TTOutput.cpp
+  - source/TTOutputAudio.cpp
+  - source/TTPreset.cpp
+  - source/TTPresetManager.cpp
+  - source/TTRamp.cpp
+  - source/TTReceiver.cpp
+  - source/TTSender.cpp
+  - source/TTScript.cpp
+  - source/TTSubscriber.cpp
+  - source/TTTextHandler.cpp
+  - source/TTViewer.cpp
+  - source/TTXmlHandler.cpp
+  - source/Protocol.cpp
+  - source/TTClock.cpp
   - tests/TTApplication.test.cpp
 
 includes:
   - includes
-  - PeerObject
-  - ProtocolLib
-  - SchedulerLib
   - ../../../Core/Foundation/library/includes
   - ../../../Core/DSP/library/includes
   

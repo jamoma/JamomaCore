@@ -2,7 +2,7 @@ defines:
   - TT_PROTOCOL_DEBUG
 
 sources:
-  - ../../library/ProtocolLib/Protocol.cpp
+  - ../../library/source/Protocol.cpp
   - source/WebSocket.cpp
   - source/WebSocketAnswer.cpp
   - source/WebSocketAnswerManager.cpp
@@ -25,7 +25,7 @@ sources:
 includes:
   - "."
   - "includes"
-  - "../../library/ProtocolLib"
+  - "../../library/includes"
   - "../../../../Core/Foundation/library/includes"
   - "libjson"
 

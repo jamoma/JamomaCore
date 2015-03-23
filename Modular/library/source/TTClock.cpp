@@ -2,7 +2,7 @@
  *
  * @ingroup modularLibrary
  *
- * @brief A Scheduler interface
+ * @brief A Clock interface
  *
  * @details
  *
@@ -14,13 +14,13 @@
  */
 
 
-#include "Scheduler.h"
+#include "TTClock.h"
 
-#define thisTTClass		Scheduler
+#define thisTTClass		TTClock
 
 /****************************************************************************************************/
 
-Scheduler::Scheduler(const TTValue& arguments) :
+TTClock::TTClock(const TTValue& arguments) :
 TTObjectBase(arguments),
 mDuration(0.),
 mOffset(0.),
@@ -34,7 +34,7 @@ mDate(0.),
 mCallback(NULL),
 mBaton(NULL)
 {
-    mCallback = SchedulerPositionCallback((TTPtr)arguments[0]);
+    mCallback = TTClockPositionCallback((TTPtr)arguments[0]);
     mBaton = arguments[1];
 	
 	addAttribute(Name, kTypeSymbol);
@@ -74,12 +74,12 @@ mBaton(NULL)
 	addMessage(Tick);
 }
 
-Scheduler::~Scheduler()
+TTClock::~TTClock()
 {
     ;
 }
 
-TTErr Scheduler::setDuration(const TTValue& value)
+TTErr TTClock::setDuration(const TTValue& value)
 {
     if (value.size() == 1) {
         
@@ -92,13 +92,13 @@ TTErr Scheduler::setDuration(const TTValue& value)
                 
                 mOffset = mDuration;
                 
-                sendNotification(TTSymbol("SchedulerOffsetChanged"), mOffset);
+                sendNotification(TTSymbol("ClockOffsetChanged"), mOffset);
             }
             
             mPosition = mOffset / mDuration;
             mDate = mOffset;
             
-            sendNotification(TTSymbol("SchedulerDurationChanged"), mDuration);
+            sendNotification(TTSymbol("ClockDurationChanged"), mDuration);
             
             return kTTErrNone;
         }
@@ -107,7 +107,7 @@ TTErr Scheduler::setDuration(const TTValue& value)
     return kTTErrGeneric;
 }
 
-TTErr Scheduler::setOffset(const TTValue& value)
+TTErr TTClock::setOffset(const TTValue& value)
 {
     if (value.size() == 1) {
         
@@ -117,7 +117,7 @@ TTErr Scheduler::setOffset(const TTValue& value)
             mPosition = mOffset / mDuration;
             mDate = mOffset;
             
-            sendNotification(TTSymbol("SchedulerOffsetChanged"), mOffset);
+            sendNotification(TTSymbol("ClockOffsetChanged"), mOffset);
             
             return kTTErrNone;
         }
@@ -126,7 +126,7 @@ TTErr Scheduler::setOffset(const TTValue& value)
     return kTTErrGeneric;
 }
 
-TTErr Scheduler::setSpeed(const TTValue& value)
+TTErr TTClock::setSpeed(const TTValue& value)
 {
     if (value.size() == 1) {
         
@@ -138,7 +138,7 @@ TTErr Scheduler::setSpeed(const TTValue& value)
             
                 mSpeed = value[0];
             
-                sendNotification(TTSymbol("SchedulerSpeedChanged"), mSpeed);
+                sendNotification(TTSymbol("ClockSpeedChanged"), mSpeed);
             }
             
             return kTTErrNone;
@@ -150,20 +150,20 @@ TTErr Scheduler::setSpeed(const TTValue& value)
 
 /***************************************************************************
  
-	SchedulerLib
+	ClockLib
  
  ***************************************************************************/
 
-void SchedulerLib::getSchedulerNames(TTValue& SchedulerNames)
+void TTClockLib::getClockNames(TTValue& ClockNames)
 {
-	SchedulerNames.clear();
-	SchedulerNames.append(TTSymbol("max"));
-	SchedulerNames.append(TTSymbol("system"));
+	ClockNames.clear();
+	ClockNames.append(TTSymbol("max"));
+	ClockNames.append(TTSymbol("system"));
 }
 
-TTErr SchedulerLib::isSchedulerNameAvailable(TTSymbol aSchedulerName)
+TTErr TTClockLib::isClockNameAvailable(TTSymbol aClockName)
 {
-    if (aSchedulerName == TTSymbol("max") || aSchedulerName == TTSymbol("system"))
+    if (aClockName == TTSymbol("max") || aClockName == TTSymbol("system"))
         return kTTErrNone;
     else
         return kTTErrValueNotFound;

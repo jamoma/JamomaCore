@@ -2,7 +2,7 @@
 #  - TT_PROTOCOL_DEBUG
 
 sources:
-  - ../../library/ProtocolLib/Protocol.cpp		
+  - ../../library/source/Protocol.cpp
   - source/MIDI.cpp
   - source/MIDIDestination.cpp
   - source/MIDIInput.cpp
@@ -15,7 +15,7 @@ includes:
   - "."
   - "includes"
   - "../../../Graph/extensions/MidiLib/portmidi/pm_common"
-  - "../../library/ProtocolLib"
+  - "../../library/includes"
   - "../../../Foundation/library/includes"
 
 libraries:

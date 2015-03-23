@@ -2,14 +2,14 @@
 #  - SHEDULER_DEBUG
 
 sources:
-  - ../../library/SchedulerLib/Scheduler.cpp		
+  - ../../library/source/TTClock.cpp
   - source/Max.cpp
   - ../../../../Implementations/Max/source/c74support/max-includes/common/commonsyms.cpp
     
 includes:
   - "."
   - "includes"
-  - "../../library/SchedulerLib"
+  - "../../library/includes"
   - "../../../Foundation/library/includes"
   - C74-INCLUDES
 

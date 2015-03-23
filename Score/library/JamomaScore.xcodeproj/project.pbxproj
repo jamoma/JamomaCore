@@ -21,8 +21,8 @@
 		46B55540177B123C00F50D89 /* TTTimeProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTTimeProcess.h; path = includes/TTTimeProcess.h; sourceTree = SOURCE_ROOT; };
 		46B55541177B124500F50D89 /* TTTimeProcess.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTTimeProcess.cpp; path = source/TTTimeProcess.cpp; sourceTree = SOURCE_ROOT; };
 		46B9018B192331A700AC93ED /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		46B9018E19233C3300AC93ED /* Expression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Expression.h; path = includes/Expression.h; sourceTree = SOURCE_ROOT; };
-		46B9018F19233C3B00AC93ED /* Expression.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Expression.cpp; path = source/Expression.cpp; sourceTree = SOURCE_ROOT; };
+		46B9018E19233C3300AC93ED /* TTExpression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTExpression.h; path = includes/TTExpression.h; sourceTree = SOURCE_ROOT; };
+		46B9018F19233C3B00AC93ED /* TTExpression.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTExpression.cpp; path = source/TTExpression.cpp; sourceTree = SOURCE_ROOT; };
 		46BFD37D170DAE9900B99389 /* TTScore.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTScore.test.cpp; sourceTree = "<group>"; };
 		46BFD37E170DAE9900B99389 /* TTScore.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTScore.test.h; sourceTree = "<group>"; };
 		46D6FF0C18576004005D49AF /* TTScore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTScore.cpp; path = source/TTScore.cpp; sourceTree = SOURCE_ROOT; };
@@ -57,7 +57,7 @@
 				4659534217870BCC0094F82C /* TTScore.h */,
 				46F5057A166699BE00CFC3A2 /* TTScoreIncludes.h */,
 				468AC7DC197FB23E00FB2B18 /* TTCurve.h */,
-				46B9018E19233C3300AC93ED /* Expression.h */,
+				46B9018E19233C3300AC93ED /* TTExpression.h */,
 				464FE81317F570C300529725 /* TTTimeCondition.h */,
 				46A0B5D417F9B5070046756C /* TTTimeContainer.h */,
 				46B5553D177B043C00F50D89 /* TTTimeEvent.h */,
@@ -72,7 +72,7 @@
 			children = (
 				46D6FF0C18576004005D49AF /* TTScore.cpp */,
 				468AC7DB197FB23600FB2B18 /* TTCurve.cpp */,
-				46B9018F19233C3B00AC93ED /* Expression.cpp */,
+				46B9018F19233C3B00AC93ED /* TTExpression.cpp */,
 				465A654217F081A200B70364 /* TTTimeCondition.cpp */,
 				468EBBFB17847064008BE2AC /* TTTimeContainer.cpp */,
 				46B5553E177B044500F50D89 /* TTTimeEvent.cpp */,

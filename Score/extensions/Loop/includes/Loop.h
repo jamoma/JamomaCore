@@ -70,7 +70,7 @@ private :
      @param inputValue      the new speed value
      @param outputValue     nothing
      @return                kTTErrNone */
-    TTErr   SchedulerSpeedChanged(const TTValue& inputValue, TTValue& outputValue);
+    TTErr   ClockSpeedChanged(const TTValue& inputValue, TTValue& outputValue);
     
     
     

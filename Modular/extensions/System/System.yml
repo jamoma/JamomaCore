@@ -2,13 +2,13 @@
 #  - SHEDULER_DEBUG
 
 sources:
-  - ../../library/SchedulerLib/Scheduler.cpp
+  - ../../library/source/TTClock.cpp
   - source/System.cpp
     
 includes:
   - "."
   - "includes"
-  - "../../library/SchedulerLib"
+  - "../../library/includes"
   - "../../../../Core/Foundation/library/includes"
 
 libraries:

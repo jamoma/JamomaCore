@@ -2,7 +2,7 @@
  *
  * @ingroup modularMax
  *
- * @brief Max scheduler class
+ * @brief Max Clock class
  *
  * @details
  *
@@ -17,7 +17,7 @@
 #ifndef __MAX_H__
 #define __MAX_H__
 
-#include "Scheduler.h"
+#include "TTClock.h"
 
 #include "ext.h"					// Max Header
 #include "ext_proto.h"
@@ -27,7 +27,7 @@
 #include "z_dsp.h"
 #include "commonsyms.h" // Common symbols used by the Max 4.5 API
 
-class Max : public Scheduler {
+class Max : public TTClock {
 	
 	TTCLASS_SETUP(Max)
     
@@ -42,31 +42,31 @@ private:
     
     TTPtr               clock;                  ///< Pointer to a Max clock instance
     
-	/** Get specific parameters names needed by this scheduler
-     @return        an error code if the scheduler fails to give his specific parameters */
+	/** Get specific parameters names needed by this Clock
+     @return        an error code if the Clock fails to give his specific parameters */
 	TTErr getParameterNames(TTValue& value);
 	
-	/** Start the scheduler
-     @return        an error code if the scheduler fails to start */
+	/** Start the Clock
+     @return        an error code if the Clock fails to start */
     TTErr Go();
     
     /** Halt the sheduler
-     @return        an error code if the scheduler fails to stop */
+     @return        an error code if the Clock fails to stop */
     TTErr Stop();
     
     /** Pause the sheduler progression
-     @return        an error code if the scheduler fails to pause */
+     @return        an error code if the Clock fails to pause */
     TTErr Pause();
     
     /** Resume the sheduler progression
-     @return        an error code if the scheduler fails to resume */
+     @return        an error code if the Clock fails to resume */
     TTErr Resume();
     
     /** Called every time a new step should be processed
-     @return        an error code if the scheduler step fails  */
+     @return        an error code if the Clock step fails  */
     TTErr Tick();
     
-    friend void TT_EXTENSION_EXPORT MaxClockCallback(Max* aMaxScheduler);
+    friend void TT_EXTENSION_EXPORT MaxClockCallback(Max* aMaxClock);
     
 };
 typedef Max* MaxPtr;
@@ -75,6 +75,6 @@ typedef Max* MaxPtr;
  @param	baton						..
  @param	data						..
  @return							an error code */
-void TT_EXTENSION_EXPORT MaxClockCallback(Max* aMaxScheduler);
+void TT_EXTENSION_EXPORT MaxClockCallback(Max* aMaxClock);
 
 #endif // __MAX_H__

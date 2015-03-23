@@ -2,14 +2,14 @@
 #  - TT_PROTOCOL_DEBUG
 
 sources:
-  - ../../library/ProtocolLib/Protocol.cpp		
+  - ../../library/source/Protocol.cpp
   - source/OSC.cpp
   - source/OSCSenderManager.cpp
     
 includes:
   - "."
   - "includes"
-  - "../../library/ProtocolLib"
+  - "../../library/includes"
   - "../../../../Core/Foundation/library/includes"
 
 libraries:

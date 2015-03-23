@@ -2,7 +2,7 @@
  *
  * @ingroup scoreLibrary
  *
- * @brief an Expression is a parsed symbol containing an address a logical operator and a value
+ * @brief a TTExpression is a parsed symbol containing an address a logical operator and a value
  *
  * @see TTTimeCondition
  *
@@ -13,25 +13,25 @@
  * http://www.cecill.info
  */
 
-#include "Expression.h"
+#include "TTExpression.h"
 
 
-const TTAddress& Expression::getAddress() const
+const TTAddress& TTExpression::getAddress() const
 {
     return mAddress;
 }
 
-const TTSymbol& Expression::getOperator() const
+const TTSymbol& TTExpression::getOperator() const
 {
     return mOperator;
 }
 
-const TTValue& Expression::getValue() const
+const TTValue& TTExpression::getValue() const
 {
     return mValue;
 }
 
-TTBoolean Expression::evaluate(const TTValue& value)
+TTBoolean TTExpression::evaluate(const TTValue& value)
 {
     TTValue toCompare = value;
     
@@ -63,7 +63,7 @@ TTBoolean Expression::evaluate(const TTValue& value)
     return NO;
 }
 
-void Expression::parse(TTValue& toParse)
+void TTExpression::parse(TTValue& toParse)
 {
     // parse address
     if (toParse.size() > 0) {
@@ -118,19 +118,19 @@ void Expression::parse(TTValue& toParse)
 #pragma mark Some Methods
 #endif
 
-void TTSCORE_EXPORT ExpressionParseFromValue(const TTValue& toParse, Expression& anExpression)
+void TTSCORE_EXPORT TTExpressionParseFromValue(const TTValue& toParse, TTExpression& anExpression)
 {
     // if the expression is composed by one symbol
     if (toParse.size() == 1 && toParse[0].type() == kTypeSymbol) {
         
         TTSymbol s = toParse[0];
-        anExpression = Expression(s.c_str());
+        anExpression = TTExpression(s.c_str());
     }
     else {
         
         // copy to protect the value
         TTValue v = toParse;
         v.toString();
-        anExpression = Expression(TTString(v[0]));
+        anExpression = TTExpression(TTString(v[0]));
     }
 }

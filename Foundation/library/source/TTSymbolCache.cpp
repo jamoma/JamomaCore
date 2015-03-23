@@ -152,11 +152,11 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_Viewer                           (("Vi
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_XmlHandler                       (("XmlHandler"));
 
 // notifications
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_SchedulerDurationChanged         (("SchedulerDurationChanged"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_SchedulerOffsetChanged           (("SchedulerOffsetChanged"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_SchedulerSpeedChanged            (("SchedulerSpeedChanged"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_SchedulerRunningChanged          (("SchedulerRunningChanged"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_SchedulerTicked                  (("SchedulerTicked"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_ClockDurationChanged         (("ClockDurationChanged"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_ClockOffsetChanged           (("ClockOffsetChanged"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_ClockSpeedChanged            (("ClockSpeedChanged"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_ClockRunningChanged          (("ClockRunningChanged"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_ClockTicked                  (("ClockTicked"));
 
 // attribute, message or any word often used
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_active                           (("active"));

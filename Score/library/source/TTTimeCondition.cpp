@@ -323,9 +323,9 @@ TTErr TTTimeCondition::EventExpression(const TTValue& inputValue, TTValue& outpu
     if (it != mCases.end()) {
         
         // replace the old expression by the new one
-        Expression newExpression;
+        TTExpression newExpression;
         
-        ExpressionParseFromValue(inputValue[1], newExpression);
+        TTExpressionParseFromValue(inputValue[1], newExpression);
         
         mCases[it->first].trigger = newExpression;
         
@@ -393,19 +393,19 @@ TTErr TTTimeCondition::getDisposeExpression(TTValue &value)
 
 TTErr TTTimeCondition::setDisposeExpression(const TTValue &value)
 {
-    ExpressionParseFromValue(value, mDispose);
+    TTExpressionParseFromValue(value, mDispose);
     
     return kTTErrNone;
 }
 
 TTErr TTTimeCondition::ExpressionTest(const TTValue& inputValue, TTValue& outputValue)
 {
-    Expression      anExpression;
+    TTExpression    anExpression;
     TTObject        aReceiver;
     TTValue         v;
     
     // parse the input value
-    ExpressionParseFromValue(inputValue, anExpression);
+    TTExpressionParseFromValue(inputValue, anExpression);
     
     // get the receiver for the expression address
     if (!mReceivers.lookup(anExpression.getAddress(), v)) {
@@ -644,7 +644,7 @@ TTErr TTTimeCondition::ReadFromXml(const TTValue& inputValue, TTValue& outputVal
                 
                 if (v[0].type() == kTypeSymbol) {
                     
-                    ExpressionParseFromValue(v, mDispose);
+                    TTExpressionParseFromValue(v, mDispose);
                 }
             }
         }
@@ -835,7 +835,7 @@ TTErr TTTimeConditionReceiverReturnValueCallback(const TTValue& baton, const TTV
     TTObject            o;
     TTTimeConditionPtr  aTimeCondition;
     TTAddress           anAddress;
-    Expression          triggerExp;
+    TTExpression        triggerExp;
     TTList              timeEventToHappen;
     TTList              timeEventToDispose;
     TTValue             v;
