@@ -791,11 +791,11 @@ TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& out
 				
 				// Is a valid ramp time requested?
 				if (time > 0) {
+                    
+                    TTValue rampStartValue;
 				
 					// Is the dataspace unit to be temporarily overridden during the ramp?
 					if ((mDataspaceConverter.valid()) && (!command->lookup(kTTSym_unit, v))) {
-					
-						TTValue convertedStartValue;
 					
 						unit = v[0];
 					
@@ -806,47 +806,33 @@ TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& out
 						mDataspaceInverseConverter.set(kTTSym_outputUnit, unit);
 					
 						// Convert current value to temporary unit, and use as ramp start value
-						inverseConvertUnit(mValue, convertedStartValue);
-						mRamper.send("Set", convertedStartValue);
-					
-						// Set the end value using the overriding unit
-						mRamper.send("Target", aValue);
-					
-						// Set ramp time and start the ramp, we don't output any value immediately
-						mRamper.send(kTTSym_Go, (int)time);
-					
-						// Update the ramp status attribute
-						mRamper.get(kTTSym_running, isRunning);
-						if (mRampStatus != isRunning) {
-							mRampStatus = isRunning;
-							notifyObservers(kTTSym_rampStatus, mRampStatus);
-						}
-					
-						return kTTErrNone;
+						inverseConvertUnit(mValue, rampStartValue);
 					}
 					
 					// No dataspace unit conversion is needed during the ramp
 					else {
 						mIsOverridingDataspaceUnit = false;
 					
-						// Set the start (current) value
-						mRamper.send("Set", mValue);
-					
-						// Set the end value
-						mRamper.send("Target", aValue);
-					
-						// Set ramp time and start the ramp, we don't output any value immediately
-						mRamper.send(kTTSym_Go, (int)time);
-					
-						// Udate the ramp status attribute
-						mRamper.get(kTTSym_running, isRunning);
-						if (mRampStatus != isRunning) {
-							mRampStatus = isRunning;
-							notifyObservers(kTTSym_rampStatus, mRampStatus);
-						}
-					
-						return kTTErrNone;
+                        rampStartValue = mValue;
 					}
+                    
+                    // Set the start ramp value
+                    mRamper.send("Set", rampStartValue);
+                    
+                    // Set the end value using the overriding unit
+                    mRamper.send("Target", aValue);
+                    
+                    // Set ramp time and start the ramp, we don't output any value immediately
+                    mRamper.send(kTTSym_Go, (int)time);
+                    
+                    // Update the ramp status attribute
+                    mRamper.get(kTTSym_running, isRunning);
+                    if (mRampStatus != isRunning) {
+                        mRampStatus = isRunning;
+                        notifyObservers(kTTSym_rampStatus, mRampStatus);
+                    }
+                    
+                    return kTTErrNone;
 				}
 			}
 		}
