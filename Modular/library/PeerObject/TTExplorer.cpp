@@ -406,7 +406,7 @@ TTErr TTExplorer::Select(const TTValue& inputValue, TTValue& outputValue)
 		else if (inputValue[0].type() == kTypeInt32 && inputValue.size() == mLastResult.size()) {
 			
 			// set all selection state
-			for (i = 0; i < mLastResult.size(); i++) {
+			for (i = 0; i < (TTInt32) mLastResult.size(); i++) {
 				
 				itemSymbol = mLastResult[i];
 				number = inputValue[i];
@@ -447,7 +447,7 @@ TTErr TTExplorer::SelectAll()
 	
 	if (aSelection) {
 		// set all selection state
-		for (i = 0; i < mLastResult.size(); i++) {
+		for (i = 0; i < (TTInt32) mLastResult.size(); i++) {
 			
 			itemSymbol = mLastResult[i];
 			
@@ -487,7 +487,7 @@ TTErr TTExplorer::SelectNone()
 	if (aSelection) {
         
 		// set all selection state
-		for (i = 0; i < mLastResult.size(); i++) {
+		for (i = 0; i < (TTInt32) mLastResult.size(); i++) {
 			
 			itemSymbol = mLastResult[i];
 			
@@ -812,7 +812,7 @@ TTErr TTExplorer::returnSelectionBack()
 	if (aSelection) {
 		
 		// return all selection state
-		for (i = 0; i < mLastResult.size(); i++) {
+		for (i = 0; i < (TTInt32) mLastResult.size(); i++) {
 			
 			itemSymbol = mLastResult[i];
 			

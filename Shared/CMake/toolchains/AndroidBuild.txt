@@ -1,0 +1,105 @@
+Useful links :
+http://warpedtimes.wordpress.com/2010/02/03/building-open-source-libraries-with-android-ndk/
+http://android-cmake.googlecode.com/hg/documentation.html
+Latest version : https://github.com/taka-no-me/android-cmake
+http://stackoverflow.com/questions/3077241/cmake-file-for-portaudio
+http://blog.beuc.net/posts/Cross-compiling_with_CMake/
+
+This build was made on Linux, because it's easier since Android is Linux-based too.
+
+ +-----------------+ Base +-----------------+
+* Install the latest Android SDK & NDK.
+* Create a toolchain :
+
+	% ./make-standalone-toolchain.sh --ndk-dir=../../ --toolchain=arm-linux-androideabi-4.8 --system=linux-x86_64 --llvm-version=3.4 --stl=gnustl --platform=android-19
+
+* Extract the created toolchain under /opt/android-toolchain
+
+ +-----------------+ Required librairies +-----------------+
+* For now, I wasn't able to build Portaudio & Portmidi so the build of AudioEngine and MidiLib is disabled for Android.
+
+* libsndfile:
+  - Get it from : http://sourceforge.net/projects/csound/files/csound5/Android/
+  - Call ndk-build on the base folder (which contains deps, jni)
+  - Copy the necessary stuff : includes and compiled library
+
+	% sudo cp jni/*.h* /opt/android-toolchain/include/
+	% sudo cp obj/local/armeabi/libsndfile.a /opt/android-toolchain/arm-linux-androideabi/lib
+
+* libxml2:
+  - Get it from : https://android.googlesource.com/platform/external/libxml2/ dans un dossier libxml2
+  - Create a libxml2 folder
+  - Extract the latest libxml2.tar.gz inside libxml2 and rename the created subdirectory into "jni"
+	=> you should now have libxml2/jni/.c and .h files
+  - Modify jni/include/libxml/xmlversion.h to disable ICU :
+
+Change :
+	#if 1
+	#define LIBXML_ICU_ENABLED
+	endif
+
+into:
+
+	#if 0
+	#define LIBXML_ICU_ENABLED
+	#endif
+
+  - Call ndk-build on the libxml2 folder.
+  - Copy the includes and the compiled library like we did for libsndfile
+
+* libiconv
+  - Follow this guide :
+  http://danilogiulianelli.blogspot.fr/2012/12/how-to-cross-compile-libiconv-for.html
+
+* gecode :
+  - Install CMake
+  - Get android-cmake from : https://github.com/taka-no-me/android-cmake
+  - Configure it with this documentation : http://android-cmake.googlecode.com/hg/documentation.html
+
+  - Get Gecode from http://www.gecode.org/
+  - Extract it on a new folder gecode-4.2.1
+  - Change : gecode-4.2.1/gecode/float/var/float.cpp
+
+#include <gecode/third-party/boost/numeric/interval.hpp>
+
+into
+
+#define __USE_ISOC99
+#include <gecode/third-party/boost/numeric/interval.hpp>
+#undef __USE_ISOC99
+
+  - Call cmake :
+	- Go into the gecode-4.2.1 folder
+	 % mkdir build
+	 % cd build
+	 % android-cmake ..
+
+  - Copy the includes (with  the generated file build/gecode/support/config.hpp), generated libraries as we saw before
+
+
+ +-----------------+ Build Jamoma & Score +-----------------+
+Create a folder in which you want to build Jamoma
+
+% mkdir androbuild
+% cd androbuild
+% cmake /path/to/Jamoma/Core -DCMAKE_TOOLCHAIN_FILE=/path/to/Jamoma/Core/Shared/toolchains/android.cmake
+% cmake /path/to/Jamoma/Core -DCMAKE_TOOLCHAIN_FILE=/path/to/Jamoma/Core/Shared/toolchains/android.cmake
+(yes, do it twice)
+% make
+
+All the .so and .ttso are now available to use for Android apps.
+However Android doesn't accept to load .ttso's hence we have to rename them in standard so.
+First we put them in our toolchain in order to make the compiler find them.
+Go in root or use sudo for the next commands :
+
+# cp *.*so /opt/android-toolchain/arm-linux-androideabi/lib/jamoma
+# cd /opt/android-toolchain/arm-linux-androideabi/lib/jamoma
+# for file in *.ttso; do
+	mv "$file" "`basename $file .ttso`.so"
+  done
+
+Finally, if you want to use them in Qt for instance you have to add this line in your .pro file
+(add the relevant jamoma libraries and extensions) :
+ANDROID_EXTRA_LIBS = /opt/android-toolchain/android-toolchain/arm-linux-androideabi/lib/jamoma/libJamomaFoundation.so, etc...
+
+This is because only the shared libraries declared here get copied on the device.

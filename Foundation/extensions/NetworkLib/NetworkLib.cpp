@@ -17,8 +17,10 @@
 #include "TTOscReceive.h"
 #include "TTOscSend.h"
 
+#ifndef __ANDROID_API__
 #include "TTWebReceive.h"
 #include "TTWebSend.h"
+#endif
 
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_NetworkLib(void)
@@ -33,8 +35,11 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_NetworkLib(void)
 	TTOscReceive::registerClass();
 	TTOscSend::registerClass();
     
+
+#ifndef __ANDROID_API__
     TTWebReceive::registerClass();
 	TTWebSend::registerClass();
+#endif
 	
 	return kTTErrNone;
 }

@@ -20,7 +20,7 @@ using namespace std;
 
 TTFOUNDATION_EXPORT TTRegex* ttRegexForDirectory = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForAttribute = NULL;
-TTFOUNDATION_EXPORT TTRegex* ttRegexForParent = NULL;	
+TTFOUNDATION_EXPORT TTRegex* ttRegexForParent = NULL;
 TTFOUNDATION_EXPORT TTRegex* ttRegexForInstance = NULL;
 
 TTAddressBase::TTAddressBase(const TTString& newAddressString, TTPtrSizedInt newAddressTableId, TTInt32 newId) :
@@ -86,12 +86,12 @@ TTSymbol TTAddressBase::getNameInstance()
 {
 	TTSymbol nameInstanceSymbol = this->getName();
 	TTString nameInstance = nameInstanceSymbol.c_str();
-	
+
 	if (this->getInstance() != NO_INSTANCE) {
 		nameInstance += C_INSTANCE;
 		nameInstance +=  this->getInstance().c_str();
 	}
-	
+
 	return TTSymbol(nameInstance);
 }
 
@@ -99,7 +99,7 @@ TTAddressBase* TTAddressBase::normalize()
 {
 	if (!parsed)
 		parse();
-	
+
     return this->normalized;
 }
 
@@ -107,7 +107,7 @@ TTAddressBase* TTAddressBase::removeAttribute()
 {
 	if (!parsed)
 		parse();
-	
+
 	if (attribute != NO_ATTRIBUTE)
 		return edit(this->directory, this->parent, this->name, this->instance, NO_ATTRIBUTE);
 	else
@@ -118,7 +118,7 @@ TTAddressBase* TTAddressBase::appendAttribute(TTSymbol& anAttribute)
 {
 	if (!parsed)
 		parse();
-	
+
 	return edit(this->directory, this->parent, this->name, this->instance, anAttribute);
 }
 
@@ -126,26 +126,26 @@ TTAddressBase* TTAddressBase::appendAddress(TTAddressBase* toAppend)
 {
 	if (*toAppend == kTTAdrsEmpty || *toAppend == kTTAdrsRoot)
 		return this;
-	
+
 	else if (this == kTTAdrsEmpty)
 		return toAppend;
-	
+
 	TTString tmp = this->getCString();
-    
+
 	// insert a / if the first part is not the root and the address to append is not absolute
 	if (this->normalize() != kTTAdrsRoot.getBasePointer() && toAppend->getType() != kAddressAbsolute && toAppend->getName() != NO_NAME) {
 		tmp += C_SEPARATOR;
 		tmp += toAppend->getCString();
 	}
-	
+
 	// just keep the the second part if the first part is the root and the address to append is absolute
 	else if (this->normalize() == kTTAdrsRoot.getBasePointer() && toAppend->getType() == kAddressAbsolute)
 		return toAppend;
-	
+
 	// else append the address
 	else
 		tmp += toAppend->getCString();
-	
+
 	return (TTAddressBase*)gTTAddressTable.lookup(tmp.data()); // TTADRS(tmp.data());
 }
 
@@ -164,43 +164,43 @@ TTAddressBase* TTAddressBase::edit(const TTSymbol& newDirectory,
 								   const TTSymbol& newAttribute)
 {
 	TTString address;
-	
+
 	if (newDirectory != NO_DIRECTORY) {
 		address = newDirectory.c_str();
 		address += ":"; // don't put :/ here because the parent or the name should have one.
 	}
-	
+
 	if (newParent != NO_PARENT.getBasePointer()) {
 		if (newDirectory == NO_DIRECTORY)
 			address = newParent->normalized->getCString();
 		else
 			address += newParent->normalized->getCString();
 	}
-	
+
 	if(newName != NO_NAME){
 		if((newName != S_SEPARATOR) && (newParent != kTTAdrsRoot.getBasePointer()))
 			if (newDirectory != NO_DIRECTORY || newParent != NO_PARENT.getBasePointer())
 				address += S_SEPARATOR.c_str();
 		address += newName.c_str();
 	}
-	
+
 	if (newInstance != NO_INSTANCE) {
 		address += S_INSTANCE.c_str();
 		address += newInstance.c_str();
 	}
-	
+
 	if(newAttribute != NO_ATTRIBUTE){
 		address += S_ATTRIBUTE.c_str();
 		address += newAttribute.c_str();
 	}
-	
+
 	return (TTAddressBase*)gTTAddressTable.lookup(address);
 }
 
 TTErr TTAddressBase::parse()
-{	
+{
 	// "directory:/parent/address/name.instance:attribute" parsing
-	
+
 	// Empty case :
 	if (*this == *kTTAdrsEmpty.getBasePointer()) {
 		this->directory = NO_DIRECTORY;
@@ -213,7 +213,7 @@ TTErr TTAddressBase::parse()
         this->normalized = this;
 		return kTTErrNone;
 	}
-	
+
 	// Root case :
 	if (*this == *kTTAdrsRoot.getBasePointer()) {
 		this->directory = NO_DIRECTORY;
@@ -226,7 +226,7 @@ TTErr TTAddressBase::parse()
         this->normalized = this;
 		return kTTErrNone;
 	}
-	
+
 	// All other case needs a regex parsing
 	TTString s_toParse = this->getCString();
 	TTString s_before;
@@ -250,23 +250,24 @@ TTErr TTAddressBase::parse()
         TTLogError("TTAddressBase::parse : special regex characters have been detected in %s address\n", s_toParse.data());
     }
 	
+
 	// parse directory
 	if (!ttRegexForDirectory->parse(begin, end))
 	{
 		TTStringIter temp_begin = ttRegexForDirectory->begin();
 		TTStringIter temp_end = ttRegexForDirectory->end();
-		
+
 		s_directory = TTString(temp_begin, temp_end);
-		
+
 		temp_begin = ttRegexForDirectory->end()+1;
 		s_toParse = TTString(temp_begin, end);                              // +1 to remove ":"
-		
+
 		begin = s_toParse.begin();
 		end = s_toParse.end();
-        
+
         // directory:/ case
         if (s_toParse[0] == C_SEPARATOR && s_toParse[1] == '\0') {
-            
+
             this->directory = TTSymbol(s_directory);
             this->parent = NO_PARENT.getBasePointer();
             this->name = S_SEPARATOR;
@@ -277,29 +278,29 @@ TTErr TTAddressBase::parse()
             this->normalized = kTTAdrsRoot.getBasePointer();
             return kTTErrNone;
         }
-		
+
 		//cout << "directory :  " << s_directory << endl;
 		//cout << "s_toParse :  " << s_toParse << endl;
 	}
 	this->directory = TTSymbol(s_directory);
-	
+
 	// parse attribute
 	if (!ttRegexForAttribute->parse(begin, end))
 	{
 		TTStringIter temp_begin = ttRegexForAttribute->begin();
 		TTStringIter temp_end = ttRegexForAttribute->end();
-		
+
 		s_attribute = TTString(temp_begin, end);
 		s_toParse = TTString(begin, temp_end-1);                            // -1 to remove ":"
-		
+
 		begin = s_toParse.begin();
 		end = s_toParse.end();
-		
+
 		//cout << "attribute :  " << s_attribute << endl;
 		//cout << "s_toParse :  " << s_toParse << endl;
 	}
 	this->attribute = TTSymbol(s_attribute);
-	
+
 	// parse parent
 	if (!ttRegexForParent->parse(begin, end))
 	{
@@ -316,44 +317,44 @@ TTErr TTAddressBase::parse()
 
         else
 			s_parent += TTString(ttRegexForParent->begin(), ttRegexForParent->end());
-		
+
 		s_toParse = TTString(ttRegexForParent->end()+1, end-1);               // +1 to remove "/", -1 to remove a useless \0
-		
+
 		begin = s_toParse.begin();
 		end = s_toParse.end();
-		
+
 		//cout << "parent    :  " << s_parent << endl;
 		//cout << "s_toParse :  " << s_toParse << endl;
 	}
 	this->parent = (TTAddressBase*)gTTAddressTable.lookup(s_parent);
-	
+
 	// parse instance
 	if (!ttRegexForInstance->parse(begin, end))
 	{
 		s_instance = TTString(ttRegexForInstance->end(), end-1);            // -1 to remove a '\0' at the end
 		s_toParse = TTString(begin, ttRegexForInstance->begin()-1);			// -1 to remove "."
-		
+
 		begin = s_toParse.begin();
 		end = s_toParse.end();
-		
+
 		//cout << "instance  :  " << s_instance << endl;
 	}
 	this->instance = TTSymbol(s_instance);
-	
+
 	// consider the rest is the name
 	this->name = TTSymbol(s_toParse);
-	
+
 	//cout << "name      :  " << s_toParse << endl;
-	
+
 	// the type of the address
 	if (*this->parent != *NO_PARENT.getBasePointer())
 		this->type = this->parent->getType();
 	else
 		this->type = (TTAddressType)(this->directory != NO_DIRECTORY || this->name == S_SEPARATOR);
-	
+
     // edit the normalized version of the address
     this->normalized = edit(NO_DIRECTORY, this->parent, this->name, this->instance, NO_ATTRIBUTE);
-    
+
 	this->parsed = YES;
 	return kTTErrNone;
 }
@@ -370,46 +371,46 @@ TTAddressComparisonFlag TTAddressBase::compare(TTAddressBase* toCompare, TTInt8&
 	TTAddressBase*	top2;
 	TTAddressBase*	rest2;
 	bool cParent, cName, cInstance;
-	
+
 	adrs1 = this->normalize();
 	adrs2 = toCompare->normalize();
-	
+
 	if (adrs1 == adrs2) {
-		
+
 		depthDifference = 0;
-		
+
 		return kAddressEqual;
 	}
 	else if (adrs1 == kTTAdrsRoot) {
-	
+
 		depthDifference = -(TTInt8(adrs2->countSeparator()));								// the depth difference is < 0
-		if (adrs2->getType() == kAddressRelative) 
+		if (adrs2->getType() == kAddressRelative)
 			depthDifference--;
-		
+
 		return kAddressUpper;
 	}
 	else if (adrs2 == kTTAdrsRoot) {
-		
+
 		depthDifference = adrs1->countSeparator();								// the depth diffrence is > 0
-		if (adrs1->getType() == kAddressRelative) 
+		if (adrs1->getType() == kAddressRelative)
 			depthDifference++;
-		
+
 		return kAddressLower;
 	}
 	else {
-		
+
 		err1 = adrs1->splitAt(0, &top1, &rest1);
 		err2 = adrs2->splitAt(0, &top2, &rest2);
-		
+
 		// compare each level until there is a difference
 		while ((top1 == top2) && (err1 == 0) && (err2 == 0))
 		{
 			err1 = rest1->splitAt(0, &top1, &rest1);
 			err2 = rest2->splitAt(0, &top2, &rest2);
 		}
-		
+
 		// what are the difference at this level ?
-		
+
 		// compare parents
 		cParent = top1->getParent() == top2->getParent();
         
@@ -429,11 +430,11 @@ TTAddressComparisonFlag TTAddressBase::compare(TTAddressBase* toCompare, TTInt8&
         }
 		
 		// don't compare attributes
-		
+
 		// if levels are equal
 		// compare the rest of the address
 		if (cParent && cName && cInstance ){
-			
+
 			// look at returned error to know if there is a rest
 			if (err1 && !err2) {															// address1 is shorter than address2
 				depthDifference = -(TTInt8(rest2->countSeparator())+1);								// the depth difference is < 0
@@ -449,7 +450,7 @@ TTAddressComparisonFlag TTAddressBase::compare(TTAddressBase* toCompare, TTInt8&
 			}
 		}
 	}
-	
+
 	return kAddressDifferent;
 }
 
@@ -458,15 +459,15 @@ TTErr TTAddressBase::splitAt(TTUInt32 whereToSplit, TTAddressBase* *returnedPart
 	TTErr		err = kTTErrNone;
 	TTUInt32	nb, pos, i;
 	TTString	part1, part2;
-	
+
 	i = 0;
 	part1 = "";
 	part2 = this->getCString();
-	
+
 	while(i <= whereToSplit)
 	{
 		nb = std::count(part2.begin(), part2.end(), C_SEPARATOR);
-		
+
 		if(nb)
 		{
 			pos = part2.find_first_of(C_SEPARATOR);
@@ -480,45 +481,45 @@ TTErr TTAddressBase::splitAt(TTUInt32 whereToSplit, TTAddressBase* *returnedPart
 			err = kTTErrGeneric;
 			break;
 		}
-		
+
 		i++;
 	}
-	
+
 	// if exists, remove SEPARATOR at the end of the part1
     if (part1.size()) {
         if (part1.at(part1.size()-1) == C_SEPARATOR) {
-            
+
             // except in case part1 is a directory:/ part
             size_t sc = part1.find_first_of(':');
             if (sc > 0 && sc != part1.size()-2)
                 part1 = part1.substr(0, part1.size()-1);
         }
     }
-	
+
 	*returnedPart1 = (TTAddressBase*)gTTAddressTable.lookup(part1);
 	*returnedPart2 = (TTAddressBase*)gTTAddressTable.lookup(part2);
-	
+
 	return err;
 }
 
 TTUInt32 TTAddressBase::countSeparator()
 {
 	std::string toCount = this->getCString();
-	
+
 	return count(toCount.begin(), toCount.end(), C_SEPARATOR);
 }
 
 TTErr TTAddressBase::listNameInstance(TTList& nameInstanceList)
 {
 	if (!parsed) parse();
-	
+
 	if (*this != kTTAdrsEmpty && *this != kTTAdrsRoot) {
-		
+
 		this->parent->listNameInstance(nameInstanceList);
-        
+
         // if there is a directory part : append directory and ""
         if (directory != NO_DIRECTORY) {
-            
+
             if (this->parent == kTTAdrsRoot) {
                 nameInstanceList.append(directory);
                 nameInstanceList.append(kTTSymEmpty);
@@ -530,11 +531,11 @@ TTErr TTAddressBase::listNameInstance(TTList& nameInstanceList)
                 return kTTErrNone;
             }
         }
-        
+
         nameInstanceList.append(name);
         nameInstanceList.append(instance);
 	}
-    
+
 	return kTTErrNone;
 }
 

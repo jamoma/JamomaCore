@@ -16,7 +16,7 @@
  */
 
 
-#include "TTBandRejectButterworth2.h"
+#include "TTBandrejectButterworth2.h"
 
 #define thisTTClass			TTBandrejectButterworth2
 #define thisTTClassName		"bandreject.butterworth.2"
@@ -60,7 +60,7 @@ TTErr TTBandrejectButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumCha
 	mX1.resize(mMaxNumChannels);
 	mX2.resize(mMaxNumChannels);
 	mY1.resize(mMaxNumChannels);
-	mY2.resize(mMaxNumChannels);	
+	mY2.resize(mMaxNumChannels);
 	clear();
 	return kTTErrNone;
 }

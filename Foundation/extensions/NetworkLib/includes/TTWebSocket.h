@@ -79,9 +79,8 @@ public:
 	
     /**	Send message
 	 @param	message         message to send
-	 @param	arguments		possible arguments (not used here)
 	 */
-	TTErr SendMessage(TTSymbol& message, const TTValue& arguments);
+	TTErr SendMessage(TTSymbol& message);
 };
 typedef TTWebSocket* TTWebSocketPtr;
 

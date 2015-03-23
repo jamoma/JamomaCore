@@ -245,7 +245,7 @@ TTErr TTMatrixBase::fill(const TTValue& anInputValue, TTValue &anUnusedOutputVal
 {
 	TTBytePtr fillValue = new TTByte[mComponentStride];
 	TTUInt32 inputElementCount = anInputValue.size();
-	TTUInt32 fillIterationCount = (inputElementCount < mElementCount) ? inputElementCount : mElementCount; // which ever is smaller 
+	TTUInt32 fillIterationCount = (inputElementCount < (TTUInt32) mElementCount) ? inputElementCount : (TTUInt32) mElementCount; // which ever is smaller
 	
 	// first we need to copy the TTValues in our array of TTBytes
 	TTBytePtr tempCopyValuePtr;

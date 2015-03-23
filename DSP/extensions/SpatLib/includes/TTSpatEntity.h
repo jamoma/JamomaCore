@@ -17,7 +17,7 @@
 #define __SPATSNAPENTITY_H__
 
 #include "TTDSP.h"
-
+#include <array>
 
 /** The TTSpatEntity class describes the geometry of a point.
  It can be used to describe a source or a sink, and includes the minimum
@@ -26,9 +26,9 @@
 class TTSpatEntity {
 protected:
 
-	TTFloat64 mPosition[3];		///< Position as Cartesian coordinates
-	TTFloat64 mOrientation[4];	///< The orientation of the object using Euler coordinates
-	TTFloat64 mData[4];			///< Storage for up to 4 values that can be used by subclasses
+	std::array<TTFloat64, 3> mPosition;		///< Position as Cartesian coordinates
+	std::array<TTFloat64, 4> mOrientation;	///< The orientation of the object using Euler coordinates
+	std::array<TTFloat64, 4> mData;			///< Storage for up to 4 values that can be used by subclasses
 		
 public:
 	

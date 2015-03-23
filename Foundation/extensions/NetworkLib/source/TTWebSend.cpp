@@ -37,14 +37,14 @@ void TTWebSend::connect()
 TTErr TTWebSend::send(const TTValue& value, TTValue& unusedOutput)
 {
 	TTSymbol    message;
-	TTValuePtr	arguments;
+//	TTValuePtr	arguments;
     
 	if (mSocket) {
 		// set all application parameters using a TTHash
         if (value.size()) {
             if (value[0].type() == kTypeSymbol) {
                 message = value[0];
-                return mSocket->SendMessage(message, *arguments);
+                return mSocket->SendMessage(message);
             }
         }
 	}

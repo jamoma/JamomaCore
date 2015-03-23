@@ -20,9 +20,7 @@
 
 #include "portmidi.h"
 
-#ifdef TT_PLATFORM_WIN
-// TODO
-#else
+#if defined(TT_PLATFORM_MAC)
 #include <CoreServices/CoreServices.h>
 #include <CoreMIDI/MIDIServices.h>
 #endif

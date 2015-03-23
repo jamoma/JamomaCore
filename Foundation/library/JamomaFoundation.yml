@@ -2,6 +2,7 @@
 
 sources:
   - source/TTFoundation.cpp
+  - source/TTExtensionLoader.cpp
   - source/TTCallback.cpp
   - source/TTClass.cpp
   - source/TTEnvironment.cpp

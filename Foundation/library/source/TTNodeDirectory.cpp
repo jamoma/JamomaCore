@@ -461,12 +461,12 @@ TTErr TTNodeDirectory::Lookup(TTAddress anAddress, TTList& returnedTTNodes, TTNo
 	}
 }
 
-TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode, TTUInt8 depthLimit, TTBoolean(comparisonFunction)(TTValue& v1, TTValue& v2))
+TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(*testFunction)(TTNodePtr node, TTPtr args), void *argument, TTList& returnedTTNodes, TTNodePtr *firstReturnedTTNode, TTUInt8 depthLimit, TTBoolean(*comparisonFunction)(TTValue& v1, TTValue& v2))
 {
 	TTList lk_children;
 	TTNodePtr n_r, n_child, n_first;
 	TTBoolean limitReached = false;
-	TTUInt8	newLimit;
+	TTUInt8	newLimit = 0;
 	TTErr err;
 
 	*firstReturnedTTNode = NULL;
@@ -528,7 +528,7 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(testFunction)(
 	return kTTErrGeneric;
 }
 
-TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, TTBoolean(testFunction)(TTNodePtr node, void*args), void *argument, bool *isThere, TTNodePtr *firstTTNode)
+TTErr	TTNodeDirectory::IsThere(TTListPtr whereToSearch, TTBoolean(*testFunction)(TTNodePtr node, void*args), void *argument, bool *isThere, TTNodePtr *firstTTNode)
 {
 	TTList lk_children;
 	TTNodePtr n_r, n_child;

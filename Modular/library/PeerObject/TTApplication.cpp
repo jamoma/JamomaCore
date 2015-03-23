@@ -326,7 +326,7 @@ TTErr TTApplication::initNode(TTNodePtr aNode)
     aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
     
     // Sort children by priority order
-    nodeList.sort(compareNodePriorityThenNameThenInstance);
+	nodeList.sort(&compareNodePriorityThenNameThenInstance);
     
     for (nodeList.begin(); nodeList.end(); nodeList.next())
     {
@@ -1468,7 +1468,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
             }
             
             // read the file several times if instance > 1
-            for (TTUInt32 i = 0; i < instance; i++)
+			for (TTInt32 i = 0; i < instance; i++)
             {
                 if (useInstanceAsName)
                 {

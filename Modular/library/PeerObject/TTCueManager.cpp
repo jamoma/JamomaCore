@@ -392,7 +392,7 @@ TTErr TTCueManager::Update(const TTValue& inputValue, TTValue& outputValue)
             mCurrent = inputValue[0];
             
             TTSymbol name;
-            for (TTInt32 i = 0; i < mNames.size(); i++) {
+			for (TTUInt32 i = 0; i < mNames.size(); i++) {
                 name = mNames[i];
                 if (name == mCurrent) {
                     mCurrentPosition = i+1;
@@ -440,7 +440,7 @@ TTErr TTCueManager::Append(const TTValue& inputValue, TTValue& outputValue)
             mCurrent = inputValue[0];
             
             TTSymbol name;
-            for (TTInt32 i = 0; i < mNames.size(); i++) {
+			for (TTUInt32 i = 0; i < mNames.size(); i++) {
                 name = mNames[i];
                 if (name == mCurrent) {
                     mCurrentPosition = i+1;
@@ -521,7 +521,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
             mCurrent = inputValue[0];
             
             TTSymbol name;
-            for (TTInt32 i = 0; i < mNames.size(); i++) {
+			for (TTUInt32 i = 0; i < mNames.size(); i++) {
                 name = mNames[i];
                 if (name == mCurrent) {
                     mCurrentPosition = i+1;
@@ -570,7 +570,7 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
             mCurrent = inputValue[0];
             
             TTSymbol name;
-            for (TTInt32 i = 0; i < mNames.size(); i++) {
+			for (TTUInt32 i = 0; i < mNames.size(); i++) {
                 name = mNames[i];
                 if (name == mCurrent) {
                     mCurrentPosition = i+1;
@@ -610,7 +610,7 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
 TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 {
 	TTValue		v1, v2;
-    TTInt32     i1, i2;
+	TTUInt32    i1, i2;
 	TTSymbol    name1, name2;
 	TTObject	cue1, cue2;
 	TTFloat32	position;
@@ -659,7 +659,8 @@ TTErr TTCueManager::Interpolate(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCueManager::Mix(const TTValue& inputValue, TTValue& outputValue)
 {
-	TTInt32     i, id, mixSize;
+	TTInt32     i, mixSize;
+	TTUInt32    id;
 	TTSymbol    name;
 	TTObject	cue;
 	TTValue		v, cues, factors;

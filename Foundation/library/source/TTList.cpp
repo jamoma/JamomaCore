@@ -149,12 +149,14 @@ void TTList::insert(TTUInt32 index, const TTValue& newValue)
 void TTList::merge(TTList& newList)
 {
 	lock();
+	theList.sort();
+	newList.theList.sort();
 	theList.merge(newList.theList);
 	unlock();
 }
 
 
-void TTList::sort(TTBoolean(comparisonFunction)(TTValue&, TTValue&))
+void TTList::sort(TTBoolean(*comparisonFunction)(TTValue&, TTValue&))
 {
 	lock();
 	
