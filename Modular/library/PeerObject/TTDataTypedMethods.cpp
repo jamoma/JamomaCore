@@ -285,6 +285,9 @@ TTErr TTData::returnValue()
     return kTTErrNone;
 }
 
+# pragma mark -
+# pragma mark None type
+
 TTErr TTData::NoneCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     TTValue none;
@@ -326,6 +329,9 @@ TTErr TTData::NoneInit()
     
     return kTTErrNone;
 }
+
+# pragma mark -
+# pragma mark Generic type
 
 TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -402,6 +408,9 @@ TTErr TTData::GenericInit()
     
     return kTTErrNone;
 }
+
+# pragma mark -
+# pragma mark Boolean type
 
 TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -553,6 +562,9 @@ TTErr TTData::BooleanInit()
     
     return kTTErrNone;
 }
+
+# pragma mark -
+# pragma mark Integer type
 
 TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -736,6 +748,8 @@ TTErr TTData::IntegerInit()
     return kTTErrNone;
 }
 
+# pragma mark -
+# pragma mark Decimal, Integer and Array type
 
 TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -752,15 +766,16 @@ TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& out
 			mRamper.send(kTTSym_Stop);
 		}
 		
-        // Get the command TTDictionnary
-		// This contains the new value and optional information on ramp and unit
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
-        else
-            return kTTErrGeneric;
+    // Get the command TTDictionnary
+      
+	// This contains the new value and optional information on ramp and unit
+    if (inputValue[0].type() == kTypePointer)
+		command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
+    else
+		return kTTErrGeneric;
 
-        // Get the new target value. This might be specified in an overriding unit
-        command->getValue(aValue);
+    // Get the new target value. This might be specified in an overriding unit
+    command->getValue(aValue);
 		
 		// For mType = "decimal" or "integer" it does not make sense to have more than one item in aValue.
 		if ((mType == kTTSym_decimal) || (mType == kTTSym_integer)) {
@@ -889,9 +904,9 @@ TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
 	
 	if (!mIsSending && mActive) {
 		
-        // We are locking while updating, in order to prevent returned values from clients to cause an infinite loop.
+		// We are locking while updating, in order to prevent returned values from clients to cause an infinite loop.
 		mIsSending = YES;
-        
+		
 		if (checkIntegerDecimalArrayType(lValue)) {
 			
 			if (lValue.size() == 1) {
@@ -924,7 +939,7 @@ TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
 						returnValue();
 						mInitialized = true;
 					}
-						
+					
 				}
 				else
 					returnValue();
@@ -932,21 +947,20 @@ TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
 				// If the value is empty, return current value. This is the case in the Max implementation when a "bang" is sent to j.parameter.
 				returnValue();
 			}
+			// unlock
+			mIsSending = NO;
 			
-            // unlock
-            mIsSending = NO;
-            
-            return kTTErrNone;
+			return kTTErrNone;
 		}
 		else {
 			
 			// unlock
 			mIsSending = NO;
-            
+			
 			return kTTErrInvalidValue;
 		}
 	}
-    
+	
 	return kTTErrGeneric;
 }
 
@@ -994,6 +1008,9 @@ TTErr TTData::DecimalInit()
     
     return kTTErrNone;
 }
+
+# pragma mark -
+# pragma mark Array type
 
 TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -1160,6 +1177,9 @@ TTErr TTData::ArrayInit()
     
     return kTTErrNone;
 }
+
+# pragma mark -
+# pragma mark String type
 
 TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
 {
