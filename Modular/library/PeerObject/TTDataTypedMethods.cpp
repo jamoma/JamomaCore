@@ -241,11 +241,11 @@ TTBoolean TTData::clipValue()
 		else if (mRangeClipmode == kTTSym_both)
 			mValue.clip(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
 		else if (mRangeClipmode == kTTSym_wrap)
-			mValue = TTInfWrap(TTFloat64(mValue), TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
+			mValue.wrap(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
 		//else if (mRangeClipmode == kTTSym_wrap)
             //mValue.clipwrap(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
 		else if (mRangeClipmode == kTTSym_fold)
-			mValue = TTFold(TTFloat64(mValue), TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
+			mValue.fold(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
 	}
 	
 	return false;
@@ -721,6 +721,10 @@ TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& out
 						aValue = (TTInt32)aValue[0];
 					aValue[0].truncate();
 			}
+			else if (mType==kTTSym_array) {
+				for (int i=0; i<aValue.size(); i++)
+					aValue[i] = (TTFloat64)aValue[i];
+				}
 		}
 		
 		mIsOverridingDataspaceUnit = false;
@@ -752,7 +756,7 @@ TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
 		
 		if (checkIntegerDecimalArrayType(lValue)) {
 			
-			if (lValue.size() == 1) {
+			if (lValue.size() > 0) {
 				
 				TTValue lPreviousValue = mValue;
 				
@@ -855,6 +859,7 @@ TTErr TTData::DecimalInit()
 # pragma mark -
 # pragma mark Array type
 
+/*
 TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr command = NULL;
@@ -996,6 +1001,8 @@ TTErr TTData::setArrayValue(const TTValue& value)
     
 	return kTTErrGeneric;
 }
+
+*/
 
 TTBoolean TTData::checkArrayType(const TTValue& value)
 {

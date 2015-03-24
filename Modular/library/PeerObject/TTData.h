@@ -134,7 +134,7 @@ private:
 	 @return #TTErrorNone if the method executes successfully, else an error code.
 	 @see #TTDataParseCommand
 	 */
-    TTErr       ArrayCommand(const TTValue& inputValue, TTValue& outputValue);
+    //TTErr       ArrayCommand(const TTValue& inputValue, TTValue& outputValue);
 	
 	
 	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_string.
@@ -185,7 +185,7 @@ private:
 	 @param value	The new value that the attribute is to be set to.
 	 @return		#TTErrorNone if the method executes successfully, else an error code.
 	 */
-    TTErr       setArrayValue(const TTValue& value);
+    //TTErr       setArrayValue(const TTValue& value);
 	
 	
 	/**	Setter for #mValue attribute, optimised for #mType #kTTSym_string.

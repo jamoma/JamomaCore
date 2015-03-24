@@ -291,7 +291,9 @@ public:
 	static TTInt32 outOfBoundsWrap(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
 	{
 		// the TTInfWrap method does not allow the highBound as a valid result, so we can pass values as is
-		return TTInfWrap(index, lowBound, highBound);
+		TTInt32 temp = index;
+		TTInfWrap(temp, lowBound, highBound);
+		return temp;
 	}
 	
 	/**	In implementation of the TTMatrixBaseOutOfBoundsHandler that wraps #TTFold.
@@ -300,7 +302,9 @@ public:
 	static TTInt32 outOfBoundsFold(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
 	{
 		// the TTFold method allows highBound as a valid result, but the math depends on it being equal to the dimension size
-		TTInt32 output = TTFold(index, lowBound, highBound);
+		TTInt32 temp = index;
+		TTFold(temp, lowBound, highBound);
+		TTInt32 output = temp;
 		// so we adjust whenever highBound is produced as an output
 		if (output == highBound) --output;
 		return output;
