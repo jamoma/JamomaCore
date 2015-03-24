@@ -119,15 +119,6 @@ private:
     TTErr       BooleanCommand(const TTValue& inputValue, TTValue& outputValue);
 	
 	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_integer.
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
-	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
-	 */
-    TTErr       IntegerCommand(const TTValue& inputValue, TTValue& outputValue);
-	
-	
 	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_decimal, #kTTSym_integer and #kTTSym_array.
 	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
 	 @param[out] outputValue	This is not being used.
@@ -181,13 +172,6 @@ private:
 	 @return		#TTErrorNone if the method executes successfully, else an error code.
 	 */
     TTErr       setGenericValue(const TTValue& value);
-	
-	
-	/**	Setter for #mValue attribute, optimised for #mType #kTTSym_integer.
-	 @param value	The new value that the attribute is to be set to.
-	 @return		#TTErrorNone if the method executes successfully, else an error code.
-	 */
-    TTErr       setIntegerValue(const TTValue& value);
 	
 	
     /** Setter for #mValue attribute, optimised for #mType #kTTSym_integer, #kTTSym_decimal and #kTTSym_array.
