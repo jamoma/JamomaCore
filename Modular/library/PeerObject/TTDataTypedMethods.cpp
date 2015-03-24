@@ -21,10 +21,10 @@ TTErr TTData::setType(const TTValue& value)
     TTMessagePtr    initMessage;
 	TTAttributePtr  valueDefaultAttribute, valueStepSizeAttribute;
     
-	// if the new type is different
+	// Only do stuff if there is a change of type
 	if (!(TTValue(mType) == value)) {
 		
-		TTValue n = value;				// use new value to protect the attribute
+		TTValue n = value;				// Copy to new value to protect the attribute
 		mType = value;
 		
 		// Get ValueDefault and ValueStepsize attributes (because commande message and value attribute are already cached)
@@ -35,8 +35,13 @@ TTErr TTData::setType(const TTValue& value)
 		mInstanceBounds[0] = TTInt16(0);
 		mInstanceBounds[1] = TTInt16(-1);
 		
-		// register mValue Attribute and prepare memory
-        // We establish the behavior of TTData based on the attribute type. We do this by setting a funciton pointer that depends on the type.
+		// Register mValue attribute and prepare memory
+		
+        // The behavior of TTData depends on type.
+		// This is controlled by setting function pointers for the init, command and setter methods.
+		// "integer", "decimal" and "array" types can make use of dataspace and ramping, and share the same command and setter methods.
+		
+		// Type is "integer"
 		if (mType == kTTSym_integer) {
             commandMethod = (TTMethodValue)&TTData::IntegerDecimalArrayCommand;
             initMessage->method = (TTMethod)&TTData::IntegerInit;
@@ -47,20 +52,21 @@ TTErr TTData::setType(const TTValue& value)
 			mValue = TTValue(0);
             mValueDefault = TTValue(0);
             
-            // if mValueStepsize still equals to the value passed in constructor
+            // If mValueStepsize still equals to the value passed in constructor
             if (mValueStepsize == TTValue(0.1))
                 mValueStepsize = TTValue(1);
             
-            // if mRangeBounds still equals to the value passed in constructor
+            // If mRangeBounds still equals to the value passed in constructor
             if (mRangeBounds == TTValue(0.0, 1.0)) {
                 mRangeBounds[0] = TTUInt16(0);
                 mRangeBounds[1] = TTUInt16(1);
             }
             
-            // if mRampDrive still equals to the value passed in constructor
+            // If mRampDrive still equals to the value passed in constructor
             if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
+                mRampDrive = TTSymbol("max");   // TODO : Move this very Max specific thing else where
 		}
+		// Type is "decimal"
 		else if (mType == kTTSym_decimal) {
             commandMethod = (TTMethodValue)&TTData::IntegerDecimalArrayCommand;
             initMessage->method = (TTMethod)&TTData::DecimalInit;
@@ -71,14 +77,34 @@ TTErr TTData::setType(const TTValue& value)
 			mValue = TTValue(0.);
             mValueDefault = TTValue(0.);
 			
-            // don't reset mValueStepsize as the default values is equals to the value passed in constructor
+            // Don't reset mValueStepsize as the default values is equals to the value passed in constructor
             
-			// don't reset mRangeBounds as the default values is equals to the value passed in constructor
+			// Don't reset mRangeBounds as the default values is equals to the value passed in constructor
             
-            // if mRampDrive still equals to the value passed in constructor
+            // If mRampDrive still equals to the value passed in constructor
             if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
+                mRampDrive = TTSymbol("max");   // TODO : Move this very Max specific thing else where
 		}
+		// Type is "array"
+		else if (mType == kTTSym_array) {
+			commandMethod = (TTMethodValue)&TTData::IntegerDecimalArrayCommand;
+			initMessage->method = (TTMethod)&TTData::ArrayInit;
+			valueAttribute->type = kTypeFloat64;
+			valueAttribute->setter = (TTSetterMethod)&TTData::setIntegerDecimalArrayValue;
+			valueDefaultAttribute->type = kTypeFloat64;
+			valueStepSizeAttribute->type = kTypeFloat64;
+			mValue = TTValue(0.);
+			mValueDefault = TTValue(0.);
+			
+			// Don't reset mValueStepsize as the default values is equals to the value passed in constructor
+			
+			// Don't reset mRangeBounds as the default values is equals to the value passed in constructor
+			
+			// If mRampDrive still equals to the value passed in constructor
+			if (mRampDrive == kTTSym_none)
+				mRampDrive = TTSymbol("max");   // TODO : Move this very Max specific thing else where
+		}
+		// Type is "string"
 		else if (mType == kTTSym_string) {
             commandMethod = (TTMethodValue)&TTData::StringCommand;
             initMessage->method = (TTMethod)&TTData::StringInit;
@@ -89,16 +115,17 @@ TTErr TTData::setType(const TTValue& value)
 			mValue = TTValue(kTTSymEmpty);
             mValueDefault = TTValue(kTTSymEmpty);
             
-            // if mValueStepsize still equals to the value passed in constructor
+            // If mValueStepsize still equals to the value passed in constructor
             if (mValueStepsize == TTValue(0.1))
                 mValueStepsize.clear();
             
-            // if mRangeBounds still equals to the value passed in constructor
+            // If mRangeBounds still equals to the value passed in constructor
             if (mRangeBounds == TTValue(0.0, 1.0))
                 mRangeBounds.clear();
             
             mRampDrive = kTTSym_none;
 		}
+		// Type is "boolean"
 		else if (mType == kTTSym_boolean) {
             commandMethod = (TTMethodValue)&TTData::BooleanCommand;
             initMessage->method = (TTMethod)&TTData::BooleanInit;
@@ -109,11 +136,11 @@ TTErr TTData::setType(const TTValue& value)
 			mValue = TTValue(NO);
             mValueDefault = TTValue(NO);
             
-            // if mValueStepsize still equals to the value passed in constructor
+            // If mValueStepsize still equals to the value passed in constructor
             if (mValueStepsize == TTValue(0.1))
                 mValueStepsize = TTValue(YES);
             
-            // if mRangeBounds still equals to the value passed in constructor
+            // If mRangeBounds still equals to the value passed in constructor
             if (mRangeBounds == TTValue(0.0, 1.0)) {
                 mRangeBounds[0] = NO;
                 mRangeBounds[1] = YES;
@@ -121,24 +148,7 @@ TTErr TTData::setType(const TTValue& value)
             
             mRampDrive = kTTSym_none;
 		}
-		else if (mType == kTTSym_array) {
-            commandMethod = (TTMethodValue)&TTData::ArrayCommand;
-            initMessage->method = (TTMethod)&TTData::ArrayInit;
-			valueAttribute->type = kTypeFloat64;
-            valueAttribute->setter = (TTSetterMethod)&TTData::setArrayValue;
-			valueDefaultAttribute->type = kTypeFloat64;
-			valueStepSizeAttribute->type = kTypeFloat64;
-			mValue = TTValue(0.);
-            mValueDefault = TTValue(0.);
-            
-			// don't reset mValueStepsize as the default values is equals to the value passed in constructor
-			
-            // don't reset mRangeBounds as the default values is equals to the value passed in constructor
-            
-            // if mRampDrive still equals to the value passed in constructor
-            if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
-		}
+		// Type is "none"
 		else if (mType == kTTSym_none) {
             commandMethod = (TTMethodValue)&TTData::NoneCommand;
             initMessage->method = (TTMethod)&TTData::NoneInit;
@@ -149,16 +159,17 @@ TTErr TTData::setType(const TTValue& value)
 			mValue.clear();
             mValueDefault.clear();
             
-            // if mValueStepsize still equals to the value passed in constructor
+            // If mValueStepsize still equals to the value passed in constructor
             if (mValueStepsize == TTValue(0.1))
                 mValueStepsize.clear();
             
-			// if mRangeBounds still equals to the value passed in constructor
+			// If mRangeBounds still equals to the value passed in constructor
             if (mRangeBounds == TTValue(0.0, 1.0))
                 mRangeBounds.clear();
             
             mRampDrive = kTTSym_none;
 		}
+		// Type is "generic"
 		else {
             commandMethod = (TTMethodValue)&TTData::GenericCommand;
             initMessage->method = (TTMethod)&TTData::GenericInit;
@@ -170,15 +181,15 @@ TTErr TTData::setType(const TTValue& value)
 			mValue = TTValue(0.);
             mValueDefault = TTValue(0.);
             
-			// don't reset mValueStepsize as the default values is equals to the value passed in constructor
+			// Don't reset mValueStepsize as the default values is equals to the value passed in constructor
 			
-            // don't reset mRangeBounds as the default values is equals to the value passed in constructor
+            // Don't reset mRangeBounds as the default values is equals to the value passed in constructor
             
             mRampDrive = kTTSym_none;
 			return kTTErrGeneric;
 		}
         
-        // TODO : move this very Max specific thing else where
+        // TODO : Move this very Max specific thing else where
         if (mRampDrive == TTSymbol("max"))
             if (ttEnvironment->isClassRegistered("max"))
                 mRampDrive = TTSymbol("system");
@@ -861,9 +872,13 @@ TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& out
 					if (aValue[0].type() != kTypeFloat64)
 						aValue = (TTFloat64)aValue[0];
 			}
-			else if (mType==kTTSym_integer)
+			else if (mType==kTTSym_integer) {
 				if (aValue.size())
+					// Cast to int if
+					if (!checkIntegerType(aValue))
+						aValue = (TTInt32)aValue[0];
 					aValue[0].truncate();
+			}
 		}
 		
 		mIsOverridingDataspaceUnit = false;
