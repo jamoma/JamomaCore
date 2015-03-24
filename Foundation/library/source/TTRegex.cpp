@@ -13,13 +13,11 @@
 using namespace boost;
 using namespace std;
 typedef boost::regex	TTExpression;
-//typedef boost::match_results <TTRegexStringPosition> TTRegexStringResult;
 typedef boost::match_results <TTStringIter> TTRegexStringResult;
 #else
 #include <regex>
 using namespace std;
 typedef std::regex	TTExpression;
-//typedef std::match_results <TTRegexStringPosition> TTRegexStringResult;
 typedef std::match_results <TTStringIter> TTRegexStringResult;
 #endif
 
@@ -32,15 +30,16 @@ typedef std::match_results <TTStringIter> TTRegexStringResult;
 TTRegex::TTRegex(const char* anExpression):
 mExpression(NULL), mResult(NULL)
 {
-	try {
-		
+	try
+    {
 		mExpression = new TTExpression(anExpression, regex_constants::extended);
-		
 	}
-	catch (const regex_error& e) {
-		std::cout << e.what() << " caught: " << anExpression << '\n';
+	catch (const regex_error& e)
+    {
+        TTLogError("%s caught: ", e.what(), anExpression);
+		
 		if (e.code() == regex_constants::error_brack)
-			std::cout << "The code was error_brack\n";
+            TTLogError("The code was error_brack");
 	}
 	
 	mResult = new TTRegexStringResult();
@@ -52,8 +51,7 @@ TTRegex::~TTRegex()
 	delete RESULT;
 }
 
-//TTErr TTRegex::parse(TTRegexStringPosition& begin, TTRegexStringPosition& end)
-TTErr TTRegex::parse(TTStringIter& begin, TTStringIter& end)
+TTErr TTRegex::parse(TTStringIter begin, TTStringIter end)
 {
 	if (regex_search(begin, end, mRESULT, mEXPRESSION))
 		return kTTErrNone;
@@ -62,7 +60,6 @@ TTErr TTRegex::parse(TTStringIter& begin, TTStringIter& end)
 }
 
 /** Get where start the result */
-//TTRegexStringPosition TTRegex::begin()
 TTStringIter TTRegex::begin()
 {
 #if BOOST_REGEX
@@ -73,7 +70,6 @@ TTStringIter TTRegex::begin()
 }
 
 /** Get where end the result */
-//TTRegexStringPosition TTRegex::end()
 TTStringIter TTRegex::end()
 {
 #if BOOST_REGEX
