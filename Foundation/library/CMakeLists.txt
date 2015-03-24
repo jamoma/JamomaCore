@@ -73,7 +73,8 @@ ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSymbol.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTValue.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTNodeLib.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTInterpolate.test.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/tests/TTObjectTest.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTObject.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/tests/TTRegex.test.cpp
 )
 
 if(NOT DEFINED USE_EXTERNAL_BOOST)
