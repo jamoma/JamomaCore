@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "TTObjectTest.h"
+#include "TTObject.test.h"
 #include "TTObjectTemplates.h"
 
 #define thisTTClass			TTObjectTest

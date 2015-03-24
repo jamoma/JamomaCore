@@ -20,4 +20,4 @@ class TTStringTest : public TTDataObjectBase {
 };
 
 
-#endif // __TT_VALUETEST_H__
+#endif // __TT_STRINGTEST_H__
