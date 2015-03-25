@@ -26,12 +26,12 @@ void TTRegexTestBasic(int& errorCount, int&testAssertionCount)
 	TTTestLog("\n");
 	TTTestLog("Testing regex parsing");
     
-    TTString        s_toParse("directory:/parent/name.instance:attribute");
-    TTString        s_directory;
-    TTString        s_attribute;
-    TTString        s_parent;
-    TTString        s_instance;
-    TTString        s_name;
+    TTString s_toParse("directory:/parent/name.instance:attribute");
+    TTString s_directory;
+    TTString s_attribute;
+    TTString s_parent;
+    TTString s_instance;
+    TTString s_name;
     
     // parse directory
     if (!ttRegexForDirectory->parse(s_toParse.begin(), s_toParse.end()))
