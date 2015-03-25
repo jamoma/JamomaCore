@@ -2,7 +2,7 @@ defines:
   - TT_PROTOCOL_DEBUG
 
 sources:
-  - ../../library/source/Protocol.cpp
+  - ../../library/source/TTProtocol.cpp
   - source/WebSocket.cpp
   - source/WebSocketAnswer.cpp
   - source/WebSocketAnswerManager.cpp

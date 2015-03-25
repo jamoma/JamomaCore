@@ -16,7 +16,7 @@
 #ifndef __MIDI_H__
 #define __MIDI_H__
 
-#include "Protocol.h"
+#include "TTProtocol.h"
 #include "MIDIInclude.h"
 #include "MIDIDestination.h"
 #include "MIDIInput.h"
@@ -35,14 +35,14 @@ typedef MIDIOutput* MIDIOutputPtr;
 class MIDISource;
 typedef MIDISource* MIDISourcePtr;
 
-class MIDI : public Protocol {
+class MIDI : public TTProtocol {
 	
 	TTCLASS_SETUP(MIDI)
 	
 private:
 	
-    PROTOCOL_PARAMETER(Input);                          ///< PROTOCOL PARAMETER : each registered application have to setup its input device name
-    PROTOCOL_PARAMETER(Output);                         ///< PROTOCOL PARAMETER : each registered application have to setup its output device name
+    TT_PROTOCOL_PARAMETER(Input);                          ///< PROTOCOL PARAMETER : each registered application have to setup its input device name
+    TT_PROTOCOL_PARAMETER(Output);                         ///< PROTOCOL PARAMETER : each registered application have to setup its output device name
     
 	TTHash                  mInputs;                    ///< a table of MIDIInput instances for each device
     TTHash                  mOutputs;                   ///< a table of MIDIOutput instances for each device

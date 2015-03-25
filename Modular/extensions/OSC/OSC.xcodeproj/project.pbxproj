@@ -13,15 +13,16 @@
 		4611420A16CE79170042A39D /* Time2.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Time2.hpp; sourceTree = "<group>"; };
 		4611420D16CE79270042A39D /* OSC.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OSC.cpp; sourceTree = "<group>"; };
 		4611420E16CE79270042A39D /* OSCSenderManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OSCSenderManager.cpp; sourceTree = "<group>"; };
-		4611421016CE79350042A39D /* Protocol.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
-		4611421116CE79350042A39D /* Protocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
+		46502A7F1AC2BE470067AB66 /* TTProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTProtocol.h; path = ../../library/includes/TTProtocol.h; sourceTree = "<group>"; };
+		46502A801AC2BE530067AB66 /* TTProtocol.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTProtocol.cpp; path = ../../library/source/TTProtocol.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		461141F616CE78D70042A39D = {
 			isa = PBXGroup;
 			children = (
-				4611420F16CE79350042A39D /* ProtocolLib */,
+				46502A7F1AC2BE470067AB66 /* TTProtocol.h */,
+				46502A801AC2BE530067AB66 /* TTProtocol.cpp */,
 				4611420616CE79170042A39D /* includes */,
 				4611420C16CE79270042A39D /* source */,
 			);
@@ -45,16 +46,6 @@
 				4611420E16CE79270042A39D /* OSCSenderManager.cpp */,
 			);
 			path = source;
-			sourceTree = "<group>";
-		};
-		4611420F16CE79350042A39D /* ProtocolLib */ = {
-			isa = PBXGroup;
-			children = (
-				4611421116CE79350042A39D /* Protocol.h */,
-				4611421016CE79350042A39D /* Protocol.cpp */,
-			);
-			name = ProtocolLib;
-			path = ../../library/ProtocolLib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

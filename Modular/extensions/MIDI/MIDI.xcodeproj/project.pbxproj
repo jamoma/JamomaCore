@@ -9,6 +9,8 @@
 /* Begin PBXFileReference section */
 		464135EE19D9FE2A00BFAF44 /* MIDIOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MIDIOutput.cpp; path = source/MIDIOutput.cpp; sourceTree = SOURCE_ROOT; };
 		464135EF19D9FE3300BFAF44 /* MIDIOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIOutput.h; sourceTree = "<group>"; };
+		46502A7B1AC2BD390067AB66 /* TTProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTProtocol.h; path = ../../library/includes/TTProtocol.h; sourceTree = "<group>"; };
+		46502A7C1AC2BD460067AB66 /* TTProtocol.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTProtocol.cpp; path = ../../library/source/TTProtocol.cpp; sourceTree = "<group>"; };
 		46A30BA819AD210E00223A7D /* MIDI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDI.h; sourceTree = "<group>"; };
 		46A30BAA19AD211C00223A7D /* MIDI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MIDI.cpp; sourceTree = "<group>"; };
 		46A30BAB19AD212300223A7D /* MIDI.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = MIDI.yml; sourceTree = "<group>"; };
@@ -25,8 +27,6 @@
 		46A30BBB19AD214300223A7D /* portmidi_s.pdb */ = {isa = PBXFileReference; lastKnownFileType = file; path = portmidi_s.pdb; sourceTree = "<group>"; };
 		46A30BBD19AD214300223A7D /* libportmidi_s_jamoma.lib */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libportmidi_s_jamoma.lib; sourceTree = "<group>"; };
 		46A30BBE19AD214300223A7D /* portmidi_s.idb */ = {isa = PBXFileReference; lastKnownFileType = file; path = portmidi_s.idb; sourceTree = "<group>"; };
-		46A30BC019AD21E300223A7D /* Protocol.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
-		46A30BC119AD21E300223A7D /* Protocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
 		46A30BC419AD223100223A7D /* MIDIInclude.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIInclude.h; sourceTree = "<group>"; };
 		46A30BC519AD26C700223A7D /* MIDIInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIDIInput.h; sourceTree = "<group>"; };
 		46A30BC619AD26CE00223A7D /* MIDIInput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MIDIInput.cpp; sourceTree = "<group>"; };
@@ -45,7 +45,8 @@
 			isa = PBXGroup;
 			children = (
 				46A30BAB19AD212300223A7D /* MIDI.yml */,
-				46A30BBF19AD21E300223A7D /* ProtocolLib */,
+				46502A7B1AC2BD390067AB66 /* TTProtocol.h */,
+				46502A7C1AC2BD460067AB66 /* TTProtocol.cpp */,
 				46A30BA719AD210E00223A7D /* includes */,
 				46A30BA919AD211C00223A7D /* source */,
 				46A30BAC19AD214300223A7D /* portmidi */,
@@ -140,16 +141,6 @@
 				46A30BBE19AD214300223A7D /* portmidi_s.idb */,
 			);
 			path = Release_;
-			sourceTree = "<group>";
-		};
-		46A30BBF19AD21E300223A7D /* ProtocolLib */ = {
-			isa = PBXGroup;
-			children = (
-				46A30BC119AD21E300223A7D /* Protocol.h */,
-				46A30BC019AD21E300223A7D /* Protocol.cpp */,
-			);
-			name = ProtocolLib;
-			path = ../../library/ProtocolLib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46502A831AC2BF560067AB66 /* TTProtocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46502A821AC2BF560067AB66 /* TTProtocol.cpp */; };
 		B5CCAFB6188400AC00193AA8 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5F3D25B1811915900B91813 /* WebSocket.cpp */; };
 		B5CCAFB7188400AC00193AA8 /* WebSocketAnswer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5CD3B5818117BB0008CB133 /* WebSocketAnswer.cpp */; };
 		B5CCAFB8188400AC00193AA8 /* WebSocketAnswerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5CD3B5918117BB0008CB133 /* WebSocketAnswerManager.cpp */; };
 		B5CCAFB9188400AC00193AA8 /* WebSocketSenderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B5CD3B5A18117BB0008CB133 /* WebSocketSenderManager.cpp */; };
-		B5CCAFBA188400B100193AA8 /* Protocol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D26DFB7714B208E000417FFE /* Protocol.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		22AD15D716596523002FD7E3 /* WebSocket.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = WebSocket.yml; sourceTree = "<group>"; };
+		46502A811AC2BF4A0067AB66 /* TTProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTProtocol.h; path = ../../library/includes/TTProtocol.h; sourceTree = "<group>"; };
+		46502A821AC2BF560067AB66 /* TTProtocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTProtocol.cpp; path = ../../library/source/TTProtocol.cpp; sourceTree = "<group>"; };
 		B5CCAFAC1884002800193AA8 /* WebSocketPlugin-doc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "WebSocketPlugin-doc"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5CD3B5318117BA8008CB133 /* WebSocketAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketAnswer.h; sourceTree = "<group>"; };
 		B5CD3B5418117BA8008CB133 /* WebSocketAnswerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketAnswerManager.h; sourceTree = "<group>"; };
@@ -27,8 +29,6 @@
 		B5F3D2591811914E00B91813 /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocket.h; sourceTree = "<group>"; };
 		B5F3D25A1811914E00B91813 /* WebSocketInclude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketInclude.h; sourceTree = "<group>"; };
 		B5F3D25B1811915900B91813 /* WebSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebSocket.cpp; sourceTree = "<group>"; };
-		D26DFB7714B208E000417FFE /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
-		D26DFB7814B208E000417FFE /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,8 @@
 			isa = PBXGroup;
 			children = (
 				22AD15D716596523002FD7E3 /* WebSocket.yml */,
-				D26DFB7614B208E000417FFE /* ProtocolLib */,
+				46502A811AC2BF4A0067AB66 /* TTProtocol.h */,
+				46502A821AC2BF560067AB66 /* TTProtocol.cpp */,
 				D2AF80B214A0BA940001E901 /* includes */,
 				D2AF80B814A0BAA00001E901 /* source */,
 				B5CCAFAE1884002800193AA8 /* WebSocketPlugin-doc */,
@@ -69,16 +70,6 @@
 			);
 			path = "WebSocketPlugin-doc";
 			sourceTree = "<group>";
-		};
-		D26DFB7614B208E000417FFE /* ProtocolLib */ = {
-			isa = PBXGroup;
-			children = (
-				D26DFB7814B208E000417FFE /* Protocol.h */,
-				D26DFB7714B208E000417FFE /* Protocol.cpp */,
-			);
-			name = ProtocolLib;
-			path = ../../library/ProtocolLib;
-			sourceTree = SOURCE_ROOT;
 		};
 		D2AF80B214A0BA940001E901 /* includes */ = {
 			isa = PBXGroup;
@@ -173,8 +164,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5CCAFBA188400B100193AA8 /* Protocol.cpp in Sources */,
 				B5CCAFB9188400AC00193AA8 /* WebSocketSenderManager.cpp in Sources */,
+				46502A831AC2BF560067AB66 /* TTProtocol.cpp in Sources */,
 				B5CCAFB8188400AC00193AA8 /* WebSocketAnswerManager.cpp in Sources */,
 				B5CCAFB7188400AC00193AA8 /* WebSocketAnswer.cpp in Sources */,
 				B5CCAFB6188400AC00193AA8 /* WebSocket.cpp in Sources */,

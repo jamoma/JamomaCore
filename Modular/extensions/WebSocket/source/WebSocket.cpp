@@ -11,7 +11,7 @@
  * @details Use cross platform libjson library from http://libjson.sourceforge.net/
  */
 
-#include "Protocol.h"
+#include "TTProtocol.h"
 #include "WebSocket.h"
 
 #define thisTTClass				WebSocket
@@ -37,12 +37,12 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_WebSocket(void)
 	return kTTErrNone;
 }
 
-PROTOCOL_CONSTRUCTOR,
+TT_PROTOCOL_CONSTRUCTOR,
 mWaitThread(NULL),
 mAnswerManager(NULL),
 mSenderManager(NULL)
 {
-	PROTOCOL_INITIALIZE
+	TT_PROTOCOL_INITIALIZE
 	
 	addAttributeAsProtocolParameter(Port, kTypeUInt16);
     addAttributeAsProtocolParameter(HtmlPath, kTypeSymbol);

@@ -2,7 +2,7 @@
 #  - TT_PROTOCOL_DEBUG
 
 sources:
-  - ../../library/source/Protocol.cpp
+  - ../../library/source/TTProtocol.cpp
   - source/MIDI.cpp
   - source/MIDIDestination.cpp
   - source/MIDIInput.cpp

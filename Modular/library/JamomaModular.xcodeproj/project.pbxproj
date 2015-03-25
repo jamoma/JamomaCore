@@ -8,7 +8,8 @@
 
 /* Begin PBXFileReference section */
 		22AD15D016596377002FD7E3 /* JamomaModular.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaModular.yml; sourceTree = "<group>"; };
-		4689BA981ABA137D00D1BA4E /* Protocol.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
+		46502A791AC2B9000067AB66 /* TTProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTProtocol.h; sourceTree = "<group>"; };
+		46502A7A1AC2B9130067AB66 /* TTProtocol.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTProtocol.cpp; sourceTree = "<group>"; };
 		4689BA991ABA137D00D1BA4E /* TTApplication.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
 		4689BA9A1ABA137D00D1BA4E /* TTApplicationManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplicationManager.cpp; sourceTree = "<group>"; };
 		4689BA9B1ABA137D00D1BA4E /* TTClock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTClock.cpp; sourceTree = "<group>"; };
@@ -38,7 +39,6 @@
 		4689BAB31ABA137D00D1BA4E /* TTTextHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTTextHandler.cpp; sourceTree = "<group>"; };
 		4689BAB41ABA137D00D1BA4E /* TTViewer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTViewer.cpp; sourceTree = "<group>"; };
 		4689BAB51ABA137D00D1BA4E /* TTXmlHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTXmlHandler.cpp; sourceTree = "<group>"; };
-		4689BAB61ABA139200D1BA4E /* Protocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
 		4689BAB71ABA139200D1BA4E /* TTApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; };
 		4689BAB81ABA139200D1BA4E /* TTApplicationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTApplicationManager.h; sourceTree = "<group>"; };
 		4689BAB91ABA139200D1BA4E /* TTClock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTClock.h; sourceTree = "<group>"; };
@@ -99,7 +99,6 @@
 		D246015614A0A97B004CC4FD /* includes */ = {
 			isa = PBXGroup;
 			children = (
-				4689BAB61ABA139200D1BA4E /* Protocol.h */,
 				4689BAB71ABA139200D1BA4E /* TTApplication.h */,
 				4689BAB81ABA139200D1BA4E /* TTApplicationManager.h */,
 				4689BAB91ABA139200D1BA4E /* TTClock.h */,
@@ -123,6 +122,7 @@
 				4689BACB1ABA139200D1BA4E /* TTOutputAudio.h */,
 				4689BACC1ABA139200D1BA4E /* TTPreset.h */,
 				4689BACD1ABA139200D1BA4E /* TTPresetManager.h */,
+				46502A791AC2B9000067AB66 /* TTProtocol.h */,
 				4689BACE1ABA139200D1BA4E /* TTRamp.h */,
 				4689BACF1ABA139200D1BA4E /* TTReceiver.h */,
 				4689BAD01ABA139200D1BA4E /* TTScript.h */,
@@ -138,7 +138,6 @@
 		D246016214A0A98A004CC4FD /* source */ = {
 			isa = PBXGroup;
 			children = (
-				4689BA981ABA137D00D1BA4E /* Protocol.cpp */,
 				4689BA991ABA137D00D1BA4E /* TTApplication.cpp */,
 				4689BA9A1ABA137D00D1BA4E /* TTApplicationManager.cpp */,
 				4689BA9B1ABA137D00D1BA4E /* TTClock.cpp */,
@@ -160,6 +159,7 @@
 				4689BAAB1ABA137D00D1BA4E /* TTOutputAudio.cpp */,
 				4689BAAC1ABA137D00D1BA4E /* TTPreset.cpp */,
 				4689BAAD1ABA137D00D1BA4E /* TTPresetManager.cpp */,
+				46502A7A1AC2B9130067AB66 /* TTProtocol.cpp */,
 				4689BAAE1ABA137D00D1BA4E /* TTRamp.cpp */,
 				4689BAAF1ABA137D00D1BA4E /* TTReceiver.cpp */,
 				4689BAB01ABA137D00D1BA4E /* TTScript.cpp */,
@@ -195,7 +195,7 @@
 		229B5846149C0B0C0093389A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0620;
 			};
 			buildConfigurationList = 229B5849149C0B0C0093389A /* Build configuration list for PBXProject "JamomaModular" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -223,8 +223,10 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -257,9 +259,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;

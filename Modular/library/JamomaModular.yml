@@ -22,6 +22,7 @@ sources:
   - source/TTOutputAudio.cpp
   - source/TTPreset.cpp
   - source/TTPresetManager.cpp
+  - source/TTProtocol.cpp
   - source/TTRamp.cpp
   - source/TTReceiver.cpp
   - source/TTSender.cpp
@@ -30,7 +31,6 @@ sources:
   - source/TTTextHandler.cpp
   - source/TTViewer.cpp
   - source/TTXmlHandler.cpp
-  - source/Protocol.cpp
   - source/TTClock.cpp
   - tests/TTApplication.test.cpp
 
