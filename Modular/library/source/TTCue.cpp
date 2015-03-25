@@ -486,46 +486,42 @@ TTErr TTCue::processStore(TTObject aScript, const TTAddressItemPtr aSelection, T
 				if (anObject.valid()) {
 					
 					// DATA case : get value attribute
-					if (anObject.name() == kTTSym_Data) {
-						
+					if (anObject.name() == kTTSym_Data)
+                    {
 						v.clear();
 						anObject.get(kTTSym_service, v);
 						service = v[0];
 						
-						if (service != kTTSym_parameter) {
-							
-							// unselect this item from the namespace
-							instanceItem->setSelection(NO);
-							continue;
-						}
-						
-                        // create a line for each option of the item
-                        instanceOptions = instanceItem->getOptions();
-                        
-                        for (instanceOptions->begin(); instanceOptions->end(); instanceOptions->next()) {
+						if (service == kTTSym_parameter)
+                        {
+                            // create a line for each option of the item
+                            instanceOptions = instanceItem->getOptions();
                             
-                            option = instanceOptions->current()[0];
-                            
-                            if (option == kTTSymEmpty)
-                                option = kTTSym_value;
+                            for (instanceOptions->begin(); instanceOptions->end(); instanceOptions->next())
+                            {
+                                option = instanceOptions->current()[0];
                                 
-                            v.clear();
-                            anObject.get(option, v);
-                            
-                            if (v.empty())
-                                continue;
-                            
-                            if (option == kTTSym_value)
-                                address = TTAddress(nameInstance);
-                            else
-                                address = TTAddress(nameInstance).appendAttribute(option);
-                            
-                            // append a command line
-                            v.prepend(address);
-                            aScript.send("AppendCommand", v, parsedLine);
-                            
-                            // the script is not empty
-                            empty = NO;
+                                if (option == kTTSymEmpty)
+                                    option = kTTSym_value;
+                                
+                                v.clear();
+                                anObject.get(option, v);
+                                
+                                if (v.empty())
+                                    continue;
+                                
+                                if (option == kTTSym_value)
+                                    address = TTAddress(nameInstance);
+                                else
+                                    address = TTAddress(nameInstance).appendAttribute(option);
+                                
+                                // append a command line
+                                v.prepend(address);
+                                aScript.send("AppendCommand", v, parsedLine);
+                                
+                                // the script is not empty
+                                empty = NO;
+                            }
                         }
 					}
 				}
@@ -544,10 +540,10 @@ TTErr TTCue::processStore(TTObject aScript, const TTAddressItemPtr aSelection, T
 				err = processStore(aSubScript, instanceItem, aNode);
 				
 				// if the sub script is not empty
-				if (!err) {
-					
-					if (anObject.valid()) {
-						
+				if (!err)
+                {
+					if (anObject.valid())
+                    {
 						// CONTAINER case : append a comment line to the script before the sub script line
 						if (anObject.name() == kTTSym_Container)
 							aScript.send("AppendComment", none, parsedLine);
@@ -560,6 +556,11 @@ TTErr TTCue::processStore(TTObject aScript, const TTAddressItemPtr aSelection, T
 					// the script is not empty
 					empty = NO;
 				}
+                else
+                {
+                    // unselect this item from the namespace
+                    instanceItem->setSelection(NO);
+                }
             }
 		}
 	}

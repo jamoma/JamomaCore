@@ -139,19 +139,20 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 	// memorize this object because it could change if the handler is used recursively
 	aTTObject = mObject;
 	
-	if (args.size() == 1) {
-		
+	if (args.size() == 1)
+    {	
 		mIsReading = true;
 		
 		// if the first argument is kTypeSymbol : get the path of the file to read
-		if (args[0].type() == kTypeSymbol) {
-			
+		if (args[0].type() == kTypeSymbol)
+        {
 			mFilePath = args[0];
 			
 			std::ifstream file(mFilePath.c_str());
 			
-			if (!file.is_open()) {
-				TT_ASSERT("TTTextHandler: Error opening the text file\n", true);
+			if (!file.is_open())
+            {
+				TT_ASSERT("TTTextHandler::Read : Error opening the text file\n", true);
 				return kTTErrGeneric;
 			}
 			
@@ -159,14 +160,13 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 			mFirstLine = YES;
 			mLastLine = NO;
 			
-			while (!file.eof()) {
-				
-				// parse line
-                char c_line[1024];
-				file.getline(c_line, 1024);
-                
-                TTString s_line = TTString(c_line);
-				mLine = new TTValue(s_line);
+			while (!file.eof())
+            {
+				// parse line                
+                std::string s_line;
+                std::getline(file, s_line);
+
+				mLine = new TTValue(TTString(s_line));
 				mLine->fromString();
 				
 				aTTObject.send("ReadFromText", TTObject(this), none);
@@ -221,7 +221,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 					
 					// check for a next line
 					last = found+1;
-					if (last < size) {
+					if (last <= size) {
 						found = mReader->find_first_of('\n', last);
 						found = found < size ? found : size;
 					}
