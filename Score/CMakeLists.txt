@@ -16,9 +16,6 @@ target_include_directories(TimePluginLib PUBLIC "${PROJECT_SOURCE_DIR}/extension
 target_include_directories(TimePluginLib PUBLIC "${PROJECT_SOURCE_DIR}/library/includes")
 target_include_directories(TimePluginLib PUBLIC $<TARGET_PROPERTY:Foundation,INTERFACE_INCLUDE_DIRECTORIES>)
 target_include_directories(TimePluginLib PUBLIC $<TARGET_PROPERTY:Modular,INTERFACE_INCLUDE_DIRECTORIES>)
-target_include_directories(TimePluginLib PUBLIC $<TARGET_PROPERTY:ProtocolLib,INTERFACE_INCLUDE_DIRECTORIES>)
-target_include_directories(TimePluginLib PUBLIC $<TARGET_PROPERTY:SchedulerLib,INTERFACE_INCLUDE_DIRECTORIES>)
-target_include_directories(TimePluginLib PUBLIC $<TARGET_PROPERTY:PeerObject,INTERFACE_INCLUDE_DIRECTORIES>)
 
 add_subdirectory(library)
 add_subdirectory(extensions)

@@ -7,7 +7,7 @@ if(ANDROID OR (WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8))
 endif()
 
 set(PROJECT_SRCS
-$<TARGET_OBJECTS:ProtocolLib>
+	$<TARGET_OBJECTS:TTProtocol>
 ${CMAKE_CURRENT_SOURCE_DIR}/source/WebSocket.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/WebSocketAnswer.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/WebSocketAnswerManager.cpp
@@ -30,7 +30,6 @@ ${CMAKE_CURRENT_SOURCE_DIR}/libjson/_internal/Source/libjson.cpp
 
 include_directories("${PROJECT_SOURCE_DIR}/")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories($<TARGET_PROPERTY:ProtocolLib,INTERFACE_INCLUDE_DIRECTORIES>)
 include_directories("${PROJECT_SOURCE_DIR}/libjson")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")

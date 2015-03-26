@@ -9,7 +9,7 @@ set(PROJECT_SRCS
 $<TARGET_OBJECTS:TimePluginLib>
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTScore.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTCurve.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/Expression.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTExpression.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTTimeCondition.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTTimeContainer.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTTimeEvent.cpp
