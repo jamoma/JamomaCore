@@ -13,20 +13,8 @@
 
 #include "TTSymbolCache.h"
 
-#ifdef TT_PLATFORM_WIN
-	#include <hash_map>
-	using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
-	typedef hash_map<TTPtrSizedInt,TTValue>			TTHashMap;
-#else
-//	#ifdef TT_PLATFORM_LINUX
-		// at least for GCC 4.6 on the BeagleBoard, the unordered map is standard
-		#include <unordered_map>
-//	#else
-//		#include "boost/unordered_map.hpp"
-//		using namespace boost;
-//	#endif
+#include <unordered_map>
 typedef std::unordered_map<TTPtrSizedInt,TTValue>	TTHashMap;
-#endif
 
 typedef TTHashMap::const_iterator	TTHashMapIter;
 #define HASHMAP  ((TTHashMap*)(mHashMap))
@@ -35,16 +23,13 @@ typedef TTHashMap::const_iterator	TTHashMapIter;
 /****************************************************************************************************/
 
 TTHash::TTHash()
-			:mThreadProtection(NO)
 {
 	mHashMap = new TTHashMap;
-	mMutex = new TTMutex(false);
 }
 
 
 TTHash::~TTHash()
 {
-	delete mMutex;
 	delete HASHMAP;
 }
 
@@ -52,7 +37,6 @@ TTHash::~TTHash()
 TTHash::TTHash(TTHash& that)
 {
 	mHashMap = new TTHashMap;
-	mMutex = new TTMutex(false);
 
 	*HASHMAP = *((TTHashMap*)that.mHashMap);
 }
@@ -60,9 +44,8 @@ TTHash::TTHash(TTHash& that)
 
 TTErr TTHash::append(const TTPtr key, const TTValue& value)
 {
-	lock();
+	auto locker = acquireLock();
 	HASHMAP->insert(TTKeyVal(TTPtrSizedInt(key), value));
-	unlock();
 	return kTTErrNone;
 }
 
@@ -81,73 +64,57 @@ TTErr TTHash::lookup(const TTSymbol key, TTValue& value)
 
 TTErr TTHash::lookup(const TTPtr key, TTValue& value)
 {
-	lock();
+	auto locker = acquireLock();
 	TTHashMap* theMap = (TTHashMap*)mHashMap;
 	TTHashMapIter iter = theMap->find(TTPtrSizedInt(key));
-
-	//	TTPtrSizedInt a = iter->first;
-	//	TTSymbol*     b = (TTSymbol*)a;
-	//	TTValue			v = iter->second;
-	//	TTValue v = (*theMap)[TTPtrSizedInt(&key)];
 
 	if (theMap->end() != iter)
 	{
 		value = iter->second;
-		unlock();
 		return kTTErrNone;
 	}
-	else {
-		unlock();
-		return kTTErrValueNotFound;
 
-	}
+	return kTTErrValueNotFound;
 }
 
 
 
 TTErr TTHash::remove(const TTSymbol key)
 {
-	lock();
+	auto locker = acquireLock();
 	HASHMAP->erase(TTPtrSizedInt(key.rawpointer()));
-	unlock();
 	return kTTErrNone;
 }
 
 
 TTErr TTHash::clear()
 {
-	lock();
+	auto locker = acquireLock();
 	HASHMAP->clear();
-	unlock();
 	return kTTErrNone;
 }
 
 
 TTErr TTHash::getKeys(TTValue& hashKeys)
 {
-	lock();
+	auto locker = acquireLock();
 	hashKeys.clear();
-
-//#define HASHMAP  ((TTHashMap*)(mHashMap))
-//#define mHASHMAP (*HASHMAP)
 
 	TTHashMap* theMap = (TTHashMap*)mHashMap;
 
 	for (TTHashMapIter iter = theMap->begin(); iter != theMap->end(); iter++) {
 		TTPtrSizedInt	a = iter->first;
 		TTSymbol		b((TTSymbolBase*)a);
-		//TTValue		  v = iter->second;
-		//hashKeys.append(TTSymbolRef(*(TTSymbol*)iter->first));
+
 		hashKeys.append(b);
 	}
-	unlock();
 	return kTTErrNone;
 }
 
 
 TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(*comparisonFunction)(TTValue&, TTValue&))
 {
-	lock();
+	auto locker = acquireLock();
 	TTList		listToSort;
 	TTValue		v;
 	TTSymbol	key;
@@ -180,18 +147,17 @@ TTErr TTHash::getKeysSorted(TTValue& hashKeysSorted, TTBoolean(*comparisonFuncti
 			hashKeysSorted.append(listToSort.current());
 	}
 
-	unlock();
 	return kTTErrNone;
 }
 
 
 TTErr TTHash::iterate(const TTPtr target, const TTHashIteratorType callback)
 {
-	lock();
+	auto locker = acquireLock();
 
 	for (TTHashMapIter iter = HASHMAP->begin(); iter != HASHMAP->end(); iter++)
 		callback(target, *iter);
-	unlock();
+
 	return kTTErrNone;
 }
 
@@ -207,17 +173,7 @@ TTBoolean TTHash::isEmpty()
 	return HASHMAP->empty();
 }
 
-
-void TTHash::lock()
+std::unique_lock<std::mutex> TTHash::acquireLock()
 {
-	if (mThreadProtection)
-		mMutex->lock();
+	return mThreadProtection ? std::unique_lock<std::mutex>{mMutex} : std::unique_lock<std::mutex>{};
 }
-
-
-void TTHash::unlock()
-{
-	if (mThreadProtection)
-		mMutex->unlock();
-}
-
