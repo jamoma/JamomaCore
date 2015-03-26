@@ -287,7 +287,7 @@ else
 
 		if printedprojname.end_with? "_tilda"
 			printedprojname.slice! "_tilda"
-			printedprojname << ""
+			printedprojname << "~"
 		end
 		printedprojname = "#{printedprojname} ".ljust(27, '.')
 
