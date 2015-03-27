@@ -49,8 +49,8 @@ mFileVersion(kTTSymEmpty)
     addAttributeWithSetter(ViewPosition, kTypeLocalValue);
     
     // needed to be notified by scheduler speed change
-    addMessageWithArguments(SchedulerSpeedChanged);
-    addMessageProperty(SchedulerSpeedChanged, hidden, YES);
+    addMessageWithArguments(ClockSpeedChanged);
+    addMessageProperty(ClockSpeedChanged, hidden, YES);
 
     addMessageWithArguments(Next);
     
@@ -114,7 +114,7 @@ mFileVersion(kTTSymEmpty)
         this->setEndEvent(end);
     }
     
-    mScheduler.set("granularity", TTFloat64(1.));
+    mClock.set("granularity", TTFloat64(1.));
 }
 
 Scenario::~Scenario()
@@ -208,7 +208,7 @@ TTErr Scenario::Compile()
         return kTTErrGeneric;
     
     // get scheduler time offset
-    mScheduler.get(kTTSym_offset, v);
+    mClock.get(kTTSym_offset, v);
     timeOffset = TTFloat64(v[0]);
     
     // compile all time processes if they need to be compiled and propagate the externalTick attribute
@@ -241,7 +241,7 @@ TTErr Scenario::ProcessStart()
     
     // sort events in 2 lists depending of their time process position relative to the time offset
     TTValue v;
-    mScheduler.get(kTTSym_offset, v);
+    mClock.get(kTTSym_offset, v);
     TTUInt32 timeOffset = v[0];
     
     TTList eventsToSetHappened;
@@ -411,12 +411,12 @@ TTErr Scenario::Goto(const TTValue& inputValue, TTValue& outputValue)
         {
             this->getAttributeValue(kTTSym_duration, v);
             
-            // TODO : TTTimeProcess should extend Scheduler class ?
+            // TODO : TTTimeProcess should extend Clock class ?
             duration = v[0];
-            mScheduler.set(kTTSym_duration, TTFloat64(duration));
+            mClock.set(kTTSym_duration, TTFloat64(duration));
             
             timeOffset = inputValue[0];
-            mScheduler.set(kTTSym_offset, TTFloat64(timeOffset));
+            mClock.set(kTTSym_offset, TTFloat64(timeOffset));
             
             // is the recall of the state is muted ?
             if (inputValue.size() == 2)
@@ -1053,9 +1053,9 @@ TTErr Scenario::EventConditionChanged(const TTValue& inputValue, TTValue& output
     return kTTErrNone;
 }
 
-TTErr Scenario::SchedulerSpeedChanged(const TTValue& inputValue, TTValue& outputValue)
+TTErr Scenario::ClockSpeedChanged(const TTValue& inputValue, TTValue& outputValue)
 {
-    TT_ASSERT("TTTimeContainer::SchedulerSpeedChanged : inputValue is correct", inputValue.size() == 1 && inputValue[0].type() == kTypeFloat64);
+    TT_ASSERT("TTTimeContainer::ClockSpeedChanged : inputValue is correct", inputValue.size() == 1 && inputValue[0].type() == kTypeFloat64);
     
     // for each time process of the scenario
     for (mTimeProcesses.begin(); mTimeProcesses.end(); mTimeProcesses.next())
@@ -1063,11 +1063,11 @@ TTErr Scenario::SchedulerSpeedChanged(const TTValue& inputValue, TTValue& output
         TTObject aTimeProcess = mTimeProcesses.current()[0];
         
         // get the actual time process scheduler
-        TTObject aScheduler;
-        aTimeProcess.get("scheduler", aScheduler);
+        TTObject aClock;
+        aTimeProcess.get("scheduler", aClock);
         
         // set the time process scheduler speed value with the container scheduler speed value
-        aScheduler.set(kTTSym_speed, inputValue);
+        aClock.set(kTTSym_speed, inputValue);
     }
     
     return kTTErrNone;

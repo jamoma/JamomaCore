@@ -2,7 +2,7 @@
 #  - TT_PROTOCOL_DEBUG
 
 sources:
-  - ../../library/ProtocolLib/Protocol.cpp		
+  - ../../library/source/TTProtocol.cpp
   - source/Minuit.cpp
   - source/MinuitAnswer.cpp
   - source/MinuitAnswerManager.cpp
@@ -11,7 +11,7 @@ sources:
 includes:
   - "."
   - "includes"
-  - "../../library/ProtocolLib"
+  - "../../library/includes"
   - "../../../../Core/Foundation/library/includes"
 
 libraries:

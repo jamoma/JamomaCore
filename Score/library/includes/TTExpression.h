@@ -2,9 +2,9 @@
  *
  * @ingroup scoreLibrary
  *
- * @brief an Expression is a parsed symbol containing an address a logical operator and a value
+ * @brief a TTExpression is a parsed symbol containing an address a logical operator and a value
  *
- * @details The Expression class allows to retreive easily each part of a logical expression symbol @n@n
+ * @details The TTExpression class allows to retreive easily each part of a logical expression symbol @n@n
  *
  * @see TTimeCondition
  *
@@ -15,16 +15,16 @@
  * http://www.cecill.info
  */
 
-#ifndef __EXPRESSION_H__
-#define __EXPRESSION_H__
+#ifndef __TT_EXPRESSION_H__
+#define __TT_EXPRESSION_H__
 
 #include "TTScoreIncludes.h"
 
-/**	The Expression class allows to retreive easily each part of a logical expression symbol
+/**	The TTExpression class allows to retreive easily each part of a logical expression symbol
  
  @see TTimeCondition
  */
-class Expression : public TTSymbol
+class TTExpression : public TTSymbol
 {
 private:
     
@@ -34,15 +34,15 @@ private:
 
 public:
     
-    /** Expression Constructor */
-    Expression() :
+    /** TTExpression Constructor */
+    TTExpression() :
     mAddress(kTTAdrsEmpty),
     mOperator(kTTSymEmpty)
     {
         mSymbolPointer = gTTAddressTable.lookup("");
     }
     
-    Expression(const char *cstr)
+    TTExpression(const char *cstr)
     {
         mSymbolPointer = gTTAddressTable.lookup(cstr);
         
@@ -51,7 +51,7 @@ public:
         parse(toParse);
     }
     
-    Expression(const TTString& aString)
+    TTExpression(const TTString& aString)
     {
         mSymbolPointer = gTTSymbolTable.lookup(aString);
         
@@ -60,8 +60,8 @@ public:
         parse(toParse);
     }
     
-    /** Expression Destructor */
-    virtual ~Expression()
+    /** TTExpression Destructor */
+    virtual ~TTExpression()
     {;}
     
     /** Get the expression address
@@ -88,13 +88,13 @@ private:
     void                parse(TTValue& toParse);
 };
 
-typedef Expression* ExpressionPtr;
+typedef TTExpression* TTExpressionPtr;
 
 /** The case receiver callback return back the value of observed address
  @param	toParse             a value : <address operator value>
  @param	anExpression        the parsed expression
  @return					an error code */
-void TTSCORE_EXPORT ExpressionParseFromValue(const TTValue& toParse, Expression& anExpression);
+void TTSCORE_EXPORT TTExpressionParseFromValue(const TTValue& toParse, TTExpression& anExpression);
 
 
-#endif // __EXPRESSION_H__
+#endif // __TT_EXPRESSION_H__

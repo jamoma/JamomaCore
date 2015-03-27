@@ -14,7 +14,7 @@
  */
 
 #include "TTApplicationManager.h"
-#include "Protocol.h"
+#include "TTProtocol.h"
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 #include <libxml/xmlreader.h>
@@ -1379,14 +1379,14 @@ TTValue TTApplicationManager::getApplicationProtocolNames(TTSymbol applicationNa
     return result;
 }
 
-ProtocolPtr TTApplicationManager::findProtocol(TTSymbol protocolName)
+TTProtocolPtr TTApplicationManager::findProtocol(TTSymbol protocolName)
 {
     TTValue v;
     
     if (!mProtocols.lookup(protocolName, v)) {
         // TODO: How to use TTObject instead of TTObjectBasePtr here ?
         TTObject aProtocol = v[0];
-        return ProtocolPtr(aProtocol.instance());
+        return TTProtocolPtr(aProtocol.instance());
     }
     else {
         

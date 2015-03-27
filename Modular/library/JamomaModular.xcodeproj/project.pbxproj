@@ -7,72 +7,72 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		2202FDC61762320C002EC750 /* TTInputAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTInputAudio.cpp; sourceTree = "<group>"; };
-		2202FDC71762320D002EC750 /* TTInputAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTInputAudio.h; sourceTree = "<group>"; };
-		2202FDC817623264002EC750 /* TTOutputAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOutputAudio.cpp; sourceTree = "<group>"; };
-		2202FDC917623264002EC750 /* TTOutputAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOutputAudio.h; sourceTree = "<group>"; };
 		22AD15D016596377002FD7E3 /* JamomaModular.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = JamomaModular.yml; sourceTree = "<group>"; };
-		461F645A18C4FA5100CB7640 /* TTNodeInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTNodeInfo.cpp; sourceTree = "<group>"; };
-		461F645B18C4FA5100CB7640 /* TTNodeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNodeInfo.h; sourceTree = "<group>"; };
-		4698F0E316BC49E800E8F574 /* TTDataTypedMethods.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataTypedMethods.cpp; sourceTree = "<group>"; };
+		46502A791AC2B9000067AB66 /* TTProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTProtocol.h; sourceTree = "<group>"; };
+		46502A7A1AC2B9130067AB66 /* TTProtocol.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTProtocol.cpp; sourceTree = "<group>"; };
+		4689BA991ABA137D00D1BA4E /* TTApplication.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
+		4689BA9A1ABA137D00D1BA4E /* TTApplicationManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplicationManager.cpp; sourceTree = "<group>"; };
+		4689BA9B1ABA137D00D1BA4E /* TTClock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTClock.cpp; sourceTree = "<group>"; };
+		4689BA9C1ABA137D00D1BA4E /* TTContainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTContainer.cpp; sourceTree = "<group>"; };
+		4689BA9D1ABA137D00D1BA4E /* TTCue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTCue.cpp; sourceTree = "<group>"; };
+		4689BA9E1ABA137D00D1BA4E /* TTCueManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTCueManager.cpp; sourceTree = "<group>"; };
+		4689BA9F1ABA137D00D1BA4E /* TTData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTData.cpp; sourceTree = "<group>"; };
+		4689BAA01ABA137D00D1BA4E /* TTDataTypedMethods.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTDataTypedMethods.cpp; sourceTree = "<group>"; };
+		4689BAA11ABA137D00D1BA4E /* TTExplorer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTExplorer.cpp; sourceTree = "<group>"; };
+		4689BAA21ABA137D00D1BA4E /* TTInput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTInput.cpp; sourceTree = "<group>"; };
+		4689BAA31ABA137D00D1BA4E /* TTInputAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTInputAudio.cpp; sourceTree = "<group>"; };
+		4689BAA41ABA137D00D1BA4E /* TTMapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapper.cpp; sourceTree = "<group>"; };
+		4689BAA51ABA137D00D1BA4E /* TTMapperManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapperManager.cpp; sourceTree = "<group>"; };
+		4689BAA61ABA137D00D1BA4E /* TTMirror.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTMirror.cpp; sourceTree = "<group>"; };
+		4689BAA71ABA137D00D1BA4E /* TTModular.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTModular.cpp; sourceTree = "<group>"; };
+		4689BAA81ABA137D00D1BA4E /* TTNodeInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTNodeInfo.cpp; sourceTree = "<group>"; };
+		4689BAA91ABA137D00D1BA4E /* TTOpmlHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOpmlHandler.cpp; sourceTree = "<group>"; };
+		4689BAAA1ABA137D00D1BA4E /* TTOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOutput.cpp; sourceTree = "<group>"; };
+		4689BAAB1ABA137D00D1BA4E /* TTOutputAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOutputAudio.cpp; sourceTree = "<group>"; };
+		4689BAAC1ABA137D00D1BA4E /* TTPreset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTPreset.cpp; sourceTree = "<group>"; };
+		4689BAAD1ABA137D00D1BA4E /* TTPresetManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTPresetManager.cpp; sourceTree = "<group>"; };
+		4689BAAE1ABA137D00D1BA4E /* TTRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTRamp.cpp; sourceTree = "<group>"; };
+		4689BAAF1ABA137D00D1BA4E /* TTReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTReceiver.cpp; sourceTree = "<group>"; };
+		4689BAB01ABA137D00D1BA4E /* TTScript.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTScript.cpp; sourceTree = "<group>"; };
+		4689BAB11ABA137D00D1BA4E /* TTSender.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTSender.cpp; sourceTree = "<group>"; };
+		4689BAB21ABA137D00D1BA4E /* TTSubscriber.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTSubscriber.cpp; sourceTree = "<group>"; };
+		4689BAB31ABA137D00D1BA4E /* TTTextHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTTextHandler.cpp; sourceTree = "<group>"; };
+		4689BAB41ABA137D00D1BA4E /* TTViewer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTViewer.cpp; sourceTree = "<group>"; };
+		4689BAB51ABA137D00D1BA4E /* TTXmlHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTXmlHandler.cpp; sourceTree = "<group>"; };
+		4689BAB71ABA139200D1BA4E /* TTApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; };
+		4689BAB81ABA139200D1BA4E /* TTApplicationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTApplicationManager.h; sourceTree = "<group>"; };
+		4689BAB91ABA139200D1BA4E /* TTClock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTClock.h; sourceTree = "<group>"; };
+		4689BABA1ABA139200D1BA4E /* TTContainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTContainer.h; sourceTree = "<group>"; };
+		4689BABB1ABA139200D1BA4E /* TTCue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTCue.h; sourceTree = "<group>"; };
+		4689BABC1ABA139200D1BA4E /* TTCueManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTCueManager.h; sourceTree = "<group>"; };
+		4689BABD1ABA139200D1BA4E /* TTData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTData.h; sourceTree = "<group>"; };
+		4689BABE1ABA139200D1BA4E /* TTExplorer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTExplorer.h; sourceTree = "<group>"; };
+		4689BABF1ABA139200D1BA4E /* TTInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTInput.h; sourceTree = "<group>"; };
+		4689BAC01ABA139200D1BA4E /* TTInputAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTInputAudio.h; sourceTree = "<group>"; };
+		4689BAC11ABA139200D1BA4E /* TTMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTMapper.h; sourceTree = "<group>"; };
+		4689BAC21ABA139200D1BA4E /* TTMapperManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTMapperManager.h; sourceTree = "<group>"; };
+		4689BAC31ABA139200D1BA4E /* TTMirror.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTMirror.h; sourceTree = "<group>"; };
+		4689BAC41ABA139200D1BA4E /* TTModular.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModular.h; sourceTree = "<group>"; };
+		4689BAC51ABA139200D1BA4E /* TTModularIncludes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularIncludes.h; sourceTree = "<group>"; };
+		4689BAC61ABA139200D1BA4E /* TTModularVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
+		4689BAC71ABA139200D1BA4E /* TTModularVersion.template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.template.h; sourceTree = "<group>"; };
+		4689BAC81ABA139200D1BA4E /* TTNodeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNodeInfo.h; sourceTree = "<group>"; };
+		4689BAC91ABA139200D1BA4E /* TTOpmlHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOpmlHandler.h; sourceTree = "<group>"; };
+		4689BACA1ABA139200D1BA4E /* TTOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOutput.h; sourceTree = "<group>"; };
+		4689BACB1ABA139200D1BA4E /* TTOutputAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOutputAudio.h; sourceTree = "<group>"; };
+		4689BACC1ABA139200D1BA4E /* TTPreset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTPreset.h; sourceTree = "<group>"; };
+		4689BACD1ABA139200D1BA4E /* TTPresetManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTPresetManager.h; sourceTree = "<group>"; };
+		4689BACE1ABA139200D1BA4E /* TTRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTRamp.h; sourceTree = "<group>"; };
+		4689BACF1ABA139200D1BA4E /* TTReceiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTReceiver.h; sourceTree = "<group>"; };
+		4689BAD01ABA139200D1BA4E /* TTScript.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTScript.h; sourceTree = "<group>"; };
+		4689BAD11ABA139200D1BA4E /* TTSender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTSender.h; sourceTree = "<group>"; };
+		4689BAD21ABA139200D1BA4E /* TTSubscriber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTSubscriber.h; sourceTree = "<group>"; };
+		4689BAD31ABA139200D1BA4E /* TTTextHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTTextHandler.h; sourceTree = "<group>"; };
+		4689BAD41ABA139200D1BA4E /* TTViewer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTViewer.h; sourceTree = "<group>"; };
+		4689BAD51ABA139200D1BA4E /* TTXmlHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTXmlHandler.h; sourceTree = "<group>"; };
 		46A2C4F118C4CB8D001ACBD5 /* TTApplication.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.test.cpp; sourceTree = "<group>"; };
 		46A2C4F218C4CDA8001ACBD5 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		46A2C4F318C4CF54001ACBD5 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		46A6E86016CAAB14002E6A40 /* TTRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTRamp.cpp; sourceTree = "<group>"; };
-		46A6E86116CAAB14002E6A40 /* TTRamp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTRamp.h; sourceTree = "<group>"; };
-		46A6E86216CABFD3002E6A40 /* Scheduler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scheduler.cpp; sourceTree = "<group>"; };
-		46A6E86316CABFD3002E6A40 /* Scheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
-		46C2B9F2189172AF008179EF /* TTModular.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModular.h; sourceTree = "<group>"; };
-		46C2B9F3189172BF008179EF /* TTModular.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTModular.cpp; sourceTree = "<group>"; };
-		D220FB4614A21628005607C3 /* Protocol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protocol.cpp; sourceTree = "<group>"; };
-		D220FB4714A21628005607C3 /* Protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocol.h; sourceTree = "<group>"; };
-		D246012C14A0A96C004CC4FD /* TTApplication.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplication.cpp; sourceTree = "<group>"; };
-		D246012D14A0A96C004CC4FD /* TTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplication.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
-		D246012E14A0A96C004CC4FD /* TTApplicationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTApplicationManager.cpp; sourceTree = "<group>"; };
-		D246012F14A0A96C004CC4FD /* TTApplicationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTApplicationManager.h; sourceTree = "<group>"; };
-		D246013014A0A96C004CC4FD /* TTContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTContainer.cpp; sourceTree = "<group>"; };
-		D246013114A0A96C004CC4FD /* TTContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTContainer.h; sourceTree = "<group>"; };
-		D246013214A0A96C004CC4FD /* TTCue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTCue.cpp; sourceTree = "<group>"; };
-		D246013314A0A96C004CC4FD /* TTCue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCue.h; sourceTree = "<group>"; };
-		D246013414A0A96C004CC4FD /* TTCueManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTCueManager.cpp; sourceTree = "<group>"; };
-		D246013514A0A96C004CC4FD /* TTCueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCueManager.h; sourceTree = "<group>"; };
-		D246013614A0A96C004CC4FD /* TTData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTData.cpp; sourceTree = "<group>"; };
-		D246013714A0A96C004CC4FD /* TTData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTData.h; sourceTree = "<group>"; };
-		D246013814A0A96C004CC4FD /* TTExplorer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTExplorer.cpp; sourceTree = "<group>"; };
-		D246013914A0A96C004CC4FD /* TTExplorer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTExplorer.h; sourceTree = "<group>"; };
-		D246013A14A0A96C004CC4FD /* TTInput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTInput.cpp; sourceTree = "<group>"; };
-		D246013B14A0A96C004CC4FD /* TTInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTInput.h; sourceTree = "<group>"; };
-		D246013C14A0A96C004CC4FD /* TTMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapper.cpp; sourceTree = "<group>"; };
-		D246013D14A0A96C004CC4FD /* TTMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapper.h; sourceTree = "<group>"; };
-		D246013E14A0A96C004CC4FD /* TTMapperManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMapperManager.cpp; sourceTree = "<group>"; };
-		D246013F14A0A96C004CC4FD /* TTMapperManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMapperManager.h; sourceTree = "<group>"; };
-		D246014014A0A96C004CC4FD /* TTMirror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTMirror.cpp; sourceTree = "<group>"; };
-		D246014114A0A96C004CC4FD /* TTMirror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMirror.h; sourceTree = "<group>"; };
-		D246014214A0A96C004CC4FD /* TTOpmlHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOpmlHandler.cpp; sourceTree = "<group>"; };
-		D246014314A0A96C004CC4FD /* TTOpmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOpmlHandler.h; sourceTree = "<group>"; };
-		D246014414A0A96C004CC4FD /* TTOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTOutput.cpp; sourceTree = "<group>"; };
-		D246014514A0A96C004CC4FD /* TTOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOutput.h; sourceTree = "<group>"; };
-		D246014614A0A96C004CC4FD /* TTPreset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPreset.cpp; sourceTree = "<group>"; };
-		D246014714A0A96C004CC4FD /* TTPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPreset.h; sourceTree = "<group>"; };
-		D246014814A0A96C004CC4FD /* TTPresetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTPresetManager.cpp; sourceTree = "<group>"; };
-		D246014914A0A96C004CC4FD /* TTPresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPresetManager.h; sourceTree = "<group>"; };
-		D246014A14A0A96C004CC4FD /* TTReceiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTReceiver.cpp; sourceTree = "<group>"; };
-		D246014B14A0A96C004CC4FD /* TTReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTReceiver.h; sourceTree = "<group>"; };
-		D246014C14A0A96C004CC4FD /* TTSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSender.cpp; sourceTree = "<group>"; };
-		D246014D14A0A96C004CC4FD /* TTSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSender.h; sourceTree = "<group>"; };
-		D246014E14A0A96C004CC4FD /* TTSubscriber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTSubscriber.cpp; sourceTree = "<group>"; };
-		D246014F14A0A96C004CC4FD /* TTSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSubscriber.h; sourceTree = "<group>"; };
-		D246015014A0A96C004CC4FD /* TTTextHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTTextHandler.cpp; sourceTree = "<group>"; };
-		D246015114A0A96C004CC4FD /* TTTextHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTextHandler.h; sourceTree = "<group>"; };
-		D246015214A0A96C004CC4FD /* TTViewer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTViewer.cpp; sourceTree = "<group>"; };
-		D246015314A0A96C004CC4FD /* TTViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTViewer.h; sourceTree = "<group>"; };
-		D246015414A0A96C004CC4FD /* TTXmlHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTXmlHandler.cpp; sourceTree = "<group>"; };
-		D246015514A0A96C004CC4FD /* TTXmlHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTXmlHandler.h; sourceTree = "<group>"; };
-		D246015E14A0A97B004CC4FD /* TTModularIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularIncludes.h; sourceTree = "<group>"; };
-		D246016014A0A97B004CC4FD /* TTModularVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
-		D246016114A0A97B004CC4FD /* TTModularVersion.template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.template.h; sourceTree = "<group>"; };
-		D2B8F99C1546CE6200B93C6C /* TTScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTScript.cpp; sourceTree = "<group>"; };
-		D2B8F99D1546CE6200B93C6C /* TTScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTScript.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -84,9 +84,6 @@
 				46A2C4F218C4CDA8001ACBD5 /* test.cpp */,
 				D246015614A0A97B004CC4FD /* includes */,
 				D246016214A0A98A004CC4FD /* source */,
-				D246012B14A0A96C004CC4FD /* PeerObject */,
-				D220FB4514A21628005607C3 /* ProtocolLib */,
-				46A6E85C16CA9352002E6A40 /* SchedulerLib */,
 				46A2C4F018C4CB8D001ACBD5 /* tests */,
 			);
 			sourceTree = "<group>";
@@ -99,91 +96,41 @@
 			path = tests;
 			sourceTree = "<group>";
 		};
-		46A6E85C16CA9352002E6A40 /* SchedulerLib */ = {
-			isa = PBXGroup;
-			children = (
-				46A6E86316CABFD3002E6A40 /* Scheduler.h */,
-				46A6E86216CABFD3002E6A40 /* Scheduler.cpp */,
-			);
-			path = SchedulerLib;
-			sourceTree = "<group>";
-		};
-		D220FB4514A21628005607C3 /* ProtocolLib */ = {
-			isa = PBXGroup;
-			children = (
-				D220FB4714A21628005607C3 /* Protocol.h */,
-				D220FB4614A21628005607C3 /* Protocol.cpp */,
-			);
-			path = ProtocolLib;
-			sourceTree = "<group>";
-		};
-		D246012B14A0A96C004CC4FD /* PeerObject */ = {
-			isa = PBXGroup;
-			children = (
-				D246012D14A0A96C004CC4FD /* TTApplication.h */,
-				D246012C14A0A96C004CC4FD /* TTApplication.cpp */,
-				D246012F14A0A96C004CC4FD /* TTApplicationManager.h */,
-				D246012E14A0A96C004CC4FD /* TTApplicationManager.cpp */,
-				D246013114A0A96C004CC4FD /* TTContainer.h */,
-				D246013014A0A96C004CC4FD /* TTContainer.cpp */,
-				D246013314A0A96C004CC4FD /* TTCue.h */,
-				D246013214A0A96C004CC4FD /* TTCue.cpp */,
-				D246013514A0A96C004CC4FD /* TTCueManager.h */,
-				D246013414A0A96C004CC4FD /* TTCueManager.cpp */,
-				D246013714A0A96C004CC4FD /* TTData.h */,
-				D246013614A0A96C004CC4FD /* TTData.cpp */,
-				4698F0E316BC49E800E8F574 /* TTDataTypedMethods.cpp */,
-				D246013914A0A96C004CC4FD /* TTExplorer.h */,
-				D246013814A0A96C004CC4FD /* TTExplorer.cpp */,
-				D246013B14A0A96C004CC4FD /* TTInput.h */,
-				D246013A14A0A96C004CC4FD /* TTInput.cpp */,
-				2202FDC71762320D002EC750 /* TTInputAudio.h */,
-				2202FDC61762320C002EC750 /* TTInputAudio.cpp */,
-				D246013D14A0A96C004CC4FD /* TTMapper.h */,
-				D246013C14A0A96C004CC4FD /* TTMapper.cpp */,
-				D246013F14A0A96C004CC4FD /* TTMapperManager.h */,
-				D246013E14A0A96C004CC4FD /* TTMapperManager.cpp */,
-				D246014114A0A96C004CC4FD /* TTMirror.h */,
-				D246014014A0A96C004CC4FD /* TTMirror.cpp */,
-				461F645B18C4FA5100CB7640 /* TTNodeInfo.h */,
-				461F645A18C4FA5100CB7640 /* TTNodeInfo.cpp */,
-				D246014314A0A96C004CC4FD /* TTOpmlHandler.h */,
-				D246014214A0A96C004CC4FD /* TTOpmlHandler.cpp */,
-				D246014514A0A96C004CC4FD /* TTOutput.h */,
-				D246014414A0A96C004CC4FD /* TTOutput.cpp */,
-				2202FDC917623264002EC750 /* TTOutputAudio.h */,
-				2202FDC817623264002EC750 /* TTOutputAudio.cpp */,
-				D246014714A0A96C004CC4FD /* TTPreset.h */,
-				D246014614A0A96C004CC4FD /* TTPreset.cpp */,
-				D246014914A0A96C004CC4FD /* TTPresetManager.h */,
-				D246014814A0A96C004CC4FD /* TTPresetManager.cpp */,
-				46A6E86116CAAB14002E6A40 /* TTRamp.h */,
-				46A6E86016CAAB14002E6A40 /* TTRamp.cpp */,
-				D246014B14A0A96C004CC4FD /* TTReceiver.h */,
-				D246014A14A0A96C004CC4FD /* TTReceiver.cpp */,
-				D246014D14A0A96C004CC4FD /* TTSender.h */,
-				D246014C14A0A96C004CC4FD /* TTSender.cpp */,
-				D2B8F99D1546CE6200B93C6C /* TTScript.h */,
-				D2B8F99C1546CE6200B93C6C /* TTScript.cpp */,
-				D246014F14A0A96C004CC4FD /* TTSubscriber.h */,
-				D246014E14A0A96C004CC4FD /* TTSubscriber.cpp */,
-				D246015114A0A96C004CC4FD /* TTTextHandler.h */,
-				D246015014A0A96C004CC4FD /* TTTextHandler.cpp */,
-				D246015314A0A96C004CC4FD /* TTViewer.h */,
-				D246015214A0A96C004CC4FD /* TTViewer.cpp */,
-				D246015514A0A96C004CC4FD /* TTXmlHandler.h */,
-				D246015414A0A96C004CC4FD /* TTXmlHandler.cpp */,
-			);
-			path = PeerObject;
-			sourceTree = "<group>";
-		};
 		D246015614A0A97B004CC4FD /* includes */ = {
 			isa = PBXGroup;
 			children = (
-				46C2B9F2189172AF008179EF /* TTModular.h */,
-				D246015E14A0A97B004CC4FD /* TTModularIncludes.h */,
-				D246016014A0A97B004CC4FD /* TTModularVersion.h */,
-				D246016114A0A97B004CC4FD /* TTModularVersion.template.h */,
+				4689BAB71ABA139200D1BA4E /* TTApplication.h */,
+				4689BAB81ABA139200D1BA4E /* TTApplicationManager.h */,
+				4689BAB91ABA139200D1BA4E /* TTClock.h */,
+				4689BABA1ABA139200D1BA4E /* TTContainer.h */,
+				4689BABB1ABA139200D1BA4E /* TTCue.h */,
+				4689BABC1ABA139200D1BA4E /* TTCueManager.h */,
+				4689BABD1ABA139200D1BA4E /* TTData.h */,
+				4689BABE1ABA139200D1BA4E /* TTExplorer.h */,
+				4689BABF1ABA139200D1BA4E /* TTInput.h */,
+				4689BAC01ABA139200D1BA4E /* TTInputAudio.h */,
+				4689BAC11ABA139200D1BA4E /* TTMapper.h */,
+				4689BAC21ABA139200D1BA4E /* TTMapperManager.h */,
+				4689BAC31ABA139200D1BA4E /* TTMirror.h */,
+				4689BAC41ABA139200D1BA4E /* TTModular.h */,
+				4689BAC51ABA139200D1BA4E /* TTModularIncludes.h */,
+				4689BAC61ABA139200D1BA4E /* TTModularVersion.h */,
+				4689BAC71ABA139200D1BA4E /* TTModularVersion.template.h */,
+				4689BAC81ABA139200D1BA4E /* TTNodeInfo.h */,
+				4689BAC91ABA139200D1BA4E /* TTOpmlHandler.h */,
+				4689BACA1ABA139200D1BA4E /* TTOutput.h */,
+				4689BACB1ABA139200D1BA4E /* TTOutputAudio.h */,
+				4689BACC1ABA139200D1BA4E /* TTPreset.h */,
+				4689BACD1ABA139200D1BA4E /* TTPresetManager.h */,
+				46502A791AC2B9000067AB66 /* TTProtocol.h */,
+				4689BACE1ABA139200D1BA4E /* TTRamp.h */,
+				4689BACF1ABA139200D1BA4E /* TTReceiver.h */,
+				4689BAD01ABA139200D1BA4E /* TTScript.h */,
+				4689BAD11ABA139200D1BA4E /* TTSender.h */,
+				4689BAD21ABA139200D1BA4E /* TTSubscriber.h */,
+				4689BAD31ABA139200D1BA4E /* TTTextHandler.h */,
+				4689BAD41ABA139200D1BA4E /* TTViewer.h */,
+				4689BAD51ABA139200D1BA4E /* TTXmlHandler.h */,
 			);
 			path = includes;
 			sourceTree = "<group>";
@@ -191,7 +138,36 @@
 		D246016214A0A98A004CC4FD /* source */ = {
 			isa = PBXGroup;
 			children = (
-				46C2B9F3189172BF008179EF /* TTModular.cpp */,
+				4689BA991ABA137D00D1BA4E /* TTApplication.cpp */,
+				4689BA9A1ABA137D00D1BA4E /* TTApplicationManager.cpp */,
+				4689BA9B1ABA137D00D1BA4E /* TTClock.cpp */,
+				4689BA9C1ABA137D00D1BA4E /* TTContainer.cpp */,
+				4689BA9D1ABA137D00D1BA4E /* TTCue.cpp */,
+				4689BA9E1ABA137D00D1BA4E /* TTCueManager.cpp */,
+				4689BA9F1ABA137D00D1BA4E /* TTData.cpp */,
+				4689BAA01ABA137D00D1BA4E /* TTDataTypedMethods.cpp */,
+				4689BAA11ABA137D00D1BA4E /* TTExplorer.cpp */,
+				4689BAA21ABA137D00D1BA4E /* TTInput.cpp */,
+				4689BAA31ABA137D00D1BA4E /* TTInputAudio.cpp */,
+				4689BAA41ABA137D00D1BA4E /* TTMapper.cpp */,
+				4689BAA51ABA137D00D1BA4E /* TTMapperManager.cpp */,
+				4689BAA61ABA137D00D1BA4E /* TTMirror.cpp */,
+				4689BAA71ABA137D00D1BA4E /* TTModular.cpp */,
+				4689BAA81ABA137D00D1BA4E /* TTNodeInfo.cpp */,
+				4689BAA91ABA137D00D1BA4E /* TTOpmlHandler.cpp */,
+				4689BAAA1ABA137D00D1BA4E /* TTOutput.cpp */,
+				4689BAAB1ABA137D00D1BA4E /* TTOutputAudio.cpp */,
+				4689BAAC1ABA137D00D1BA4E /* TTPreset.cpp */,
+				4689BAAD1ABA137D00D1BA4E /* TTPresetManager.cpp */,
+				46502A7A1AC2B9130067AB66 /* TTProtocol.cpp */,
+				4689BAAE1ABA137D00D1BA4E /* TTRamp.cpp */,
+				4689BAAF1ABA137D00D1BA4E /* TTReceiver.cpp */,
+				4689BAB01ABA137D00D1BA4E /* TTScript.cpp */,
+				4689BAB11ABA137D00D1BA4E /* TTSender.cpp */,
+				4689BAB21ABA137D00D1BA4E /* TTSubscriber.cpp */,
+				4689BAB31ABA137D00D1BA4E /* TTTextHandler.cpp */,
+				4689BAB41ABA137D00D1BA4E /* TTViewer.cpp */,
+				4689BAB51ABA137D00D1BA4E /* TTXmlHandler.cpp */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -219,7 +195,7 @@
 		229B5846149C0B0C0093389A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0620;
 			};
 			buildConfigurationList = 229B5849149C0B0C0093389A /* Build configuration list for PBXProject "JamomaModular" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -247,8 +223,10 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -281,9 +259,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;

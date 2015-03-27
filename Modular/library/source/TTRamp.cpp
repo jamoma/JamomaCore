@@ -106,7 +106,7 @@ TTErr TTRamp::setDrive(const TTValue& inputValue)
     if (mDriveUnit.valid())
         mDriveUnit = TTObject();
     
-    if (SchedulerLib::isSchedulerNameAvailable(mDrive))
+    if (TTClockLib::isClockNameAvailable(mDrive))
         return kTTErrGeneric;
     
     if (mDrive != kTTSymEmpty && mDrive != kTTSym_none) {
@@ -123,7 +123,7 @@ TTErr TTRamp::setDrive(const TTValue& inputValue)
 
 TTErr TTRamp::getDriveLibrary(TTValue& value)
 {
-	TTObject::GetRegisteredClassNamesForTags(value, TTSymbol("scheduler"));
+	TTObject::GetRegisteredClassNamesForTags(value, TTSymbol("clock"));
 	return kTTErrNone;
 }
 

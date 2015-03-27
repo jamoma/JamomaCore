@@ -49,7 +49,7 @@ TIME_PROCESS_PLUGIN_CONSTRUCTOR
     addMessage(Clear);
     addMessageWithArguments(CurveRecord);
     
-    mScheduler.set("granularity", TTFloat64(1.));
+    mClock.set("granularity", TTFloat64(1.));
 }
 
 Automation::~Automation()
@@ -330,12 +330,12 @@ TTErr Automation::Goto(const TTValue& inputValue, TTValue& outputValue)
             
             this->getAttributeValue(kTTSym_duration, v);
             
-            // TODO : TTTimeProcess should extend Scheduler class
+            // TODO : TTTimeProcess should extend Clock class
             duration = v[0];
-            mScheduler.set(kTTSym_duration, TTFloat64(duration));
+            mClock.set(kTTSym_duration, TTFloat64(duration));
             
             timeOffset = inputValue[0];
-            mScheduler.set(kTTSym_offset, TTFloat64(timeOffset));
+            mClock.set(kTTSym_offset, TTFloat64(timeOffset));
             
             // is the automation is temporary muted ?
             if (inputValue.size() == 2) {
@@ -349,10 +349,10 @@ TTErr Automation::Goto(const TTValue& inputValue, TTValue& outputValue)
             if (!mute && !mMute) {
                 
                 // get scheduler progression and realTime
-                mScheduler.get("position", v);
+                mClock.get("position", v);
                 position = TTFloat64(v[0]);
                 
-                mScheduler.get("date", v);
+                mClock.get("date", v);
                 date = TTFloat64(v[0]);
                 
                 // DEBUG : to see if it is faster without this part

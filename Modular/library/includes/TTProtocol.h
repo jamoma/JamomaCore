@@ -14,21 +14,21 @@
  */
 
 
-#ifndef __PROTOCOL_H__
-#define __PROTOCOL_H__
+#ifndef __TT_PROTOCOL_H__
+#define __TT_PROTOCOL_H__
 
 #include "TTFoundationAPI.h"
 
 /** Declares instantiation and registration methods to add the protocol class as any #TTObject class */
-#define PROTOCOL_CONSTRUCTOR \
+#define TT_PROTOCOL_CONSTRUCTOR \
 TTObjectBasePtr thisTTClass :: instantiate (TTSymbol name, TTValue arguments) {return new thisTTClass (arguments);} \
 \
 extern "C" void thisTTClass :: registerClass () {TTClassRegister( TTSymbol(thisTTClassName), thisTTClassTags, thisTTClass :: instantiate );} \
 \
-thisTTClass :: thisTTClass (const TTValue& arguments) : Protocol(arguments)
+thisTTClass :: thisTTClass (const TTValue& arguments) : TTProtocol(arguments)
 
 /** Declares all members needed by any protocol class */
-#define PROTOCOL_INITIALIZE \
+#define TT_PROTOCOL_INITIALIZE \
 mName = TTSymbol(thisTTClassName); \
 mVersion = TTSymbol(thisProtocolVersion); \
 mAuthor = TTSymbol(thisProtocolAuthor); \
@@ -40,7 +40,7 @@ mDiscoverAll = TTBoolean(thisProtocolDiscoverAll); \
 registerAttribute(TTSymbol("parameterNames"), kTypeLocalValue, NULL, (TTGetterMethod)& thisTTClass::getParameterNames); \
 
 /** Declares specific accessors methods to manage the parameter value in order to have one value per registered applications */
-#define PROTOCOL_PARAMETER(name) \
+#define TT_PROTOCOL_PARAMETER(name) \
 TTErr get##name(TTValue& value) {TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##name.at(0)); return getApplicationParameters(TTSymbol(_attrname_##name),value);}; \
 TTErr set##name(const TTValue& value) {TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##name.at(0)); return setApplicationParameters(TTSymbol(_attrname_##name),value);}; \
 
@@ -54,10 +54,10 @@ TTString _attrname_##name(#name); _attrname_##name.at(0)=tolower(_attrname_##nam
 /****************************************************************************************************/
 // Class Specification
 
-/**	Protocol is the base class for all protocol protocol.
+/**	TTProtocol is the base class for all protocol protocol.
  It still has knowledge and support for ...
  */
-class Protocol : public TTObjectBase {
+class TTProtocol : public TTObjectBase {
 	
 protected:																																	
 	TTObject                    mApplicationManager;				///< the application manager of the Modular framework.					
@@ -92,10 +92,10 @@ public:
 
 	/** Constructor 
      @param arguments           #TTApplicationManager object, #TTCallback for activity in, #TTCallback for activity out */
-	Protocol(const TTValue& arguments);
+	TTProtocol(const TTValue& arguments);
 	
 	/** Destructor */
-	virtual ~Protocol();
+	virtual ~TTProtocol();
 
 	/** Set application manager 
      @param[in] value           #TTApplicationManager object
@@ -424,56 +424,56 @@ public:
 	friend TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data);
     
 };
-typedef Protocol* ProtocolPtr;
+typedef TTProtocol* TTProtocolPtr;
 
 /**	Called when an application directory send a 
  notification to registered application observers
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolDirectoryCallback(const TTValue& baton, const TTValue& data);
+TTErr TT_EXTENSION_EXPORT TTProtocolDirectoryCallback(const TTValue& baton, const TTValue& data);
 
 /**	Called when an application object attribute send a 
  notification to registered application observers
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolAttributeCallback(const TTValue& baton, const TTValue& data);
+TTErr TT_EXTENSION_EXPORT TTProtocolAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data);
+TTErr TT_EXTENSION_EXPORT TTProtocolGetAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data);
+TTErr TT_EXTENSION_EXPORT TTProtocolSetAttributeCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolSendMessageCallback(const TTValue& baton, const TTValue& data);
+TTErr TT_EXTENSION_EXPORT TTProtocolSendMessageCallback(const TTValue& baton, const TTValue& data);
 
 /**	
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TT_EXTENSION_EXPORT ProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data);
+TTErr TT_EXTENSION_EXPORT TTProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data);
 
-#endif	//__PROTOCOL_H__
+#endif	//__TT_PROTOCOL_H__
 
-#ifndef __PROTOCOLLIB_H__
-#define __PROTOCOLLIB_H__
+#ifndef __TT_PROTOCOLLIB_H__
+#define __TT_PROTOCOLLIB_H__
 
-class TT_EXTENSION_EXPORT ProtocolLib {
+class TT_EXTENSION_EXPORT TTProtocolLib {
 public:
 	
 	/**	Return a list of all available protocols. */
 	static void getProtocolNames(TTValue& protocolNames);
 };
 
-#endif	//__PROTOCOLLIB_H__
+#endif	//__TT_PROTOCOLLIB_H__

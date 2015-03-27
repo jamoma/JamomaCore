@@ -14,7 +14,7 @@
  */
 
 
-#include "Protocol.h"
+#include "TTProtocol.h"
 #include "OSC.h"
 
 #define thisTTClass				OSC
@@ -36,10 +36,10 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_OSC(void)
 	return kTTErrNone;
 }
 
-PROTOCOL_CONSTRUCTOR,
+TT_PROTOCOL_CONSTRUCTOR,
 mSenderManager(NULL)
 {	
-	PROTOCOL_INITIALIZE
+	TT_PROTOCOL_INITIALIZE
 	
     addAttributeAsProtocolParameter(Ip, kTypeSymbol);
 	addAttributeAsProtocolParameter(Port, kTypeUInt16);

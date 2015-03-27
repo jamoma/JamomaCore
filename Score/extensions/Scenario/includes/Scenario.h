@@ -62,7 +62,7 @@ class Scenario : public TimeContainerPlugin
      @param inputValue      the new speed value
      @param outputValue     nothing
      @return                kTTErrNone */
-    TTErr   SchedulerSpeedChanged(const TTValue& inputValue, TTValue& outputValue);
+    TTErr   ClockSpeedChanged(const TTValue& inputValue, TTValue& outputValue);
     
     
     /** Specific compilation method used to pre-processed data in order to accelarate Process method

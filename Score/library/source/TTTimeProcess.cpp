@@ -64,9 +64,9 @@ mDurationMinReached(NO)
     addAttribute(VerticalPosition, kTypeUInt32);
     addAttribute(VerticalSize, kTypeUInt32);
     
-    addAttribute(Scheduler, kTypeObject);
-    addAttributeProperty(Scheduler, readOnly, YES);
-    addAttributeProperty(Scheduler, hidden, YES);
+    addAttribute(Clock, kTypeObject);
+    addAttributeProperty(Clock, readOnly, YES);
+    addAttributeProperty(Clock, hidden, YES);
     
     addAttribute(StartEvent, kTypeObject);
     addAttributeProperty(StartEvent, readOnly, YES);
@@ -129,26 +129,26 @@ mDurationMinReached(NO)
     addMessageWithArguments(EventStatusChanged);
     addMessageProperty(EventStatusChanged, hidden, YES);
     
-    // needed to be notified by the scheduler
-    addMessageWithArguments(SchedulerRunningChanged);
-    addMessageProperty(SchedulerRunningChanged, hidden, YES);
+    // needed to be notified by the clock
+    addMessageWithArguments(ClockRunningChanged);
+    addMessageProperty(ClockRunningChanged, hidden, YES);
     
-    // Creation of a scheduler based on the System scheduler plugin
+    // Creation of a clock based on the System clock plugin
     // Prepare callback argument to be notified of :
     //      - the position
-    TTValue args = TTValue((TTPtr)&TTTimeProcessSchedulerCallback);
-    args.append((TTPtr)this);   // we have to store this as a pointer for Scheduler
+    TTValue args = TTValue((TTPtr)&TTTimeProcessClockCallback);
+    args.append((TTPtr)this);   // we have to store this as a pointer for Clock
     
-    mScheduler = TTObject("system", args);
+    mClock = TTObject("system", args);
     
-	if (!mScheduler.valid()) {
-		logError("TimeProcess failed to load the System Scheduler");
+	if (!mClock.valid()) {
+		logError("TimeProcess failed to load the System Clock");
     }
     else {
     
-        // observe the scheduler
+        // observe the clock
 		TTObject thisObject(this);
-        mScheduler.registerObserverForNotifications(thisObject);
+        mClock.registerObserverForNotifications(thisObject);
     }
     
     // generate a random name
@@ -376,32 +376,32 @@ TTErr TTTimeProcess::setColor(const TTValue& value)
 
 TTErr TTTimeProcess::getSpeed(TTValue& value)
 {
-    if (mScheduler.valid())
-        return mScheduler.get(kTTSym_speed, value);
+    if (mClock.valid())
+        return mClock.get(kTTSym_speed, value);
     
     return kTTErrGeneric;
 }
 
 TTErr TTTimeProcess::setSpeed(const TTValue& value)
 {
-    if (mScheduler.valid())
-        return mScheduler.set(kTTSym_speed, value);
+    if (mClock.valid())
+        return mClock.set(kTTSym_speed, value);
     
     return kTTErrGeneric;
 }
 
 TTErr TTTimeProcess::getPosition(TTValue& value)
 {
-    if (mScheduler.valid())
-        return mScheduler.get("position", value);
+    if (mClock.valid())
+        return mClock.get("position", value);
     
     return kTTErrGeneric;
 }
 
 TTErr TTTimeProcess::getDate(TTValue& value)
 {
-    if (mScheduler.valid())
-        return mScheduler.get("date", value);
+    if (mClock.valid())
+        return mClock.get("date", value);
     
     return kTTErrGeneric;
 }
@@ -465,15 +465,15 @@ TTErr TTTimeProcess::Start()
         // set execution mode
         mSelfExecution = YES;
         
-        // run scheduler
+        // run clock
         return Play();
     }
     else
     {
-        // reset execution mode to not push end state (see in : TTTimeProcess::SchedulerRunningChanged)
+        // reset execution mode to not push end state (see in : TTTimeProcess::ClockRunningChanged)
         mSelfExecution = NO;
         
-        // stop scheduler
+        // stop clock
         Stop();
         
         // restart
@@ -486,7 +486,7 @@ TTErr TTTimeProcess::End()
     // filter repetitions
     if (mRunning)
     {
-        // stop scheduler
+        // stop clock
         TTErr err = Stop();
         
         // reset execution mode
@@ -510,8 +510,8 @@ TTErr TTTimeProcess::Play()
         // the duration min have not been reached yet
         mDurationMinReached = NO;
         
-        // prepare scheduler to go
-        mScheduler.set("externalTick", mExternalTick);
+        // prepare clock to go
+        mClock.set("externalTick", mExternalTick);
         
         // process duration
         TTInt32 duration = mDuration;
@@ -525,33 +525,33 @@ TTErr TTTimeProcess::Play()
         // rigid : use events date
         if (mRigid)
         {
-            mScheduler.set("infinite", TTBoolean(NO));
-            mScheduler.set(kTTSym_duration, TTFloat64(duration));
+            mClock.set("infinite", TTBoolean(NO));
+            mClock.set(kTTSym_duration, TTFloat64(duration));
         }
         
         // none rigid : use duration bounds
         else
         {
-            // no duration max : scheduler runs indefinitively
+            // no duration max : clock runs indefinitively
             if (mDurationMax == 0)
             {
-                mScheduler.set("infinite", TTBoolean(YES));
+                mClock.set("infinite", TTBoolean(YES));
                 
                 // set duration to get the progession back even if it will becomes greater than 1.
-                mScheduler.set(kTTSym_duration, TTFloat64(duration));
+                mClock.set(kTTSym_duration, TTFloat64(duration));
             }
             else
             {
-                mScheduler.set("infinite", TTBoolean(NO));
-                mScheduler.set(kTTSym_duration, TTFloat64(mDurationMax));
+                mClock.set("infinite", TTBoolean(NO));
+                mClock.set(kTTSym_duration, TTFloat64(mDurationMax));
             }
         }
             
 #ifdef TTSCORE_DEBUG
         TTLogMessage("TTTimeProcess::Play %s\n", mName.c_str());
 #endif
-        // launch the scheduler
-        return mScheduler.send(kTTSym_Go);
+        // launch the clock
+        return mClock.send(kTTSym_Go);
     }
     
     return kTTErrGeneric;
@@ -562,8 +562,8 @@ TTErr TTTimeProcess::Stop()
     // filter repetitions
     if (mRunning)
     {
-        // stop the scheduler
-        return mScheduler.send(kTTSym_Stop);
+        // stop the clock
+        return mClock.send(kTTSym_Stop);
     }
     
     return kTTErrGeneric;
@@ -573,7 +573,7 @@ TTErr TTTimeProcess::Pause()
 {
     TTValue none;
     
-    mScheduler.send(kTTSym_Pause);
+    mClock.send(kTTSym_Pause);
     
     return ProcessPaused(TTBoolean(YES), none);
 }
@@ -582,7 +582,7 @@ TTErr TTTimeProcess::Resume()
 {
     TTValue none;
     
-    mScheduler.send(kTTSym_Resume);
+    mClock.send(kTTSym_Resume);
     
     return ProcessPaused(TTBoolean(NO), none);
 }
@@ -590,7 +590,7 @@ TTErr TTTimeProcess::Resume()
 TTErr TTTimeProcess::Tick()
 {
     if (mExternalTick && mRunning)
-        return mScheduler.send(kTTSym_Tick);
+        return mClock.send(kTTSym_Tick);
     else
         return kTTErrGeneric;
 }
@@ -646,17 +646,17 @@ TTErr TTTimeProcess::EventStatusChanged(const TTValue& inputValue, TTValue& outp
             // play the time process
             return Play();
             
-            // the Compile method is called in TTTimeProcess::SchedulerRunningChanged
-            // the ProcessStart method is called in TTTimeProcess::SchedulerRunningChanged
-            // the kTTSym_ProcessStarted notification is sent in TTTimeProcess::SchedulerRunningChanged
+            // the Compile method is called in TTTimeProcess::ClockRunningChanged
+            // the ProcessStart method is called in TTTimeProcess::ClockRunningChanged
+            // the kTTSym_ProcessStarted notification is sent in TTTimeProcess::ClockRunningChanged
         }
         else if (aTimeEvent == mEndEvent)
         {
             // stop the time process
             return Stop();
             
-            // the ProcessEnd method is called in TTTimeProcess::SchedulerRunningChanged
-            // the kTTSym_ProcessEnded notification is sent in TTTimeProcess::SchedulerRunningChanged
+            // the ProcessEnd method is called in TTTimeProcess::ClockRunningChanged
+            // the kTTSym_ProcessEnded notification is sent in TTTimeProcess::ClockRunningChanged
         }
         
         TTLogError("TTTimeProcess::EventStatusChanged %s : wrong event happened\n", mName.c_str());
@@ -678,9 +678,9 @@ TTErr TTTimeProcess::EventStatusChanged(const TTValue& inputValue, TTValue& outp
     return kTTErrGeneric;
 }
 
-TTErr TTTimeProcess::SchedulerRunningChanged(const TTValue& inputValue, TTValue& outputValue)
+TTErr TTTimeProcess::ClockRunningChanged(const TTValue& inputValue, TTValue& outputValue)
 {
-    TT_ASSERT("TTTimeProcess::SchedulerRunningChanged : inputValue is correct", inputValue.size() == 1 && inputValue[0].type() == kTypeBoolean);
+    TT_ASSERT("TTTimeProcess::ClockRunningChanged : inputValue is correct", inputValue.size() == 1 && inputValue[0].type() == kTypeBoolean);
     
     TTBoolean running = inputValue[0];
    
@@ -695,7 +695,7 @@ TTErr TTTimeProcess::SchedulerRunningChanged(const TTValue& inputValue, TTValue&
             // use the specific start process method of the time process
             if (ProcessStart())
             {
-                TTLogError("TTTimeProcess::SchedulerRunningChanged %s : ProcessStart failed\n", mName.c_str());
+                TTLogError("TTTimeProcess::ClockRunningChanged %s : ProcessStart failed\n", mName.c_str());
                 return kTTErrGeneric;
             }
         }
@@ -720,7 +720,7 @@ TTErr TTTimeProcess::SchedulerRunningChanged(const TTValue& inputValue, TTValue&
             // use the specific process end method of the time process
             if (ProcessEnd())
             {
-                TTLogError("TTTimeProcess::SchedulerRunningChanged %s : ProcessEnd failed\n", mName.c_str());
+                TTLogError("TTTimeProcess::ClockRunningChanged %s : ProcessEnd failed\n", mName.c_str());
                 return kTTErrGeneric;
             }
         }
@@ -809,10 +809,10 @@ TTErr TTTimeProcess::setEndEvent(TTObject&  aTimeEvent)
 
 #if 0
 #pragma mark -
-#pragma mark Scheduler callback
+#pragma mark Clock callback
 #endif
 
-void TTTimeProcessSchedulerCallback(TTPtr object, TTFloat64 position, TTFloat64 date)
+void TTTimeProcessClockCallback(TTPtr object, TTFloat64 position, TTFloat64 date)
 {
 	TTTimeProcessPtr aTimeProcess = (TTTimeProcessPtr)object;
     
@@ -823,7 +823,7 @@ void TTTimeProcessSchedulerCallback(TTPtr object, TTFloat64 position, TTFloat64 
         {
             aTimeProcess->mDurationMinReached = YES;
 #ifdef TTSCORE_DEBUG
-            TTLogMessage("TTTimeProcessSchedulerCallback %s : reaches duration min (%d)\n", aTimeProcess->mName.c_str(), aTimeProcess->mDurationMin);
+            TTLogMessage("TTTimeProcessClockCallback %s : reaches duration min (%d)\n", aTimeProcess->mName.c_str(), aTimeProcess->mDurationMin);
 #endif
             // notify kTTSym_ProcessDurationMinReached observers
             aTimeProcess->sendStatusNotification(kTTSym_ProcessDurationMinReached);

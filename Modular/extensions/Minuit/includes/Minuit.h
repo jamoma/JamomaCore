@@ -57,7 +57,7 @@
 #ifndef __MINUIT_H__
 #define __MINUIT_H__
 
-#include "Protocol.h"
+#include "TTProtocol.h"
 #include "MinuitInclude.h"
 #include "MinuitAnswerManager.h"
 #include "MinuitSenderManager.h"
@@ -68,14 +68,14 @@ typedef MinuitAnswerManager* MinuitAnswerManagerPtr;
 class MinuitSenderManager;
 typedef MinuitSenderManager* MinuitSenderManagerPtr;
 
-class Minuit : public Protocol {
+class Minuit : public TTProtocol {
 	
 	TTCLASS_SETUP(Minuit)
 	
 private:
 	
-    PROTOCOL_PARAMETER(Ip);						///< PROTOCOL PARAMETER : each registered application have to setup its ip
-	PROTOCOL_PARAMETER(Port);					///< PROTOCOL PARAMETER : each registered application have to setup its port
+    TT_PROTOCOL_PARAMETER(Ip);						///< PROTOCOL PARAMETER : each registered application have to setup its ip
+	TT_PROTOCOL_PARAMETER(Port);					///< PROTOCOL PARAMETER : each registered application have to setup its port
     
 	TTObject                mOscReceive;
 	

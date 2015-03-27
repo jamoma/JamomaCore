@@ -352,7 +352,7 @@ TTErr TTApplication::DirectoryClear()
 TTErr TTApplication::DirectoryBuild()
 {
     TTSymbol	protocolName;
-    ProtocolPtr aProtocol;
+    TTProtocolPtr aProtocol;
 	TTValue		v, protocolNames;
     
     // only for distant application
@@ -373,7 +373,7 @@ TTErr TTApplication::DirectoryBuild()
     return kTTErrGeneric;
 }
 
-TTErr TTApplication::buildNode(ProtocolPtr aProtocol, TTAddress anAddress)
+TTErr TTApplication::buildNode(TTProtocolPtr aProtocol, TTAddress anAddress)
 {
     TTAddress   nextAddress, childAddress;
     TTSymbol    returnedType, service;
@@ -466,7 +466,7 @@ TTErr TTApplication::DirectoryObserve(const TTValue& inputValue, TTValue& output
             // a distant application should have one protocol
             TTSymbol protocolName = accessApplicationProtocolNames(mName)[0];
             
-            ProtocolPtr aProtocol = accessProtocol(protocolName);
+            TTProtocolPtr aProtocol = accessProtocol(protocolName);
             if (aProtocol)
                 return aProtocol->SendListenRequest(mName, kTTAdrsRoot.appendAttribute(TTSymbol("life")), enable);
         }
@@ -499,7 +499,7 @@ TTErr TTApplication::AddDirectoryListener(const TTValue& inputValue, TTValue& ou
 		returnValueCallback = TTObject("callback");
 		
 		returnValueCallback.set(kTTSym_baton, inputValue);
-		returnValueCallback.set(kTTSym_function, TTPtr(&ProtocolDirectoryCallback));
+		returnValueCallback.set(kTTSym_function, TTPtr(&TTProtocolDirectoryCallback));
 		
 		err = mDirectory->addObserverForNotifications(whereToListen, returnValueCallback); // ask to be notified for any address below
 		
@@ -588,7 +588,7 @@ TTErr TTApplication::AddAttributeListener(const TTValue& inputValue, TTValue& ou
 						TTObject returnValueCallback = TTObject("callback");
 						
 						returnValueCallback.set(kTTSym_baton, inputValue);
-						returnValueCallback.set(kTTSym_function, TTPtr(&ProtocolAttributeCallback));
+						returnValueCallback.set(kTTSym_function, TTPtr(&TTProtocolAttributeCallback));
 						
 						anAttribute->registerObserverForNotifications(returnValueCallback);
 						
@@ -678,7 +678,7 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
 	TTSymbol	type, protocolName;;
     TTList      aNodeList;
     TTNodePtr   aNode;
-    ProtocolPtr aProtocol;
+    TTProtocolPtr aProtocol;
     TTErr       err;
 	
 	whereComesFrom = inputValue[0];
@@ -975,7 +975,7 @@ TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
             else if (this != accessApplicationLocal) {
                 
                 TTSymbol	protocolName;
-                ProtocolPtr aProtocol;
+                TTProtocolPtr aProtocol;
                 TTValue		valueToSend, protocolNames;
                 
                 // remove the address part to get the value to send
@@ -1368,7 +1368,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
     TTAddress       address;
     TTBoolean       useInstanceAsName = NO;
     TTInt32         instance;
-    ProtocolPtr     aProtocol;
+    TTProtocolPtr     aProtocol;
     TTObject        anObject;
 	TTValue			v, protocolNames, none;
     TTHash          attributesToFilter;
@@ -1662,7 +1662,7 @@ TTErr TTApplication::ProxyDataInstantiate(const TTValue& inputValue, TTValue& ou
         TTValue protocolNames = accessApplicationProtocolNames(mName);
         TTSymbol protocolName = protocolNames[0];
         
-        ProtocolPtr aProtocol = accessProtocol(protocolName);
+        TTProtocolPtr aProtocol = accessProtocol(protocolName);
         if (aProtocol) {
             
             if (inputValue.size() == 2) {
@@ -1683,7 +1683,7 @@ TTErr TTApplication::ProxyDataInstantiate(const TTValue& inputValue, TTValue& ou
     return kTTErrGeneric;
 }
 
-TTObject TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName, TTValue& attributesName)
+TTObject TTApplication::appendMirrorObject(TTProtocolPtr aProtocol, TTAddress anAddress, TTSymbol objectName, TTValue& attributesName)
 {
     TTObject    aMirror;
     TTNodePtr   aNode;
@@ -1704,7 +1704,7 @@ TTObject TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAd
             // TODO: How to use TTObject instead of TTObjectBasePtr here ?
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
             getAttributeCallback.set(kTTSym_baton, baton);
-            getAttributeCallback.set(kTTSym_function, TTPtr(&ProtocolGetAttributeCallback));
+            getAttributeCallback.set(kTTSym_function, TTPtr(&TTProtocolGetAttributeCallback));
             args.append(getAttributeCallback);
         }
         else
@@ -1718,14 +1718,14 @@ TTObject TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAd
             // TODO: How to use TTObject instead of TTObjectBasePtr here ?
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
             setAttributeCallback.set(kTTSym_baton, baton);
-            setAttributeCallback.set(kTTSym_function, TTPtr(&ProtocolSetAttributeCallback));
+            setAttributeCallback.set(kTTSym_function, TTPtr(&TTProtocolSetAttributeCallback));
             args.append(setAttributeCallback);
             
             sendMessageCallback = TTObject("callback");
             // TODO: How to use TTObject instead of TTObjectBasePtr here ?
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
             sendMessageCallback.set(kTTSym_baton, baton);
-            sendMessageCallback.set(kTTSym_function, TTPtr(&ProtocolSendMessageCallback));
+            sendMessageCallback.set(kTTSym_function, TTPtr(&TTProtocolSendMessageCallback));
             args.append(sendMessageCallback);
         }
         else {
@@ -1742,7 +1742,7 @@ TTObject TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAd
             // TODO: How to use TTObject instead of TTObjectBasePtr here ?
             baton = TTValue(TTObject(TTObjectBasePtr(aProtocol)), mName, anAddress);
             listenAttributeCallback.set(kTTSym_baton, baton);
-            listenAttributeCallback.set(kTTSym_function, TTPtr(&ProtocolListenAttributeCallback));
+            listenAttributeCallback.set(kTTSym_function, TTPtr(&TTProtocolListenAttributeCallback));
             args.append(listenAttributeCallback);
         }
         else
@@ -1762,7 +1762,7 @@ TTObject TTApplication::appendMirrorObject(ProtocolPtr aProtocol, TTAddress anAd
     return aMirror;
 }
 
-TTObject TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service)
+TTObject TTApplication::appendProxyData(TTProtocolPtr aProtocol, TTAddress anAddress, TTSymbol service)
 {
     TTObject    aData;
     TTValue     baton;
@@ -1781,7 +1781,7 @@ TTObject TTApplication::appendProxyData(ProtocolPtr aProtocol, TTAddress anAddre
     return aData;
 }
 
-TTObject TTApplication::appendProxyContainer(ProtocolPtr aProtocol, TTAddress anAddress)
+TTObject TTApplication::appendProxyContainer(TTProtocolPtr aProtocol, TTAddress anAddress)
 {
     TTObject    aContainer;
     TTNodePtr   aNode;
@@ -1805,5 +1805,5 @@ TTErr TTApplicationProxyDataValueCallback(const TTValue& baton, const TTValue& d
     TTValue v = kTTSym_value;
     v.append((TTPtr)&data);
     
-    return ProtocolSetAttributeCallback(baton, v);
+    return TTProtocolSetAttributeCallback(baton, v);
 }

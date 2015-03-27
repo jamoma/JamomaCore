@@ -28,16 +28,17 @@ sources:
   - source/TTMatrixObject.cpp
   - source/TTMatrixMath.cpp
   - source/TTMatrixArray.cpp
+  - tests/TTMatrix.test.cpp
   - source/TTValue.cpp
+  - tests/TTValue.test.cpp
   - source/TTString.cpp
+  - tests/TTString.test.cpp
   - source/TTSymbolBase.cpp
   - source/TTSymbolCache.cpp
   - source/TTSymbolTable.cpp
-  - source/TTRegex.cpp
-  - tests/TTMatrix.test.cpp
-  - tests/TTString.test.cpp
   - tests/TTSymbol.test.cpp
-  - tests/TTValue.test.cpp
+  - source/TTRegex.cpp
+  - tests/TTRegex.test.cpp
   - boost/libs/filesystem/src/codecvt_error_category.cpp
   - boost/libs/filesystem/src/operations.cpp
   - boost/libs/filesystem/src/path_traits.cpp
@@ -73,7 +74,7 @@ sources:
   - source/TTAddressItem.cpp
   - source/TTNodeDirectory.cpp
   - tests/TTNodeLib.test.cpp
-  - tests/TTObjectTest.cpp
+  - tests/TTObject.test.cpp
   - tests/TTInterpolate.test.cpp
 #  - win source/TTNodeLib.cpp
 #  - win source/TTNode.cpp

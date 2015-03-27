@@ -23,8 +23,8 @@
 		22BBA1A817772EE3000941AC /* TTDictionaryBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTDictionaryBase.h; path = includes/TTDictionaryBase.h; sourceTree = "<group>"; };
 		22BBA1A917772F27000941AC /* TTDictionaryBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTDictionaryBase.cpp; path = source/TTDictionaryBase.cpp; sourceTree = "<group>"; };
 		22E1302F18DF4D860040A028 /* TTObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTObject.cpp; path = source/TTObject.cpp; sourceTree = "<group>"; };
-		22E1303018DFB4DC0040A028 /* TTObjectTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTObjectTest.cpp; sourceTree = "<group>"; };
-		22E1303118DFB4DC0040A028 /* TTObjectTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTObjectTest.h; sourceTree = "<group>"; };
+		22E1303018DFB4DC0040A028 /* TTObject.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTObject.test.cpp; sourceTree = "<group>"; };
+		22E1303118DFB4DC0040A028 /* TTObject.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTObject.test.h; sourceTree = "<group>"; };
 		22E1303218DFBA5F0040A028 /* TTObjectTemplates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTObjectTemplates.h; path = includes/TTObjectTemplates.h; sourceTree = "<group>"; };
 		22EFB4B115F7E24400A85A8C /* TTString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTString.h; path = includes/TTString.h; sourceTree = "<group>"; };
 		22F4981316961C1400D2C427 /* TTElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTElement.h; path = includes/TTElement.h; sourceTree = "<group>"; };
@@ -35,6 +35,8 @@
 		22FCC58C16089AB300D77C6D /* TTSymbol.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSymbol.test.h; path = tests/TTSymbol.test.h; sourceTree = "<group>"; };
 		22FCC5B21609170A00D77C6D /* TTSymbolBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSymbolBase.h; path = includes/TTSymbolBase.h; sourceTree = "<group>"; };
 		2A42395B169CF3BC002D05D9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		46502A721AC1A7860067AB66 /* TTRegex.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTRegex.test.cpp; sourceTree = "<group>"; };
+		46502A731AC1A7860067AB66 /* TTRegex.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTRegex.test.h; sourceTree = "<group>"; };
 		466CD3A91782BF6100D96BC6 /* TTDictionary.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTDictionary.test.cpp; sourceTree = "<group>"; };
 		466CD3AA1782BF6100D96BC6 /* TTDictionary.test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTDictionary.test.h; sourceTree = "<group>"; };
 		4685EEA119374D4800629514 /* TTList.test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTList.test.cpp; sourceTree = "<group>"; };
@@ -294,8 +296,10 @@
 				D2F097EA14A0E03400EC0396 /* TTMatrix.test.cpp */,
 				D2F097EC14A0E03400EC0396 /* TTNodeLib.test.h */,
 				D2F097EB14A0E03400EC0396 /* TTNodeLib.test.cpp */,
-				22E1303118DFB4DC0040A028 /* TTObjectTest.h */,
-				22E1303018DFB4DC0040A028 /* TTObjectTest.cpp */,
+				22E1303118DFB4DC0040A028 /* TTObject.test.h */,
+				22E1303018DFB4DC0040A028 /* TTObject.test.cpp */,
+				46502A731AC1A7860067AB66 /* TTRegex.test.h */,
+				46502A721AC1A7860067AB66 /* TTRegex.test.cpp */,
 				22FCC57616061A2000D77C6D /* TTString.test.h */,
 				22FCC57516061A2000D77C6D /* TTString.test.cpp */,
 				D2F097EE14A0E03400EC0396 /* TTValue.test.h */,

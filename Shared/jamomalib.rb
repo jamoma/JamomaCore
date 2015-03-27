@@ -284,8 +284,12 @@ else
 			printedprojname.slice! "_equal"
 			printedprojname << "="
 		end
-		printedprojname = "#{printedprojname} ".ljust(27, '.')
 
+		if printedprojname.end_with? "_tilda"
+			printedprojname.slice! "_tilda"
+			printedprojname << "~"
+		end
+		printedprojname = "#{printedprojname} ".ljust(27, '.')
 
 		print "#{printedprojname} "
 		STDOUT.flush
@@ -839,6 +843,11 @@ else
 				if projectname.end_with? "_equal"
 					externalname.slice! "_equal"
 					externalname << "="
+				end
+
+				if projectname.end_with? "_tilda"
+					externalname.slice! "_tilda"
+					externalname << "~"
 				end
 				makefile.write("NAME = #{externalname}\n")
 				makefile.write("SUFFIX = so\n") if linux?

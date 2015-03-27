@@ -17,21 +17,21 @@
 #ifndef __OSC_H__
 #define __OSC_H__
 
-#include "Protocol.h"
+#include "TTProtocol.h"
 #include "OSCInclude.h"
 #include "OSCSenderManager.h"
 
 class OSCSenderManager;
 typedef OSCSenderManager* OSCSenderManagerPtr;
 
-class OSC : public Protocol {
+class OSC : public TTProtocol {
 	
 	TTCLASS_SETUP(OSC)
 	
 private:
 	
-	PROTOCOL_PARAMETER(Ip);                             ///< PROTOCOL PARAMETER : each registered application have to setup its ip
-	PROTOCOL_PARAMETER(Port);                           ///< PROTOCOL PARAMETER : each registered application have to setup its port
+	TT_PROTOCOL_PARAMETER(Ip);                             ///< PROTOCOL PARAMETER : each registered application have to setup its ip
+	TT_PROTOCOL_PARAMETER(Port);                           ///< PROTOCOL PARAMETER : each registered application have to setup its port
 	
 	TTObject                mLocalApplicationOscReceiver;
     
