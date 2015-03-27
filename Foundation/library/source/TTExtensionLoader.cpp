@@ -271,8 +271,8 @@ using TTOperatingSystem = TTAndroidSpecific;
 class TTLinuxSpecific
 {
 	public:
-		static constexpr const char extensionPrefix[]{""};
-		static constexpr const char extensionSuffix[]{".ttso"};
+		static constexpr const char extensionPrefix[]="";
+		static constexpr const char extensionSuffix[]=".ttso";
 
 		static string computedRelativePath()
 		{ return TTUnixCommon::computedRelativePath(); }
