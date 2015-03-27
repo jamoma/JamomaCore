@@ -33,11 +33,11 @@
 		#endif
 	#endif
 // win64 must come before win32
-#elif (defined(_WIN64) || defined(_WIN32)) && !defined(__MINGW32__)
+#elif (defined(_WIN64) || defined(_WIN32)) 
 	#ifndef TT_PLATFORM_WIN
 		#define TT_PLATFORM_WIN
 	#endif
-#elif defined(__linux) || defined(__MINGW32__)
+#elif defined(__linux)
 	#if !defined(TT_PLATFORM_LINUX)
 		#define TT_PLATFORM_LINUX
 	#endif

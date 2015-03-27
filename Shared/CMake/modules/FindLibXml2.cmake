@@ -38,22 +38,34 @@ if(WIN32)
 		PATH_SUFFIXES libxml2
 	)
 
-   find_library(LIBXML2_LIBRARIES_DEBUG_STATIC NAMES libxml2_s xml2_s
-		PATHS 
-		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//lib//debug"
-   )
-	find_library(LIBXML2_LIBRARIES_RELEASE_STATIC NAMES libxml2_s xml2_s
-		PATHS 
-		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//lib//release"
-   )
-   find_library(LIBXML2_LIBRARIES_DEBUG_DYNAMIC NAMES libxml2 xml2
-		PATHS 
-		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//lib//debug"
-   )
-	find_library(LIBXML2_LIBRARIES_RELEASE_DYNAMIC NAMES libxml2 xml2
-		PATHS 
-		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//lib//release"
-   )
+	if(MINGW)
+	   find_library(LIBXML2_LIBRARIES_DEBUG_STATIC NAMES libxml2 xml2
+			PATHS 
+			"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//libMinGW"
+	   )
+	   find_library(LIBXML2_LIBRARIES_RELEASE_STATIC NAMES libxml2 xml2
+			PATHS 
+			"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//libMinGW"
+	   )
+	else()
+	   find_library(LIBXML2_LIBRARIES_DEBUG_STATIC NAMES libxml2_s xml2_s
+			PATHS 
+			"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//lib//debug"
+	   )
+		find_library(LIBXML2_LIBRARIES_RELEASE_STATIC NAMES libxml2_s xml2_s
+			PATHS 
+			"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//lib//release"
+	   )
+	   find_library(LIBXML2_LIBRARIES_DEBUG_DYNAMIC NAMES libxml2 xml2
+			PATHS 
+			"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//lib//debug"
+	   )
+		find_library(LIBXML2_LIBRARIES_RELEASE_DYNAMIC NAMES libxml2 xml2
+			PATHS 
+			"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//lib//release"
+	   )
+	endif()
+	
 	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 		set(LIBXML2_LIBRARIES ${LIBXML2_LIBRARIES_DEBUG_STATIC})
 	else()

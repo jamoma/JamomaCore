@@ -6,7 +6,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 #include <TTMutex.h>
-#ifdef TT_PLATFORM_WIN
+#if defined(TT_PLATFORM_WIN)  and !defined(__MINGW32__)
 	#ifndef _WINDOWS_
 		#include <Windows.h>
 	#endif

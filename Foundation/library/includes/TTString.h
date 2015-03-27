@@ -449,11 +449,9 @@ namespace std
 	};
 }
 
-#elif defined( TT_PLATFORM_WIN )
+#elif defined( TT_PLATFORM_WIN ) and !defined(__MINGW32__)
 namespace std
 {
-//    namespace tr1
-//    {
         template <>
         struct hash<TTString> : public unary_function<TTString, size_t>
         {
@@ -465,10 +463,9 @@ namespace std
 					return hashkey;
 				}
 			};
-//    }
 }
 
-#else // gcc 4.7
+#else // gcc
 
 namespace std
 {

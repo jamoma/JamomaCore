@@ -127,7 +127,7 @@ bool TTLoadExtension(const string& filename,
 //	 * Built-in absolute paths (standard paths, e.g. "/usr/local/jamoma"...
 //	   and a compiled-in absolute path (to allow package maintainers to add their own paths)
 //   * Common code for Unix-like platforms is abstracted in TTUnixCommon.
-#if defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX)
+#if defined(TT_PLATFORM_MAC) or defined(TT_PLATFORM_LINUX)
 #include <dlfcn.h>
 #include <dirent.h>
 

@@ -17,7 +17,7 @@
 #include "TTOscReceive.h"
 #include "TTOscSend.h"
 
-#ifndef __ANDROID_API__
+#if defined(USE_WEBSOCKET)
 #include "TTWebReceive.h"
 #include "TTWebSend.h"
 #endif
@@ -36,7 +36,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_NetworkLib(void)
 	TTOscSend::registerClass();
     
 
-#ifndef __ANDROID_API__
+#if defined(USE_WEBSOCKET)
     TTWebReceive::registerClass();
 	TTWebSend::registerClass();
 #endif

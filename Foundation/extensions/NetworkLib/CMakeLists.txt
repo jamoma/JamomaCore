@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
 project(NetworkLib)
 
+set(USE_WEBSOCKETS TRUE)
+if(ANDROID OR MINGW)
+	set(USE_WEBSOCKETS FALSE)
+endif()
+
 set(PROJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/NetworkLib.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTNetSend.cpp
@@ -20,7 +25,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/osc/OscTypes.cpp
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 
 # Websockets do not work on android (yet)
-if(NOT ANDROID)
+if(USE_WEBSOCKETS)
 	set(PROJECT_SRCS ${PROJECT_SRCS}
 					 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTWebSocket.cpp
 					 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTWebSend.cpp

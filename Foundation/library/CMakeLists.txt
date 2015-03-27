@@ -95,6 +95,10 @@ ${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/wide_posix_api.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/regex/src/winstances.cpp
 )
 
+if(MINGW)
+set(PROJECT_SRCS ${PROJECT_SRCS}
+${CMAKE_CURRENT_SOURCE_DIR}/boost/libs/filesystem/src/windows_file_codecvt.cpp)
+endif()
 
 include_directories("${PROJECT_SOURCE_DIR}/boost")
 
@@ -106,7 +110,7 @@ include_directories("${PROJECT_SOURCE_DIR}/Mersenne-1.1")
 
 add_jamoma_library()
 
-if(WIN32)
+if(WIN32 AND NOT MINGW)
 	if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 		SET_TARGET_PROPERTIES( ${PROJECT_NAME} PROPERTIES LINK_FLAGS "/LIBPATH:${PROJECT_SOURCE_DIR}/boost/stage/lib32" )
 	else()
