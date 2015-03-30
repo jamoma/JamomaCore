@@ -296,7 +296,7 @@ TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValu
         // get the namespace
         aSelection = getNamespace();
         
-        mCurrentCue.send("Select", (TTPtr)aSelection, none);
+        mCurrentCue.send("Select", (TTPtr)aSelection);
         
         // refresh all namespace handlers (TTExplorer only)
         aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
@@ -423,7 +423,7 @@ TTErr TTCueManager::Update(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentCue = v[0];
 
-        return mCurrentCue.send(kTTSym_Update, anAddress, none);
+        return mCurrentCue.send(kTTSym_Update, anAddress);
 	}
 	
 	return kTTErrGeneric;
@@ -552,7 +552,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentCue = v[0];
 		
-		return mCurrentCue.send(kTTSym_Recall, anAddress, none);
+		return mCurrentCue.send(kTTSym_Recall, anAddress);
 	}
 	
 	return kTTErrGeneric;
@@ -601,7 +601,7 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentCue = v[0];
 		
-        return mCurrentCue.send("Output", anAddress, none);
+        return mCurrentCue.send("Output", anAddress);
 	}
 	
 	return kTTErrGeneric;
@@ -1273,7 +1273,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
                 
                 TTObject aCue = v[0];
                 TTValue none;
-                aCue.send("ReadFromText", inputValue, none);
+                aCue.send("ReadFromText", inputValue);
             }
         }
         

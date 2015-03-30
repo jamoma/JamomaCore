@@ -360,7 +360,7 @@ TTErr TTProtocol::ReceiveSetRequest(TTSymbol from, TTAddress address, const TTVa
     
     v.append(address);
     v.append((TTPtr)&newValue);
-    err = mApplicationManager.send("ApplicationSet", v, none);
+    err = mApplicationManager.send("ApplicationSet", v);
     
     // TODO : test error and send notification if error
     return err;
@@ -380,7 +380,7 @@ TTErr TTProtocol::ReceiveListenRequest(TTSymbol from, TTAddress address, TTBoole
     v.append(address);
     v.append(enable);
     
-    err = mApplicationManager.send("ApplicationListen", v, none);
+    err = mApplicationManager.send("ApplicationListen", v);
     
     if (err && mRunning)
         return SendListenAnswer(from, address, none, err);
@@ -401,7 +401,7 @@ TTErr TTProtocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, const TT
     v.append(address);
     v.append((TTPtr)&newValue);
     
-    err = mApplicationManager.send("ApplicationListenAnswer", v, none);
+    err = mApplicationManager.send("ApplicationListenAnswer", v);
     
     if (err && mRunning)
         return SendListenAnswer(from, address, dummy, err);

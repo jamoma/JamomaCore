@@ -35,6 +35,7 @@ extern "C" void TTData::registerClass()
 TTData::TTData(const TTValue& arguments) :
 TTCallback(arguments),
 mValue(TTValue(0.0)),
+mValueDefault(TTValue(0.0)),
 mValueStepsize(TTValue(0.1)),       // this default value is expected in #TTData::setType method
 mType(kTTSym_generic),
 mTags(TTValue(kTTSym_none)),
@@ -127,6 +128,7 @@ mService(kTTSymEmpty)
 	addMessageProperty(WriteAsText, hidden, YES);
 	
 	mIsSending = NO;
+	mIsOverridingDataspaceUnit = NO;
     
     commandMethod = (TTMethodValue)&TTData::GenericCommand;
     
@@ -466,10 +468,13 @@ TTErr TTData::setDataspace(const TTValue& value)
     
 	mDataspace = value;
 	
-    if (!mDataspaceConverter.valid())
+	if (!mDataspaceConverter.valid()) {
         mDataspaceConverter = TTObject("dataspace");
-    
+		mDataspaceInverseConverter = TTObject("dataspace");
+	}
+	
 	err = mDataspaceConverter.set("dataspace", mDataspace);
+	mDataspaceInverseConverter.set("dataspace", mDataspace);
     
     if (err) {
         
@@ -479,12 +484,14 @@ TTErr TTData::setDataspace(const TTValue& value)
 	
 	// If there is already a unit defined, then we try to use that
     err = mDataspaceConverter.set("outputUnit", mDataspaceUnit);
+	mDataspaceInverseConverter.set("inputUnit", mDataspaceUnit);
 
     // Otherwise we use the default (neutral) unit.
 	if (err) {
 		mDataspaceConverter.get("outputUnit", v);
 		mDataspaceUnit = v[0];
 		mDataspaceConverter.set("outputUnit", mDataspaceUnit);
+		mDataspaceInverseConverter.set("inputUnit", mDataspaceUnit);
 	}
 	
 	this->notifyObservers(kTTSym_dataspace, n);
@@ -500,6 +507,7 @@ TTErr TTData::setDataspaceUnit(const TTValue& value)
     if (mDataspaceConverter.valid()) {
         
         mDataspaceConverter.set("outputUnit", mDataspaceUnit);
+		mDataspaceInverseConverter.set("inputUnit", mDataspaceUnit);
 	
         this->notifyObservers(kTTSym_dataspaceUnit, n);
         return kTTErrNone;
@@ -592,6 +600,12 @@ TTErr TTData::rampSetup()
 TTErr TTData::convertUnit(const TTValue& inputValue, TTValue& outputValue)
 {
     return mDataspaceConverter.send("convert", inputValue, outputValue);
+}
+
+
+TTErr TTData::inverseConvertUnit(const TTValue& inputValue, TTValue& outputValue)
+{
+	return mDataspaceInverseConverter.send("convert", inputValue, outputValue);
 }
 
 
@@ -838,24 +852,31 @@ void TTDataRampCallback(void *o, TTUInt32 n, TTFloat64 *rampedArray)
 	rampedValue.resize(n);
 	for (i = 0; i <  n; i++)
 		rampedValue[i] = rampedArray[i];
-    
+	
+	/*******************
+	 TL: Commenting out as these processes need to be moved to the typed methods
+	 
+	// TODO: This need to be moved to the typed method for @type integer
+	// Why is it truncated rather than rounded?
 	if (aData->mType == kTTSym_integer)
 		rampedValue.truncate();
-    
+	
+	// TODO: This also need to be moved to the typed methods
 	if (aData->mRepetitionsFilter)
 		if (aData->mValue == rampedValue)
 			return;
+	 *******************/
     
-	// set internal value
+	// Set internal value - this calls the appropriate typed setter method in TTDataTypedMethods.cpp
 	aData->setAttributeValue(kTTSym_value, rampedValue);
     
-	// update the ramp status attribute
+	// Update the ramp status attribute
     aData->mRamper.get(kTTSym_running, isRunning);
 	if (aData->mRampStatus != isRunning) {
         
 		aData->mRampStatus = isRunning;
         
-		// stop the ramp
+		// Stop the ramp
 		if (!aData->mRampStatus)
 			aData->mRamper.send(kTTSym_Stop);
         

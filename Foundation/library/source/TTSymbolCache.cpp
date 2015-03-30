@@ -213,6 +213,7 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_highlight                        (("hi
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Init                             (("Init"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_initialized                      (("initialized"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_inputUnit                        (("inputUnit"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_outputUnit                       (("outputUnit"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_instances                        (("instances"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_integer                          (("integer"));
 

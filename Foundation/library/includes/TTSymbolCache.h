@@ -214,6 +214,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_highlight;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Init;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_initialized;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_inputUnit;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_outputUnit;
 extern TTFOUNDATION_EXPORT TTSymbol kTTSym_instances;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_integer;
 

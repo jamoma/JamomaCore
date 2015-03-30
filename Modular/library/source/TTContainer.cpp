@@ -179,7 +179,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
                     return kTTErrNone;
                 
                 // set the value attribute using a command
-                anObject.send(kTTSym_Command, *valueToSend, none);
+                anObject.send(kTTSym_Command, *valueToSend);
                 
                 // unlock
                 mIsSending = false;
@@ -190,7 +190,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
             if (anObject.name() == kTTSym_Viewer && attrOrMess == kTTSym_value) {
                 
                 // send the value
-                anObject.send(kTTSym_Send, *valueToSend, none);
+                anObject.send(kTTSym_Send, *valueToSend);
                 
                 // unlock
                 mIsSending = false;
@@ -203,7 +203,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
             if (err == kTTErrInvalidAttribute) {
                 
                 // Or try to send a message
-                anObject.send(attrOrMess, *valueToSend, none);
+                anObject.send(attrOrMess, *valueToSend);
             }
         }
         // maybe the relative address is for Container below ourself
@@ -224,7 +224,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
                 if (anObject.name() == kTTSym_Container) {
                     
                     AddressAndValue[0] = belowAddress;
-                    anObject.send(kTTSym_Send, AddressAndValue, none);
+                    anObject.send(kTTSym_Send, AddressAndValue);
                     
                     // unlock
                     mIsSending = false;
@@ -903,7 +903,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				arg = TTValue(anObject);
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
-				anObject.send("WriteAsText", inputValue, none);
+				anObject.send("WriteAsText", inputValue);
 				*buffer += "\t\t<tr>";
 			}
 		}
@@ -940,7 +940,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				arg = TTValue(anObject);
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
-				anObject.send("WriteAsText", inputValue, none);
+				anObject.send("WriteAsText", inputValue);
 				*buffer += "\t\t<tr>";
 			}
 		}
@@ -978,7 +978,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				arg = TTValue(anObject);
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
-				anObject.send("WriteAsText", inputValue, none);
+				anObject.send("WriteAsText", inputValue);
 				*buffer += "\t\t<tr>";
 			}
 		}

@@ -79,7 +79,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 			}
 			
 			// Call the WriteAsText method of the handled object
-			aTTObject.send("WriteAsText", TTObject(this), none);
+			aTTObject.send("WriteAsText", TTObject(this));
 			
 			// Write the writer string into the file
             file << this->mWriter->data();
@@ -97,7 +97,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 			mWriter = (TTString*)((TTPtr)args[0]);
 			
 			// Call the WriteAsText method of the handled object
-			aTTObject.send("WriteAsText", TTObject(this), none);
+			aTTObject.send("WriteAsText", TTObject(this));
 			
 		}
 		else
@@ -112,7 +112,7 @@ TTErr TTTextHandler::Write(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	return aTTObject.send("WriteAsText", TTObject(this), none);
+	return aTTObject.send("WriteAsText", TTObject(this));
 }
 
 TTErr TTTextHandler::WriteAgain()
@@ -169,7 +169,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 				mLine = new TTValue(TTString(s_line));
 				mLine->fromString();
 				
-				aTTObject.send("ReadFromText", TTObject(this), none);
+				aTTObject.send("ReadFromText", TTObject(this));
 				
 				if (mFirstLine)
                     mFirstLine = NO;
@@ -180,7 +180,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
             // Close the reading
             mLine = new TTValue();
             mLastLine = YES;
-            aTTObject.send("ReadFromText", TTObject(this), none);
+            aTTObject.send("ReadFromText", TTObject(this));
             delete mLine;
 		}
 		
@@ -235,7 +235,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 					// send the line (even an empty line for the last)
 					if (mLine) {
 						
-						aTTObject.send("ReadFromText", TTObject(this), none);
+						aTTObject.send("ReadFromText", TTObject(this));
 						
 						// set first line flag off
 						mFirstLine = NO;
@@ -255,7 +255,7 @@ TTErr TTTextHandler::Read(const TTValue& args, TTValue& outputValue)
 	}
 	
 	// else
-	return aTTObject.send("ReadFromText", TTObject(this), none);
+	return aTTObject.send("ReadFromText", TTObject(this));
 }
 
 TTErr TTTextHandler::ReadAgain()

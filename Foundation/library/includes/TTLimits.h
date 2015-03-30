@@ -194,39 +194,39 @@ static TTBoolean TTIsPowerOfTwo(T value)
 /** A fast routine for wrapping around the range once.  This is faster than doing an expensive module, where you know the range of the input
  	will not equal or exceed twice the range. */
 template<class T>
-static T TTOneWrap(T value, T low_bound, T high_bound)
+static void TTOneWrap(T& value, const T low_bound, const T high_bound)
 {
 	if ((value >= low_bound) && (value < high_bound))
-		return value;
+		return;
 	else if (value >= high_bound)
-		return((low_bound - 1) + (value - high_bound));
+		value = ((low_bound - 1) + (value - high_bound));
 	else
-		return((high_bound + 1) - (low_bound - value));
+		value = ((high_bound + 1) - (low_bound - value));
 }
-/** this routine wrapping around the range as much as necessary, Nils Peters, Nov. 2008 */
+/** This routine wrapping around the range as much as necessary, Nils Peters, Nov. 2008 */
 template<class T>
-static T TTInfWrap(T value, T low_bound, T high_bound)
+static void TTInfWrap(T& value, const T low_bound, const T high_bound)
 {
 	if ((value >= low_bound) && (value < high_bound))
-		return value; //nothing to wrap
+		return; //nothing to wrap
 	/* let's wrap it */
 	else if (value - low_bound >= 0)
-		return(fmod((double)value  - low_bound, fabs((double)low_bound - high_bound)) + low_bound);
+		value = (fmod((double)value  - low_bound, fabs((double)low_bound - high_bound)) + low_bound);
 	else
-		return(-1.0 * fmod(-1.0 * (value  - low_bound), fabs((double)low_bound - high_bound)) + high_bound);
+		value = (-1.0 * fmod(-1.0 * (value  - low_bound), fabs((double)low_bound - high_bound)) + high_bound);
 }
 
-/** this routine folds numbers into the data range, Nils Peters, Nov. 2008 */
+/** This routine folds numbers into the data range, Nils Peters, Nov. 2008 */
 template<class T>
-static T TTFold(T value, T low_bound, T high_bound)
+static void TTFold(T& value, const T low_bound, const T high_bound)
 {
 	double foldRange;
 
 	if ((value >= low_bound) && (value <= high_bound))
-		return value; //nothing to fold
+		return; //nothing to fold
 	else {
 		foldRange = 2 * fabs((double)low_bound - high_bound);
-		return fabs(remainder(value - low_bound, foldRange)) + low_bound;
+		value = fabs(remainder(value - low_bound, foldRange)) + low_bound;
 	}
 }
 

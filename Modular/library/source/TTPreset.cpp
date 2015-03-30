@@ -159,7 +159,7 @@ TTErr TTPreset::Update()
     flattened = v[0];
     
     if (!flattened)
-        mScript.send(kTTSym_Flatten, mAddress, none);
+        mScript.send(kTTSym_Flatten, mAddress);
 	
 	return processUpdate(mScript);
 }
@@ -243,15 +243,15 @@ TTErr TTPreset::Recall(const TTValue& inputValue, TTValue& outputValue)
     flattened = v[0];
     
     if (!flattened)
-        mScript.send(kTTSym_Flatten, mAddress, none);
+        mScript.send(kTTSym_Flatten, mAddress);
 
     // if an address is passed, run the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript.send("RunCommand", inputValue, none);
+        return mScript.send("RunCommand", inputValue);
         
     // else run all the script
     else
-        return mScript.send(kTTSym_Run, mAddress, none);
+        return mScript.send(kTTSym_Run, mAddress);
 }
 
 TTErr TTPreset::Output(const TTValue& inputValue, TTValue& outputValue)
@@ -269,15 +269,15 @@ TTErr TTPreset::Output(const TTValue& inputValue, TTValue& outputValue)
     flattened = v[0];
     
     if (!flattened)
-        mScript.send(kTTSym_Flatten, kTTAdrsRoot, none);
+        mScript.send(kTTSym_Flatten, kTTAdrsRoot);
     
     // if an address is passed, dump the line at address
     if (anAddress != kTTAdrsRoot)
-        return mScript.send("DumpLine", inputValue, none);
+        return mScript.send("DumpLine", inputValue);
     
     // else dump all the script
     else
-        return mScript.send(kTTSym_Dump, inputValue, none);
+        return mScript.send(kTTSym_Dump, inputValue);
 }
 
 TTErr TTPreset::WriteAsXml(const TTValue& inputValue, TTValue& outputValue)
@@ -442,14 +442,14 @@ TTErr TTPresetInterpolate(TTObject preset1, TTObject preset2, TTFloat64 position
     flattened1 = v[0];
     
     if (!flattened1)
-        TTPresetPtr(preset1.instance())->mScript.send(kTTSym_Flatten, TTPresetPtr(preset1.instance())->mAddress, none);
+        TTPresetPtr(preset1.instance())->mScript.send(kTTSym_Flatten, TTPresetPtr(preset1.instance())->mAddress);
     
     // is the preset2 already flattened ?
     TTPresetPtr(preset2.instance())->mScript.get(kTTSym_flattened, v);
     flattened2 = v[0];
     
     if (!flattened2)
-        TTPresetPtr(preset2.instance())->mScript.send(kTTSym_Flatten, TTPresetPtr(preset2.instance())->mAddress, none);
+        TTPresetPtr(preset2.instance())->mScript.send(kTTSym_Flatten, TTPresetPtr(preset2.instance())->mAddress);
     
 	return TTScriptInterpolate(TTPresetPtr(preset1.instance())->mScript, TTPresetPtr(preset2.instance())->mScript, position);
 }
@@ -471,7 +471,7 @@ TTErr TTPresetMix(const TTValue& presets, const TTValue& factors)
         flattened = v[0];
         
         if (!flattened)
-            TTPresetPtr(aPreset.instance())->mScript.send(kTTSym_Flatten, TTPresetPtr(aPreset.instance())->mAddress, none);
+            TTPresetPtr(aPreset.instance())->mScript.send(kTTSym_Flatten, TTPresetPtr(aPreset.instance())->mAddress);
         
 		scripts.append(TTPresetPtr(aPreset.instance())->mScript);
 	}

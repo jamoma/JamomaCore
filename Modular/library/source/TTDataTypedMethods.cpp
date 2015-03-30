@@ -18,164 +18,167 @@
 
 TTErr TTData::setType(const TTValue& value)
 {
-    TTMessagePtr    initMessage;
+	TTMessagePtr    initMessage;
 	TTAttributePtr  valueDefaultAttribute, valueStepSizeAttribute;
-    
-	// if the new type is different
+	
+	// Only do stuff if there is a change of type
 	if (!(TTValue(mType) == value)) {
 		
-		TTValue n = value;				// use new value to protect the attribute
+		TTValue n = value;				// Copy to new value to protect the attribute
 		mType = value;
 		
 		// Get ValueDefault and ValueStepsize attributes (because commande message and value attribute are already cached)
-        this->findMessage(kTTSym_Init, &initMessage);
+		this->findMessage(kTTSym_Init, &initMessage);
 		this->findAttribute(kTTSym_valueDefault, &valueDefaultAttribute);
 		this->findAttribute(kTTSym_valueStepsize, &valueStepSizeAttribute);
-        
-		mInstanceBounds.set(0, TTInt16(0));
-		mInstanceBounds.set(1, TTInt16(-1));
 		
-		// register mValue Attribute and prepare memory
-        // We establish the behavior of TTData based on the attribute type. We do this by setting a funciton pointer that depends on the type.
-		if (mType == kTTSym_integer) {
-            commandMethod = (TTMethodValue)&TTData::IntegerCommand;
-            initMessage->method = (TTMethod)&TTData::IntegerInit;
-			valueAttribute->type = kTypeInt32;
-            valueAttribute->setter = (TTSetterMethod)&TTData::setIntegerValue;
-			valueDefaultAttribute->type = kTypeInt32;
-			valueStepSizeAttribute->type = kTypeInt32;
-			mValue = TTValue(0);
-            
-            // if mValueStepsize still equals to the value passed in constructor
-            if (mValueStepsize == TTValue(0.1))
-                mValueStepsize = TTValue(1);
-            
-            // if mRangeBounds still equals to the value passed in constructor
-            if (mRangeBounds == TTValue(0.0, 1.0)) {
-                mRangeBounds.set(0, TTUInt16(0));
-                mRangeBounds.set(1, TTUInt16(1));
-            }
-            
-            // if mRampDrive still equals to the value passed in constructor
-            if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
-		}
-		else if (mType == kTTSym_decimal) {
-            commandMethod = (TTMethodValue)&TTData::DecimalCommand;
-            initMessage->method = (TTMethod)&TTData::DecimalInit;
-			valueAttribute->type = kTypeFloat64;
-            valueAttribute->setter = (TTSetterMethod)&TTData::setDecimalValue;
-			valueDefaultAttribute->type = kTypeFloat64;
-			valueStepSizeAttribute->type = kTypeFloat64;
-			mValue = TTValue(0.);
+		mInstanceBounds[0] = TTInt16(0);
+		mInstanceBounds[1] = TTInt16(-1);
+		
+		// Register mValue attribute and prepare memory
+		
+		// The behavior of TTData depends on type.
+		// This is controlled by setting function pointers for the init, command and setter methods.
+		
+		// Type is "integer", "decimal" or "array"
+		if ((mType == kTTSym_integer) || (mType == kTTSym_decimal) || (mType == kTTSym_array)) {
 			
-            // don't reset mValueStepsize as the default values is equals to the value passed in constructor
-            
-			// don't reset mRangeBounds as the default values is equals to the value passed in constructor
-            
-            // if mRampDrive still equals to the value passed in constructor
-            if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
+			// "integer", "decimal" and "array" types can make use of dataspace and ramping, and share the same command and setter methods.
+			commandMethod = (TTMethodValue)&TTData::IntegerDecimalArrayCommand;
+			valueAttribute->setter = (TTSetterMethod)&TTData::setIntegerDecimalArrayValue;
+			
+			if (mType == kTTSym_integer) {
+				initMessage->method = (TTMethod)&TTData::IntegerInit;
+				
+				valueAttribute->type		 = kTypeInt32;
+				valueDefaultAttribute->type  = kTypeInt32;
+				valueStepSizeAttribute->type = kTypeInt32;
+				
+				mValue		  = TTValue(0);
+				mValueDefault = TTValue(0);
+				
+				// If mValueStepsize still equals to the value passed in constructor
+				if (mValueStepsize == TTValue(0.1))
+					mValueStepsize = TTValue(1);
+				
+				// If mRangeBounds still equals to the value passed in constructor
+				if (mRangeBounds == TTValue(0.0, 1.0)) {
+					mRangeBounds[0] = TTUInt16(0);
+					mRangeBounds[1] = TTUInt16(1);
+				}
+			}
+			else {
+				if (mType == kTTSym_decimal)
+					initMessage->method = (TTMethod)&TTData::DecimalInit;
+				else if (mType == kTTSym_array)
+					initMessage->method = (TTMethod)&TTData::ArrayInit;
+				
+				valueAttribute->type		 = kTypeFloat64;
+				valueDefaultAttribute->type  = kTypeFloat64;
+				valueStepSizeAttribute->type = kTypeFloat64;
+				
+				mValue		  = TTValue(0.);
+				mValueDefault = TTValue(0.);
+				
+				// Don't reset mValueStepsize as the default values is equals to the value passed in constructor
+				// Don't reset mRangeBounds as the default values is equals to the value passed in constructor
+			}
+			
+			// Update mRampDrive if it is still equal to the value passed in the constructor
+			if (mRampDrive == kTTSym_none)
+				mRampDrive = TTSymbol("max");   // TODO : Move this very Max specific thing elsewhere
 		}
+		// Type is "string"
 		else if (mType == kTTSym_string) {
-            commandMethod = (TTMethodValue)&TTData::StringCommand;
-            initMessage->method = (TTMethod)&TTData::StringInit;
+			commandMethod = (TTMethodValue)&TTData::StringCommand;
+			initMessage->method = (TTMethod)&TTData::StringInit;
 			valueAttribute->type = kTypeSymbol;
-            valueAttribute->setter = (TTSetterMethod)&TTData::setStringValue;
+			valueAttribute->setter = (TTSetterMethod)&TTData::setStringValue;
 			valueDefaultAttribute->type = kTypeSymbol;
 			valueStepSizeAttribute->type = kTypeSymbol;
 			mValue = TTValue(kTTSymEmpty);
-            
-            // if mValueStepsize still equals to the value passed in constructor
-            if (mValueStepsize == TTValue(0.1))
-                mValueStepsize.clear();
-            
-            // if mRangeBounds still equals to the value passed in constructor
-            if (mRangeBounds == TTValue(0.0, 1.0))
-                mRangeBounds.clear();
-            
-            mRampDrive = kTTSym_none;
+			mValueDefault = TTValue(kTTSymEmpty);
+			
+			// If mValueStepsize still equals to the value passed in constructor
+			if (mValueStepsize == TTValue(0.1))
+				mValueStepsize.clear();
+			
+			// If mRangeBounds still equals to the value passed in constructor
+			if (mRangeBounds == TTValue(0.0, 1.0))
+				mRangeBounds.clear();
+			
+			mRampDrive = kTTSym_none;
 		}
+		// Type is "boolean"
 		else if (mType == kTTSym_boolean) {
-            commandMethod = (TTMethodValue)&TTData::BooleanCommand;
-            initMessage->method = (TTMethod)&TTData::BooleanInit;
+			commandMethod = (TTMethodValue)&TTData::BooleanCommand;
+			initMessage->method = (TTMethod)&TTData::BooleanInit;
 			valueAttribute->type = kTypeBoolean;
-            valueAttribute->setter = (TTSetterMethod)&TTData::setBooleanValue;
+			valueAttribute->setter = (TTSetterMethod)&TTData::setBooleanValue;
 			valueDefaultAttribute->type = kTypeBoolean;
 			valueStepSizeAttribute->type = kTypeBoolean;
 			mValue = TTValue(NO);
-            
-            // if mValueStepsize still equals to the value passed in constructor
-            if (mValueStepsize == TTValue(0.1))
-                mValueStepsize = TTValue(YES);
-            
-            // if mRangeBounds still equals to the value passed in constructor
-            if (mRangeBounds == TTValue(0.0, 1.0)) {
-                mRangeBounds.set(0, NO);
-                mRangeBounds.set(1, YES);
-            }
-            
-            mRampDrive = kTTSym_none;
-		}
-		else if (mType == kTTSym_array) {
-            commandMethod = (TTMethodValue)&TTData::ArrayCommand;
-            initMessage->method = (TTMethod)&TTData::ArrayInit;
-			valueAttribute->type = kTypeFloat64;
-            valueAttribute->setter = (TTSetterMethod)&TTData::setArrayValue;
-			valueDefaultAttribute->type = kTypeFloat64;
-			valueStepSizeAttribute->type = kTypeFloat64;
-			mValue = TTValue(0.);
-            
-			// don't reset mValueStepsize as the default values is equals to the value passed in constructor
+			mValueDefault = TTValue(NO);
 			
-            // don't reset mRangeBounds as the default values is equals to the value passed in constructor
-            
-            // if mRampDrive still equals to the value passed in constructor
-            if (mRampDrive == kTTSym_none)
-                mRampDrive = TTSymbol("max");   // TODO : move this very Max specific thing else where
+			// If mValueStepsize still equals to the value passed in constructor
+			if (mValueStepsize == TTValue(0.1))
+				mValueStepsize = TTValue(YES);
+			
+			// If mRangeBounds still equals to the value passed in constructor
+			if (mRangeBounds == TTValue(0.0, 1.0)) {
+				mRangeBounds[0] = NO;
+				mRangeBounds[1] = YES;
+			}
+			
+			mRampDrive = kTTSym_none;
 		}
+		// Type is "none"
 		else if (mType == kTTSym_none) {
-            commandMethod = (TTMethodValue)&TTData::NoneCommand;
-            initMessage->method = (TTMethod)&TTData::NoneInit;
+			commandMethod = (TTMethodValue)&TTData::NoneCommand;
+			initMessage->method = (TTMethod)&TTData::NoneInit;
 			valueAttribute->type = kTypeNone;
-            valueAttribute->setter = (TTSetterMethod)&TTData::setNoneValue;
+			valueAttribute->setter = (TTSetterMethod)&TTData::setNoneValue;
 			valueDefaultAttribute->type = kTypeNone;
 			valueStepSizeAttribute->type = kTypeNone;
 			mValue.clear();
-            
-            // if mValueStepsize still equals to the value passed in constructor
-            if (mValueStepsize == TTValue(0.1))
-                mValueStepsize.clear();
-            
-			// if mRangeBounds still equals to the value passed in constructor
-            if (mRangeBounds == TTValue(0.0, 1.0))
-                mRangeBounds.clear();
-            
-            mRampDrive = kTTSym_none;
+			mValueDefault.clear();
+			
+			// If mValueStepsize still equals to the value passed in constructor
+			if (mValueStepsize == TTValue(0.1))
+				mValueStepsize.clear();
+			
+			// If mRangeBounds still equals to the value passed in constructor
+			if (mRangeBounds == TTValue(0.0, 1.0))
+				mRangeBounds.clear();
+			
+			mRampDrive = kTTSym_none;
 		}
+		// Type is "generic"
 		else {
-            commandMethod = (TTMethodValue)&TTData::GenericCommand;
-            initMessage->method = (TTMethod)&TTData::GenericInit;
+			commandMethod = (TTMethodValue)&TTData::GenericCommand;
+			initMessage->method = (TTMethod)&TTData::GenericInit;
 			valueAttribute->type = kTypeFloat64;
-            valueAttribute->setter = (TTSetterMethod)&TTData::setGenericValue;
+			valueAttribute->setter = (TTSetterMethod)&TTData::setGenericValue;
 			valueDefaultAttribute->type = kTypeFloat64;
 			valueStepSizeAttribute->type = kTypeFloat64;
 			mType = kTTSym_generic;
 			mValue = TTValue(0.);
-            
-			// don't reset mValueStepsize as the default values is equals to the value passed in constructor
+			mValueDefault = TTValue(0.);
 			
-            // don't reset mRangeBounds as the default values is equals to the value passed in constructor
-            
-            mRampDrive = kTTSym_none;
+			// Don't reset mValueStepsize as the default values is equals to the value passed in constructor
+			
+			// Don't reset mRangeBounds as the default values is equals to the value passed in constructor
+			
+			mRampDrive = kTTSym_none;
 			return kTTErrGeneric;
 		}
-        
-        // TODO : move this very Max specific thing else where
-        if (mRampDrive == TTSymbol("max"))
-            if (ttEnvironment->isClassRegistered("max"))
-                mRampDrive = TTSymbol("system");
-        
+		
+		// If TTModularLib is not used with the Max implementation, "max" rampDrive need to be substituted for "system".
+		// TODO : Move this very Max specific thing else where
+		if (mRampDrive == TTSymbol("max"))
+			if (ttEnvironment->isClassRegistered("max"))
+				mRampDrive = TTSymbol("system");
+		
 		rampSetup();
 		
 		this->notifyObservers(kTTSym_type, n);
@@ -186,16 +189,16 @@ TTErr TTData::setType(const TTValue& value)
 TTErr TTData::Command(const TTValue& inputValue, TTValue& outputValue)
 {
     externalRampTime = 0;
-    
+	
     // Is the command already parsed ?
     if (inputValue.size()) {
-        
+		
         if (inputValue[0].type() == kTypePointer)
-            
+			
             // call the specific command method depending on mType
             return (this->*commandMethod)(inputValue, outputValue);
     }
-    
+	
     // else we parse command locally (and we need to free the parsed command afterwards)
     TTDictionaryBasePtr command = NULL;
     TTErr           err;
@@ -203,7 +206,7 @@ TTErr TTData::Command(const TTValue& inputValue, TTValue& outputValue)
     // for string type : keep only the first element
     if (mType == kTTSym_string && inputValue.size())
         command = TTDataParseCommand(inputValue[0], NO);
-    
+	
     // for integer, decimal or array type : parse unit and ramp
     else
         command = TTDataParseCommand(inputValue, mType == kTTSym_integer || mType == kTTSym_decimal || mType == kTTSym_array);
@@ -237,10 +240,12 @@ TTBoolean TTData::clipValue()
 			mValue.cliphigh(TTFloat64(mRangeBounds[1]));
 		else if (mRangeClipmode == kTTSym_both)
 			mValue.clip(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
+		else if (mRangeClipmode == kTTSym_wrap)
+			mValue.wrap(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
 		//else if (mRangeClipmode == kTTSym_wrap)
-            ;//mValue.clipwrap(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
-		//else if (mRangeClipmode == kTTSym_fold)
-            ;//mValue.clipfold(TTFloat64(mRangeBounds[0]), mTTFloat64(mRangeBounds[1]));
+            //mValue.clipwrap(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
+		else if (mRangeClipmode == kTTSym_fold)
+			mValue.fold(TTFloat64(mRangeBounds[0]), TTFloat64(mRangeBounds[1]));
 	}
 	
 	return false;
@@ -249,15 +254,13 @@ TTBoolean TTData::clipValue()
 TTErr TTData::returnValue()
 {
     // used a new value to protect the internal value
-    TTValue v = mValue;
+	TTValue v = mValue;;
 	
-    
-    // This is a temporary solution to have audio rate ramping outside the #TTData
-    // TODO JamomaCore #212 : when Trond ports dataspace ramp we need to think about how that works with audio rate ramps
+    // COMMENT: This is a temporary solution to have audio rate ramping outside the #TTData
+    // TODO: JamomaCore #212 : when Trond ports dataspace ramp we need to think about how that works with audio rate ramps
     if (mRampDrive == kTTSym_external) {
-        
-        if (externalRampTime > 0)
-            v.append(externalRampTime);
+		if (externalRampTime > 0)
+			v.append(externalRampTime);
     }
     
     // we have had our value set at least once
@@ -277,6 +280,9 @@ TTErr TTData::returnValue()
     
     return kTTErrNone;
 }
+
+# pragma mark -
+# pragma mark None type
 
 TTErr TTData::NoneCommand(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -319,6 +325,9 @@ TTErr TTData::NoneInit()
     
     return kTTErrNone;
 }
+
+# pragma mark -
+# pragma mark Generic type
 
 TTErr TTData::GenericCommand(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -380,18 +389,24 @@ TTErr TTData::setGenericValue(const TTValue& value)
 
 TTErr TTData::GenericInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
     if (!mValueDefault.empty())
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-    
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(0.));
+    {
+        TTValue empty;
+        this->Command(mValueDefault, empty);
+    }
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
+
+# pragma mark -
+# pragma mark Boolean type
 
 TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -433,9 +448,9 @@ TTErr TTData::BooleanCommand(const TTValue& inputValue, TTValue& outputValue)
                 
                 if (time > 0) {
                     
-                    mRamper.send("Set", mValue, none);
-                    mRamper.send("Target", aValue, none);
-                    mRamper.send(kTTSym_Go, (int)time, none);
+                    mRamper.send("Set", mValue);
+                    mRamper.send("Target", aValue);
+                    mRamper.send(kTTSym_Go, (int)time);
                     
                     // update the ramp status attribute
                     mRamper.get(kTTSym_running, isRunning);
@@ -527,163 +542,25 @@ TTBoolean TTData::checkBooleanType(const TTValue& value)
 
 TTErr TTData::BooleanInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
 	if (checkBooleanType(mValueDefault))
-		if (!(mValueDefault.empty())) {
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-		}
+		if (!(mValueDefault.empty()))
+        {
+            TTValue empty;
+			this->Command(mValueDefault, empty);
+        }
 	
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(NO));
-    
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
 
-TTErr TTData::IntegerCommand(const TTValue& inputValue, TTValue& outputValue)
-{
-    TTDictionaryBasePtr command = NULL;
-    TTSymbol		unit;
-    TTFloat64		time;
-    TTBoolean       isRunning;
-    TTValue			c, v, aValue, none;
-    
-    if (inputValue.size()) {
-        
-        // 1. Get the command TTDictionnary
-        ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
-        else
-            return kTTErrGeneric;
-
-        // 2. Get the value
-        command->getValue(aValue);
-        
-        // 3. Set Dataspace input unit and convert the value
-        // Note : The current implementation does not override the active unit temporarily or anything fancy.
-        // It just sets the input unit and then runs with it...
-        // For this initial implementation we are converting the values prior to ramping, as it is easier.
-        // Ultimately though, we actually want to convert the units after the ramping,
-        // for example to perform a sweep that is linear vs logarithmic
-        ////////////////////////////////////////////////////////////////
-        if (mDataspaceConverter.valid()) {
-            
-            if (!command->lookup(kTTSym_unit, v)) {
-                
-                TTValue convertedValue;
-                
-                v.get(0, unit);
-                mDataspaceConverter.set(kTTSym_inputUnit, unit);
-                convertUnit(aValue, convertedValue);
-                aValue = convertedValue;
-            }
-        }
-        
-        // 4. Filter repetitions
-        //////////////////////////////////
-        if (mRepetitionsFilter && mInitialized) {
-            
-            aValue.truncate();
-            
-            if (mValue == aValue)
-                return kTTErrNone;	// nothing to do
-        }
-        
-        // 5. Ramp the convertedValue
-        /////////////////////////////////
-        if (mRamper.valid()) {
-            
-            if (!command->lookup(kTTSym_ramp, v)) {
-                
-                v.get(0, time);
-                
-                if (time > 0) {
-                    
-                    mRamper.send("Set", mValue, none);
-                    mRamper.send("Target", aValue, none);
-                    mRamper.send(kTTSym_Go, (int)time, none);
-                    
-                    // update the ramp status attribute
-                    mRamper.get(kTTSym_running, isRunning);
-                    if (mRampStatus != isRunning) {
-                        mRampStatus = isRunning;
-                        notifyObservers(kTTSym_rampStatus, mRampStatus);
-                    }
-                    
-                    return kTTErrNone;
-                }
-            }
-            
-            // in any other cases :
-            // stop ramping before to set a value
-            mRamper.send(kTTSym_Stop);
-            
-            // update the ramp status attribute
-            mRamper.get(kTTSym_running, isRunning);
-            if (mRampStatus != isRunning) {
-                mRampStatus = isRunning;
-                notifyObservers(kTTSym_rampStatus, mRampStatus);
-            }
-        }
-        
-        // external ramp drive case
-        else if (mRampDrive == kTTSym_external) {
-            
-            if (!command->lookup(kTTSym_ramp, v))
-                v.get(0, externalRampTime);
-            
-        }
-    }
-    
-    // 6. Set the value directly
-    return this->setIntegerValue(aValue);
-}
-
-TTErr TTData::setIntegerValue(const TTValue& value)
-{
-    if (!mIsSending && mActive) {
-		
-        // lock
-		mIsSending = YES;
-        
-		if (checkIntegerType(value)) {
-			
-            // don't update the internal value with empty value
-            if (value.size() == 1) {
-                
-                // set internal value
-                mValue = value;
-                
-                // truncate internal value
-                mValue.truncate();
-                
-                if (mRamper.valid())
-                    if (clipValue())
-                        mRamper.send(kTTSym_Stop);
-            }
-            
-            // return the internal value
-            returnValue();
-            
-            // unlock
-            mIsSending = NO;
-            
-            return kTTErrNone;
-		}
-		else {
-			
-			// unlock
-			mIsSending = NO;
-            
-			return kTTErrInvalidValue;
-		}
-	}
-    
-	return kTTErrGeneric;
-}
+# pragma mark -
+# pragma mark Integer type
 
 TTBoolean TTData::checkIntegerType(const TTValue& value)
 {
@@ -707,14 +584,16 @@ TTBoolean TTData::checkIntegerType(const TTValue& value)
 
 TTErr TTData::IntegerInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
 	if (checkIntegerType(mValueDefault))
-		if (!(mValueDefault.empty())) {
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-		}
-    
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(0));
+		if (!(mValueDefault.empty()))
+        {
+            TTValue empty;
+			this->Command(mValueDefault, empty);
+        }
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
@@ -722,7 +601,10 @@ TTErr TTData::IntegerInit()
     return kTTErrNone;
 }
 
-TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
+# pragma mark -
+# pragma mark Common to Decimal, Integer and Array type
+
+TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr command = NULL;
     TTSymbol		unit;
@@ -731,65 +613,72 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
     TTValue			c, v, aValue, none;
     
     if (inputValue.size()) {
-        
-        // 1. Get the command TTDictionnary
-        ///////////////////////////////////////////////////
-        if (inputValue[0].type() == kTypePointer)
-            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
-        else
-            return kTTErrGeneric;
+		
+		// New command terminates any ongoing ramp
+		if (mRampStatus) {
+			mRamper.send(kTTSym_Stop);
+		}
+		
+    // Get the command TTDictionnary
+      
+	// This contains the new value and optional information on ramp and unit
+    if (inputValue[0].type() == kTypePointer)
+		command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
+    else
+		return kTTErrGeneric;
 
-        // 2. Get the value
-        command->getValue(aValue);
-        
-        // 3. Set Dataspace input unit and convert the value
-        // Note : The current implementation does not override the active unit temporarily or anything fancy.
-        // It just sets the input unit and then runs with it...
-        // For this initial implementation we are converting the values prior to ramping, as it is easier.
-        // Ultimately though, we actually want to convert the units after the ramping,
-        // for example to perform a sweep that is linear vs logarithmic
-        ////////////////////////////////////////////////////////////////
-        if (mDataspaceConverter.valid()) {
-            
-            if (!command->lookup(kTTSym_unit, v)) {
-                
-                TTValue convertedValue;
-                
-                unit = v[0];
-                mDataspaceConverter.set(kTTSym_inputUnit, unit);
-                convertUnit(aValue, convertedValue);
-                aValue = convertedValue;
-            }
-        }
-        
-        // 4. Filter repetitions
-        //////////////////////////////////
-        if (mRepetitionsFilter && mInitialized) {
-            
-            if (mValue == aValue)
-                return kTTErrNone;	// nothing to do
-        }
-        
-        // 5. Ramp the convertedValue
-        /////////////////////////////////
-        if (mRamper.valid()) {
-            
-            if (!command->lookup(kTTSym_ramp, v)) {
-                
-                time = v[0];
-                
-                if (time > 0) {
+    // Get the new target value. This might be specified in an overriding unit
+    command->getValue(aValue);
+		
+		// For mType = "decimal" or "integer" it does not make sense to have more than one item in aValue.
+		if ((mType == kTTSym_decimal) || (mType == kTTSym_integer)) {
+			if (aValue.size()>1)
+				aValue.resize(1);
+		}
+		
+		// Set up ramp if requested, this might include overriding dataspace unit
+		if (mRamper.valid()) {
+			if (!command->lookup(kTTSym_ramp, v)) {
+			
+				time = v[0];
+				
+				// Is a valid ramp time requested?
+				if (time > 0) {
                     
-                    // set the start (current) value
-                    mRamper.send("Set", mValue, none);
+                    TTValue rampStartValue;
+				
+					// Is the dataspace unit to be temporarily overridden during the ramp?
+					if ((mDataspaceConverter.valid()) && (!command->lookup(kTTSym_unit, v))) {
+					
+						unit = v[0];
+					
+						mIsOverridingDataspaceUnit = true;
+					
+						// Set up units for conversions
+						mDataspaceConverter.set(kTTSym_inputUnit, unit);
+						mDataspaceInverseConverter.set(kTTSym_outputUnit, unit);
+					
+						// Convert current value to temporary unit, and use as ramp start value
+						inverseConvertUnit(mValue, rampStartValue);
+					}
+					
+					// No dataspace unit conversion is needed during the ramp
+					else {
+						mIsOverridingDataspaceUnit = false;
+					
+                        rampStartValue = mValue;
+					}
                     
-                    // set the end value
-                    mRamper.send("Target", aValue, none);
+                    // Set the start ramp value
+                    mRamper.send("Set", rampStartValue);
                     
-                    // set how long it going to take and start the ramp, we don't output any value immediately
-                    mRamper.send(kTTSym_Go, (int)time, none);
+                    // Set the end value using the overriding unit
+                    mRamper.send("Target", aValue);
                     
-                    // update the ramp status attribute
+                    // Set ramp time and start the ramp, we don't output any value immediately
+                    mRamper.send(kTTSym_Go, (int)time);
+                    
+                    // Update the ramp status attribute
                     mRamper.get(kTTSym_running, isRunning);
                     if (mRampStatus != isRunning) {
                         mRampStatus = isRunning;
@@ -797,109 +686,169 @@ TTErr TTData::DecimalCommand(const TTValue& inputValue, TTValue& outputValue)
                     }
                     
                     return kTTErrNone;
-                }
-            }
-            
-            // in any other cases :
-            // stop ramping before to set a value
-            mRamper.send(kTTSym_Stop);
-            
-            // update the ramp status attribute
-            mRamper.get(kTTSym_running, isRunning);
-            if (mRampStatus != isRunning) {
-                mRampStatus = isRunning;
-                notifyObservers(kTTSym_rampStatus, mRampStatus);
-            }
-        }
-        
-        // external ramp drive case
-        else if (mRampDrive == kTTSym_external) {
-            
-            if (!command->lookup(kTTSym_ramp, v))
-                v.get(0, externalRampTime);
-            
-        }
-    }
-    
-    // 6. Set the value directly
-    return this->setDecimalValue(aValue);
+				}
+			}
+		}
+		// External ramp drive case - this is used with the j.parameter~ abstraction in Max. This is just a prototype until a proper C++ solution can be coded, and we do not bother to deal with ramp function or dataspace.
+		else if (mRampDrive == kTTSym_external) {
+			if (!command->lookup(kTTSym_ramp, v))
+				externalRampTime = v[0];
+		}
+		
+		// No ramping, target vale will be set immediately. This part of the method will only be executed if (a) no ramp was requested, (b) ramp time was less or equal to 0, or (c) we are using an external ramp drive.
+		
+		// Check for overriding unit, convert to default unit if necessary
+		if ((mDataspaceConverter.valid()) && (!command->lookup(kTTSym_unit, v))) {
+			
+			TTValue convertedValue;
+			
+			unit = v[0];
+			mDataspaceConverter.set(kTTSym_inputUnit, unit);
+			convertUnit(aValue, convertedValue);
+			aValue = convertedValue;
+		} else {
+			// Ramp and unit conversion implicitly ensure that type is kTypeFloat64, but if we don't have ramp or unit, we need to ensure that mValue is set as kTypeFloat64. We do not run this test if (aValue.size() == 0.). That will be the case in the Max implementation when sending a "bang" to j.parameter.
+			// TODO: The following need to be reconsidered if this method is to cater for integers and arrays as well.
+			if (mType==kTTSym_decimal) {
+				if (aValue.size())
+					if (aValue[0].type() != kTypeFloat64)
+						aValue = (TTFloat64)aValue[0];
+			}
+			else if (mType==kTTSym_integer) {
+				if (aValue.size())
+					// Cast to int if
+					if (!checkIntegerType(aValue))
+						aValue = (TTInt32)aValue[0];
+					aValue[0].truncate();
+			}
+			else if (mType==kTTSym_array) {
+				for (int i=0; i<aValue.size(); i++)
+					aValue[i] = (TTFloat64)aValue[i];
+				}
+		}
+		
+		mIsOverridingDataspaceUnit = false;
+		
+		// Update the ramp status attribute, unless we use external ramp drive
+		if (mRampDrive != kTTSym_external) {
+			mRamper.get(kTTSym_running, isRunning);
+			if (mRampStatus != isRunning) {
+				mRampStatus = isRunning;
+				notifyObservers(kTTSym_rampStatus, mRampStatus);
+			}
+		}
+	}
+	
+	// Set the value directly
+	return this->setIntegerDecimalArrayValue(aValue);
 }
 
-TTErr TTData::setDecimalValue(const TTValue& value)
-{
-    if (!mIsSending && mActive) {
-		
-        // We are locking while updating, in order to prevent returned values from clients to cause an infinite loop.
-		mIsSending = YES;
-        
-		if (checkDecimalType(value)) {
-			
-            // don't update the internal value with empty value
-            if (value.size() == 1) {
-                
-                // set internal value
-                mValue = value;
-                
-                // then stop the ramping
-                // why are we only clipping if we are ramping ?
-                // why are we stopping the ramping after setting the value ?
-                // TODO #JamomaCore issue #211 : review this question when porting dataspace ramping
-                if (mRamper.valid())
-                    if (clipValue())
-                        mRamper.send(kTTSym_Stop);
 
-            }
-            
-            // return the internal value - this is passing it to the owner of the #TTData and notify all value observers
-            returnValue();
-            
-            // unlock
-            mIsSending = NO;
-            
-            return kTTErrNone;
+TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
+{
+	// Storing locally to protect the input value
+	TTValue lValue = value;
+	
+	if (!mIsSending && mActive) {
+		
+		// We are locking while updating, in order to prevent returned values from clients to cause an infinite loop.
+		mIsSending = YES;
+		
+		if (checkIntegerDecimalArrayType(lValue)) {
+			
+			if (lValue.size() > 0) {
+				
+				TTValue lPreviousValue = mValue;
+				
+				// If ramp is performed using non-default dataspace unit, the returned values need to be converted.
+				if (mIsOverridingDataspaceUnit)
+					convertUnit(lValue, mValue);
+				else
+					mValue = lValue;
+				
+				// Clipping
+				clipValue();
+				
+				
+				// Truncate if type is integer
+				if (mType == kTTSym_integer)
+					mValue.truncate();
+				
+				// NOTE: If ramps reach the end prematurely (due to requests for ramp targets beyond the accepted range), the ramp will not be stopped.
+				
+				// Filter repetitions, and return the internal value - this is passing it to the owner of the #TTData and will notify all value observers.
+				if (mRepetitionsFilter) {
+					if (mInitialized) {
+						if (mValue != lPreviousValue)
+							returnValue();
+					}
+					else {
+						returnValue();
+						mInitialized = true;
+					}
+					
+				}
+				else
+					returnValue();
+			} else {
+				// If the value is empty, return current value. This is the case in the Max implementation when a "bang" is sent to j.parameter.
+				returnValue();
+			}
+			// unlock
+			mIsSending = NO;
+			
+			return kTTErrNone;
 		}
 		else {
 			
 			// unlock
 			mIsSending = NO;
-            
+			
 			return kTTErrInvalidValue;
 		}
 	}
-    
+	
 	return kTTErrGeneric;
 }
 
-TTBoolean TTData::checkDecimalType(const TTValue& value)
+TTBoolean TTData::checkIntegerDecimalArrayType(const TTValue& value)
 {
-    if (value.size() == 0)
-        return YES;
+	if (mType == kTTSym_array)
+		return YES;
+	else if ((mType == kTTSym_integer) || (mType == kTTSym_decimal)) {
+	
+		if (value.size() == 0)
+			return YES;
     
-    TTDataType type = value[0].type();
+		TTDataType type = value[0].type();
     
-    return  //type == kTypeNone       ||
-            type == kTypeFloat32    ||
-            type == kTypeFloat64    ||
-            type == kTypeInt8       ||
-            type == kTypeUInt8      ||
-            type == kTypeInt16      ||
-            type == kTypeUInt16     ||
-            type == kTypeInt32      ||
-            type == kTypeUInt32     ||
-            type == kTypeInt64      ||
-            type == kTypeUInt64;
+		return	type == kTypeFloat32    ||
+				type == kTypeFloat64    ||
+				type == kTypeInt8       ||
+				type == kTypeUInt8      ||
+				type == kTypeInt16      ||
+				type == kTypeUInt16     ||
+				type == kTypeInt32      ||
+				type == kTypeUInt32     ||
+				type == kTypeInt64      ||
+				type == kTypeUInt64;
+	}
+	else
+		return NO;
 }
 
 TTErr TTData::DecimalInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
-	if (checkDecimalType(mValueDefault))
-		if (!(mValueDefault.empty())) {
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-		}
-	
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(0.));
+	if (checkIntegerDecimalArrayType(mValueDefault))
+		if (!(mValueDefault.empty()))
+        {
+            TTValue empty;
+			this->Command(mValueDefault, empty);
+        }
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
@@ -907,6 +856,10 @@ TTErr TTData::DecimalInit()
     return kTTErrNone;
 }
 
+# pragma mark -
+# pragma mark Array type
+
+/*
 TTErr TTData::ArrayCommand(const TTValue& inputValue, TTValue& outputValue)
 {
     TTDictionaryBasePtr command = NULL;
@@ -1049,6 +1002,8 @@ TTErr TTData::setArrayValue(const TTValue& value)
 	return kTTErrGeneric;
 }
 
+*/
+
 TTBoolean TTData::checkArrayType(const TTValue& value)
 {
 	return true;
@@ -1056,20 +1011,25 @@ TTBoolean TTData::checkArrayType(const TTValue& value)
 
 TTErr TTData::ArrayInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
 	if (checkArrayType(mValueDefault))
-		if (!(mValueDefault.empty())) {
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-		}
-	
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(0.));
+		if (!(mValueDefault.empty()))
+        {
+            TTValue empty;
+			this->Command(mValueDefault, empty);
+        }
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);
     
     return kTTErrNone;
 }
+
+# pragma mark -
+# pragma mark String type
 
 TTErr TTData::StringCommand(const TTValue& inputValue, TTValue& outputValue)
 {
@@ -1183,14 +1143,16 @@ TTBoolean TTData::checkStringType(const TTValue& value)
 
 TTErr TTData::StringInit()
 {
+    // reset initialisation state
+    mInitialized = NO;
+    
     // if valueDefault type is right
 	if (checkStringType(mValueDefault))
-		if (!(mValueDefault.empty())) {
-			return this->setAttributeValue(kTTSym_value, mValueDefault);
-		}
-    
-    // the value is not initialized if the value equals to the start value
-    mInitialized = !(mValue == TTValue(kTTSymEmpty));
+		if (!(mValueDefault.empty()))
+        {
+            TTValue empty;
+			this->Command(mValueDefault, empty);
+        }
     
     // notify observers about the initialization state
 	initializedAttribute->sendNotification(kTTSym_notify, mInitialized);

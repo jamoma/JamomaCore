@@ -300,6 +300,28 @@ public:
 		for (TTElementIter i = this->begin(); i != this->end(); i++)
 			i->cliphigh(aHighBound);
 	}
+	
+	/** @brief Fold numerical values to remain between low and high boundaries
+	 @param[in] aLowBound   Lowest value that should be preserved. Anything lower will be folder.
+	 @param[in] aHighBound  Highest value that should be preserved. Anything higher will be folded.
+	 @return    none
+	 */
+	void fold(const TTFloat64& aLowBound, const TTFloat64& aHighBound)
+	{
+		for (TTElementIter i = this->begin(); i != this->end(); i++)
+			i->fold(aLowBound, aHighBound);
+	}
+	
+	/** @brief Wrap numerical values to remain between low and high boundaries
+	 @param[in] aLowBound   Lowest value that should be preserved. Anything lower will be wrapped.
+	 @param[in] aHighBound  Highest value that should be preserved. Anything higher will be wrapped.
+	 @return    none
+	 */
+	void wrap(const TTFloat64& aLowBound, const TTFloat64& aHighBound)
+	{
+		for (TTElementIter i = this->begin(); i != this->end(); i++)
+			i->wrap(aLowBound, aHighBound);
+	}
 
 	/** @brief Round float & double elements to the nearest whole number */
 	void round()

@@ -111,10 +111,23 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
-        
-        
+		
+		myDataspace.set(TT("inputUnit"), TT("linear"));
+		myDataspace.set(TT("outputUnit"), TT("dB"));
+		
+		v = TTValue(0.0);
+		expected = TTValue(-144.49);
+		
+		myDataspace.send(TT("convert"), v, v);
+		
+		TTTestAssertion("0.0 linear to dB, avoid -inf dB by clipping to 24bit resolution (-144.49 dB).",
+						TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+						testAssertionCount,
+						errorCount);
+		
+		
         // linear => midi gain
-        
+		
         myDataspace.set(TT("inputUnit"), TT("linear"));
         myDataspace.set(TT("outputUnit"), TT("midigain"));
         

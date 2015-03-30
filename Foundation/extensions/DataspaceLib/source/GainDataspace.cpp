@@ -93,7 +93,15 @@ void DecibelUnit::convertToNeutral(const TTValue& input, TTValue& output)
 
 void DecibelUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output = log10(TTFloat64(input)) * 20.0;
+	TTFloat64 temp;
+	
+	// The conversion
+	temp = log10(TTFloat64(input)) * 20.0;
+	
+	// Output decibel range is limited to 24 bit range, avoids problems with singularities (-inf) when using dataspace in ramps
+	if (temp < -144.49)
+		temp = -144.49;
+	output = temp;
 }
 
 
