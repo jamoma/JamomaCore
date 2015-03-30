@@ -120,21 +120,13 @@ private:
 	
 	
 	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_decimal, #kTTSym_integer and #kTTSym_array.
+	 There are the types whre dataspace and ramping can be used at the same time.
 	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
 	 @param[out] outputValue	This is not being used.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
 	 @see #TTDataParseCommand
 	 */
     TTErr       IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& outputValue);
-	
-	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_array.
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
-	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
-	 */
-    //TTErr       ArrayCommand(const TTValue& inputValue, TTValue& outputValue);
 	
 	
 	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_string.
@@ -175,18 +167,12 @@ private:
 	
 	
     /** Setter for #mValue attribute, optimised for #mType #kTTSym_integer, #kTTSym_decimal and #kTTSym_array.
+	 These are the types whre dataspace and ramping can be used at the same time.
      @param[in]     The new value that the attribute is to be set to.
      @return        #TTErrorNone if the method executed successfully, elseway an error code.
     */
     TTErr       setIntegerDecimalArrayValue(const TTValue& value);
-	
-	
-	/**	Setter for #mValue attribute, optimised for #mType #kTTSym_array.
-	 @param value	The new value that the attribute is to be set to.
-	 @return		#TTErrorNone if the method executes successfully, else an error code.
-	 */
-    //TTErr       setArrayValue(const TTValue& value);
-	
+
 	
 	/**	Setter for #mValue attribute, optimised for #mType #kTTSym_string.
 	 @param value	The new value that the attribute is to be set to.
@@ -340,7 +326,7 @@ private:
 	TTErr       setDescription(const TTValue& value);
 	
 	
-    /**	Setter for mPriority attribute. 
+    /**	Setter for mPriority attribute.
 	 */
 	TTErr       setPriority(const TTValue& value);
 	
