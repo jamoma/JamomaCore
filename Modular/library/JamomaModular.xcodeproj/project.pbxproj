@@ -26,7 +26,6 @@
 		4689BAA61ABA137D00D1BA4E /* TTMirror.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTMirror.cpp; sourceTree = "<group>"; };
 		4689BAA71ABA137D00D1BA4E /* TTModular.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTModular.cpp; sourceTree = "<group>"; };
 		4689BAA81ABA137D00D1BA4E /* TTNodeInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTNodeInfo.cpp; sourceTree = "<group>"; };
-		4689BAA91ABA137D00D1BA4E /* TTOpmlHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOpmlHandler.cpp; sourceTree = "<group>"; };
 		4689BAAA1ABA137D00D1BA4E /* TTOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOutput.cpp; sourceTree = "<group>"; };
 		4689BAAB1ABA137D00D1BA4E /* TTOutputAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTOutputAudio.cpp; sourceTree = "<group>"; };
 		4689BAAC1ABA137D00D1BA4E /* TTPreset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TTPreset.cpp; sourceTree = "<group>"; };
@@ -57,7 +56,6 @@
 		4689BAC61ABA139200D1BA4E /* TTModularVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.h; sourceTree = "<group>"; };
 		4689BAC71ABA139200D1BA4E /* TTModularVersion.template.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTModularVersion.template.h; sourceTree = "<group>"; };
 		4689BAC81ABA139200D1BA4E /* TTNodeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTNodeInfo.h; sourceTree = "<group>"; };
-		4689BAC91ABA139200D1BA4E /* TTOpmlHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOpmlHandler.h; sourceTree = "<group>"; };
 		4689BACA1ABA139200D1BA4E /* TTOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOutput.h; sourceTree = "<group>"; };
 		4689BACB1ABA139200D1BA4E /* TTOutputAudio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTOutputAudio.h; sourceTree = "<group>"; };
 		4689BACC1ABA139200D1BA4E /* TTPreset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTPreset.h; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 				4689BAC61ABA139200D1BA4E /* TTModularVersion.h */,
 				4689BAC71ABA139200D1BA4E /* TTModularVersion.template.h */,
 				4689BAC81ABA139200D1BA4E /* TTNodeInfo.h */,
-				4689BAC91ABA139200D1BA4E /* TTOpmlHandler.h */,
 				4689BACA1ABA139200D1BA4E /* TTOutput.h */,
 				4689BACB1ABA139200D1BA4E /* TTOutputAudio.h */,
 				4689BACC1ABA139200D1BA4E /* TTPreset.h */,
@@ -154,7 +151,6 @@
 				4689BAA61ABA137D00D1BA4E /* TTMirror.cpp */,
 				4689BAA71ABA137D00D1BA4E /* TTModular.cpp */,
 				4689BAA81ABA137D00D1BA4E /* TTNodeInfo.cpp */,
-				4689BAA91ABA137D00D1BA4E /* TTOpmlHandler.cpp */,
 				4689BAAA1ABA137D00D1BA4E /* TTOutput.cpp */,
 				4689BAAB1ABA137D00D1BA4E /* TTOutputAudio.cpp */,
 				4689BAAC1ABA137D00D1BA4E /* TTPreset.cpp */,
