@@ -375,6 +375,10 @@ TTErr TTCue::Store(const TTValue& inputValue, TTValue& outputValue)
 
 TTErr TTCue::processStore(TTObject aScript, const TTAddressItemPtr aSelection, TTNodePtr nodeToProcess)
 {
+    // stop recursion if the selection is empty
+    if (aSelection->isEmpty())
+        return kTTErrNone;
+    
 	TTAddressItemPtr nameItem, instanceItem;
 	TTString		nameInstance;
 	TTNodePtr		scriptNode, aNode;
