@@ -303,6 +303,18 @@ TTErr TTContainer::initNode(TTNodePtr aNode)
             else if (anObject.name() == kTTSym_Container)
                 anObject.send(kTTSym_Init);
         }
+    }
+    
+    // ask again for children node list are
+    // as the namespace can have changed
+    aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+    
+    // Sort children by priority order again
+    nodeList.sort(&compareNodePriorityThenNameThenInstance);
+    
+    for (nodeList.begin(); nodeList.end(); nodeList.next())
+    {
+        aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
         
         initNode(aChild);
     }
