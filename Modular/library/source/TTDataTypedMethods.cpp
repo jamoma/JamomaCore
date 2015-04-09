@@ -615,7 +615,8 @@ TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& out
     if (inputValue.size()) {
 		
 		// New command terminates any ongoing ramp
-		if (mRampStatus) {
+		if (mRamper.valid() && mRampStatus)
+        {
 			mRamper.send(kTTSym_Stop);
 		}
 		
@@ -730,9 +731,11 @@ TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& out
 		mIsOverridingDataspaceUnit = false;
 		
 		// Update the ramp status attribute, unless we use external ramp drive
-		if (mRampDrive != kTTSym_external) {
+		if (mRamper.valid() && mRampDrive != kTTSym_external)
+        {
 			mRamper.get(kTTSym_running, isRunning);
-			if (mRampStatus != isRunning) {
+			if (mRampStatus != isRunning)
+            {
 				mRampStatus = isRunning;
 				notifyObservers(kTTSym_rampStatus, mRampStatus);
 			}
