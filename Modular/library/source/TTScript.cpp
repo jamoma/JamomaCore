@@ -2062,8 +2062,8 @@ TTErr TTScriptMerge(TTObject scriptToMerge, TTObject mergedScript)
 					mergedLine = TTScriptParseScript(addressToMerged);
 				
 				// get the new sub script
-				mergedLine->getValue(v);
-				mergedSubScript = v[0];
+				if (!mergedLine->getValue(v))
+                    mergedSubScript = v[0];
 				
 				// merge the sub scripts if they exist
 				if (subScriptToMerge.valid() && mergedSubScript.valid()) {
@@ -2099,32 +2099,36 @@ TTErr TTScriptOptimize(TTObject aScriptToOptimize, TTObject aScript, TTObject op
 	
 	if (TTScriptPtr(aScriptToOptimize.instance())->mLines->isEmpty() || TTScriptPtr(aScript.instance())->mLines->isEmpty())
 		return kTTErrGeneric;
-	
+    
 	for (TTScriptPtr(aScriptToOptimize.instance())->mLines->begin(), TTScriptPtr(aScript.instance())->mLines->begin(); 
-		 TTScriptPtr(aScriptToOptimize.instance())->mLines->end() && TTScriptPtr(aScript.instance())->mLines->end(); 
-		 TTScriptPtr(aScriptToOptimize.instance())->mLines->next(), TTScriptPtr(aScript.instance())->mLines->next()) {
-		
-		lineToOptimize = TTDictionaryBasePtr((TTPtr)TTScriptPtr(aScriptToOptimize.instance())->mLines->current()[0]);
-		aLine = TTDictionaryBasePtr((TTPtr)TTScriptPtr(aScript.instance())->mLines->current()[0]);
-		
-		// get addresses
+         TTScriptPtr(aScriptToOptimize.instance())->mLines->end();
+		 TTScriptPtr(aScriptToOptimize.instance())->mLines->next(), TTScriptPtr(aScript.instance())->mLines->next())
+    {
 		addressToOptimize = kTTAdrsEmpty;
-		if (!lineToOptimize->lookup(kTTSym_address, v))
-			addressToOptimize = v[0];
+        lineToOptimize = TTDictionaryBasePtr((TTPtr)TTScriptPtr(aScriptToOptimize.instance())->mLines->current()[0]);
+            
+        if (!lineToOptimize->lookup(kTTSym_address, v))
+            addressToOptimize = v[0];
 
 		address = kTTAdrsEmpty;
-		if (!aLine->lookup(kTTSym_address, v))
-			address = v[0];
+        if (TTScriptPtr(aScript.instance())->mLines->end())
+        {
+            aLine = TTDictionaryBasePtr((TTPtr)TTScriptPtr(aScript.instance())->mLines->current()[0]);
+            if (!aLine->lookup(kTTSym_address, v))
+                address = v[0];
+        }
 		
-		if (addressToOptimize != kTTAdrsEmpty && address != kTTAdrsEmpty) {
-			
+		if (addressToOptimize != kTTAdrsEmpty)
+        {
 			// the both addresses have to be the same
-			if (addressToOptimize != address) {
+			if (addressToOptimize != address)
+            {
 				TTScriptPtr(aScript.instance())->mLines->find(&TTScriptFindAddress, (TTPtr)&addressToOptimize, found);
 				
-				// couldn't find the same address in the script : skip the command
-				if (found.empty()) {
-					TTScriptPtr(aScript.instance())->mLines->begin();
+				// couldn't find the same address in the script : copy the line and append it to the optimized script
+				if (found.empty())
+                {
+                    TTScriptPtr(optimizedScript.instance())->Append((TTPtr)TTScriptCopyLine(lineToOptimize), parsedLine);
 					continue;
 				}
 				else
@@ -2132,8 +2136,8 @@ TTErr TTScriptOptimize(TTObject aScriptToOptimize, TTObject aScript, TTObject op
 			}
 			
 			// optimize the line depending on the schema
-			if (lineToOptimize->getSchema() == kTTSym_command && aLine->getSchema() == kTTSym_command) {
-				
+			if (lineToOptimize->getSchema() == kTTSym_command && aLine->getSchema() == kTTSym_command)
+            {
 				// get line values
 				lineToOptimize->getValue(valueToOptimize);
 				aLine->getValue(value);
@@ -2148,8 +2152,8 @@ TTErr TTScriptOptimize(TTObject aScriptToOptimize, TTObject aScript, TTObject op
 				// the optimized script contains at least one command line now
 				empty = NO;
 			}
-			else if (lineToOptimize->getSchema() == kTTSym_script && aLine->getSchema() == kTTSym_script) {
-				
+			else if (lineToOptimize->getSchema() == kTTSym_script && aLine->getSchema() == kTTSym_script)
+            {
 				// get the sub scripts
 				if (!lineToOptimize->getValue(v))
 					subScriptToOptimize = v[0];
@@ -2158,8 +2162,8 @@ TTErr TTScriptOptimize(TTObject aScriptToOptimize, TTObject aScript, TTObject op
 					aSubScript = v[0];
 				
 				// optimize the sub scripts if they exist
-				if (subScriptToOptimize.valid() && aSubScript.valid()) {
-					
+				if (subScriptToOptimize.valid() && aSubScript.valid())
+                {
 					// create a line for the optimized sub script
 					optimizedLine = TTScriptParseScript(addressToOptimize);
 					
@@ -2170,16 +2174,16 @@ TTErr TTScriptOptimize(TTObject aScriptToOptimize, TTObject aScript, TTObject op
 					err = TTScriptOptimize(subScriptToOptimize, aSubScript, optimizedSubScript);
 					
 					// if no error occurs during th optimization of the sub script
-					if (!err) {
-						
+					if (!err)
+                    {
 						// copy the script line and append it to the optimized script
 						TTScriptPtr(optimizedScript.instance())->Append((TTPtr)optimizedLine, parsedLine);
 						
 						// the optimized script contains at least one command line now
 						empty = NO;
 					}
-					else {
-						
+					else
+                    {
 						// delete the line
 						delete optimizedLine;
 					}
