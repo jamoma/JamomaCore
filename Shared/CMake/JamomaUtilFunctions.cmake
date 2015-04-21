@@ -88,6 +88,9 @@ function(add_jamoma_library)
 		install(TARGETS ${PROJECT_NAME}
 				DESTINATION "${JAMOMAMAX_INSTALL_FOLDER}/Jamoma/support"
 				COMPONENT JamomaMax)
+                install(TARGETS ${PROJECT_NAME}
+                                DESTINATION "${JAMOMAMAX_MODULAR_INSTALL_FOLDER}/Jamoma/support"
+                                COMPONENT JamomaMaxModularOnly)
 	endif()
 endFunction()
 
