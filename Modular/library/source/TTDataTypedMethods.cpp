@@ -96,8 +96,8 @@ TTErr TTData::setType(const TTValue& value)
 			valueAttribute->setter = (TTSetterMethod)&TTData::setStringValue;
 			valueDefaultAttribute->type = kTypeSymbol;
 			valueStepSizeAttribute->type = kTypeSymbol;
-			mValue = TTValue(kTTSymEmpty);
-			mValueDefault = TTValue(kTTSymEmpty);
+			mValue = TTValue(kTTSym_none);
+			mValueDefault = TTValue(kTTSym_none);
 			
 			// If mValueStepsize still equals to the value passed in constructor
 			if (mValueStepsize == TTValue(0.1))
