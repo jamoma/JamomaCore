@@ -259,7 +259,9 @@ TTErr TTViewer::Send(const TTValue& inputValue, TTValue& outputValue)
     TTValue none, valueToSend;
     
     // insert view unit before "ramp" (except for empty value)
-    if (inputValue.size() > 0 && mDataspaceUnit != kTTSym_none)
+    if (inputValue.size() > 0 &&
+        mDataspaceUnit != kTTSym_none &&
+        mAddress.getAttribute() == kTTSym_value)
     {
         TTBoolean ramp = false;
         
