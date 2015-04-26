@@ -285,7 +285,7 @@ static TTUInt8 limitMin(TTUInt8 value, TTUInt8 low_bound)
 {
     value -= std::min(low_bound, value); // so 0 at lowest
 #ifdef TT_PLATFORM_MAC
-    value += fabs(value);
+    value += value;
 #else
     value = TTUInt8(value + fabs((double)value));
 #endif
@@ -299,7 +299,7 @@ static TTUInt16 limitMin(TTUInt16 value, TTUInt16 low_bound)
 {
     value -= std::min(low_bound, value); // so 0 at lowest
 #ifdef TT_PLATFORM_MAC
-    value += fabs(value);
+    value += value;
 #else
     value = TTUInt16(value + fabs((double)value));
 #endif
@@ -313,7 +313,7 @@ static TTUInt32 limitMin(TTUInt32 value, TTUInt32 low_bound)
 {
     value -= std::min(low_bound, value); // so 0 at lowest
 #ifdef TT_PLATFORM_MAC
-    value += fabs(value);
+    value += value;
 #else
     value = TTUInt32(value + fabs((double)value));
 #endif
@@ -328,7 +328,7 @@ static TTUInt64 limitMin(TTUInt64 value, TTUInt64 low_bound)
 {
 	value -= std::min(low_bound, value); // so 0 at lowest
 #ifdef TT_PLATFORM_MAC
-	value += fabs(value);
+	value += value;
 #else
   value = TTUInt64(value + fabs((double)value));
 #endif
