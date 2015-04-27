@@ -4,7 +4,7 @@ project(Foundation)
 if(UNIX AND NOT APPLE)
 	add_definitions("-DJAMOMA_EXTENSIONS_INSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}/lib/jamoma\"")
 endif()
-if(NOT ANDROID AND NOT WIN32)
+if(NOT ANDROID AND NOT WIN32 AND NOT IOS)
 	find_package(Threads REQUIRED) #for phtread
 	find_package(DL REQUIRED)
 endif()
