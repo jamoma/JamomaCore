@@ -233,7 +233,29 @@ class TTOSXSpecific
 };
 using TTOperatingSystem = TTOSXSpecific;
 #endif
-// TODO iOS & Static loading.
+
+#if defined(TT_PLATFORM_IOS)
+class TTiOSSpecific
+{
+public:
+    static constexpr const char extensionPrefix[]{""};
+    static constexpr const char extensionSuffix[]{".ttdylib"};
+    
+    static string computedRelativePath()
+    { return ""; }
+    
+    static TTStringVector builtinRelativePaths()
+    { return {}; }
+    
+    static TTStringVector builtinAbsolutePaths()
+    { return {}; }
+    
+    static bool TTLoadExtensionsFromFolder(const string& folderName)
+    { return false; }
+};
+using TTOperatingSystem = TTiOSSpecific;
+#endif
+
 
 #if defined(TT_PLATFORM_LINUX) && defined(__ANDROID_API__)
 #include <unistd.h>
