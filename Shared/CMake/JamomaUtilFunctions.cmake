@@ -92,6 +92,12 @@ function(add_jamoma_library)
                                 DESTINATION "${JAMOMAMAX_MODULAR_INSTALL_FOLDER}/Jamoma/support"
                                 COMPONENT JamomaMaxModularOnly)
 	endif()
+
+        if(BUILD_JAMOMAPD)
+                install(TARGETS ${PROJECT_NAME}
+                                DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                                COMPONENT JamomaPd)
+        endif()
 endFunction()
 
 
@@ -143,6 +149,12 @@ function(add_jamoma_extension)
 				DESTINATION "${JAMOMAMAX_INSTALL_FOLDER}/Jamoma/support"
 				COMPONENT JamomaMax)
 	endif()
+
+        if(BUILD_JAMOMAPD)
+                install(TARGETS ${PROJECT_NAME}
+                                DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                                COMPONENT JamomaPd)
+        endif()
 endfunction()
 
 
