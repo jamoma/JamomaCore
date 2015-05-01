@@ -5,9 +5,13 @@ function(setupJamomaLibraryProperties LIBNAME)
 	# Filename
 	set_property(TARGET ${LIBNAME}
 				 PROPERTY OUTPUT_NAME Jamoma${LIBNAME})
+    if(APPLE)
 	set_property(TARGET ${PROJECT_NAME}
 				 PROPERTY INSTALL_RPATH "@loader_path/../../../../support;@loader_path")
-	
+    else(NOT WIN32)
+        set_property(TARGET ${PROJECT_NAME}
+                                 PROPERTY INSTALL_RPATH "\$ORIGIN/../support;\$ORIGIN")
+    endif()
 
 	# Version
 	set_property(TARGET ${LIBNAME}
@@ -112,9 +116,13 @@ function(add_jamoma_extension)
 	target_link_libraries(${PROJECT_NAME} ${JAMOMA_CURRENT_LIBRARY_NAME})
 
 	# Rpath
+    if(APPLE)
 	set_property(TARGET ${PROJECT_NAME}
 				 PROPERTY INSTALL_RPATH "@loader_path")
-
+    elseif(NOT WIN)
+        set_property(TARGET ${PROJECT_NAME}
+                                 PROPERTY INSTALL_RPATH "\$ORIGIN")
+    endif()
 	# Install the extension
 	if(APPLE)
 		set(JAMOMA_EXTENSION_FOLDER "extensions")
