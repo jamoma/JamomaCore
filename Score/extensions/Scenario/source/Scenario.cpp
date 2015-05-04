@@ -427,13 +427,13 @@ TTErr Scenario::Goto(const TTValue& inputValue, TTValue& outputValue)
                 }
             }
             
-            if (!muteRecall && !mMute)
+            if (!muteRecall && !mMute && !mTimeEvents.isEmpty())
             {
                 // create a temporary state to compile all the event states before the time offset
                 state = TTObject(kTTSym_Script);
                 
                 // add the state of the scenario start
-                TTScriptMerge(getTimeEventState(getStartEvent()), state);;
+                TTScriptMerge(getTimeEventState(getStartEvent()), state);
                 
                 // add the state of each event before the time offset (expect those which are muted)
                 for (mTimeEvents.begin(); mTimeEvents.end(); mTimeEvents.next())
@@ -445,8 +445,8 @@ TTErr Scenario::Goto(const TTValue& inputValue, TTValue& outputValue)
                     aTimeEvent.get(kTTSym_mute, v);
                     TTBoolean mute = v[0];
                     
-                    if (!mute) {
-                        
+                    if (!mute)
+                    {
                         // merge the event state into the temporary state
                         if (date < timeOffset)
                             TTScriptMerge(getTimeEventState( getStartEvent()), state);
@@ -473,10 +473,10 @@ TTErr Scenario::Goto(const TTValue& inputValue, TTValue& outputValue)
                 }
                 
                 else if (getTimeEventDate(startEvent) >= timeOffset)
-                    v = TTUInt32(0.);
+                    v = TTUInt32(0);
                 
                 else if (getTimeEventDate(endEvent) <= timeOffset)
-                    v = TTUInt32(1.);
+                    v = getTimeEventDate(endEvent) - getTimeEventDate(startEvent);
                 
                 v.append(muteRecall);
                 
