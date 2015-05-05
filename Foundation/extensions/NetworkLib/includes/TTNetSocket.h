@@ -11,7 +11,7 @@
 
 
 
-#ifndef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_WIN) && !defined(__MINGW32__)
 	#include <sys/socket.h>
 	#include <netinet/in.h>
 	#include <netinet/tcp.h>
@@ -71,7 +71,7 @@ public:
 		if (mSocketAddressInfo)
 			freeaddrinfo(mSocketAddressInfo);
 		if (mSocketDescriptor)
-		#ifndef TT_PLATFORM_WIN
+		#if !defined(TT_PLATFORM_WIN) && !defined(__MINGW32__)
 			close(mSocketDescriptor);
 		#else
 			closesocket(mSocketDescriptor);

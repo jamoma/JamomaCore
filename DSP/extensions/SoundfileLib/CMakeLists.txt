@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 find_package(Sndfile)
 
-if(SNDFILE_FOUND)
+if(SNDFILE_FOUND AND NOT MINGW)
 project(SoundfileLib)
 
 include_directories(${SNDFILE_INCLUDE_DIR})
@@ -25,4 +25,4 @@ target_link_libraries(${PROJECT_NAME} ${SNDFILE_LIBRARIES})
 file(COPY ding_b2.aiff geese_clip.aif
 	 DESTINATION .)
 
-endif(SNDFILE_FOUND)
+endif()

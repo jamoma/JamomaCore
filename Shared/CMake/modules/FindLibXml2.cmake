@@ -30,8 +30,7 @@
 #  License text for the above reference.)
 
 
-if(WIN32)
-
+if(WIN32 AND NOT MINGW)
 	find_path(LIBXML2_INCLUDE_DIR NAMES libxml/xpath.h
 		PATHS 
 		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//include"
@@ -59,6 +58,26 @@ if(WIN32)
 	else()
 		set(LIBXML2_LIBRARIES ${LIBXML2_LIBRARIES_RELEASE_STATIC})
 	endif()
+	
+include(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(LibXml2
+                                  REQUIRED_VARS 
+								  LIBXML2_LIBRARIES
+								  LIBXML2_INCLUDE_DIR)
+return()
+endif()
+
+if(MINGW)
+	find_path(LIBXML2_INCLUDE_DIR NAMES libxml/xpath.h
+		PATHS 
+		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//include"
+		PATH_SUFFIXES libxml2
+	)
+
+	find_library(LIBXML2_LIBRARIES NAMES libxml2 xml2
+		PATHS 
+		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//libmingw"
+   )
 	
 include(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(LibXml2

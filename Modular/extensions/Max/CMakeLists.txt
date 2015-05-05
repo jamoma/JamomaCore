@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(Max)
 ### TODO REVIEW ME
-if(IOS OR (NOT APPLE AND NOT WIN32))
+if(IOS OR (NOT APPLE AND NOT WIN32) OR MINGW)
 	message("Max extension requires OS X or Windows.")
 	return()
 endif()
