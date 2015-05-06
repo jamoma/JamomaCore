@@ -145,7 +145,7 @@ public:
 	/** @brief Copy a value starting from an index until the last element */
 	void copyFrom(const TTValue& obj, TTUInt16 index)
 	{
-		copyRange(obj, index, obj.size());
+		copyRange(obj, index, static_cast<TTUInt16>(obj.size()));
 	}
 
 
@@ -257,8 +257,8 @@ public:
 	 */
 	void append(const TTValue& aValueToAppend)
 	{
-		TTUInt32 appendingElementCount = aValueToAppend.size();
-		TTUInt32 oldElementCount = size();
+		TTUInt32 appendingElementCount = static_cast<TTUInt32>(aValueToAppend.size());
+		TTUInt32 oldElementCount = static_cast<TTUInt32>(size());
 		TTUInt32 newElementCount = oldElementCount + appendingElementCount;
 
 		resize(newElementCount);
@@ -519,7 +519,7 @@ public:
      @deprecated instead, please call the size() method */
 	TT_DEPRECATED( TTUInt16 getSize() const )
 	{
-		return size();
+		return static_cast<TTUInt16>(size());
 	}
 
 	/** @brief DEPRECATED

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 find_package(Sndfile)
 
-if(SNDFILE_FOUND AND NOT MINGW)
+if(SNDFILE_FOUND AND NOT MINGW AND NOT WIN64)
 project(SoundfileLib)
 
 include_directories(${SNDFILE_INCLUDE_DIR})

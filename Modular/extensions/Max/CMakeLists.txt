@@ -6,7 +6,7 @@ if(IOS OR (NOT APPLE AND NOT WIN32) OR MINGW)
 	return()
 endif()
 
-if(WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+if(WIN64)
 	message("Does not work yet on Win64")
 	return()
 endif()

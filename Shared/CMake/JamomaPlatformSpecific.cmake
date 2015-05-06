@@ -75,6 +75,7 @@ elseif(WIN32)
 		set(WIN32_PROGRAMFILES "C:\\Program Files (x86)")
 	else()
 		set(WIN32_PROGRAMFILES "C:\\Program Files")
+		set(WIN64 True)
 	endif()
 
 	SET(CPACK_GENERATOR "NSIS")

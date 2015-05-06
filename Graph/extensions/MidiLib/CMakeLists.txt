@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(MidiLib)
 
-if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID)
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID OR WIN64)
   message(STATUS "We can't build this for Android / ARM for now due to lack of PortMidi.")
   return()
 endif()
