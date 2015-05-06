@@ -30,7 +30,57 @@
 #  License text for the above reference.)
 
 
-if(WIN32 AND NOT MINGW)
+if(MINGW)
+	find_path(LIBXML2_INCLUDE_DIR NAMES libxml/xpath.h
+		PATHS 
+		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//include"
+		PATH_SUFFIXES libxml2
+	)
+
+	find_library(LIBXML2_LIBRARIES NAMES libxml2 xml2
+		PATHS 
+		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//libmingw"
+   )
+	
+include(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(LibXml2
+                                  REQUIRED_VARS 
+								  LIBXML2_LIBRARIES
+								  LIBXML2_INCLUDE_DIR)
+return()
+endif()
+
+if(WIN64)
+	find_path(LIBXML2_INCLUDE_DIR NAMES libxml/xpath.h
+		PATHS 
+		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//include"
+		PATH_SUFFIXES libxml2
+	)
+
+	find_library(LIBXML2_LIBRARIES_DEBUG_DYNAMIC NAMES libxml2 xml2
+		PATHS 
+		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//lib64//debug"
+   )
+	find_library(LIBXML2_LIBRARIES_RELEASE_DYNAMIC NAMES libxml2 xml2
+		PATHS 
+		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//lib64//release"
+   )
+   
+	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+		set(LIBXML2_LIBRARIES ${LIBXML2_LIBRARIES_DEBUG_DYNAMIC})
+	else()
+		set(LIBXML2_LIBRARIES ${LIBXML2_LIBRARIES_RELEASE_DYNAMIC})
+	endif()
+	
+include(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(LibXml2
+                                  REQUIRED_VARS 
+								  LIBXML2_LIBRARIES
+								  LIBXML2_INCLUDE_DIR)
+return()
+endif()
+
+if(WIN32)
 	find_path(LIBXML2_INCLUDE_DIR NAMES libxml/xpath.h
 		PATHS 
 		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//include"
@@ -67,25 +117,6 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS(LibXml2
 return()
 endif()
 
-if(MINGW)
-	find_path(LIBXML2_INCLUDE_DIR NAMES libxml/xpath.h
-		PATHS 
-		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//include"
-		PATH_SUFFIXES libxml2
-	)
-
-	find_library(LIBXML2_LIBRARIES NAMES libxml2 xml2
-		PATHS 
-		"${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//libmingw"
-   )
-	
-include(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(LibXml2
-                                  REQUIRED_VARS 
-								  LIBXML2_LIBRARIES
-								  LIBXML2_INCLUDE_DIR)
-return()
-endif()
 
 
 # use pkg-config to get the directories and then use these values
