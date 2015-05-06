@@ -384,7 +384,11 @@ TTStringVector TTWinSpecific::builtinAbsolutePaths()
 #if defined(JAMOMA_EXTENSIONS_INSTALL_PREFIX)
 		JAMOMA_EXTENSIONS_INSTALL_PREFIX,
 #endif
+#if defined(_WIN64)
+		"c:\\Program Files\\Jamoma\\extensions"
+#else
 		"c:\\Program Files (x86)\\Jamoma\\extensions"
+#endif
 	};
 }
 

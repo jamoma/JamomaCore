@@ -246,10 +246,16 @@ function(addMaxSupport)
 	include_directories("${MAXSDK_PATH}/msp-includes")
 	include_directories("${MAXSDK_PATH}/jit-includes")
 	include_directories("${JAMOMAMAX_PATH}/library/includes")
-
-	FIND_LIBRARY(MaxAPI_LIB 
-				 NAMES MaxAPI
-				 PATHS ${MAXSDK_PATH}/max-includes/)
+	
+	if(NOT WIN64)
+		FIND_LIBRARY(MaxAPI_LIB 
+					NAMES MaxAPI
+					PATHS ${MAXSDK_PATH}/max-includes/)
+	else()
+		FIND_LIBRARY(MaxAPI_LIB 
+					NAMES MaxAPI
+					PATHS ${MAXSDK_PATH}/max-includes/x64)
+	endif()
 	MARK_AS_ADVANCED (MaxAPI_LIB)
 	SET(MaxAPI_LIB ${MaxAPI_LIB})
 	
@@ -258,26 +264,45 @@ function(addMaxSupport)
 			add_definitions(-DMAXAPI_USE_MSCRT)
 		endif()
 	endif()
-	
-	FIND_LIBRARY(MaxAudio_LIB 
+	if(NOT WIN64)
+		FIND_LIBRARY(MaxAudio_LIB 
+					 NAMES
+						MaxAudio 
+						MaxAudioAPI
+					 PATHS
+						${MAXSDK_PATH}/msp-includes
+						${MAXSDK_PATH}/msp-includes/x64
+		)
+	else()
+		FIND_LIBRARY(MaxAudio_LIB 
 				 NAMES
-				 	MaxAudio 
-				 	MaxAudioAPI
+					MaxAudio 
+					MaxAudioAPI
 				 PATHS
-				 	${MAXSDK_PATH}/msp-includes
-				 	${MAXSDK_PATH}/msp-includes/x64
-	)
+					${MAXSDK_PATH}/msp-includes/x64
+		)
+	endif()
 	MARK_AS_ADVANCED (MaxAudio_LIB)
 	SET(MaxAudio_LIB ${MaxAudio_LIB})
 
-	FIND_LIBRARY(Jitter_LIB 
+	if(NOT WIN64)
+		FIND_LIBRARY(Jitter_LIB 
+					 NAMES
+						jitlib 
+						JitterAPI
+					 PATHS
+						${MAXSDK_PATH}/jit-includes
+						${MAXSDK_PATH}/jit-includes/x64
+		)
+	else()
+		FIND_LIBRARY(Jitter_LIB 
 				 NAMES
-				 	jitlib 
-				 	JitterAPI
+					jitlib 
+					JitterAPI
 				 PATHS
-				 	${MAXSDK_PATH}/jit-includes
-				 	${MAXSDK_PATH}/jit-includes/x64
-	)
+					${MAXSDK_PATH}/jit-includes/x64
+		)
+	endif()
 	MARK_AS_ADVANCED (Jitter_LIB)
 	SET(Jitter_LIB ${Jitter_LIB})
 
