@@ -67,23 +67,24 @@ main(int argc, char **argv)
     app.SetupScore();
     
     // read command from console
-    do {
+    do
+    {
         TTLogMessage("\nType a command : \n");
         
         std::string s;
         std::getline(std::cin, s);
         
         // quit the application
-        if (!s.compare("quit")) {
-            
+        if (!s.compare("quit"))
+        {
             app.Quit();
             
             TTLogMessage("\n*** End of Jamoma Modular and Score demonstration ***\n");
             return EXIT_SUCCESS;
         }
         // update mDataDemoMessage data with the command
-        else {
-            
+        else
+        {
             app.SetMessage(s);
         }
     }
@@ -93,9 +94,7 @@ main(int argc, char **argv)
 void
 DemoApp::SetupModular()
 {
-    TTValue     args, v, out, none;
-    TTAddress   address;
-    TTErr       err;
+    TTValue args;
     
     TTLogMessage("\n*** Initialisation of Modular environnement ***\n");
     /////////////////////////////////////////////////////////////////////
@@ -111,15 +110,13 @@ DemoApp::SetupModular()
     /////////////////////////////////////////////////////////////////////
     
     // Create a local application called "demo" and get it back
-    err = mApplicationManager.send("ApplicationInstantiateLocal", "demo", out);
+    mApplicationDemo = mApplicationManager.send("ApplicationInstantiateLocal", "demo");
     
-    if (err) {
+    if (!mApplicationDemo.valid())
+    {
         TTLogError("Error : can't create demo application \n");
         return;
     }
-    else
-        mApplicationDemo = out[0];
-    
     
 	TTLogMessage("\n*** Creation of mApplicationDemo datas ***\n");
     /////////////////////////////////////////////////////////////////////
@@ -140,7 +137,7 @@ DemoApp::SetupModular()
     
     // Register the parameter data into mApplicationDemo at an address
     args = TTValue("/myParameter", mDataDemoParameter);
-    mApplicationDemo.send("ObjectRegister", args, out);
+    mApplicationDemo.send("ObjectRegister", args);
     
     
     // Create a message data and set its callback function and baton and some attributes
@@ -157,7 +154,7 @@ DemoApp::SetupModular()
     
     // Register the message data into mApplicationDemo at an address
     args = TTValue("/myMessage", mDataDemoMessage);
-    mApplicationDemo.send("ObjectRegister", args, out);
+    mApplicationDemo.send("ObjectRegister", args);
     
     
     // Create a return data and set its callback function and baton and some attributes
@@ -175,7 +172,7 @@ DemoApp::SetupModular()
     
     // Register the return data into mApplicationDemo at an address
     args = TTValue("/myReturn", mDataDemoReturn);
-    mApplicationDemo.send("ObjectRegister", args, out);
+    mApplicationDemo.send("ObjectRegister", args);
     
     // Initialise the application and all datas inside (using defaultValue attribute)
     mApplicationDemo.send("Init");
@@ -184,8 +181,7 @@ DemoApp::SetupModular()
 void
 DemoApp::SetupScore()
 {
-    TTValue     args, out;
-    TTObject    xmlHandler("XmlHandler");
+    TTObject xmlHandler("XmlHandler");
     
     TTLogMessage("\n*** Initialisation of Score environnement ***\n");
     /////////////////////////////////////////////////////////////////////
@@ -202,7 +198,7 @@ DemoApp::SetupScore()
     
     // Read DemoScenario1.score file to fill mScenario
     xmlHandler.set("object", mScenario);
-    xmlHandler.send("Read", "../DemoScenario.score", out);
+    xmlHandler.send("Read", "../DemoScenario.score");
     
     
     TTLogMessage("\n*** Prepare scenario observation ***\n");
@@ -218,7 +214,8 @@ DemoApp::SetupScore()
     TTValue timeEvents;
     mScenario.get("timeEvents", timeEvents);
     
-    for (TTElementIter it = timeEvents.begin() ; it != timeEvents.end() ; it++) {
+    for (TTElementIter it = timeEvents.begin() ; it != timeEvents.end() ; it++)
+    {
         TTObject event = TTElement(*it);
         event.registerObserverForNotifications(mEventStatusChangedCallback);
     }
@@ -241,36 +238,33 @@ void
 DemoApp::SetMessage(std::string s)
 {
     TTSymbol message(s);
-    TTValue out;
     
-    mDataDemoMessage.send("Command", message, out);
+    mDataDemoMessage.send("Command", message);
 }
 
 void
 DemoApp::Quit()
 {
-    TTValue out;
-
     TTLogMessage("\n*** Release mApplicationDemo datas ***\n");
     /////////////////////////////////////////////////////////////////////
     
     // Unregister the parameter
-    if ( mApplicationDemo.send("ObjectUnregister", "/myParameter", out))
+    if ( mApplicationDemo.send("ObjectUnregister", "/myParameter"))
         TTLogError("Error : can't unregister data at /myParameter address \n");
     
     // Unregister the message
-    if (mApplicationDemo.send("ObjectUnregister", "/myMessage", out))
+    if (mApplicationDemo.send("ObjectUnregister", "/myMessage"))
         TTLogError("Error : can't unregister data at /myMessage address \n");
     
     // Unregister the return
-    if (mApplicationDemo.send("ObjectUnregister", "/myReturn", out))
+    if (mApplicationDemo.send("ObjectUnregister", "/myReturn"))
         TTLogError("Error : can't unregister data at /myReturn address \n");
     
     
     TTLogMessage("\n*** Release application ***\n");
     /////////////////////////////////////////////////////////////////////
     
-    mApplicationManager.send("ApplicationRelease", "demo", out);
+    mApplicationManager.send("ApplicationRelease", "demo");
     
     // delete the polling thread
     if (mPollingThread)
@@ -286,22 +280,22 @@ DemoAppDataReturnValueCallback(const TTValue& baton, const TTValue& value)
     TTObject    anObject = baton[1];
     
 	// Reteive which data has been updated
-    if (anObject.instance() == demoApp->mDataDemoParameter.instance()) {
-        
+    if (anObject.instance() == demoApp->mDataDemoParameter.instance())
+    {
         // print the returned value
         TTLogMessage("/myParameter has been updated to %s \n", value.toString().data());
         return kTTErrNone;
     }
     
-    if (anObject.instance() == demoApp->mDataDemoMessage.instance()) {
-        
+    if (anObject.instance() == demoApp->mDataDemoMessage.instance())
+    {
         // print the returned value
         TTLogMessage("/myMessage has been updated to %s \n", value.toString().data());
         return kTTErrNone;
     }
     
-    if (anObject.instance() == demoApp->mDataDemoReturn.instance()) {
-        
+    if (anObject.instance() == demoApp->mDataDemoReturn.instance())
+    {
         // print the returned value
         TTLogMessage("/myReturn has been updated to %s \n", value.toString().data());
         return kTTErrNone;
@@ -333,7 +327,8 @@ void DemoAppScenarioPollingThread(DemoApp* demoApp)
 {
     TTBoolean isRunning;
     
-    do {
+    do
+    {
         // wait
         demoApp->mPollingThread->sleep(1);
         
