@@ -36,8 +36,14 @@ TTBoolean TTExpression::evaluate(const TTValue& value)
     TTValue toCompare = value;
     
     // convert to TTFloat64 to have the same type than mValue (see in parse method)
-    for (TTElementIter it = toCompare.begin(); it != toCompare.end(); it++)
-        *it = TTFloat64(TTElement(*it));
+    if (toCompare.size())
+    {
+        if (toCompare[0].type() != kTypeSymbol)
+        {
+            for (TTElementIter it = toCompare.begin(); it != toCompare.end(); it++)
+                *it = TTFloat64(TTElement(*it));
+        }
+    }
     
     if (mOperator == kTTSymEmpty)
         return YES;
@@ -104,8 +110,14 @@ void TTExpression::parse(TTValue& toParse)
                         mValue.copyFrom(toParse, 2);
                         
                         // convert to TTFloat64 for comparison purpose (see in evaluate method)
-                        for (TTElementIter it = mValue.begin(); it != mValue.end(); it++)
-                            *it = TTFloat64(TTElement(*it));
+                        if (mValue.size())
+                        {
+                            if (mValue[0].type() != kTypeSymbol)
+                            {
+                                for (TTElementIter it = mValue.begin(); it != mValue.end(); it++)
+                                    *it = TTFloat64(TTElement(*it));
+                            }
+                        }
                     }
                 }
             }
