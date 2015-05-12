@@ -100,7 +100,7 @@ DemoApp::SetupModular()
     /////////////////////////////////////////////////////////////////////
     
     // Init the Modular library (passing the folder path where all the dylibs are)
-    TTModularInit("/usr/local/jamoma");
+    TTModularInit("/usr/local/jamoma/extensions");
     
     // Create an application manager
     mApplicationManager = TTObject("ApplicationManager");
@@ -187,7 +187,7 @@ DemoApp::SetupScore()
     /////////////////////////////////////////////////////////////////////
     
     // Init the Score library (passing the folder path where all the dylibs are)
-    TTScoreInit("/usr/local/jamoma");
+    TTScoreInit("/usr/local/jamoma/extensions");
     
     
     TTLogMessage("\n*** Reading of an interactive scenario file ***\n");
