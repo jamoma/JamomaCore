@@ -266,11 +266,8 @@ DemoApp::Quit()
     
     mApplicationManager.send("ApplicationRelease", "demo");
     
-    // delete the polling thread
-    if (mPollingThread)
-        mPollingThread->wait();
-    
-    delete mPollingThread;
+    // quit the program normally
+    std::exit(EXIT_SUCCESS);
 }
 
 TTErr
