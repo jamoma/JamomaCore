@@ -88,7 +88,7 @@ TTErr System::Go()
     // if the thread is not running
     else if (!mRunning)
     {
-        if(mThread.joinable())
+        if (mThread.joinable())
 			mThread.join();
 
         // launch a new thread to run the clock execution
@@ -244,8 +244,7 @@ void System::stopThread()
 		}
 		catch (std::system_error& e)
 		{
-			TTLogError(e.what());
-			TTLogError("\n");
+			TTLogError("System::stopThread() : %s\n", e.what());
 		}
 	}
 }
