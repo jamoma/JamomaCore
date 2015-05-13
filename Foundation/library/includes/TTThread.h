@@ -41,7 +41,7 @@ public:
 	/** Tells the calling thread to wait for this thread to terminate before moving on.*/
 	void wait()
 	{
-		if(thread.joinable())
+		if (thread.joinable())
 			thread.join();
 	}
 	
