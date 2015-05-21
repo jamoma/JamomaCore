@@ -20,7 +20,18 @@
 #define thisTTClassName		"Mirror"
 #define thisTTClassTags		"mirror"
 
-TT_MODULAR_CONSTRUCTOR,
+TTObjectBasePtr TTMirror::instantiate (TTSymbol name, TTValue arguments)
+{
+    return new TTMirror(arguments);
+}
+
+extern "C" void TTMirror::registerClass()
+{
+    TTClassRegister(TTSymbol("Mirror"), thisTTClassTags, TTMirror::instantiate);
+}
+
+TTMirror::TTMirror(const TTValue& arguments) :
+TTCallback(arguments),
 mType(kTTSymEmpty)
 {	
 	TTValue				attributeNames, messageNames, none;
@@ -268,6 +279,10 @@ TTErr TTMirror::setMirrorAttribute(TTAttribute& anAttribute, const TTValue& valu
         // if the mirror cannot listen value : notify observers ourself
         if (!mListenAttributeCallback.valid())
             anAttribute.sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
+        
+        // for value attribute : notify our owner
+        if (anAttribute.name == kTTSym_value)
+            this->deliver(data);
 	}
 	 
 	return err;
@@ -312,6 +327,10 @@ TTErr TTMirror::setMirrorCachedAttribute(TTAttribute& anAttribute, const TTValue
         // if the mirror cannot listen value : notify observers ourself
         if (!mListenAttributeCallback.valid())
             anAttribute.sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
+        
+        // for value attribute : notify our owner
+        if (anAttribute.name == kTTSym_value)
+            this->deliver(data);
 	}
     
 	return err;
@@ -353,7 +372,13 @@ TTErr TTMirror::updateAttributeValue(const TTSymbol attributeName, TTValue& valu
     }
 	
 	if (!err)
+    {
 		anAttribute->sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
+        
+        // for value attribute : notify our owner
+        if (attributeName == kTTSym_value)
+            this->deliver(value);
+    }
     
 	return err;
 }
