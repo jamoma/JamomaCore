@@ -1775,8 +1775,15 @@ TTObject TTApplication::appendProxyData(TTProtocolPtr aProtocol, TTAddress anAdd
     aData.set(kTTSym_baton, baton);
     aData.set(kTTSym_function, TTPtr(&TTApplicationProxyDataValueCallback));
     
-    // register object into the directory
-    this->mDirectory->TTNodeCreate(anAddress, aData, NULL, &aNode, &newInstanceCreated);
+    // if the node doesn't exist yet
+    if (this->mDirectory->getTTNode(anAddress, &aNode))
+    
+        // register object into the directory
+        this->mDirectory->TTNodeCreate(anAddress, aData, NULL, &aNode, &newInstanceCreated);
+    
+    else
+        // update the node's object
+        aNode->setObject(aData);
     
     return aData;
 }
