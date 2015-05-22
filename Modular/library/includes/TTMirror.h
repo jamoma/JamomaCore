@@ -67,7 +67,7 @@
 //#define addMessageProperty(name, propertyName, initialValue)		registerMessageProperty(name, TTSymbol(#propertyName), initialValue, (TTGetterMethod)& TTMessage::get##propertyName , (TTSetterMethod)& TTMessage::set##propertyName )
 
 
-class TTMODULAR_EXPORT TTMirror : public TTCallback
+class TTMODULAR_EXPORT TTMirror : public TTObjectBase
 {
 	TTCLASS_SETUP(TTMirror)
 	
