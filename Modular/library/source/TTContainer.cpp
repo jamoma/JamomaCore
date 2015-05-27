@@ -254,7 +254,11 @@ TTErr TTContainer::Init()
     
     // Look for all nodes under the address into the directory with the same Context
 	if (!accessApplicationLocalDirectory->Lookup(mAddress, nodeList, &aNode))
+    {
+        TTLogMessage("TTContainer::Init : start %s\n", mAddress.c_str());
         initNode(aNode);
+        TTLogMessage("TTContainer::Init : end %s\n", mAddress.c_str());
+    }
 	
 	// End of initialisation
 	mInitialized = YES;
@@ -268,16 +272,61 @@ TTErr TTContainer::Init()
 
 TTErr TTContainer::initNode(TTNodePtr aNode)
 {
-	TTList      nodeList;
+	TTList  nodeList, nameList, initializedList;
     
-    // Init nodes below
+    // get all children below
     aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
     
-    // Sort children by priority order
+    // sort children by priority order
 	nodeList.sort(&compareNodePriorityThenNameThenInstance);
     
+    // build a list of name and instance
     for (nodeList.begin(); nodeList.end(); nodeList.next())
     {
+        TTNodePtr   aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+        TTValue     nameInstance(aChild->getName(), aChild->getInstance());
+        
+        nameList.append(nameInstance);
+    }
+    
+    // retreive each child using its name and instance in case one parameter have an effect on the children
+    while (!nameList.isEmpty())
+    {
+        nameList.begin();
+        TTSymbol name = nameList.current()[0];
+        TTSymbol instance = nameList.current()[1];
+        
+        // if a child doesn't exist anymore
+        if (aNode->getChildren(name, instance, nodeList))
+        {
+            // rebuild the name list without the nodes already initialized
+            nameList.clear();
+            aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
+            
+            // sort children by priority order
+            nodeList.sort(&compareNodePriorityThenNameThenInstance);
+            
+            for (nodeList.begin(); nodeList.end(); nodeList.next())
+            {
+                TTNodePtr   aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+                TTValue     nameInstance(aChild->getName(), aChild->getInstance());
+                
+                // if the node haven't been initialized
+                TTValue found;
+                if (initializedList.findEquals(nameInstance, found))
+                    nameList.append(nameInstance);
+            }
+            
+            // skip the missing child
+            continue;
+        }
+        
+        // mark the child as initialized
+        initializedList.append(nameList.current());
+        nameList.remove(nameList.current());
+        
+        // get the first and only node with this name and instance
+        nodeList.begin();
         TTNodePtr aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
         
         TTObject anObject = aChild->getObject();
@@ -303,18 +352,6 @@ TTErr TTContainer::initNode(TTNodePtr aNode)
             else if (anObject.name() == kTTSym_Container)
                 anObject.send(kTTSym_Init);
         }
-    }
-    
-    // ask again for children node list are
-    // as the namespace can have changed
-    aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
-    
-    // Sort children by priority order again
-    nodeList.sort(&compareNodePriorityThenNameThenInstance);
-    
-    for (nodeList.begin(); nodeList.end(); nodeList.next())
-    {
-        TTNodePtr aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
         
         initNode(aChild);
     }
