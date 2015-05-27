@@ -254,11 +254,7 @@ TTErr TTContainer::Init()
     
     // Look for all nodes under the address into the directory with the same Context
 	if (!accessApplicationLocalDirectory->Lookup(mAddress, nodeList, &aNode))
-    {
-        TTLogMessage("TTContainer::Init : start %s\n", mAddress.c_str());
         initNode(aNode);
-        TTLogMessage("TTContainer::Init : end %s\n", mAddress.c_str());
-    }
 	
 	// End of initialisation
 	mInitialized = YES;
