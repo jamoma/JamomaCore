@@ -26,12 +26,14 @@ mDescription(kTTSym_none),
 mService(kTTSym_none),
 mTags(TTValue(kTTSym_none)),
 mInitialized(NO),
+mActive(YES),
 mAddress(kTTAdrsEmpty),
 mAlias(kTTAdrsEmpty),
 activityAttribute(NULL),
 contentAttribute(NULL)
 {
-	if(arguments.size() == 2) {
+	if(arguments.size() == 2)
+    {
 		mReturnAddressCallback = arguments[0];
 		mReturnValueCallback = arguments[1];
 	}
@@ -46,6 +48,8 @@ contentAttribute(NULL)
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(Initialized, readOnly, YES);
 	addAttributeProperty(Initialized, hidden, YES);
+    
+    addAttribute(Active, kTypeBoolean);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeProperty(Address, hidden, YES);
