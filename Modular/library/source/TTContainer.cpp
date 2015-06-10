@@ -49,7 +49,7 @@ contentAttribute(NULL)
 	addAttributeProperty(Initialized, readOnly, YES);
 	addAttributeProperty(Initialized, hidden, YES);
     
-    addAttribute(Active, kTypeBoolean);
+    addAttributeWithSetter(Active, kTypeBoolean);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeProperty(Address, hidden, YES);
@@ -519,6 +519,20 @@ TTErr TTContainer::setPriority(const TTValue& value)
 		anAttribute->sendNotification(kTTSym_notify, mPriority);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
+}
+
+TTErr TTContainer::setActive(const TTValue& value)
+{
+    TTAttributePtr	anAttribute;
+    TTErr			err = kTTErrNone;
+    
+    mActive = value;
+    
+    err = this->findAttribute(kTTSym_active, &anAttribute);
+    if (!err)
+        anAttribute->sendNotification(kTTSym_notify, mActive);	// we use kTTSym_notify because we know that observers are TTCallback
+    
+    return kTTErrNone;
 }
 
 TTErr TTContainer::bind()

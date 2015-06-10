@@ -79,6 +79,9 @@ private:
 	
 	/**	Setter for mPriority attribute. */
 	TTErr setPriority(const TTValue& value);
+    
+    /**	Setter for mActive attribute. */
+    TTErr setActive(const TTValue& value);
 	
 	/** */
 	TTErr bind();
