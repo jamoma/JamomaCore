@@ -78,6 +78,8 @@ function(add_jamoma_library)
 	add_library(${PROJECT_NAME}
 				SHARED
 				${PROJECT_SRCS} ${PROJECT_HDRS})
+	cotire(${PROJECT_NAME})
+	set_target_properties(${PROJECT_NAME} PROPERTIES COTIRE_PREFIX_HEADER_IGNORE_PATH "")
 
 	setupJamomaLibraryProperties(${PROJECT_NAME})
 	
@@ -87,6 +89,8 @@ function(add_jamoma_library)
 		add_library(${PROJECT_NAME}-i386-static
 					STATIC
 					${PROJECT_SRCS} ${PROJECT_HDRS})
+		cotire(${PROJECT_NAME}-i386-static)
+		set_target_properties(${PROJECT_NAME}-i386-static PROPERTIES COTIRE_PREFIX_HEADER_IGNORE_PATH "")
 		set_property(TARGET ${PROJECT_NAME}-i386-static
 					 PROPERTY OSX_ARCHITECTURES i386)
 		setupJamomaLibraryProperties(${PROJECT_NAME}-i386-static)
@@ -95,7 +99,8 @@ function(add_jamoma_library)
 		add_library(${PROJECT_NAME}-x86_64-static
 					STATIC
 					${PROJECT_SRCS} ${PROJECT_HDRS})
-					
+		cotire(${PROJECT_NAME}-x86_64-static)
+		set_target_properties(${PROJECT_NAME}-x86_64-static PROPERTIES COTIRE_PREFIX_HEADER_IGNORE_PATH "")		
 		set_property(TARGET ${PROJECT_NAME}-x86_64-static
 					 PROPERTY OSX_ARCHITECTURES x86_64)
 		setupJamomaLibraryProperties(${PROJECT_NAME}-x86_64-static)
@@ -125,6 +130,8 @@ function(add_jamoma_extension)
 	add_library(${PROJECT_NAME}
 				SHARED
 				${PROJECT_SRCS} ${PROJECT_HDRS})
+	cotire(${PROJECT_NAME})
+	set_target_properties(${PROJECT_NAME} PROPERTIES COTIRE_PREFIX_HEADER_IGNORE_PATH "")
 
 	target_link_libraries(${PROJECT_NAME} ${JAMOMA_CURRENT_LIBRARY_NAME})
 

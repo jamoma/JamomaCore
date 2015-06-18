@@ -13,6 +13,7 @@ if(NOT JAMOMA_UMBRELLA)
 	### Testing ###
 	include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaTests.cmake NO_POLICY_SCOPE)
 	include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaDoxygen.cmake NO_POLICY_SCOPE)
+	include(cotire)
 endif()
 
 ### Build of the Jamoma Submodules ###
