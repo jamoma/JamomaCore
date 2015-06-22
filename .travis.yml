@@ -1,0 +1,22 @@
+language: cpp
+env:
+  matrix:
+  - ARCH=
+  - ARCH=rpi
+os:
+  - linux
+  - osx
+
+matrix:
+  exclude:
+   - os: osx
+     env: ARCH=rpi
+
+before_install:
+- "./script/depinstall.sh"
+
+script:
+- "./script/build.sh"
+
+after_success:
+- "./script/deploy-git.sh"
