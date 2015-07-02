@@ -340,7 +340,7 @@ void TTSCORE_EXPORT TTTimeProcessClockCallback(TTPtr object, TTFloat64 position,
 typedef void (*TTTimeProcessPositionCallback)(TTPtr, TTFloat64, TTFloat64);
 
 /** Define an unordered map to store and retreive a value relative to a TTTimeProcessPtr */
-#ifdef TT_PLATFORM_WIN
+#ifdef _MSC_VER
     #include <hash_map>
     using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
     typedef hash_map<TTTimeProcessPtr,TTValuePtr>    TTTimeProcessMap;

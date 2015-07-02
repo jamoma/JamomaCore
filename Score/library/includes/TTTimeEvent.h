@@ -202,7 +202,7 @@ typedef TTTimeEvent* TTTimeEventPtr;
 TTBoolean TTSCORE_EXPORT TTTimeEventCompareDate(TTValue& v1, TTValue& v2);
 
 /** Define an unordered map to store and retreive a value relative to a TTTimeEventPtr */
-#ifdef TT_PLATFORM_WIN
+#ifdef _MSC_VER
     #include <hash_map>
     using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
     typedef hash_map<TTTimeEventPtr,TTValuePtr>    TTTimeEventMap;

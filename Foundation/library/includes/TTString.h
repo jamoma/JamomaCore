@@ -449,7 +449,7 @@ namespace std
 	};
 }
 
-#elif defined( TT_PLATFORM_WIN )
+#elif defined( _MSC_VER )
 namespace std
 {
 //    namespace tr1
