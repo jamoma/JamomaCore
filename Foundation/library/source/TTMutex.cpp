@@ -8,10 +8,10 @@
 #include <TTMutex.h>
 #ifdef TT_PLATFORM_WIN
 	#ifndef _WINDOWS_
-		#include <Windows.h>
+		#include <windows.h>
 	#endif
-	#include <VersionHelpers.h>
 
+	#include <versionhelpers.h>
 	bool TTIsWindows8OrGreater()
 	{
 		return IsWindows8OrGreater();

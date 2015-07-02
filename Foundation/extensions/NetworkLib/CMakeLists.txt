@@ -60,6 +60,6 @@ endif()
 add_jamoma_extension()
 
 if(WIN32)
-	target_link_libraries(${PROJECT_NAME} Ws2_32)
+	target_link_libraries(${PROJECT_NAME} ws2_32)
 	target_link_libraries(${PROJECT_NAME} winmm)
 endif()

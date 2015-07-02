@@ -240,16 +240,16 @@ class TTiOSSpecific
 public:
     static constexpr const char extensionPrefix[]{""};
     static constexpr const char extensionSuffix[]{".ttdylib"};
-    
+
     static string computedRelativePath()
     { return ""; }
-    
+
     static TTStringVector builtinRelativePaths()
     { return {}; }
-    
+
     static TTStringVector builtinAbsolutePaths()
     { return {}; }
-    
+
     static bool TTLoadExtensionsFromFolder(const string& folderName)
     { return false; }
 };
@@ -313,7 +313,7 @@ using TTOperatingSystem = TTLinuxSpecific;
 
 
 #if defined(TT_PLATFORM_WIN) || defined(__MINGW32__)
-#include <ShlObj.h>
+#include <shlobj.h>
 
 class TTWinSpecific
 {

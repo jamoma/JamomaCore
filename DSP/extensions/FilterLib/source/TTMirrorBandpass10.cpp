@@ -21,7 +21,7 @@
 #define thisTTClassTags		"dspFilterLib, audio, processor, filter, bandpass, notch"
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
@@ -32,7 +32,7 @@ TT_AUDIO_CONSTRUCTOR,
 {
 	TTChannelCount	initialMaxNumChannels = arguments;
 
-	addAttributeWithSetter(Mode, kTypeSymbol);		
+	addAttributeWithSetter(Mode, kTypeSymbol);
 	addAttributeWithSetter(Frequency, kTypeFloat64);
 	addAttributeWithSetter(Bandwidth, kTypeFloat64);
 	addAttributeWithSetter(Q, kTypeFloat64);
@@ -73,7 +73,7 @@ TTErr TTMirrorBandpass10::clear()
 TTErr TTMirrorBandpass10::setMode(const TTValue& newValue)
 {
 	TTSymbol newMode = newValue;
-	
+
 	if (newMode == TT("notch")) {
 		mMode = TT("notch");
 		setCalculateMethod(calculateNotch);
@@ -105,41 +105,41 @@ TTErr TTMirrorBandpass10::calculateCoefficients(void)
 	TTFloat64		d_4;
 	TTFloat64		e_1;
 	TTFloat64		e_2;
-	
+
 	// Path-0
-	
+
 	alpha = 0.141348681136137;							// these values for alpha give us a -60dB stopband
 	d_0 = 1 + alpha*b*b;
-	d_1 = (-2*c*(1+b)*(1+alpha*b))				/  d_0;	
+	d_1 = (-2*c*(1+b)*(1+alpha*b))				/  d_0;
 	d_2 = ((1+alpha)*(c*c*(1+b*b)+2*b*(1+c*c)))	/  d_0;	// This equation is wrong in the F.H. Book
 	d_3 = (-2*c*(1+b)*(alpha + b))				/  d_0;	// This equation is wrong in the Safari-online version of the F.H. Book
 	d_4 = (alpha + b*b)							/  d_0;
-	
+
 	mF0.set("d1", d_1);
 	mF0.set("d2", d_2);
 	mF0.set("d3", d_3);
 	mF0.set("d4", d_4);
-	
+
 	// Path-1
-	
+
 	e_1 = -c - c*b;
 	e_2 = b;
 
 	mF1.set(TT("e1"), e_1);
 	mF1.set(TT("e2"), e_2);
-	
+
 	alpha = 0.589994872274064;							// these values for alpha give us a -60dB stopband
 	d_0 = 1 + alpha*b*b;
 	d_1 = (-2*c*(1+b)*(1+alpha*b))				/  d_0;
 	d_2 = ((1+alpha)*(c*c*(1+b*b)+2*b*(1+c*c)))	/  d_0;	// This equation is wrong in the F.H. Book
 	d_3 = (-2*c*(1+b)*(alpha + b))				/  d_0;	// This equation is wrong in the Safari-online version of the F.H. Book
 	d_4 = (alpha + b*b)							/  d_0;
-	
+
 	mF2.set("d1", d_1);
 	mF2.set("d2", d_2);
 	mF2.set("d3", d_3);
 	mF2.set("d4", d_4);
-	
+
 	return kTTErrNone;
 
 }
@@ -155,7 +155,7 @@ TTErr TTMirrorBandpass10::setFrequency(const TTValue& newValue)
 }
 
 
-// NOTE: if we also wanted to set bandwidth in octaves, 
+// NOTE: if we also wanted to set bandwidth in octaves,
 // check this article: http://www.rane.com/note170.html
 //
 // Q = (sqrt(2^n) * f_1) / (2^n * f_1 - f_1) , n = number of octaves
@@ -184,9 +184,9 @@ TTErr TTMirrorBandpass10::setQ(const TTValue& newValue)
 inline void TTMirrorBandpass10::filterKernel(const TTFloat64& input, TTFloat64& outputPath0, TTFloat64& outputPath1, TTPtrSizedInt channel)
 {
 	TTFloat64 temp;
-	
+
 	TTBASE(mF0, TTAllpass4a)->calculateValue(input,	outputPath0,	channel);
-	
+
 	TTBASE(mF1, TTAllpass2c)->calculateValue(input,	temp,			channel);
 	TTBASE(mF2, TTAllpass4a)->calculateValue(temp,	outputPath1,	channel);
 }
@@ -196,7 +196,7 @@ TTErr TTMirrorBandpass10::calculateBandpass(const TTFloat64& x, TTFloat64& y, TT
 {
 	TTFloat64 outputFromPath0;
 	TTFloat64 outputFromPath1;
-	
+
 	filterKernel(x, outputFromPath0, outputFromPath1, channel);
 	y = (outputFromPath0 + outputFromPath1) * 0.5;
 	return kTTErrNone;
@@ -207,7 +207,7 @@ TTErr TTMirrorBandpass10::calculateNotch(const TTFloat64& x, TTFloat64& y, TTPtr
 {
 	TTFloat64 outputFromPath0;
 	TTFloat64 outputFromPath1;
-	
+
 	filterKernel(x, outputFromPath0, outputFromPath1, channel);
 	y = (outputFromPath0 - outputFromPath1) * 0.5;
 	return kTTErrNone;

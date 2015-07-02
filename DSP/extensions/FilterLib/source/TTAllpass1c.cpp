@@ -21,7 +21,7 @@
 #define thisTTClassTags		"dspFilterLib, audio, processor, filter, allpass"
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
@@ -30,7 +30,7 @@ TT_AUDIO_CONSTRUCTOR,
 	TTChannelCount initialMaxNumChannels = arguments;
 
 	addAttribute(Alpha, kTypeFloat64);
-	
+
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
