@@ -97,11 +97,17 @@ function(add_jamoma_library)
                                 COMPONENT JamomaMaxModularOnly)
 	endif()
 
-        if(BUILD_JAMOMAPD)
-                install(TARGETS ${PROJECT_NAME}
-                                DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
-                                COMPONENT JamomaPd)
-        endif()
+  if(BUILD_JAMOMAPD)
+  	if(WIN32 OR MINGW )
+      install(TARGETS ${PROJECT_NAME}
+              DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma"
+              COMPONENT JamomaPd)
+  	else()
+      install(TARGETS ${PROJECT_NAME}
+              DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+              COMPONENT JamomaPd)
+    endif()
+  endif()
 endFunction()
 
 
