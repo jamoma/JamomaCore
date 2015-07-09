@@ -283,6 +283,7 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_valueStepsize					(("valueStepsize"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_viewFreeze                       (("viewFreeze"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_view                             (("view"));
 
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_WAIT                             (("WAIT"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Write                            (("Write"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_WriteAgain                       (("WriteAgain"));
 
