@@ -452,8 +452,7 @@ TTErr TTScript::RunFlattened()
         }
         else if (schema == kTTSym_WAIT)
         {
-            aLine->getValue(v);
-            std::this_thread::sleep_for(std::chrono::milliseconds(TTInt32(v[0])));
+            ; // do nothing to not block the thread
         }
     }
     
@@ -717,34 +716,44 @@ TTErr TTScript::DumpFlattened()
         
         // in flatten mode there is no subscript so only run command line
         schema = aLine->getSchema();
-        if (schema != kTTSym_command)
-            continue;
-        
-        // get command value
-        aLine->getValue(valueToDump);
-        
-        // get the unit
-        if (!aLine->lookup(kTTSym_unit, v)) {
-            unit = v[0];
-            valueToDump.append(unit);
+        if (schema == kTTSym_command)
+        {
+            
+            // get command value
+            aLine->getValue(valueToDump);
+            
+            // get the unit
+            if (!aLine->lookup(kTTSym_unit, v)) {
+                unit = v[0];
+                valueToDump.append(unit);
+            }
+            
+            // get the ramp
+            if (!aLine->lookup(kTTSym_ramp, v)) {
+                ramp = v[0];
+                valueToDump.append(kTTSym_ramp);
+                valueToDump.append(ramp);
+            }
+            
+            // get the target address
+            aLine->lookup(kTTSym_target, v);
+            address = v[0];
+            
+            // append the address
+            valueToDump.prepend(address);
+            
+            // output line value
+            mReturnLineCallback.send("notify", valueToDump);
         }
-        
-        // get the ramp
-        if (!aLine->lookup(kTTSym_ramp, v)) {
-            ramp = v[0];
-            valueToDump.append(kTTSym_ramp);
-            valueToDump.append(ramp);
+        else if (schema == kTTSym_WAIT)
+        {
+            aLine->getValue(valueToDump);
+            
+            valueToDump.prepend(kTTSym_WAIT);
+            
+            // output WAIT time
+            mReturnLineCallback.send("notify", valueToDump);
         }
-        
-        // get the target address
-        aLine->lookup(kTTSym_target, v);
-        address = v[0];
-                
-        // append the address
-        valueToDump.prepend(address);
-        
-        // output line value
-        mReturnLineCallback.send("notify", valueToDump);
     }
     
     return kTTErrNone;
