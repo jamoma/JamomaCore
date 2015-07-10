@@ -15,9 +15,31 @@ if(NOT JAMOMA_UMBRELLA)
 	include(${PROJECT_SOURCE_DIR}/Shared/CMake/JamomaDoxygen.cmake NO_POLICY_SCOPE)
 endif()
 
+option(JAMOMA_USE_COTIRE "Will use cotire to boost build speed" OFF)
+if(JAMOMA_USE_COTIRE)
+	include(cotire)
+endif()
+	
 ### Build of the Jamoma Submodules ###
+if(COMMAND cotire)
+	include_directories(
+		"${PROJECT_SOURCE_DIR}/Foundation/library/includes"
+		"${PROJECT_SOURCE_DIR}/DSP/library/includes"
+	)
+endif()
 add_subdirectory(Foundation)
 add_subdirectory(DSP)
+
+# Split in half because both modular and DSP have TTRamp.h.
+if(COMMAND cotire)
+	include_directories(
+		"${PROJECT_SOURCE_DIR}/Graph/library/includes"
+		"${PROJECT_SOURCE_DIR}/AudioGraph/library/includes"
+		"${PROJECT_SOURCE_DIR}/Modular/library/includes"
+		"${PROJECT_SOURCE_DIR}/Score/library/includes"
+		)
+endif()
+
 add_subdirectory(Graph)
 add_subdirectory(AudioGraph)
 add_subdirectory(Modular)

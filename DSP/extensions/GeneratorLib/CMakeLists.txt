@@ -18,4 +18,7 @@ include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories("${PROJECT_SOURCE_DIR}/../../../Foundation/library/Mersenne-1.1")
 
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
+
+disable_cotire("${PROJECT_SRCS}")
+
 add_jamoma_extension()

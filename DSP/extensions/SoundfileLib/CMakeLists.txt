@@ -18,8 +18,10 @@ ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSoundfileLoader.test.cpp
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
-add_jamoma_extension()
 
+disable_cotire("${PROJECT_SRCS}")
+
+add_jamoma_extension()
 target_link_libraries(${PROJECT_NAME} ${SNDFILE_LIBRARIES})
 
 file(COPY ding_b2.aiff geese_clip.aif

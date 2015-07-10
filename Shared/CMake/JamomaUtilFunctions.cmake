@@ -1,11 +1,39 @@
 cmake_minimum_required(VERSION 3.0)
+cmake_policy(SET CMP0051 NEW)
 
+function(disable_cotire THE_SOURCEFILES)
+	if(COMMAND cotire)
+		foreach(fileName ${THE_SOURCEFILES})
+			set_property(SOURCE ${fileName}
+						 PROPERTY COTIRE_EXCLUDED True)
+		endforeach()
+	endif()
+endfunction()
+
+function(jamoma_cotire TARGET_NAME)
+	if(COMMAND cotire)
+		get_property(THE_SOURCEFILES
+					 TARGET ${TARGET_NAME}
+					 PROPERTY SOURCES)
+		
+		foreach(fileName ${THE_SOURCEFILES})
+			if(${fileName} MATCHES ".*test\\.cpp")
+				set_property(SOURCE ${fileName}
+							 PROPERTY COTIRE_EXCLUDED True)
+			endif()
+		endforeach()
+		
+	    cotire(${TARGET_NAME})
+    endif()
+endfunction()
 ### Core libraries ### 
 function(setupJamomaLibraryProperties LIBNAME)
 	# Filename
 	set_property(TARGET ${LIBNAME}
 				 PROPERTY OUTPUT_NAME Jamoma${LIBNAME})
-				
+				 
+	jamoma_cotire(${LIBNAME})	
+    				
 	if(BUILD_JAMOMAMAX)
     	if(APPLE)
         	set_property(TARGET ${PROJECT_NAME}
@@ -34,7 +62,6 @@ function(setupJamomaLibraryProperties LIBNAME)
 	set_property(TARGET ${LIBNAME} APPEND
 				 PROPERTY COMPATIBLE_INTERFACE_STRING Jamoma_MAJOR_VERSION)
 
-	# TODO replace with target_include_directories
 	if(APPLE)
 		set_property(TARGET ${LIBNAME} APPEND
 					 PROPERTY INTERFACE_INCLUDE_DIRECTORIES
@@ -127,6 +154,8 @@ function(add_jamoma_extension)
 				${PROJECT_SRCS} ${PROJECT_HDRS})
 
 	target_link_libraries(${PROJECT_NAME} ${JAMOMA_CURRENT_LIBRARY_NAME})
+					 
+	jamoma_cotire(${PROJECT_NAME})
 
 	# Rpath
     if(APPLE)

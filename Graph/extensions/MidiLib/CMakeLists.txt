@@ -31,7 +31,12 @@ file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories(${PORTMIDI_INCLUDE_DIRS})
 
+
+disable_cotire("${PROJECT_SRCS}")
+
 add_jamoma_extension()
+
+
 
 target_link_libraries(${PROJECT_NAME}
 					  debug ${PORTMIDI_LIBRARIES_DEBUG}
