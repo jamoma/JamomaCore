@@ -16,7 +16,6 @@
 // Nodelib currently requires Boost Regex, which we don't have on the iOS
 #ifndef DISABLE_NODELIB
 #include "TTNodeLib.h"
-#include "TTPath.h"
 #endif
 
 // Unit Tests
