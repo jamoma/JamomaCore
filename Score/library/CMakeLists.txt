@@ -7,7 +7,7 @@ find_package(LibXml2 REQUIRED)
 
 ### Score library ###
 set(PROJECT_SRCS
-$<TARGET_OBJECTS:TimePluginLib>
+${CMAKE_CURRENT_SOURCE_DIR}/../extensions/TimePluginLib.cpp # Don't use target object because of TTSCORE_EXPORT
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTScore.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTCurve.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTExpression.cpp
