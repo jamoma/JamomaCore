@@ -15,13 +15,13 @@
   <event name="End Fade Out" date="10000u">
    <command address="demo:/myParameter">0</command>
   </event>
-  <Automation name="Fade In" start="Start Fade In" end="End Fade In">
+  <Automation name="Fade In" start="Start Fade In" end="End Fade In" durationMin="4000u" durationMax="4000u">
    <indexedCurves address="demo:/myParameter">
     <curve active="1" redundancy="0" sampleRate="40u" function="0.000000 0.000000 1.000000 1.000000 1.000000 1.000000"/>
    </indexedCurves>
   </Automation>
   <Interval name="Wait before to Fade Out" start="End Fade In" end="Start Fade Out"/>
-  <Automation name="Fade Out" start="Start Fade Out" end="End Fade Out">
+  <Automation name="Fade Out" start="Start Fade Out" end="End Fade Out" durationMin="4000u" durationMax="4000u">
    <indexedCurves address="demo:/myParameter">
     <curve active="1" redundancy="0" sampleRate="40u" function="0.000000 1.000000 1.000000 1.000000 0.000000 1.000000"/>
    </indexedCurves>

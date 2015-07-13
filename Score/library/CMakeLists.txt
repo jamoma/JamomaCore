@@ -5,6 +5,7 @@ add_definitions(-DTTSCORE_EXPORTS)
 
 find_package(LibXml2 REQUIRED)
 
+### Score library ###
 set(PROJECT_SRCS
 $<TARGET_OBJECTS:TimePluginLib>
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTScore.cpp
@@ -17,6 +18,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTTimeProcess.cpp
 
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTScore.test.cpp
 )
+
 file(GLOB_RECURSE PROJECT_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/../extensions/TimePluginLib.h
 	${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h

@@ -55,9 +55,9 @@ TTErr System::getParameterNames(TTValue& value)
 
 TTErr System::Go()
 {
-	TTLogError("** System::Go() CALLED **\r\n");
     // do we need to ramp at all ?
-    if (mDuration <= mOffset) {
+    if (mDuration <= mOffset)
+    {
         stopThread();
         mRunning = false;
         mPaused = NO;
@@ -70,7 +70,8 @@ TTErr System::Go()
         sendNotification(TTSymbol("ClockRunningChanged"), mRunning);
         sendNotification(TTSymbol("ClockTicked"), TTValue(mPosition, mDate));
     }
-    else if (mExternalTick) {
+    else if (mExternalTick)
+    {
 
         // reset timing informations
         mRunning = true;
@@ -85,13 +86,13 @@ TTErr System::Go()
             Tick();
     }
     // if the thread is not running
-    else if (!mRunning) {
-        if(mThread.joinable())
+    else if (!mRunning)
+    {
+        if (mThread.joinable())
 			mThread.join();
 
         // launch a new thread to run the clock execution
         mThread = std::thread(&System::SystemThreadCallback, this);
-
     }
 
     return kTTErrNone;
@@ -99,8 +100,6 @@ TTErr System::Go()
 
 TTErr System::Stop()
 {
-	TTLogError("** System::Stop() CALLED **\r\n");
-
 	mPaused = NO;
 
 	// stop thread execution
@@ -108,7 +107,6 @@ TTErr System::Stop()
 
 	// notify each observers
     sendNotification(TTSymbol("ClockRunningChanged"), mRunning);
-
 
 	// reset all time info
 	mOffset = 0.;
@@ -189,19 +187,19 @@ TTFloat64 System::computeDeltaTime()
 
 	TTUInt64 currentTime = tv.tv_sec * 1000000L + tv.tv_usec;
 
-	if (mLastTime != 0) {
-
+	if (mLastTime != 0)
+    {
         // it seems the currentTime is lower than the lastTime sometimes ...
-        if (currentTime < mLastTime) {
-            
+        if (currentTime < mLastTime)
+        {
             TTLogMessage("System::computeDeltaTime() : current time is lower than last time\n");
             deltaInUs = 0;
         }
         else
             deltaInUs = (currentTime - mLastTime);
 
-		if (deltaInUs < granularityInUs) {
-
+		if (deltaInUs < granularityInUs)
+        {
             std::this_thread::sleep_for(std::chrono::microseconds(granularityInUs - deltaInUs));
 
 			deltaInUs = granularityInUs;
@@ -218,7 +216,6 @@ TTFloat64 System::computeDeltaTime()
 
 void System::SystemThreadCallback()
 {
-	TTLogError("** System::SystemThreadCallback() STARTED **\r\n");
     // reset timing informations
     mRunning = true;
     mPaused = NO;
@@ -229,27 +226,25 @@ void System::SystemThreadCallback()
 
     // launch the tick if the duration is valid and while it have to run
     if (mDuration > 0.)
-        while(mRunning)
+        while (mRunning)
 			Tick();
-
-	TTLogError("** System::SystemThreadCallback() ENDED **\r\n");
 }
 
 void System::stopThread()
 {
-    if(mRunning)
+    if (mRunning)
 	{
         mRunning = false;
-		while(!mThread.joinable())
+		while (!mThread.joinable())
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
-		try{
-		mThread.join();
+		try
+        {
+            mThread.join();
 		}
-		catch(std::system_error& e)
+		catch (std::system_error& e)
 		{
-			TTLogError(e.what());
-			TTLogError("\n");
+			TTLogError("System::stopThread() : %s\n", e.what());
 		}
 	}
 }

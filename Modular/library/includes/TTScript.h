@@ -18,7 +18,7 @@
 #define __TT_SCRIPT_H__
 
 #include "TTModularIncludes.h"
-
+#include <thread>
 
 /** About line schemas :
  
@@ -130,6 +130,10 @@ TTDictionaryBasePtr TTMODULAR_EXPORT TTScriptParseLine(const TTValue& newLine);
    Returns NULL in case of error */
 TTDictionaryBasePtr TTMODULAR_EXPORT TTScriptParseComment(const TTValue& newComment);
 
+/* Parse a value into a WAIT line
+ Returns NULL in case */
+TTDictionaryBasePtr TTScriptParseWait(const TTValue& duration);
+
 /* Parse a value into a flag line 
    Returns NULL in case of error */
 TTDictionaryBasePtr TTMODULAR_EXPORT TTScriptParseFlag(const TTValue& newflagAndArguments);
@@ -168,6 +172,5 @@ void            TTMODULAR_EXPORT TTScriptFindTarget(const TTValue& lineValue, TT
 
 /* Copy a line */
 TTDictionaryBasePtr	TTMODULAR_EXPORT TTScriptCopyLine(TTDictionaryBasePtr lineTocopy);
-
 
 #endif // __TT_SCRIPT_H__

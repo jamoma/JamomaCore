@@ -104,8 +104,7 @@ mService(kTTSymEmpty)
 	addAttributeWithSetter(DataspaceUnit, kTypeSymbol);
 	
 	addAttribute(Service, kTypeSymbol);
-	addAttributeProperty(Service, readOnly, YES);
-    //addAttributeProperty(Service, hidden, YES);            // we don't hide this attribute to mirror it (even if we want to hide it for Max)
+    //addAttributeProperty(Service, hidden, YES);           // we don't hide this attribute to mirror it (even if we want to hide it for Max)
 	
     registerMessage(kTTSym_Init, (TTMethod)&TTData::GenericInit, kTTMessagePassNone);
 	addMessageWithArguments(Inc);

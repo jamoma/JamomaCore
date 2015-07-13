@@ -1064,7 +1064,7 @@ TTErr Scenario::ClockSpeedChanged(const TTValue& inputValue, TTValue& outputValu
         
         // get the actual time process scheduler
         TTObject aClock;
-        aTimeProcess.get("scheduler", aClock);
+        aTimeProcess.get("clock", aClock);
         
         // set the time process scheduler speed value with the container scheduler speed value
         aClock.set(kTTSym_speed, inputValue);

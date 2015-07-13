@@ -35,6 +35,7 @@ private:
     TTSymbol			mService;                       ///< ATTRIBUTE : a symbol used to type the container (this is mainly for Max to say if it is a view or a model)
 	TTValue				mTags;							///< ATTRIBUTE : tag list for this container
 	TTBoolean			mInitialized;					///< ATTRIBUTE : is it initialized ?
+    TTBoolean			mActive;                        ///< ATTRIBUTE : is it active ?
 	TTAddress           mAddress;						///< ATTRIBUTE : the address of the container in the directory
 	TTAddress           mAlias;							///< ATTRIBUTE : an alias address to retrieve the container using another address
 	TTValue				mActivity;                      ///< ATTRIBUTE : a local value to allow observation of outputing data
@@ -78,6 +79,9 @@ private:
 	
 	/**	Setter for mPriority attribute. */
 	TTErr setPriority(const TTValue& value);
+    
+    /**	Setter for mActive attribute. */
+    TTErr setActive(const TTValue& value);
 	
 	/** */
 	TTErr bind();

@@ -1,0 +1,35 @@
+language: cpp
+env:
+  matrix:
+  - ARCH=
+  - ARCH=rpi
+  global:
+    - secure: "K8viZupYj8b/p/uVEH2QIZqeIMMw5YCeXonTGXqOhuwqKPU1ppfaLFIP+Cs9+FcH0gAXQzEzLz99ACX3dPpQ4/JC9+3mCGSzLfIanIxK89oHvGL9qTshNEZEkzuAv0EY6p6V7RhEuH6FIkkds0XafkgVz8G5CLeVx1G9DhQtEbk="
+
+os:
+  - linux
+  - osx
+
+matrix:
+  exclude:
+   - os: osx
+     env: ARCH=rpi
+
+before_install:
+- "./script/depinstall.sh"
+
+script:
+- "./script/build.sh"
+
+after_success:
+- "./script/deploy-git.sh"
+
+addons:
+  coverity_scan:
+    project:
+      name: "jamoma/JamomaCore"
+      description: "Build submitted via Travis CI"
+    notification_email: antoine.villeret@gmail.com
+    build_command_prepend: "/tmp/cmake/bin/cmake ..;make clean"
+    build_command:   "make -j 4"
+    branch_pattern: coverity_scan
