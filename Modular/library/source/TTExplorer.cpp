@@ -273,6 +273,11 @@ TTErr TTExplorer::Explore()
 		err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
 	
 	if (!err){
+        
+        // clear namespace
+        TTAddressItemPtr aSelection = TTModularSelectionLookup(mNamespace);
+        if (aSelection)
+            aSelection->clear();
 		
 		// get attributes names of the node at mAddress
 		if (mOutput == kTTSym_attributes) {
