@@ -815,7 +815,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 	TTObject		anObject;
 	TTAddress		anAddress;
 	TTValue			v;
-	TTBoolean		resultFilter, result;
+	TTBoolean		resultFilter, result = YES;
 	TTBoolean		firstFilter = YES;
 	TTErr			err;
 	
@@ -834,7 +834,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 		for (filterList->begin(); filterList->end(); filterList->next()) {
 			
 			// if no filter all nodes are included in the result
-			filterMode = kTTSym_include;
+			filterMode = kTTSym_restrict;
 			
 			// get the next filter name from the list
 			// and get it from the bank
@@ -988,7 +988,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					
 					// test if the regex find something
 					if (!aRegex->parse(begin, end))
-						resultName = begin != end;
+						resultName = begin != end && begin == s_toParse.begin();
 					else
 						resultName = NO;
 					
@@ -1008,7 +1008,7 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 					
 					// test if the regex find something
 					if (!aRegex->parse(begin, end))
-						resultInstance = begin != end;
+						resultInstance = begin != end && begin == s_toParse.begin();
 					else
 						resultInstance = NO;
 					
@@ -1019,21 +1019,9 @@ TTBoolean testNodeUsingFilter(TTNodePtr n, TTPtr args)
 				resultFilter = resultObject && resultAttribute && resultValue && resultPart && resultParent && resultName && resultInstance;
 			}
 			
-			// the mode of the first filter precises if we start 
-			// from a full set (E : default result is YES) or 
-			// from an empty set (ø : default result is NO)
-			if (firstFilter) {
-				if (filterMode == kTTSym_include)
-					result = NO;					// a node isn't into the result by default (and resultFilter have to be YES to keep it)
-				else if (filterMode == kTTSym_restrict)
-					result = YES;					// a node is into the result by default (and resultFilter have to be YES to keep it)
-				else if (filterMode == kTTSym_exclude)
-					result = YES;					// a node is into the result by default (and resultFilter have to be NO to keep it)
-				else if (filterMode == TTSymbol("hamlet"))
-					result = NO;					// a node isn't into the result by default (and resultFilter have to be NO to keep it)
-				
-				firstFilter = NO;					// the next filter will not be a first filter anymore...
-			}
+			// the next filter will not be a first filter anymore...
+			if (firstFilter)
+				firstFilter = NO;
 			
 			// propagate the resultFilter to the 
 			// final result depending on the filter mode
