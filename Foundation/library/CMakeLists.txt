@@ -8,7 +8,6 @@ if(NOT ANDROID AND NOT WIN32 AND NOT IOS)
 	find_package(Threads REQUIRED) #for phtread
 	find_package(DL REQUIRED)
 endif()
-
 add_definitions(-DTTFOUNDATION_EXPORTS)
 
 set(PROJECT_SRCS

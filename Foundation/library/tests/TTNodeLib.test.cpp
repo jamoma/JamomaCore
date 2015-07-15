@@ -27,14 +27,14 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 	
 	TTAddress		testAddress1("directory1:/gran/parent1/name1.instance1:attribute1");
 	
-	TTSymbol		directory1	= testAddress1.getDirectory();
+    TTSymbol		directory1	= testAddress1.getDirectory();
 	TTAddress		parent1		= testAddress1.getParent();
-	TTSymbol		name1		= testAddress1.getName();
-	TTSymbol		instance1	= testAddress1.getInstance();
+    TTSymbol		name1		= testAddress1.getName();
+    TTSymbol		instance1	= testAddress1.getInstance();
 	TTSymbol		attribute1	= testAddress1.getAttribute();
 	TTAddressType	type1		= testAddress1.getType();
     TTSymbol		parentDirectory1 = testAddress1.getParent().getDirectory();
-	
+
 	TTAddress		testAddress2("/gran/parent2/name2.instance2");
 	
 	TTSymbol		directory2	= testAddress2.getDirectory();
@@ -151,7 +151,8 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 	TTSymbol		instance14	= testAddress14.getInstance();
 	TTSymbol		attribute14	= testAddress14.getAttribute();
 	TTAddressType	type14		= testAddress14.getType();
-    
+
+
 	// The first set of tests checks parsing of addresses
 	TTTestAssertion("TTAddress: Test fails if parsing of testAddress1 is bad",
 					directory1 == TTSymbol("directory1") &&
@@ -163,7 +164,7 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
                     parentDirectory1 == directory1,
 					testAssertionCount,
 					errorCount);
-	
+
 	TTTestAssertion("TTAddress: Test fails if parsing of testAddress2 is bad",
 					directory2 == NO_DIRECTORY &&
 					parent2 == TTAddress("/gran/parent2") &&
@@ -203,7 +204,7 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 					type5 == kAddressRelative,
 					testAssertionCount,
 					errorCount);
-	
+
 	TTTestAssertion("TTAddress: Test fails if parsing of testAddress6 is bad",
 					directory6 == NO_DIRECTORY &&
 					parent6 == TTAddress("/gran/parent6") &&
@@ -292,7 +293,7 @@ void TTNodeLibTestAddressParsing(int& errorCount, int& testAssertionCount)
 					attribute14 == TTSymbol("attr-ibute14") &&
 					type14 == kAddressAbsolute,
 					testAssertionCount,
-					errorCount);
+                    errorCount);
 }
 
 void TTNodeLibTestAddressMethods(int& errorCount, int& testAssertionCount)
@@ -744,7 +745,7 @@ TTErr TTNodeLibTest::test(TTValue& returnedTestInfo)
 	int testAssertionCount = 0;
 	
 	TTNodeLibTestAddressParsing(errorCount, testAssertionCount);
-	
+
 	TTNodeLibTestAddressMethods(errorCount, testAssertionCount);
 	
 	TTNodeLibTestAddressItem(errorCount, testAssertionCount);
