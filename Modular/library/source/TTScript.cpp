@@ -406,49 +406,53 @@ TTErr TTScript::RunFlattened()
         
         aLine = TTDictionaryBasePtr((TTPtr)mFlattenedLines->current()[0]);
         
-        // in flatten mode there is no subscript so only run command line
+        // in flatten mode there is no subscript so only run command and wait lines
         schema = aLine->getSchema();
-        if (schema != kTTSym_command)
-            continue;
-          
-        // get the target address
-        aLine->lookup(kTTSym_target, v);
-        address = v[0];
-        
-        aDirectory = accessApplicationDirectoryFrom(address);
-        if (aDirectory == NULL)
-            return kTTErrGeneric;
-        
-        err = aDirectory->getTTNode(address, &aNode);
-
-        if (!err) {
+        if (schema == kTTSym_command)
+        {
+            // get the target address
+            aLine->lookup(kTTSym_target, v);
+            address = v[0];
             
-            anObject = aNode->getObject();
+            aDirectory = accessApplicationDirectoryFrom(address);
+            if (aDirectory == NULL)
+                return kTTErrGeneric;
             
-            // check object type
-            if (anObject.valid()) {
+            err = aDirectory->getTTNode(address, &aNode);
+            
+            if (!err) {
                 
-                // default attribute is value attribute
-                if (address.getAttribute() == kTTSymEmpty)
-                    attribute = kTTSym_value;
-                else
-                    attribute = address.getAttribute();
+                anObject = aNode->getObject();
                 
-                // for data object
-                if (anObject.name() == kTTSym_Data) {
+                // check object type
+                if (anObject.valid()) {
                     
-                    // send the line using the command message
-                    if (attribute == kTTSym_value) {
+                    // default attribute is value attribute
+                    if (address.getAttribute() == kTTSymEmpty)
+                        attribute = kTTSym_value;
+                    else
+                        attribute = address.getAttribute();
+                    
+                    // for data object
+                    if (anObject.name() == kTTSym_Data) {
                         
-                        anObject.send(kTTSym_Command, (TTPtr)aLine);
-                        continue;
+                        // send the line using the command message
+                        if (attribute == kTTSym_value) {
+                            
+                            anObject.send(kTTSym_Command, (TTPtr)aLine);
+                            continue;
+                        }
                     }
+                    
+                    // any other case : set attribute
+                    aLine->getValue(v);
+                    anObject.set(attribute, v);
                 }
-                
-                // any other case : set attribute
-                aLine->getValue(v);
-                anObject.set(attribute, v);
             }
+        }
+        else if (schema == kTTSym_WAIT)
+        {
+            ; // do nothing to not block the thread
         }
     }
     
@@ -712,34 +716,44 @@ TTErr TTScript::DumpFlattened()
         
         // in flatten mode there is no subscript so only run command line
         schema = aLine->getSchema();
-        if (schema != kTTSym_command)
-            continue;
-        
-        // get command value
-        aLine->getValue(valueToDump);
-        
-        // get the unit
-        if (!aLine->lookup(kTTSym_unit, v)) {
-            unit = v[0];
-            valueToDump.append(unit);
+        if (schema == kTTSym_command)
+        {
+            
+            // get command value
+            aLine->getValue(valueToDump);
+            
+            // get the unit
+            if (!aLine->lookup(kTTSym_unit, v)) {
+                unit = v[0];
+                valueToDump.append(unit);
+            }
+            
+            // get the ramp
+            if (!aLine->lookup(kTTSym_ramp, v)) {
+                ramp = v[0];
+                valueToDump.append(kTTSym_ramp);
+                valueToDump.append(ramp);
+            }
+            
+            // get the target address
+            aLine->lookup(kTTSym_target, v);
+            address = v[0];
+            
+            // append the address
+            valueToDump.prepend(address);
+            
+            // output line value
+            mReturnLineCallback.send("notify", valueToDump);
         }
-        
-        // get the ramp
-        if (!aLine->lookup(kTTSym_ramp, v)) {
-            ramp = v[0];
-            valueToDump.append(kTTSym_ramp);
-            valueToDump.append(ramp);
+        else if (schema == kTTSym_WAIT)
+        {
+            aLine->getValue(valueToDump);
+            
+            valueToDump.prepend(kTTSym_WAIT);
+            
+            // output WAIT time
+            mReturnLineCallback.send("notify", valueToDump);
         }
-        
-        // get the target address
-        aLine->lookup(kTTSym_target, v);
-        address = v[0];
-                
-        // append the address
-        valueToDump.prepend(address);
-        
-        // output line value
-        mReturnLineCallback.send("notify", valueToDump);
     }
     
     return kTTErrNone;
@@ -1294,6 +1308,20 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
                 *buffer += aString.data();
                 *buffer += "\n";
             }
+            if (aLine->getSchema() == kTTSym_WAIT) {
+                
+                // get comment value
+                if (!aLine->getValue(v)) {
+                    v.toString();
+                    aString = TTString(v[0]);
+                }
+                else aString = "";
+                
+                // write comment
+                *buffer += "WAIT ";
+                *buffer += aString.data();
+                *buffer += "\n";
+            }
             else if (aLine->getSchema() == kTTSym_command) {
                 
                 // get target address
@@ -1399,6 +1427,20 @@ TTErr TTScript::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 			*buffer += aString.data();
 			*buffer += "\n";
 		}
+        else if (aLine->getSchema() == kTTSym_WAIT) {
+            
+            // get duration value
+            if (!aLine->getValue(v)) {
+                v.toString();
+                aString = TTString(v[0]);
+            }
+            else aString = "";
+            
+            // write WAIT
+            *buffer += "WAIT ";
+            *buffer += aString.data();
+            *buffer += "\n";
+        }
 		else if (aLine->getSchema() == kTTSym_command) {
 			
 			// get name
@@ -1575,6 +1617,18 @@ TTDictionaryBasePtr TTScriptParseLine(const TTValue& newLine)
             else
                 return TTScriptParseComment(none);
         }
+        // if starts by a "WAIT" : wait line
+        else if (firstSymbol == kTTSym_WAIT)
+        {
+            if (size == 2)
+            {
+                if (newLine[1].type() == kTypeInt32)
+                {
+                    rest.copyFrom(newLine, 1);
+                    return TTScriptParseWait(rest);
+                }
+            }
+        }
     }
     
     // else if more than one symbol : append a command
@@ -1594,6 +1648,16 @@ TTDictionaryBasePtr TTScriptParseComment(const TTValue& newComment)
 	line->setValue(newComment);
 	
 	return line;
+}
+
+TTDictionaryBasePtr TTScriptParseWait(const TTValue& duration)
+{
+    TTDictionaryBasePtr line = new TTDictionaryBase();
+    
+    line->setSchema(kTTSym_WAIT);
+    line->setValue(duration);
+    
+    return line;
 }
 
 TTDictionaryBasePtr TTScriptParseFlag(const TTValue& newflagAndArguments)

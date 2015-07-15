@@ -284,6 +284,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_valueStepsize;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_viewFreeze;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_view;
 
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_WAIT;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Write;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_WriteAgain;
 
