@@ -609,8 +609,14 @@ TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
             return kTTErrNone;
         }
     }
-	// remove all
-	else {
+	// remove all filters from the bank
+	else
+    {
+        for (mFilterList->begin(); mFilterList->end(); mFilterList->next())
+        {
+            filterName = mFilterList->current()[0];
+            mFilterBank->remove(filterName);
+        }
         
 		delete mFilterList;
 		mFilterList = new TTList();
