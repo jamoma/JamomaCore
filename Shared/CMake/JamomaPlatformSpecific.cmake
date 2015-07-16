@@ -61,17 +61,17 @@ if(UNIX)
 		SET(CPACK_GENERATOR "NSIS")
 	endif()
 elseif(WIN32)
+	add_definitions(-DTT_PLATFORM_WIN)
+	add_definitions(-DWIN_VERSION)
+	
 	if(MINGW)
-		add_definitions(-DTT_PLATFORM_WIN)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-unknown-pragmas -Wno-conversion -Wno-deprecated-declarations -Wno-trigraphs")
 	else()
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4996 /wd4275 /wd4273 /wd4068 /LD /MD")
-		add_definitions(-DTT_PLATFORM_WIN)
-		add_definitions(-DWIN_VERSION)
 		add_definitions(-DIDL=0)
 	endif()
 
-	# C'est en supposant qu'on compile sur une machine 64-bits... Comment le tester?
+	# This assumes that we're building on a 64 bit machine... but this should not be used anymore anyway.
 	if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 		set(WIN32_PROGRAMFILES "C:\\Program Files (x86)")
 	else()
