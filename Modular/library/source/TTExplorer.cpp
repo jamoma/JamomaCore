@@ -273,6 +273,11 @@ TTErr TTExplorer::Explore()
 		err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
 	
 	if (!err){
+        
+        // clear namespace
+        TTAddressItemPtr aSelection = TTModularSelectionLookup(mNamespace);
+        if (aSelection)
+            aSelection->clear();
 		
 		// get attributes names of the node at mAddress
 		if (mOutput == kTTSym_attributes) {
@@ -526,16 +531,17 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
 	TTValue			v, filterValue;
 	TTErr			err;
     
-    if (inputValue.size() >= 1) {
-	
-        if (inputValue[0].type() == kTypeSymbol) {
-            
+    if (inputValue.size() >= 1)
+    {
+        if (inputValue[0].type() == kTypeSymbol)
+        {
             filterName = inputValue[0];
             
             err = mFilterBank->lookup(filterName, v);
             
             // if the filter doesn't exist : create a new one
-            if (err) {
+            if (err)
+            {
                 afilter = new TTDictionaryBase();
                 afilter->setSchema(kTTSym_filter);
                 mFilterBank->append(filterName, (TTPtr)afilter);
@@ -545,17 +551,22 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
                 afilter = TTDictionaryBasePtr((TTPtr)v[0]);
             
             // set the keys of the filter
-            for (TTUInt32 i = 1; i < inputValue.size(); i =i+2) {
+            for (TTUInt32 i = 1; i < inputValue.size(); i =i+2)
+            {
                 
                 filterKey = inputValue[i];
                 filterValue.copyRange(inputValue, i+1, i+2);
                 
-                // convert Int32 into symbol for instance parsing
-                if (filterValue[0].type() == kTypeInt32) {
-                    filterValue.toString();
-                    TTString instanceString;
-                    instanceString = TTString(filterValue[0]);
-                    filterValue[0] = TTSymbol(instanceString);
+                if (filterKey == kTTSym_name || filterKey == kTTSym_instance || filterKey == kTTSym_part)
+                {
+                    // convert Int32 into symbol for parsing
+                    if (filterValue[0].type() == kTypeInt32)
+                    {
+                        filterValue.toString();
+                        TTString instanceString;
+                        instanceString = TTString(filterValue[0]);
+                        filterValue[0] = TTSymbol(instanceString);
+                    }
                 }
                 
                 afilter->append(filterKey, filterValue);
@@ -604,8 +615,14 @@ TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
             return kTTErrNone;
         }
     }
-	// remove all
-	else {
+	// remove all filters from the bank
+	else
+    {
+        for (mFilterList->begin(); mFilterList->end(); mFilterList->next())
+        {
+            filterName = mFilterList->current()[0];
+            mFilterBank->remove(filterName);
+        }
         
 		delete mFilterList;
 		mFilterList = new TTList();

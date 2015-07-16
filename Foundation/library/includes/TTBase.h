@@ -482,6 +482,7 @@ TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];
  */
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];
 
+//! [doxygenAppendixC_constExample]
 /** \ingroup consts
  Pre-calculated value of pi     (3.1416).
  */
@@ -491,6 +492,7 @@ TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;
  Pre-calculated value of pi/2.
  */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfPi;
+//! [doxygenAppendixC_constExample]
 
 /** \ingroup consts
  Pre-calculated value of pi/4.

@@ -272,10 +272,12 @@ public:
 	
 };
 
+//! [doxygenAppendixC_typedefExample]
 /** Pointer to a #TTDictionary.
  @ingroup typedefs
  */
 typedef TTDictionary* TTDictionaryPtr;
+//! [doxygenAppendixC_typedefExample]
 
 
 #endif // __TT_DICTIONARY_H__
