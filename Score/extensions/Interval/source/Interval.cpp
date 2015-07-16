@@ -92,12 +92,12 @@ TTErr Interval::Goto(const TTValue& inputValue, TTValue& outputValue)
             
             this->getAttributeValue(kTTSym_duration, v);
             
-            // TODO : TTTimeProcess should extend Scheduler class
+            // TODO : TTTimeProcess should extend Clock class
             duration = v[0];
-            mScheduler.set(kTTSym_duration, TTFloat64(duration));
+            mClock.set(kTTSym_duration, TTFloat64(duration));
             
             timeOffset = inputValue[0];
-            mScheduler.set(kTTSym_offset, TTFloat64(timeOffset));
+            mClock.set(kTTSym_offset, TTFloat64(timeOffset));
             
             return kTTErrNone;
         }

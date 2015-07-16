@@ -49,7 +49,7 @@ TIME_PROCESS_PLUGIN_CONSTRUCTOR
     addMessage(Clear);
     addMessageWithArguments(CurveRecord);
     
-    mScheduler.set("granularity", TTFloat64(1.));
+    mClock.set("granularity", TTFloat64(1.));
 }
 
 Automation::~Automation()
@@ -244,7 +244,7 @@ TTErr Automation::Process(const TTValue& inputValue, TTValue& outputValue)
     
     TTFloat64 position = inputValue[0];
     TTFloat64 date = inputValue[1];
-    
+
     TTFloat64       sample;
     TTValue         v, keys, objects, valueToSend, none;
     TTSymbol        key;
@@ -263,8 +263,8 @@ TTErr Automation::Process(const TTValue& inputValue, TTValue& outputValue)
     
     // calculate the curves
     mCurves.getKeys(keys);
-    for (i = 0; i < keys.size(); i++) {
-        
+    for (i = 0; i < keys.size(); i++)
+    {
         key = keys[i];
         
         // a curve is processed only if it is not recording
@@ -278,8 +278,8 @@ TTErr Automation::Process(const TTValue& inputValue, TTValue& outputValue)
         valueToSend.resize(objects.size());
         err = kTTErrNone;
         redundancy = YES;
-        for (j = 0; j < objects.size(); j++) {
-            
+        for (j = 0; j < objects.size(); j++)
+        {
             curve = objects[j];
             
             err = TTCurveNextSampleAt(TTCurvePtr(curve.instance()), position, sample);
@@ -298,8 +298,8 @@ TTErr Automation::Process(const TTValue& inputValue, TTValue& outputValue)
             continue;
         
         // look for the sender at the address
-        if (!mSenders.lookup(key, objects)) {
-            
+        if (!mSenders.lookup(key, objects))
+        {
             sender = objects[0];
             sender.send(kTTSym_Send, valueToSend, none);
         }
@@ -330,12 +330,12 @@ TTErr Automation::Goto(const TTValue& inputValue, TTValue& outputValue)
             
             this->getAttributeValue(kTTSym_duration, v);
             
-            // TODO : TTTimeProcess should extend Scheduler class
+            // TODO : TTTimeProcess should extend Clock class
             duration = v[0];
-            mScheduler.set(kTTSym_duration, TTFloat64(duration));
+            mClock.set(kTTSym_duration, TTFloat64(duration));
             
             timeOffset = inputValue[0];
-            mScheduler.set(kTTSym_offset, TTFloat64(timeOffset));
+            mClock.set(kTTSym_offset, TTFloat64(timeOffset));
             
             // is the automation is temporary muted ?
             if (inputValue.size() == 2) {
@@ -349,10 +349,10 @@ TTErr Automation::Goto(const TTValue& inputValue, TTValue& outputValue)
             if (!mute && !mMute) {
                 
                 // get scheduler progression and realTime
-                mScheduler.get("position", v);
+                mClock.get("position", v);
                 position = TTFloat64(v[0]);
                 
-                mScheduler.get("date", v);
+                mClock.get("date", v);
                 date = TTFloat64(v[0]);
                 
                 // DEBUG : to see if it is faster without this part

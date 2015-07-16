@@ -22,8 +22,8 @@ typedef void*(*TTThreadCallbackType)(void* arg);
 class TTThread
 {
 	std::thread thread;
-	TTThreadCallbackType	callback;	///< method called in the new thread when it starts
-	void*					argument;	///< argument passed to the callback
+	//TTThreadCallbackType	callback;	///< method called in the new thread when it starts
+	//void*					argument;	///< argument passed to the callback
 
 public:
 	TTThread(TTThreadCallbackType aCallback, void* anArgument)
@@ -41,7 +41,7 @@ public:
 	/** Tells the calling thread to wait for this thread to terminate before moving on.*/
 	void wait()
 	{
-		if(thread.joinable())
+		if (thread.joinable())
 			thread.join();
 	}
 	

@@ -2,7 +2,7 @@
  *
  * @ingroup modularSystem
  *
- * @brief System scheduler class
+ * @brief System clock class
  *
  * @details
  *
@@ -13,17 +13,15 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-
-#include "Scheduler.h"
 #include "System.h"
 
-#define thisTTClass                 System
-#define thisTTClassName             "system"
-#define thisTTClassTags             "scheduler, System"
+#define thisTTClass             System
+#define thisTTClassName         "system"
+#define thisTTClassTags         "clock, System"
 
-#define thisSchedulerVersion		"0.1"
-#define thisSchedulerAuthor         "Theo de la Hogue"
-#define thisSchedulerStretchable	YES
+#define thisClockVersion		"0.1"
+#define thisClockAuthor         "Theo de la Hogue"
+#define thisClockStretchable	YES
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_System(void)
 {
@@ -32,10 +30,10 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_System(void)
 	return kTTErrNone;
 }
 
-SCHEDULER_CONSTRUCTOR,
+TT_CLOCK_CONSTRUCTOR,
 mGranularity(20.0)
 {
-	SCHEDULER_INITIALIZE
+	TT_CLOCK_INITIALIZE
 
     addAttribute(Granularity, kTypeFloat64);
 }
@@ -57,9 +55,9 @@ TTErr System::getParameterNames(TTValue& value)
 
 TTErr System::Go()
 {
-	TTLogError("** System::Go() CALLED **\r\n");
     // do we need to ramp at all ?
-    if (mDuration <= mOffset) {
+    if (mDuration <= mOffset)
+    {
         stopThread();
         mRunning = false;
         mPaused = NO;
@@ -69,10 +67,11 @@ TTErr System::Go()
         (mCallback)(mBaton, mPosition, mDate);
 
         // notify each observers
-        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
+        sendNotification(TTSymbol("ClockRunningChanged"), mRunning);
+        sendNotification(TTSymbol("ClockTicked"), TTValue(mPosition, mDate));
     }
-    else if (mExternalTick) {
+    else if (mExternalTick)
+    {
 
         // reset timing informations
         mRunning = true;
@@ -80,20 +79,20 @@ TTErr System::Go()
         mLastTime = 0.;
 
         // notify each observers
-        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+        sendNotification(TTSymbol("ClockRunningChanged"), mRunning);
 
         // launch a first tick if the duration is valid
         if (mDuration > 0.)
             Tick();
     }
     // if the thread is not running
-    else if (!mRunning) {
-        if(mThread.joinable())
+    else if (!mRunning)
+    {
+        if (mThread.joinable())
 			mThread.join();
 
-        // launch a new thread to run the scheduler execution
+        // launch a new thread to run the clock execution
         mThread = std::thread(&System::SystemThreadCallback, this);
-
     }
 
     return kTTErrNone;
@@ -101,16 +100,13 @@ TTErr System::Go()
 
 TTErr System::Stop()
 {
-	TTLogError("** System::Stop() CALLED **\r\n");
-
 	mPaused = NO;
 
 	// stop thread execution
 	stopThread();
 
 	// notify each observers
-    sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-
+    sendNotification(TTSymbol("ClockRunningChanged"), mRunning);
 
 	// reset all time info
 	mOffset = 0.;
@@ -137,7 +133,7 @@ TTErr System::Tick()
         (mCallback)(mBaton, mPosition, mDate);
 
         // notify each observers
-        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
+        sendNotification(TTSymbol("ClockTicked"), TTValue(mPosition, mDate));
     }
     else
     {
@@ -148,10 +144,10 @@ TTErr System::Tick()
         (mCallback)(mBaton, mPosition, mDate);
 
         // notify each observers
-        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
+        sendNotification(TTSymbol("ClockTicked"), TTValue(mPosition, mDate));
 
-        // if the scheduler is still running : stop it
-        // note : because it is possible that another thread stops the scheduler before
+        // if the clock is still running : stop it
+        // note : because it is possible that another thread stops the clock before
         if (mRunning)
             Stop();
     }
@@ -191,19 +187,19 @@ TTFloat64 System::computeDeltaTime()
 
 	TTUInt64 currentTime = tv.tv_sec * 1000000L + tv.tv_usec;
 
-	if (mLastTime != 0) {
-
+	if (mLastTime != 0)
+    {
         // it seems the currentTime is lower than the lastTime sometimes ...
-        if (currentTime < mLastTime) {
-            
+        if (currentTime < mLastTime)
+        {
             TTLogMessage("System::computeDeltaTime() : current time is lower than last time\n");
             deltaInUs = 0;
         }
         else
             deltaInUs = (currentTime - mLastTime);
 
-		if (deltaInUs < granularityInUs) {
-
+		if (deltaInUs < granularityInUs)
+        {
             std::this_thread::sleep_for(std::chrono::microseconds(granularityInUs - deltaInUs));
 
 			deltaInUs = granularityInUs;
@@ -220,38 +216,35 @@ TTFloat64 System::computeDeltaTime()
 
 void System::SystemThreadCallback()
 {
-	TTLogError("** System::SystemThreadCallback() STARTED **\r\n");
     // reset timing informations
     mRunning = true;
     mPaused = NO;
     mLastTime = 0.;
 
     // notify each observers
-    sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+    sendNotification(TTSymbol("ClockRunningChanged"), mRunning);
 
     // launch the tick if the duration is valid and while it have to run
     if (mDuration > 0.)
-        while(mRunning)
+        while (mRunning)
 			Tick();
-
-	TTLogError("** System::SystemThreadCallback() ENDED **\r\n");
 }
 
 void System::stopThread()
 {
-    if(mRunning)
+    if (mRunning)
 	{
         mRunning = false;
-		while(!mThread.joinable())
+		while (!mThread.joinable())
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
-		try{
-		mThread.join();
+		try
+        {
+            mThread.join();
 		}
-		catch(std::system_error& e)
+		catch (std::system_error& e)
 		{
-			TTLogError(e.what());
-			TTLogError("\n");
+			TTLogError("System::stopThread() : %s\n", e.what());
 		}
 	}
 }

@@ -29,11 +29,11 @@ IF(SNDFILE_FOUND)
 if(APPLE) # TODO windows?
 	set(SNDFILE_LIBRARIES
 		${SNDFILE_LIBRARY}
-		${SNDFILE_INCLUDE_DIR}/lib/libFLAC-jamoma.a
-		${SNDFILE_INCLUDE_DIR}/lib/libogg-jamoma.a
-		${SNDFILE_INCLUDE_DIR}/lib/libvorbis-jamoma.a
-		${SNDFILE_INCLUDE_DIR}/lib/libvorbisenc-jamoma.a
-		${SNDFILE_INCLUDE_DIR}/lib/libvorbisfile-jamoma.a)
+                ${CMAKE_CURRENT_LIST_DIR}/../../../DSP/extensions/SoundfileLib/libsndfile/lib/libFLAC-jamoma.a
+                ${CMAKE_CURRENT_LIST_DIR}/../../../DSP/extensions/SoundfileLib/libsndfile/lib/libogg-jamoma.a
+                ${CMAKE_CURRENT_LIST_DIR}/../../../DSP/extensions/SoundfileLib/libsndfile/lib/libvorbis-jamoma.a
+                ${CMAKE_CURRENT_LIST_DIR}/../../../DSP/extensions/SoundfileLib/libsndfile/lib/libvorbisenc-jamoma.a
+                ${CMAKE_CURRENT_LIST_DIR}/../../../DSP/extensions/SoundfileLib/libsndfile/lib/libvorbisfile-jamoma.a)
 endif()
   GET_FILENAME_COMPONENT(SNDFILE_LINK_DIRECTORIES ${SNDFILE_LIBRARY} PATH)
 ELSE()

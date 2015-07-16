@@ -24,7 +24,7 @@ if(WIN32)
 endif()
 
 set(PROJECT_SRCS
-$<TARGET_OBJECTS:ProtocolLib>
+	$<TARGET_OBJECTS:TTProtocol>
 ${CMAKE_CURRENT_SOURCE_DIR}/source/MIDI.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/MIDIDestination.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/MIDIInput.cpp
@@ -36,7 +36,6 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/MIDISource.cpp
 
 include_directories("${PROJECT_SOURCE_DIR}/")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories($<TARGET_PROPERTY:ProtocolLib,INTERFACE_INCLUDE_DIRECTORIES>)
 include_directories("${PORTMIDI_INCLUDE_DIRS}")
 
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)

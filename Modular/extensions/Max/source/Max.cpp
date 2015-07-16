@@ -2,7 +2,7 @@
  *
  * @ingroup modularMax
  *
- * @brief Max scheduler class
+ * @brief Max Clock class
  *
  * @details
  *
@@ -13,17 +13,15 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-
-#include "Scheduler.h"
 #include "Max.h"
 
 #define thisTTClass                 Max
 #define thisTTClassName             "max"
-#define thisTTClassTags             "scheduler, max"
+#define thisTTClassTags             "clock, max"
 
-#define thisSchedulerVersion		"0.1"
-#define thisSchedulerAuthor         "Theo de la Hogue"
-#define thisSchedulerStretchable	NO
+#define thisClockVersion		"0.1"
+#define thisClockAuthor         "Theo de la Hogue"
+#define thisClockStretchable	NO
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Max(void)
 {
@@ -32,10 +30,10 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Max(void)
 	return kTTErrNone;
 }
 
-SCHEDULER_CONSTRUCTOR,
+TT_CLOCK_CONSTRUCTOR,
 mGranularity(20.0)
 {	
-	SCHEDULER_INITIALIZE
+	TT_CLOCK_INITIALIZE
 	
     clock = clock_new(this, (method)&MaxClockCallback);	// install the max timer
         
@@ -68,8 +66,8 @@ TTErr Max::Go()
         (mCallback)(mBaton, mPosition, mDate);
         
         // notify each observers
-        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
+        sendNotification(TTSymbol("ClockRunningChanged"), mRunning);
+        sendNotification(TTSymbol("ClockTicked"), TTValue(mPosition, mDate));
     }
     else {
         
@@ -84,8 +82,8 @@ TTErr Max::Go()
         (mCallback)(mBaton, mPosition, mDate);
         
         // notify each observers
-        sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-        sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
+        sendNotification(TTSymbol("ClockRunningChanged"), mRunning);
+        sendNotification(TTSymbol("ClockTicked"), TTValue(mPosition, mDate));
         
         // schedule first tick
         setclock_fdelay(NULL, clock, mGranularity);
@@ -101,7 +99,7 @@ TTErr Max::Stop()
     mPaused = NO;
     
     // notify each observers
-    sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
+    sendNotification(TTSymbol("ClockRunningChanged"), mRunning);
     
     return kTTErrNone;
 }
@@ -142,8 +140,8 @@ TTErr Max::Tick()
             (mCallback)(mBaton, mPosition, mDate);
             
             // notify each observers
-            sendNotification(TTSymbol("SchedulerRunningChanged"), mRunning);
-            sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
+            sendNotification(TTSymbol("ClockRunningChanged"), mRunning);
+            sendNotification(TTSymbol("ClockTicked"), TTValue(mPosition, mDate));
         }
 		else {
             
@@ -153,7 +151,7 @@ TTErr Max::Tick()
             (mCallback)(mBaton, mPosition, mDate);
             
             // notify each observers
-            sendNotification(TTSymbol("SchedulerTicked"), TTValue(mPosition, mDate));
+            sendNotification(TTSymbol("ClockTicked"), TTValue(mPosition, mDate));
             
             // Set the clock to fire again
             setclock_fdelay(NULL, clock, mGranularity);
@@ -163,7 +161,7 @@ TTErr Max::Tick()
     return kTTErrNone;
 }
 
-void MaxClockCallback(Max* aMaxScheduler)
+void MaxClockCallback(Max* aMaxClock)
 {
-    aMaxScheduler->Tick();
+    aMaxClock->Tick();
 }

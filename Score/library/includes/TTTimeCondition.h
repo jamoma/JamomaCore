@@ -19,14 +19,14 @@
 #define __TT_TIME_CONDITION_H__
 
 #include "TTScoreIncludes.h"
-#include "Expression.h"
+#include "TTExpression.h"
 
 /** Define a struct containing an expression and a boolean, as the expression to trigger and the default comportment */
 struct Comportment {
     
     Comportment() : trigger(), dflt(true) {}
 
-    Expression trigger;
+    TTExpression trigger;
     TTBoolean dflt;
 };
 
@@ -63,7 +63,7 @@ protected :
     TTHash                          mReceivers;                     ///< a table of receivers stored by address
     TTCaseMap                       mCases;                         ///< a map linking an event to its comportment
 
-    Expression                      mDispose;                       ///< the expression to dispose the condition
+    TTExpression                    mDispose;                       ///< the expression to dispose the condition
 
     TTInt32                         mNotPendingEventCounter;        ///< counting the number of events which are not pending
                                                                     ///< use signed integer to detect error if it goes below (see in EventStatusChanged)

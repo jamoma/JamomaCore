@@ -234,7 +234,7 @@ public:
 	*/
 	TTErr fill(const TTValue& anInputValue, TTValue &anOutputValue);
 
-	
+	//! [doxygenAppendixC_macroExample]
 	/** Internal macro used to locate the byte within mData where a specific component begins. 
 		This macro is used by both get and set routines to ensure that the formula for access is consistent. Allows our interface to be consistent in its lookup method and represents a specific application of the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY principle</a>.
 
@@ -247,6 +247,7 @@ public:
 	{													\
 		(i * mColumnCount + j) * mComponentStride		\
 	}
+    //! [doxygenAppendixC_macroExample]
 	
 	
 	/** Internal macro used to locate the byte within mData where a specific element begins. 
@@ -291,7 +292,9 @@ public:
 	static TTInt32 outOfBoundsWrap(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
 	{
 		// the TTInfWrap method does not allow the highBound as a valid result, so we can pass values as is
-		return TTInfWrap(index, lowBound, highBound);
+		TTInt32 temp = index;
+		TTInfWrap(temp, lowBound, highBound);
+		return temp;
 	}
 	
 	/**	In implementation of the TTMatrixBaseOutOfBoundsHandler that wraps #TTFold.
@@ -300,7 +303,9 @@ public:
 	static TTInt32 outOfBoundsFold(const TTInt32 index, const TTInt32 lowBound, const TTInt32 highBound)
 	{
 		// the TTFold method allows highBound as a valid result, but the math depends on it being equal to the dimension size
-		TTInt32 output = TTFold(index, lowBound, highBound);
+		TTInt32 temp = index;
+		TTFold(temp, lowBound, highBound);
+		TTInt32 output = temp;
 		// so we adjust whenever highBound is produced as an output
 		if (output == highBound) --output;
 		return output;

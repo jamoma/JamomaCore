@@ -178,31 +178,45 @@ TTErr TTObjectBase::getAttributeValue(const TTSymbol name, TTValue& value)
 TTErr TTObjectBase::setAttributeValue(const TTSymbol name, TTValue& value)
 {
 	TTAttributePtr	attribute = NULL;
-	TTErr			err = findAttribute(name, &attribute);
+    
+    // Retreive the registered attribute
+	TTErr err = findAttribute(name, &attribute);
 	
-    if (!err) {
-        
+    if (!err)
+    {
+        // If no value : use attribute default value
         if (value.empty())
             return setAttributeValue(name, attribute->mDefaultValue);
-	
+        
+        // Can't set read only attribute
 		if (attribute->readOnly)
 			err = kTTErrReadOnly;
-		else {
+        
+		else
+        {
+            // Clipping
 			if (attribute->rangeChecking == kTTSym_clip)
 				value.clip(attribute->rangeLowBound, attribute->rangeHighBound);
 			else if (attribute->rangeChecking == kTTSym_cliplow)
 				value.cliplow(attribute->rangeLowBound);
 			else if (attribute->rangeChecking == kTTSym_cliphigh)
 				value.cliphigh(attribute->rangeHighBound);
-
+            
+            // Calling the attribute accessor of the object depending of the arguments it takes
+            
+            // Passing attribute structure with the value
 			if (attribute->setterFlags & kTTAttrPassObject)
 				err = (this->*attribute->setter)(*attribute, value);
-			else {
+            
+            // Or passing the value only
+			else
+            {
 				TTMethodInputValue setter = (TTMethodInputValue)attribute->setter;
 				err = (this->*setter)(value);
 			}
 		}
 	}
+    
 	return err;
 }
 
@@ -438,20 +452,32 @@ TTErr TTObjectBase::sendMessage(const TTSymbol name, const TTValue& anInputValue
 	TTMessagePtr	message = NULL;
 	TTErr			err;
 	
+    // Retreive the registered message
 	err = findMessage(name, &message);
-	if (!err) {
-		if (message->flags & kTTMessagePassNone) {
+    
+	if (!err)
+    {
+        // Calling the method of the object depending of the arguments it takes
+        
+        // No argument case
+		if (message->flags & kTTMessagePassNone)
+        {
 			TTMethodNone method = (TTMethodNone)message->method;
 			return (this->*method)();
 		}
-		else if (message->flags & kTTMessagePassNameAndValue) {
+        // Name + arguments case
+		else if (message->flags & kTTMessagePassNameAndValue)
+        {
 			return (this->*message->method)(name, anInputValue, anOutputValue);
 		}
-		else {	// default is kTTMessagePassValue
+        // Only argument case (default : kTTMessagePassValue)
+		else
+        {
 			TTMethodValue method = (TTMethodValue)message->method;
 			return (this->*method)(anInputValue, anOutputValue);
 		}
 	}
+    
 	return kTTErrMethodNotFound;
 }
 

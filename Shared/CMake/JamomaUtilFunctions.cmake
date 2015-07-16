@@ -5,9 +5,26 @@ function(setupJamomaLibraryProperties LIBNAME)
 	# Filename
 	set_property(TARGET ${LIBNAME}
 				 PROPERTY OUTPUT_NAME Jamoma${LIBNAME})
-	set_property(TARGET ${PROJECT_NAME}
-				 PROPERTY INSTALL_RPATH "@loader_path/../../../../support;@loader_path")
+				
+	if(BUILD_JAMOMAMAX)
+    	if(APPLE)
+        	set_property(TARGET ${PROJECT_NAME}
+                     	PROPERTY INSTALL_RPATH "@loader_path/../../../../support;@loader_path")
+    	else(NOT WIN32)
+        	set_property(TARGET ${PROJECT_NAME}
+                     	PROPERTY INSTALL_RPATH "\$ORIGIN/../support;\$ORIGIN")
+    	endif()
+	endif()
 	
+	if(BUILD_JAMOMAPD)
+    	if(APPLE)
+        	set_property(TARGET ${PROJECT_NAME}
+                     	PROPERTY INSTALL_RPATH "@loader_path/support;@loader_path")
+    	else(NOT WIN32)
+        	set_property(TARGET ${PROJECT_NAME}
+                     	PROPERTY INSTALL_RPATH "\$ORIGIN/support;\$ORIGIN")
+    	endif()
+	endif()
 
 	# Version
 	set_property(TARGET ${LIBNAME}
@@ -88,6 +105,15 @@ function(add_jamoma_library)
 		install(TARGETS ${PROJECT_NAME}
 				DESTINATION "${JAMOMAMAX_INSTALL_FOLDER}/Jamoma/support"
 				COMPONENT JamomaMax)
+                install(TARGETS ${PROJECT_NAME}
+                                DESTINATION "${JAMOMAMAX_MODULAR_INSTALL_FOLDER}/Jamoma/support"
+                                COMPONENT JamomaMaxModularOnly)
+	endif()
+
+	if(BUILD_JAMOMAPD)
+		install(TARGETS ${PROJECT_NAME}
+                DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                COMPONENT JamomaPd)
 	endif()
 endFunction()
 
@@ -103,8 +129,13 @@ function(add_jamoma_extension)
 	target_link_libraries(${PROJECT_NAME} ${JAMOMA_CURRENT_LIBRARY_NAME})
 
 	# Rpath
-	set_property(TARGET ${PROJECT_NAME}
-				 PROPERTY INSTALL_RPATH "@loader_path")
+    if(APPLE)
+        set_property(TARGET ${PROJECT_NAME}
+                     PROPERTY INSTALL_RPATH "@loader_path")
+    elseif(NOT WIN)
+        set_property(TARGET ${PROJECT_NAME}
+                     PROPERTY INSTALL_RPATH "\$ORIGIN")
+    endif()
 
 	# Install the extension
 	if(APPLE)
@@ -140,6 +171,12 @@ function(add_jamoma_extension)
 				DESTINATION "${JAMOMAMAX_INSTALL_FOLDER}/Jamoma/support"
 				COMPONENT JamomaMax)
 	endif()
+
+        if(BUILD_JAMOMAPD)
+                install(TARGETS ${PROJECT_NAME}
+                                DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                                COMPONENT JamomaPd)
+        endif()
 endfunction()
 
 

@@ -1,0 +1,691 @@
+// !$*UTF8*$!
+{
+       archiveVersion = 1;
+       classes = {
+       };
+       objectVersion = 46;
+       objects = {
+
+/* Begin PBXAggregateTarget section */
+              8B34B6D85DDD4E02B3857C4E /* ALL_BUILD */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = F8E9B197EFEB4EF782BCF7B6 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+                     buildPhases = (
+                            DDB560A2987F490FBD183DA1 /* CMake Rules */,
+                     );
+                     dependencies = (
+                            311EDD2B6BFF4AD3BE1D629D /* PBXTargetDependency */,
+                            7D3BD76C6EA548458A82E13E /* PBXTargetDependency */,
+                     );
+                     name = ALL_BUILD;
+                     productName = ALL_BUILD;
+              };
+              2E4E5BF122D4405BB4FFFF6D /* ZERO_CHECK */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = ADDD0C9585BE4E8498E4B439 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+                     buildPhases = (
+                            1BFB767154E94F919E98D6B8 /* CMake Rules */,
+                     );
+                     dependencies = (
+                     );
+                     name = ZERO_CHECK;
+                     productName = ZERO_CHECK;
+              };
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+C31C1D7112FC4B6EBD45DE1A /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 203A4FE8D60649418131CB3C /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+D59579EDD44E4490880F51B6 /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/main.cpp */ = {isa = PBXBuildFile; fileRef = 93F8F5963C564898B46FFAC1 /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/main.cpp */; settings = { COMPILER_FLAGS = ""; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+              2825EAECC7004C628F38362E /*  */ = {
+                     isa = PBXBuildStyle;
+              };
+              412D3A36B639453FBFA1B283 /* Debug */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = Debug;
+              };
+              69CEE760ADD340AA9445F2A4 /* Release */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = Release;
+              };
+              B5F282491F9F43C680834576 /* MinSizeRel */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = MinSizeRel;
+              };
+              A0CDCF2D54564069BB1CF47D /* RelWithDebInfo */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = RelWithDebInfo;
+              };
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+              A8461D7BE7534DEC90BF3936 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = B1FAB0D66AF646E4BEB1B64B /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 0B79B22FFE1449FB90FBED64;
+                     remoteInfo = DemoApp;
+              };
+              817DD39FB8074E2F99ED3A1C /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = B1FAB0D66AF646E4BEB1B64B /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 2E4E5BF122D4405BB4FFFF6D;
+                     remoteInfo = ZERO_CHECK;
+              };
+              7153D12BF69A42E79427242F /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = B1FAB0D66AF646E4BEB1B64B /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 2E4E5BF122D4405BB4FFFF6D;
+                     remoteInfo = ZERO_CHECK;
+              };
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+2D271F235729441EBBC815A3 /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+203A4FE8D60649418131CB3C /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+93F8F5963C564898B46FFAC1 /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/main.cpp */ = {isa = PBXFileReference; explicitFileType = "sourcecode.cpp.cpp"; fileEncoding = 4; name = "main.cpp"; path = "main.cpp"; sourceTree = SOURCE_ROOT; };
+B69DA0740BC04F57BD761816 /* DemoApp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = DemoApp; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+601BC42F71254AFE98AE58F1 /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+              BA87CA35C84842738B893A0D  = {
+                     isa = PBXGroup;
+                     children = (
+                            D7B73575E1534F5F87B4F091 /* Sources */,
+                            9BF82DA810494F88B8E5C69B /* Resources */,
+                            AB81F289AC454CB9BED4995D /* Products */,
+                     );
+                     sourceTree = "<group>";
+              };
+              D7B73575E1534F5F87B4F091 /* Sources */ = {
+                     isa = PBXGroup;
+                     children = (
+                            969DA823252942049C2682BD /* ALL_BUILD */,
+                            83975B30E1484630B8EE5F3B /* DemoApp */,
+                            3A2F9F31C0384AD78CDFF112 /* ZERO_CHECK */,
+                     );
+                     name = Sources;
+                     sourceTree = "<group>";
+              };
+              9BF82DA810494F88B8E5C69B /* Resources */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = Resources;
+                     sourceTree = "<group>";
+              };
+              969DA823252942049C2682BD /* ALL_BUILD */ = {
+                     isa = PBXGroup;
+                     children = (
+                            3DFF9CCF4E714648952A5AC4 /* CMake Rules */,
+                            2D271F235729441EBBC815A3 /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/CMakeLists.txt */,
+                     );
+                     name = ALL_BUILD;
+                     sourceTree = "<group>";
+              };
+              3DFF9CCF4E714648952A5AC4 /* CMake Rules */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = "CMake Rules";
+                     sourceTree = "<group>";
+              };
+              83975B30E1484630B8EE5F3B /* DemoApp */ = {
+                     isa = PBXGroup;
+                     children = (
+                            969F7D2E11E9473AABF7D9EE /* Source Files */,
+                            203A4FE8D60649418131CB3C /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/CMakeLists.txt */,
+                     );
+                     name = DemoApp;
+                     sourceTree = "<group>";
+              };
+              969F7D2E11E9473AABF7D9EE /* Source Files */ = {
+                     isa = PBXGroup;
+                     children = (
+                            93F8F5963C564898B46FFAC1 /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/main.cpp */,
+                     );
+                     name = "Source Files";
+                     sourceTree = "<group>";
+              };
+              3A2F9F31C0384AD78CDFF112 /* ZERO_CHECK */ = {
+                     isa = PBXGroup;
+                     children = (
+                            130840B35883485883611C92 /* CMake Rules */,
+                            601BC42F71254AFE98AE58F1 /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/CMakeLists.txt */,
+                     );
+                     name = ZERO_CHECK;
+                     sourceTree = "<group>";
+              };
+              130840B35883485883611C92 /* CMake Rules */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = "CMake Rules";
+                     sourceTree = "<group>";
+              };
+              AB81F289AC454CB9BED4995D /* Products */ = {
+                     isa = PBXGroup;
+                     children = (
+                            B69DA0740BC04F57BD761816 /* DemoApp */,
+                     );
+                     name = Products;
+                     sourceTree = "<group>";
+              };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+              0B79B22FFE1449FB90FBED64 /* DemoApp */ = {
+                     isa = PBXNativeTarget;
+                     buildConfigurationList = 94C6160041F64CB9B2AA287F /* Build configuration list for PBXNativeTarget "DemoApp" */;
+                     buildPhases = (
+                            1BD4F4895C1040269F8F793F /* Sources */,
+                     );
+                     buildRules = (
+                     );
+                     dependencies = (
+                            6DACAD43377743BA820FD699 /* PBXTargetDependency */,
+                     );
+                     name = DemoApp;
+                     productName = DemoApp;
+                     productReference = B69DA0740BC04F57BD761816 /* DemoApp */;
+                     productType = "com.apple.product-type.tool";
+              };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+              B1FAB0D66AF646E4BEB1B64B /* Project object */ = {
+                     isa = PBXProject;
+                     attributes = {
+                            BuildIndependentTargetsInParallel = YES;
+                     };
+                     buildConfigurationList = A7912E0ABFC44947B12076F3 /* Build configuration list for PBXProject  "ScoreDemoApp" */;
+                     buildSettings = {
+                     };
+                     buildStyles = (
+                            412D3A36B639453FBFA1B283 /* Debug */,
+                            69CEE760ADD340AA9445F2A4 /* Release */,
+                            B5F282491F9F43C680834576 /* MinSizeRel */,
+                            A0CDCF2D54564069BB1CF47D /* RelWithDebInfo */,
+                     );
+                     compatibilityVersion = "Xcode 3.2";
+                     hasScannedForEncodings = 0;
+                     mainGroup = BA87CA35C84842738B893A0D;
+                     projectDirPath = ".";
+                     projectRoot = "";
+                     targets = (
+                            8B34B6D85DDD4E02B3857C4E /* ALL_BUILD */,
+                            0B79B22FFE1449FB90FBED64 /* DemoApp */,
+                            2E4E5BF122D4405BB4FFFF6D /* ZERO_CHECK */,
+                     );
+              };
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+              11D81632D0E94639B18A00B8 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              DDB560A2987F490FBD183DA1 /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp -f /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+              7865A78DA2334C39994B6B07 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              1BFB767154E94F919E98D6B8 /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp -f /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+              1BD4F4895C1040269F8F793F /* Sources */ = {
+                     isa = PBXSourcesBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                            D59579EDD44E4490880F51B6 /* /Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/main.cpp */,
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+              };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+              311EDD2B6BFF4AD3BE1D629D /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 0B79B22FFE1449FB90FBED64 /* DemoApp */;
+                     targetProxy = A8461D7BE7534DEC90BF3936 /* PBXContainerItemProxy */;
+              };
+              7D3BD76C6EA548458A82E13E /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 2E4E5BF122D4405BB4FFFF6D /* ZERO_CHECK */;
+                     targetProxy = 817DD39FB8074E2F99ED3A1C /* PBXContainerItemProxy */;
+              };
+              6DACAD43377743BA820FD699 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 2E4E5BF122D4405BB4FFFF6D /* ZERO_CHECK */;
+                     targetProxy = 7153D12BF69A42E79427242F /* PBXContainerItemProxy */;
+              };
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+              48D693B22E7B40F286A0E6A0 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/build";
+                     };
+                     name = Debug;
+              };
+              9D9D275A17394AAF83103FCB /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/build";
+                     };
+                     name = Release;
+              };
+              F4AAF389A47B480A94A1EDCC /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/build";
+                     };
+                     name = MinSizeRel;
+              };
+              854CB515254C45358D6EF9B3 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp/build";
+                     };
+                     name = RelWithDebInfo;
+              };
+              391F923E91034406B51C66AB /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              98C34A8AF2344AC89CAE5143 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              18BA9248576F4076A5CDCF85 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              C1884BE7D06F49E18DCFBBF1 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              0A5EF55F06EA4CC68FD77BD7 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/jamoma/include, );
+                            INSTALL_PATH = "";
+                            LD_RUNPATH_SEARCH_PATHS = /usr/local/jamoma/lib;
+                            LIBRARY_SEARCH_PATHS = "";
+                            OTHER_CFLAGS = "    ";
+                            OTHER_CPLUSPLUSFLAGS = "-std=c++11     ";
+                            OTHER_LDFLAGS = "  -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /usr/local/jamoma/lib/libJamomaFoundation.6.dylib /usr/local/jamoma/lib/libJamomaModular.6.dylib /usr/local/jamoma/lib/libJamomaScore.6.dylib /usr/local/jamoma/lib/libJamomaModular.6.dylib /usr/local/jamoma/lib/libJamomaDSP.6.dylib /usr/local/jamoma/lib/libJamomaFoundation.6.dylib /usr/lib/libdl.dylib /usr/lib/libxml2.dylib";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = DemoApp;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              15741838EC3A4E9F8B2CBF79 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 3;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/jamoma/include, );
+                            INSTALL_PATH = "";
+                            LD_RUNPATH_SEARCH_PATHS = /usr/local/jamoma/lib;
+                            LIBRARY_SEARCH_PATHS = "";
+                            OTHER_CFLAGS = "    -DNDEBUG  ";
+                            OTHER_CPLUSPLUSFLAGS = "-std=c++11     -DNDEBUG  ";
+                            OTHER_LDFLAGS = "  -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /usr/local/jamoma/lib/libJamomaFoundation.6.dylib /usr/local/jamoma/lib/libJamomaModular.6.dylib /usr/local/jamoma/lib/libJamomaScore.6.dylib /usr/local/jamoma/lib/libJamomaModular.6.dylib /usr/local/jamoma/lib/libJamomaDSP.6.dylib /usr/local/jamoma/lib/libJamomaFoundation.6.dylib /usr/lib/libdl.dylib /usr/lib/libxml2.dylib";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = DemoApp;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              638BC129C7824CDD9F44BCAD /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = s;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/jamoma/include, );
+                            INSTALL_PATH = "";
+                            LD_RUNPATH_SEARCH_PATHS = /usr/local/jamoma/lib;
+                            LIBRARY_SEARCH_PATHS = "";
+                            OTHER_CFLAGS = "    -DNDEBUG  ";
+                            OTHER_CPLUSPLUSFLAGS = "-std=c++11     -DNDEBUG  ";
+                            OTHER_LDFLAGS = "  -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /usr/local/jamoma/lib/libJamomaFoundation.6.dylib /usr/local/jamoma/lib/libJamomaModular.6.dylib /usr/local/jamoma/lib/libJamomaScore.6.dylib /usr/local/jamoma/lib/libJamomaModular.6.dylib /usr/local/jamoma/lib/libJamomaDSP.6.dylib /usr/local/jamoma/lib/libJamomaFoundation.6.dylib /usr/lib/libdl.dylib /usr/lib/libxml2.dylib";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = DemoApp;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              971DD401840C46D28FF7893E /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 2;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = (/usr/local/jamoma/include, );
+                            INSTALL_PATH = "";
+                            LD_RUNPATH_SEARCH_PATHS = /usr/local/jamoma/lib;
+                            LIBRARY_SEARCH_PATHS = "";
+                            OTHER_CFLAGS = "       -DNDEBUG  ";
+                            OTHER_CPLUSPLUSFLAGS = "-std=c++11        -DNDEBUG  ";
+                            OTHER_LDFLAGS = "  -Wl,-search_paths_first -Wl,-headerpad_max_install_names  /usr/local/jamoma/lib/libJamomaFoundation.6.dylib /usr/local/jamoma/lib/libJamomaModular.6.dylib /usr/local/jamoma/lib/libJamomaScore.6.dylib /usr/local/jamoma/lib/libJamomaModular.6.dylib /usr/local/jamoma/lib/libJamomaDSP.6.dylib /usr/local/jamoma/lib/libJamomaFoundation.6.dylib /usr/lib/libdl.dylib /usr/lib/libxml2.dylib";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = DemoApp;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              1A6BA918B56641FE9103DF96 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              5D7BCF4878864A1F9BDFC66A /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              5C61A18613824948ADB46F67 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              2E61A8ED1A3A43C692DD3795 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/WALL-E/Documents/Jamoma/Core/Score/implementations/DemoApp";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+              A7912E0ABFC44947B12076F3 /* Build configuration list for PBXProject  "ScoreDemoApp" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            48D693B22E7B40F286A0E6A0 /* Debug */,
+                            9D9D275A17394AAF83103FCB /* Release */,
+                            F4AAF389A47B480A94A1EDCC /* MinSizeRel */,
+                            854CB515254C45358D6EF9B3 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              F8E9B197EFEB4EF782BCF7B6 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            391F923E91034406B51C66AB /* Debug */,
+                            98C34A8AF2344AC89CAE5143 /* Release */,
+                            18BA9248576F4076A5CDCF85 /* MinSizeRel */,
+                            C1884BE7D06F49E18DCFBBF1 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              94C6160041F64CB9B2AA287F /* Build configuration list for PBXNativeTarget "DemoApp" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            0A5EF55F06EA4CC68FD77BD7 /* Debug */,
+                            15741838EC3A4E9F8B2CBF79 /* Release */,
+                            638BC129C7824CDD9F44BCAD /* MinSizeRel */,
+                            971DD401840C46D28FF7893E /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              ADDD0C9585BE4E8498E4B439 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            1A6BA918B56641FE9103DF96 /* Debug */,
+                            5D7BCF4878864A1F9BDFC66A /* Release */,
+                            5C61A18613824948ADB46F67 /* MinSizeRel */,
+                            2E61A8ED1A3A43C692DD3795 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+/* End XCConfigurationList section */
+       };
+       rootObject = B1FAB0D66AF646E4BEB1B64B;
+}

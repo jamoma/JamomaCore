@@ -13,7 +13,7 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#include "Protocol.h"
+#include "TTProtocol.h"
 #include "MIDI.h"
 
 #define thisTTClass				MIDI
@@ -35,9 +35,9 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_MIDI(void)
 	return kTTErrNone;
 }
 
-PROTOCOL_CONSTRUCTOR
+TT_PROTOCOL_CONSTRUCTOR
 {	
-	PROTOCOL_INITIALIZE
+	TT_PROTOCOL_INITIALIZE
 	
     addAttributeAsProtocolParameter(Input, kTypeSymbol);
     addAttributeAsProtocolParameter(Output, kTypeSymbol);

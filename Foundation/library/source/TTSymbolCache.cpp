@@ -152,11 +152,11 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_Viewer                           (("Vi
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_XmlHandler                       (("XmlHandler"));
 
 // notifications
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_SchedulerDurationChanged         (("SchedulerDurationChanged"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_SchedulerOffsetChanged           (("SchedulerOffsetChanged"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_SchedulerSpeedChanged            (("SchedulerSpeedChanged"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_SchedulerRunningChanged          (("SchedulerRunningChanged"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_SchedulerTicked                  (("SchedulerTicked"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_ClockDurationChanged         (("ClockDurationChanged"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_ClockOffsetChanged           (("ClockOffsetChanged"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_ClockSpeedChanged            (("ClockSpeedChanged"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_ClockRunningChanged          (("ClockRunningChanged"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_ClockTicked                  (("ClockTicked"));
 
 // attribute, message or any word often used
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_active                           (("active"));
@@ -213,6 +213,7 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_highlight                        (("hi
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Init                             (("Init"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_initialized                      (("initialized"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_inputUnit                        (("inputUnit"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_outputUnit                       (("outputUnit"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_instances                        (("instances"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_integer                          (("integer"));
 
@@ -282,6 +283,7 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_valueStepsize					(("valueStepsize"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_viewFreeze                       (("viewFreeze"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_view                             (("view"));
 
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_WAIT                             (("WAIT"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_Write                            (("Write"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_WriteAgain                       (("WriteAgain"));
 

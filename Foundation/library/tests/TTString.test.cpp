@@ -1,7 +1,7 @@
-/* 
- * Unit tests for the TTValue object
- * Copyright © 2011, Timothy Place
- * 
+/*
+ * Unit tests for the TTString object
+ * Copyright © 2012, Timothy Place
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */

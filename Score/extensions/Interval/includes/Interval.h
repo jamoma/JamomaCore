@@ -52,14 +52,14 @@ private :
     
     /** Specific process method
      @details when this method is called the running state is YES which means event status propagation is enabled
-     @param	inputValue      position of the scheduler
+     @param	inputValue      position of the Clock
      @param	outputValue     return an error of the processing
      @return                an error code returned by the process method */
     TTErr   Process(const TTValue& inputValue, TTValue& outputValue);
     
     /** Specific process method for pause/resume
      @details when this method is called the running state is YES which means event status propagation is enabled
-     @param	inputValue      boolean paused state of the scheduler
+     @param	inputValue      boolean paused state of the Clock
      @param	outputValue     return an error of the processing
      @return                an error code returned by the process paused method */
     TTErr   ProcessPaused(const TTValue& inputValue, TTValue& outputValue);

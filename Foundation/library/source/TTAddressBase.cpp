@@ -236,9 +236,6 @@ TTErr TTAddressBase::parse()
 	TTString s_name;
 	TTString s_instance;
 	TTString s_attribute;
-
-	TTStringIter begin = s_toParse.begin();
-	TTStringIter end = s_toParse.end();
 	
 	// warning : addresses with special regex characters (like [, {) that could be problematic
     // TODO : rewrite the parsing without regex because we want to use those special characters !
@@ -250,24 +247,15 @@ TTErr TTAddressBase::parse()
         TTLogError("TTAddressBase::parse : special regex characters have been detected in %s address\n", s_toParse.data());
     }
 	
-
-	// parse directory
-	if (!ttRegexForDirectory->parse(begin, end))
-	{
-		TTStringIter temp_begin = ttRegexForDirectory->begin();
-		TTStringIter temp_end = ttRegexForDirectory->end();
-
-		s_directory = TTString(temp_begin, temp_end);
-
-		temp_begin = ttRegexForDirectory->end()+1;
-		s_toParse = TTString(temp_begin, end);                              // +1 to remove ":"
-
-		begin = s_toParse.begin();
-		end = s_toParse.end();
+    // parse directory
+    if (!ttRegexForDirectory->parse(s_toParse.begin(), s_toParse.end()))
+    {
+        s_directory = TTString(ttRegexForDirectory->begin(), ttRegexForDirectory->end());
+        s_toParse.erase(ttRegexForDirectory->begin(), ttRegexForDirectory->end()+1); // +1 to remove ":"
 
         // directory:/ case
-        if (s_toParse[0] == C_SEPARATOR && s_toParse[1] == '\0') {
-
+        if (s_toParse[0] == C_SEPARATOR && s_toParse[1] == '\0')
+        {
             this->directory = TTSymbol(s_directory);
             this->parent = NO_PARENT.getBasePointer();
             this->name = S_SEPARATOR;
@@ -278,38 +266,27 @@ TTErr TTAddressBase::parse()
             this->normalized = kTTAdrsRoot.getBasePointer();
             return kTTErrNone;
         }
-
-		//cout << "directory :  " << s_directory << endl;
-		//cout << "s_toParse :  " << s_toParse << endl;
 	}
 	this->directory = TTSymbol(s_directory);
 
-	// parse attribute
-	if (!ttRegexForAttribute->parse(begin, end))
-	{
-		TTStringIter temp_begin = ttRegexForAttribute->begin();
-		TTStringIter temp_end = ttRegexForAttribute->end();
-
-		s_attribute = TTString(temp_begin, end);
-		s_toParse = TTString(begin, temp_end-1);                            // -1 to remove ":"
-
-		begin = s_toParse.begin();
-		end = s_toParse.end();
-
-		//cout << "attribute :  " << s_attribute << endl;
-		//cout << "s_toParse :  " << s_toParse << endl;
-	}
+    // parse attribute
+    if (!ttRegexForAttribute->parse(s_toParse.begin(), s_toParse.end()))
+    {
+        s_attribute = TTString(ttRegexForAttribute->end(), s_toParse.end());
+        s_toParse.erase(ttRegexForAttribute->begin(), s_toParse.end()-1); // -1 to not erase the last \0
+    }
 	this->attribute = TTSymbol(s_attribute);
 
 	// parse parent
-	if (!ttRegexForParent->parse(begin, end))
+	if (!ttRegexForParent->parse(s_toParse.begin(), s_toParse.end()))
 	{
 		// if the split is due to a slash at the beginning : parent = /
 		if (ttRegexForParent->begin() == ttRegexForParent->end())
 			s_parent += C_SEPARATOR;
 
         // if directory part exists append it
-		else if (this->directory != kTTSymEmpty) {
+		else if (this->directory != kTTSymEmpty)
+        {
             s_parent = s_directory;
             s_parent += ":";
             s_parent += TTString(ttRegexForParent->begin(), ttRegexForParent->end());
@@ -318,33 +295,20 @@ TTErr TTAddressBase::parse()
         else
 			s_parent += TTString(ttRegexForParent->begin(), ttRegexForParent->end());
 
-		s_toParse = TTString(ttRegexForParent->end()+1, end-1);               // +1 to remove "/", -1 to remove a useless \0
-
-		begin = s_toParse.begin();
-		end = s_toParse.end();
-
-		//cout << "parent    :  " << s_parent << endl;
-		//cout << "s_toParse :  " << s_toParse << endl;
+		s_toParse.erase(ttRegexForParent->begin(), ttRegexForParent->end()+1); // +1 to remove "/" after parent
 	}
 	this->parent = (TTAddressBase*)gTTAddressTable.lookup(s_parent);
 
-	// parse instance
-	if (!ttRegexForInstance->parse(begin, end))
-	{
-		s_instance = TTString(ttRegexForInstance->end(), end-1);            // -1 to remove a '\0' at the end
-		s_toParse = TTString(begin, ttRegexForInstance->begin()-1);			// -1 to remove "."
-
-		begin = s_toParse.begin();
-		end = s_toParse.end();
-
-		//cout << "instance  :  " << s_instance << endl;
+    // parse instance
+	if (!ttRegexForInstance->parse(s_toParse.begin(), s_toParse.end()))
+    {
+        s_instance = TTString(ttRegexForInstance->end(), s_toParse.end()-1); // -1 to remove a '\0' at the end
+        s_toParse.erase(ttRegexForInstance->begin(), s_toParse.end()-1); // -1 to not erase the last \0
 	}
 	this->instance = TTSymbol(s_instance);
 
 	// consider the rest is the name
 	this->name = TTSymbol(s_toParse);
-
-	//cout << "name      :  " << s_toParse << endl;
 
 	// the type of the address
 	if (*this->parent != *NO_PARENT.getBasePointer())

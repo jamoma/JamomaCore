@@ -15,7 +15,7 @@
 #ifndef __WEBSOCKET_H__
 #define __WEBSOCKET_H__
 
-#include "Protocol.h"
+#include "TTProtocol.h"
 #include "WebSocketInclude.h"
 #include "WebSocketAnswerManager.h"
 #include "WebSocketSenderManager.h"
@@ -30,14 +30,14 @@ typedef WebSocketSenderManager* WebSocketSenderManagerPtr;
  * Create a web socket plugin.
  */
 
-class WebSocket : public Protocol {
+class WebSocket : public TTProtocol {
 	
 	TTCLASS_SETUP(WebSocket)
 	
 private:
 	
-	PROTOCOL_PARAMETER(Port);					///< PROTOCOL PARAMETER : each registered application have to setup its port
-    PROTOCOL_PARAMETER(HtmlPath);				///< PROTOCOL PARAMETER : each registered application have to setup its html path
+	TT_PROTOCOL_PARAMETER(Port);					///< PROTOCOL PARAMETER : each registered application have to setup its port
+    TT_PROTOCOL_PARAMETER(HtmlPath);				///< PROTOCOL PARAMETER : each registered application have to setup its html path
     
 	TTObject                mWebSocketReceive;
     TTThreadPtr             mWaitThread;        ///< a thread used to wait in some case

@@ -7,17 +7,20 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		4689BAD61ABA169400D1BA4E /* TTClock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTClock.h; path = ../../../library/includes/TTClock.h; sourceTree = "<group>"; };
+		4689BAD71ABA16A000D1BA4E /* TTClock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTClock.cpp; path = ../../../library/source/TTClock.cpp; sourceTree = "<group>"; };
+		4689BAD81ABA173000D1BA4E /* Max.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = Max.yml; sourceTree = "<group>"; };
+		4689BAD91ABA173900D1BA4E /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		46A6E85216CA83FB002E6A40 /* Max.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Max.h; sourceTree = "<group>"; };
 		46A6E85516CA8401002E6A40 /* Max.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Max.cpp; sourceTree = "<group>"; };
-		46A6E86416CABFEB002E6A40 /* Scheduler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scheduler.cpp; sourceTree = "<group>"; };
-		46A6E86516CABFEB002E6A40 /* Scheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		46A6E84116CA83C6002E6A40 = {
 			isa = PBXGroup;
 			children = (
-				46A6E85616CA840D002E6A40 /* SchedulerLib */,
+				4689BAD81ABA173000D1BA4E /* Max.yml */,
+				4689BAD91ABA173900D1BA4E /* Makefile */,
 				46A6E85116CA83FB002E6A40 /* includes */,
 				46A6E85416CA8401002E6A40 /* source */,
 			);
@@ -26,6 +29,7 @@
 		46A6E85116CA83FB002E6A40 /* includes */ = {
 			isa = PBXGroup;
 			children = (
+				4689BAD61ABA169400D1BA4E /* TTClock.h */,
 				46A6E85216CA83FB002E6A40 /* Max.h */,
 			);
 			path = includes;
@@ -34,19 +38,10 @@
 		46A6E85416CA8401002E6A40 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				4689BAD71ABA16A000D1BA4E /* TTClock.cpp */,
 				46A6E85516CA8401002E6A40 /* Max.cpp */,
 			);
 			path = source;
-			sourceTree = "<group>";
-		};
-		46A6E85616CA840D002E6A40 /* SchedulerLib */ = {
-			isa = PBXGroup;
-			children = (
-				46A6E86516CABFEB002E6A40 /* Scheduler.h */,
-				46A6E86416CABFEB002E6A40 /* Scheduler.cpp */,
-			);
-			name = SchedulerLib;
-			path = ../../library/SchedulerLib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

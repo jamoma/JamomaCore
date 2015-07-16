@@ -55,7 +55,7 @@
  */
 
 
-#include "Protocol.h"
+#include "TTProtocol.h"
 #include "Minuit.h"
 
 #define thisTTClass				Minuit
@@ -77,11 +77,11 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_Minuit(void)
 	return kTTErrNone;
 }
 
-PROTOCOL_CONSTRUCTOR,
+TT_PROTOCOL_CONSTRUCTOR,
 mAnswerManager(NULL),
 mSenderManager(NULL)
 {	
-	PROTOCOL_INITIALIZE
+	TT_PROTOCOL_INITIALIZE
 	
     addAttributeAsProtocolParameter(Ip, kTypeSymbol);
 	addAttributeAsProtocolParameter(Port, kTypeUInt16);

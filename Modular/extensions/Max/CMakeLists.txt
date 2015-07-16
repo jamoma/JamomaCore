@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
 project(Max)
 ### TODO REVIEW ME
+if(NOT BUILD_JAMOMAMAX)
+	return()
+endif()
+
 if(IOS OR (NOT APPLE AND NOT WIN32))
 	message("Max extension requires OS X or Windows.")
 	return()
@@ -16,14 +20,13 @@ if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Release")
 endif()
 
 set(PROJECT_SRCS
-${CMAKE_CURRENT_SOURCE_DIR}/../../library/SchedulerLib/Scheduler.cpp
+	$<TARGET_OBJECTS:TTClock>
 ${CMAKE_CURRENT_SOURCE_DIR}/source/Max.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/common/commonsyms.cpp
 )
 
 include_directories("${PROJECT_SOURCE_DIR}/")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-include_directories("${PROJECT_SOURCE_DIR}/../../library/SchedulerLib")
 
 addMaxsupport()
 
