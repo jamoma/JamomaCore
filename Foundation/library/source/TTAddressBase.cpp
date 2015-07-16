@@ -269,11 +269,11 @@ TTErr TTAddressBase::parse()
 	}
 	this->directory = TTSymbol(s_directory);
 
-	// parse attribute
+    // parse attribute
     if (!ttRegexForAttribute->parse(s_toParse.begin(), s_toParse.end()))
     {
-        s_attribute = TTString(ttRegexForAttribute->begin(), s_toParse.end());
-        s_toParse.erase(ttRegexForAttribute->begin()-1, s_toParse.end()-1); // -1 to remove ":" and not erase the last \0
+        s_attribute = TTString(ttRegexForAttribute->end(), s_toParse.end());
+        s_toParse.erase(ttRegexForAttribute->begin(), s_toParse.end()-1); // -1 to not erase the last \0
     }
 	this->attribute = TTSymbol(s_attribute);
 
@@ -299,11 +299,11 @@ TTErr TTAddressBase::parse()
 	}
 	this->parent = (TTAddressBase*)gTTAddressTable.lookup(s_parent);
 
-	// parse instance
+    // parse instance
 	if (!ttRegexForInstance->parse(s_toParse.begin(), s_toParse.end()))
-	{
-		s_instance = TTString(ttRegexForInstance->end(), s_toParse.end()-1);            // -1 to remove a '\0' at the end
-		s_toParse.erase(ttRegexForInstance->begin()-1, s_toParse.end()-1); // -1 to remove "." and not erase the last \0
+    {
+        s_instance = TTString(ttRegexForInstance->end(), s_toParse.end()-1); // -1 to remove a '\0' at the end
+        s_toParse.erase(ttRegexForInstance->begin(), s_toParse.end()-1); // -1 to not erase the last \0
 	}
 	this->instance = TTSymbol(s_instance);
 

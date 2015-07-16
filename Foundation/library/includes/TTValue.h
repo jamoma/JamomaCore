@@ -27,11 +27,12 @@
 #include "TTElement.h"
 #include <functional>
 
-
+//! [doxygenAppendixC_copyExample]
 /**	@copybrief TTValue.h
 	@copydetails TTValue.h
 */
 class TTValue : public TTElementVector {
+//! [doxygenAppendixC_copyExample]
 
 public:
 

@@ -8,18 +8,10 @@
 
 #include "TTRegex.h"
 
-#if BOOST_REGEX
-#include <boost/regex.hpp>
-using namespace boost;
-using namespace std;
-typedef boost::regex	TTExpression;
-typedef boost::match_results <TTStringIter> TTRegexStringResult;
-#else
 #include <regex>
 using namespace std;
 typedef std::regex	TTExpression;
 typedef std::match_results <TTStringIter> TTRegexStringResult;
-#endif
 
 #define EXPRESSION  ((TTExpression*)(mExpression))
 #define mEXPRESSION (*EXPRESSION)
@@ -27,12 +19,12 @@ typedef std::match_results <TTStringIter> TTRegexStringResult;
 #define RESULT  ((TTRegexStringResult*)(mResult))
 #define mRESULT (*RESULT)
 
-TTRegex::TTRegex(const char* anExpression):
-mExpression(NULL), mResult(NULL)
+TTRegex::TTRegex(const char* anExpression, int expectedMatch):
+mExpression(NULL), mResult(NULL),mExpectedMatch(expectedMatch)
 {
 	try
     {
-		mExpression = new TTExpression(anExpression, regex_constants::extended);
+        mExpression = new TTExpression(anExpression, regex_constants::ECMAScript);
 	}
 	catch (const regex_error& e)
     {
@@ -62,19 +54,11 @@ TTErr TTRegex::parse(TTStringIter begin, TTStringIter end)
 /** Get where start the result */
 TTStringIter TTRegex::begin()
 {
-#if BOOST_REGEX
-	return mRESULT[1].first;
-#else
-    return mRESULT[0].first + 1;
-#endif
+    return mRESULT[mExpectedMatch].first;
 }
 
 /** Get where end the result */
 TTStringIter TTRegex::end()
 {
-#if BOOST_REGEX
-	return mRESULT[1].second;
-#else
-    return mRESULT[0].second;
-#endif
+    return mRESULT[mExpectedMatch].second;
 }

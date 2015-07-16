@@ -28,11 +28,11 @@ private:
 
 	TTPtr			mExpression;				///< the pointer to the boost::regex expression
 	TTPtr			mResult;					///< the pointer to the boost::match_results <std::string::const_iterator>
-		
+    int             mExpectedMatch;             ///< the expected position for the match in match_results (generally 0 or 1)
 public:
 	
 	/** Constructor */
-	TTRegex(const char*  anExpression);
+    TTRegex(const char*  anExpression, int expectedMatch = 1);
 	
 	/** Destructor */
 	virtual ~TTRegex();

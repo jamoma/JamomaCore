@@ -95,7 +95,7 @@ public:
 		return mSampleRate;
 	}
 	
-	
+	//! [doxygenAppendixC_methodExample]
 	/** Assigns a vector of sample values to a channel in this signal.
 	 @details The vector member of this class simply holds a pointer, not a copy of the data.  This makes the
 	 operation of this method (and others) fast, but also means that care should be taken to ensure
@@ -110,6 +110,7 @@ public:
 	 @result		An error code.																 
 	 */
 	TTErr setVector(const TTChannelCount channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector);
+	//! [doxygenAppendixC_methodExample]
 //	TTErr setVector64(const TTValue& v, TTValue&);	// A version of the above used by the message passing interface.
 	TTErr setVector64Copy(const TTChannelCount channel, const TTUInt16 vectorSize, const TTSampleValuePtr newVector);
 	/**	This version handles vector assignments from 32-bit vectors.
