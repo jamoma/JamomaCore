@@ -1,9 +1,12 @@
+if(WIN32)
+# We need to deploy our DLLs too.
 find_package(LibXml2 CONFIG)
 get_target_property(XML2_DLL xml2 IMPORTED_LOCATION)
 install(FILES "${XML2_DLL}"
 		DESTINATION support)
 		
 # TODO portaudio, sndfile, etc...
+endif()
 
 SET(CPACK_PACKAGE_NAME "JamomaCore")
 SET(CPACK_PACKAGE_VENDOR "The Jamoma Foundation")
