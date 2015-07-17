@@ -40,7 +40,7 @@ add_jamoma_library()
 target_link_libraries(${PROJECT_NAME} PUBLIC Foundation)
 target_link_libraries(${PROJECT_NAME} PUBLIC DSP)
 target_link_libraries(${PROJECT_NAME} PUBLIC Modular)
-target_link_libraries(${PROJECT_NAME} PUBLIC ${LIBXML2_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${LIBXML2_LIBRARIES})
 
 ### Tests ###
 addTestTarget()

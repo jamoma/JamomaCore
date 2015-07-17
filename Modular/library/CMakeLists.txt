@@ -69,9 +69,9 @@ add_jamoma_library()
 
 target_link_libraries(${PROJECT_NAME} PUBLIC Foundation)
 target_link_libraries(${PROJECT_NAME} PUBLIC DSP)
-target_link_libraries(${PROJECT_NAME} PUBLIC ${LIBXML2_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${LIBXML2_LIBRARIES})
 if(WIN32)
-	target_link_libraries(${PROJECT_NAME} PRIVATE ws2_32)
+	target_link_libraries(${PROJECT_NAME} PUBLIC ws2_32)
 endif()
 
 ### Tests ###

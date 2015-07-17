@@ -126,7 +126,7 @@ function(add_jamoma_extension)
 				SHARED
 				${PROJECT_SRCS} ${PROJECT_HDRS})
 
-	target_link_libraries(${PROJECT_NAME} ${JAMOMA_CURRENT_LIBRARY_NAME})
+	target_link_libraries(${PROJECT_NAME} PUBLIC ${JAMOMA_CURRENT_LIBRARY_NAME})
 
 	# Rpath
     if(APPLE)

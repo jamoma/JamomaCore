@@ -2,7 +2,7 @@ if(NOT TARGET xml2)
 add_library(xml2 SHARED IMPORTED)
 endif()
 
-set(WIN32_LIBXML2_FOLDER "${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32//")
+set(WIN32_LIBXML2_FOLDER "${CMAKE_CURRENT_LIST_DIR}//..//..//..//Foundation//library//libxml2//win32")
 # Headers are the same
 find_path(LIBXML2_INCLUDE_DIR NAMES libxml/xpath.h
 	PATHS 
@@ -10,25 +10,19 @@ find_path(LIBXML2_INCLUDE_DIR NAMES libxml/xpath.h
 	PATH_SUFFIXES libxml2)
 
 # Find the correct .lib / .dll.
+set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
 if(MINGW)
-	find_library(LIBXML2_LIBRARIES NAMES libxml2 xml2
-		PATHS 
-		"${WIN32_LIBXML2_FOLDER}//libmingw")
-
+   find_library(LIBXML2_LIBRARIES NAMES libxml2 xml2
+                PATHS "${WIN32_LIBXML2_FOLDER}//libmingw")
 	set(LIBXML2_DLL "${WIN32_LIBXML2_FOLDER}//libmingw//libxml2.dll")
 elseif(WIN64)
-	find_library(LIBXML2_LIBRARIES_DEBUG_DYNAMIC NAMES libxml2 xml2
-		PATHS 
-		"${WIN32_LIBXML2_FOLDER}//lib64//debug")
-	find_library(LIBXML2_LIBRARIES_RELEASE_DYNAMIC NAMES libxml2 xml2
-		PATHS 
-		"${WIN32_LIBXML2_FOLDER}//lib64//release")
-   
 	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-		set(LIBXML2_LIBRARIES ${LIBXML2_LIBRARIES_DEBUG_DYNAMIC})
+	    find_library(LIBXML2_LIBRARIES NAMES libxml2 xml2
+					 PATHS "${WIN32_LIBXML2_FOLDER}//lib64//debug")
 		set(LIBXML2_DLL "${WIN32_LIBXML2_FOLDER}//lib64//debug//libxml2.dll")
 	else()
-		set(LIBXML2_LIBRARIES ${LIBXML2_LIBRARIES_RELEASE_DYNAMIC})
+	    find_library(LIBXML2_LIBRARIES NAMES libxml2 xml2
+					 PATHS "${WIN32_LIBXML2_FOLDER}//lib64//release")
 		set(LIBXML2_DLL "${WIN32_LIBXML2_FOLDER}//lib64//release//libxml2.dll")
 	endif()
 	

@@ -25,7 +25,7 @@ include_directories("${PORTAUDIO_INCLUDE_DIRS}")
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME} PRIVATE
 					  debug ${PORTAUDIO_LIBRARIES_DEBUG}
 					  optimized ${PORTAUDIO_LIBRARIES_RELEASE})
 

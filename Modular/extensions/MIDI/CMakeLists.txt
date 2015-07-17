@@ -42,7 +42,7 @@ file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 add_jamoma_extension()
 
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME} PRIVATE
 					  debug ${PORTMIDI_LIBRARIES_DEBUG}
 					  optimized ${PORTMIDI_LIBRARIES_DEBUG})
 
@@ -50,5 +50,5 @@ target_link_frameworks(TARGET ${PROJECT_NAME}
 					   FRAMEWORKS Carbon CoreAudio CoreMIDI CoreFoundation)
 
 if(WIN32)
-	target_link_libraries(${PROJECT_NAME} winmm)
+	target_link_libraries(${PROJECT_NAME} PRIVATE winmm)
 endif()
