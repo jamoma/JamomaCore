@@ -1,3 +1,10 @@
+find_package(LibXml2 CONFIG)
+get_target_property(XML2_DLL xml2 IMPORTED_LOCATION)
+install(FILES "${XML2_DLL}"
+		DESTINATION support)
+		
+# TODO portaudio, sndfile, etc...
+
 SET(CPACK_PACKAGE_NAME "JamomaCore")
 SET(CPACK_PACKAGE_VENDOR "The Jamoma Foundation")
 

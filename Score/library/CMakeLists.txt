@@ -3,7 +3,7 @@ project(Score)
 
 add_definitions(-DTTSCORE_EXPORTS)
 
-find_package(LibXml2 REQUIRED)
+find_package(LibXml2 REQUIRED CONFIG QUIET)
 
 ### Score library ###
 set(PROJECT_SRCS
@@ -37,10 +37,10 @@ endif()
 
 add_jamoma_library()
 
-target_link_libraries(${PROJECT_NAME} Foundation)
-target_link_libraries(${PROJECT_NAME} DSP)
-target_link_libraries(${PROJECT_NAME} Modular)
-target_link_libraries(${PROJECT_NAME} ${LIBXML2_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PUBLIC Foundation)
+target_link_libraries(${PROJECT_NAME} PUBLIC DSP)
+target_link_libraries(${PROJECT_NAME} PUBLIC Modular)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${LIBXML2_LIBRARIES})
 
 ### Tests ###
 addTestTarget()

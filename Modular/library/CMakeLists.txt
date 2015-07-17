@@ -3,9 +3,9 @@ project(Modular)
 
 add_definitions(-DTTMODULAR_EXPORTS)
 
-find_package(LibXml2 REQUIRED)
+find_package(LibXml2 REQUIRED CONFIG QUIET)
 if(WIN32)
-	find_package(Libiconv REQUIRED)
+	find_package(Libiconv REQUIRED QUIET)
 	include_directories(${LIBICONV_INCLUDE_DIR})
 endif()
 
@@ -67,11 +67,11 @@ endif()
 
 add_jamoma_library()
 
-target_link_libraries(${PROJECT_NAME} Foundation)
-target_link_libraries(${PROJECT_NAME} DSP)
-target_link_libraries(${PROJECT_NAME} ${LIBXML2_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PUBLIC Foundation)
+target_link_libraries(${PROJECT_NAME} PUBLIC DSP)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${LIBXML2_LIBRARIES})
 if(WIN32)
-	target_link_libraries(${PROJECT_NAME} ws2_32)
+	target_link_libraries(${PROJECT_NAME} PRIVATE ws2_32)
 endif()
 
 ### Tests ###
