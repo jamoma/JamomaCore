@@ -1,4 +1,5 @@
 language: cpp
+sudo: false
 env:
   matrix:
   - ARCH=
@@ -33,3 +34,9 @@ addons:
     build_command_prepend: "/tmp/cmake/bin/cmake ..;make clean"
     build_command:   "make -j 4"
     branch_pattern: coverity_scan
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-4.9
+    - g++-4.9
