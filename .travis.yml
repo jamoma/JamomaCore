@@ -31,8 +31,8 @@ addons:
       name: "jamoma/JamomaCore"
       description: "Build submitted via Travis CI"
     notification_email: antoine.villeret@gmail.com
-    build_command_prepend: "/tmp/cmake/bin/cmake ..;make clean"
-    build_command:   "make -j 4"
+    build_command_prepend: mkdir build && cd build && /tmp/cmake/bin/cmake .. && make clean
+    build_command:   make -j 4
     branch_pattern: coverity_scan
   apt:
     sources:
