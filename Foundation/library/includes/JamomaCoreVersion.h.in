@@ -1,0 +1,24 @@
+/** @file
+ *
+ * @ingroup foundationLibrary
+ *
+ * @brief Header for version definitoin
+ *
+ * @authors Antoine Villeret
+ *
+ * @copyright Copyright (c) 2015, Antoine Villeret @n
+ * This code is licensed under the terms of the "New BSD License" @n
+ * http://creativecommons.org/licenses/BSD/
+ */
+
+#pragma ONCE
+
+#define JAMOMACORE_GIT_SHA_SHORT "@GIT_SHA_SHORT@"
+#define JAMOMACORE_GIT_VERSION_MAJ "@GIT_VERSION_MAJ@"
+#define JAMOMACORE_GIT_VERSION_MIN "@GIT_VERSION_MIN@"
+#define JAMOMACORE_GIT_VERSION_SUB "@GIT_VERSION_SUB@"
+#define JAMOMACORE_GIT_VERSION_MOD "@GIT_VERSION_MOD@"
+#define JAMOMACORE_GIT_VERSION JAMOMACORE_GIT_VERSION_MAJ "." JAMOMACORE_GIT_VERSION_MIN "." JAMOMACORE_GIT_VERSION_SUB "-" JAMOMACORE_GIT_VERSION_MOD
+
+#define JAMOMACORE_VERSION JAMOMACORE_GIT_VERSION
+#define JAMOMACORE_REV JAMOMACORE_GIT_SHA_SHORT
