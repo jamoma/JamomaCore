@@ -28,6 +28,8 @@ protected:
 
 	std::array<TTFloat64, 3> mPosition;		///< Position as Cartesian coordinates
 	std::array<TTFloat64, 4> mOrientation;	///< The orientation of the object using Euler coordinates
+	
+	// TODO: Why is this here, doesn't it rather belong in the derived classes?
 	std::array<TTFloat64, 4> mData;			///< Storage for up to 4 values that can be used by subclasses
 		
 public:

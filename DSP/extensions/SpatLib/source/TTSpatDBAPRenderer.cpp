@@ -83,7 +83,8 @@ void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatSourceVector& aSour
 	
 	TTFloat64 k;										// Scaling coefficient
 	TTFloat64 k2inv;									// Inverse square of the scaling constant k
-
+	
+	// TODO only resize if needed, check first!
 	mMixerMatrixCoefficients->setRowCount(TTUInt32(aSources.size()));
 	mMixerMatrixCoefficients->setColumnCount(TTUInt32(aSinks.size()));
 	
