@@ -73,6 +73,9 @@ private:
 	
 	/** Return selection back to the owner of this explorer */
 	TTErr SelectionRefresh();
+    
+    /** Clear the selection part that this explorer is managing */
+    TTErr SelectionClear();
 	
 	/** Create a filter, add it to the bank and append it to the list
 		< filterName filterKey1 filterValue1 filterKey2 filterValue2 ... >
