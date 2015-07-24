@@ -25,7 +25,7 @@
  */
 class TTSpatEntity {
 protected:
-
+	
 	std::array<TTFloat64, 3> mPosition;		///< Position as Cartesian coordinates
 	std::array<TTFloat64, 4> mOrientation;	///< The orientation of the object using Euler coordinates
 	
