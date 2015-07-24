@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 project (JamomaCore)
 
+message("Configure JamomaCore")
+
 # If we're directly building this folder without umbrella.
 if(NOT JAMOMA_UMBRELLA)
 	### Configuration ###
