@@ -21,7 +21,7 @@
 #include "TTSpatAmbipanning.h"
 
 #define thisTTClass			TTSpatAmbipanning
-#define thisTTClassName		"spat.dbap"
+#define thisTTClassName		"spat.ambipanning"
 #define thisTTClassTags		"audio, spatialization, processing, dbap"
 
 
