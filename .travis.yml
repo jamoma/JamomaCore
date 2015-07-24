@@ -1,11 +1,14 @@
 language: cpp
+sudo: false
 env:
   matrix:
   - ARCH=
   - ARCH=rpi
   global:
     - secure: "K8viZupYj8b/p/uVEH2QIZqeIMMw5YCeXonTGXqOhuwqKPU1ppfaLFIP+Cs9+FcH0gAXQzEzLz99ACX3dPpQ4/JC9+3mCGSzLfIanIxK89oHvGL9qTshNEZEkzuAv0EY6p6V7RhEuH6FIkkds0XafkgVz8G5CLeVx1G9DhQtEbk="
-
+    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+    #   via the "travis encrypt" command using the project repo's public key
+    - secure: "MuvaHJvzzXcwKQq5hB9Q/GQSRDBS1M3NOk85gNAA8viG6UpnjXCMJX/YJ+6SRM5tI+dHMnC2+dZRI65rP+z1ZKFilRcBMlNEVSQHhOMs2QuNj6p/7fF9c72WzAxg1FyNDCsXbpdc5+CWZ3Vd3gQPdgOR1z2Mr+0ivxzfxQANBXM="
 os:
   - linux
   - osx
@@ -30,6 +33,12 @@ addons:
       name: "jamoma/JamomaCore"
       description: "Build submitted via Travis CI"
     notification_email: antoine.villeret@gmail.com
-    build_command_prepend: "/tmp/cmake/bin/cmake ..;make clean"
-    build_command:   "make -j 4"
+    build_command_prepend: mkdir -p build && cd build && CC=gcc-4.9 CXX=g++-4.9 /tmp/cmake/bin/cmake .. && make clean
+    build_command:   make -j 4
     branch_pattern: coverity_scan
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-4.9
+    - g++-4.9
