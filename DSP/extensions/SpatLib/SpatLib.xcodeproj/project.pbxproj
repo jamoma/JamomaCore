@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		308EFEB11B6020070044F4EF /* TTSpatAmbipanning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatAmbipanning.h; path = includes/TTSpatAmbipanning.h; sourceTree = "<group>"; };
+		308EFEB21B6020070044F4EF /* TTSpatAmbipanningRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatAmbipanningRenderer.h; path = includes/TTSpatAmbipanningRenderer.h; sourceTree = "<group>"; };
+		308EFEB31B6020070044F4EF /* TTSpatAmbipanningSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatAmbipanningSource.h; path = includes/TTSpatAmbipanningSource.h; sourceTree = "<group>"; };
+		308EFEB41B60200D0044F4EF /* TTSpatAmbipanning.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatAmbipanning.cpp; path = source/TTSpatAmbipanning.cpp; sourceTree = "<group>"; };
+		308EFEB51B60200D0044F4EF /* TTSpatAmbipanningRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatAmbipanningRenderer.cpp; path = source/TTSpatAmbipanningRenderer.cpp; sourceTree = "<group>"; };
+		308EFEB61B60200D0044F4EF /* TTSpatAmbipanningSource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatAmbipanningSource.cpp; path = source/TTSpatAmbipanningSource.cpp; sourceTree = "<group>"; };
+		308EFF1F1B618EFC0044F4EF /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		A726F33416BC586900590514 /* TTSpatBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatBase.h; path = includes/TTSpatBase.h; sourceTree = "<group>"; };
 		A726F33516BC586900590514 /* TTSpatBaseRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatBaseRenderer.h; path = includes/TTSpatBaseRenderer.h; sourceTree = "<group>"; };
 		A726F33616BC586900590514 /* TTSpatDBAP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatDBAP.h; path = includes/TTSpatDBAP.h; sourceTree = "<group>"; };
@@ -50,10 +57,10 @@
 			children = (
 				A726F33616BC586900590514 /* TTSpatDBAP.h */,
 				A726F34016BC588200590514 /* TTSpatDBAP.cpp */,
-				A726F33816BC586900590514 /* TTSpatDBAPSource.h */,
-				A726F34216BC588200590514 /* TTSpatDBAPSource.cpp */,
 				A726F33716BC586900590514 /* TTSpatDBAPRenderer.h */,
 				A726F34116BC588200590514 /* TTSpatDBAPRenderer.cpp */,
+				A726F33816BC586900590514 /* TTSpatDBAPSource.h */,
+				A726F34216BC588200590514 /* TTSpatDBAPSource.cpp */,
 				A726F34716BC589D00590514 /* TTSpatDBAP.test.cpp */,
 			);
 			name = "DBAP Unit";
@@ -80,15 +87,30 @@
 			name = "Wrapper Class";
 			sourceTree = "<group>";
 		};
+		308EFEB01B601FF20044F4EF /* Ambipanning Unit */ = {
+			isa = PBXGroup;
+			children = (
+				308EFEB11B6020070044F4EF /* TTSpatAmbipanning.h */,
+				308EFEB41B60200D0044F4EF /* TTSpatAmbipanning.cpp */,
+				308EFEB21B6020070044F4EF /* TTSpatAmbipanningRenderer.h */,
+				308EFEB51B60200D0044F4EF /* TTSpatAmbipanningRenderer.cpp */,
+				308EFEB31B6020070044F4EF /* TTSpatAmbipanningSource.h */,
+				308EFEB61B60200D0044F4EF /* TTSpatAmbipanningSource.cpp */,
+			);
+			name = "Ambipanning Unit";
+			sourceTree = "<group>";
+		};
 		A726F32416BC584C00590514 = {
 			isa = PBXGroup;
 			children = (
 				A726F34E16BC58D100590514 /* SpatLib.yml */,
+				308EFF1F1B618EFC0044F4EF /* Makefile */,
 				A726F35116BC58E100590514 /* TTSpatLib.cpp */,
 				22E6FD1316BC5A4E007C1694 /* Base Classes */,
 				22E6FD1616BC5ABD007C1694 /* Wrapper Class */,
 				22E6FD1516BC5A76007C1694 /* Snap Unit */,
 				22E6FD1416BC5A6D007C1694 /* DBAP Unit */,
+				308EFEB01B601FF20044F4EF /* Ambipanning Unit */,
 			);
 			sourceTree = "<group>";
 		};
