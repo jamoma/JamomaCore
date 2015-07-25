@@ -1,10 +1,12 @@
 if(WIN32)
 # We need to deploy our DLLs too.
-find_package(LibXml2 CONFIG)
-get_target_property(XML2_DLL xml2 IMPORTED_LOCATION)
-install(FILES "${XML2_DLL}"
-		DESTINATION support)
-		
+if (NOT MINGW-W64)
+  find_package(LibXml2 CONFIG)
+  get_target_property(XML2_DLL xml2 IMPORTED_LOCATION)
+  install(FILES "${XML2_DLL}"
+	  DESTINATION support)
+endif()
+
 # TODO portaudio, sndfile, etc...
 endif()
 
