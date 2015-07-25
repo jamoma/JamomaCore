@@ -4,6 +4,9 @@ project(SpatLib)
 set(PROJECT_SRCS
 ${CMAKE_CURRENT_SOURCE_DIR}/TTSpatLib.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/TTSpat.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatAmbipanning.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatAmbipanningRenderer.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatAmbipanningSource.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatBase.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatBaseRenderer.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatEntity.cpp
