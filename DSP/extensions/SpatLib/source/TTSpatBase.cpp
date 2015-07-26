@@ -119,7 +119,7 @@ TTErr TTSpatBase::getSourcePosition(const TTValue& requestedChannel, TTValue& aP
 	return kTTErrNone;
 }
 
-
+// Rather than having two methods with different names, we could use the same name and overload
 void TTSpatBase::setOneSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
 {
 	// Ensure that source number is within range

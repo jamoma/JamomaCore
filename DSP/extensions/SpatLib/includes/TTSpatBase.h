@@ -22,6 +22,8 @@
 #include "TTDSP.h"
 #include "TTSampleMatrix.h"
 #include "TTSpatEntity.h"
+#include "TTSpatSourceEntity.h"
+#include "TTSpatSinkEntity.h"
 #include "TTSpatBaseRenderer.h"
 
 
@@ -143,6 +145,7 @@ public:
 	 */
 	TTErr setSinkPosition(const TTValue& aPosition, TTValue& unused);
 	
+	// TODO: Add setters and getters for the source: width and order
 	
 };
 

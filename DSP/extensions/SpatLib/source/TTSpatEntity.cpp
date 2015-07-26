@@ -18,8 +18,7 @@
 
 TTSpatEntity::TTSpatEntity() :
 mPosition(),
-mOrientation(),
-mData()
+mOrientation()
 {
 	;
 }
@@ -62,4 +61,3 @@ void TTSpatEntity::setOrientation(TTFloat64 q1, TTFloat64 q2, TTFloat64 q3, TTFl
 	mOrientation[2] = q3;
 	mOrientation[3] = q4;
 }
-

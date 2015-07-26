@@ -13,8 +13,8 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
-#ifndef __SPATSNAPENTITY_H__
-#define __SPATSNAPENTITY_H__
+#ifndef __SPATENTITY_H__
+#define __SPATENTITY_H__
 
 #include "TTDSP.h"
 #include <array>
@@ -28,9 +28,6 @@ protected:
 	
 	std::array<TTFloat64, 3> mPosition;		///< Position as Cartesian coordinates
 	std::array<TTFloat64, 4> mOrientation;	///< The orientation of the object using Euler coordinates
-	
-	// TODO: Why is this here, doesn't it rather belong in the derived classes?
-	std::array<TTFloat64, 4> mData;			///< Storage for up to 4 values that can be used by subclasses
 		
 public:
 	
@@ -76,25 +73,6 @@ public:
 	 @param q4				Fourth coordinate of the point.
 	 */
 	void setOrientation(TTFloat64 q1, TTFloat64 q2, TTFloat64 q3, TTFloat64 q4);
-
-
-
-};
-
-
-/** The #TTSpatSource class extends and specialise the #TTSpatEntity class to provide attributes and methods suitable for the description of a source.
- @details		Actually #TTSpatSource provides no specialization at this time
- */
-class TTSpatSource : public TTSpatEntity {
-	// no specialization at this time
-};
-
-
-/** The #TTSpatSink class extends and specialise the #TTSpatEntity class to provide attributes and methods suitable for the description of a sink.
- @details		Actually #TTSpatSink provides no specialization at this time
- */
-class TTSpatSink : public TTSpatEntity {
-	// no specialization at this time
 };
 
 
@@ -104,17 +82,4 @@ class TTSpatSink : public TTSpatEntity {
 typedef std::vector<TTSpatEntity>	TTSpatEntityVector;
 
 
-/** Pointer to a vector of #TTSpatSource points.
- @ingroup typedefs
- */
-typedef std::vector<TTSpatSource>	TTSpatSourceVector;
-
-
-/** Pointer to a vector of #TTSpatSink points.
- @ingroup typedefs
- */
-typedef std::vector<TTSpatSink>		TTSpatSinkVector;
-
-
-
-#endif // __SPATSNAPENTITY_H__
+#endif // __SPATENTITY_H__
