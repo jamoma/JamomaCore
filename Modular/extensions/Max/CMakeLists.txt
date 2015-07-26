@@ -28,8 +28,6 @@ ${JAMOMAMAX_PATH}/source/c74support/max-includes/common/commonsyms.cpp
 include_directories("${PROJECT_SOURCE_DIR}/")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 
-addMaxsupport()
-
 if(APPLE)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include../../../../Implementations/Max/source/c74support/max-includes/macho-prefix.pch")
 endif()
