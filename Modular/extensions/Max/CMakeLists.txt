@@ -22,7 +22,7 @@ endif()
 set(PROJECT_SRCS
 	$<TARGET_OBJECTS:TTClock>
 ${CMAKE_CURRENT_SOURCE_DIR}/source/Max.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/../../../../Implementations/Max/source/c74support/max-includes/common/commonsyms.cpp
+${JAMOMAMAX_PATH}/source/c74support/max-includes/common/commonsyms.cpp
 )
 
 include_directories("${PROJECT_SOURCE_DIR}/")
