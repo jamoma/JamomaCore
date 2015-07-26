@@ -250,7 +250,7 @@ endFunction()
 
 ## Function to add the Max/MSP includes ##
 # TODO put this in a module file instead.
-function(addMaxSupport)
+function(addMaxsupport)
 	find_path(JAMOMAMAX_PATH "source/c74support/max-includes/commonsyms.h"
 			  HINTS "${CMAKE_SOURCE_DIR}/../Implementations/Max"
 			  		"${CMAKE_SOURCE_DIR}/Implementations/Max")
@@ -260,16 +260,10 @@ function(addMaxSupport)
 	include_directories("${MAXSDK_PATH}/msp-includes")
 	include_directories("${MAXSDK_PATH}/jit-includes")
 	include_directories("${JAMOMAMAX_PATH}/library/includes")
-	
-	if(NOT WIN64)
-		FIND_LIBRARY(MaxAPI_LIB 
-					NAMES MaxAPI
-					PATHS ${MAXSDK_PATH}/max-includes/)
-	else()
-		FIND_LIBRARY(MaxAPI_LIB 
-					NAMES MaxAPI
-					PATHS ${MAXSDK_PATH}/max-includes/x64)
-	endif()
+
+	FIND_LIBRARY(MaxAPI_LIB 
+				 NAMES MaxAPI
+				 PATHS ${MAXSDK_PATH}/max-includes/)
 	MARK_AS_ADVANCED (MaxAPI_LIB)
 	SET(MaxAPI_LIB ${MaxAPI_LIB})
 	
@@ -277,46 +271,37 @@ function(addMaxSupport)
 		if(CMAKE_BUILD_TYPE STREQUAL "Release")
 			add_definitions(-DMAXAPI_USE_MSCRT)
 		endif()
+		# FIND_LIBRARY(MaxCRT_LIB 
+					 # NAMES maxcrt
+					 # PATHS ${MAXSDK_PATH}/max-includes/)
+		# MARK_AS_ADVANCED (MaxCRT_LIB)
+		# SET(MaxCRT_LIB ${MaxCRT_LIB})
+		# FIND_LIBRARY(MaxCRT_P_LIB 
+					 # NAMES maxcrt_p
+					 # PATHS ${MAXSDK_PATH}/max-includes/)
+		# MARK_AS_ADVANCED (MaxCRT_P_LIB)
+		# SET(MaxCRT_P_LIB ${MaxCRT_P_LIB})
 	endif()
-	if(NOT WIN64)
-		FIND_LIBRARY(MaxAudio_LIB 
-					 NAMES
-						MaxAudio 
-						MaxAudioAPI
-					 PATHS
-						${MAXSDK_PATH}/msp-includes
-						${MAXSDK_PATH}/msp-includes/x64
-		)
-	else()
-		FIND_LIBRARY(MaxAudio_LIB 
+	
+	FIND_LIBRARY(MaxAudio_LIB 
 				 NAMES
-					MaxAudio 
-					MaxAudioAPI
+				 	MaxAudio 
+				 	MaxAudioAPI
 				 PATHS
-					${MAXSDK_PATH}/msp-includes/x64
-		)
-	endif()
+				 	${MAXSDK_PATH}/msp-includes
+				 	${MAXSDK_PATH}/msp-includes/x64
+	)
 	MARK_AS_ADVANCED (MaxAudio_LIB)
 	SET(MaxAudio_LIB ${MaxAudio_LIB})
 
-	if(NOT WIN64)
-		FIND_LIBRARY(Jitter_LIB 
-					 NAMES
-						jitlib 
-						JitterAPI
-					 PATHS
-						${MAXSDK_PATH}/jit-includes
-						${MAXSDK_PATH}/jit-includes/x64
-		)
-	else()
-		FIND_LIBRARY(Jitter_LIB 
+	FIND_LIBRARY(Jitter_LIB 
 				 NAMES
-					jitlib 
-					JitterAPI
+				 	jitlib 
+				 	JitterAPI
 				 PATHS
-					${MAXSDK_PATH}/jit-includes/x64
-		)
-	endif()
+				 	${MAXSDK_PATH}/jit-includes
+				 	${MAXSDK_PATH}/jit-includes/x64
+	)
 	MARK_AS_ADVANCED (Jitter_LIB)
 	SET(Jitter_LIB ${Jitter_LIB})
 
