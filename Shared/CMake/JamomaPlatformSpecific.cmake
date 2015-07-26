@@ -45,11 +45,11 @@ if(UNIX)
 			#set(CMAKE_INCLUDE_PATH "${CMAKE_INCLUDE_PATH};/opt/android-toolchain/arm-linux-androideabi/local/include")
 
 		else()
-			SET(CMAKE_INSTALL_PREFIX /usr)
+			# SET(CMAKE_INSTALL_PREFIX /usr)
 			SET(CPACK_GENERATOR "DEB")
 			SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Jamoma <jamoma@jamoma.org>")
 			SET(CPACK_SET_DESTDIR true)
-			SET(CPACK_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+			SET(CPACK_INSTALL_PREFIX /usr)
 
 			if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 				include_directories("/usr/include/i386-linux-gnu/c++/4.9/")
@@ -63,7 +63,7 @@ if(UNIX)
 elseif(WIN32)
 	add_definitions(-DTT_PLATFORM_WIN)
 	add_definitions(-DWIN_VERSION)
-	
+
 	if(MINGW)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-unknown-pragmas -Wno-conversion -Wno-deprecated-declarations -Wno-trigraphs")
 	else()
