@@ -32,7 +32,7 @@ class TTSpatDBAPRenderer : public TTSpatBaseRenderer {
 	
 public:
 	
-	TTSampleMatrixPtr	mMixerMatrixCoefficients;	///< A matrix holding all coefficient for matrix-based mixing of sources to sinks.
+//	TTSampleMatrixPtr	mMixerMatrixCoefficients;	///< A matrix holding all coefficient for matrix-based mixing of sources to sinks.
 	TTFloat64			mRolloff;					///< global
 	
 	

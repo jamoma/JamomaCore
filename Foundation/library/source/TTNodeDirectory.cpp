@@ -496,23 +496,30 @@ TTErr	TTNodeDirectory::LookFor(TTListPtr whereToSearch, TTBoolean(*testFunction)
 
 				// test each of them and add those which are ok
 				n_first = NULL;
-				for (lk_children.begin(); lk_children.end(); lk_children.next()) {
-
+				for (lk_children.begin(); lk_children.end(); lk_children.next())
+                {
 					n_child = TTNodePtr((TTPtr)lk_children.current()[0]);
-
-					// test the child and fill the returnedTTNodes
-					if (testFunction(n_child, argument)) {
-						returnedTTNodes.append(n_child);
-
-						if (!n_first)
-							n_first = n_child;
-					}
+                    
+                    // test the child and fill the returnedTTNodes
+                    if (testFunction(n_child, argument))
+                    {
+                        returnedTTNodes.append(n_child);
+                        
+                        if (!n_first)
+                            n_first = n_child;
+                    }
+                    
+                    // go one step deeper in the tree if possible
+                    if (!limitReached)
+                    {
+                        TTList oneNodeList;
+                        oneNodeList.append((TTPtr)n_child);
+                        if (LookFor(&oneNodeList, testFunction, argument, returnedTTNodes, firstReturnedTTNode, newLimit, comparisonFunction))
+                            err = kTTErrGeneric;
+                    }
+                    else
+                        err = kTTErrNone;
 				}
-				
-				if (!limitReached)
-					err = LookFor(&lk_children, testFunction, argument, returnedTTNodes, firstReturnedTTNode, newLimit, comparisonFunction);
-				else
-					err = kTTErrNone;
 
 				if(!returnedTTNodes.isEmpty() && !n_first)
 					*firstReturnedTTNode = TTNodePtr((TTPtr)returnedTTNodes.getHead()[0]);
