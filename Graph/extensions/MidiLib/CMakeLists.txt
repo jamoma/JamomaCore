@@ -33,12 +33,12 @@ include_directories(${PORTMIDI_INCLUDE_DIRS})
 
 add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME} PRIVATE
 					  debug ${PORTMIDI_LIBRARIES_DEBUG}
 					  optimized ${PORTMIDI_LIBRARIES_DEBUG})
 
 if(WIN32)
-	target_link_libraries(${PROJECT_NAME} winmm)
+	target_link_libraries(${PROJECT_NAME} PRIVATE winmm)
 endif()
 
 target_link_frameworks(TARGET ${PROJECT_NAME}
