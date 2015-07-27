@@ -12,17 +12,11 @@
 		308EFEB41B60200D0044F4EF /* TTSpatAmbipanning.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatAmbipanning.cpp; path = source/TTSpatAmbipanning.cpp; sourceTree = "<group>"; };
 		308EFEB51B60200D0044F4EF /* TTSpatAmbipanningRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatAmbipanningRenderer.cpp; path = source/TTSpatAmbipanningRenderer.cpp; sourceTree = "<group>"; };
 		308EFF1F1B618EFC0044F4EF /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		A726F33416BC586900590514 /* TTSpatBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatBase.h; path = includes/TTSpatBase.h; sourceTree = "<group>"; };
-		A726F33516BC586900590514 /* TTSpatBaseRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatBaseRenderer.h; path = includes/TTSpatBaseRenderer.h; sourceTree = "<group>"; };
 		A726F33616BC586900590514 /* TTSpatDBAP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatDBAP.h; path = includes/TTSpatDBAP.h; sourceTree = "<group>"; };
-		A726F33716BC586900590514 /* TTSpatDBAPRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatDBAPRenderer.h; path = includes/TTSpatDBAPRenderer.h; sourceTree = "<group>"; };
 		A726F33916BC586900590514 /* TTSpatEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatEntity.h; path = includes/TTSpatEntity.h; sourceTree = "<group>"; };
 		A726F33A16BC586900590514 /* TTSpatSnap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatSnap.h; path = includes/TTSpatSnap.h; sourceTree = "<group>"; };
 		A726F33B16BC586900590514 /* TTSpatSnapRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatSnapRenderer.h; path = includes/TTSpatSnapRenderer.h; sourceTree = "<group>"; };
-		A726F33E16BC588200590514 /* TTSpatBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatBase.cpp; path = source/TTSpatBase.cpp; sourceTree = "<group>"; };
-		A726F33F16BC588200590514 /* TTSpatBaseRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatBaseRenderer.cpp; path = source/TTSpatBaseRenderer.cpp; sourceTree = "<group>"; };
 		A726F34016BC588200590514 /* TTSpatDBAP.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatDBAP.cpp; path = source/TTSpatDBAP.cpp; sourceTree = "<group>"; };
-		A726F34116BC588200590514 /* TTSpatDBAPRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatDBAPRenderer.cpp; path = source/TTSpatDBAPRenderer.cpp; sourceTree = "<group>"; };
 		A726F34316BC588200590514 /* TTSpatEntity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatEntity.cpp; path = source/TTSpatEntity.cpp; sourceTree = "<group>"; };
 		A726F34416BC588200590514 /* TTSpatSnap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatSnap.cpp; path = source/TTSpatSnap.cpp; sourceTree = "<group>"; };
 		A726F34516BC588200590514 /* TTSpatSnapRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatSnapRenderer.cpp; path = source/TTSpatSnapRenderer.cpp; sourceTree = "<group>"; };
@@ -39,36 +33,32 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		22E6FD1316BC5A4E007C1694 /* Base Classes */ = {
+		22E6FD1316BC5A4E007C1694 /* Lib Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A726F33416BC586900590514 /* TTSpatBase.h */,
-				A726F33E16BC588200590514 /* TTSpatBase.cpp */,
+				A726F34F16BC58E100590514 /* TTSpat.h */,
+				A726F35016BC58E100590514 /* TTSpat.cpp */,
 				A726F33916BC586900590514 /* TTSpatEntity.h */,
 				A726F34316BC588200590514 /* TTSpatEntity.cpp */,
 				A733C49A1B62F5FA00C7E19F /* TTSpatSourceEntity.h */,
 				A733C49B1B62F62700C7E19F /* TTSpatSourceEntity.cpp */,
 				A733C4991B62F5FA00C7E19F /* TTSpatSinkEntity.h */,
 				A733C49C1B62F63100C7E19F /* TTSpatSinkEntity.cpp */,
-				A726F33516BC586900590514 /* TTSpatBaseRenderer.h */,
-				A726F33F16BC588200590514 /* TTSpatBaseRenderer.cpp */,
 			);
-			name = "Base Classes";
+			name = "Lib Classes";
 			sourceTree = "<group>";
 		};
-		22E6FD1416BC5A6D007C1694 /* DBAP Unit */ = {
+		22E6FD1416BC5A6D007C1694 /* Unit DBAP */ = {
 			isa = PBXGroup;
 			children = (
 				A726F33616BC586900590514 /* TTSpatDBAP.h */,
 				A726F34016BC588200590514 /* TTSpatDBAP.cpp */,
-				A726F33716BC586900590514 /* TTSpatDBAPRenderer.h */,
-				A726F34116BC588200590514 /* TTSpatDBAPRenderer.cpp */,
 				A726F34716BC589D00590514 /* TTSpatDBAP.test.cpp */,
 			);
-			name = "DBAP Unit";
+			name = "Unit DBAP";
 			sourceTree = "<group>";
 		};
-		22E6FD1516BC5A76007C1694 /* Snap Unit */ = {
+		22E6FD1516BC5A76007C1694 /* Unit Snap */ = {
 			isa = PBXGroup;
 			children = (
 				A726F33A16BC586900590514 /* TTSpatSnap.h */,
@@ -77,19 +67,10 @@
 				A726F34516BC588200590514 /* TTSpatSnapRenderer.cpp */,
 				A726F34816BC589D00590514 /* TTSpatSnap.test.cpp */,
 			);
-			name = "Snap Unit";
+			name = "Unit Snap";
 			sourceTree = "<group>";
 		};
-		22E6FD1616BC5ABD007C1694 /* Wrapper Class */ = {
-			isa = PBXGroup;
-			children = (
-				A726F34F16BC58E100590514 /* TTSpat.h */,
-				A726F35016BC58E100590514 /* TTSpat.cpp */,
-			);
-			name = "Wrapper Class";
-			sourceTree = "<group>";
-		};
-		308EFEB01B601FF20044F4EF /* Ambipanning Unit */ = {
+		308EFEB01B601FF20044F4EF /* Unit Ambipanning */ = {
 			isa = PBXGroup;
 			children = (
 				308EFEB11B6020070044F4EF /* TTSpatAmbipanning.h */,
@@ -97,7 +78,7 @@
 				308EFEB21B6020070044F4EF /* TTSpatAmbipanningRenderer.h */,
 				308EFEB51B60200D0044F4EF /* TTSpatAmbipanningRenderer.cpp */,
 			);
-			name = "Ambipanning Unit";
+			name = "Unit Ambipanning";
 			sourceTree = "<group>";
 		};
 		A726F32416BC584C00590514 = {
@@ -106,11 +87,10 @@
 				A726F34E16BC58D100590514 /* SpatLib.yml */,
 				308EFF1F1B618EFC0044F4EF /* Makefile */,
 				A726F35116BC58E100590514 /* TTSpatLib.cpp */,
-				22E6FD1316BC5A4E007C1694 /* Base Classes */,
-				22E6FD1616BC5ABD007C1694 /* Wrapper Class */,
-				22E6FD1516BC5A76007C1694 /* Snap Unit */,
-				22E6FD1416BC5A6D007C1694 /* DBAP Unit */,
-				308EFEB01B601FF20044F4EF /* Ambipanning Unit */,
+				22E6FD1316BC5A4E007C1694 /* Lib Classes */,
+				22E6FD1516BC5A76007C1694 /* Unit Snap */,
+				22E6FD1416BC5A6D007C1694 /* Unit DBAP */,
+				308EFEB01B601FF20044F4EF /* Unit Ambipanning */,
 			);
 			sourceTree = "<group>";
 		};

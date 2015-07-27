@@ -49,44 +49,22 @@ The following are development notes while developing TTSpatDBAP starting of from
  * DBAP is matrix-based and ensures equal intensity while adjusting gains to each of the sinks in such a way that relative gain diminish with increasing distance from source to sink.
  * The exact rolloff rate (in dB) can be controlled with the rolloff attribute of the #TTSpatDBAPRenderer class.
  */
-class TTSpatDBAP : public TTSpatBase {
+class TTSpatDBAP : public TTSpat {
 	TTCLASS_SETUP(TTSpatDBAP)
 	
-	TTSpatDBAPRenderer* getRenderer()
-	{
-		return (TTSpatDBAPRenderer*)mRenderer;
-	}
-	
-	TTSpatDBAPSource* getSource(int aSourceNumber) {
-		return (TTSpatDBAPSource*)&mSources[aSourceNumber];
-	}
-	
-public:
-		
-	/** TODO: document
-	 @param aValue						Used to return the number of sinks.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr getRolloff(TTValue& aValue);
-	
-	
-	/** TODO: document
-	 @param aValue						The desired number of sinks.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr setRolloff(const TTValue& aValue);
-	
+public:	
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
-	
-	TTErr setSourceWidth(const TTValue& aWidth, TTValue& anUnused);
-	TTErr getSourceWidth(const TTValue& aRequestedChannel, TTValue& aWidth);
-
-	
 	/**	Unit Tests.
-	 @param aReturnedTestInfo			Information on the outcome of the tests.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	virtual TTErr test(TTValue& aReturnedTestInfo);
+ @param aReturnedTestInfo			Information on the outcome of the tests.
+ @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
+ */
+virtual TTErr test(TTValue& aReturnedTestInfo);
+	
+
+private:
+	void recalculateMatrixCoefficients(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks);
+	
 	
 };
 
