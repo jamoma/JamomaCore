@@ -1,11 +1,16 @@
 cmake_minimum_required(VERSION 3.0)
 project(Foundation)
 
-
-include(${CMAKE_CURRENT_SOURCE_DIR}/../../Shared/CMake/modules/GetGitRevisionDescription.cmake)
-get_jamoma_version()
-message("Jamomacore git sha : " ${GIT_SHA_SHORT})
+if($ENV{TRAVIS})
+  string(SUBSTRING $ENV{TRAVIS_COMMIT} 0 7 GIT_SHA_SHORT)
+  SET(GIT_TAG $ENV{TRAVIS_TAG})
+else()
+ include(${CMAKE_CURRENT_SOURCE_DIR}/../../Shared/CMake/modules/GetGitRevisionDescription.cmake)
+ get_jamoma_version()
+endif()
+message("building version ${GIT_SHA_SHORT} with tag ${GIT_TAG}")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/includes/JamomaCoreVersion.h.in" "${CMAKE_CURRENT_SOURCE_DIR}/includes/JamomaCoreVersion.h" @ONLY)
+
 
 if(UNIX AND NOT APPLE)
 	add_definitions("-DJAMOMA_EXTENSIONS_INSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}/lib/jamoma\"")
