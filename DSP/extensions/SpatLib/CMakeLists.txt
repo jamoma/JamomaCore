@@ -7,13 +7,16 @@ ${CMAKE_CURRENT_SOURCE_DIR}/TTSpat.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatBase.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatBaseRenderer.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatEntity.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatSourceEntity.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatSinkEntity.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatDBAP.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatDBAPRenderer.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatDBAPSource.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatSnap.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatSnapRenderer.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSpatDBAP.test.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSpatSnap.test.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatAmbipanning.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTSpatAmbipanningRenderer.cpp
 )
 
 include_directories("${PROJECT_SOURCE_DIR}/")
