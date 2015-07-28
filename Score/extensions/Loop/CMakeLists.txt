@@ -20,3 +20,4 @@ endif()
 
 add_jamoma_extension()
 
+target_link_libraries(${PROJECT_NAME} PRIVATE ${LIBXML2_LIBRARIES})

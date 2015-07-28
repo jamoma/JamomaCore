@@ -48,7 +48,7 @@
 #define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass, highpass"
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
@@ -62,16 +62,16 @@ TT_AUDIO_CONSTRUCTOR,
 {
 	TTChannelCount	initialMaxNumChannels = arguments;
 
-	addAttributeWithSetter(Mode, kTypeSymbol);		
+	addAttributeWithSetter(Mode, kTypeSymbol);
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"), TT("lowpass"));
-	
+
 	mP0Delay.set("delayMaxInSamples", 16);
 	mP0Delay.set("delayInSamples",    16);
-	
+
 	mP1Delay.set("alpha", 0.0);
 	mF0.set("alpha",  0.832280776);
 	mF1.set("alpha", -0.421241137);
@@ -121,7 +121,7 @@ TTErr TTHalfbandLinear33::clear()
 TTErr TTHalfbandLinear33::setMode(const TTValue& newValue)
 {
 	TTSymbol newMode = newValue;
-	
+
 	if (newMode == TT("highpass")) {
 		mMode = TT("highpass");
 		setCalculateMethod(calculateHighpass);
@@ -139,7 +139,7 @@ TTErr TTHalfbandLinear33::setMode(const TTValue& newValue)
 inline void TTHalfbandLinear33::filterKernel(const TTFloat64& input, TTFloat64& outputPath0, TTFloat64& outputPath1, TTPtrSizedInt channel)
 {
 	TTFloat64 temp1, temp2;
-	
+
 	TTBASE(mP0Delay, TTDelay)->calculateNoInterpolation(input, outputPath0, channel);
 
 	TTBASE(mP1Delay, TTAllpass1a)->calculateValue(input,		temp2,			channel);
@@ -155,7 +155,7 @@ TTErr TTHalfbandLinear33::calculateLowpass(const TTFloat64& x, TTFloat64& y, TTP
 {
 	TTFloat64 outputFromPath0 = 0;
 	TTFloat64 outputFromPath1;
-	
+
 	filterKernel(x, outputFromPath0, outputFromPath1, channel);
 	y = (outputFromPath0 + outputFromPath1) * 0.5;
 	return kTTErrNone;
@@ -166,7 +166,7 @@ TTErr TTHalfbandLinear33::calculateHighpass(const TTFloat64& x, TTFloat64& y, TT
 {
 	TTFloat64 outputFromPath0;
 	TTFloat64 outputFromPath1;
-	
+
 	filterKernel(x, outputFromPath0, outputFromPath1, channel);
 	y = (outputFromPath0 - outputFromPath1) * 0.5;
 	return kTTErrNone;

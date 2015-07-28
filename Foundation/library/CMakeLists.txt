@@ -52,7 +52,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTMatrixArray.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTValue.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTString.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSymbolBase.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTSymbolCache.cpp
+${CMAKE_CURRENT_SOURCE_DIR}/source/TTGlobalsCache.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTSymbolTable.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTRegex.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTNodeLib.cpp
@@ -60,7 +60,6 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTNode.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddress.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressBase.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressTable.cpp
-${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressCache.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTAddressItem.cpp
 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTNodeDirectory.cpp
 

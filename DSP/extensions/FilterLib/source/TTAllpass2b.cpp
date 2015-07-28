@@ -22,7 +22,7 @@
 #define thisTTClassTags		"dspFilterLib, audio, processor, filter, allpass"
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
@@ -33,7 +33,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addAttribute(C1, kTypeFloat64);
 	addAttribute(C2, kTypeFloat64);
-	
+
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
@@ -81,11 +81,11 @@ TTErr TTAllpass2b::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedIn
 {
 	TTFloat64 w1 = mC1 * (mX2[channel] - mY2[channel]);
 	TTFloat64 w2 = mC2 * (x - mY4[channel]);
-	
+
 	y = w1 + w2 + mX4[channel];
 
 	TTZeroDenormal(y);
-	
+
 	mX4[channel] = mX3[channel];
 	mY4[channel] = mY3[channel];
 	mX3[channel] = mX2[channel];

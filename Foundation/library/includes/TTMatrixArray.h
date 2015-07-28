@@ -41,7 +41,7 @@ public:
 	
 	TTUInt32 getMatrixCount() const
 	{
-		return mMatrices.size();
+		return static_cast<TTUInt32>(mMatrices.size());
 	}
 	
 	void setMatrixCount(TTUInt32 aCount)

@@ -1,7 +1,7 @@
-/* 
+/*
  * Jamoma Network Socket
  * Copyright © 2010, Tim Place
- * 
+ *
  * License: This code is licensed under the terms of the "New BSD License"
  * http://creativecommons.org/licenses/BSD/
  */
@@ -11,7 +11,7 @@
 
 
 
-#ifndef TT_PLATFORM_WIN
+#if !defined(TT_PLATFORM_WIN) && !defined(__MINGW32__)
 	#include <sys/socket.h>
 	#include <netinet/in.h>
 	#include <netinet/tcp.h>
@@ -23,7 +23,7 @@
     #define WIN32_LEAN_AND_MEAN
     #endif
 	#include <winsock2.h>
-	#include <WS2tcpip.h>
+	#include <ws2tcpip.h>
 #endif
 
 #include "TTFoundationAPI.h"
@@ -44,7 +44,7 @@ typedef TTNetSocketConnection* TTNetSocketConnectionPtr;
 
 class TTNetSocket {
 	friend class TTNetSocketConnection;
-	
+
 	static const int	kConnectionBacklogSize = 20;	// how many pending connections queue will hold
 	int					mSocketDescriptor;
 
@@ -53,11 +53,11 @@ class TTNetSocket {
 	TTThreadPtr			mSocketListenerThread;			/// for receiving data
 	TTList				mConnections;
 	TTObjectBasePtr			mOwner;							///< The object that instantiated this socket and will receive notifications.
-	
+
 public:
-	
+
 	/**	Create a socket for network communication.
-	 
+
 		@param	address		may be symbolic (www.jamoma.org) or numeric (192.168.1.1).
 							an empty string is interpreted as meaning your own local device's IP address.
 		@param	port		could be a string with a port number but also could be "http" or "ftp" (etc.)
@@ -71,68 +71,68 @@ public:
 		if (mSocketAddressInfo)
 			freeaddrinfo(mSocketAddressInfo);
 		if (mSocketDescriptor)
-		#ifndef TT_PLATFORM_WIN
+		#if !defined(TT_PLATFORM_WIN) && !defined(__MINGW32__)
 			close(mSocketDescriptor);
 		#else
 			closesocket(mSocketDescriptor);
 		#endif
-			
+
 	}
-	
+
 
 private:
 	/**
 	 associate that socket with a port on your local machine.
 	 (This is commonly done if you're going to listen() for incoming connections on a specific port
-	 
-	 
-	 
+
+
+
 		????? maybe we should just do this automatically if no address is passed in to the constructor ??????
-	 
-	 
-	 
+
+
+
 	 */
 	void Bind()
 	{
 		int err;
-		
+
 		err = bind(mSocketDescriptor, mSocketAddressInfo->ai_addr, mSocketAddressInfo->ai_addrlen);
 		if (err == -1) {
 			TTLogError("TTSocket call to bind() failed! \n");
 		}
 	}
-	
-	
+
+
 public:
 	/**	This function is called in the listener thread.
 		Made public so it can be called by a C callback function, but should not be accessed directly by users. */
 	void Accept();
-	
-	
-private:	
+
+
+private:
 	// for sending, same thoughts and caveats apply here as to Bind()
 	void Connect()
 	{
 		int err;
-		
+
 		err = connect(mSocketDescriptor, mSocketAddressInfo->ai_addr, mSocketAddressInfo->ai_addrlen);
 		if (err == -1) {
 			TTLogError("TTSocket call to connect() failed! \n");
 		}
 	}
-	
+
 public:
 
 	/**	This should work for both udp and tcp, because we called connect.
-		If for udp we do not wish to connect(), then we will need to change the call for udp to use sendto(). 
-	 
-		Also, there is additional work to do if we wish to send OSC.  
+		If for udp we do not wish to connect(), then we will need to change the call for udp to use sendto().
+
+		Also, there is additional work to do if we wish to send OSC.
 		For example, the packets have to be multples of 4 bytes in size.
 	 */
 	TTErr Send(const TTString& message)
 	{
 		int result;
-		
+
 		result = send(mSocketDescriptor, message.c_str(),  message.size(), 0);
 		if (result == -1) {
 			TTLogError("TTSocket call to sendto() failed! \n");
@@ -143,7 +143,7 @@ public:
 		}
 		return (TTErr)result;
 	}
-	
+
 };
 
 typedef TTNetSocket* TTNetSocketPtr;
@@ -155,25 +155,25 @@ class TTNetSocketConnection {
 	char				mReceiveBuffer[kReceiveBufferSize];
 	TTNetSocketPtr		mSocket;
 	TTThreadPtr			mReceiverThread;
-	
+
 public:
-	
-	TTNetSocketConnection(TTNetSocketPtr socket) : 
+
+	TTNetSocketConnection(TTNetSocketPtr socket) :
 		mSocket(socket)
 	{
 		mReceiverThread = new TTThread(TTNetSocketReceiver, this);
 	}
-	
-	
+
+
 	~TTNetSocketConnection()
 	{
 		delete mReceiverThread;
 	}
-	
-	
+
+
 	/** Try to receive data from a connection. */
 	void Receive();
-	
+
 };
 
 
