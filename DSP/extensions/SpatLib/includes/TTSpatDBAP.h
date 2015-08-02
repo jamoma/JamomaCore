@@ -35,8 +35,10 @@ The following are development notes while developing TTSpatDBAP starting of from
 #ifndef __SPATDBAP_H__
 #define __SPATDBAP_H__
 
-#include "TTDSP.h"
-
+#include "TTSampleMatrix.h"
+#include "TTSpatBase.h"
+#include "TTSpatDBAPRenderer.h"
+#include "TTSpatDBAPSource.h"
 
 /**	Jamoma DSP SpatLib unit based on Distance-based amplitude panning (DBAP)
  *
