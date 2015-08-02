@@ -2,7 +2,7 @@
  *
  * @ingroup dspSpatLib
  *
- * @brief Jamoma DSP SpatLib unit based on Distance-based amplitude panning (DBAP)
+ * @brief Jamoma DSP SpatLib renderer based on Distance-based amplitude panning (DBAP)
  *
  * @details DBAP permits sinks (speakers) to be positioned any way you want. 
  * Speaker configurations are not limited to circles/spheres surrounding a sweet spot, but can be used e.g. to locate speakers in several adjecent spaces.
@@ -11,9 +11,9 @@
  *
  * @todo: Extend with a solution for interpolating to new matrix coefficients
  *
- * @authors Trond Lossius, Nils Peters, Timothy Place
+ * @authors Trond Lossius, Nils Peters, Timothy Place, Jan Schacher
  *
- * @copyright Copyright © 2011 by Trond Lossius, Nils Peters, and Timothy Place @n
+ * @copyright Copyright © 2011 by Trond Lossius, Nils Peters, Timothy Place, Jan Schacnher @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
@@ -36,10 +36,6 @@ The following are development notes while developing TTSpatDBAP starting of from
 #define __SPATDBAP_H__
 
 #include "TTDSP.h"
-#include "TTSampleMatrix.h"
-#include "TTSpatBase.h"
-#include "TTSpatDBAPRenderer.h"
-#include "TTSpatDBAPSource.h"
 
 
 /**	Jamoma DSP SpatLib unit based on Distance-based amplitude panning (DBAP)
@@ -63,6 +59,7 @@ virtual TTErr test(TTValue& aReturnedTestInfo);
 	
 
 private:
+	
 	void recalculateMatrixCoefficients(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks);
 	
 	

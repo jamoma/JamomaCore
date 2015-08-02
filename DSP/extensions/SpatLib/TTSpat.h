@@ -37,24 +37,26 @@ protected:
 	TTBoolean				mSceneHasChanged;		///< Flag indicating that coefficients need to be recalculated
 
 	// Parameters relating to scene, and common to many or all spat renderers
-	TTChannelCount			mSourceCount;	///< The number of sources
-	TTChannelCount			mSinkCount;		///< The number of destinations
-	TTSpatSourceVector		mSources;		///< A vector describing the geometry of the sources
-	TTSpatSinkVector		mSinks;			///< A vector describing the geometry of the sinks (e.g., speakers)
+	TTChannelCount			mSourceCount;			///< The number of sources
+	TTChannelCount			mSinkCount;				///< The number of destinations
+	TTSpatSourceVector		mSources;				///< A vector describing the geometry of the sources
+	TTSpatSinkVector		mSinks;					///< A vector describing the geometry of the sinks (e.g., speakers)
 	
 	// Parameters relating to scene, and specific to one or a few spat renderers
 	// None yet
 
 	// Paraneters relating to unit rendering algorithm, and specific to one or a few spat units
-	TTFloat64			mRolloff;			///< global
+	TTFloat64			mRolloff;					///< global
 
 	//	TTSampleMatrixPtr	mMixerMatrixCoefficients;	///< A matrix holding all coefficient for matrix-based mixing of sources to sinks.
+	
 	
 	/**	Set what spatialisation function to use.
 	 @param aSpatFunction			The SpatLib renderer (unit) to use.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setSpatFunction(const TTValue& aSpatFunction);
+	
 	
 	/**	Return a list of all available spatialisation renderers (units).
 	 @param
@@ -63,15 +65,17 @@ protected:
 	 */
 	TTErr getSpatFunctions(const TTValue&, TTValue& listOfSpatFunctionsToReturn);
 	
+	
 #if 0
 #pragma mark -
 #pragma mark Process Routines
 #endif
 	
+	
 	/** This method _must_ be defined by subclasses
 	 @details This method also takes care of matrix resizing if the number of sources or sinks change.
-	 @param sources						A vector of sources
-	 @param sinks						A vector of sinks
+	 @param sources					A vector of sources
+	 @param sinks					A vector of sinks
 	 */
 	virtual void recalculateMatrixCoefficients(TTSpatSourceVector& sources, TTSpatSinkVector& sinks) = 0;
 	
@@ -84,15 +88,15 @@ protected:
 	 */
 	virtual TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
+	
 #if 0
 #pragma mark -
 #pragma mark Setters and Getters
 #endif
 	
+	
 	// TODO: Add setters and getters for the source: width and order
 
-	
-	
 	/**	Set the number of sources.
 	 @param mode					The number of sources to spatialise.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
@@ -111,6 +115,7 @@ protected:
 //	TTErr setSourcePosition(const TTValue& aPosition, TTValue& unused);
 //	TTErr getSinkPosition(const TTValue& anIndex, TTValue& returnedPosition);
 //	TTErr setSinkPosition(const TTValue& aPosition, TTValue& unused);
+	
 	
 	/**	Return a list of all the available parameters that are specific to the current spatialisation method.
 	 @param
@@ -134,8 +139,6 @@ protected:
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 //	TTErr setFunctionParameter(const TTValue& aParameterNameAndValue, TTValue&);
-	
-	
 
 	
 public:
@@ -245,11 +248,10 @@ public:
 	
 #if 0
 #pragma mark -
-#pragma mark Particular to Units
+#pragma mark Particular to Renderers
 #endif
 		
-	/** TODO: document
-	 @param aValue						Used to return the number of sinks.
+	/** TODO: Get rolloff with increasing distance, used by DBAP
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTFloat64 getRolloff()
@@ -257,8 +259,8 @@ public:
 		return mRolloff;
 	}
 	
-	/** TODO: document
-	 @param aValue						The desired number of sinks.
+	/** TODO: Set rolloff with increasing distance, used by DBAP
+	 @param aValue						The desired rolloff value in dB.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setRolloff(const TTValue& aValue)
@@ -266,9 +268,7 @@ public:
 		mRolloff = aValue;
 
 	}
-	
-	
-	
+
 	
 };
 
