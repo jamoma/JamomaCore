@@ -6,9 +6,9 @@
  *
  * @details
  *
- * @authors Trond Lossius, Timothy Place, Nils Peters, 
+ * @authors Trond Lossius, Timothy Place, Nils Peters,  Jan Schacher
  *
- * @copyright Copyright © 2011 by Trond Lossius, Nils Peters, and Timothy Place @n
+ * @copyright Copyright © 2011 by Trond Lossius, Nils Peters, Timothy Place and Jan Schacher @n
  * This code is licensed under the terms of the "New BSD License" @n
  * http://creativecommons.org/licenses/BSD/
  */
@@ -21,12 +21,13 @@
 
 /** The TTSpatEntity class describes the geometry of a point.
  It can be used to describe a source or a sink, and includes the minimum
- amount of descriptors as defined in the core section of the SpatDIF specs.
+ amount of descriptors as defined in the core section of the SpatDIF specs [1].
+ [1] www.spatdif.org
  */
 class TTSpatEntity {
 protected:
 	
-	std::array<TTFloat64, 3> mPosition;		///< Position as Cartesian coordinates
+	std::array<TTFloat64, 3> mPosition;		///< Position as Cartesian coordinates, with x to the right, y forward and z upwards.
 	std::array<TTFloat64, 4> mOrientation;	///< The orientation of the object using Euler coordinates
 		
 public:

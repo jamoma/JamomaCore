@@ -48,17 +48,17 @@
 			name = "Lib Classes";
 			sourceTree = "<group>";
 		};
-		22E6FD1416BC5A6D007C1694 /* Unit DBAP */ = {
+		22E6FD1416BC5A6D007C1694 /* Renderer DBAP */ = {
 			isa = PBXGroup;
 			children = (
 				A726F33616BC586900590514 /* TTSpatDBAP.h */,
 				A726F34016BC588200590514 /* TTSpatDBAP.cpp */,
 				A726F34716BC589D00590514 /* TTSpatDBAP.test.cpp */,
 			);
-			name = "Unit DBAP";
+			name = "Renderer DBAP";
 			sourceTree = "<group>";
 		};
-		22E6FD1516BC5A76007C1694 /* Unit Snap */ = {
+		22E6FD1516BC5A76007C1694 /* Renderer Snap */ = {
 			isa = PBXGroup;
 			children = (
 				A726F33A16BC586900590514 /* TTSpatSnap.h */,
@@ -67,10 +67,10 @@
 				A726F34516BC588200590514 /* TTSpatSnapRenderer.cpp */,
 				A726F34816BC589D00590514 /* TTSpatSnap.test.cpp */,
 			);
-			name = "Unit Snap";
+			name = "Renderer Snap";
 			sourceTree = "<group>";
 		};
-		308EFEB01B601FF20044F4EF /* Unit Ambipanning */ = {
+		308EFEB01B601FF20044F4EF /* Renderer Ambipanning */ = {
 			isa = PBXGroup;
 			children = (
 				308EFEB11B6020070044F4EF /* TTSpatAmbipanning.h */,
@@ -78,7 +78,7 @@
 				308EFEB21B6020070044F4EF /* TTSpatAmbipanningRenderer.h */,
 				308EFEB51B60200D0044F4EF /* TTSpatAmbipanningRenderer.cpp */,
 			);
-			name = "Unit Ambipanning";
+			name = "Renderer Ambipanning";
 			sourceTree = "<group>";
 		};
 		A726F32416BC584C00590514 = {
@@ -88,9 +88,9 @@
 				308EFF1F1B618EFC0044F4EF /* Makefile */,
 				A726F35116BC58E100590514 /* TTSpatLib.cpp */,
 				22E6FD1316BC5A4E007C1694 /* Lib Classes */,
-				22E6FD1516BC5A76007C1694 /* Unit Snap */,
-				22E6FD1416BC5A6D007C1694 /* Unit DBAP */,
-				308EFEB01B601FF20044F4EF /* Unit Ambipanning */,
+				22E6FD1516BC5A76007C1694 /* Renderer Snap */,
+				22E6FD1416BC5A6D007C1694 /* Renderer DBAP */,
+				308EFEB01B601FF20044F4EF /* Renderer Ambipanning */,
 			);
 			sourceTree = "<group>";
 		};

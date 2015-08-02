@@ -32,34 +32,31 @@ class TTSpat : TTAudioObjectBase {
 	
 protected:
 
-	TTAudioObjectBasePtr	mSpatFunctionObject;
-	TTSymbol				mSpatFunction;
-	TTBoolean				mSceneHasChanged;
+	TTAudioObjectBasePtr	mSpatFunctionObject;	///< Current spat renderer
+	TTSymbol				mSpatFunction;			///< Name of the current spat renderer
+	TTBoolean				mSceneHasChanged;		///< Flag indicating that coefficients need to be recalculated
 
-	
-	// particular to scene
-	TTChannelCount			mSourceCount;			///< The number of sources
-	TTChannelCount			mSinkCount;				///< The number of destinations
+	// Parameters relating to scene, and common to many or all spat renderers
+	TTChannelCount			mSourceCount;	///< The number of sources
+	TTChannelCount			mSinkCount;		///< The number of destinations
 	TTSpatSourceVector		mSources;		///< A vector describing the geometry of the sources
 	TTSpatSinkVector		mSinks;			///< A vector describing the geometry of the sinks (e.g., speakers)
 	
+	// Parameters relating to scene, and specific to one or a few spat renderers
+	// None yet
 
-	// particular to units
-	
+	// Paraneters relating to unit rendering algorithm, and specific to one or a few spat units
+	TTFloat64			mRolloff;			///< global
+
 	//	TTSampleMatrixPtr	mMixerMatrixCoefficients;	///< A matrix holding all coefficient for matrix-based mixing of sources to sinks.
-	TTFloat64			mRolloff;					///< global
-
-	
-	
-	
 	
 	/**	Set what spatialisation function to use.
-	 @param aSpatFunction			The SpatLib renderer to use.
+	 @param aSpatFunction			The SpatLib renderer (unit) to use.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setSpatFunction(const TTValue& aSpatFunction);
 	
-	/**	Return a list of all the available spatialisation methods.
+	/**	Return a list of all available spatialisation renderers (units).
 	 @param
 	 @param listOfSpatFunctionsToReturn An array of available spatialisation rendering units.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
@@ -70,8 +67,6 @@ protected:
 #pragma mark -
 #pragma mark Process Routines
 #endif
-	
-	
 	
 	/** This method _must_ be defined by subclasses
 	 @details This method also takes care of matrix resizing if the number of sources or sinks change.
