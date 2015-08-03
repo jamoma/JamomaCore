@@ -30,6 +30,8 @@
 		A733C49A1B62F5FA00C7E19F /* TTSpatSourceEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TTSpatSourceEntity.h; path = includes/TTSpatSourceEntity.h; sourceTree = "<group>"; };
 		A733C49B1B62F62700C7E19F /* TTSpatSourceEntity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatSourceEntity.cpp; path = source/TTSpatSourceEntity.cpp; sourceTree = "<group>"; };
 		A733C49C1B62F63100C7E19F /* TTSpatSinkEntity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatSinkEntity.cpp; path = source/TTSpatSinkEntity.cpp; sourceTree = "<group>"; };
+		A7673C5A1B6F955F00CFCE38 /* TTSpatBaseRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSpatBaseRenderer.cpp; path = source/TTSpatBaseRenderer.cpp; sourceTree = "<group>"; };
+		A7673C5B1B6F955F00CFCE38 /* TTSpatSnapRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSpatSnapRenderer.h; path = includes/TTSpatSnapRenderer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -44,6 +46,8 @@
 				A733C49B1B62F62700C7E19F /* TTSpatSourceEntity.cpp */,
 				A733C4991B62F5FA00C7E19F /* TTSpatSinkEntity.h */,
 				A733C49C1B62F63100C7E19F /* TTSpatSinkEntity.cpp */,
+				A7673C5B1B6F955F00CFCE38 /* TTSpatSnapRenderer.h */,
+				A7673C5A1B6F955F00CFCE38 /* TTSpatBaseRenderer.cpp */,
 			);
 			name = "Lib Classes";
 			sourceTree = "<group>";

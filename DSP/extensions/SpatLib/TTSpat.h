@@ -24,7 +24,7 @@
 #include "TTSpatSinkEntity.h"
 
 
-/** Generalized SpatLib rendering unit wrapper.
+/** Generalized SpatLib wrapper, contains all information on the scene, and embeds a #TTSpatBaseRenderer renderer.
  */
 class TTSpat : TTAudioObjectBase {
 	TTCLASS_SETUP(TTSpat)
@@ -36,34 +36,19 @@ protected:
 	TTSymbol				mSpatFunction;			///< Name of the current spat renderer
 	TTBoolean				mSceneHasChanged;		///< Flag indicating that coefficients need to be recalculated
 
-	// Parameters relating to scene, and common to many or all spat renderers
+	// Parameters relating to the scene, and common to many or all spat renderers
 	TTChannelCount			mSourceCount;			///< The number of sources
 	TTChannelCount			mSinkCount;				///< The number of destinations
-	TTSpatSourceVector		mSources;				///< A vector describing the geometry of the sources
-	TTSpatSinkVector		mSinks;					///< A vector describing the geometry of the sinks (e.g., speakers)
+	TTSpatSourceVector		mSources;				///< A vector describing the geometry of each of the sources
+	TTSpatSinkVector		mSinks;					///< A vector describing the geometry of each of the sinks (e.g., speakers)
 	
 	// Parameters relating to scene, and specific to one or a few spat renderers
 	// None yet
 
-	// Paraneters relating to unit rendering algorithm, and specific to one or a few spat units
-	TTFloat64			mRolloff;					///< global
+	// Paraneters relating to one or a few specific rendering algorithms
+	TTFloat64			mRolloff;					///< Used by DBAP renderer
 
 	//	TTSampleMatrixPtr	mMixerMatrixCoefficients;	///< A matrix holding all coefficient for matrix-based mixing of sources to sinks.
-	
-	
-	/**	Set what spatialisation function to use.
-	 @param aSpatFunction			The SpatLib renderer (unit) to use.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr setSpatFunction(const TTValue& aSpatFunction);
-	
-	
-	/**	Return a list of all available spatialisation renderers (units).
-	 @param
-	 @param listOfSpatFunctionsToReturn An array of available spatialisation rendering units.
-	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr getSpatFunctions(const TTValue&, TTValue& listOfSpatFunctionsToReturn);
 	
 	
 #if 0
@@ -88,6 +73,8 @@ protected:
 	 */
 	virtual TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
+
+public:
 	
 #if 0
 #pragma mark -
@@ -95,7 +82,23 @@ protected:
 #endif
 	
 	
-	// TODO: Add setters and getters for the source: width and order
+	/**	Set what spatialisation function to use.
+	 @param aSpatFunction			The SpatLib renderer (unit) to use.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr setSpatFunction(const TTValue& aSpatFunction);
+	
+	
+	/**	Return a list of all available spatialisation renderers (units).
+	 @param
+	 @param listOfSpatFunctionsToReturn An array of available spatialisation rendering units.
+	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr getSpatFunctions(const TTValue&, TTValue& listOfSpatFunctionsToReturn);
+	
+	
+	// TODO: Do we need a getSpatFunction() method?
+	
 
 	/**	Set the number of sources.
 	 @param mode					The number of sources to spatialise.
@@ -104,17 +107,34 @@ protected:
 	TTErr setSourceCount(const TTValue& aSource);
 	
 	
+
+	/** Get the number of sinks.
+	 @param value						Used to return the number of sinks.
+	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr getSinkCount(TTValue& value);
+	
+	
 	/**	Set number of destinations
 	 @param mode					The number of destinations that sound will be rendered to.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	TTErr setSinkCount(const TTValue& aSink);
 	
+	/** Set the number of sinks.
+	 @param value						The desired number of sinks.
+	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
+	 */
+	TTErr setSinkCount(const TTValue& value);
+	
 	
 //	TTErr getSourcePosition(const TTValue& anIndex, TTValue& returnedPosition);
 //	TTErr setSourcePosition(const TTValue& aPosition, TTValue& unused);
 //	TTErr getSinkPosition(const TTValue& anIndex, TTValue& returnedPosition);
 //	TTErr setSinkPosition(const TTValue& aPosition, TTValue& unused);
+	
+	
+	// TODO: Add setters and getters for the source: width and order
 	
 	
 	/**	Return a list of all the available parameters that are specific to the current spatialisation method.
@@ -141,8 +161,6 @@ protected:
 //	TTErr setFunctionParameter(const TTValue& aParameterNameAndValue, TTValue&);
 
 	
-public:
-	
 	/** Get the number of sources.
 	 @param value						Used to return the number of sources.
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
@@ -157,18 +175,10 @@ public:
 	TTErr setSourceCount(const TTValue& value);
 	
 	
-	/** Get the number of sinks.
-	 @param value						Used to return the number of sinks.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr getSinkCount(TTValue& value);
+
 	
 	
-	/** Set the number of sinks.
-	 @param value						The desired number of sinks.
-	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
-	 */
-	TTErr setSinkCount(const TTValue& value);
+
 	
 	
 	/** Get the position of one source.
