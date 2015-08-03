@@ -36,9 +36,8 @@ The following are development notes while developing TTSpatDBAP starting of from
 #define __SPATDBAP_H__
 
 #include "TTSampleMatrix.h"
-#include "TTSpatBase.h"
-#include "TTSpatDBAPRenderer.h"
-#include "TTSpatDBAPSource.h"
+#include "TTSpat.h"
+#include "TTSpatBaseRenderer.h"
 
 /**	Jamoma DSP SpatLib unit based on Distance-based amplitude panning (DBAP)
  *
@@ -47,7 +46,7 @@ The following are development notes while developing TTSpatDBAP starting of from
  * DBAP is matrix-based and ensures equal intensity while adjusting gains to each of the sinks in such a way that relative gain diminish with increasing distance from source to sink.
  * The exact rolloff rate (in dB) can be controlled with the rolloff attribute of the #TTSpatDBAPRenderer class.
  */
-class TTSpatDBAP : public TTSpat {
+class TTSpatDBAP : public TTSpatBaseRenderer {
 	TTCLASS_SETUP(TTSpatDBAP)
 	
 public:	

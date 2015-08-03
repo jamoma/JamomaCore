@@ -2,19 +2,12 @@
 sources:
   - TTSpatLib.cpp
   - TTSpat.cpp
-  - source/TTSpatBase.cpp
-  - source/TTSpatBaseRenderer.cpp
   - source/TTSpatEntity.cpp
   - source/TTSpatSourceEntity.cpp
   - source/TTSpatSinkEntity.cpp
+  - source/TTSpatBaseRenderer.cpp
   - source/TTSpatDBAP.cpp
-  - source/TTSpatDBAPRenderer.cpp
-  - source/TTSpatSnap.cpp
-  - source/TTSpatSnapRenderer.cpp
   - tests/TTSpatDBAP.test.cpp
-  - tests/TTSpatSnap.test.cpp
-  - source/TTSpatAmbipanning.cpp
-  - source/TTSpatAmbipanningRenderer.cpp
 
 includes:
   - "."

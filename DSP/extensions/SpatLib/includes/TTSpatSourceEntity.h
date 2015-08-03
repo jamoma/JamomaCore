@@ -30,6 +30,17 @@ class TTSpatSourceEntity : public TTSpatEntity {
 	
 	// Parameters specific to one or a few spat renderers
 	TTFloat64				order;			///< Ambisonic order - used by ambipanning
+	
+public:
+	
+	void setWidth(TTFloat64 x);
+	
+	void getWidth(TTFloat64& x);
+	
+	void setOrder(TTFloat64 x);
+	
+	void getOrder(TTFloat64& x);
+	
 };
 
 

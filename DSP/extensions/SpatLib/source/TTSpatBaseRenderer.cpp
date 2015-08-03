@@ -17,7 +17,7 @@
 #include "TTSpatBaseRenderer.h"
 
 
-
+// TODO: processAudio should be checking flag and update coeffs before processing audio
 
 /// Methods for TTSpatSnapRenderer: //////////////////////
 

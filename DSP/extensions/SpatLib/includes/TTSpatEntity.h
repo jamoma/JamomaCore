@@ -42,29 +42,20 @@ public:
 	virtual ~TTSpatEntity();
 	
 	
-	/** Get the current position of the point.
-	 @param x				Cartesian x-coordinate of the point.
-	 @param y				Cartesian y-coordinate of the point.
-	 @param z				Cartesian z-coordinate of the point.
-	 */
-	void getPosition(TTFloat64& x, TTFloat64& y, TTFloat64& z);
-	
-	
 	/** Set the position of the point.
 	 @param x				Cartesian x-coordinate of the point.
 	 @param y				Cartesian y-coordinate of the point.
 	 @param z				Cartesian z-coordinate of the point.
 	 */
 	void setPosition(TTFloat64 x, TTFloat64 y, TTFloat64 z);
+
 	
-	
-	/** Get the orientation of the point expressed as quaternions.
-	 @param q1				First coordinate of the point.
-	 @param q2				Second coordinate of the point.
-	 @param q3				Third coordinate of the point.
-	 @param q4				Fourth coordinate of the point.
+	/** Get the current position of the point.
+	 @param x				Cartesian x-coordinate of the point.
+	 @param y				Cartesian y-coordinate of the point.
+	 @param z				Cartesian z-coordinate of the point.
 	 */
-	void getOrientation(TTFloat64& q1, TTFloat64& q2, TTFloat64& q3, TTFloat64& q4);
+	void getPosition(TTFloat64& x, TTFloat64& y, TTFloat64& z);
 	
 	
 	/** Set the orientation of the point expressed as quaternions.
@@ -74,6 +65,15 @@ public:
 	 @param q4				Fourth coordinate of the point.
 	 */
 	void setOrientation(TTFloat64 q1, TTFloat64 q2, TTFloat64 q3, TTFloat64 q4);
+	
+	
+	/** Get the orientation of the point expressed as quaternions.
+	 @param q1				First coordinate of the point.
+	 @param q2				Second coordinate of the point.
+	 @param q3				Third coordinate of the point.
+	 @param q4				Fourth coordinate of the point.
+	 */
+	void getOrientation(TTFloat64& q1, TTFloat64& q2, TTFloat64& q3, TTFloat64& q4);
 };
 
 

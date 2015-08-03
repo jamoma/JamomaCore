@@ -23,7 +23,6 @@
 #include "TTSampleMatrix.h"
 #include "TTSpatEntity.h"
 #include "TTSpatBaseRenderer.h"
-#include "TTSpatAmbipanningSource.h"
 
 
 /** TTSpatAmbipanningRenderer contains attributes and methods that are specific to this particular spatialisation renderer.

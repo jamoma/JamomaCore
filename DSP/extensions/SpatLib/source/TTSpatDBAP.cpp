@@ -45,6 +45,8 @@ TTSpatDBAP::~TTSpatDBAP()
 }
 
 
+// TODO : This is duplicating the TTSpatBaseRenderer method
+/*
 TTErr TTSpatDBAP::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&		in = inputs->getSignal(0);
@@ -97,7 +99,7 @@ TTErr TTSpatDBAP::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 	
 }
 
-
+*/
 
 
 

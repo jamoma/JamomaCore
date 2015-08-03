@@ -29,13 +29,6 @@ TTSpatEntity::~TTSpatEntity()
 	
 }
 
-void TTSpatEntity::getPosition(TTFloat64& x, TTFloat64& y, TTFloat64& z)
-{
-	x = mPosition[0];
-	y = mPosition[1];
-	z = mPosition[2];
-}
-
 
 void TTSpatEntity::setPosition(TTFloat64 x, TTFloat64 y, TTFloat64 z)
 {
@@ -45,12 +38,11 @@ void TTSpatEntity::setPosition(TTFloat64 x, TTFloat64 y, TTFloat64 z)
 }
 
 
-void TTSpatEntity::getOrientation(TTFloat64& q1, TTFloat64& q2, TTFloat64& q3, TTFloat64& q4)
+void TTSpatEntity::getPosition(TTFloat64& x, TTFloat64& y, TTFloat64& z)
 {
-	q1 = mOrientation[0];
-	q2 = mOrientation[1];
-	q3 = mOrientation[2];
-	q4 = mOrientation[3];
+	x = mPosition[0];
+	y = mPosition[1];
+	z = mPosition[2];
 }
 
 
@@ -60,4 +52,13 @@ void TTSpatEntity::setOrientation(TTFloat64 q1, TTFloat64 q2, TTFloat64 q3, TTFl
 	mOrientation[1] = q2;
 	mOrientation[2] = q3;
 	mOrientation[3] = q4;
+}
+
+
+void TTSpatEntity::getOrientation(TTFloat64& q1, TTFloat64& q2, TTFloat64& q3, TTFloat64& q4)
+{
+	q1 = mOrientation[0];
+	q2 = mOrientation[1];
+	q3 = mOrientation[2];
+	q4 = mOrientation[3];
 }

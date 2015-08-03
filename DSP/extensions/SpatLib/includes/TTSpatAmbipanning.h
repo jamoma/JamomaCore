@@ -22,9 +22,8 @@
 
 #include "TTDSP.h"
 #include "TTSampleMatrix.h"
-#include "TTSpatBase.h"
+#include "TTSpat.h"
 #include "TTSpatAmbipanningRenderer.h"
-#include "TTSpatAmbipanningSource.h"
 
 
 /**	Jamoma DSP SpatLib unit based on Distance-based amplitude panning (Ambipanning)
@@ -34,7 +33,7 @@
  * Ambipanning is matrix-based and ensures equal intensity while adjusting gains to each of the sinks in such a way that relative gain diminish with increasing distance from source to sink.
  * The exact rolloff rate (in dB) can be controlled with the rolloff attribute of the #TTSpatAmbipanningRenderer class.
  */
-class TTSpatAmbipanning : public TTSpatBase {
+class TTSpatAmbipanning : public TTSpatBaseRenderer {
 	TTCLASS_SETUP(TTSpatAmbipanning)
 	
 	TTSpatAmbipanningRenderer* getRenderer()

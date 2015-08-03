@@ -31,15 +31,23 @@ TTSpatSourceEntity::~TTSpatSourceEntity()
 	
 }
 
-void TTSpatSourceEntity::getSourceWidth(TTFloat64& x)
+
+void TTSpatSourceEntity::setWidth(TTFloat64 x)
+{
+	width = x;
+}
+
+
+void TTSpatSourceEntity::getWidth(TTFloat64& x)
 {
 	x = width;
 }
 
 
-void TTSpatSourceEntity::setSourceWidth(TTFloat64 x)
+
+void TTSpatSourceEntity::setOrder(TTFloat64 x)
 {
-	width = x;
+	order = x;
 }
 
 
@@ -49,7 +57,3 @@ void TTSpatSourceEntity::getOrder(TTFloat64& x)
 }
 
 
-void TTSpatSourceEntity::setOrder(TTFloat64 x)
-{
-	order = x;
-}

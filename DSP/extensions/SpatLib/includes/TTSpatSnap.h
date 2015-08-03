@@ -21,15 +21,15 @@
 
 #include "TTDSP.h"
 #include "TTSampleMatrix.h"
+#include "TTSpat.h"
 #include "TTSpatEntity.h"
 #include "TTSpatSnapRenderer.h"
-#include "TTSpatBase.h"
 
 
 /**	This class is eventually intended to provide a generalised interface for spatial renderers.
  @todo The class might be further generalised so that it can be reused for other spatial renderers.
  */
-class TTSpatSnap : public TTSpatBase {
+class TTSpatSnap : public TTSpatBaseRenderer {
 	TTCLASS_SETUP(TTSpatSnap)
 	
 	/**	Unit Tests.
