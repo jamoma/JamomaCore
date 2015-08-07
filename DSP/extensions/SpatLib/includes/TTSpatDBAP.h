@@ -39,6 +39,8 @@ The following are development notes while developing TTSpatDBAP starting of from
 #include "TTSpat.h"
 #include "TTSpatBaseRenderer.h"
 
+
+
 /**	Jamoma DSP SpatLib unit based on Distance-based amplitude panning (DBAP)
  *
  * @details DBAP permits sinks (speakers) to be positioned any way you want.
@@ -47,9 +49,16 @@ The following are development notes while developing TTSpatDBAP starting of from
  * The exact rolloff rate (in dB) can be controlled with the rolloff attribute of the #TTSpatDBAPRenderer class.
  */
 class TTSpatDBAP : public TTSpatBaseRenderer {
-	TTCLASS_SETUP(TTSpatDBAP)
 	
-public:	
+private:
+	
+	void recalculate(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks);
+	
+public:
+	
+	TTSpatDBAP(TTAudioObjectBasePtr owner);
+	~TTSpatDBAP();
+	
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	/**	Unit Tests.
@@ -57,11 +66,6 @@ public:
  @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
  */
 virtual TTErr test(TTValue& aReturnedTestInfo);
-	
-
-private:
-	
-	void recalculateMatrixCoefficients(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks);
 	
 	
 };

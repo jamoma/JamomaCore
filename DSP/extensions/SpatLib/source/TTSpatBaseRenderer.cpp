@@ -21,8 +21,9 @@
 
 /// Methods for TTSpatSnapRenderer: //////////////////////
 
-TTSpatBaseRenderer::TTSpatBaseRenderer():
-mMixerMatrixCoefficients(NULL)
+TTSpatBaseRenderer::TTSpatBaseRenderer(TTAudioObjectBasePtr owner):
+mMixerMatrixCoefficients(NULL),
+mOwner(owner)
 {
 	// TODO: Must set up pointer to associated TTSpat class
 	TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&mMixerMatrixCoefficients, kTTValNONE);

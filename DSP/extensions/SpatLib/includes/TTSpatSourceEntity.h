@@ -17,6 +17,7 @@
 #define __SPATSOURCEENTITY_H__
 
 #include "TTDSP.h"
+#include "TTSpatEntity.h"
 #include <array>
 
 
@@ -31,7 +32,11 @@ class TTSpatSourceEntity : public TTSpatEntity {
 	// Parameters specific to one or a few spat renderers
 	TTFloat64				order;			///< Ambisonic order - used by ambipanning
 	
+	
 public:
+	
+	TTSpatSourceEntity();
+	~TTSpatSourceEntity();
 	
 	void setWidth(TTFloat64 x);
 	

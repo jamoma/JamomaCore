@@ -20,9 +20,7 @@
 #define thisTTClassTags		"audio, spatialization"
 
 TT_AUDIO_CONSTRUCTOR,
-mSpatRendererObject(NULL),
-mSourceCount(1),
-mSinkCount(1)
+mRenderer(NULL)
 {
 	mSources.resize(1);
 	mSinks.resize(1);
@@ -35,6 +33,7 @@ mSinkCount(1)
 	
 	addMessageWithArguments(setSourcePosition);
 	addMessageWithArguments(getSourcePosition);
+	
 	
 	addMessageWithArguments(getSourceWidth);
 	addMessageWithArguments(setSourceWidth);
@@ -60,7 +59,7 @@ mSinkCount(1)
 
 TTSpat::~TTSpat()
 {
-	delete mSpatRendererObject;
+	delete mRenderer;
 }
 
 
@@ -69,44 +68,26 @@ TTSpat::~TTSpat()
 #pragma mark Renderer set/get
 #endif
 
+// Included here rather than in header in order to avoid circular references between headers
+#include "TTSpatDBAP.h"
 
-TTErr TTSpat::setSpatFunction(const TTValue& aSpatFunction)
+
+TTErr TTSpat::setRenderer(const TTValue& aSpatRenderer)
 {
 	TTErr				err;
-	TTSymbol			spatFunctionName;
-	TTAudioObjectBasePtr	spatFunction = NULL;
+	TTSymbol			spatRendererName;
+	TTSpatBaseRenderer*	spatRenderer = NULL;
 	
-	spatFunctionName = aSpatFunction[0];
+	spatRendererName = aSpatRenderer[0];
 	
 	// if the function didn't change, then don't change the function
-	if (spatFunctionName == mSpatRendererObject)
-		return kTTErrNone;	
+	if (spatRendererName == mRenderer)
+		return kTTErrNone;
 	
-	// TTObjectBaseInstantiate will automatically free the object passed into it
-	err = TTObjectBaseInstantiate(spatFunctionName, &spatFunction, kTTValNONE);
-	if (!err && spatFunction) {
-		// Now set the state of the object to the state we have stored
-		spatFunction->setAttributeValue(TT("sourceCount"), mSourceCount);
-		spatFunction->setAttributeValue(TT("sinkCount"), mSinkCount);
-		
-		mSpatRendererName = spatFunctionName;
-		mSpatRendererObject = spatFunction;
-		
-		// FIXME: This is not thread safe if the audio is running
-		// We need to queue this switch to occur at a time when it is safe 
-		// (when audio is not processed by the old object any longer)
-		// Redmine #994
-		//
-		// ACTUALLY: it should be okay because of the locks in the TTObjectBaseInstantiate spinlocking to wait
-		// for any process calls.
-		// However, maybe those need some improvements like using volatile or atomic types
-	}
-	else {
-		// some problems have occurred, not yet sure how we should handle this...
-	}
+	if (spatRendererName == "dbap")
+		mRenderer = new TTSpatDBAP(this);
 	
-	
-	return err;
+	return kTTErrNone;
 }
 
 
@@ -125,7 +106,7 @@ TTErr TTSpat::getSpatFunctions(const TTValue&, TTValue& listOfSpatFunctionsToRet
 
 TTErr TTSpat::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	return mSpatRendererObject->processAudio(inputs, outputs);
+	return mRenderer->processAudio(inputs, outputs);
 }
 
 
@@ -153,7 +134,7 @@ TTErr TTSpat::getSourceCount(TTValue& value)
 }
 
 
-TTErr TTSpat::setSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
+TTErr TTSpat::setSourcePositionCoordinates(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
 {
 	// When receiving messages, source index start from 1, not 0
 	TTInt32 source = sourceNumber - 1;
@@ -180,11 +161,11 @@ TTErr TTSpat::setSourcePosition(const TTValue& aPosition, TTValue& unused)
 	z = aPosition[3];
 	
 	// TODO: Return error if we do not have four list members?
-	return setSourcePosition(sourceNumber, x, y, z);
+	return setSourcePositionCoordinates(sourceNumber, x, y, z);
 }
 
 
-TTErr TTSpat::getSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
+TTErr TTSpat::getSourcePositionCoordinates(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
 {
 	// When receiving messages, source index start from 1, not 0
 	TTInt32 source = sourceNumber - 1;
@@ -206,7 +187,7 @@ TTErr TTSpat::getSourcePosition(const TTValue& requestedChannel, TTValue& aPosit
 	
 	sourceNumber = requestedChannel[0];
 	
-	getSourcePosition(sourceNumber, x, y, z);
+	getSourcePositionCoordinates(sourceNumber, x, y, z);
 	
 	aPosition.resize(4);
 	
@@ -219,7 +200,7 @@ TTErr TTSpat::getSourcePosition(const TTValue& requestedChannel, TTValue& aPosit
 }
 
 
-TTErr TTSpat::setSourceWidth(TTInt32 sourceNumber, TTFloat64 width)
+TTErr TTSpat::setSourceWidthAsFloat(TTInt32 sourceNumber, TTFloat64 width)
 {
 	// When receiving messages, source index start from 1, not 0
 	sourceNumber = sourceNumber - 1;
@@ -243,11 +224,11 @@ TTErr TTSpat::setSourceWidth(const TTValue& aWidth, TTValue& anUnused)
 	sourceNumber = aWidth[0];
 	width = aWidth[1];
 	
-	return setSourceWidth(sourceNumber, width);
+	return setSourceWidthAsFloat(sourceNumber, width);
 }
 
 
-TTErr TTSpat::getSourceWidth(TTInt32 sourceNumber, TTFloat64& width)
+TTErr TTSpat::getSourceWidthAsFloat(TTInt32 sourceNumber, TTFloat64& width)
 {
 	// When receiving messages, source index start from 1, not 0
 	sourceNumber = sourceNumber - 1;
@@ -268,7 +249,7 @@ TTErr TTSpat::getSourceWidth(const TTValue& aRequestedChannel, TTValue& aWidth)
 	
 	sourceNumber = aRequestedChannel[0];
 	
-	getSourceWidth(sourceNumber, width);
+	getSourceWidthAsFloat(sourceNumber, width);
 	
 	aWidth.resize(2);
 	aWidth[0] = sourceNumber;
@@ -302,7 +283,7 @@ TTErr TTSpat::getSinkCount(TTValue& value)
 }
 
 
-TTErr TTSpat::setSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
+TTErr TTSpat::setSinkPositionCoordinates(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z)
 {
 	// When receiving messages, sink index start from 1, not 0
 	TTInt32 sink = sinkNumber - 1;
@@ -329,11 +310,11 @@ TTErr TTSpat::setSinkPosition(const TTValue& aPosition, TTValue& unused)
 	z = aPosition[3];
 	
 	// TODO: Return error if we do not have four list members?
-	return setSinkPosition(sinkNumber, x, y, z);
+	return setSinkPositionCoordinates(sinkNumber, x, y, z);
 }
 
 
-TTErr TTSpat::getSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
+TTErr TTSpat::getSinkPositionCoordinates(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z)
 {
 	// When receiving messages, sink index start from 1, not 0
 	TTInt32 sink = sinkNumber - 1;
@@ -355,7 +336,7 @@ TTErr TTSpat::getSinkPosition(const TTValue& requestedChannel, TTValue& aPositio
 	
 	sinkNumber = requestedChannel[0];
 	
-	getSinkPosition(sinkNumber, x, y, z);
+	getSinkPositionCoordinates(sinkNumber, x, y, z);
 	
 	aPosition.resize(4);
 	

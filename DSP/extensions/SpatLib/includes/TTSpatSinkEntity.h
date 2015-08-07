@@ -17,6 +17,7 @@
 #define __SPATSINKENTITY_H__
 
 #include "TTDSP.h"
+#include "TTSpatEntity.h"
 #include <array>
 
 
@@ -24,9 +25,16 @@
  @details		Actually #TTSpatSink provides no specialization at this time
  */
 class TTSpatSinkEntity : public TTSpatEntity {
+	
 	// No specialization have been introduced so far
 	
 	// TODO: Weights for DBAP ....
+	
+public:
+	
+	TTSpatSinkEntity();
+	~TTSpatSinkEntity();
+	
 };
 
 

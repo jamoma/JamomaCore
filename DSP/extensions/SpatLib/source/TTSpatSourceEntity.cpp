@@ -17,8 +17,6 @@
 #include "TTSpatSourceEntity.h"
 
 TTSpatSourceEntity::TTSpatSourceEntity() :
-mPosition(),
-mOrientation(),
 width(),
 order()
 {

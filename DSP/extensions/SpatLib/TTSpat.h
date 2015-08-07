@@ -22,6 +22,10 @@
 #include "TTSpatEntity.h"
 #include "TTSpatSourceEntity.h"
 #include "TTSpatSinkEntity.h"
+#include "TTSpatBaseRenderer.h"
+
+
+class TTSpatBaseRenderer;	// Forward declaration
 
 
 /** Generalized SpatLib wrapper, contains all information on the scene, and embeds a #TTSpatBaseRenderer renderer.
@@ -32,13 +36,13 @@ class TTSpat : TTAudioObjectBase {
 	
 protected:
 
-	TTAudioObjectBasePtr	mSpatRendererObject;	///< Current spat renderer
+	TTSpatBaseRenderer*		mRenderer;	///< Current spat renderer
 	TTSymbol				mSpatRendererName;		///< Name of the current spat renderer
 	TTBoolean				mSceneHasChanged;		///< Flag indicating that coefficients need to be recalculated
-
-	// Parameters relating to the scene, and common to many or all spat renderers
 	TTChannelCount			mSourceCount;			///< The number of sources
 	TTChannelCount			mSinkCount;				///< The number of destinations
+
+	// Parameters relating to the scene, and common to many or all spat renderers
 	TTSpatSourceVector		mSources;				///< A vector describing the geometry of each of the sources
 	TTSpatSinkVector		mSinks;					///< A vector describing the geometry of each of the sinks (e.g., speakers)
 	
@@ -77,7 +81,7 @@ public:
 	 @param aSpatFunction			The SpatLib renderer (unit) to use.
 	 @return						#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
-	TTErr setSpatFunction(const TTValue& aSpatFunction);
+	TTErr setRenderer(const TTValue& aSpatFunction);
 	
 	
 	/**	Return a list of all available spatialisation renderers (units).
@@ -112,12 +116,13 @@ public:
 	
 	
 	/** Set the position of one source.
+	 This method need to have a different name to the one below (rather than overloading) in order for the addMessageWithArguments convinience method in the constructor to work.
 	 @param sourceNumber				The source (counting from 1) that we want to set the position of.
 	 @param x							Cartesian x-coordinate of the position.
 	 @param y							Cartesian y-coordinate of the position.
 	 @param z							Cartesian z-coordinate of the position.
 	 */
-	TTErr setSourcePosition(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
+	TTErr setSourcePositionCoordinates(TTInt32 sourceNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
 
 	
 	/** Get the position of one source.
@@ -134,7 +139,7 @@ public:
 	 @param y							Cartesian y-coordinate of the position.
 	 @param z							Cartesian z-coordinate of the position.
 	 */
-	TTErr getSourcePosition(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
+	TTErr getSourcePositionCoordinates(TTInt32 sourceNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
 	
 	
 	/** Get the position of one source.
@@ -147,7 +152,7 @@ public:
 
 	/* TODO: Docygen
 	 */
-	TTErr setSourceWidth(TTInt32 sourceNumber, TTFloat64 width);
+	TTErr setSourceWidthAsFloat(TTInt32 sourceNumber, TTFloat64 width);
 	
 	TTErr setSourceWidth(const TTValue& aWidth, TTValue& anUnused);
 	
@@ -156,7 +161,7 @@ public:
 	
 	/* TODO: Docygen
 	 */
-	TTErr getSourceWidth(TTInt32 sourceNumber, TTFloat64& width);
+	TTErr getSourceWidthAsFloat(TTInt32 sourceNumber, TTFloat64& width);
 	
 	TTErr getSourceWidth(const TTValue& aRequestedChannel, TTValue& aWidth);
 	
@@ -187,7 +192,7 @@ public:
 	 @param y							Cartesian y-coordinate of the position.
 	 @param z							Cartesian z-coordinate of the position.
 	 */
-	TTErr setSinkPosition(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
+	TTErr setSinkPositionCoordinates(TTInt32 sinkNumber, TTFloat64 x, TTFloat64 y, TTFloat64 z);
 	
 	
 	/** Get the position of one sink.
@@ -204,7 +209,7 @@ public:
 	 @param y							Cartesian y-coordinate of the position.
 	 @param z							Cartesian z-coordinate of the position.
 	 */
-	TTErr getSinkPosition(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
+	TTErr getSinkPositionCoordinates(TTInt32 sinkNumber, TTFloat64& x, TTFloat64& y, TTFloat64& z);
 	
 	
 	/** Get the position of one sink.

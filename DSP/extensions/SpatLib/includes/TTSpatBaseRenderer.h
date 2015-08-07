@@ -24,7 +24,7 @@
  */
 class TTSpatBaseRenderer {
 	
-	TTAudioObjectBasePtr	mSpatInstance;				///< The #TTSpat instance that this rendering instance is associated with.
+	TTAudioObjectBasePtr	mOwner;				///< The #TTSpat instance that this rendering instance is associated with.
 	
 public:
 	
@@ -33,7 +33,7 @@ public:
 	
 	/** Constructor
 	 */
-	TTSpatBaseRenderer();
+	TTSpatBaseRenderer(TTAudioObjectBasePtr owner);
 	
 	
 	/** Destructor
@@ -45,7 +45,7 @@ public:
 	 @param sources						A vector of sources
 	 @param sinks						A vector of sinks
 	 */
-	virtual void recalculateCoefficients(TTSpatSourceVector& sources, TTSpatSinkVector& sinks) = 0;
+	virtual void recalculate(TTSpatSourceVector& sources, TTSpatSinkVector& sinks) = 0;
 	
 	
 	/**	A standard matrix-based audio processing method which may be used for matrix-based spatialization algorithms.

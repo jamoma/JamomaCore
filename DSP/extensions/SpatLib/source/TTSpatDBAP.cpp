@@ -20,24 +20,11 @@
 
 #include "TTSpatDBAP.h"
 
-#define thisTTClass			TTSpatDBAP
-#define thisTTClassName		"spat.dbap"
-#define thisTTClassTags		"audio, spatialization, processing, dbap"
 
 
-TTObjectBasePtr TTSpatDBAP::instantiate(TTSymbol name, TTValue arguments)
+TTSpatDBAP::TTSpatDBAP(TTAudioObjectBasePtr owner) : TTSpatBaseRenderer(owner)
 {
-	return (TTObjectBasePtr) new thisTTClass(arguments);
-}
-
-extern "C" void thisTTClass :: registerClass ()
-{
-	TTClassRegister( thisTTClassName, thisTTClassTags, thisTTClass :: instantiate );
-}
-
-
-TTSpatDBAP::TTSpatDBAP(const TTValue& arguments) : TTSpat(arguments)
-{
+	
 }
 
 TTSpatDBAP::~TTSpatDBAP()
@@ -103,7 +90,7 @@ TTErr TTSpatDBAP::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 
 
 
-void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks)
+void TTSpatDBAP::recalculate(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks)
 {
 	/*
 	 double k;											// Scaling coefficient
@@ -154,6 +141,11 @@ void TTSpatDBAPRenderer::recalculateMatrixCoefficients(TTSpatSourceVector& aSour
 	
 	std::vector<TTFloat64> dia;
 	dia.resize(aSinks.size());
+	
+	
+	// Prototyping - Trond will continue from here:
+	// mOwner->getRolloff()
+	
 	
 	TTFloat64 rolloffPowerFactor = log(pow(10., (mRolloff / 20.)))/log(2.);
 	
