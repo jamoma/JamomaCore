@@ -3,12 +3,9 @@ JamomaCore
 
 [![Stories in Ready](https://badge.waffle.io/jamoma/jamomacore.png?label=ready&title=Ready)](http://waffle.io/jamoma/jamomacore)
 
-The Jamoma Platform is composed of a layered framework architecture that creates an object model 
-	and then specializes that object model for audio and matrix processing, and system automation and management.
+The Jamoma Platform is composed of a layered framework architecture that creates an object model and then specializes that object model for audio and matrix processing, and system automation and management.
 
-	Jamoma makes use of polymorphic typing, dynamic binding, and introspection to create a cross-platform API 
-	pulling ideas from languages such as Smalltalk and Objective-C while remaining within the bounds of the 
-	portable and cross-platform C++ context.
+Jamoma makes use of polymorphic typing, dynamic binding, and introspection to create a cross-platform API pulling ideas from languages such as Smalltalk and Objective-C while remaining within the bounds of the portable and cross-platform C++ context.
 
 * Foundation : Runtime and API implementing a light-weight, dynamically bound, reflective object-oriented architecture layer on top of C++.
 * DSP : A C++ framework for audio processing objects. Jamoma DSP is further documented in \cite Place2010:DSP .
