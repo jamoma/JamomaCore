@@ -74,5 +74,11 @@ if(WIN32)
 	target_link_libraries(${PROJECT_NAME} PUBLIC ws2_32)
 endif()
 
+if(BUILD_JAMOMAPD)
+        install(TARGETS ${PROJECT_NAME}
+                        DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                        COMPONENT JamomaPd)
+endif()
+
 ### Tests ###
 addTestTarget()

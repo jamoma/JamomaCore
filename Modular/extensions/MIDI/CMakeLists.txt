@@ -52,3 +52,9 @@ target_link_frameworks(TARGET ${PROJECT_NAME}
 if(WIN32)
 	target_link_libraries(${PROJECT_NAME} PRIVATE winmm)
 endif()
+
+if(BUILD_JAMOMAPD)
+        install(TARGETS ${PROJECT_NAME}
+                        DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                        COMPONENT JamomaPd)
+endif()

@@ -83,6 +83,12 @@ include_directories("${PROJECT_SOURCE_DIR}/Mersenne-1.1")
 
 add_jamoma_library()
 
+if(BUILD_JAMOMAPD)
+        install(TARGETS ${PROJECT_NAME}
+                        DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                        COMPONENT JamomaPd)
+endif()
+
 if(NOT ANDROID AND NOT WIN32)
 	target_link_libraries(${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
 	target_link_libraries(${PROJECT_NAME} ${DL_LIBRARY})

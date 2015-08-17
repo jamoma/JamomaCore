@@ -28,6 +28,12 @@ include_directories("${PROJECT_SOURCE_DIR}/includes")
 
 add_jamoma_library()
 
+if(BUILD_JAMOMAPD)
+        install(TARGETS ${PROJECT_NAME}
+                        DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                        COMPONENT JamomaPd)
+endif()
+
 target_link_libraries(${PROJECT_NAME} Foundation)
 
 ### Tests ###
