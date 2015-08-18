@@ -45,6 +45,7 @@ mDefaultNamespace(NULL)
 	addAttribute(Namespace, kTypeSymbol);
     
     addAttributeWithSetter(Address, kTypeSymbol);
+    addAttributeProperty(Address, hidden, YES);
 	
 	registerAttribute(TTSymbol("currentDescription"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentDescription, (TTSetterMethod)&TTCueManager::setCurrentDescription);
 	registerAttribute(TTSymbol("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
