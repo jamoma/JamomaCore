@@ -194,6 +194,7 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 	TTAddressItemPtr    aSelection, anItem;
 	TTAddress           address;
 	TTUInt32			i;
+    TTValue             v;
 	
     aSelection = getNamespace();
 	
@@ -206,6 +207,16 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
             // in relative address case : use the mAddress
             if (address.getType() == kAddressRelative)
                 address = mAddress.appendAddress(address);
+            
+            // when there are several applications
+            TTModularApplicationManager->getAttributeValue(TTSymbol("applicationNames"), v);
+            if (v.size() > 1 && address.getDirectory() == NO_DIRECTORY)
+            {
+                TTModularApplicationManager->getAttributeValue(TTSymbol("applicationLocalName"), v);
+                TTSymbol localApplicationName = v[0];
+                
+                address = TTAddress(localApplicationName, address.getParent(), address.getName(), address.getInstance(), NO_ATTRIBUTE);
+            }
  /*
             // wildcard case
             TTNodePtr	aNode;
@@ -219,8 +230,8 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
                 aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
                 
             }
-*/			
-            if (address == kTTAdrsRoot)
+*/
+            if (address.getParent() == NO_PARENT)
                 aSelection->setSelection(YES, YES);
             
             else if (!aSelection->find(address, &anItem))
@@ -239,6 +250,7 @@ TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& output
     TTAddressItemPtr    aSelection, anItem;
 	TTAddress           address;
 	TTUInt32			i;
+    TTValue             v;
 	
     aSelection = getNamespace();
 	
@@ -251,8 +263,18 @@ TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& output
             // in relative address case : use the mAddress
             if (address.getType() == kAddressRelative)
                 address = mAddress.appendAddress(address);
+            
+            // when there are several applications
+            TTModularApplicationManager->getAttributeValue(TTSymbol("applicationNames"), v);
+            if (v.size() > 1 && address.getDirectory() == NO_DIRECTORY)
+            {
+                TTModularApplicationManager->getAttributeValue(TTSymbol("applicationLocalName"), v);
+                TTSymbol localApplicationName = v[0];
+                
+                address = TTAddress(localApplicationName, address.getParent(), address.getName(), address.getInstance(), NO_ATTRIBUTE);
+            }
 			
-            if (address == kTTAdrsRoot)
+            if (address.getParent() == NO_PARENT)
                 aSelection->setSelection(NO, YES);
             
             else if (!aSelection->find(address, &anItem))
