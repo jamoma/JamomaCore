@@ -31,7 +31,7 @@ mExpression(NULL), mResult(NULL),mExpectedMatch(expectedMatch)
         TTLogError("%s caught: ", e.what(), anExpression);
 		
 		if (e.code() == regex_constants::error_brack)
-            TTLogError("The code was error_brack");
+            TTLogError("The code was error_brack with expression \"%s\"\n", anExpression);
 	}
 	
 	mResult = new TTRegexStringResult();
