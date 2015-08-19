@@ -426,7 +426,7 @@ TTErr TTCue::processStore(TTObject aScript, const TTAddressItemPtr aSelection, T
                     
                     // TODO : do not use only the nameItem
                     nameInstance = nameItem->getSymbol().c_str();
-                    nameInstance += ":"; //S_DIRECTORY.string();
+                    nameInstance += S_DIRECTORY.string();
                     
                     // edit a sub script line
                     v = TTValue(TTSymbol(nameInstance));
