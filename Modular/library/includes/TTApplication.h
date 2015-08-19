@@ -199,7 +199,7 @@ private:
     
     /** Register an object into the application directory at an address
      @param inputValue      an address, an object and an optional context pointer
-     @param outputValue     the effective registration address
+     @param outputValue     the effective registration address and the node
      @return #TTErr error code */
 	TTErr ObjectRegister(const TTValue& inputValue, TTValue& outputValue);
     

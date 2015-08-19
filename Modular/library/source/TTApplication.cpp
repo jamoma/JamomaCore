@@ -781,16 +781,17 @@ TTErr TTApplication::ObjectRegister(const TTValue& inputValue, TTValue& outputVa
             if (address == kTTAdrsRoot)
                 return mDirectory->getRoot()->setObject(object);
             
-            else {
+            else
+            {
                 TTErr err = mDirectory->TTNodeCreate(address, object, context, &node, &newInstanceCreated);
                 
-                // return the effective address
-                if (!err) {
-                    
+                // return the effective address and the node
+                if (!err)
+                {
                     if (newInstanceCreated)
                         node->getAddress(address);
                     
-                    outputValue = address;
+                    outputValue = TTValue(address, (TTPtr)node);
                 }
                 
                 return err;
