@@ -530,7 +530,9 @@ TTErr TTCue::processStore(TTObject aScript, const TTAddressItemPtr aSelection, T
 					}
 				}
 				
-				// Any other case : create a sub script
+				// Any other case : create a sub script if the selection is not empty
+                if (instanceItem->isEmpty())
+                    continue;
 				
 				// edit a sub script line
 				v = TTValue(TTSymbol(nameInstance));
