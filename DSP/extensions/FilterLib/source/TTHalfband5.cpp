@@ -21,7 +21,7 @@
 #define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass, highpass"
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
@@ -33,22 +33,22 @@ TT_AUDIO_CONSTRUCTOR,
 {
 	TTChannelCount	initialMaxNumChannels = arguments;
 
-	addAttributeWithSetter(Mode, kTypeSymbol);		
+	addAttributeWithSetter(Mode, kTypeSymbol);
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"), TT("lowpass"));
-		
+
 	// for the simple 1-sample delay, we set alpha (the feedback coefficient) to zero
 	mDelay.set("alpha", 0.0);
-	
+
 	// -60 db attenuation, stopband starts at fs * 0.37
 	//mF0->setAttributeValue(TT("alpha"), 0.1413486);
 	//mF1->setAttributeValue(TT("alpha"), 0.5899948);
 	//mR0->setAttributeValue(TT("alpha"), 0.1413486);
 	//mR1->setAttributeValue(TT("alpha"), 0.5899948);
-	
+
 	// -83 db attenuation, stopband starts at f_s * 0.42
 	mF0.set("alpha", 0.117266261862726);
 	mF1.set("alpha", 0.549470222366184);
@@ -98,7 +98,7 @@ TTErr TTHalfband5::clear()
 TTErr TTHalfband5::setMode(const TTValue& newValue)
 {
 	TTSymbol newMode = newValue;
-	
+
 	if (newMode == TT("upsample")) {
 		mMode = TT("upsample");
 		setCalculateMethod(calculateUpsample);
@@ -128,9 +128,9 @@ TTErr TTHalfband5::calculateLowpass(const TTFloat64& x, TTFloat64& y, TTPtrSized
 	TTFloat64 outputFromTopPath;
 	TTFloat64 outputFromBottomPathDelay;
 	TTFloat64 outputFromBottomPath;
-	
+
 	TTBASE(mF0, TTAllpass1b)->calculateValue(x, outputFromTopPath, channel);
-	
+
 	TTBASE(mDelay, TTAllpass1a)->calculateValue(x, outputFromBottomPathDelay, channel);
 	TTBASE(mF1, TTAllpass1b)->calculateValue(outputFromBottomPathDelay, outputFromBottomPath, channel);
 
@@ -144,12 +144,12 @@ TTErr TTHalfband5::calculateHighpass(const TTFloat64& x, TTFloat64& y, TTPtrSize
 	TTFloat64 outputFromTopPath;
 	TTFloat64 outputFromBottomPathDelay;
 	TTFloat64 outputFromBottomPath;
-	
+
 	TTBASE(mF0, TTAllpass1b)->calculateValue(x, outputFromTopPath, channel);
-	
+
 	TTBASE(mDelay, TTAllpass1a)->calculateValue(x, outputFromBottomPathDelay, channel);
 	TTBASE(mF1, TTAllpass1b)->calculateValue(outputFromBottomPathDelay, outputFromBottomPath, channel);
-	
+
 	// the only difference between the lowpass and highpass is the sign of the bottom path in this calculation
 	y = (outputFromTopPath - outputFromBottomPath) * 0.5;
 	return kTTErrNone;
@@ -163,7 +163,7 @@ TTErr TTHalfband5::calculateDownsample(const TTFloat64& x, TTFloat64& y, TTPtrSi
 #if VERSION_WITH_DELAY_FACTORED_OUT
 	if (mRSwitch[channel]) {
 		TTFloat64 temp;
-		
+
 		TTBASE(mR0, TTAllpass1a)->calculateValue(x, temp, channel);
 		y = (temp + mY1[channel]) * 0.5;
 		mRSwitch[channel] = 0;
@@ -181,18 +181,18 @@ TTErr TTHalfband5::calculateDownsample(const TTFloat64& x, TTFloat64& y, TTPtrSi
 	if (mRSwitch[channel]) {
 		TTFloat64 outputFromTopPath;
 		TTFloat64 outputFromBottomPath;
-		
+
 		TTBASE(mR0, TTAllpass1a)->calculateValue(x, outputFromTopPath, channel);
 		TTBASE(mR1, TTAllpass1a)->calculateValue(mY1[channel], outputFromBottomPath, channel);
 		mY0[channel] = (outputFromTopPath + outputFromBottomPath) * 0.5;
-		
+
 		mRSwitch[channel] = 0;
 	}
 	else
 		mRSwitch[channel] = 1;
-	
+
 	y = mY0[channel];
-#endif	
+#endif
 	return kTTErrNone;
 }
 
@@ -201,7 +201,7 @@ TTErr TTHalfband5::calculateDownsample(const TTFloat64& x, TTFloat64& y, TTPtrSi
 TTErr TTHalfband5::calculateUpsample(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
 	TTFloat64 temp;
-	
+
 	if (mRSwitch[channel]) {
 		TTBASE(mR0, TTAllpass1a)->calculateValue(x, mY0[channel], channel);
 		TTBASE(mR1, TTAllpass1a)->calculateValue(x, mY1[channel], channel);
@@ -210,10 +210,10 @@ TTErr TTHalfband5::calculateUpsample(const TTFloat64& x, TTFloat64& y, TTPtrSize
 	else {
 		mRSwitch[channel] = 1;
 	}
-	
+
 	TTBASE(mDelay, TTAllpass1a)->calculateValue(mY1[channel], temp, channel);
 	y = (mY0[channel] + temp) * 0.5;
-	
+
 	return kTTErrNone;
 }
 
@@ -240,15 +240,15 @@ TTErr TTHalfband5::processDownsample(TTAudioSignalArrayPtr inputs, TTAudioSignal
 	TTPtrSizedInt	channel;
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() / 2;
 	//TTErr			err;
-	
+
 	out.changeVectorSize(targetVectorSize);
 	out.setSampleRate(in.getSampleRate() / 2);
 	for (channel=0; channel<numchannels; channel++) {
 		TTUInt16 n = targetVectorSize;
-		
+
 		inSample = in.mSampleVectors[channel];
 		outSample = out.mSampleVectors[channel];
-		
+
 		while (n--) {
 			calculateDownsample(*inSample, *outSample, channel);
 			inSample++;
@@ -271,16 +271,16 @@ TTErr TTHalfband5::processUpsample(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 	TTPtrSizedInt	channel;
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() * 2;
 	TTErr			err;
-	
+
 	err = out.changeVectorSize(targetVectorSize);
 	if (!err) {
 		out.setSampleRate(in.getSampleRate() * 2);
 		for (channel=0; channel<numchannels; channel++) {
 			TTUInt16 n = in.getVectorSizeAsInt();
-			
+
 			inSample = in.mSampleVectors[channel];
 			outSample = out.mSampleVectors[channel];
-			
+
 			while (n--) {
 				calculateUpsample(*inSample, *outSample, channel);
 				outSample++;

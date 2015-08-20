@@ -21,7 +21,7 @@
 #define thisTTClassTags		"dspFilterLib, audio, processor, filter, allpass, cascade"
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
@@ -32,7 +32,7 @@ TT_AUDIO_CONSTRUCTOR,
 
 	addAttribute(Alpha0, kTypeFloat64);
 	addAttribute(Alpha1, kTypeFloat64);
-	
+
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
@@ -69,16 +69,16 @@ TTErr TTAllpass1aCascade2::clear()
 TTErr TTAllpass1aCascade2::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
 	TTFloat64 p;
-	
+
 	p = mX1[channel] + mAlpha0 * (x - mD2[channel]);
 	y = mD2[channel] + mAlpha1 * (p - mY1[channel]);
-	
+
 	TTZeroDenormal(y);
 	TTZeroDenormal(p);
 	mY1[channel] = y;
 	mD2[channel] = p;
 	mX1[channel] = x;
-	
+
 	return kTTErrNone;
 }
 

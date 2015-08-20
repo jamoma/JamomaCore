@@ -13,7 +13,7 @@
 
 #include "TTSymbolCache.h"
 
-#ifdef TT_PLATFORM_WIN
+#ifdef _MSC_VER
 	#include <hash_map>
 	using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
 	typedef hash_map<TTPtrSizedInt,TTValue>			TTHashMap;

@@ -35,7 +35,7 @@ extern "C" void TTInputAudio::registerClass()
 TTInputAudio :: TTInputAudio (const TTValue& arguments) :
 TTInput(arguments)
 {
-	mType = "audio";
+	mTags = TTSymbol("audio");
 	
 	mSignalIn = TTObject(kTTSym_audiosignal, 1);
 	mSignalOut = TTObject(kTTSym_audiosignal, 1);

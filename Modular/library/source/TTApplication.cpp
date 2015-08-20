@@ -781,16 +781,17 @@ TTErr TTApplication::ObjectRegister(const TTValue& inputValue, TTValue& outputVa
             if (address == kTTAdrsRoot)
                 return mDirectory->getRoot()->setObject(object);
             
-            else {
+            else
+            {
                 TTErr err = mDirectory->TTNodeCreate(address, object, context, &node, &newInstanceCreated);
                 
-                // return the effective address
-                if (!err) {
-                    
+                // return the effective address and the node
+                if (!err)
+                {
                     if (newInstanceCreated)
                         node->getAddress(address);
                     
-                    outputValue = address;
+                    outputValue = TTValue(address, (TTPtr)node);
                 }
                 
                 return err;
@@ -1775,8 +1776,15 @@ TTObject TTApplication::appendProxyData(TTProtocolPtr aProtocol, TTAddress anAdd
     aData.set(kTTSym_baton, baton);
     aData.set(kTTSym_function, TTPtr(&TTApplicationProxyDataValueCallback));
     
-    // register object into the directory
-    this->mDirectory->TTNodeCreate(anAddress, aData, NULL, &aNode, &newInstanceCreated);
+    // if the node doesn't exist yet
+    if (this->mDirectory->getTTNode(anAddress, &aNode))
+    
+        // register object into the directory
+        this->mDirectory->TTNodeCreate(anAddress, aData, NULL, &aNode, &newInstanceCreated);
+    
+    else
+        // update the node's object
+        aNode->setObject(aData);
     
     return aData;
 }

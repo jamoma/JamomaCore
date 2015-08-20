@@ -19,7 +19,7 @@
 #include "TTEnvironment.h"
 #include "TTClass.h"
 #ifdef TT_PLATFORM_WIN
-#include <Windows.h>
+#include <windows.h>
 #endif
 
 TTObjectBase::TTObjectBase(const TTValue arguments)

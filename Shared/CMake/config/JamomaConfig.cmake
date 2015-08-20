@@ -5,10 +5,31 @@ include("${CMAKE_CURRENT_LIST_DIR}/JamomaAudioGraphTargets.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/JamomaModularTargets.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/JamomaScoreTargets.cmake")
 
+# Windows deployment
+function(copy_in_folder_jamoma theFolder theLibs thePlugins)
+
+    foreach(library ${theLibs})
+        install(FILES $<TARGET_FILE:Jamoma::${library}>
+                DESTINATION "${theFolder}")
+    endforeach()
+
+    foreach(plugin ${thePlugins})
+        install(FILES $<TARGET_FILE:Jamoma::${plugin}>
+                DESTINATION "${theFolder}/extensions")
+    endforeach()
+
+    # Also copy the required DLLs
+	get_property(JAMOMA_FOUNDATION_LIB TARGET Jamoma::Foundation PROPERTY LOCATION)
+	get_filename_component(JAMOMA_LIBFOLDER "${JAMOMA_FOUNDATION_LIB}" DIRECTORY)
+    install(FILES "${JAMOMA_LIBFOLDER}/../support/libxml2.dll"
+            DESTINATION ${theFolder})
+endfunction()
+
+# OS X deployment
 function(copy_in_bundle_jamoma theTarget theBundle theLibs thePlugins)
 # TODO use OSX bundle name property?
 	# Jamoma setup
-	add_custom_command(TARGET ${theTarget} POST_BUILD
+	    add_custom_command(TARGET ${theTarget} POST_BUILD
 					  COMMAND mkdir -p ${theBundle}/Contents/Frameworks/jamoma/extensions)
 
 	foreach(library ${theLibs})

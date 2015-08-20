@@ -12,6 +12,7 @@
 #include "TTSymbol.h"
 
 
+// Note : implementation is in TTGlobalsCache.cpp
 extern TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
 
 // osc namespace
@@ -284,6 +285,7 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_valueStepsize;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_viewFreeze;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_view;
 
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_WAIT;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_Write;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_WriteAgain;
 

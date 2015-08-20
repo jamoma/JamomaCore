@@ -7,7 +7,6 @@ sources:
   - source/TTClass.cpp
   - source/TTEnvironment.cpp
   - source/TTMutex.cpp
-  - source/TTPath.cpp
   - source/TTQueue.cpp
   - source/TTThread.cpp
   - source/TTUnitTest.cpp
@@ -17,6 +16,7 @@ sources:
   - source/TTMessage.cpp
   - source/TTObject.cpp
   - source/TTObjectBase.cpp
+  - source/TTGlobalsCache.cpp
   - source/TTDictionary.cpp
   - source/TTDictionaryBase.cpp
   - tests/TTDictionary.test.cpp
@@ -39,32 +39,6 @@ sources:
   - tests/TTSymbol.test.cpp
   - source/TTRegex.cpp
   - tests/TTRegex.test.cpp
-  - boost/libs/filesystem/src/codecvt_error_category.cpp
-  - boost/libs/filesystem/src/operations.cpp
-  - boost/libs/filesystem/src/path_traits.cpp
-  - boost/libs/filesystem/src/path.cpp
-  - boost/libs/filesystem/src/portability.cpp
-  - boost/libs/filesystem/src/unique_path.cpp
-  - boost/libs/filesystem/src/utf8_codecvt_facet.cpp
-  - win boost/libs/filesystem/src/windows_file_codecvt.cpp
-  - boost/libs/system/src/error_code.cpp
-  - boost/libs/regex/src/c_regex_traits.cpp
-  - boost/libs/regex/src/cpp_regex_traits.cpp
-  - boost/libs/regex/src/cregex.cpp
-  - boost/libs/regex/src/fileiter.cpp
-  - boost/libs/regex/src/icu.cpp
-  - boost/libs/regex/src/instances.cpp
-  - boost/libs/regex/src/posix_api.cpp
-  - boost/libs/regex/src/regex_debug.cpp
-  - boost/libs/regex/src/regex_raw_buffer.cpp
-  - boost/libs/regex/src/regex_traits_defaults.cpp
-  - boost/libs/regex/src/regex.cpp
-  - boost/libs/regex/src/static_mutex.cpp
-  - boost/libs/regex/src/usinstances.cpp
-  - boost/libs/regex/src/w32_regex_traits.cpp
-  - boost/libs/regex/src/wc_regex_traits.cpp
-  - boost/libs/regex/src/wide_posix_api.cpp
-  - boost/libs/regex/src/winstances.cpp
   - source/TTNodeLib.cpp
   - source/TTNode.cpp
   - source/TTAddress.cpp
@@ -102,8 +76,6 @@ includes:
 
 defines:
   - TTFOUNDATION_EXPORTS
-  - BOOST_REGEX
-  - BOOST_REGEX_USE_C_LOCALE
 #  - DISABLE_NODELIB
   
 # BOOST_REGEX_USE_C_LOCALE is a Boost Regex definition option (see boost/regex/user.hpp file)
