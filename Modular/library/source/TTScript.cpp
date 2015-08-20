@@ -1990,7 +1990,7 @@ TTErr TTScriptMix(const TTValue& scripts, const TTValue& factors)
                         
                         // if numeric : normalise by sum of mixWeight
                         if (type == kTTSym_integer)
-                            mixedValue[0] = TTInt32(mixedValue[0]) / sumFactors + 1; // +1 because the value is truncate in TTData::setValue
+                            mixedValue[0] = TTFloat64(mixedValue[0]) / sumFactors;
                         
                         else if (type == kTTSym_decimal)
                             mixedValue[0] = TTFloat64(mixedValue[0]) / sumFactors;
@@ -2028,7 +2028,7 @@ TTFloat64 TTScriptMixLine(TTDictionaryBasePtr lineToMix, TTSymbol dataType, TTUI
 	}
 	
     if (dataType == kTTSym_integer)
-		mixedValue[0] = TTInt32(mixedValue[0]) + (TTInt32(valueToMix[0]) * factor * mixWeight);
+		mixedValue[0] = TTFloat64(mixedValue[0]) + (TTInt32(valueToMix[0]) * factor * mixWeight);
 
 	else if (dataType == kTTSym_decimal)
 		mixedValue[0] = TTFloat64(mixedValue[0]) + (TTFloat64(valueToMix[0]) * factor * mixWeight);
