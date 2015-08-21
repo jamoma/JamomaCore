@@ -288,6 +288,13 @@ private:
 	 @return #TTErr error code */
     TTErr ProxyDataInstantiate(const TTValue& inputValue, TTValue& outputValue);
     
+    /* Instantiate and register a #TTMirror object
+     note : this a temporary message to allow mirror object creation
+     @param inputValue      an address, an object type
+     @param outputValue     the new object
+     @return #TTErr error code */
+    TTErr MirrorObjectInstantiate(const TTValue& inputValue, TTValue& outputValue);
+    
     /**  Convenient method used to create a mirror object
      @param aProtocol       a protocol object
      @param anAddress       where to register the mirror object
