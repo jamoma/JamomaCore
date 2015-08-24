@@ -52,15 +52,15 @@ class TTSpatDBAP : public TTSpatBaseRenderer {
 	
 private:
 	
-	void recalculate(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks);
+	
 	
 public:
 	
-	TTSpatDBAP(TTAudioObjectBasePtr owner);
+	TTSpatDBAP(TTSpatPtr owner);
 	~TTSpatDBAP();
 	
-	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
-
+	void recalculate();
+	
 	/**	Unit Tests.
  @param aReturnedTestInfo			Information on the outcome of the tests.
  @return							#TTErr error code if the method fails to execute, else #kTTErrNone.

@@ -19,9 +19,11 @@
 #define thisTTClassName		"spat"
 #define thisTTClassTags		"audio, spatialization"
 
-TT_AUDIO_CONSTRUCTOR,
-mRenderer(NULL)
+TT_AUDIO_CONSTRUCTOR
 {
+	mRenderer= NULL;
+	mSpatRendererName = NULL;
+	
 	mSources.resize(1);
 	mSinks.resize(1);
 	
@@ -46,14 +48,15 @@ mRenderer(NULL)
 	
 	//addUpdate(MaxNumChannels); - TODO: Check if this is being taken care of elsewhere
 	
-	setAttributeValue("renderer", "spat.dbap");
-	setAttributeValue("sourceCount", 2);
-	setAttributeValue("sinkCount", 8);
+	setAttributeValue("renderer", "dbap");
+	setAttributeValue("sourceCount", 1);
+	setAttributeValue("sinkCount", 1);
 	
 	setProcessMethod(processAudio);
 	
 	// Global to the scene, specific to one or a few renderers
 	addAttributeWithGetterAndSetter(Rolloff, kTypeFloat64);
+	setAttributeValue("rolloff", 6.);
 }
 
 
@@ -61,6 +64,12 @@ TTSpat::~TTSpat()
 {
 	delete mRenderer;
 }
+
+
+TTBoolean TTSpat::sceneHasChanged()
+{
+	return mSceneHasChanged;
+};
 
 
 #if 0
@@ -74,19 +83,18 @@ TTSpat::~TTSpat()
 
 TTErr TTSpat::setRenderer(const TTValue& aSpatRenderer)
 {
-	TTErr				err;
 	TTSymbol			spatRendererName;
-	TTSpatBaseRenderer*	spatRenderer = NULL;
 	
 	spatRendererName = aSpatRenderer[0];
 	
 	// if the function didn't change, then don't change the function
-	if (spatRendererName == mRenderer)
+	if (spatRendererName == mSpatRendererName)
 		return kTTErrNone;
-	
-	if (spatRendererName == "dbap")
-		mRenderer = new TTSpatDBAP(this);
-	
+	else {
+		mNextSpatRendererName = spatRendererName;
+		mRendererHasChanged = true;
+	}
+
 	return kTTErrNone;
 }
 
@@ -96,16 +104,39 @@ TTErr TTSpat::getSpatFunctions(const TTValue&, TTValue& listOfSpatFunctionsToRet
 {
 	TTValue v;
 	
+	// COMMMENT: Renderers are no longer TTAudioObjects, and hence we can't query for this
+	/*
 	v.resize(2);
 	v[0] = TT("spatialization");
 	v[1] = TT("processing"); // more efficent than append
 	return TTObject::GetRegisteredClassNamesForTags(listOfSpatFunctionsToReturn, v);
-
+	 */
+	
+	// Instead we hardcode:
+	
+	// Expand this when introducing more rendering units
+	listOfSpatFunctionsToReturn.resize(1);
+	v[0] = TT("dbap");
+	
+	return kTTErrNone;
 }		   
 
 
 TTErr TTSpat::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	// Change renderer here in order to make sure that renderer is not changed in the middle of audio processing
+	if (mRendererHasChanged) {
+		if (mNextSpatRendererName == "dbap")
+			mRenderer = new TTSpatDBAP(this);
+		// else if (mNextSpatRendererName == "snap")
+			// mRenderer = new TTSpatSnap(this);
+		// etc....
+		mSpatRendererName = mNextSpatRendererName;
+
+		mRendererHasChanged = false;
+		mSceneHasChanged = true;
+	}
+	
 	return mRenderer->processAudio(inputs, outputs);
 }
 

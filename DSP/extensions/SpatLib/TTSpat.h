@@ -36,8 +36,10 @@ class TTSpat : TTAudioObjectBase {
 	
 protected:
 
-	TTSpatBaseRenderer*		mRenderer;	///< Current spat renderer
+	TTSpatBaseRenderer*		mRenderer;				///< Current spat renderer
 	TTSymbol				mSpatRendererName;		///< Name of the current spat renderer
+	TTSymbol				mNextSpatRendererName;	///< Name of the current spat renderer
+	TTBoolean				mRendererHasChanged;	///< Flag indicating that renderer is to be changed
 	TTBoolean				mSceneHasChanged;		///< Flag indicating that coefficients need to be recalculated
 	TTChannelCount			mSourceCount;			///< The number of sources
 	TTChannelCount			mSinkCount;				///< The number of destinations
@@ -68,6 +70,8 @@ public:
 	 @return							#TTErr error code if the method fails to execute, else #kTTErrNone.
 	 */
 	virtual TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
+	TTBoolean sceneHasChanged();
 	
 	
 
@@ -239,6 +243,8 @@ public:
 	TTErr getRolloff(TTValue& aValue);
 	
 };
+
+typedef TTSpat* TTSpatPtr;
 
 
 #endif // __TT_SPAT_H__

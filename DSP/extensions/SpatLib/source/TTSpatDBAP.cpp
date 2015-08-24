@@ -22,7 +22,7 @@
 
 
 
-TTSpatDBAP::TTSpatDBAP(TTAudioObjectBasePtr owner) : TTSpatBaseRenderer(owner)
+TTSpatDBAP::TTSpatDBAP(TTSpatPtr owner) : TTSpatBaseRenderer(owner)
 {
 	
 }
@@ -90,7 +90,7 @@ TTErr TTSpatDBAP::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 
 
 
-void TTSpatDBAP::recalculate(TTSpatSourceVector& aSources, TTSpatSinkVector& aSinks)
+void TTSpatDBAP::recalculate()
 {
 	/*
 	 double k;											// Scaling coefficient
@@ -124,49 +124,76 @@ void TTSpatDBAP::recalculate(TTSpatSourceVector& aSources, TTSpatSinkVector& aSi
 	 }
 	 */
 	
+	TTUInt32 numSources;
 	TTFloat64 sourceX, sourceY, sourceZ;
 	TTFloat64 sourceWidth;
+	
+	TTUInt32 numSinks;
 	TTFloat64 sinkX, sinkY, sinkZ;
+	
+	TTFloat64 rolloff;
+	TTFloat64 rolloffPowerFactor;
+	
 	TTFloat64 dx, dy, dz;
+	TTFloat64 r2;								// Bluriness ratio
 	
-	TTFloat64 sqrDistance;
-	TTFloat64 r2;										// Bluriness ratio
+	TTFloat64 k;								// Scaling coefficient
+	TTFloat64 k2inv;							// Inverse square of the scaling constant k
 	
-	TTFloat64 k;										// Scaling coefficient
-	TTFloat64 k2inv;									// Inverse square of the scaling constant k
+	TTValue aValue;								// Used to get values describing the scene
 	
+	// Get number of sources and sinks
+	mOwner->getSourceCount(aValue);
+	numSources = TTUInt32(aValue);
+	
+	mOwner->getSinkCount(aValue);
+	numSinks = TTUInt32(aValue);
+	
+	// Resize matrix
 	// TODO only resize if needed, check first!
-	mMixerMatrixCoefficients->setRowCount(TTUInt32(aSources.size()));
-	mMixerMatrixCoefficients->setColumnCount(TTUInt32(aSinks.size()));
+	mMixerMatrixCoefficients->setRowCount(numSources);
+	mMixerMatrixCoefficients->setColumnCount(numSinks);
 	
+	// Prepare array of distances
 	std::vector<TTFloat64> dia;
-	dia.resize(aSinks.size());
+	dia.resize(numSinks);
 	
 	
 	// Prototyping - Trond will continue from here:
 	// mOwner->getRolloff()
 	
+	mOwner->getRolloff(aValue);
+	rolloff = TTFloat64(aValue);
+	rolloffPowerFactor = log(pow(10., (rolloff / 20.)))/log(2.);
 	
-	TTFloat64 rolloffPowerFactor = log(pow(10., (mRolloff / 20.)))/log(2.);
 	
-	
-	for (TTInt32 source=0; source < (TTInt32) aSources.size(); source++) {
+	for (TTInt32 source=0; source < numSources; source++) {
 		
-		TTSpatDBAPSource* dbapSource = getDBAPSource(aSources, source);
-		aSources[source].getPosition(sourceX, sourceY, sourceZ);
+		// Source position
+		mOwner->getSourcePosition(source, aValue);
+		sourceX = TTFloat64(aValue[0]);
+		sourceY = TTFloat64(aValue[1]);
+		sourceZ = TTFloat64(aValue[2]);
 		
-		dbapSource->getWidth(sourceWidth);
+		// Source width
+		mOwner->getSourceWidth(source, aValue);
+		sourceWidth = TTFloat64(aValue);
 		r2 = sourceWidth * sourceWidth;		// TODO:  should be normalised with respect to x->variance
 		
 		// Iterate over sinks to calculate non-normalised gains for this source
 		k2inv = 0;
-		for (TTInt32 sink=0; sink < (TTInt32) aSinks.size(); sink++) {
+		for (TTInt32 sink=0; sink < numSinks; sink++) {
 			
-			aSinks[sink].getPosition(sinkX, sinkY, sinkZ);
+			// Sink position
+			mOwner->getSinkPosition(sink, aValue);
+			sinkX = TTFloat64(aValue[0]);
+			sinkY = TTFloat64(aValue[1]);
+			sinkZ = TTFloat64(aValue[2]);
+			
 			dx = sourceX-sinkX;
 			dy = sourceY-sinkY;
 			dz = sourceZ-sinkZ;
-			sqrDistance = (dx*dx + dy*dy + dz*dz + r2);
+			
 			dia[sink] = pow((dx*dx + dy*dy + dz*dz + r2), double(0.5*rolloffPowerFactor));
 			// TODO: Introduce weight in equation below
 			k2inv = k2inv + 1/(dia[sink]*dia[sink]);
@@ -176,19 +203,8 @@ void TTSpatDBAP::recalculate(TTSpatSourceVector& aSources, TTSpatSinkVector& aSi
 		k = sqrt(1./k2inv); // TODO: This should also cater for gain and muting of source
 		
 		// Iterate over sinks again and normalise gains
-		for (TTInt32 sink=0; sink < (TTInt32) aSinks.size(); sink++) {
+		for (TTInt32 sink=0; sink < numSinks; sink++) {
 			mMixerMatrixCoefficients->set2d(source, sink, k/dia[sink]);
 		}
 	}
 }
-
-//TODO what to do with this?
-
-// A little helper method to get pointer to a DBAP source from the vector of standard spat sources
-//TTSpatDBAPSource* getDBAPSource(TTSpatSourceVector& aVector, int aSourceNumber)
-//{
-//	return (TTSpatDBAPSource*)&aVector[aSourceNumber];
-//}
-//
-
-

@@ -21,11 +21,10 @@
 
 /// Methods for TTSpatSnapRenderer: //////////////////////
 
-TTSpatBaseRenderer::TTSpatBaseRenderer(TTAudioObjectBasePtr owner):
-mMixerMatrixCoefficients(NULL),
-mOwner(owner)
+TTSpatBaseRenderer::TTSpatBaseRenderer(TTSpatPtr owner):
+mOwner(owner),
+mMixerMatrixCoefficients(NULL)
 {
-	// TODO: Must set up pointer to associated TTSpat class
 	TTObjectBaseInstantiate("samplematrix", (TTObjectBasePtr*)&mMixerMatrixCoefficients, kTTValNONE);
 }
 
@@ -51,6 +50,11 @@ TTErr TTSpatBaseRenderer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSign
 	
 	TTInt16				sourceCount = mMixerMatrixCoefficients->getRowCount();
 	TTInt16				sinkCount	= mMixerMatrixCoefficients->getColumnCount();
+	
+	// TODO: How to properly call calculate from the child /renderer) class?
+	if (mOwner->sceneHasChanged()) {
+		recalculate();
+	}
 	
 	// If the input signal has more channels than we have sources, the additional channels are ignored.
 	if (numInputChannels > sourceCount) {

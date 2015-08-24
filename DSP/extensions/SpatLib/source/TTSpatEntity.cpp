@@ -16,11 +16,10 @@
 
 #include "TTSpatEntity.h"
 
-TTSpatEntity::TTSpatEntity() :
-mPosition(),
-mOrientation()
+TTSpatEntity::TTSpatEntity()
 {
-	;
+	setPosition(0., 1., 0.);
+	setOrientation(0., 0., 0., 0.);
 }
 
 

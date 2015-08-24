@@ -16,11 +16,10 @@
 
 #include "TTSpatSourceEntity.h"
 
-TTSpatSourceEntity::TTSpatSourceEntity() :
-width(),
-order()
+TTSpatSourceEntity::TTSpatSourceEntity()
 {
-	;
+	setOrder(1.);
+	setWidth(0.);
 }
 
 

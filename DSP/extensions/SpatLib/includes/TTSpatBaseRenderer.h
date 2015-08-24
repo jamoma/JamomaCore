@@ -20,11 +20,18 @@
 #include "TTSpat.h"
 
 
+class	TTSpat;	// Forward declaration
+
+typedef TTSpat* TTSpatPtr;
+
+
 /** TTSpatBaseRenderer defines the basic interface from which all renderers inherit.
  */
 class TTSpatBaseRenderer {
+
+protected:
 	
-	TTAudioObjectBasePtr	mOwner;				///< The #TTSpat instance that this rendering instance is associated with.
+	TTSpatPtr	mOwner;				///< The #TTSpat instance that this rendering instance is associated with.
 	
 public:
 	
@@ -33,7 +40,7 @@ public:
 	
 	/** Constructor
 	 */
-	TTSpatBaseRenderer(TTAudioObjectBasePtr owner);
+	TTSpatBaseRenderer(TTSpatPtr owner);
 	
 	
 	/** Destructor
@@ -45,7 +52,7 @@ public:
 	 @param sources						A vector of sources
 	 @param sinks						A vector of sinks
 	 */
-	virtual void recalculate(TTSpatSourceVector& sources, TTSpatSinkVector& sinks) = 0;
+	virtual void recalculate();
 	
 	
 	/**	A standard matrix-based audio processing method which may be used for matrix-based spatialization algorithms.
