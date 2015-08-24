@@ -21,7 +21,7 @@
 #define thisTTClassTags		"output"
 
 TT_MODULAR_CONSTRUCTOR,
-mType(kTTSymEmpty),
+mTags(TTValue(kTTSym_none)),
 mInputAddress(kTTAdrsEmpty),
 mMute(NO),
 mMix(100.),
@@ -32,7 +32,7 @@ mSignalAttr(NULL)
     if (arguments.size() > 0)
         mReturnSignalCallback = arguments[0];
 	
-	addAttribute(Type, kTypeSymbol);
+	addAttribute(Tags, kTypeLocalValue);
 	
 	addAttributeWithSetter(InputAddress, kTypeSymbol);
     addAttributeProperty(InputAddress, hidden, YES);

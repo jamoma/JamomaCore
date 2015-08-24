@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 project(AudioEngine)
 
 # Doesn't yet work on ARM
-if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID)
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*" OR ANDROID OR WIN64)
   message(STATUS "We can't build ${PROJECT_NAME} for Android / ARM for now.")
   return()
 endif()
@@ -25,7 +25,7 @@ include_directories("${PORTAUDIO_INCLUDE_DIRS}")
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME} PRIVATE
 					  debug ${PORTAUDIO_LIBRARIES_DEBUG}
 					  optimized ${PORTAUDIO_LIBRARIES_RELEASE})
 

@@ -16,6 +16,7 @@ sources:
   - source/TTMessage.cpp
   - source/TTObject.cpp
   - source/TTObjectBase.cpp
+  - source/TTGlobalsCache.cpp
   - source/TTDictionary.cpp
   - source/TTDictionaryBase.cpp
   - tests/TTDictionary.test.cpp

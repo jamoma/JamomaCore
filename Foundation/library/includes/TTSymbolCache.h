@@ -12,6 +12,7 @@
 #include "TTSymbol.h"
 
 
+// Note : implementation is in TTGlobalsCache.cpp
 extern TTFOUNDATION_EXPORT TTSymbolTable	gTTSymbolTable;
 
 // osc namespace

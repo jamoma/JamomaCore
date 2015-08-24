@@ -20,7 +20,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/osc/OscTypes.cpp
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 
 # Websockets do not work on android (yet)
-if(NOT ANDROID)
+if(NOT ANDROID AND NOT MINGW)
 	set(PROJECT_SRCS ${PROJECT_SRCS}
 					 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTWebSocket.cpp
 					 ${CMAKE_CURRENT_SOURCE_DIR}/source/TTWebSend.cpp
@@ -33,7 +33,7 @@ if(NOT ANDROID)
 endif()
 
 
-if(NOT WIN32)
+if(NOT WIN32 AND NOT MINGW)
 	set(PROJECT_SRCS ${PROJECT_SRCS}
 	${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/posix/NetworkingUtils.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/NetworkCommunication/ip/posix/UdpSocket.cpp
@@ -60,6 +60,6 @@ endif()
 add_jamoma_extension()
 
 if(WIN32)
-	target_link_libraries(${PROJECT_NAME} Ws2_32)
-	target_link_libraries(${PROJECT_NAME} winmm)
+	target_link_libraries(${PROJECT_NAME} PUBLIC ws2_32)
+	target_link_libraries(${PROJECT_NAME} PUBLIC winmm)
 endif()

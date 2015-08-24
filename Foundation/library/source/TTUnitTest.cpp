@@ -8,7 +8,7 @@
 
 #include "TTUnitTest.h"
 #ifdef TT_PLATFORM_WIN
-#include <Windows.h>
+#include <windows.h>
 #endif
 
 

@@ -21,7 +21,7 @@
 #define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass, highpass, resampling"
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
@@ -31,16 +31,16 @@ TT_AUDIO_CONSTRUCTOR,
 {
 	TTChannelCount	initialMaxNumChannels = arguments;
 
-	addAttributeWithSetter(Mode, kTypeSymbol);		
+	addAttributeWithSetter(Mode, kTypeSymbol);
 	addUpdates(MaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
 	setAttributeValue(TT("mode"), TT("lowpass"));
-	
+
 	// this coefficient gives w0 (stopband edge) at 0.48 * F_nyquist, with an attentuation of -85dB
 	mF0.set("alpha", 0.334654061320571);
 	mR0.set("alpha", 0.334654061320571);
-	
+
 	// this coefficient gives w0 (stopband edge) at 0.45 * F_nyquist, with an attentuation of -60dB
 	//mF0->setAttributeValue(TT("alpha"), 0.341748648258737);
 	//mR0->setAttributeValue(TT("alpha"), 0.341748648258737);
@@ -58,7 +58,7 @@ TTErr TTHalfband3::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValu
 	// update internal filters
 	mF0.set(kTTSym_maxNumChannels, mMaxNumChannels);
 	mR0.set(kTTSym_maxNumChannels, mMaxNumChannels);
-	
+
 	// update ourselves
 	mX1.resize(mMaxNumChannels);
 	mX1.assign(mMaxNumChannels, 0.0);
@@ -73,7 +73,7 @@ TTErr TTHalfband3::setMode(const TTValue& newValue)
 
 	if (newMode == mMode)
 		return kTTErrNone;
-	
+
 	if (newMode == TT("upsample")) {
 		mMode = TT("upsample");
 		setCalculateMethod(calculateUpsample);
@@ -113,10 +113,10 @@ TTErr TTHalfband3::calculateHighpass(const TTFloat64& x, TTFloat64& y, TTPtrSize
 {
 	TTFloat64 outputFromTopPath;
 	TTFloat64 outputFromBottomPathDelay;
-	
+
 	TTBASE(mF0, TTAllpass1b)->calculateValue(x, outputFromTopPath, channel);
 	TTBASE(mDelay, TTAllpass1a)->calculateValue(x, outputFromBottomPathDelay, channel);
-	
+
 	y = (outputFromTopPath - outputFromBottomPathDelay) * 0.5;
 	return kTTErrNone;
 }
@@ -134,7 +134,7 @@ TTErr TTHalfband3::calculateDownsample(const TTFloat64& x, TTFloat64& y, TTPtrSi
 	}
 	else
 		mX1[channel] = x;
-	
+
 	return kTTErrNone;
 }
 
@@ -143,7 +143,7 @@ TTErr TTHalfband3::calculateDownsample(const TTFloat64& x, TTFloat64& y, TTPtrSi
 TTErr TTHalfband3::calculateUpsample(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt channel)
 {
 	TTFloat64 temp;
-	
+
 	TTBASE(mDelay, TTAllpass1a)->calculateValue(x, temp, channel);
 	if (mX1[channel]) {
 		y = (temp + mX1[channel]) * 0.5;
@@ -179,7 +179,7 @@ TTErr TTHalfband3::processDownsample(TTAudioSignalArrayPtr inputs, TTAudioSignal
 	TTPtrSizedInt	channel;
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() / 2;
 	//TTErr			err;
-	
+
 	out.changeVectorSize(targetVectorSize);
 	out.setSampleRate(in.getSampleRate() / 2);
 	for (channel=0; channel<numchannels; channel++) {
@@ -210,16 +210,16 @@ TTErr TTHalfband3::processUpsample(TTAudioSignalArrayPtr inputs, TTAudioSignalAr
 	TTPtrSizedInt	channel;
 	TTUInt16		targetVectorSize = in.getVectorSizeAsInt() * 2;
 	TTErr			err;
-	
+
 	err = out.changeVectorSize(targetVectorSize);
 	if (!err) {
 		out.setSampleRate(in.getSampleRate() / 2);
 		for (channel=0; channel<numchannels; channel++) {
 			TTUInt16 n = in.getVectorSizeAsInt();
-			
+
 			inSample = in.mSampleVectors[channel];
 			outSample = out.mSampleVectors[channel];
-			
+
 			while (n--) {
 				calculateUpsample(*inSample, *outSample, channel);
 				outSample++;

@@ -21,7 +21,7 @@
 #define thisTTClassTags		"dspFilterLib, audio, processor, filter, lowpass, highpass"
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
@@ -31,7 +31,7 @@ TT_AUDIO_CONSTRUCTOR,
 {
 	TTChannelCount	initialMaxNumChannels = arguments;
 
-	addAttributeWithSetter(Mode, kTypeSymbol);		
+	addAttributeWithSetter(Mode, kTypeSymbol);
 	addAttributeWithSetter(Frequency, kTypeFloat64);
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
@@ -69,7 +69,7 @@ TTErr TTMirror5::clear()
 TTErr TTMirror5::setMode(const TTValue& newValue)
 {
 	TTSymbol newMode = newValue;
-	
+
 	if (newMode == TT("highpass")) {
 		mMode = TT("highpass");
 		setCalculateMethod(calculateHighpass);
@@ -87,7 +87,7 @@ TTErr TTMirror5::setMode(const TTValue& newValue)
 TTErr TTMirror5::setFrequency(const TTValue& newValue)
 {
 	mFrequency = newValue;
-	
+
 	const TTFloat64	alpha_0 = 0.1413486;	// alpha coefficients come from the halfband filter, which we are transforming
 	const TTFloat64	alpha_1 = 0.5899948;
 	const TTFloat64	omega_b = TTClip<TTFloat64>(sr/2.0 - mFrequency, 0.0, sr/2.0);
@@ -96,7 +96,7 @@ TTErr TTMirror5::setFrequency(const TTValue& newValue)
 	const TTFloat64	b = (1 - tan(theta_b / 2.0)) / (1 + tan(theta_b / 2.0));
 	TTFloat64		c_1 = ((2.0 * b) + (2.0 * b * alpha_0)) / (1 + alpha_0 * (b * b));
 	TTFloat64		c_2 = ((b*b) + alpha_0) / (1 + alpha_0 * (b*b));
-	
+
 	mF0.set("c1", c_1);
 	mF0.set("c2", c_2);
 
@@ -113,9 +113,9 @@ TTErr TTMirror5::setFrequency(const TTValue& newValue)
 inline void TTMirror5::filterKernel(const TTFloat64& input, TTFloat64& outputPath0, TTFloat64& outputPath1, TTPtrSizedInt channel)
 {
 	TTFloat64 temp;
-	
+
 	TTBASE(mF0, TTAllpass2a)->calculateValue(input,	outputPath0,	channel);
-	
+
 	TTBASE(mF1, TTAllpass1a)->calculateValue(input,	temp,			channel);
 	TTBASE(mF2, TTAllpass2a)->calculateValue(temp,	outputPath1,	channel);
 }
@@ -125,7 +125,7 @@ TTErr TTMirror5::calculateLowpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedIn
 {
 	TTFloat64 outputFromPath0;
 	TTFloat64 outputFromPath1;
-	
+
 	filterKernel(x, outputFromPath0, outputFromPath1, channel);
 	y = (outputFromPath0 + outputFromPath1) * 0.5;
 	return kTTErrNone;
@@ -136,7 +136,7 @@ TTErr TTMirror5::calculateHighpass(const TTFloat64& x, TTFloat64& y, TTPtrSizedI
 {
 	TTFloat64 outputFromPath0;
 	TTFloat64 outputFromPath1;
-	
+
 	filterKernel(x, outputFromPath0, outputFromPath1, channel);
 	y = (outputFromPath0 - outputFromPath1) * 0.5;
 	return kTTErrNone;

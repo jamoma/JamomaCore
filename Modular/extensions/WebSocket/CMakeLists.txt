@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 project(WebSocket)
 
-if(ANDROID OR (WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8))
-	message("Does not work yet on Win64 and android")
+if(ANDROID OR WIN64 OR MINGW)
+	message("Does not work yet on Win64 and android and mingw")
 	return()
 endif()
 
@@ -43,6 +43,6 @@ file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 add_jamoma_extension()
 
 if(WIN32)
-	target_link_libraries(${PROJECT_NAME} winmm)
+	target_link_libraries(${PROJECT_NAME} PRIVATE winmm)
 endif()
 

@@ -455,9 +455,25 @@ TTErr TTApplicationManager::ProtocolInstantiate(const TTValue& inputValue, TTVal
             
             protocolName = inputValue[0];
             
+            TTObject::GetRegisteredClassNamesForTags(v, "protocol");
+            TTBoolean found = false;
+            for (unsigned int i = 0; i < v.size(); i++)
+            {
+                TTSymbol name = v[i];
+                found = name == protocolName;
+                if (found)
+                    break;
+            }
+            
+            if (!found)
+            {
+                TTLogError("%s is not an existing protocol\n", protocolName.c_str());
+                return kTTErrGeneric;
+            }
+            
             // check if the new protocol name doesn't exist
-            if (!mProtocols.lookup(protocolName, v)) {
-                
+            if (!mProtocols.lookup(protocolName, v))
+            {
                 TTLogError("%s protocol already exists\n", protocolName.c_str());
                 return kTTErrGeneric;
             }

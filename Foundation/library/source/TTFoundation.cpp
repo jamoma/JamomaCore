@@ -12,6 +12,7 @@
 #include "TTSymbolCache.h"
 #include "TTCallback.h"
 #include "TTExtensionLoader.h"
+#include "JamomaCoreVersion.h"
 
 // Nodelib currently requires Boost Regex, which we don't have on the iOS
 #ifndef DISABLE_NODELIB
@@ -66,10 +67,10 @@ void TTFoundationInit(const char* pathToBinaries, bool loadFromOtherPaths)
 		//#endif
 
 #ifdef TT_DEBUG
-		TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s", TTFOUNDATION_VERSION_STRING);
+		TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s - %s", JAMOMACORE_VERSION, JAMOMACORE_REV);
 		ttEnvironment->mDebugBasic = true;
 #else
-		TTLogMessage("JamomaFoundation -- Version %s", TTFOUNDATION_VERSION_STRING);
+		TTLogMessage("JamomaFoundation -- Version %s - %s", JAMOMACORE_VERSION, JAMOMACORE_REV);
 #endif
 		if (pathToBinaries)
 			TTLogMessage("-- Path %s\n", pathToBinaries);

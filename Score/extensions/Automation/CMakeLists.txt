@@ -19,3 +19,5 @@ include_directories("${CMAKE_FIND_ROOT_PATH}/include")
 endif()
 
 add_jamoma_extension()
+
+target_link_libraries(${PROJECT_NAME} PRIVATE ${LIBXML2_LIBRARIES})

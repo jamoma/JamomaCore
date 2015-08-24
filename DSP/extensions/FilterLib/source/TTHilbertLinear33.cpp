@@ -24,7 +24,7 @@
 // no "filter" tag because this is a special case that produces two outputs for one input and doesn't fit the general filter schema
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
@@ -37,15 +37,15 @@ TT_AUDIO_CONSTRUCTOR,
 	mF4("allpass.2b")
 {
 	TTChannelCount	initialMaxNumChannels = arguments;
-	
+
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
-	
+
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
-		
+
 	mP0Delay.set(TT("delayMaxInSamples"), 16);
 	mP0Delay.set(TT("delayInSamples"), 16);
-	
+
 	mP1Delay.set(TT("alpha"), 0.0);
 	mF0.set(TT("alpha"), -0.8323021656083688);
 	mF1.set(TT("alpha"), 0.4212854250030528);
@@ -55,7 +55,7 @@ TT_AUDIO_CONSTRUCTOR,
 	mF3.set(TT("c2"), 0.1916472793306732);
 	mF4.set(TT("c1"), 0.59696896155334);
 	mF4.set(TT("c2"), 0.1802094400534031);
-	
+
 	setProcessMethod(processAudio);
 }
 
@@ -74,7 +74,7 @@ TTErr TTHilbertLinear33::updateMaxNumChannels(const TTValue& oldMaxNumChannels, 
 	mF4.set(kTTSym_maxNumChannels, mMaxNumChannels);
 	mP0Delay.set(kTTSym_maxNumChannels, mMaxNumChannels);
 	mP1Delay.set(kTTSym_maxNumChannels, mMaxNumChannels);
-	
+
 	clear();
 	return kTTErrNone;
 }
@@ -96,9 +96,9 @@ TTErr TTHilbertLinear33::clear()
 inline void TTHilbertLinear33::filterKernel(const TTFloat64& input, TTFloat64& outputPath0, TTFloat64& outputPath1, TTPtrSizedInt channel)
 {
 	TTFloat64 temp1, temp2;
-	
+
 	TTBASE(mP0Delay, TTDelay)->calculateNoInterpolation(input, outputPath0, channel);
-	
+
 	TTBASE(mP1Delay, TTAllpass1a)->calculateValue(input,		temp2,			channel);
 	TTBASE(mF0, TTAllpass1b)->calculateValue(temp2,			temp1,			channel);
 	TTBASE(mF1, TTAllpass1b)->calculateValue(temp1,			temp2,			channel);
@@ -119,14 +119,14 @@ TTErr TTHilbertLinear33::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	TTChannelCount	numChannels = TTAudioSignal::getMinChannelCount(in, outReal, outImaginary);
 	TTPtrSizedInt	channel;
 	TTUInt16		n;
-		
+
 	for (channel=0; channel<numChannels; channel++) {
 		n = in.getVectorSizeAsInt();
-		
+
 		inSample = in.mSampleVectors[channel];
 		outRealSample = outReal.mSampleVectors[channel];
 		outImaginarySample = outImaginary.mSampleVectors[channel];
-		
+
 		while (n--) {
 			filterKernel(*inSample++, *outRealSample++, *outImaginarySample++, channel);
 		}
