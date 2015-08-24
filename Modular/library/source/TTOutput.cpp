@@ -181,7 +181,7 @@ TTErr TTOutput::setMute(const TTValue& value)
         if (mMute)
             return mGainUnit.set("linearGain", 0.0);
         else
-            return mGainUnit.set("midiGain", mGain);
+            return mGainUnit.set("linearGain", mGain);
     }
     else
         return kTTErrGeneric;
@@ -204,7 +204,7 @@ TTErr TTOutput::setGain(const TTValue& value)
 	mGain = value;
 	
     if (mGainUnit.valid())
-        return mGainUnit.set("midiGain", mGain);
+        return mGainUnit.set("linearGain", mGain);
     else
         return kTTErrGeneric;
 }
