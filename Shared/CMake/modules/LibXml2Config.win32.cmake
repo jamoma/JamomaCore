@@ -26,15 +26,21 @@ elseif(WIN64)
 	endif()
 	
 elseif(WIN32)
-	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-   		find_library(LIBXML2_LIBRARIES NAMES libxml2_s
-						PATHS "${WIN32_LIBXML2_FOLDER}//lib//debug")
-   		set(LIBXML2_DLL "${WIN32_LIBXML2_FOLDER}//lib//release//libxml2.dll")
+	if(CMAKE_GENERATOR MATCHES "Visual Studio 14")	
+	    find_library(LIBXML2_LIBRARIES NAMES libxml2
+		             PATHS "${WIN32_LIBXML2_FOLDER}//msvc2015//lib")
+		set(LIBXML2_DLL "${WIN32_LIBXML2_FOLDER}//msvc2015//bin//libxml2.dll")
 	else()
-		find_library(LIBXML2_LIBRARIES NAMES libxml2_s
-						PATHS "${WIN32_LIBXML2_FOLDER}//lib//release")
-		set(LIBXML2_DLL "${WIN32_LIBXML2_FOLDER}//lib//release//libxml2.dll")
-	endif()		
+		if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+			find_library(LIBXML2_LIBRARIES NAMES libxml2_s
+							PATHS "${WIN32_LIBXML2_FOLDER}//lib//debug")
+			set(LIBXML2_DLL "${WIN32_LIBXML2_FOLDER}//lib//release//libxml2.dll")
+		else()
+			find_library(LIBXML2_LIBRARIES NAMES libxml2_s
+							PATHS "${WIN32_LIBXML2_FOLDER}//lib//release")
+			set(LIBXML2_DLL "${WIN32_LIBXML2_FOLDER}//lib//release//libxml2.dll")
+		endif()	
+	endif()
 endif()
 
 set_target_properties(xml2 PROPERTIES

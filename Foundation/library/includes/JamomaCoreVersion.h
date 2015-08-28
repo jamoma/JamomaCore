@@ -14,4 +14,4 @@
 #pragma ONCE
 
 #define JAMOMACORE_VERSION "GIT_TRAVIS_TAG"
-#define JAMOMACORE_REV "2a1ee79"
+#define JAMOMACORE_REV "5cb332c"

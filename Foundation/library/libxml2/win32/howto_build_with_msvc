@@ -1,0 +1,4 @@
+git clone https://github.com/GNOME/libxml2
+cd libxml2/win32
+cscript configure.js compiler=msvc prefix=c:\opt iconv=no
+nmake /f Makefile.msvc
