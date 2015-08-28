@@ -4,6 +4,7 @@ Makefile
 
 logs
 build
+build-xcode
 html
 Debug
 Release
