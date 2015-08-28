@@ -341,18 +341,21 @@ TTErr TTSampleMatrix::load(const TTValue& input, TTValue& unusedOutput)
      It will eventually work with the TTSoundfileLoader class
      * * */
     
-    TTValue inputWithPointerPrepended = input;
-    TTObjectBase* objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(this));
+    TTValue			inputWithPointerPrepended = input;
+    TTObjectBase*	objectBasePtrToSampleMatrix = (TTObjectBase*)(TTPtr(this));
+	
     inputWithPointerPrepended.prepend(objectBasePtrToSampleMatrix);
     
     try {
         
         // first instantiate the SoundfileLoader object
         TTAudioObject fileToLoad("soundfile.loader");
-        
-        // then pass along the updated TTValue to its load() method
-        return fileToLoad.send("load", inputWithPointerPrepended);
-        
+		
+		if (fileToLoad.valid())
+			// then pass along the updated TTValue to its load() method
+			return fileToLoad.send("load", inputWithPointerPrepended);
+        else
+			return kTTErrInstantiateFailed;
     }
 	catch (...) {
         return kTTErrInstantiateFailed;
