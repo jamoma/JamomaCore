@@ -8,7 +8,7 @@ fi
 cd build
 make install
 if [ "x$TRAVIS_OS_NAME" = "xlinux" ]; then
-  export LD_LIBRARY_PATH=${PWD}/JamomaInstallation/jamoma/lib;${LD_LIBRARY_PATH}
+  export LD_LIBRARY_PATH=${PWD}/JamomaInstallation/jamoma/lib
 else
   export DYLD_LIBRARY_PATH=${PWD}/JamomaInstallation/jamoma/lib
 fi
