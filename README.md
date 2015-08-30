@@ -21,14 +21,11 @@ Jamoma makes use of polymorphic typing, dynamic binding, and introspection to cr
 
 Jamoma uses CMake to to manage projects. You may therefor need to install CMake on your system before proceeding (e.g. on the Mac you can do this using Homebrew). Cmake generates a native project file (Makefile, XCode project, Visual Studio solution...) for your target platform.
 
-Typically you make a build folder somewhere quarantined from the primary source tree and run cmake from there. For example:
+Typically you make a build folder somewhere quarantined from the primary source tree and run cmake from there. In the simplest case you can run the provided `build.sh` script and it will do this for you:
 ```
 $ git clone https://github.com/jamoma/JamomaCore.git
 $ cd JamomaCore
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make 
+$ ./build.sh
 ```
 The argument to cmake (the '..' in this case) refers to the root of the JamomCore where a CMakelists.txt resides.
 
