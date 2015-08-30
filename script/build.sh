@@ -16,9 +16,8 @@ if [ "x$TRAVIS_OS_NAME" = "xlinux" ]; then
 fi
 
 if [ "x$ARCH" = "xrpi" ]; then
-  /tmp/cmake/bin/cmake -DCMAKE_TOOLCHAIN_FILE=../Shared/CMake/toolchains/arm-linux-gnueabihf.cmake -DCROSS_COMPILER_PATH=${PWD}/../tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/ ..
-	make
+  /tmp/cmake/bin/cmake -DCMAKE_INSTALL_PREFIX=${PWD}/JamomaInstallation -DCMAKE_TOOLCHAIN_FILE=../Shared/CMake/toolchains/arm-linux-gnueabihf.cmake -DCROSS_COMPILER_PATH=${PWD}/../tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/ ..
 else
-	/tmp/cmake/bin/cmake ..
-	make
+	/tmp/cmake/bin/cmake -DCMAKE_INSTALL_PREFIX=${PWD}/JamomaInstallation  ..
 fi
+make
