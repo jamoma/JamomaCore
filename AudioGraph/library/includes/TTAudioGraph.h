@@ -41,6 +41,7 @@
 
 /******************************************************************************************/
 
+//! [doxygenAppendixC_enumExample]
 /** \ingroup enums
  Enumeration recording the audio processing state of each node of the graph.
 */
@@ -50,6 +51,7 @@ enum TTAudioGraphProcessStatus {
 	kTTAudioGraphProcessingCurrently,		///< This node is currently processing audio.
 	kTTAudioGraphProcessComplete			///< This node has completed processing audio for now.
 };
+//! [doxygenAppendixC_enumExample]
 
 /** \ingroup enums
  Enumeration recording the state of each node when the graph is asked to describe itself.
@@ -60,6 +62,7 @@ enum TTAudioGraphDescriptionStatus {
 	kTTAudioGraphDescriptionHasStarted,		///< The process of describing this node in the graph has begun.
 };
 
+//! [doxygenAppendixC_bitmaskExample]
 /** \ingroup bitmasks
  Enumeration flags signaling specific properties of this node.
  Values are used as a bitmask.
@@ -70,6 +73,7 @@ enum TTAudioGraphFlags {
 	kTTAudioGraphGenerator = 0x02,			///< This object is an audio generator, and do not expect audio input.
 	kTTAudioGraphNonAdapting = 0x04,		///< This object does not adapt its number of output channels to the number of input channels
 };
+//! [doxygenAppendixC_bitmaskExample]
 
 
 /** Data passed to all nodes in the graph when the graph is performing it's pre-process

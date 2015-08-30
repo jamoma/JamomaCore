@@ -244,7 +244,7 @@ TTErr Automation::Process(const TTValue& inputValue, TTValue& outputValue)
     
     TTFloat64 position = inputValue[0];
     TTFloat64 date = inputValue[1];
-    
+
     TTFloat64       sample;
     TTValue         v, keys, objects, valueToSend, none;
     TTSymbol        key;
@@ -263,8 +263,8 @@ TTErr Automation::Process(const TTValue& inputValue, TTValue& outputValue)
     
     // calculate the curves
     mCurves.getKeys(keys);
-    for (i = 0; i < keys.size(); i++) {
-        
+    for (i = 0; i < keys.size(); i++)
+    {
         key = keys[i];
         
         // a curve is processed only if it is not recording
@@ -278,8 +278,8 @@ TTErr Automation::Process(const TTValue& inputValue, TTValue& outputValue)
         valueToSend.resize(objects.size());
         err = kTTErrNone;
         redundancy = YES;
-        for (j = 0; j < objects.size(); j++) {
-            
+        for (j = 0; j < objects.size(); j++)
+        {
             curve = objects[j];
             
             err = TTCurveNextSampleAt(TTCurvePtr(curve.instance()), position, sample);
@@ -298,8 +298,8 @@ TTErr Automation::Process(const TTValue& inputValue, TTValue& outputValue)
             continue;
         
         // look for the sender at the address
-        if (!mSenders.lookup(key, objects)) {
-            
+        if (!mSenders.lookup(key, objects))
+        {
             sender = objects[0];
             sender.send(kTTSym_Send, valueToSend, none);
         }

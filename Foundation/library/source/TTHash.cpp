@@ -12,7 +12,6 @@
 #include "TTMutex.h"
 
 #include "TTSymbolCache.h"
-
 #include <unordered_map>
 typedef std::unordered_map<TTPtrSizedInt,TTValue>	TTHashMap;
 

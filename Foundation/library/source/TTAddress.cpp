@@ -32,7 +32,7 @@ TTErr TTAddress::parseInstanceZero(const char* cstr, TTString& parsed)
         
         // parse and remove ".0"
         while (!ttRegexForInstanceZero->parse(begin, end)) {
-            TTStringIter z_begin = ttRegexForInstanceZero->begin() - 2;
+            TTStringIter z_begin = ttRegexForInstanceZero->begin();
             TTStringIter z_end = ttRegexForInstanceZero->end();
             
             TTString a(begin, z_begin);

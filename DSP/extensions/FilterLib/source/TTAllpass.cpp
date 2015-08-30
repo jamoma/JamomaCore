@@ -21,20 +21,20 @@
 #define thisTTClassTags		"dspFilterLib, audio, processor"
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
 	mFilterObject(NULL)
 {
 	addAttributeWithSetter(Filter,	kTypeSymbol);
-	
+
 	addMessage(clear);
 	addUpdates(SampleRate);
 	addUpdates(MaxNumChannels);
 	addMessageWithArguments(getFilters);
 	addMessageWithArguments(setCoefficients);
-	
+
 	setAttributeValue(kTTSym_maxNumChannels, arguments);
 	setAttributeValue(TT("filter"), TT("allpass.1a"));
 	setProcessMethod(processAudio);
@@ -50,7 +50,7 @@ TTAllpass::~TTAllpass()
 TTErr TTAllpass::setFilter(const TTValue& filter)
 {
 	TTErr err;
-	
+
 	mFilter = filter;
 	err = TTObjectBaseInstantiate(mFilter, &mFilterObject, mMaxNumChannels);
 	return err;
@@ -69,12 +69,12 @@ TTErr TTAllpass::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue&
 TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 {
 	TTErr err = kTTErrGeneric;
-	
+
 	if (mFilter == TT("allpass.1a") || mFilter == TT("allpass.1b") || mFilter == TT("allpass.1c")) {
-		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);		
+		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 		if (coefficients.size() >= 1) {
 			TTFloat64 alpha;
-			
+
 			alpha = coefficients[0];
 			err = mFilterObject->setAttributeValue(TT("alpha"), alpha);
 		}
@@ -83,7 +83,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 		if (coefficients.size() >= 2) {
 			TTFloat64 c1, c2;
-			
+
 			c1 = coefficients[0];
 			c2 = coefficients[1];
 			err = mFilterObject->setAttributeValue(TT("c1"), c1);
@@ -94,7 +94,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 		if (coefficients.size() >= 2) {
 			TTFloat64 e1, e2;
-			
+
 			e1 = coefficients[0];
 			e2 = coefficients[1];
 			err = mFilterObject->setAttributeValue(TT("e1"), e1);
@@ -105,7 +105,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 		mFilterObject->setAttributeValue(kTTSym_maxNumChannels, mMaxNumChannels);
 		if (coefficients.size() >= 4) {
 			TTFloat64 d1, d2, d3, d4;
-			
+
 			d1 = coefficients[0];
 			d2 = coefficients[1];
 			d3 = coefficients[2];
@@ -116,7 +116,7 @@ TTErr TTAllpass::setCoefficients(const TTValue& coefficients, TTValue&)
 			err = mFilterObject->setAttributeValue(TT("d4"), d4);
 		}
 	}
-	
+
 	return err;
 }
 
@@ -140,7 +140,7 @@ TTErr TTAllpass::clear()
 
 
 inline TTErr TTAllpass::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedInt data)
-{	
+{
 	return mFilterObject->calculate(x, y);
 }
 

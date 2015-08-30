@@ -21,7 +21,7 @@
 #define thisTTClassTags		"input"
 
 TT_MODULAR_CONSTRUCTOR,
-mType(kTTSymEmpty),
+mTags(TTValue(kTTSym_none)),
 mOutputAddress(kTTAdrsEmpty),
 mMute(NO),
 mBypass(NO),
@@ -36,7 +36,7 @@ mSignalAttr(NULL)
 		mSignalZero = arguments[3];
 	}
 	
-	addAttribute(Type, kTypeSymbol);
+	addAttribute(Tags, kTypeLocalValue);
 	
 	addAttributeWithSetter(OutputAddress, kTypeSymbol);
     addAttributeProperty(OutputAddress, hidden, YES);
@@ -80,10 +80,10 @@ TTErr TTInput::Send(const TTValue& inputValue, TTValue& outputValue)
 		return kTTErrNone;
     
 	else if (mBypass && mOutputObject.valid())
-		err = mOutputObject.send("SendBypassed", inputValue, none);
+		err = mOutputObject.send("SendBypassed", inputValue);
     
 	else
-		err = mReturnSignalCallback.send("notify", inputValue, none);
+		err = mReturnSignalCallback.send("notify", inputValue);
     
     notifySignalObserver(inputValue);
     

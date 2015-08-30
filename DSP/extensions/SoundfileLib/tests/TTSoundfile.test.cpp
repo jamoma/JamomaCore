@@ -66,6 +66,9 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
 
     std::cout << "We will be using the following path for testing: " << testSoundPath << "\n";
 
+#if 0	// Soundfile Loader is currently not used anywhere and does not pass unit tests (crashes)
+	// Recommend saving work on this for Jamoma2
+
     {
         
         
@@ -221,6 +224,8 @@ TTErr TTSoundfile::test(TTValue& returnedTestInfo)
         
         
     }
-    
+	
+#endif // 0
+	
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }

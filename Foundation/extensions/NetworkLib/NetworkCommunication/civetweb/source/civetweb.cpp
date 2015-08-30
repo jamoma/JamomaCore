@@ -190,11 +190,12 @@ typedef DWORD clockid_t;
 #define CLOCK_MONOTONIC (1)
 #define CLOCK_REALTIME  (2)
 
+#if !defined(_MSC_VER) || _MSC_VER < 1900
 struct timespec {
     time_t   tv_sec;        /* seconds */
     long     tv_nsec;       /* nanoseconds */
 };
-
+#endif
 #define pid_t HANDLE /* MINGW typedefs pid_t to int. Using #define here. */
 
 static int pthread_mutex_lock(pthread_mutex_t *);

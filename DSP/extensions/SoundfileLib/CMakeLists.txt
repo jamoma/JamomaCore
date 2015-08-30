@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 find_package(Sndfile)
 
-if(SNDFILE_FOUND AND NOT MINGW)
+if(SNDFILE_FOUND AND NOT MINGW AND NOT WIN64)
 project(SoundfileLib)
 
 include_directories(${SNDFILE_INCLUDE_DIR})
@@ -20,7 +20,7 @@ include_directories("${PROJECT_SOURCE_DIR}/includes")
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 add_jamoma_extension()
 
-target_link_libraries(${PROJECT_NAME} ${SNDFILE_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${SNDFILE_LIBRARIES})
 
 file(COPY ding_b2.aiff geese_clip.aif
 	 DESTINATION .)

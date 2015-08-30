@@ -12,6 +12,8 @@
 #include "TTAddress.h"
 #include "TTAddressTable.h"
 
+
+// Note : implementation is in TTGlobalsCache.cpp
 extern TTFOUNDATION_EXPORT TTAddressTable	gTTAddressTable;
 
 extern TTFOUNDATION_EXPORT TTAddress		kTTAdrsEmpty;

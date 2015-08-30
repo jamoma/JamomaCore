@@ -350,7 +350,7 @@ public:
 		substring.reserve(n+16);
 		substring.resize(n);
 		for (i=0; i<n; i++) {
-			substring[i] = (*this)[pos + i];
+			substring[static_cast<int>(i)] = (*this)[static_cast<int>(pos+i)];
 			if (pos+i >= size())
 				break;
 		}
@@ -449,9 +449,11 @@ namespace std
 	};
 }
 
-#elif defined( TT_PLATFORM_WIN ) and !defined(__MINGW32__)
+#elif defined( _MSC_VER )
 namespace std
 {
+//    namespace tr1
+//    {
         template <>
         struct hash<TTString> : public unary_function<TTString, size_t>
         {
@@ -463,9 +465,10 @@ namespace std
 					return hashkey;
 				}
 			};
+//    }
 }
 
-#else // gcc
+#else // gcc 4.7
 
 namespace std
 {

@@ -26,12 +26,14 @@ mDescription(kTTSym_none),
 mService(kTTSym_none),
 mTags(TTValue(kTTSym_none)),
 mInitialized(NO),
+mActive(YES),
 mAddress(kTTAdrsEmpty),
 mAlias(kTTAdrsEmpty),
 activityAttribute(NULL),
 contentAttribute(NULL)
 {
-	if(arguments.size() == 2) {
+	if(arguments.size() == 2)
+    {
 		mReturnAddressCallback = arguments[0];
 		mReturnValueCallback = arguments[1];
 	}
@@ -46,6 +48,8 @@ contentAttribute(NULL)
 	addAttribute(Initialized, kTypeBoolean);
 	addAttributeProperty(Initialized, readOnly, YES);
 	addAttributeProperty(Initialized, hidden, YES);
+    
+    addAttributeWithSetter(Active, kTypeBoolean);
 	
 	addAttributeWithSetter(Address, kTypeSymbol);
 	addAttributeProperty(Address, hidden, YES);
@@ -106,7 +110,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
         
         // get attribute or message (default is value)
         if (aRelativeAddress.getAttribute() != NO_ATTRIBUTE)
-            attrOrMess = aRelativeAddress.getAttribute();
+            attrOrMess = ToTTName(aRelativeAddress.getAttribute());
         else
             attrOrMess = kTTSym_value;
         
@@ -179,7 +183,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
                     return kTTErrNone;
                 
                 // set the value attribute using a command
-                anObject.send(kTTSym_Command, *valueToSend, none);
+                anObject.send(kTTSym_Command, *valueToSend);
                 
                 // unlock
                 mIsSending = false;
@@ -190,7 +194,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
             if (anObject.name() == kTTSym_Viewer && attrOrMess == kTTSym_value) {
                 
                 // send the value
-                anObject.send(kTTSym_Send, *valueToSend, none);
+                anObject.send(kTTSym_Send, *valueToSend);
                 
                 // unlock
                 mIsSending = false;
@@ -203,7 +207,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
             if (err == kTTErrInvalidAttribute) {
                 
                 // Or try to send a message
-                anObject.send(attrOrMess, *valueToSend, none);
+                anObject.send(attrOrMess, *valueToSend);
             }
         }
         // maybe the relative address is for Container below ourself
@@ -224,7 +228,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
                 if (anObject.name() == kTTSym_Container) {
                     
                     AddressAndValue[0] = belowAddress;
-                    anObject.send(kTTSym_Send, AddressAndValue, none);
+                    anObject.send(kTTSym_Send, AddressAndValue);
                     
                     // unlock
                     mIsSending = false;
@@ -268,34 +272,79 @@ TTErr TTContainer::Init()
 
 TTErr TTContainer::initNode(TTNodePtr aNode)
 {
-	TTList      nodeList;
-	TTNodePtr   aChild;
-    TTObject    anObject;
-    TTSymbol    service;
-    TTValue     v;
+	TTList  nodeList, nameList, initializedList;
     
-    // Init nodes below
+    // get all children below
     aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
     
-    // Sort children by priority order
+    // sort children by priority order
 	nodeList.sort(&compareNodePriorityThenNameThenInstance);
     
+    // build a list of name and instance
     for (nodeList.begin(); nodeList.end(); nodeList.next())
     {
-        aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+        TTNodePtr   aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+        TTValue     nameInstance(aChild->getName(), aChild->getInstance());
         
-        anObject = aChild->getObject();
+        nameList.append(nameInstance);
+    }
+    
+    // retreive each child using its name and instance in case one parameter have an effect on the children
+    while (!nameList.isEmpty())
+    {
+        nameList.begin();
+        TTSymbol name = nameList.current()[0];
+        TTSymbol instance = nameList.current()[1];
         
-        if (anObject.valid()) {
+        // if a child doesn't exist anymore
+        if (aNode->getChildren(name, instance, nodeList))
+        {
+            // rebuild the name list without the nodes already initialized
+            nameList.clear();
+            aNode->getChildren(S_WILDCARD, S_WILDCARD, nodeList);
             
-            // Send an Init message to all Data service parameter which are in the same context
-            if (anObject.name() == kTTSym_Data) {
+            // sort children by priority order
+            nodeList.sort(&compareNodePriorityThenNameThenInstance);
+            
+            for (nodeList.begin(); nodeList.end(); nodeList.next())
+            {
+                TTNodePtr   aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+                TTValue     nameInstance(aChild->getName(), aChild->getInstance());
                 
+                // if the node haven't been initialized
+                TTValue found;
+                if (initializedList.findEquals(nameInstance, found))
+                    nameList.append(nameInstance);
+            }
+            
+            // skip the missing child
+            continue;
+        }
+        
+        // mark the child as initialized
+        initializedList.append(nameList.current());
+        nameList.remove(nameList.current());
+        
+        // get the first and only node with this name and instance
+        nodeList.begin();
+        TTNodePtr aChild = TTNodePtr((TTPtr)nodeList.current()[0]);
+        
+        TTObject anObject = aChild->getObject();
+        
+        if (anObject.valid())
+        {
+            // Send an Init message to all Data service parameter which are in the same context
+            if (anObject.name() == kTTSym_Data)
+            {
                 if (aChild->getContext() != aNode->getContext())
                     continue;
                 
+                TTValue     v;
+                TTSymbol    service;
+                
                 anObject.get(kTTSym_service, v);
                 service = v[0];
+                
                 if (service == kTTSym_parameter)
                     anObject.send(kTTSym_Init);
             }
@@ -470,6 +519,20 @@ TTErr TTContainer::setPriority(const TTValue& value)
 		anAttribute->sendNotification(kTTSym_notify, mPriority);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
+}
+
+TTErr TTContainer::setActive(const TTValue& value)
+{
+    TTAttributePtr	anAttribute;
+    TTErr			err = kTTErrNone;
+    
+    mActive = value;
+    
+    err = this->findAttribute(kTTSym_active, &anAttribute);
+    if (!err)
+        anAttribute->sendNotification(kTTSym_notify, mActive);	// we use kTTSym_notify because we know that observers are TTCallback
+    
+    return kTTErrNone;
 }
 
 TTErr TTContainer::bind()
@@ -903,7 +966,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				arg = TTValue(anObject);
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
-				anObject.send("WriteAsText", inputValue, none);
+				anObject.send("WriteAsText", inputValue);
 				*buffer += "\t\t<tr>";
 			}
 		}
@@ -940,7 +1003,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				arg = TTValue(anObject);
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
-				anObject.send("WriteAsText", inputValue, none);
+				anObject.send("WriteAsText", inputValue);
 				*buffer += "\t\t<tr>";
 			}
 		}
@@ -978,7 +1041,7 @@ TTErr TTContainer::WriteAsText(const TTValue& inputValue, TTValue& outputValue)
 				arg = TTValue(anObject);
 				aTextHandler->setAttributeValue(kTTSym_object, arg);
 				
-				anObject.send("WriteAsText", inputValue, none);
+				anObject.send("WriteAsText", inputValue);
 				*buffer += "\t\t<tr>";
 			}
 		}

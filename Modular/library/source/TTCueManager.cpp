@@ -45,6 +45,7 @@ mDefaultNamespace(NULL)
 	addAttribute(Namespace, kTypeSymbol);
     
     addAttributeWithSetter(Address, kTypeSymbol);
+    addAttributeProperty(Address, hidden, YES);
 	
 	registerAttribute(TTSymbol("currentDescription"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentDescription, (TTSetterMethod)&TTCueManager::setCurrentDescription);
 	registerAttribute(TTSymbol("currentRamp"), kTypeLocalValue, NULL, (TTGetterMethod)&TTCueManager::getCurrentRamp, (TTSetterMethod)&TTCueManager::setCurrentRamp);
@@ -193,6 +194,7 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
 	TTAddressItemPtr    aSelection, anItem;
 	TTAddress           address;
 	TTUInt32			i;
+    TTValue             v;
 	
     aSelection = getNamespace();
 	
@@ -205,6 +207,16 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
             // in relative address case : use the mAddress
             if (address.getType() == kAddressRelative)
                 address = mAddress.appendAddress(address);
+            
+            // when there are several applications
+            TTModularApplicationManager->getAttributeValue(TTSymbol("applicationNames"), v);
+            if (v.size() > 1 && address.getDirectory() == NO_DIRECTORY)
+            {
+                TTModularApplicationManager->getAttributeValue(TTSymbol("applicationLocalName"), v);
+                TTSymbol localApplicationName = v[0];
+                
+                address = TTAddress(localApplicationName, address.getParent(), address.getName(), address.getInstance(), NO_ATTRIBUTE);
+            }
  /*
             // wildcard case
             TTNodePtr	aNode;
@@ -218,8 +230,8 @@ TTErr TTCueManager::NamespaceSelect(const TTValue& inputValue, TTValue& outputVa
                 aNode = TTNodePtr((TTPtr)aNodeList.current()[0]);
                 
             }
-*/			
-            if (address == kTTAdrsRoot)
+*/
+            if (address.getParent() == NO_PARENT)
                 aSelection->setSelection(YES, YES);
             
             else if (!aSelection->find(address, &anItem))
@@ -238,6 +250,7 @@ TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& output
     TTAddressItemPtr    aSelection, anItem;
 	TTAddress           address;
 	TTUInt32			i;
+    TTValue             v;
 	
     aSelection = getNamespace();
 	
@@ -250,8 +263,18 @@ TTErr TTCueManager::NamespaceUnselect(const TTValue& inputValue, TTValue& output
             // in relative address case : use the mAddress
             if (address.getType() == kAddressRelative)
                 address = mAddress.appendAddress(address);
+            
+            // when there are several applications
+            TTModularApplicationManager->getAttributeValue(TTSymbol("applicationNames"), v);
+            if (v.size() > 1 && address.getDirectory() == NO_DIRECTORY)
+            {
+                TTModularApplicationManager->getAttributeValue(TTSymbol("applicationLocalName"), v);
+                TTSymbol localApplicationName = v[0];
+                
+                address = TTAddress(localApplicationName, address.getParent(), address.getName(), address.getInstance(), NO_ATTRIBUTE);
+            }
 			
-            if (address == kTTAdrsRoot)
+            if (address.getParent() == NO_PARENT)
                 aSelection->setSelection(NO, YES);
             
             else if (!aSelection->find(address, &anItem))
@@ -296,7 +319,7 @@ TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValu
         // get the namespace
         aSelection = getNamespace();
         
-        mCurrentCue.send("Select", (TTPtr)aSelection, none);
+        mCurrentCue.send("Select", (TTPtr)aSelection);
         
         // refresh all namespace handlers (TTExplorer only)
         aSelection->iterateHandlersSendingMessage(kTTSym_SelectionRefresh);
@@ -423,7 +446,7 @@ TTErr TTCueManager::Update(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentCue = v[0];
 
-        return mCurrentCue.send(kTTSym_Update, anAddress, none);
+        return mCurrentCue.send(kTTSym_Update, anAddress);
 	}
 	
 	return kTTErrGeneric;
@@ -552,7 +575,7 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentCue = v[0];
 		
-		return mCurrentCue.send(kTTSym_Recall, anAddress, none);
+		return mCurrentCue.send(kTTSym_Recall, anAddress);
 	}
 	
 	return kTTErrGeneric;
@@ -601,7 +624,7 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
 		
 		mCurrentCue = v[0];
 		
-        return mCurrentCue.send("Output", anAddress, none);
+        return mCurrentCue.send("Output", anAddress);
 	}
 	
 	return kTTErrGeneric;
@@ -1273,7 +1296,7 @@ TTErr TTCueManager::ReadFromText(const TTValue& inputValue, TTValue& outputValue
                 
                 TTObject aCue = v[0];
                 TTValue none;
-                aCue.send("ReadFromText", inputValue, none);
+                aCue.send("ReadFromText", inputValue);
             }
         }
         

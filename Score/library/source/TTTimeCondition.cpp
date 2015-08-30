@@ -864,8 +864,8 @@ TTErr TTTimeConditionReceiverReturnValueCallback(const TTValue& baton, const TTV
         }
     }
     // if didn't dispose
-    else {
-        
+    else
+    {
         // for each event's expressions matching the incoming address
         for (TTCaseMapIterator it = aTimeCondition->mCases.begin(); it != aTimeCondition->mCases.end(); it++)
         {
@@ -878,8 +878,9 @@ TTErr TTTimeConditionReceiverReturnValueCallback(const TTValue& baton, const TTV
             {
                 // append the event to the trigger list
                 timeEventToHappen.append(caseEvent);
-            } else {
-                
+            }
+            else
+            {
                 // append the event to the dispose list
                 timeEventToDispose.append(caseEvent);
             }

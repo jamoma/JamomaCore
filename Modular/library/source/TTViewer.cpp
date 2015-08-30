@@ -256,14 +256,38 @@ TTErr TTViewer::Send(const TTValue& inputValue, TTValue& outputValue)
     if (!mActive)
         return kTTErrNone;
     
-    TTValue none, valueToSend = inputValue;
-    
-    // append view unit except for empty value
-    if (valueToSend.size() > 0 && mDataspaceUnit != kTTSym_none)
-        valueToSend.append(mDataspaceUnit);
+    TTValue none, valueToSend;
+
+    // insert view unit before "ramp" (except for empty value)
+    if (inputValue.size() > 0 &&
+        mDataspaceUnit != kTTSym_none &&
+        (mAddress.getAttribute() == kTTSym_value || mAddress.getAttribute() == kTTSymEmpty))
+    {
+        TTBoolean ramp = false;
+        
+        for (TTInt32 i = 0; i < inputValue.size(); i++)
+        {
+            if (inputValue[i].type() == kTypeSymbol)
+            {
+                TTSymbol s = inputValue[i];
+                if (s == kTTSym_ramp)
+                {
+                    ramp = true;
+                    valueToSend.append(mDataspaceUnit);
+                }
+            }
+            
+            valueToSend.append(inputValue[i]);
+        }
+        
+        if (!ramp)
+            valueToSend.append(mDataspaceUnit);
+    }
+    else
+        valueToSend = inputValue;
     
     if (mSender.valid())
-        return mSender.send(kTTSym_Send, valueToSend, none);
+        return mSender.send(kTTSym_Send, valueToSend);
     else
         return kTTErrGeneric;
 }

@@ -9,15 +9,15 @@
 
 #include "TTFoundationAPI.h"
 
-#ifndef TT_PLATFORM_WIN
+//#if !defined(TT_PLATFORM_WIN) && !defined(__MINGW32__)
 #include "TTNetReceive.h"
 #include "TTNetSend.h"
-#endif
+//#endif
 
 #include "TTOscReceive.h"
 #include "TTOscSend.h"
 
-#if defined(USE_WEBSOCKET)
+#if !defined(__ANDROID_API__) && !defined(__MINGW32__)
 #include "TTWebReceive.h"
 #include "TTWebSend.h"
 #endif
@@ -27,16 +27,16 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_NetworkLib(void)
 {
 	TTFoundationInit();
 
-#ifndef TT_PLATFORM_WIN
+//#if !defined(TT_PLATFORM_WIN) && !defined(__MINGW32__)
 	TTNetReceive::registerClass();
 	TTNetSend::registerClass();
-#endif
+//#endif
 	
 	TTOscReceive::registerClass();
 	TTOscSend::registerClass();
     
 
-#if defined(USE_WEBSOCKET)
+#if !defined(__ANDROID_API__) && !defined(__MINGW32__)
     TTWebReceive::registerClass();
 	TTWebSend::registerClass();
 #endif

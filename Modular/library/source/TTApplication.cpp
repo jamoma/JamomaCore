@@ -126,6 +126,10 @@ mTempAddress(kTTAdrsRoot)
     // note : this a temporary message to allow proxy data creation
     addMessageWithArguments(ProxyDataInstantiate);
     addMessageProperty(ProxyDataInstantiate, hidden, YES);
+    
+    // note : this a temporary message to allow mirror object creation
+    addMessageWithArguments(MirrorObjectInstantiate);
+    addMessageProperty(MirrorObjectInstantiate, hidden, YES);
 	
     // create a TTNodeDirectory to handle the application namespace
 	mDirectory = new TTNodeDirectory(mName);
@@ -289,9 +293,9 @@ TTErr TTApplication::cacheAttributeNode(TTNodePtr aNode, TTSymbol attributeName,
     if (anObject.valid()) {
         
         if (cacheOrUncache)
-            anObject.send("AttributeCache", attributeName, none);
+            anObject.send("AttributeCache", attributeName);
         else
-            anObject.send("AttributeUncache", attributeName, none);
+            anObject.send("AttributeUncache", attributeName);
     }
     
     // Cache attribute of node's object below
@@ -410,7 +414,7 @@ TTErr TTApplication::buildNode(TTProtocolPtr aProtocol, TTAddress anAddress)
                             // cache the attribute value
                             args = cachedAttribute;
                             args.append((TTPtr)&v);
-                            anObject.send("AttributeCache", args, none);
+                            anObject.send("AttributeCache", args);
                         }
                     }
                 }
@@ -781,16 +785,17 @@ TTErr TTApplication::ObjectRegister(const TTValue& inputValue, TTValue& outputVa
             if (address == kTTAdrsRoot)
                 return mDirectory->getRoot()->setObject(object);
             
-            else {
+            else
+            {
                 TTErr err = mDirectory->TTNodeCreate(address, object, context, &node, &newInstanceCreated);
                 
-                // return the effective address
-                if (!err) {
-                    
+                // return the effective address and the node
+                if (!err)
+                {
                     if (newInstanceCreated)
                         node->getAddress(address);
                     
-                    outputValue = address;
+                    outputValue = TTValue(address, (TTPtr)node);
                 }
                 
                 return err;
@@ -951,7 +956,7 @@ TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
                         if (anObject.name() == kTTSym_Data) {
                             
                             if (address.getAttribute() == kTTSym_value)
-                                err = anObject.send(kTTSym_Command, valueToSend, none);
+                                err = anObject.send(kTTSym_Command, valueToSend);
                             else
                                 err = anObject.set(address.getAttribute(), valueToSend);
                         }
@@ -961,7 +966,7 @@ TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
                             
                             // try to use a message
                             if (err == address)
-                                err = anObject.send(address.getAttribute(), valueToSend, none);
+                                err = anObject.send(address.getAttribute(), valueToSend);
                         }
                     }
                     
@@ -1606,7 +1611,7 @@ void TTApplication::readNodeFromXml(TTXmlHandlerPtr aXmlHandler)
                                     
                                     // cache the attribute with no value (see after)
                                     args = cachedAttribute;
-                                    anObject.send("AttributeCache", args, none);
+                                    anObject.send("AttributeCache", args);
                                 }
                             }
                         }
@@ -1674,6 +1679,61 @@ TTErr TTApplication::ProxyDataInstantiate(const TTValue& inputValue, TTValue& ou
                     
                     // instantiate a proxy data object
                     outputValue = appendProxyData(aProtocol, address.normalize(), service);
+                    return kTTErrNone;
+                }
+            }
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTApplication::MirrorObjectInstantiate(const TTValue& inputValue, TTValue& outputValue)
+{
+    // for mirror application only
+    if (mType == kTTSym_mirror)
+    {
+        // a distant application should have one protocol
+        TTValue protocolNames = accessApplicationProtocolNames(mName);
+        TTSymbol protocolName = protocolNames[0];
+        
+        TTProtocolPtr aProtocol = accessProtocol(protocolName);
+        if (aProtocol)
+        {
+            if (inputValue.size() == 2)
+            {
+                if (inputValue[0].type() == kTypeSymbol && inputValue[1].type() == kTypeSymbol)
+                {
+                    TTAddress address = inputValue[0];
+                    TTSymbol objectName = inputValue[1];
+                    TTValue none;
+                    
+                    // instantiate a mirror object
+                    TTObject anObject = appendMirrorObject(aProtocol, address.normalize(), objectName, none);
+                    
+                    if (anObject.valid())
+                    {
+                        // cache attributes value
+                        TTValue attributesToCache;
+                        mCachedAttributes.getKeys(attributesToCache);
+                        for (TTUInt32 i = 0; i < attributesToCache.size(); i++)
+                        {
+                            TTSymbol cachedAttribute = attributesToCache[i];
+                            
+                            // if the attribute exist
+                            TTValue v;
+                            if (anObject.get(cachedAttribute, v) != kTTErrInvalidAttribute)
+                            {
+                                // cache the attribute value
+                                TTValue args = cachedAttribute;
+                                args.append((TTPtr)&v);
+                                anObject.send("AttributeCache", args);
+                            }
+                        }
+                    }
+                    
+                    outputValue = anObject;
+                    
                     return kTTErrNone;
                 }
             }
@@ -1753,7 +1813,7 @@ TTObject TTApplication::appendMirrorObject(TTProtocolPtr aProtocol, TTAddress an
         // if the Mirror cannot instantiate attributes
         aMirror.attributes(v);
         if (v.size() == 0)
-            aMirror.send("AttributesInstantiate", attributesName, none);
+            aMirror.send("AttributesInstantiate", attributesName);
         
         // register object into the directory
         this->mDirectory->TTNodeCreate(anAddress, aMirror, NULL, &aNode, &newInstanceCreated);
@@ -1775,8 +1835,15 @@ TTObject TTApplication::appendProxyData(TTProtocolPtr aProtocol, TTAddress anAdd
     aData.set(kTTSym_baton, baton);
     aData.set(kTTSym_function, TTPtr(&TTApplicationProxyDataValueCallback));
     
-    // register object into the directory
-    this->mDirectory->TTNodeCreate(anAddress, aData, NULL, &aNode, &newInstanceCreated);
+    // if the node doesn't exist yet
+    if (this->mDirectory->getTTNode(anAddress, &aNode))
+    
+        // register object into the directory
+        this->mDirectory->TTNodeCreate(anAddress, aData, NULL, &aNode, &newInstanceCreated);
+    
+    else
+        // update the node's object
+        aNode->setObject(aData);
     
     return aData;
 }

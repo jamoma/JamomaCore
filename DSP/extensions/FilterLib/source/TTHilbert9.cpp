@@ -32,7 +32,7 @@
 // no "filter" tag because this is a special case that produces two outputs for one input and doesn't fit the general filter schema
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
@@ -43,22 +43,22 @@ TT_AUDIO_CONSTRUCTOR,
 	mDelay("allpass.1a")
 {
 	TTChannelCount	initialMaxNumChannels = arguments;
-	
+
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
 	setAttributeValue(kTTSym_maxNumChannels,	initialMaxNumChannels);
-		
+
 	// for the simple 1-sample delay, we set alpha (the feedback coefficient) to zero
 	mDelay.set("alpha", 0.0);
-	
+
 	// These coefficients are sign-flipped copies from the TTHalfband9 filter
 	mF0.set("alpha", -0.043646929608759);
 	mF2.set("alpha", -0.399125646691078);
-	
+
 	mF1.set("alpha", -0.174628080915462);
 	mF3.set("alpha", -0.749510679417446);
-	
+
 	setProcessMethod(processAudio);
 }
 
@@ -75,7 +75,7 @@ TTErr TTHilbert9::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue
 	mF2.set(kTTSym_maxNumChannels, mMaxNumChannels);
 	mF3.set(kTTSym_maxNumChannels, mMaxNumChannels);
 	mDelay.set(kTTSym_maxNumChannels, mMaxNumChannels);
-	
+
 	clear();
 	return kTTErrNone;
 }
@@ -106,14 +106,14 @@ TTErr TTHilbert9::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 	TTFloat64		x;
 	TTUInt16		n;
 	TTFloat64		delayOutput;
-		
+
 	for (channel=0; channel<numChannels; channel++) {
 		n = in.getVectorSizeAsInt();
-		
+
 		inSample = in.mSampleVectors[channel];
 		outRealSample = outReal.mSampleVectors[channel];
 		outImaginarySample = outImaginary.mSampleVectors[channel];
-		
+
 		while (n--) {
 			x = *inSample++;
 

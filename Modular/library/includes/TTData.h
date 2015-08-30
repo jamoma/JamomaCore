@@ -14,6 +14,9 @@
  */
 
 
+// TODO: ramp should only be enabled (for real) for mType = "integer", "decimal" and "array"
+// TODO: dataspace should only be enabled (for real) for mType = "integer", "decimal" and "array"
+
 #ifndef __TT_DATA_H__
 #define __TT_DATA_H__
 
@@ -57,7 +60,9 @@ private:
 	
 	TTSymbol		mDataspace;					///< ATTRIBUTE: The dataspace that this data uses (default is 'none') // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
 	TTSymbol		mDataspaceUnit;				///< ATTRIBUTE: The unit within the dataspace // TODO: Jamomacore #294 : Ease the access of the object of a kTypeObject attribute of a TTObject
+	TTBoolean		mIsOverridingDataspaceUnit;	///< FLag indicating that this object is currently ramping to a new value using a dataspace unit that temporarily overrides #mDataspaceUnit
 	TTObject        mDataspaceConverter;		///< Performs conversions from input unit to the data unit
+	TTObject		mDataspaceInverseConverter;	///< Used to convert current #mValue from default #mDataspaceUnit to temporary dataspace unit when setting up a ramp that will temporarily override the default unit.
 	
 	TTSymbol		mService;					///< how the data flows into our environnement :
 												///<	as parameter : the data is in full access mode
@@ -114,31 +119,14 @@ private:
     TTErr       BooleanCommand(const TTValue& inputValue, TTValue& outputValue);
 	
 	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_integer.
+	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_decimal, #kTTSym_integer and #kTTSym_array.
+	 There are the types whre dataspace and ramping can be used at the same time.
 	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
 	 @param[out] outputValue	This is not being used.
 	 @return #TTErrorNone if the method executes successfully, else an error code.
 	 @see #TTDataParseCommand
 	 */
-    TTErr       IntegerCommand(const TTValue& inputValue, TTValue& outputValue);
-	
-	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_decimal.
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
-	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
-	 */
-    TTErr       DecimalCommand(const TTValue& inputValue, TTValue& outputValue);
-	
-	
-	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_array.
-	 @param[in] inputValue	A command to update the value of #TTData. The command might set value, specify a unit for it, and also request that the change happens as a ramp. If this is a single #TTDictionary, it is passed directly on to the appropriate command for the #TTData type (decimal, integer, etc..), else it is first converted to a #TTDictionary before being passed on.
-	 @param[out] outputValue	This is not being used.
-	 @return #TTErrorNone if the method executes successfully, else an error code.
-	 @see #TTDataParseCommand
-	 */
-    TTErr       ArrayCommand(const TTValue& inputValue, TTValue& outputValue);
+    TTErr       IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& outputValue);
 	
 	
 	/** Prepares a command to update the value of TTValue, optimised for Data of #mType #kTTSym_string.
@@ -178,26 +166,13 @@ private:
     TTErr       setGenericValue(const TTValue& value);
 	
 	
-	/**	Setter for #mValue attribute, optimised for #mType #kTTSym_integer.
-	 @param value	The new value that the attribute is to be set to.
-	 @return		#TTErrorNone if the method executes successfully, else an error code.
-	 */
-    TTErr       setIntegerValue(const TTValue& value);
-	
-	
-    /** Setter for #mValue attribute, optimised for #mType #kTTSym_decimal.
+    /** Setter for #mValue attribute, optimised for #mType #kTTSym_integer, #kTTSym_decimal and #kTTSym_array.
+	 These are the types whre dataspace and ramping can be used at the same time.
      @param[in]     The new value that the attribute is to be set to.
      @return        #TTErrorNone if the method executed successfully, elseway an error code.
     */
-    TTErr       setDecimalValue(const TTValue& value);
-	
-	
-	/**	Setter for #mValue attribute, optimised for #mType #kTTSym_array.
-	 @param value	The new value that the attribute is to be set to.
-	 @return		#TTErrorNone if the method executes successfully, else an error code.
-	 */
-    TTErr       setArrayValue(const TTValue& value);
-	
+    TTErr       setIntegerDecimalArrayValue(const TTValue& value);
+
 	
 	/**	Setter for #mValue attribute, optimised for #mType #kTTSym_string.
 	 @param value	The new value that the attribute is to be set to.
@@ -208,7 +183,7 @@ private:
     /** */
 	TTBoolean	checkBooleanType(const TTValue& value);
     TTBoolean	checkIntegerType(const TTValue& value);
-    TTBoolean	checkDecimalType(const TTValue& value);
+    TTBoolean	checkIntegerDecimalArrayType(const TTValue& value);
     TTBoolean	checkArrayType(const TTValue& value);
     TTBoolean	checkStringType(const TTValue& value);
 	
@@ -351,7 +326,7 @@ private:
 	TTErr       setDescription(const TTValue& value);
 	
 	
-    /**	Setter for mPriority attribute. 
+    /**	Setter for mPriority attribute.
 	 */
 	TTErr       setPriority(const TTValue& value);
 	
@@ -361,9 +336,14 @@ private:
 	TTErr       WriteAsText(const TTValue& inputValue, TTValue& outputValue);
     
 	
-	/**
+	/** Convert value from temporary dataspace unit to the unit specified by #mDataspaceUnit
 	 */
 	TTErr		convertUnit(const TTValue& inputValue, TTValue& outputValue);
+	
+	
+	/** Convert value from the dataspace unit specified by #mDataspaceUnit to the temporary unit
+	 */
+	TTErr		inverseConvertUnit(const TTValue& inputValue, TTValue& outputValue);
 	
 	
 	/**

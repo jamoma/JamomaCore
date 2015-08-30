@@ -141,11 +141,12 @@ mDurationMinReached(NO)
     
     mClock = TTObject("system", args);
     
-	if (!mClock.valid()) {
+	if (!mClock.valid())
+    {
 		logError("TimeProcess failed to load the System Clock");
     }
-    else {
-    
+    else
+    {
         // observe the clock
 		TTObject thisObject(this);
         mClock.registerObserverForNotifications(thisObject);
