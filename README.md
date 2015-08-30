@@ -1,14 +1,10 @@
 JamomaCore
-==========
+=========
+A C++ platform for building dynamic and reflexive systems with an emphasis on audio and media.
 
-[![Stories in Ready](https://badge.waffle.io/jamoma/jamomacore.png?label=ready&title=Ready)](http://waffle.io/jamoma/jamomacore)
-
-[![Build Status](https://travis-ci.org/jamoma/JamomaCore.svg)](https://travis-ci.org/jamoma/JamomaCore)
-
-<a href="https://scan.coverity.com/projects/5562">
-  <img alt="Coverity Scan Build Status"
-       src="https://scan.coverity.com/projects/5562/badge.svg"/>
-</a>
+| Travis CI build status | Coverity Static Analysis | Waffle Stories |
+| ------------- | ----------- | ----------- |
+| [![Build Status](https://travis-ci.org/jamoma/JamomaCore.svg)](https://travis-ci.org/jamoma/JamomaCore) | <a href="https://scan.coverity.com/projects/5562"> <img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/5562/badge.svg"/> </a> | [![Stories in Ready](https://badge.waffle.io/jamoma/jamomacore.png?label=ready&title=Ready)](http://waffle.io/jamoma/jamomacore) |
 
 The Jamoma Platform is composed of a layered framework architecture that creates an object model and then specializes that object model for audio and matrix processing, and system automation and management.
 
