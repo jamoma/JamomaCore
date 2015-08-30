@@ -68,7 +68,9 @@ endif()
 if(WIN32)
 	include_directories(${LIBICONV_INCLUDE_DIR})
 endif()
-
+if(MINGW)
+add_definitions(-DLIBXML_STATIC)
+endif()
 add_jamoma_library()
 
 target_link_libraries(${PROJECT_NAME} PUBLIC Foundation)
