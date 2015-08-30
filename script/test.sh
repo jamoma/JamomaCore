@@ -7,4 +7,4 @@ fi
 
 cd build
 make install
-LD_LIBRARY_PATH=${PWD}/JamomaInstallation/jamoma/lib DYLD_LIBRARY_PATH=${PWD}/JamomaInstallation/jamoma/lib make test
+LD_LIBRARY_PATH=${PWD}/JamomaInstallation/lib DYLD_LIBRARY_PATH=${PWD}/JamomaInstallation/lib make test
