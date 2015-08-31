@@ -15,3 +15,12 @@ set(Jamoma_VERSION 6)
 set(Jamoma_SOVERSION 6)
 set(Jamoma_MAJOR_VERSION 6)
 
+set(SUPPORT_FOLDER)
+if(WIN32)
+  if(WIN64)
+    set(SUPPORT_FOLDER pc_x64)
+  else()
+    set(SUPPORT_FOLDER pc_win32)
+  endif()
+endif()
+
