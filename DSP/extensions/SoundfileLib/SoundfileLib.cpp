@@ -16,10 +16,11 @@
 
 extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_SoundfileLib(void)
 {
+	TTFoundationInit();
 	TTDSPInit();
 	
     TTSoundfile::registerClass();
-	TTSoundfileLoader::registerClass();
+//	TTSoundfileLoader::registerClass();
 	TTSoundfilePlayer::registerClass();
 	TTSoundfileRecorder::registerClass();
 	

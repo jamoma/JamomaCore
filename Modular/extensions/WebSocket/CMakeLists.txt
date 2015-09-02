@@ -5,6 +5,10 @@ if(ANDROID OR WIN64 OR MINGW)
 	message("Does not work yet on Win64 and android and mingw")
 	return()
 endif()
+if(CMAKE_GENERATOR MATCHES "Visual Studio 14")
+	message("Does not work yet on VS2015")
+	return()
+endif()
 
 set(PROJECT_SRCS
 	$<TARGET_OBJECTS:TTProtocol>
@@ -46,3 +50,8 @@ if(WIN32)
 	target_link_libraries(${PROJECT_NAME} PRIVATE winmm)
 endif()
 
+if(BUILD_JAMOMAPD)
+        install(TARGETS ${PROJECT_NAME}
+                        DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                        COMPONENT JamomaPd)
+endif()

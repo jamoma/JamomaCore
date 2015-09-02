@@ -21,7 +21,7 @@ target_include_directories(TTClock PUBLIC $<TARGET_PROPERTY:Foundation,INTERFACE
 
 
 #### Modular library ####
-set(PROJECT_SRCS 
+set(PROJECT_SRCS
 	$<TARGET_OBJECTS:TTProtocol>
 	$<TARGET_OBJECTS:TTClock>
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/TTModular.cpp"
@@ -60,11 +60,17 @@ file(GLOB_RECURSE PROJECT_HDRS
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories(${LIBXML2_INCLUDE_DIR})
+if ( APPLE AND STATIC_TESTING)
+	include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes/")
+	include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes/")
+endif()
 
 if(WIN32)
 	include_directories(${LIBICONV_INCLUDE_DIR})
 endif()
-
+if(MINGW)
+add_definitions(-DLIBXML_STATIC)
+endif()
 add_jamoma_library()
 
 target_link_libraries(${PROJECT_NAME} PUBLIC Foundation)
@@ -74,5 +80,19 @@ if(WIN32)
 	target_link_libraries(${PROJECT_NAME} PUBLIC ws2_32)
 endif()
 
+if(BUILD_JAMOMAPD)
+        install(TARGETS ${PROJECT_NAME}
+                        DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                        COMPONENT JamomaPd)
+endif()
+
 ### Tests ###
 addTestTarget()
+if ( APPLE AND STATIC_TESTING)
+	target_link_libraries("test32_${PROJECT_NAME}" Foundation-i386-static)
+	target_link_libraries("test64_${PROJECT_NAME}" Foundation-x86_64-static)
+	target_link_libraries("test32_${PROJECT_NAME}" DSP-i386-static)
+	target_link_libraries("test64_${PROJECT_NAME}" DSP-x86_64-static)
+	target_link_libraries("test32_${PROJECT_NAME}" ${LIBXML2_LIBRARIES})
+	target_link_libraries("test64_${PROJECT_NAME}" ${LIBXML2_LIBRARIES})
+endif()

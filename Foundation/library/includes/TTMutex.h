@@ -12,7 +12,7 @@
 #include "TTBase.h"
 #include <mutex>
 
-#if defined(TT_PLATFORM_WIN)
+#if defined(TT_PLATFORM_WIN) and !defined(__MINGW32__)
 bool TTFOUNDATION_EXPORT TTIsWindows8OrGreater();
 #endif
 
@@ -31,7 +31,7 @@ class TTMutex{
 		
 		void lock()
 		{
-#if defined(TT_PLATFORM_WIN)
+#if defined(TT_PLATFORM_WIN) and !defined(__MINGW32__)
             if(TTIsWindows8OrGreater())
 #endif
                 recursive ? rmutex.lock() : mutex.lock();
@@ -39,7 +39,7 @@ class TTMutex{
 		
 		void unlock()
 		{
-#if defined(TT_PLATFORM_WIN)
+#if defined(TT_PLATFORM_WIN) and !defined(__MINGW32__)
             if(TTIsWindows8OrGreater())
 #endif
                 recursive ? rmutex.unlock() : mutex.unlock();

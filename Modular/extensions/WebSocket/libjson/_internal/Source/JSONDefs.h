@@ -148,7 +148,7 @@ typedef void (*json_free_t)(void *);
 	   #ifdef __GNUC__
 		  #warning, Have JSON_DEBUG on in a release build
 	   #else
-		  #error, Have JSON_DEBUG on in a release build
+//		  #error, Have JSON_DEBUG on in a release build
 	   #endif
     #endif
 #else

@@ -34,3 +34,9 @@ include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 
 add_jamoma_extension()
+
+if(BUILD_JAMOMAPD)
+        install(TARGETS ${PROJECT_NAME}
+                        DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                        COMPONENT JamomaPd)
+endif()

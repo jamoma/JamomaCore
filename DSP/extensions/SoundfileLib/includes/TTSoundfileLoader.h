@@ -18,6 +18,9 @@
 #ifndef __TT_SOUNDFILELOADER_H__
 #define __TT_SOUNDFILELOADER_H__
 
+#if 0	// Soundfile Loader is currently not used anywhere and does not pass unit tests (crashes)
+// Recommend saving work on this for Jamoma2
+
 #include "TTDSP.h"
 #include "TTSoundfile.h"
 #include "TTSampleMatrix.h"
@@ -95,4 +98,5 @@ public:
 
 typedef TTSoundfileLoader* TTSoundfileLoaderPtr;
 
+#endif // 0
 #endif /* defined(__TT_SOUNDFILELOADER_H__) */

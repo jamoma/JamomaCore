@@ -13,27 +13,10 @@
 
 /****************************************************************************************************/
 
-TTList::TTList()
-	:mThreadProtection(YES)
+TTList::TTList(TTList& that)
 {
-	mMutex = new TTMutex(false);
-}
-
-
-TTList::~TTList()
-{
-	delete mMutex;
-}
-
-
-TTList::TTList(TTList& that) :
-	mThreadProtection(YES)
-{
-	mMutex = new TTMutex(false);
-	
 	theList = that.theList;
 }
-
 
 
 TTUInt32 TTList::getSize() const
@@ -94,8 +77,8 @@ TTErr TTList::getIndex(TTUInt32 index, TTValue& returnedValue)
 {
 	TTErr		err = kTTErrValueNotFound;
 	TTUInt32	i=0;
-	
-	lock();
+
+	auto lock = acquireLock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		if (i==index) {
 			err = kTTErrNone;
@@ -104,7 +87,6 @@ TTErr TTList::getIndex(TTUInt32 index, TTValue& returnedValue)
 		}
 		i++;
 	}
-	unlock();
 	
 	return err;
 }
@@ -112,10 +94,8 @@ TTErr TTList::getIndex(TTUInt32 index, TTValue& returnedValue)
 
 void TTList::append(const TTValue& newValue)
 {
-	lock();
-//	theList.insert(theList.end(), (TTValue*)&newValue);
+	auto lock = acquireLock();
 	theList.insert(theList.end(), newValue);
-	unlock();
 }
 
 
@@ -133,8 +113,8 @@ void TTList::insert(TTUInt32 index, const TTValue& newValue)
 {
 	TTListIter	iter;
 	TTUInt32	i=0;
-	
-	lock();
+
+	auto lock = acquireLock();
 	for (iter = theList.begin(); iter != theList.end(); ++iter) {
 		if (i==index) {
 			break;
@@ -143,31 +123,28 @@ void TTList::insert(TTUInt32 index, const TTValue& newValue)
 	}
 	
 	theList.insert(iter, newValue);
-	unlock();
 }
 
 void TTList::merge(TTList& newList)
 {
-	lock();
+	auto lock = acquireLock();
 	theList.sort();
 	newList.theList.sort();
 	theList.merge(newList.theList);
-	unlock();
 }
 
 
 void TTList::sort(TTBoolean(*comparisonFunction)(TTValue&, TTValue&))
 {
-	lock();
+	auto lock = acquireLock();
 	
 	// If a comparison fonction is given : use it
 	if (comparisonFunction)
 		theList.sort(comparisonFunction);
-	
+
 	// else use the < operator of TTValue to sort the list
 	else
 		theList.sort();
-	unlock();
 }
 
 
@@ -175,8 +152,8 @@ TTErr TTList::find(TTFunctionMatch aMatchFunction, TTPtr aBaton, TTValue& return
 {
 	TTErr		err = kTTErrGeneric;
 	TTBoolean	found = NO;
-	
-	lock();
+
+	auto lock = acquireLock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		TTValue& v = *iter;
 		
@@ -187,7 +164,6 @@ TTErr TTList::find(TTFunctionMatch aMatchFunction, TTPtr aBaton, TTValue& return
 			break;
 		}
 	}
-	unlock();
 	return err;
 }
 
@@ -195,8 +171,8 @@ TTErr TTList::find(TTFunctionMatch aMatchFunction, TTPtr aBaton, TTValue& return
 TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundValue)
 {
 	TTErr err = kTTErrValueNotFound;
-	
-	lock();
+
+	auto lock = acquireLock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		if ((*iter) == valueToCompareAgainst) {
 			foundValue = *iter;
@@ -204,7 +180,6 @@ TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundVal
 			break;
 		}
 	}
-	unlock();
 	
 	return err;
 }
@@ -212,7 +187,7 @@ TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundVal
 
 void TTList::remove(const TTValue& aValue)
 {
-	lock();
+	auto lock = acquireLock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		TTValue v = *iter;
 		
@@ -221,37 +196,13 @@ void TTList::remove(const TTValue& aValue)
 			break;
 		}
 	}
-	unlock();
 }
 
 
 void TTList::clear()
 {
-	lock();
+	auto lock = acquireLock();
 	theList.clear();
-	unlock();
-}
-
-
-void TTList::free()
-{
-//	lock();
-	
-// TTValue takes care of memory management of member objects now, so we don't have to worry about it.
-//	for (TTListIter iter = theList.begin(); iter != theList.end(); iter++) {
-//		TTValue& v = *iter;
-//		if (v[0].type() == kTypeObject) {
-// TTValue
-//			TTObjectBasePtr o = NULL;
-//			v.get(0, &o);
-//			o = v;
-//			TTObjectBaseRelease(&o);
-//		}
-//		delete *iter;
-//	}
-//	theList.clear();
-//	unlock();
-	clear();
 }
 
 
@@ -261,11 +212,10 @@ void TTList::assignToValue(TTValue& value)
 	
 	value.clear();
 	
-	lock();
+	auto lock = acquireLock();
 	for (iter = theList.begin(); iter != theList.end(); ++iter) {
 		value.append(*iter);
 	}
-	unlock();	
 }
 
 
@@ -274,11 +224,10 @@ TTErr TTList::iterate(const TTObjectBasePtr target, const TTFunctionWithBatonAnd
 	if (theList.empty())
 		return kTTErrNone;
 
-	lock();
+	auto lock = acquireLock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		callback(target, *iter);
 	}
-	unlock();
 	return kTTErrNone;	
 }
 
@@ -288,12 +237,11 @@ TTErr TTList::iterate(const TTObjectBasePtr target, const TTSymbol messageName)
 	if (theList.empty())
 		return kTTErrNone;
 
-	lock();
+	auto lock = acquireLock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
 		TTValue v;
 		target->sendMessage(messageName, *iter, v);
 	}
-	unlock();
 	return kTTErrNone;	
 }
 
@@ -303,23 +251,14 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName)
 	if (theList.empty())
 		return kTTErrNone;
 
-	lock();
+	auto lock = acquireLock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
-#ifdef OLD
-		TTObjectBasePtr obj = NULL;
-		
-		//(iter)->get(0, &obj);
-		obj = iter->at(0);
-		if (obj && obj->valid)
-			obj->sendMessage(messageName);
-#else // NEW
 		TTObject o = iter->at(0);
 		
 		if (o.valid())
 			o.send(messageName);
-#endif
 	}
-	unlock();
+
 	return kTTErrNone;
 }
 
@@ -329,40 +268,19 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbol messageName, TTValue& 
 	if (theList.empty())
 		return kTTErrNone;
 	
-	lock();
+	auto lock = acquireLock();
 	for (TTListIter iter = theList.begin(); iter != theList.end(); ++iter) {
-#ifdef OLD
-		TTObjectBasePtr obj = NULL;
-		
-		//(iter)->get(0, &obj);
-		obj = iter->at(0);
-		if (obj && obj->valid) {
-			TTValue v;
-			obj->sendMessage(messageName, aValue, v);
-		}
-#else // NEW
-		TTObject	o = iter->at(0);
-		TTValue		unusedReturnValue;
+		TTObject o = iter->at(0);
 	
 		if (o.valid())
 			o.send(messageName, aValue);
-#endif
 	}
-	unlock();
+
 	return kTTErrNone;
 }
 
 
-void TTList::lock()
+std::unique_lock<std::mutex> TTList::acquireLock()
 {
-	if (mThreadProtection)
-		mMutex->lock();
+	return mThreadProtection ? std::unique_lock<std::mutex>{mMutex} : std::unique_lock<std::mutex>{};
 }
-
-
-void TTList::unlock()
-{
-	if (mThreadProtection)
-		mMutex->unlock();
-}
-
