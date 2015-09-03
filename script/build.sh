@@ -22,4 +22,4 @@ if [ "x$ARCH" = "xrpi" ]; then
 fi
 
 /tmp/cmake/bin/cmake ${CMAKE_OPTIONS} ${TRAVIS_BUILD_DIR}
-make
+make all_unity
