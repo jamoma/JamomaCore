@@ -135,6 +135,41 @@ void DecibelUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 /*************************************************************************/
 
 #pragma mark -
+#pragma mark dB-raw unit
+
+
+#define thisTTClass			DecibelRawUnit
+#define thisTTClassName		"unit.db.raw"
+#define thisTTClassTags		"dataspace.unit, gain"
+
+
+TT_OBJECT_CONSTRUCTOR,
+TTDataspaceUnit(arguments)
+{;}
+
+DecibelRawUnit::~DecibelRawUnit(){;}
+
+void DecibelRawUnit::convertToNeutral(const TTValue& input, TTValue& output)
+{
+	output = pow(10.0, TTFloat64(input) * 0.05);
+}
+
+
+void DecibelRawUnit::convertFromNeutral(const TTValue& input, TTValue& output)
+{
+	output = log10(TTFloat64(input)) * 20.0;
+}
+
+
+#undef thisTTClass
+#undef thisTTClassName
+#undef thisTTClassTags
+
+
+
+/*************************************************************************/
+
+#pragma mark -
 #pragma mark Gain Dataspace
 
 
@@ -149,6 +184,8 @@ TT_OBJECT_CONSTRUCTOR
 	registerUnit(TT("unit.midi.gain"),	TT("midigain"));
 	registerUnit(TT("unit.db"),			TT("dB"));
 	registerUnit(TT("unit.db"),			TT("db"));
+	registerUnit(TT("unit.db.raw"),		TT("db-raw"));
+	registerUnit(TT("unit.db.raw"),		TT("dB-raw"));
 
 	// Set our neutral unit (the unit through which all conversions are made)
 	neutralUnit = TT("linear");
