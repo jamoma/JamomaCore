@@ -36,7 +36,7 @@ class TTMODULAR_EXPORT TTOutput : public TTObjectBase
 	
 public:	// use public for quick acces during signal processing
 	
-	TTSymbol					mType;						///< ATTRIBUTE : (metadata) the type of signal output (like audio, video, ...)
+	TTValue                     mTags;						///< ATTRIBUTE : tag list for this output signal (like audio, video, ...)
 	TTAddress                   mInputAddress;				///< ATTRIBUTE : address of the input to which we are linked (if we are linked, otherwise empty address)
 	
 	TTBoolean					mMute;						///< ATTRIBUTE : to mute signal output

@@ -24,8 +24,8 @@ typedef TTObjectBase*					TTObjectBasePtr;
 
 class TTFOUNDATION_EXPORT TTList {
 private:
-	TTBoolean	mThreadProtection;	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
-	TTMutexPtr	mMutex;
+	TTBoolean	mThreadProtection{YES};	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
+	std::mutex  mMutex;
 
 	#ifdef TT_PLATFORM_WIN
 	#pragma warning(disable:4251)
@@ -33,12 +33,11 @@ private:
 	TTLinkedList	theList;
 	TTListIter		theIter;
 	
-	void lock();
-	void unlock();
+	std::unique_lock<std::mutex> acquireLock();
 	
 public:
-	TTList();
-	virtual ~TTList();
+	TTList() = default;
+	virtual ~TTList() = default;
 	TTList(TTList& that);
 
 	/** Determine the number of values in the list.
@@ -127,9 +126,6 @@ public:
 	
 	/** Remove all values from the list					*/
 	void clear();
-	
-	/**	Remove all values from the list and free them.	*/
-	void free();
 
 	/**	Assign the contents of the list to a value as an array.	*/
 	void assignToValue(TTValue& value);

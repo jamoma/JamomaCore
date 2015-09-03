@@ -15,6 +15,9 @@
  * http://creativecommons.org/licenses/BSD/
  */
 
+#if 0	// Soundfile Loader is currently not used anywhere and does not pass unit tests (crashes)
+		// Recommend saving work on this for Jamoma2
+
 #include "TTSoundfileLoader.h"
 
 #define thisTTClass			TTSoundfileLoader
@@ -72,14 +75,17 @@ TTErr TTSoundfileLoader::setTargetMatrix(const TTMatrix newTargetMatrix)
 // target a new TTObjectBase if it proves to be a TTSampleMatrix
 TTErr TTSoundfileLoader::setTargetMatrix(const TTObjectBase* newTargetObjectPtr)
 {
-    TTSampleMatrixPtr newTargetMatrix = NULL;
+//    TTSampleMatrixPtr newTargetMatrix = NULL;
+	TTSymbol s = "samplematrix";
     
-    if (newTargetObjectPtr->getName() != TT("samplematrix"))
-    {
+    if (newTargetObjectPtr->getName() != s)
         return kTTErrInvalidValue;
-    } else {
+    else {
         // get a generic TTPtr, then cast to TTSampleMatrixPtr
-        newTargetMatrix = (TTSampleMatrixPtr)(TTPtr(newTargetObjectPtr));
+//        newTargetMatrix = (TTSampleMatrixPtr)(TTPtr(newTargetObjectPtr));
+		TTMatrix newTargetMatrix;
+		
+		newTargetMatrix.referenceExternalData(TTPtr(newTargetObjectPtr));
         return setTargetMatrix(newTargetMatrix);
     }
 }
@@ -284,3 +290,5 @@ TTErr TTSoundfileLoader::resizeThenLoad(const TTValue& input, TTValue& unusedOut
     
     return err;
 }
+
+#endif // 0

@@ -1,0 +1,4 @@
+./configure --host=i686-w64-mingw32 CC=i686-w64-mingw32-gcc-posix --prefix=${HOME}/lib-src/Jamoma/Implementations/PureData/JamomaCore/Foundation/library/libxml2/win32/libmingw-w64 --without-python
+
+make
+make check	

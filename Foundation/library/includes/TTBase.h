@@ -33,11 +33,11 @@
 		#endif
 	#endif
 // win64 must come before win32
-#elif (defined(_WIN64) || defined(_WIN32)) && !defined(__MINGW32__)
+#elif (defined(_WIN64) || defined(_WIN32)) 
 	#ifndef TT_PLATFORM_WIN
 		#define TT_PLATFORM_WIN
 	#endif
-#elif defined(__linux) || defined(__MINGW32__)
+#elif defined(__linux)
 	#if !defined(TT_PLATFORM_LINUX)
 		#define TT_PLATFORM_LINUX
 	#endif
@@ -482,6 +482,7 @@ TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];
  */
 TTFOUNDATION_EXPORT extern const TTFloat32 kTTLookupQuarterSine[];
 
+//! [doxygenAppendixC_constExample]
 /** \ingroup consts
  Pre-calculated value of pi     (3.1416).
  */
@@ -491,6 +492,7 @@ TTFOUNDATION_EXPORT extern const TTFloat64 kTTPi;
  Pre-calculated value of pi/2.
  */
 TTFOUNDATION_EXPORT extern const TTFloat64 kTTHalfPi;
+//! [doxygenAppendixC_constExample]
 
 /** \ingroup consts
  Pre-calculated value of pi/4.

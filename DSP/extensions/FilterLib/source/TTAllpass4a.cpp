@@ -23,7 +23,7 @@
 #define thisTTClassTags		"dspFilterLib, audio, processor, filter, allpass"
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
@@ -38,7 +38,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttribute(D2, kTypeFloat64);
 	addAttribute(D3, kTypeFloat64);
 	addAttribute(D4, kTypeFloat64);
-	
+
 	addMessage(clear);
 	addUpdates(MaxNumChannels);
 
@@ -88,11 +88,11 @@ TTErr TTAllpass4a::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedIn
 	TTFloat64 w2 = mD2 * (mX2[channel] - mY2[channel]);
 	TTFloat64 w3 = mD3 * (mX1[channel] - mY3[channel]);
 	TTFloat64 w4 = mD4 * (x            - mY4[channel]);
-	
+
 	y = w1 + w2 + w3 + w4 + mX4[channel];
 
 	TTZeroDenormal(y);
-	
+
 	// TODO: Is there something faster that we can do below rather all of this copying?
 	// If we could have a pointer that just incremented it seems like it would be faster
 	// But then we need some clever bit twiddling to efficiently do the wrapping...
@@ -104,7 +104,7 @@ TTErr TTAllpass4a::calculateValue(const TTFloat64& x, TTFloat64& y, TTPtrSizedIn
 	mY2[channel] = mY1[channel];
 	mX1[channel] = x;
 	mY1[channel] = y;
-	
+
 	return kTTErrNone;
 }
 

@@ -25,10 +25,23 @@ ${CMAKE_CURRENT_SOURCE_DIR}/tests/TTSampleMatrix.test.cpp
 
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
+if ( APPLE AND STATIC_TESTING)
+  include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes/")
+endif()
 
 add_jamoma_library()
+
+if(BUILD_JAMOMAPD)
+        install(TARGETS ${PROJECT_NAME}
+                        DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
+                        COMPONENT JamomaPd)
+endif()
 
 target_link_libraries(${PROJECT_NAME} Foundation)
 
 ### Tests ###
 addTestTarget()
+if ( APPLE AND STATIC_TESTING)
+  target_link_libraries("test32_${PROJECT_NAME}" Foundation-i386-static)
+  target_link_libraries("test64_${PROJECT_NAME}" Foundation-x86_64-static)
+endif()

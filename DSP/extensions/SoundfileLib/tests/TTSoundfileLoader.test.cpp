@@ -18,6 +18,9 @@
 #include "TTUnitTest.h"
 #include "TTBuffer.h"
 
+#if 0	// Soundfile Loader is currently not used anywhere and does not pass unit tests (crashes)
+// Recommend saving work on this for Jamoma2
+
 /*
  
  It is possible to change the target sound file for this test using the macros below.
@@ -470,3 +473,5 @@ TTErr TTSoundfileLoader::test(TTValue& returnedTestInfo)
     
     return TTTestFinish(testAssertionCount, errorCount, returnedTestInfo);
 }
+
+#endif // 0

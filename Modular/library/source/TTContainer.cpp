@@ -110,7 +110,7 @@ TTErr TTContainer::Send(TTValue& AddressAndValue, TTValue& outputValue)
         
         // get attribute or message (default is value)
         if (aRelativeAddress.getAttribute() != NO_ATTRIBUTE)
-            attrOrMess = aRelativeAddress.getAttribute();
+            attrOrMess = ToTTName(aRelativeAddress.getAttribute());
         else
             attrOrMess = kTTSym_value;
         

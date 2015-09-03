@@ -350,7 +350,7 @@ public:
 		substring.reserve(n+16);
 		substring.resize(n);
 		for (i=0; i<n; i++) {
-			substring[i] = (*this)[pos + i];
+			substring[static_cast<int>(i)] = (*this)[static_cast<int>(pos+i)];
 			if (pos+i >= size())
 				break;
 		}
@@ -449,7 +449,7 @@ namespace std
 	};
 }
 
-#elif defined( TT_PLATFORM_WIN )
+#elif defined( _MSC_VER )
 namespace std
 {
 //    namespace tr1

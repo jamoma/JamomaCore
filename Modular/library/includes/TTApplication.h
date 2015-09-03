@@ -199,7 +199,7 @@ private:
     
     /** Register an object into the application directory at an address
      @param inputValue      an address, an object and an optional context pointer
-     @param outputValue     the effective registration address
+     @param outputValue     the effective registration address and the node
      @return #TTErr error code */
 	TTErr ObjectRegister(const TTValue& inputValue, TTValue& outputValue);
     
@@ -287,6 +287,13 @@ private:
      @param outputValue     the new object 
 	 @return #TTErr error code */
     TTErr ProxyDataInstantiate(const TTValue& inputValue, TTValue& outputValue);
+    
+    /* Instantiate and register a #TTMirror object
+     note : this a temporary message to allow mirror object creation
+     @param inputValue      an address, an object type
+     @param outputValue     the new object
+     @return #TTErr error code */
+    TTErr MirrorObjectInstantiate(const TTValue& inputValue, TTValue& outputValue);
     
     /**  Convenient method used to create a mirror object
      @param aProtocol       a protocol object

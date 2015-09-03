@@ -36,7 +36,7 @@ TTOutput(arguments)
 {
 	TTValue args;
 	
-	mType = "audio";
+	mTags = TTSymbol("audio");
 
 	// the only argument is the owner, which is used as a baton to hand to the callback
 	if (arguments.size() > 0)

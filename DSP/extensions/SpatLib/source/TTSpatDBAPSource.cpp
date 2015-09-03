@@ -27,7 +27,6 @@ TTSpatDBAPSource::~TTSpatDBAPSource()
 	
 }
 
-
 void TTSpatDBAPSource::getWidth(TTFloat64& aWidth)
 {
 	aWidth = mData[0];

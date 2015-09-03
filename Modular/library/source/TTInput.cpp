@@ -21,7 +21,7 @@
 #define thisTTClassTags		"input"
 
 TT_MODULAR_CONSTRUCTOR,
-mType(kTTSymEmpty),
+mTags(TTValue(kTTSym_none)),
 mOutputAddress(kTTAdrsEmpty),
 mMute(NO),
 mBypass(NO),
@@ -36,7 +36,7 @@ mSignalAttr(NULL)
 		mSignalZero = arguments[3];
 	}
 	
-	addAttribute(Type, kTypeSymbol);
+	addAttribute(Tags, kTypeLocalValue);
 	
 	addAttributeWithSetter(OutputAddress, kTypeSymbol);
     addAttributeProperty(OutputAddress, hidden, YES);

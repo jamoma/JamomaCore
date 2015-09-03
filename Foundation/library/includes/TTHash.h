@@ -11,7 +11,7 @@
 
 #include "TTBase.h"
 #include "TTValue.h"
-#include "TTMutex.h"
+#include <mutex>
 
 
 /** A type that contains a key and a value. */
@@ -36,11 +36,10 @@ typedef void (*TTHashIteratorType)(TTPtr, const TTKeyVal&);
 class TTFOUNDATION_EXPORT TTHash {
 private:
 	TTPtr		mHashMap;
-	TTBoolean	mThreadProtection;	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
-	TTMutexPtr	mMutex;
+	TTBoolean	mThreadProtection{NO};	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
+	std::mutex	mMutex;
 
-	void lock();
-	void unlock();
+	std::unique_lock<std::mutex> acquireLock();
 
 public:
 	TTHash();

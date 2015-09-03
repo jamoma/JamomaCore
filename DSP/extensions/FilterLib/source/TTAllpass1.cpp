@@ -21,13 +21,13 @@
 #define thisTTClassTags		"dspFilterLib, audio, processor, filter, allpass"
 
 #ifdef TT_PLATFORM_WIN
-#include <Algorithm>
+#include <algorithm>
 #endif
 
 TT_AUDIO_CONSTRUCTOR,
-	mDelay(0), 
-	mDelayMax(0), 
-	mDelayInSamples(0), 
+	mDelay(0),
+	mDelayMax(0),
+	mDelayInSamples(0),
 	mDelayMaxInSamples(0)
 {
 	TTChannelCount	initialMaxNumChannels = arguments;
@@ -38,7 +38,7 @@ TT_AUDIO_CONSTRUCTOR,
 	addAttributeWithSetter(DelayMaxInSamples,	kTypeInt64);
 	addAttributeWithSetter(LinearGain,			kTypeFloat64);
 	addAttributeWithSetter(Gain,				kTypeFloat64);
-	
+
 	addMessage(clear);
 	addUpdates(SampleRate);
 	addUpdates(MaxNumChannels);
@@ -66,7 +66,7 @@ TTErr TTAllpass1::init(TTUInt64 newDelayMaxInSamples)
 	if (newDelayMaxInSamples) {
 		mDelayMaxInSamples = newDelayMaxInSamples;
 		mDelayMax = mDelayMaxInSamples / srMill;
-		
+
 		for (TTDelayBufferIter buffer = mFeedforward.begin(); buffer != mFeedforward.end(); ++buffer) {
 			buffer->resize(mDelayMaxInSamples);
 			buffer->clear();
@@ -77,7 +77,7 @@ TTErr TTAllpass1::init(TTUInt64 newDelayMaxInSamples)
 		}
 		reset();
 	}
-	return kTTErrNone;	
+	return kTTErrNone;
 }
 
 
@@ -100,7 +100,7 @@ TTErr TTAllpass1::updateMaxNumChannels(const TTValue& oldMaxNumChannels, TTValue
 
 TTErr TTAllpass1::updateSampleRate(const TTValue& oldSampleRate, TTValue&)
 {
-	init(long(srMill * mDelayMax));		// allocate a larger delay buffer if neccessary	
+	init(long(srMill * mDelayMax));		// allocate a larger delay buffer if neccessary
 	return setDelay(mDelay);			// hold the delay time in ms constant, despite the change of sr
 }
 
@@ -114,7 +114,7 @@ TTErr TTAllpass1::clear()
 
 
 TTErr TTAllpass1::setGain(const TTValue& newValue)
-{	
+{
 	mGain = newValue;
 	mLinearGain = TTDecibelsToLinearGain(mGain);
 	return kTTErrNone;
@@ -122,7 +122,7 @@ TTErr TTAllpass1::setGain(const TTValue& newValue)
 
 
 TTErr TTAllpass1::setLinearGain(const TTValue& newValue)
-{	
+{
 	mLinearGain = newValue;
 	mGain = TTLinearGainToDecibels(mLinearGain);
 	return kTTErrNone;
@@ -136,7 +136,7 @@ TTErr TTAllpass1::setDelay(const TTValue& newValue)
 	delayInSamples = long(delay * (sr / 1000.0));
 	for (TTChannelCount channel=0; channel<mMaxNumChannels; channel++) {
 		ffEndPtr[channel] = feedforward[channel] + delayInSamples;
-		fbEndPtr[channel] = feedback[channel] + delayInSamples;	
+		fbEndPtr[channel] = feedback[channel] + delayInSamples;
 	}
 	return kTTErrNone;
 	 */
@@ -145,9 +145,9 @@ TTErr TTAllpass1::setDelay(const TTValue& newValue)
 //	mDelayInSamples = mFractionalDelaySamples;
 //	mFractionalDelay = mFractionalDelaySamples - mDelayInSamples;
 	mDelayInSamples = mDelay * srMill;
-	
+
 	reset();
-	return kTTErrNone;	
+	return kTTErrNone;
 }
 
 
@@ -157,9 +157,9 @@ TTErr TTAllpass1::setDelayInSamples(const TTValue& newValue)
 	mDelayInSamples = TTClip<TTUInt64>(newValue, 0, mDelayMaxInSamples);
 //	mDelayInSamples = mFractionalDelaySamples;
 //	mFractionalDelay = mFractionalDelaySamples - mDelayInSamples;
-	
+
 	mDelay = mDelayInSamples * 1000.0 * srInv;
-	
+
 	reset();
 	return kTTErrNone;
 }
@@ -190,16 +190,16 @@ TTErr TTAllpass1::setDelayMaxInSamples(const TTValue& newValue)
 
 
 inline TTErr TTAllpass1::calculateValue(const TTFloat64& x, TTFloat64& y, TTDelayBufferPtr* buffers)
-{	
+{
 	TTDelayBufferPtr	feedforwardBuffer = buffers[0];
 	TTDelayBufferPtr	feedbackBuffer = buffers[1];		// NOTE: This is a little tricky!
 	TTFloat64			x1 = *feedforwardBuffer->mReadPointer;
 	TTFloat64			y1 = *feedbackBuffer->mReadPointer;
 	TTFloat64			alpha = mLinearGain;
-	
+
 	// Store the input in the feedforward buffer
 	*feedforwardBuffer->mWritePointer = x;
-	
+
 	// Apply the filter
 	// We start with the equation in standard form:
 	//		y = alpha * x  +  x1  -  alpha * y1;
@@ -207,10 +207,10 @@ inline TTErr TTAllpass1::calculateValue(const TTFloat64& x, TTFloat64& y, TTDela
 	//		y = x1  +  alpha * x  -  alpha * y1;
 	// Finally, here is a "Single Coefficient All-Pass Filter", dropping from 2 adds and 2 mults down to 2 adds and 1 mult
 	y = x1 + ((x - y1) * alpha);
-	
+
 	// The possibility of denormals is always lurking for IIR filters
     TTZeroDenormal(y);
-	
+
 	// Store the output in the feedback buffer
 	*feedbackBuffer->mWritePointer = y;
 
@@ -219,11 +219,11 @@ inline TTErr TTAllpass1::calculateValue(const TTFloat64& x, TTFloat64& y, TTDela
 	feedforwardBuffer->mWritePointer++;
 	feedbackBuffer->mReadPointer++;
 	feedbackBuffer->mWritePointer++;
-		
+
 	// wrap the pointers in the buffer, if needed
 	feedforwardBuffer->wrapForward();
 	feedbackBuffer->wrapForward();
-	
+
 	return kTTErrNone;
 }
 
@@ -238,7 +238,7 @@ TTErr TTAllpass1::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayP
 	TTChannelCount		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTPtrSizedInt		channel;
 	TTDelayBufferPtr	buffers[2];
-		
+
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];
 		outSample = out.mSampleVectors[channel];
