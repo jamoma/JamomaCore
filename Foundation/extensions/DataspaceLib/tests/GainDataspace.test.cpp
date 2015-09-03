@@ -115,17 +115,6 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
 		myDataspace.set(TT("inputUnit"), TT("linear"));
 		myDataspace.set(TT("outputUnit"), TT("dB"));
 		
-		v = TTValue(0.0);
-		expected = TTValue(-144.49);
-		
-		myDataspace.send(TT("convert"), v, v);
-		
-		TTTestAssertion("0.0 linear to dB, avoid -inf dB by clipping to 24bit resolution (-144.49 dB).",
-						TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
-						testAssertionCount,
-						errorCount);
-		
-		
         // linear => midi gain
 		
         myDataspace.set(TT("inputUnit"), TT("linear"));
@@ -206,7 +195,60 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
-    
+		
+		/*****************************************************/
+		/*                                                   */
+		/* Tests for dB hard lower limit					 */
+		/*                                                   */
+		/*****************************************************/
+		
+		// 0. linear gain => -96 dB
+		
+		myDataspace.set(TT("inputUnit"), TT("linear"));
+		myDataspace.set(TT("outputUnit"), TT("dB"));
+		
+		v = TTValue(0.0);
+		expected = TTValue(-96.0);
+		
+		myDataspace.send(TT("convert"), v, v);
+		
+		TTTestAssertion("0. linear gain to -96. dB",
+						TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+						testAssertionCount,
+						errorCount);
+		
+		// -96. dB gain => 0. linear
+		
+		myDataspace.set(TT("inputUnit"), TT("dB"));
+		myDataspace.set(TT("outputUnit"), TT("linear"));
+		
+		v = TTValue(-96.0);
+		expected = TTValue(0.0);
+		
+		myDataspace.send(TT("convert"), v, v);
+		
+		TTTestAssertion("-96. dB gain to 0. linear",
+						TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+						testAssertionCount,
+						errorCount);
+		
+		// -100. dB gain => 0. linear
+		
+		myDataspace.set(TT("inputUnit"), TT("dB"));
+		myDataspace.set(TT("outputUnit"), TT("linear"));
+		
+		v = TTValue(-100.0);
+		expected = TTValue(0.0);
+		
+		myDataspace.send(TT("convert"), v, v);
+		
+		TTTestAssertion("-00. dB gain to 0. linear",
+						TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
+						testAssertionCount,
+						errorCount);
+
+
+		
     }
     catch (...) {
         TTLogMessage("GainDataspace::test TOTAL FAILURE");

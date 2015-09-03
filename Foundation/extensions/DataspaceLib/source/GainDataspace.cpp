@@ -18,6 +18,10 @@
 #include <math.h>
 
 
+#pragma mark -
+#pragma mark linear unit
+
+
 #define thisTTClass			LinearAmplitudeUnit
 #define thisTTClassName		"unit.linear"
 #define thisTTClassTags		"dataspace.unit, gain"
@@ -45,7 +49,12 @@ void LinearAmplitudeUnit::convertFromNeutral(const TTValue& input, TTValue& outp
 #undef thisTTClassName
 #undef thisTTClassTags
 
-/***********************************************************************************************/
+
+
+/*************************************************************************/
+
+#pragma mark -
+#pragma mark midigain unit
 
 #define thisTTClass			MidiGainUnit
 #define thisTTClassName		"unit.midi.gain"
@@ -73,11 +82,20 @@ void MidiGainUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #undef thisTTClassName
 #undef thisTTClassTags
 
-/***********************************************************************************************/
+
+
+/*************************************************************************/
+
+#pragma mark -
+#pragma mark dB unit
+
 
 #define thisTTClass			DecibelUnit
 #define thisTTClassName		"unit.db"
 #define thisTTClassTags		"dataspace.unit, gain"
+
+const double kDecibelLowThreshold = -96.;	///< Set hard lower limit on possible dB values, this is necsessary to ensure that we can bring volumes to absolute silence, and also avoid -INF singularities when ramping in the dB unit.
+
 
 TT_OBJECT_CONSTRUCTOR,
 TTDataspaceUnit(arguments)
@@ -87,7 +105,10 @@ DecibelUnit::~DecibelUnit(){;}
 
 void DecibelUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output = pow(10.0, TTFloat64(input) * 0.05);
+	if ( (TTFloat64(input)) <= kDecibelLowThreshold)
+		output = 0.;
+	else
+		output = pow(10.0, TTFloat64(input) * 0.05);
 }
 
 
@@ -98,9 +119,9 @@ void DecibelUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 	// The conversion
 	temp = log10(TTFloat64(input)) * 20.0;
 	
-	// Output decibel range is limited to 24 bit range, avoids problems with singularities (-inf) when using dataspace in ramps
-	if (temp < -144.49)
-		temp = -144.49;
+	// Restrict lower value in order to avoids problems with singularities (-inf) when using dataspace in ramps
+	if (temp < kDecibelLowThreshold)
+		temp = kDecibelLowThreshold;
 	output = temp;
 }
 
@@ -109,7 +130,13 @@ void DecibelUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #undef thisTTClassName
 #undef thisTTClassTags
 
-/***********************************************************************************************/
+
+
+/*************************************************************************/
+
+#pragma mark -
+#pragma mark Gain Dataspace
+
 
 #define thisTTClass			GainDataspace
 #define thisTTClassName		"dataspace.gain"
