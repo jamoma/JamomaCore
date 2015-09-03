@@ -17,6 +17,12 @@
 #include "SpeedDataspace.h"
 
 
+/*************************************************************************/
+
+#pragma mark -
+#pragma mark MilesPerHourUnit unit
+
+
 #define thisTTClass			MilesPerHourUnit
 #define thisTTClassName		"unit.milesPerHour"
 #define thisTTClassTags		"dataspace.unit, speed"
@@ -44,6 +50,9 @@ void MilesPerHourUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 #undef thisTTClassTags
 
 /***********************************************************************************************/
+
+#pragma mark -
+#pragma mark KilometerPerHourUnit unit
 
 #define thisTTClass			KilometerPerHourUnit
 #define thisTTClassName		"unit.kilometerPerHour"
@@ -73,6 +82,9 @@ void KilometerPerHourUnit::convertFromNeutral(const TTValue& input, TTValue& out
 
 /***********************************************************************************************/
 
+#pragma mark -
+#pragma mark FootPerSecondUnit unit
+
 #define thisTTClass			FootPerSecondUnit
 #define thisTTClassName		"unit.footPerSecond"
 #define thisTTClassTags		"dataspace.unit, speed"
@@ -100,6 +112,10 @@ void FootPerSecondUnit::convertFromNeutral(const TTValue& input, TTValue& output
 #undef thisTTClassTags
 
 /***********************************************************************************************/
+
+#pragma mark -
+#pragma mark KnotUnit unit
+
 
 #define thisTTClass			KnotUnit
 #define thisTTClassName		"unit.knot"
@@ -129,6 +145,9 @@ void KnotUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 
 /***********************************************************************************************/
 
+#pragma mark -
+#pragma mark MeterPerSecondUnit unit
+
 #define thisTTClass			MeterPerSecondUnit
 #define thisTTClassName		"unit.meterPerSecond"
 #define thisTTClassTags		"dataspace.unit, speed"
@@ -156,6 +175,9 @@ void MeterPerSecondUnit::convertFromNeutral(const TTValue& input, TTValue& outpu
 #undef thisTTClassTags
 
 /***********************************************************************************************/
+
+#pragma mark -
+#pragma mark SpeedDataspace
 
 #define thisTTClass			SpeedDataspace
 #define thisTTClassName		"dataspace.speed"
