@@ -15,9 +15,11 @@ if [ "x$TRAVIS_OS_NAME" = "xlinux" ]; then
   export CXX=g++-4.9
 fi
 
+CMAKE_OPTIONS="-DCMAKE_INSTALL_PREFIX=${PWD}/JamomaInstallation -DJAMOMA_USE_COTIRE:Bool=True"
+
 if [ "x$ARCH" = "xrpi" ]; then
-  /tmp/cmake/bin/cmake -DCMAKE_INSTALL_PREFIX=${PWD}/JamomaInstallation -DCMAKE_TOOLCHAIN_FILE=../Shared/CMake/toolchains/arm-linux-gnueabihf.cmake -DCROSS_COMPILER_PATH=${PWD}/../tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/ ..
-else
-	/tmp/cmake/bin/cmake -DCMAKE_INSTALL_PREFIX=${PWD}/JamomaInstallation  ..
+  CMAKE_OPTIONS="${CMAKE_OPTIONS} -DCMAKE_TOOLCHAIN_FILE=../Shared/CMake/toolchains/arm-linux-gnueabihf.cmake -DCROSS_COMPILER_PATH=${PWD}/../tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/"
 fi
+
+/tmp/cmake/bin/cmake ${CMAKE_OPTIONS} ${TRAVIS_BUILD_DIR}
 make
