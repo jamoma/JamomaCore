@@ -163,32 +163,32 @@ TTErr GainDataspace::test(TTValue& returnedTestInfo)
         /*                                                   */
         /*****************************************************/
         
-        // 127 midi gain => 10 dB
+        // 127 midi gain => 12 dB
         
         myDataspace.set(TT("inputUnit"), TT("midigain"));
         myDataspace.set(TT("outputUnit"), TT("dB"));    
         
         v = TTValue(127.0);
-        expected = TTValue(10.0);
+        expected = TTValue(12.0);
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("127 midi gain to 10 dB",
+        TTTestAssertion("127 midi gain to 12 dB",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
         
-        // 10 dB => 127 midi gain
+        // 12 dB => 127 midi gain
         
         myDataspace.set(TT("inputUnit"), TT("dB"));
         myDataspace.set(TT("outputUnit"), TT("midigain"));
         
-        v = TTValue(10.0);
+        v = TTValue(12.0);
         expected = TTValue(127.0);
         
         myDataspace.send(TT("convert"), v, v);    
         
-        TTTestAssertion("10 dB to 127 midi gain",
+        TTTestAssertion("12 dB to 127 midi gain",
                         TTTestFloatEquivalence(TTFloat64(v), TTFloat64(expected)),
                         testAssertionCount, 
                         errorCount);
