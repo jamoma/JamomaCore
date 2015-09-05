@@ -68,13 +68,29 @@ MidiGainUnit::~MidiGainUnit(){;}
 
 void MidiGainUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
-	output = pow(TTFloat64(input)*0.01, kTTGainMidiPower);
+	// This mapping was used up until Jamoma 0.5.7. Commented code is kept here for future reference
+	// output = pow(TTFloat64(input)*0.01, kTTGainMidiPower);
+	
+	TTFloat64 v = TTFloat64(input);
+	
+	if (v<=0.)
+		output = 0.;
+	else {
+		output = TTMidiToLinearGain(v);
+	}
 }
 
 
 void MidiGainUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
-	output = 100.0 * pow(TTFloat64(input), kTTGainMidiPowerInv);
+	// This mapping was used up until Jamoma 0.5.7. Commented code is kept here for future reference
+	//output = 100.0 * pow(TTFloat64(input), kTTGainMidiPowerInv);
+	
+	TTFloat64 v = TTFloat64(input);
+	if (v<=0)
+		output = 0.;
+	else
+		output = TTLinearGainToMidi(TTFloat64(input));
 }
 
 
