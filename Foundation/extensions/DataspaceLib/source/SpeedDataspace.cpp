@@ -193,7 +193,6 @@ TT_OBJECT_CONSTRUCTOR
 	registerUnit(TT("unit.meterPerSecond"),			TT("m/s"));
 	registerUnit(TT("unit.knot"),					TT("kn"));
 	registerUnit(TT("unit.footPerSecond"),			TT("ft/s"));
-	registerUnit(TT("unit.footPerSecond"),			TT("fps"));
 	// Set our neutral unit (the unit through which all conversions are made)
 	neutralUnit = TT("m/s");
 	
