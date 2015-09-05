@@ -462,6 +462,24 @@ inline TTFloat64 TTLinearGainToDecibels(const TTFloat64 value)
 }
 
 
+/** Convert linear amplitude into deciBels.
+ @todo This could probably be using DataspaceLib instead?
+ @param value		The linear gain value to convert.
+ @return			Converted decibel value.
+ */
+inline TTFloat64 TTLinearGainToDecibelsClipped(const TTFloat64 value)
+{
+	if (value <= 0.)
+		return -96.;
+	else
+	{
+		TTFloat64 temp = 20.0 * (log10(value));
+		if (temp<=-96.) temp = -96.;
+		return temp;
+	}
+}
+
+
 /** Convert decibels into linear ampliude.
  @todo This could probably be using DataspaceLib instead?
  @param value		The decibel value to convert.
@@ -473,12 +491,26 @@ inline TTFloat64 TTDecibelsToLinearGain(TTFloat64 value)
 }
 
 
+/** Convert decibels into linear ampliude, restrict lower dB to -96 dB.
+ @todo This could probably be using DataspaceLib instead?
+ @param value		The decibel value to convert.
+ @return			The converted linear gain value.
+ */
+inline TTFloat64 TTDecibelsToLinearGainClipped(TTFloat64 value)
+{
+	if (value <= -96.)
+		return 0.;
+	else
+		return(pow(10., (value * 0.05)));
+}
+
+
 const TTFloat64 kTTGainMidiPower		= log((log(12./96. + 1.))/(log(127./100.)))/log(2.);
 //const TTFloat64 kTTGainMidiPowerInv	= 1./kTTGainMidiPower;
 const TTFloat64 kTTGainMidiPowPow2		= pow(2, kTTGainMidiPower);
 
 
-/** Convert midi into linear amplitude.
+/** Convert midi into linear amplitude, midi range is restricted at lower end to 0.
  @todo This could probably be using DataspaceLib instead?
  @param value		The midi gain value to convert.
  @return			The converted linear gain value.
@@ -486,12 +518,17 @@ const TTFloat64 kTTGainMidiPowPow2		= pow(2, kTTGainMidiPower);
 inline TTFloat64 TTMidiToLinearGain(TTFloat64 value)
 {
 	// Convert MIDI => dB
-	TTFloat64 temp = 96* ( pow( (value/100.), (pow(2, kTTGainMidiPower))) - 1);
-	return(TTDecibelsToLinearGain(temp));
+	TTFloat64 temp = value;
+	if (temp<=0.)
+		return 0.;
+	else {
+		temp = 96* ( pow( (value/100.), (pow(2, kTTGainMidiPower))) - 1);
+		return(TTDecibelsToLinearGainClipped(temp));
+	}
 }
 
 
-/** Convert linear amplitude into midi.
+/** Convert linear amplitude into midi, midi range is restricted at lower end to 0.
  @todo This could probably be using DataspaceLib instead?
  @param value		A linear amplitude to convert.
  @return			The converted midi gain value.
@@ -499,8 +536,12 @@ inline TTFloat64 TTMidiToLinearGain(TTFloat64 value)
 inline TTFloat64 TTLinearGainToMidi(TTFloat64 value)
 {
 	TTFloat64 temp = TTLinearGainToDecibels(value);
-	// Convert db => MIDI
-	return 100 * exp((log(temp/96. + 1.))/kTTGainMidiPowPow2);
+	if (temp <= -96.)
+		return 0.;
+	else {
+		// Convert db => MIDI
+		return 100 * exp((log(temp/96. + 1.))/kTTGainMidiPowPow2);
+	}
 }
 
 
