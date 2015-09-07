@@ -428,7 +428,7 @@ std::basic_ostream <charT, traits>& operator<< (std::basic_ostream <charT, trait
 
 /** Provide overload of std::hash so that TTString can be used the same as std::string for std::map et al. */
 
-#if defined( __clang__ )
+#if defined( __APPLE__ )
 
 // GCC and Clang provide different (cryptic) ways of adding custom types to the c++ hashing classes
 // The GCC version is based on code from StackOverflow
