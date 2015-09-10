@@ -121,6 +121,14 @@ function(add_jamoma_extension)
 				SHARED
 				${PROJECT_SRCS} ${PROJECT_HDRS})
 
+    # TODO this is an obstacle to static extensions.
+    get_property(EXTENSION_SOURCES
+                 TARGET ${PROJECT_NAME}
+                 PROPERTY SOURCES)
+
+    set_property(TARGET ${PROJECT_NAME}
+                 PROPERTY SOURCES "${EXTENSION_SOURCES};${CMAKE_MODULE_PATH}/../../JamomaGitInfo.cpp")
+
 	target_link_libraries(${PROJECT_NAME} PUBLIC ${JAMOMA_CURRENT_LIBRARY_NAME})
 
 	# Rpath

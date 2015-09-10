@@ -1,6 +1,7 @@
 #include "TTExtensionLoader.h"
 #include "TTFoundation.h"
 #include "TTEnvironment.h"
+#include "JamomaCoreVersion.h"
 #include <vector>
 #include <string>
 
@@ -78,6 +79,7 @@ string TTFilenameToExtensionName(string name)
 	return name;
 }
 
+
 template<typename OS, typename Loader, typename GetProc>
 // A generic way to load classes.
 // Loader  : a callable object that takes a filename of a shared object,
@@ -98,6 +100,13 @@ bool TTLoadExtension(const string& filename,
 	if (!handle)
 	{
 		TTLogMessage("Error when trying to get an handle on %s.\n", filename.c_str());
+		return false;
+	}
+
+	// Check if the extension is compatible.
+	auto compatfun = reinterpret_cast<bool (*)(const char*)>(getproc_fun(handle, "TTExtensionCompatibilityCheck"));
+	if(!compatfun || (compatfun && !compatfun(JAMOMACORE_REV)))
+	{
 		return false;
 	}
 
