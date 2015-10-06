@@ -465,15 +465,3 @@ TTErr TT_EXTENSION_EXPORT TTProtocolSendMessageCallback(const TTValue& baton, co
 TTErr TT_EXTENSION_EXPORT TTProtocolListenAttributeCallback(const TTValue& baton, const TTValue& data);
 
 #endif	//__TT_PROTOCOL_H__
-
-#ifndef __TT_PROTOCOLLIB_H__
-#define __TT_PROTOCOLLIB_H__
-
-class TT_EXTENSION_EXPORT TTProtocolLib {
-public:
-	
-	/**	Return a list of all available protocols. */
-	static void getProtocolNames(TTValue& protocolNames);
-};
-
-#endif	//__TT_PROTOCOLLIB_H__

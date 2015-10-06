@@ -202,20 +202,8 @@ typedef TTTimeEvent* TTTimeEventPtr;
 TTBoolean TTSCORE_EXPORT TTTimeEventCompareDate(TTValue& v1, TTValue& v2);
 
 /** Define an unordered map to store and retreive a value relative to a TTTimeEventPtr */
-#ifdef TT_PLATFORM_WIN
-    #include <hash_map>
-    using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
-    typedef hash_map<TTTimeEventPtr,TTValuePtr>    TTTimeEventMap;
-#else
-//	#ifdef TT_PLATFORM_LINUX
-//  at least for GCC 4.6 on the BeagleBoard, the unordered map is standard
-    #include <unordered_map>
-//	#else
-//		#include "boost/unordered_map.hpp"
-//		using namespace boost;
-//	#endif
-    typedef std::unordered_map<TTTimeEventPtr,TTValuePtr>	TTTimeEventMap;
-#endif
+#include <unordered_map>
+typedef std::unordered_map<TTTimeEventPtr,TTValuePtr>	TTTimeEventMap;
 
 typedef	TTTimeEventMap*                   TTTimeEventMapPtr;
 typedef TTTimeEventMap::const_iterator	TTTimeEventMapIterator;

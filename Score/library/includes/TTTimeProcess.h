@@ -340,20 +340,8 @@ void TTSCORE_EXPORT TTTimeProcessClockCallback(TTPtr object, TTFloat64 position,
 typedef void (*TTTimeProcessPositionCallback)(TTPtr, TTFloat64, TTFloat64);
 
 /** Define an unordered map to store and retreive a value relative to a TTTimeProcessPtr */
-#ifdef TT_PLATFORM_WIN
-    #include <hash_map>
-    using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
-    typedef hash_map<TTTimeProcessPtr,TTValuePtr>    TTTimeProcessMap;
-#else
-    //	#ifdef TT_PLATFORM_LINUX
-    // at least for GCC 4.6 on the BeagleBoard, the unordered map is standard
-    #include <unordered_map>
-    //	#else
-    //		#include "boost/unordered_map.hpp"
-    //		using namespace boost;
-    //	#endif
-    typedef std::unordered_map<TTTimeProcessPtr,TTValuePtr>	TTTimeProcessMap;
-#endif
+#include <unordered_map>
+typedef std::unordered_map<TTTimeProcessPtr,TTValuePtr>	TTTimeProcessMap;
 
 typedef	TTTimeProcessMap*                   TTTimeProcessMapPtr;
 typedef TTTimeProcessMap::const_iterator	TTTimeProcessMapIterator;

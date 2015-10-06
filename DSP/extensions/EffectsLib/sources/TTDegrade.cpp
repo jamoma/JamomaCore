@@ -4,7 +4,7 @@
  *
  * @brief #TTDegrade distorts signal by reducing bit resolution and/or sample rate.
  *
- * @authors Tim Place, Trond Lossius
+ * @authors Tim Place, Trond Lossius, Nathan Wolek
  *
  * @copyright Copyright © 2008, Tim Place @n
  * This code is licensed under the terms of the "New BSD License" @n
@@ -74,7 +74,7 @@ TTErr TTDegrade::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 					*outSample;
 	TTChannelCount	numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTChannelCount	channel;
-	long			l;
+	TTInt32			l;
 
 	for (channel=0; channel<numchannels; channel++) {
 		inSample = in.mSampleVectors[channel];
@@ -85,15 +85,18 @@ TTErr TTDegrade::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPt
 			// SampeRate Reduction
 			mAccumulator[channel] += mSrRatio;
 			if (mAccumulator[channel] >= 1.0) {
-				mOutput[channel] = *inSample++;
+				mOutput[channel] = *inSample;
 				mAccumulator[channel] -= 1.0;
 			}
+            inSample++;
 		
 			// BitDepth Reduction
-			l = (long)(mOutput[channel] * BIG_INT);			// change float to long int
+			l = (TTInt32)(mOutput[channel] * BIG_INT);			// change float to long int
 			l >>= mBitShift;									// shift away the least-significant bits
 			l <<= mBitShift;									// shift back to the correct registers
-			*outSample++ = (float) l * ONE_OVER_BIG_INT;	// back to float
+			*outSample++ = (TTFloat32) l * ONE_OVER_BIG_INT;	// back to float
+            
+            // Even with mSrRatio 1. and mBitdepth 24., a 64-bit sample will be degraded to 32 bit
 		}
 	}
 	return kTTErrNone;

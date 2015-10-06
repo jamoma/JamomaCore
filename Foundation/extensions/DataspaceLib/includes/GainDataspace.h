@@ -84,7 +84,7 @@ public:
 
 
 
-/** Converts gains to and from decibels.
+/** Converts gains to and from decibels, with lower limit of -96 dB.
  *
  * @details This unit is denoted as "dB" or "db".
  */
@@ -104,6 +104,30 @@ public:
 	 @param output				Returned gain, described using decibels.
 	 */
 	void convertFromNeutral(const TTValue& input, TTValue& output);	
+};
+
+
+
+/** Converts gains to and from decibels, with lower limit of -96 dB.
+ *
+ * @details This unit is denoted as "db-raw" or "dB-raw".
+ */
+class DecibelRawUnit : public TTDataObjectBase, public TTDataspaceUnit {
+	TTCLASS_SETUP(DecibelRawUnit)
+	
+public:
+	
+	/** Convert from decibel to neutral unit.
+	 @param input				Input gain described using decibels.
+	 @param output				Returned gain, converted to neutral unit.
+	 */
+	void convertToNeutral(const TTValue& input, TTValue& output);
+	
+	/** Convert from neutral unit to decibels.
+	 @param input				Input gain described using the neutral unit.
+	 @param output				Returned gain, described using decibels.
+	 */
+	void convertFromNeutral(const TTValue& input, TTValue& output);
 };
 
 

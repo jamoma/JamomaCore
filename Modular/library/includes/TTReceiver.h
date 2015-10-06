@@ -36,7 +36,7 @@ private:
 	
 	TTAddress                   mAddress;					///< ATTRIBUTE : the address to bind
 	TTBoolean					mActive;					///< ATTRIBUTE : if false, received data won't be output without unregister the attribute observer (default true).
-	
+    
 	TTObject                    mReturnAddressCallback;		///< a way to return received address to the owner of this receiver
 	TTObject                    mReturnValueCallback;		///< a way to return received value to the owner of this receiver
 	TTObject                    mAddressObserver;			///< an address life cycle observer
@@ -44,6 +44,8 @@ private:
 	TTList                      mNodesObserversCache;		///< a list containing <aNode, anAttrObserver>
     // TODO JamomaCore #305 : TTList : allow to register as none pointer members
 	TTListPtr                   mObjectCache;				///< ATTRIBUTE : a cache containing all binded objects for quick access
+    TTBoolean					mBinding;					///< ATTRIBUTE : true when the receiver is binding
+    
 	
 	/**	Setter for mAddress attribute. */
 	TTErr setAddress(const TTValue& value);

@@ -23,7 +23,7 @@ using TTStringVector = vector<string>;
 // Utility compile-time functions to work with string constants.
 // Except on windows, where constexpr will only be in VS2015 (hopefully...)
 // This would allow to shrink this file size by a small half.
-#if !defined(TT_PLATFORM_WIN)
+#if !defined(TT_PLATFORM_WIN) || defined(__MINGW32__)
 template <typename T, size_t n>
 constexpr size_t array_length(const T (&)[n])
 { return n; }
@@ -127,7 +127,7 @@ bool TTLoadExtension(const string& filename,
 //	 * Built-in absolute paths (standard paths, e.g. "/usr/local/jamoma"...
 //	   and a compiled-in absolute path (to allow package maintainers to add their own paths)
 //   * Common code for Unix-like platforms is abstracted in TTUnixCommon.
-#if defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX)
+#if defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX) && !defined(__MINGW32__)
 #include <dlfcn.h>
 #include <dirent.h>
 
@@ -240,16 +240,16 @@ class TTiOSSpecific
 public:
     static constexpr const char extensionPrefix[]{""};
     static constexpr const char extensionSuffix[]{".ttdylib"};
-    
+
     static string computedRelativePath()
     { return ""; }
-    
+
     static TTStringVector builtinRelativePaths()
     { return {}; }
-    
+
     static TTStringVector builtinAbsolutePaths()
     { return {}; }
-    
+
     static bool TTLoadExtensionsFromFolder(const string& folderName)
     { return false; }
 };
@@ -289,7 +289,7 @@ using TTOperatingSystem = TTAndroidSpecific;
 #endif
 
 
-#if defined(TT_PLATFORM_LINUX)
+#if defined(TT_PLATFORM_LINUX) && !defined(__MINGW32__)
 class TTLinuxSpecific
 {
 	public:
@@ -312,8 +312,8 @@ using TTOperatingSystem = TTLinuxSpecific;
 #endif
 
 
-#if defined(TT_PLATFORM_WIN)
-#include <ShlObj.h>
+#if defined(TT_PLATFORM_WIN) || defined(__MINGW32__)
+#include <shlobj.h>
 
 class TTWinSpecific
 {
@@ -384,7 +384,11 @@ TTStringVector TTWinSpecific::builtinAbsolutePaths()
 #if defined(JAMOMA_EXTENSIONS_INSTALL_PREFIX)
 		JAMOMA_EXTENSIONS_INSTALL_PREFIX,
 #endif
+#if defined(_WIN64)
+		"c:\\Program Files\\Jamoma\\extensions"
+#else
 		"c:\\Program Files (x86)\\Jamoma\\extensions"
+#endif
 	};
 }
 
@@ -428,7 +432,7 @@ using TTOperatingSystem = TTWinSpecific;
 #endif
 
 // Because these members are static they have to be allocated in this compilation unit.
-#if defined(TT_PLATFORM_WIN)
+#if defined(TT_PLATFORM_WIN) || defined(__MINGW32__)
 const char* TTOperatingSystem::extensionPrefix{""};
 const char* TTOperatingSystem::extensionSuffix{".ttdll"};
 #else

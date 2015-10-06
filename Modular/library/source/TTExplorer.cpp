@@ -60,6 +60,7 @@ mResult(NULL)
 	addMessageWithArguments(SelectNone);
 	
 	addMessage(SelectionRefresh);
+    addMessage(SelectionClear);
 	
 	addMessageWithArguments(FilterSet);
 	addMessageWithArguments(FilterRemove);
@@ -273,12 +274,7 @@ TTErr TTExplorer::Explore()
 		err = mDirectory->Lookup(mAddress, aNodeList, &mTempNode);
 	
 	if (!err){
-        
-        // clear namespace
-        TTAddressItemPtr aSelection = TTModularSelectionLookup(mNamespace);
-        if (aSelection)
-            aSelection->clear();
-		
+
 		// get attributes names of the node at mAddress
 		if (mOutput == kTTSym_attributes) {
 			
@@ -519,6 +515,26 @@ TTErr TTExplorer::SelectNone()
     return kTTErrGeneric;
 }
 
+TTErr TTExplorer::SelectionClear()
+{
+    TTAddressItemPtr aSelection = TTModularSelectionLookup(mNamespace);
+    if (aSelection)
+    {
+        if (mAddress == kTTAdrsEmpty || mAddress == kTTAdrsRoot)
+        {
+            aSelection->clear();
+        }
+        else
+        {
+            TTAddressItemPtr anItem;
+            if (!aSelection->find(mAddress, &anItem))
+                anItem->clear();
+        }
+    }
+    
+    return kTTErrNone;
+}
+
 TTErr TTExplorer::SelectionRefresh()
 {
 	return returnSelectionBack();
@@ -571,6 +587,8 @@ TTErr TTExplorer::FilterSet(const TTValue& inputValue, TTValue& outputValue)
                 
                 afilter->append(filterKey, filterValue);
             }
+            
+            SelectionClear();
         }
         
         // append the new filter to the filter list
@@ -611,6 +629,8 @@ TTErr TTExplorer::FilterRemove(const TTValue& inputValue, TTValue& outputValue)
             
             // remove the filter from the filter list
             mFilterList->remove(filterName);
+
+            SelectionClear();
             
             return kTTErrNone;
         }
@@ -709,6 +729,8 @@ TTErr TTExplorer::setFilterList(const TTValue& value)
 			mFilterList->append(filterName);
 		else anError = YES;
 	}
+    
+    SelectionClear();
 	
 	if (anError) return kTTErrValueNotFound;
 	else return kTTErrNone;
@@ -850,9 +872,8 @@ TTErr TTExplorer::returnSelectionBack()
 			if (anItem)
 				selection.append(anItem->getSelection());
 		}
+        
 		TTValue dummy;
-		
-		
 		return mReturnSelectionCallback.send("notify", selection, dummy);
 	}
 	

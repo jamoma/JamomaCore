@@ -769,6 +769,24 @@ TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
 				else
 					mValue = lValue;
 				
+				// Filter repetitions.
+				// This is done before clipping and integer truncation in order enforce views (returns) to stay within range when they attempt to set values out of range. See https://github.com/jamoma/JamomaMax/issues/934
+				// Additionally: If ramps reach the end prematurely (due to requests for ramp targets beyond the accepted range), the ramp will not be stopped.
+				
+				if (mRepetitionsFilter) {
+					if (mInitialized) {
+						TTValue tempValue = mValue;
+						// Convert to integer if necsessary before comparing
+						if (mType == kTTSym_integer)
+							tempValue.truncate();
+						if (tempValue == lPreviousValue) {
+							// Unlock and exit without outputing
+							mIsSending = NO;
+							return kTTErrNone;
+						}
+					}
+				}
+				
 				// Clipping
 				clipValue();
 				
@@ -777,26 +795,11 @@ TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
 				if (mType == kTTSym_integer)
 					mValue.truncate();
 				
-				// NOTE: If ramps reach the end prematurely (due to requests for ramp targets beyond the accepted range), the ramp will not be stopped.
-				
-				// Filter repetitions, and return the internal value - this is passing it to the owner of the #TTData and will notify all value observers.
-				if (mRepetitionsFilter) {
-					if (mInitialized) {
-						if (mValue != lPreviousValue)
-							returnValue();
-					}
-					else {
-						returnValue();
-						mInitialized = true;
-					}
-					
-				}
-				else
-					returnValue();
-			} else {
-				// If the value is empty, return current value. This is the case in the Max implementation when a "bang" is sent to j.parameter.
-				returnValue();
+				// Flag to ensure that value has been set at least once
+				mInitialized = true;
 			}
+			returnValue();
+			
 			// unlock
 			mIsSending = NO;
 			

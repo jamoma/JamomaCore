@@ -126,6 +126,10 @@ mTempAddress(kTTAdrsRoot)
     // note : this a temporary message to allow proxy data creation
     addMessageWithArguments(ProxyDataInstantiate);
     addMessageProperty(ProxyDataInstantiate, hidden, YES);
+    
+    // note : this a temporary message to allow mirror object creation
+    addMessageWithArguments(MirrorObjectInstantiate);
+    addMessageProperty(MirrorObjectInstantiate, hidden, YES);
 	
     // create a TTNodeDirectory to handle the application namespace
 	mDirectory = new TTNodeDirectory(mName);
@@ -781,16 +785,17 @@ TTErr TTApplication::ObjectRegister(const TTValue& inputValue, TTValue& outputVa
             if (address == kTTAdrsRoot)
                 return mDirectory->getRoot()->setObject(object);
             
-            else {
+            else
+            {
                 TTErr err = mDirectory->TTNodeCreate(address, object, context, &node, &newInstanceCreated);
                 
-                // return the effective address
-                if (!err) {
-                    
+                // return the effective address and the node
+                if (!err)
+                {
                     if (newInstanceCreated)
                         node->getAddress(address);
                     
-                    outputValue = address;
+                    outputValue = TTValue(address, (TTPtr)node);
                 }
                 
                 return err;
@@ -1671,6 +1676,61 @@ TTErr TTApplication::ProxyDataInstantiate(const TTValue& inputValue, TTValue& ou
                     
                     // instantiate a proxy data object
                     outputValue = appendProxyData(aProtocol, address.normalize(), service);
+                    return kTTErrNone;
+                }
+            }
+        }
+    }
+    
+    return kTTErrGeneric;
+}
+
+TTErr TTApplication::MirrorObjectInstantiate(const TTValue& inputValue, TTValue& outputValue)
+{
+    // for mirror application only
+    if (mType == kTTSym_mirror)
+    {
+        // a distant application should have one protocol
+        TTValue protocolNames = accessApplicationProtocolNames(mName);
+        TTSymbol protocolName = protocolNames[0];
+        
+        TTProtocolPtr aProtocol = accessProtocol(protocolName);
+        if (aProtocol)
+        {
+            if (inputValue.size() == 2)
+            {
+                if (inputValue[0].type() == kTypeSymbol && inputValue[1].type() == kTypeSymbol)
+                {
+                    TTAddress address = inputValue[0];
+                    TTSymbol objectName = inputValue[1];
+                    TTValue none;
+                    
+                    // instantiate a mirror object
+                    TTObject anObject = appendMirrorObject(aProtocol, address.normalize(), objectName, none);
+                    
+                    if (anObject.valid())
+                    {
+                        // cache attributes value
+                        TTValue attributesToCache;
+                        mCachedAttributes.getKeys(attributesToCache);
+                        for (TTUInt32 i = 0; i < attributesToCache.size(); i++)
+                        {
+                            TTSymbol cachedAttribute = attributesToCache[i];
+                            
+                            // if the attribute exist
+                            TTValue v;
+                            if (anObject.get(cachedAttribute, v) != kTTErrInvalidAttribute)
+                            {
+                                // cache the attribute value
+                                TTValue args = cachedAttribute;
+                                args.append((TTPtr)&v);
+                                anObject.send("AttributeCache", args);
+                            }
+                        }
+                    }
+                    
+                    outputValue = anObject;
+                    
                     return kTTErrNone;
                 }
             }

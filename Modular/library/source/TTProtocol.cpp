@@ -580,23 +580,3 @@ TTErr TTProtocolListenAttributeCallback(const TTValue& baton, const TTValue& dat
     else
         return kTTErrGeneric;
 }
-
-/***************************************************************************
- 
-	TTProtocolLib
- 
- ***************************************************************************/
-
-void TTProtocolLib::getProtocolNames(TTValue& protocolNames)
-{
-	protocolNames.clear();
-	protocolNames.append(TTSymbol("MIDI"));
-	protocolNames.append(TTSymbol("OSC"));
-    protocolNames.append(TTSymbol("WebSocket"));
-    /*
-	protocolNames.append(TTSymbol("MIDI"));
-	protocolNames.append(TTSymbol("CopperLan"));
-	protocolNames.append(TTSymbol("Serial"));
-	 */
-}
-
