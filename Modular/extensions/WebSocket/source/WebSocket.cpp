@@ -857,7 +857,8 @@ TTErr WebSocket::receivedMessage(const TTValue& message, TTValue& outputValue)
         
         // get value
         // TODO : make a loop to set several attributes
-        arguments = jsonContent[3];
+        arguments.copyFrom(jsonContent, 3);
+        // arguments = jsonContent[3];
         return ReceiveSetRequest(kTTSymEmpty, whereTo, arguments);
     }
 	else
