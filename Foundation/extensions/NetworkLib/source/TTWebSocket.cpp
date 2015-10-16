@@ -211,7 +211,7 @@ TTWebSocket::TTWebSocket()
 
 TTWebSocket::~TTWebSocket()
 {
-    mg_stop(mContext);
+    if(mContext != NULL) mg_stop(mContext);
 }
 
 TTErr TTWebSocket::bind()
