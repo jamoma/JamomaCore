@@ -53,6 +53,7 @@ extern "C" TT_EXTENSION_EXPORT TTErr TTLoadJamomaExtension_DataspaceLib(void)
 	LinearAmplitudeUnit::registerClass();
 	MidiGainUnit::registerClass();
 	DecibelUnit::registerClass();
+	DecibelRawUnit::registerClass();
 	
 	NoneDataspace::registerClass();
 	NoneUnit::registerClass();

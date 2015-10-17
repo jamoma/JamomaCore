@@ -448,6 +448,151 @@ inline TTFloat64 TTGetTimeInMicroseconds()
 }
 
 
+/** Convert linear amplitude into deciBels.
+ @todo This could probably be using DataspaceLib instead?
+ @param value		The linear gain value to convert.
+ @return			Converted decibel value.
+ */
+inline TTFloat64 TTLinearGainToDecibels(const TTFloat64 value)
+{
+	if (value >= 0)
+		return(20.0 * (log10(value)));
+	else
+		return 0;
+}
+
+
+/** Convert linear amplitude into deciBels.
+ @todo This could probably be using DataspaceLib instead?
+ @param value		The linear gain value to convert.
+ @return			Converted decibel value.
+ */
+inline TTFloat64 TTLinearGainToDecibelsClipped(const TTFloat64 value)
+{
+	if (value <= 0.)
+		return -96.;
+	else
+	{
+		TTFloat64 temp = 20.0 * (log10(value));
+		if (temp<=-96.) temp = -96.;
+		return temp;
+	}
+}
+
+
+/** Convert decibels into linear ampliude.
+ @todo This could probably be using DataspaceLib instead?
+ @param value		The decibel value to convert.
+ @return			The converted linear gain value.
+ */
+inline TTFloat64 TTDecibelsToLinearGain(TTFloat64 value)
+{
+	return(pow(10., (value * 0.05)));
+}
+
+
+/** Convert decibels into linear ampliude, restrict lower dB to -96 dB.
+ @todo This could probably be using DataspaceLib instead?
+ @param value		The decibel value to convert.
+ @return			The converted linear gain value.
+ */
+inline TTFloat64 TTDecibelsToLinearGainClipped(TTFloat64 value)
+{
+	if (value <= -96.)
+		return 0.;
+	else
+		return(pow(10., (value * 0.05)));
+}
+
+
+const TTFloat64 kTTGainMidiPower		= log((log(12./96. + 1.))/(log(127./100.)))/log(2.);
+//const TTFloat64 kTTGainMidiPowerInv	= 1./kTTGainMidiPower;
+const TTFloat64 kTTGainMidiPowPow2		= pow(2, kTTGainMidiPower);
+
+
+/** Convert midi into linear amplitude, midi range is restricted at lower end to 0.
+ @todo This could probably be using DataspaceLib instead?
+ @param value		The midi gain value to convert.
+ @return			The converted linear gain value.
+ */
+inline TTFloat64 TTMidiToLinearGain(TTFloat64 value)
+{
+	// Convert MIDI => dB
+	TTFloat64 temp = value;
+	if (temp<=0.)
+		return 0.;
+	else {
+		temp = 96* ( pow( (value/100.), (pow(2, kTTGainMidiPower))) - 1);
+		return(TTDecibelsToLinearGainClipped(temp));
+	}
+}
+
+
+/** Convert linear amplitude into midi, midi range is restricted at lower end to 0.
+ @todo This could probably be using DataspaceLib instead?
+ @param value		A linear amplitude to convert.
+ @return			The converted midi gain value.
+ */
+inline TTFloat64 TTLinearGainToMidi(TTFloat64 value)
+{
+	TTFloat64 temp = TTLinearGainToDecibels(value);
+	if (temp <= -96.)
+		return 0.;
+	else {
+		// Convert db => MIDI
+		return 100 * exp((log(temp/96. + 1.))/kTTGainMidiPowPow2);
+	}
+}
+
+
+/** Generate the next prime number higher than the value passed in.
+ @param value		The number passed in.
+ @return			The next prime number higher than the number passed in.
+ */
+inline TTUInt32 TTPrime(TTUInt32 value)
+{
+	long	candidate, last, i, isPrime;
+	
+	if (value < 2)
+		candidate = 2;
+	else if (value == 2)
+		candidate = 3;
+	else {
+		candidate = value;
+		if (candidate % 2 == 0)								// Test only odd numbers
+			candidate--;
+		do{
+			isPrime = true;									// Assume glorious success
+			candidate += 2;									// Bump to the next number to test
+			last = TTUInt32(sqrt((TTFloat32)candidate));  	// We'll check to see if candidate has any factors, from 2 to last
+			for (i=3; (i <= last) && isPrime; i+=2) {		// Loop through odd numbers only
+				if ((candidate % i) == 0)
+					isPrime = false;
+			}
+		}
+		while (!isPrime);
+	}
+	return candidate;
+}
+
+
+/** An idiosyncratic utility for slightly randomizing a number.
+ Specifically this is used in applications such as randoming delay times for a reverb.
+ @param value		The value to randomise
+ @param aSampleRate Current sample rate
+ @return			The slightly randomised value
+ */
+inline TTFloat64 TTDeviate(TTFloat64 value, TTFloat64 aSampleRate = 1.0)
+{   //TODO use Mersedian Twister for rand-generator
+	value += (2.0 * (TTFloat32(rand()) / TTFloat32(RAND_MAX))) - 1.0;	// randomize input with +1 to -1 ms
+	value = value * 0.001 * aSampleRate;								// convert from ms to samples
+	value = (TTFloat32)TTPrime(TTUInt32(value));						// find the nearest prime number (in samples)
+	value = (value / aSampleRate) * 1000.0;								// convert back to ms
+	
+	return value;
+}
+
+
 /**	Produces a random-valued 64-bit floating-point number in the range [0.0, 1.0]	*/
 TTFOUNDATION_EXPORT TTFloat64 TTRandom64();
 
@@ -542,12 +687,12 @@ TTFOUNDATION_EXPORT extern const TTFloat64 kTTDegreesToRadians;
 /** \ingroup consts
  Power constant used when calculating MID gain.
  */
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPower;
+//TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPower;
 
 /** \ingroup consts
  Invverse power constant used when calculating MID gain.
  */
-TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPowerInv;
+//TTFOUNDATION_EXPORT extern const TTFloat64 kTTGainMidiPowerInv;
 
 /** \ingroup consts
  Constant for color representation when converting from char8 to float representation.

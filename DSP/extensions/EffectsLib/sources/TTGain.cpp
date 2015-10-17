@@ -38,10 +38,14 @@ TTGain::~TTGain()
 }
 
 
+// db range is clipped at low end to -96 dB
+
+#pragma mark -
+#pragma mark dB set/get
 
 TTErr TTGain::setGain(const TTValue& newValue)
 {   
-	mGain = TTDecibelsToLinearGain(newValue);
+	mGain = TTDecibelsToLinearGainClipped(newValue);
 	if (mInterpolated) 
 		setProcessMethod(processAudioInterpolated);
 	return kTTErrNone;
@@ -50,12 +54,15 @@ TTErr TTGain::setGain(const TTValue& newValue)
 
 TTErr TTGain::getGain(TTValue& value)
 {
-	value = TTLinearGainToDecibels(mGain);
+	value = TTLinearGainToDecibelsClipped(mGain);
 	if (mInterpolated) 
 		setProcessMethod(processAudioInterpolated);
 	return kTTErrNone;
 }
 
+
+#pragma mark -
+#pragma mark midigain set/get
 
 TTErr TTGain::setMidiGain(const TTValue& newValue)
 {
@@ -72,6 +79,9 @@ TTErr TTGain::getMidiGain(TTValue& value)
 	return kTTErrNone;
 }
 
+
+#pragma mark -
+#pragma mark audio
 
 TTErr TTGain::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {

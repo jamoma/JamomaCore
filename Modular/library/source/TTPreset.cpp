@@ -179,35 +179,54 @@ TTErr TTPreset::processUpdate(TTObject& aScript)
 	lines = TTListPtr((TTPtr)v[0]);
 	
 	// lookat each line of the script
-	for (lines->begin(); lines->end(); lines->next()) {
-		
+	for (lines->begin(); lines->end(); lines->next())
+    {
 		aLine = TTDictionaryBasePtr((TTPtr)lines->current()[0]);
         
         // if it is a Data object
-        if (!aLine->lookup(kTTSym_target, v)) {
-            
+        if (!aLine->lookup(kTTSym_target, v))
+        {
             anAddress = v[0];
             err = accessApplicationDirectoryFrom(anAddress)->getTTNode(anAddress, &aNode);
             
-            if (!err) {
-                
+            if (!err)
+            {
                 anObject = aNode->getObject();
                 
-                if (anObject.valid()) {
-                    
-                    if (anObject.name() == kTTSym_Data) {
-                        
+                if (anObject.valid())
+                {
+                    if (anObject.name() == kTTSym_Data)
+                    {
                         // get his service attribute value
                         anObject.get(kTTSym_service, v);
                         service = v[0];
                         
                         // update only parameters
-                        if (service == kTTSym_parameter) {
-                            
+                        if (service == kTTSym_parameter)
+                        {
                             // get his current value
                             err = anObject.get(kTTSym_value, v);
                             
-                            if (!err) {
+                            if (!err)
+                            {
+                                // when the line have a specific unit
+                                TTValue line_unit;
+                                if (!aLine->lookup(kTTSym_unit, line_unit))
+                                {
+                                    TTObject converter(kTTSym_dataspace);
+                                    
+                                    TTValue dataspace;
+                                    anObject.get(kTTSym_dataspace, dataspace);
+                                    converter.set(kTTSym_dataspace, dataspace);
+                                    
+                                    TTValue data_unit;
+                                    anObject.get(kTTSym_dataspaceUnit, data_unit);
+                                    converter.set("inputUnit", data_unit);
+                                    
+                                    converter.set("outputUnit", line_unit);
+                                    
+                                    converter.send("convert", v, v);
+                                }
                                 
                                 // replace the former value
                                 aLine->remove(kTTSym_value);
