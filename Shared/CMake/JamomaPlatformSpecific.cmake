@@ -56,6 +56,11 @@ if(UNIX)
 				include_directories("/usr/include/i386-linux-gnu/c++/4.8/")
 			endif()
 		endif()
+
+                if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+                    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+                endif()
+
 	elseif(MINGW)
 		add_definitions(-DTT_PLATFORM_WIN)
 		SET(CPACK_GENERATOR "NSIS")
