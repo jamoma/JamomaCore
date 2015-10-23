@@ -10,7 +10,7 @@ function(setupJamomaLibraryProperties LIBNAME)
     	if(APPLE)
         	set_property(TARGET ${PROJECT_NAME}
                      	PROPERTY INSTALL_RPATH "@loader_path/../../../../support;@loader_path")
-    	else(NOT WIN32)
+    	else()
         	set_property(TARGET ${PROJECT_NAME}
                      	PROPERTY INSTALL_RPATH "\$ORIGIN/../support;\$ORIGIN")
     	endif()
@@ -101,14 +101,14 @@ function(add_jamoma_library)
 		setupJamomaLibraryProperties(${PROJECT_NAME}-x86_64-static)
 	endif()
 
-	if(BUILD_JAMOMAMAX)
-		install(TARGETS ${PROJECT_NAME}
-				DESTINATION "${JAMOMAMAX_INSTALL_FOLDER}/Jamoma/support"
-				COMPONENT JamomaMax)
-                install(TARGETS ${PROJECT_NAME}
-                                DESTINATION "${JAMOMAMAX_MODULAR_INSTALL_FOLDER}/Jamoma/support"
-                                COMPONENT JamomaMaxModularOnly)
-	endif()
+  if(BUILD_JAMOMAMAX)
+    install(TARGETS ${PROJECT_NAME}
+        DESTINATION "${JAMOMAMAX_INSTALL_FOLDER}/Jamoma/support/${SUPPORT_FOLDER}"
+        COMPONENT JamomaMax)
+    install(TARGETS ${PROJECT_NAME}
+        DESTINATION "${JAMOMAMAX_MODULAR_INSTALL_FOLDER}/Jamoma/support/${SUPPORT_FOLDER}"
+        COMPONENT JamomaMaxModularOnly)
+  endif()
 
 endFunction()
 
@@ -163,7 +163,7 @@ function(add_jamoma_extension)
 
 	if(BUILD_JAMOMAMAX)
 		install(TARGETS ${PROJECT_NAME}
-				DESTINATION "${JAMOMAMAX_INSTALL_FOLDER}/Jamoma/support"
+				DESTINATION "${JAMOMAMAX_INSTALL_FOLDER}/Jamoma/support/${SUPPORT_FOLDER}"
 				COMPONENT JamomaMax)
 	endif()
 
