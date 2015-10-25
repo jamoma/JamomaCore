@@ -661,24 +661,42 @@ TTErr WebSocket::SendListenAnswer(TTSymbol to, TTAddress address,
     jsonNode = new JSONNode(JSON_NODE);
 	
 	// edit local app name and operation
-	if (!err) {
-		localAppName = mLocalApplicationName.c_str();
-		operation = WEBSOCKET_ANSWER_LISTEN;
+    if (!err) {
+        localAppName = mLocalApplicationName.c_str();
+        operation = WEBSOCKET_ANSWER_LISTEN;
         
-        childNode = new JSONNode(address.removeAttribute().c_str(), true);
-	}
-	else {
-		localAppName = mLocalApplicationName.c_str();
-		operation = WEBSOCKET_ERROR_LISTEN;
+        jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+        jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
+        
+        childNode = new JSONNode(JSON_NODE);
+        childNode->set_name(address.removeAttribute().c_str());
+        
+        // if only value attribute to get, add it like this in json : <address> : <value>
+        if (address.getAttribute() == kTTSym_value)
+        {
+            addChildToJson(jsonNode, address.removeAttribute(), returnedValue);
+        }
+        // else like this : <address> : { ":type" : <type> }
+        // TODO : do it for several attributes like this : <address> : { ":type" : <type>, ":value" : <value>, ":range" : <range> }
+        else
+        {
+            childNode = new JSONNode(JSON_NODE);
+            childNode->set_name(address.removeAttribute().c_str());
+            addChildToJson(childNode, address.getAttribute(), returnedValue);
+            jsonNode->push_back(*childNode);
+        }
+    }
+    else {
+        localAppName = mLocalApplicationName.c_str();
+        operation = WEBSOCKET_ERROR_LISTEN;
+        
+        jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
+        jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
         
         // TODO : send explicit error description
         childNode = new JSONNode(WEBSOCKET_JSON_ERROR, err);
-	}
-    
-    // append sender & operation to json
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_SENDER, localAppName));
-    jsonNode->push_back(JSONNode(WEBSOCKET_JSON_OPERATION, operation));
-    jsonNode->push_back(*childNode);
+        jsonNode->push_back(*childNode);
+    }
 	
 #ifdef TT_PROTOCOL_DEBUG
 		std::cout << "WebSocket : applicationSendListenAnswer " << std::endl;
