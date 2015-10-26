@@ -6,6 +6,10 @@
 #ifdef TT_PLATFORM_LINUX
 #include <unistd.h>
 #endif
+#ifdef TT_PLATFORM_MAC
+#include <mach-o/dyld.h>
+#endif
+
 // A class for our application
 class DemoApp {
 
