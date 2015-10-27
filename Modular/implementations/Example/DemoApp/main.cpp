@@ -8,6 +8,7 @@
 #endif
 #ifdef TT_PLATFORM_MAC
 #include <mach-o/dyld.h>
+#include <libgen.h>
 #endif
 
 // A class for our application
@@ -100,7 +101,7 @@ DemoApp::Setup()
     /////////////////////////////////////////////////////////////////////
 
     // Init the Modular library (passing the folder path where all the dylibs are)
-    TTModularInit("/usr/local/jamoma/lib/jamoma/");
+    TTModularInit("/usr/local/jamoma/extensions");
 
     // Create an application manager
     mApplicationManager = TTObject("ApplicationManager");
@@ -110,14 +111,10 @@ DemoApp::Setup()
     ////////////////////////////////////////////////////////////////////////////////
 
     // Create a local application called "myDemoApp" and get it back
-    err = mApplicationManager.send("ApplicationInstantiateLocal", "myDemoApp", out);
-
-    if (err) {
-        TTLogError("Error : can't create myDemoApp application \n");
-        return;
-    }
-    else
-        mApplicationDemo = out[0];
+    mApplicationDemo = mApplicationManager.send("ApplicationInstantiateLocal", "myDemoApp");
+    
+    // Create a remote application called "myRemoteApp" and get it back
+    mApplicationRemote = mApplicationManager.send("ApplicationInstantiateDistant", "myRemoteApp");
 
     // Get registered application names
     mApplicationManager.get("applicationNames", out);
@@ -182,19 +179,11 @@ DemoApp::Setup()
     //// Enable Minuit communication
     //mProtocolMinuit.send("Run");
 
-
     TTLogMessage("\n*** Enable WebSocket communication ***\n");
     ////////////////////////////////////////////////////////////////////////
 
     // Create a WebSocket protocol unit
-    err = mApplicationManager.send("ProtocolInstantiate", "WebSocket", out);
-
-    if (err) {
-        TTLogError("Error : can't create WebSocket protocol unit \n");
-        return;
-    }
-    else
-        mProtocolWebSocket = out[0];
+    mProtocolWebSocket = mApplicationManager.send("ProtocolInstantiate", "WebSocket");
 
     // Get WebSocket Protocol attribute names and types
     mProtocolWebSocket.get("parameterNames", out);
@@ -204,10 +193,13 @@ DemoApp::Setup()
     }
 
     // Register myDemoApp and myRemoteApp to the WebSocket protocol
-    mProtocolWebSocket.send("ApplicationRegister", "myDemoApp", out);
-
+    mProtocolWebSocket.send("ApplicationRegister", "myDemoApp");
+    mProtocolWebSocket.send("ApplicationRegister", "myRemoteApp");
+    
     // Select myDemoApp to set its protocol parameters
-    mProtocolWebSocket.send("ApplicationSelect", "myDemoApp", out);
+    mProtocolWebSocket.send("ApplicationSelect", "myDemoApp");
+    // mProtocolWebSocket.set("htmlPath", "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");
+//  mProtocolWebSocket.set("htmlPath", "C:/Users/Laugre/Travail/09-ossia/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");
 
     // get the path where the binary resides
     char buf[4046];
@@ -216,6 +208,9 @@ DemoApp::Setup()
     GetModuleFileName(NULL, buf, bufsize);
 #elif defined(TT_PLATFORM_MAC)
     _NSGetExecutablePath(buf, &bufsize);
+    char *buf2 = dirname(buf);
+    strncpy(buf, buf2, sizeof buf - 1);
+    buf[sizeof buf] = '\0';
 #else
     readlink("/proc/self/exe", buf, 4046);
 #endif
@@ -226,16 +221,14 @@ DemoApp::Setup()
 
     std::cout << "websocket htmlPath : " << stringPath << std::endl;
 
-    /*mProtocolWebSocket.set("htmlPath", "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");*/
-	mProtocolWebSocket.set("htmlPath", stringPath.c_str());
+    mProtocolWebSocket.set("htmlPath", stringPath.c_str());
     mProtocolWebSocket.set("port", 9001);
 
     // Get WebSocket parameters for each registered application
     mProtocolWebSocket.get("applicationNames", out);
     for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
         TTSymbol name = TTElement(*it);
-
-        mProtocolWebSocket.send("ApplicationSelect", name, out);
+        mProtocolWebSocket.send("ApplicationSelect", name);
         TTLogMessage("WebSocket setup for %s application : \n", name.c_str());
 
         mProtocolWebSocket.get("htmlPath", v);
@@ -259,7 +252,7 @@ DemoApp::Setup()
     }
 
 
-	TTLogMessage("\n*** Creation and registration of datas into myDemoApp ***\n");
+    TTLogMessage("\n*** Creation and registration of datas into myDemoApp ***\n");
     /////////////////////////////////////////////////////////
 
     TTLogMessage("\n*** Creation and registration of a decimal parameter ***\n");
@@ -277,7 +270,6 @@ DemoApp::Setup()
     mDataDemoDecimalParameter.set("type", "decimal");
     mDataDemoDecimalParameter.set("rangeBounds", TTValue(-1., 1.));
     mDataDemoDecimalParameter.set("rangeClipmode", "both");
-    mDataDemoDecimalParameter.set("rampDrive", "System");
     mDataDemoDecimalParameter.set("description", "this parameter is useful for demo purpose");
     mDataDemoDecimalParameter.set("valueDefault", 0);
     mDataDemoDecimalParameter.set("value", 0.9);
@@ -408,18 +400,18 @@ DemoApp::Setup()
         TTLogMessage("\n /myReturn : effective registration address is %s \n", address.c_str());
     }
 
-    TTLogMessage("\n*** Exploration of myRemoteApp ***\n");
-    /////////////////////////////////////////////////////////
-
-    // Explore the namespace of the myRemoteApp application (myRemoteApp have to be opened and configured with a Minuit "myDemoApp" device)
+//    TTLogMessage("\n*** Exploration of myRemoteApp ***\n");
+//    /////////////////////////////////////////////////////////
+//
+//    // Explore the namespace of the myRemoteApp application (myRemoteApp have to be opened and configured with a Minuit "myDemoApp" device)
 //    mApplicationRemote.send("DirectoryBuild");
-
-
-    TTLogMessage("\n*** Control of myRemoteApp ***\n");
-    /////////////////////////////////////////////////////////
-
-//    v = TTValue("/Main:externalTick", 1);
-//    mApplicationRemote.send("ObjectSend", v, out);
+//    
+//    
+//    TTLogMessage("\n*** Control of myRemoteApp ***\n");
+//    /////////////////////////////////////////////////////////
+//    
+////    v = TTValue("/test", 1);
+////    mApplicationRemote.send("ObjectSend", v);
 }
 
 void
@@ -436,12 +428,12 @@ DemoApp::Export()
 void
 DemoApp::Execute(std::string command)
 {
-    //// parse the command : address value
-    //TTValue out, v = TTString(command);
-    //v.fromString();
-    //
-    //// Send the command to the object at the given address
-    //mApplicationDemo.send("ObjectSend", v, out);
+    // parse the command : address value
+    TTValue v = TTString(command);
+    v.fromString();
+    
+    // Send the command to the object at the given address
+    mApplicationRemote.send("ObjectSend", v);
 }
 
 void
@@ -475,16 +467,16 @@ DemoApp::Quit()
 
     TTLogMessage("\n*** Release protocols ***\n");
     ///////////////////////////////////////////////
-
-    mApplicationManager.send("ProtocolRelease", "Minuit", out);
-    mApplicationManager.send("ProtocolRelease", "WebSocket", out);
-
-
+    
+    mApplicationManager.send("ProtocolRelease", "Minuit");
+    mApplicationManager.send("ProtocolRelease", "WebSocket");
+    
+    
     TTLogMessage("\n*** Release applications ***\n");
     //////////////////////////////////////////////////
-
-    mApplicationManager.send("ApplicationRelease", "myRemoteApp", out);
-    mApplicationManager.send("ApplicationRelease", "myDemoApp", out);
+    
+    mApplicationManager.send("ApplicationRelease", "myRemoteApp");
+    mApplicationManager.send("ApplicationRelease", "myDemoApp");
 }
 
 TTErr
@@ -492,8 +484,8 @@ DemoAppDataReturnValueCallback(const TTValue& baton, const TTValue& value)
 {
     DemoApp*    demoApp = (DemoApp*)TTPtr(baton[0]);
     TTObject    anObject = baton[1];
-
-	// Reteive which data has been updated
+    
+    // Reteive which data has been updated
     if (anObject.instance() == demoApp->mDataDemoDecimalParameter.instance()) {
 
         // print the returned value
