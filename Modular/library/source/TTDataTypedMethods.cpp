@@ -612,63 +612,66 @@ TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& out
     TTBoolean       isRunning;
     TTValue			c, v, aValue, none;
     
-    if (inputValue.size()) {
-		
-		// New command terminates any ongoing ramp
-		if (mRamper.valid() && mRampStatus)
+    if (inputValue.size())
+    {
+        // New command terminates any ongoing ramp
+        if (mRamper.valid() && mRampStatus)
         {
-			mRamper.send(kTTSym_Stop);
-		}
-		
-    // Get the command TTDictionnary
-      
-	// This contains the new value and optional information on ramp and unit
-    if (inputValue[0].type() == kTypePointer)
-		command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
-    else
-		return kTTErrGeneric;
-
-    // Get the new target value. This might be specified in an overriding unit
-    command->getValue(aValue);
-		
-		// For mType = "decimal" or "integer" it does not make sense to have more than one item in aValue.
-		if ((mType == kTTSym_decimal) || (mType == kTTSym_integer)) {
-			if (aValue.size()>1)
-				aValue.resize(1);
-		}
-		
-		// Set up ramp if requested, this might include overriding dataspace unit
-		if (mRamper.valid()) {
-			if (!command->lookup(kTTSym_ramp, v)) {
-			
-				time = v[0];
-				
-				// Is a valid ramp time requested?
-				if (time > 0) {
+            mRamper.send(kTTSym_Stop);
+        }
+        
+        // Get the command TTDictionnary
+        
+        // This contains the new value and optional information on ramp and unit
+        if (inputValue[0].type() == kTypePointer)
+            command = TTDictionaryBasePtr((TTPtr)inputValue[0]);
+        else
+            return kTTErrGeneric;
+        
+        // Get the new target value. This might be specified in an overriding unit
+        command->getValue(aValue);
+        
+        // For mType = "decimal" or "integer" it does not make sense to have more than one item in aValue.
+        if ((mType == kTTSym_decimal) || (mType == kTTSym_integer))
+        {
+            if (aValue.size()>1)
+                aValue.resize(1);
+        }
+        
+        // Set up ramp if requested, this might include overriding dataspace unit
+        if (mRamper.valid())
+        {
+            if (!command->lookup(kTTSym_ramp, v))
+            {
+                time = v[0];
+                
+                // Is a valid ramp time requested?
+                if (time > 0) {
                     
                     TTValue rampStartValue;
-				
-					// Is the dataspace unit to be temporarily overridden during the ramp?
-					if ((mDataspaceConverter.valid()) && (!command->lookup(kTTSym_unit, v))) {
-					
-						unit = v[0];
-					
-						mIsOverridingDataspaceUnit = true;
-					
-						// Set up units for conversions
-						mDataspaceConverter.set(kTTSym_inputUnit, unit);
-						mDataspaceInverseConverter.set(kTTSym_outputUnit, unit);
-					
-						// Convert current value to temporary unit, and use as ramp start value
-						inverseConvertUnit(mValue, rampStartValue);
-					}
-					
-					// No dataspace unit conversion is needed during the ramp
-					else {
-						mIsOverridingDataspaceUnit = false;
-					
+                    
+                    // Is the dataspace unit to be temporarily overridden during the ramp?
+                    if ((mDataspaceConverter.valid()) && (!command->lookup(kTTSym_unit, v)))
+                    {
+                        unit = v[0];
+                        
+                        mIsOverridingDataspaceUnit = true;
+                        
+                        // Set up units for conversions
+                        mDataspaceConverter.set(kTTSym_inputUnit, unit);
+                        mDataspaceInverseConverter.set(kTTSym_outputUnit, unit);
+                        
+                        // Convert current value to temporary unit, and use as ramp start value
+                        inverseConvertUnit(mValue, rampStartValue);
+                    }
+                    
+                    // No dataspace unit conversion is needed during the ramp
+                    else
+                    {
+                        mIsOverridingDataspaceUnit = false;
+                        
                         rampStartValue = mValue;
-					}
+                    }
                     
                     // Set the start ramp value
                     mRamper.send("Set", rampStartValue);
@@ -681,69 +684,81 @@ TTErr TTData::IntegerDecimalArrayCommand(const TTValue& inputValue, TTValue& out
                     
                     // Update the ramp status attribute
                     mRamper.get(kTTSym_running, isRunning);
-                    if (mRampStatus != isRunning) {
+                    if (mRampStatus != isRunning)
+                    {
                         mRampStatus = isRunning;
                         notifyObservers(kTTSym_rampStatus, mRampStatus);
                     }
                     
                     return kTTErrNone;
-				}
-			}
-		}
-		// External ramp drive case - this is used with the j.parameter~ abstraction in Max. This is just a prototype until a proper C++ solution can be coded, and we do not bother to deal with ramp function or dataspace.
-		else if (mRampDrive == kTTSym_external) {
-			if (!command->lookup(kTTSym_ramp, v))
-				externalRampTime = v[0];
-		}
-		
-		// No ramping, target vale will be set immediately. This part of the method will only be executed if (a) no ramp was requested, (b) ramp time was less or equal to 0, or (c) we are using an external ramp drive.
-		
-		// Check for overriding unit, convert to default unit if necessary
-		if ((mDataspaceConverter.valid()) && (!command->lookup(kTTSym_unit, v))) {
-			
-			TTValue convertedValue;
-			
-			unit = v[0];
-			mDataspaceConverter.set(kTTSym_inputUnit, unit);
-			convertUnit(aValue, convertedValue);
-			aValue = convertedValue;
-		} else {
-			// Ramp and unit conversion implicitly ensure that type is kTypeFloat64, but if we don't have ramp or unit, we need to ensure that mValue is set as kTypeFloat64. We do not run this test if (aValue.size() == 0.). That will be the case in the Max implementation when sending a "bang" to j.parameter.
-			// TODO: The following need to be reconsidered if this method is to cater for integers and arrays as well.
-			if (mType==kTTSym_decimal) {
-				if (aValue.size())
-					if (aValue[0].type() != kTypeFloat64)
-						aValue = (TTFloat64)aValue[0];
-			}
-			else if (mType==kTTSym_integer) {
-				if (aValue.size())
-					// Cast to int if
-					if (!checkIntegerType(aValue))
-						aValue = (TTInt32)aValue[0];
-					aValue[0].truncate();
-			}
-			else if (mType==kTTSym_array) {
-				for (int i=0; i<aValue.size(); i++)
-					aValue[i] = (TTFloat64)aValue[i];
-				}
-		}
-		
-		mIsOverridingDataspaceUnit = false;
-		
-		// Update the ramp status attribute, unless we use external ramp drive
-		if (mRamper.valid() && mRampDrive != kTTSym_external)
+                }
+            }
+        }
+        // External ramp drive case - this is used with the j.parameter~ abstraction in Max. This is just a prototype until a proper C++ solution can be coded, and we do not bother to deal with ramp function or dataspace.
+        else if (mRampDrive == kTTSym_external)
         {
-			mRamper.get(kTTSym_running, isRunning);
-			if (mRampStatus != isRunning)
+            if (!command->lookup(kTTSym_ramp, v))
+                externalRampTime = v[0];
+        }
+        
+        // No ramping, target vale will be set immediately. This part of the method will only be executed if (a) no ramp was requested, (b) ramp time was less or equal to 0, or (c) we are using an external ramp drive.
+        
+        // Check for overriding unit, convert to default unit if necessary
+        if ((mDataspaceConverter.valid()) && (!command->lookup(kTTSym_unit, v)))
+        {
+            TTValue convertedValue;
+            
+            unit = v[0];
+            mDataspaceConverter.set(kTTSym_inputUnit, unit);
+            convertUnit(aValue, convertedValue);
+            aValue = convertedValue;
+        }
+        else
+        {
+            // Ramp and unit conversion implicitly ensure that type is kTypeFloat64, but if we don't have ramp or unit, we need to ensure that mValue is set as kTypeFloat64. We do not run this test if (aValue.size() == 0.). That will be the case in the Max implementation when sending a "bang" to j.parameter.
+            // TODO: The following need to be reconsidered if this method is to cater for integers and arrays as well.
+            if (mType == kTTSym_decimal)
             {
-				mRampStatus = isRunning;
-				notifyObservers(kTTSym_rampStatus, mRampStatus);
-			}
-		}
-	}
-	
-	// Set the value directly
-	return this->setIntegerDecimalArrayValue(aValue);
+                if (aValue.size())
+                {
+                    if (aValue[0].type() != kTypeFloat64)
+                        aValue = (TTFloat64)aValue[0];
+                }
+            }
+            else if (mType == kTTSym_integer)
+            {
+                if (aValue.size())
+                {
+                    // Cast to int if
+                    if (!checkIntegerType(aValue))
+                        aValue = (TTInt32)aValue[0];
+                    
+                    aValue[0].truncate();
+                }
+            }
+            else if (mType == kTTSym_array)
+            {
+                for (int i=0; i<aValue.size(); i++)
+                    aValue[i] = (TTFloat64)aValue[i];
+            }
+        }
+        
+        mIsOverridingDataspaceUnit = false;
+        
+        // Update the ramp status attribute, unless we use external ramp drive
+        if (mRamper.valid() && mRampDrive != kTTSym_external)
+        {
+            mRamper.get(kTTSym_running, isRunning);
+            if (mRampStatus != isRunning)
+            {
+                mRampStatus = isRunning;
+                notifyObservers(kTTSym_rampStatus, mRampStatus);
+            }
+        }
+    }
+    
+    // Set the value directly
+    return this->setIntegerDecimalArrayValue(aValue);
 }
 
 
@@ -752,15 +767,15 @@ TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
 	// Storing locally to protect the input value
 	TTValue lValue = value;
 	
-	if (!mIsSending && mActive) {
-		
+	if (!mIsSending && mActive)
+    {
 		// We are locking while updating, in order to prevent returned values from clients to cause an infinite loop.
 		mIsSending = YES;
 		
-		if (checkIntegerDecimalArrayType(lValue)) {
-			
-			if (lValue.size() > 0) {
-				
+		if (checkIntegerDecimalArrayType(lValue))
+        {
+			if (lValue.size() > 0)
+            {
 				TTValue lPreviousValue = mValue;
 				
 				// If ramp is performed using non-default dataspace unit, the returned values need to be converted.
@@ -773,13 +788,17 @@ TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
 				// This is done before clipping and integer truncation in order enforce views (returns) to stay within range when they attempt to set values out of range. See https://github.com/jamoma/JamomaMax/issues/934
 				// Additionally: If ramps reach the end prematurely (due to requests for ramp targets beyond the accepted range), the ramp will not be stopped.
 				
-				if (mRepetitionsFilter) {
-					if (mInitialized) {
+				if (mRepetitionsFilter)
+                {
+					if (mInitialized)
+                    {
 						TTValue tempValue = mValue;
 						// Convert to integer if necsessary before comparing
 						if (mType == kTTSym_integer)
 							tempValue.truncate();
-						if (tempValue == lPreviousValue) {
+                        
+						if (tempValue == lPreviousValue)
+                        {
 							// Unlock and exit without outputing
 							mIsSending = NO;
 							return kTTErrNone;
@@ -789,7 +808,6 @@ TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
 				
 				// Clipping
 				clipValue();
-				
 				
 				// Truncate if type is integer
 				if (mType == kTTSym_integer)
@@ -805,8 +823,8 @@ TTErr TTData::setIntegerDecimalArrayValue(const TTValue& value)
 			
 			return kTTErrNone;
 		}
-		else {
-			
+		else
+        {
 			// unlock
 			mIsSending = NO;
 			
