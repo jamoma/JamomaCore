@@ -736,12 +736,12 @@ TTErr WebSocket::sendMessage(TTSymbol distantApplicationName, TTSymbol localAppl
                 // send message
 				err = aWebSender.send(TTSymbol("send"), message);
                 
-				if (!err && mActivity) {
+				if (!err && mMonitor) {
                     header = mLocalApplicationName.c_str();
                     header += operation;
                     
 					v = header;
-					ActivityOutMessage(v);
+					MonitorOutMessage(v);
 				}
 		}
 	}
@@ -837,7 +837,7 @@ TTErr WebSocket::receivedMessage(const TTValue& message, TTValue& outputValue)
     TTBoolean   listenEnabled;
 	TTErr		err;
 	
-	if (mActivity) ActivityInMessage(message);
+	if (mMonitor) MonitorInMessage(message);
 	
     aString = message.toString();
 	

@@ -446,7 +446,7 @@ TTErr TTApplicationManager::notifyApplicationObservers(TTSymbol anApplicationNam
 TTErr TTApplicationManager::ProtocolInstantiate(const TTValue& inputValue, TTValue& outputValue)
 {
     TTSymbol protocolName;
-    TTObject aProtocol, activityInCallback, activityOutCallback;
+    TTObject aProtocol, monitorInCallback, monitorOutCallback;
     TTValue  args, v;
     
     if (inputValue.size() == 1) {
@@ -482,15 +482,15 @@ TTErr TTApplicationManager::ProtocolInstantiate(const TTValue& inputValue, TTVal
             args = TTObject(this);
 			
 			// create 2 callbacks to get raw protocol messages back
-			activityInCallback = TTObject("callback");
-			activityInCallback.set(kTTSym_baton, protocolName);
-			activityInCallback.set(kTTSym_function, TTPtr(&TTApplicationManagerProtocolActivityInCallback));
-            args.append(activityInCallback);
+			monitorInCallback = TTObject("callback");
+			monitorInCallback.set(kTTSym_baton, protocolName);
+			monitorInCallback.set(kTTSym_function, TTPtr(&TTApplicationManagerProtocolMonitorInCallback));
+            args.append(monitorInCallback);
 			
-			activityOutCallback = TTObject("callback");
-			activityOutCallback.set(kTTSym_baton, protocolName);
-			activityOutCallback.set(kTTSym_function, TTPtr(&TTApplicationManagerProtocolActivityOutCallback));
-            args.append(activityOutCallback);
+			monitorOutCallback = TTObject("callback");
+			monitorOutCallback.set(kTTSym_baton, protocolName);
+			monitorOutCallback.set(kTTSym_function, TTPtr(&TTApplicationManagerProtocolMonitorOutCallback));
+            args.append(monitorOutCallback);
 			
 			// create an instance of a Protocol object
             aProtocol = TTObject(protocolName,  args);
@@ -1483,7 +1483,7 @@ TTErr TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, 
     return err;
 }
 
-TTErr TTApplicationManagerProtocolActivityInCallback(const TTValue& baton, const TTValue& data)
+TTErr TTApplicationManagerProtocolMonitorInCallback(const TTValue& baton, const TTValue& data)
 {
 	TTSymbol	aProtocolName;
 	TTValue		v;
@@ -1491,15 +1491,15 @@ TTErr TTApplicationManagerProtocolActivityInCallback(const TTValue& baton, const
 	// unpack baton
 	aProtocolName = baton[0];
 	
-	// set the activityIn attribute of the local application
+	// set the monitorIn attribute of the local application
 	v = data;
 	v.prepend(aProtocolName);
-	TTModularApplicationManager->mApplicationLocal.set(kTTSym_activityIn, v);
+	TTModularApplicationManager->mApplicationLocal.set(kTTSym_monitorIn, v);
 	
 	return kTTErrNone;
 }
 
-TTErr TTApplicationManagerProtocolActivityOutCallback(const TTValue& baton, const TTValue& data)
+TTErr TTApplicationManagerProtocolMonitorOutCallback(const TTValue& baton, const TTValue& data)
 {
 	TTSymbol	aProtocolName;
 	TTValue		v;
@@ -1507,10 +1507,10 @@ TTErr TTApplicationManagerProtocolActivityOutCallback(const TTValue& baton, cons
 	// unpack baton
 	aProtocolName = baton[0];
 	
-	// set the activityOut attribute of the local application
+	// set the monitorOut attribute of the local application
 	v = data;
 	v.prepend(aProtocolName);
-	TTModularApplicationManager->mApplicationLocal.set(kTTSym_activityOut, v);
+	TTModularApplicationManager->mApplicationLocal.set(kTTSym_monitorOut, v);
 	
 	return kTTErrNone;
 }

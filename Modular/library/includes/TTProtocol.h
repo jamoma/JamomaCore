@@ -65,8 +65,8 @@ protected:
     
     TTSymbol                    mLocalApplicationName;              ///< cache local application name
 	
-	TTObject                    mActivityInCallback;				///< a callback to trace raw incoming messages.
-	TTObject                    mActivityOutCallback;				///< a callback to trace raw outputing messages.
+	TTObject                    mMonitorInCallback;                 ///< a callback to trace raw incoming messages.
+	TTObject                    mMonitorOutCallback;				///< a callback to trace raw outputing messages.
 
     TTHash                      mApplicationParameters;             ///< ATTRIBUTE : hash table containing hash table of parameters
 																	///< for each application registered for communication with this protocol
@@ -82,7 +82,7 @@ public:
 	TTBoolean					mDiscover;                          ///< ATTRIBUTE : is the Protocol allows to send discover request ?
     TTBoolean					mDiscoverAll;                       ///< ATTRIBUTE : is the Protocol allows to send discover all request ?
 	TTBoolean					mRunning;							///< ATTRIBUTE : is the Protocol reception thread enable ?
-	TTBoolean					mActivity;							///< ATTRIBUTE : is the Protocol activity thread enable ?
+	TTBoolean					mMonitor;							///< ATTRIBUTE : is the Protocol monitor thread enable ?
 
     TTSymbol                    mSelectedApplication;               ///< internal symbol to select an application to access to its own parameters
                                                                     ///< note : a protocol developper have to use PROTOCOL_PARAMETERto declare specific accessors for a protocol parameter
@@ -91,7 +91,7 @@ public:
     TTValue                     mParameterNames;                    ///< store the name of the protocol parameters
 
 	/** Constructor 
-     @param arguments           #TTApplicationManager object, #TTCallback for activity in, #TTCallback for activity out */
+     @param arguments           #TTApplicationManager object, #TTCallback for monitor in, #TTCallback for monitor out */
 	TTProtocol(const TTValue& arguments);
 	
 	/** Destructor */
@@ -402,7 +402,7 @@ public:
 	 *
 	 @param message				: an incoming message
 	 */
-	TTErr ActivityInMessage(const TTValue& message);
+	TTErr MonitorInMessage(const TTValue& message);
 	
 	/*!
 	 * Notify the protocol that a message is outputing
@@ -411,7 +411,7 @@ public:
 	 *
 	 @param message				: an outputing message
 	 */
-	TTErr ActivityOutMessage(const TTValue& message);
+	TTErr MonitorOutMessage(const TTValue& message);
 	
 	
 	

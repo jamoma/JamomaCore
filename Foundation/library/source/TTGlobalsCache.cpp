@@ -160,9 +160,9 @@ TTFOUNDATION_EXPORT TTSymbol       kTTSym_ClockTicked                  (("ClockT
 
 // attribute, message or any word often used
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_active                           (("active"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_activity                         (("activity"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_activityIn                       (("activityIn"));
-TTFOUNDATION_EXPORT TTSymbol       kTTSym_activityOut                      (("activityOut"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_monitor                         (("monitor"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_monitorIn                       (("monitorIn"));
+TTFOUNDATION_EXPORT TTSymbol       kTTSym_monitorOut                      (("monitorOut"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_address                          (("address"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_addresses                        (("addresses"));
 TTFOUNDATION_EXPORT TTSymbol       kTTSym_alias                            (("alias"));

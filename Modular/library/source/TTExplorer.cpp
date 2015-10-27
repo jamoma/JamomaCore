@@ -1037,16 +1037,35 @@ TTErr TTExplorerApplicationManagerCallback(const TTValue& baton, const TTValue& 
 
 TTBoolean TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2) 
 {
-	TTNodePtr	n1, n2;
-	TTObject    o1, o2;
-	TTValue		v;
-	TTInt32		p1 = 0;
-	TTInt32		p2 = 0;
+    TTNodePtr n1 = TTNodePtr((TTPtr)v1[1]);
+    TTNodePtr n2 = TTNodePtr((TTPtr)v2[1]);
+    
+    // recursively compare parents if they are different
+    if (n1 && n2)
+    {
+        if (n1->getParent() != n2->getParent())
+        {
+            if (n1->getParent() == nullptr && n2->getParent() != nullptr)
+                return false;
+            else if (n1->getParent() != nullptr && n2->getParent() == nullptr)
+                return true;
+            else
+            {
+                TTValue d1(TTSymbol("parent1"), (TTPtr)n1->getParent());
+                TTValue d2(TTSymbol("parent2"), (TTPtr)n2->getParent());
+                return TTExplorerCompareNodePriority(d1, d2);
+            }
+        }
+    }
+
+    TTInt32 p1 = 0;
+    TTInt32 p2 = 0;
 	
 	// get priority of v1
-	n1 = TTNodePtr((TTPtr)v1[1]);
-	if (n1) {
-		o1 = n1->getObject();
+	if (n1)
+    {
+        TTValue  v;
+		TTObject o1 = n1->getObject();
 		
 		if (o1.valid())
 			if (!o1.get(kTTSym_priority, v))
@@ -1054,19 +1073,61 @@ TTBoolean TTExplorerCompareNodePriority(TTValue& v1, TTValue& v2)
 	}
 	
 	// get priority of v2
-	n2 = TTNodePtr((TTPtr)v2[1]);
-	if (n2) {
-		o2 = n2->getObject();
+	if (n2)
+    {
+        TTValue  v;
+		TTObject o2 = n2->getObject();
 		
 		if (o2.valid())
 			if (!o2.get(kTTSym_priority, v))
 				p2 = v[0];
 	}
 	
-	if (p1 == 0 && p2 == 0) return v1 < v2;
+    // if priority are the same sort by alphabetical order
+	if (p1 == p2)
+    {
+        if (n1 && n2)
+        {
+            TTValue name1 = TTString(n1->getName().c_str());
+            TTValue name2 = TTString(n2->getName().c_str());
+            
+            name1.fromString();
+            name2.fromString();
+            
+            if (name1.size() != name2.size())
+                return YES;
+            
+            if (name1[0].type() != name2[0].type())
+                return YES;
+            
+            if (name1 == name2) {
+                
+                TTValue instance1 = TTString(n1->getInstance().c_str());
+                TTValue instance2 = TTString(n2->getInstance().c_str());
+                
+                instance1.fromString();
+                instance2.fromString();
+                
+                if (instance1.size() != instance2.size())
+                    return YES;
+                
+                if (instance1[0].type() != instance2[0].type())
+                    return YES;
+                
+                if (instance1 == instance2)
+                    return v1 < v2;
+                else
+                    return instance1 < instance2;
+            }
+            else
+                return name1 < name2;
+        }
+        else return v1 < v2;
+    }
 	
 	if (p1 == 0) return NO;
 	if (p2 == 0) return YES;
-	
+    
+
 	return p1 < p2;
 }

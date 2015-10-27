@@ -112,11 +112,11 @@ TTErr MIDI::sendMessage(TTSymbol& applicationName, TTAddress& address, const TTV
         
         if (!midiOutput->sendMessage(address, value)) {
             
-            if (mActivity) {
+            if (mMonitor) {
                 
                 TTValue message = value;
                 message.prepend(address);
-                ActivityOutMessage(message);
+                MonitorOutMessage(message);
             }
             
             return kTTErrNone;
@@ -128,11 +128,11 @@ TTErr MIDI::sendMessage(TTSymbol& applicationName, TTAddress& address, const TTV
 
 TTErr MIDI::receivedMessage(TTSymbol& applicationName, TTAddress& address, const TTValue& value)
 {
-	if (mActivity) {
+	if (mMonitor) {
         
         TTValue message = value;
         message.prepend(address);
-        ActivityInMessage(message);
+        MonitorInMessage(message);
     }
 	
     // to local application

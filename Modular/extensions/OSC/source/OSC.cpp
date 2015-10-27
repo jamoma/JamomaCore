@@ -522,11 +522,11 @@ TTErr OSC::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& argum
             
         }
         
-        else if (mActivity)
+        else if (mMonitor)
         {
             v = arguments;
             v.prepend(header);
-            ActivityOutMessage(v);
+            MonitorOutMessage(v);
         }
     }
     
@@ -544,7 +544,7 @@ TTErr OSC::receivedMessage(const TTValue& message, TTValue& outputValue)
 	 if message starts with '/'
 	 */
 	
-	if (mActivity) ActivityInMessage(message);
+	if (mMonitor) MonitorInMessage(message);
 	
 	aSymbol = message[0];
 	headerString = aSymbol.string();
@@ -587,7 +587,7 @@ TTErr OSCReceiveMessageCallback(const TTValue& baton, const TTValue& data)
 	 if message starts with '/'
 	 */
 	
-	if (anOscProtocol->mActivity) anOscProtocol->ActivityInMessage(data);
+	if (anOscProtocol->mMonitor) anOscProtocol->MonitorInMessage(data);
 	
 	aSymbol = data[0];
 	headerString = aSymbol.string();

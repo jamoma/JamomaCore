@@ -29,7 +29,7 @@ mName(kTTSymEmpty),
 mType(kTTSym_local),
 mVersion(kTTSymEmpty),
 mAuthor(kTTSymEmpty),
-mActivity(NO),
+mMonitor(NO),
 mDebug(NO),
 mLearn(NO),
 mTempAddress(kTTAdrsRoot)
@@ -39,18 +39,18 @@ mTempAddress(kTTAdrsRoot)
 	addAttribute(Version, kTypeSymbol);
 	addAttribute(Author, kTypeSymbol);
 	addAttribute(Debug, kTypeBoolean);
-	addAttributeWithSetter(Activity, kTypeBoolean);
+	addAttributeWithSetter(Monitor, kTypeBoolean);
     
     addAttribute(Learn, kTypeBoolean);
 	
     TTAttributePtr anAttribute;
     
-    registerAttribute(TTSymbol("activityIn"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getActivityIn, (TTSetterMethod)& TTApplication::setActivityIn);
-    this->findAttribute(TTSymbol("activityIn"), &anAttribute);
+    registerAttribute(TTSymbol("monitorIn"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getMonitorIn, (TTSetterMethod)& TTApplication::setMonitorIn);
+    this->findAttribute(TTSymbol("monitorIn"), &anAttribute);
     anAttribute->sethidden(YES);
     
-    registerAttribute(TTSymbol("activityOut"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getActivityOut, (TTSetterMethod)& TTApplication::setActivityOut);
-    this->findAttribute(TTSymbol("activityOut"), &anAttribute);
+    registerAttribute(TTSymbol("monitorOut"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getMonitorOut, (TTSetterMethod)& TTApplication::setMonitorOut);
+    this->findAttribute(TTSymbol("monitorOut"), &anAttribute);
     anAttribute->sethidden(YES);
     
     registerAttribute(TTSymbol("cachedAttributes"), kTypeLocalValue, NULL, (TTGetterMethod)& TTApplication::getCachedAttributes, (TTSetterMethod)& TTApplication::setCachedAttributes);
@@ -167,54 +167,54 @@ TTErr TTApplication::setName(const TTValue& value)
     return kTTErrNone;
 }
 
-TTErr TTApplication::setActivity(const TTValue& value)
+TTErr TTApplication::setMonitor(const TTValue& value)
 {
 	TTValue		protocols = accessApplicationProtocolNames(mName);
 	TTSymbol    protocolName;
 	
-	mActivity = value;
+	mMonitor = value;
 	
 	for (TTUInt32 i = 0; i < protocols.size(); i++) {
 		
 		protocolName = protocols[i];
-		accessProtocol(protocolName)->setAttributeValue(kTTSym_activity, mActivity);
+		accessProtocol(protocolName)->setAttributeValue(kTTSym_monitor, mMonitor);
 	}
 	
 	return kTTErrNone;
 }
 
-TTErr TTApplication::getActivityIn(TTValue& value)
+TTErr TTApplication::getMonitorIn(TTValue& value)
 {
-    // we don't store the activity in
+    // we don't store the monitor in
     // TODO : create a notification for this !
     return kTTErrNone;
 }
 
-TTErr TTApplication::setActivityIn(const TTValue& value)
+TTErr TTApplication::setMonitorIn(const TTValue& value)
 {
 	TTAttributePtr	anAttribute;
 	TTErr			err = kTTErrNone;
 	
-	err = this->findAttribute(kTTSym_activityIn, &anAttribute);
+	err = this->findAttribute(kTTSym_monitorIn, &anAttribute);
 	if (!err)
 		anAttribute->sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
 	
 	return kTTErrNone;
 }
 
-TTErr TTApplication::getActivityOut(TTValue& value)
+TTErr TTApplication::getMonitorOut(TTValue& value)
 {
-    // we don't store the activity out
+    // we don't store the monitor out
     // TODO : create a notification for this !
     return kTTErrNone;
 }
 
-TTErr TTApplication::setActivityOut(const TTValue& value)
+TTErr TTApplication::setMonitorOut(const TTValue& value)
 {
 	TTAttributePtr	anAttribute;
 	TTErr			err = kTTErrNone;
 	
-	err = this->findAttribute(kTTSym_activityOut, &anAttribute);
+	err = this->findAttribute(kTTSym_monitorOut, &anAttribute);
 	if (!err)
 		anAttribute->sendNotification(kTTSym_notify, value);	// we use kTTSym_notify because we know that observers are TTCallback
 	
@@ -1191,8 +1191,8 @@ void TTApplication::writeNodeAsXml(TTXmlHandlerPtr aXmlHandler, TTNodePtr aNode)
                     attributeName != kTTSym_value &&
                     attributeName != kTTSym_address &&
                     attributeName != kTTSym_bypass &&
-                    attributeName != kTTSym_activityIn &&
-                    attributeName != kTTSym_activityOut &&
+                    attributeName != kTTSym_monitorIn &&
+                    attributeName != kTTSym_monitorOut &&
                     attributeName != kTTSym_rampStatus &&
                     attributeName != kTTSym_baton &&            // because #TTData inherits #TTCallback
                     attributeName != kTTSym_object &&           // because #TTData inherits #TTCallback
