@@ -61,7 +61,7 @@ private:
 	TTSymbol					mVersion;			///< ATTRIBUTE : the version of the application
 	TTSymbol					mAuthor;			///< ATTRIBUTE : the author of the application
 	
-	TTBoolean					mActivity;			///< ATTRIBUTE : enable the activity mechanism
+	TTBoolean					mMonitor;			///< ATTRIBUTE : enable the monitoring of any incoming or outputing messages
     TTBoolean					mDebug;				///< ATTRIBUTE : to enable the debug mode for the application (default : NO)
 	TTBoolean					mLearn;             ///< ATTRIBUTE : enable the learning mechanism (see in UpdateAttribute)
 
@@ -93,27 +93,27 @@ private:
 	/** Attribute accesor: enable activity
      @param  value
      @return #TTErr    always returns #kTTErrNone */
-	TTErr setActivity(const TTValue& value);
+	TTErr setMonitor(const TTValue& value);
 	
     /** Attribute accesor: get activity in
      @param  value
      @return #TTErr    always returns #kTTErrNone */
-	TTErr getActivityIn(TTValue& value);
+	TTErr getMonitorIn(TTValue& value);
     
 	/** Attribute accesor: set activity in
      @param  value
      @return #TTErr    always returns #kTTErrNone */
-	TTErr setActivityIn(const TTValue& value);
+	TTErr setMonitorIn(const TTValue& value);
 	
 	/** Attribute accesor: get activity out
      @param  value
      @return #TTErr    always returns #kTTErrNone */
-	TTErr getActivityOut(TTValue& value);
+	TTErr getMonitorOut(TTValue& value);
 	
 	/** Attribute accesor: set activity out
      @param  value
      @return #TTErr    always returns #kTTErrNone */
-	TTErr setActivityOut(const TTValue& value);
+	TTErr setMonitorOut(const TTValue& value);
 
 	/** Attribute accesor: get the cached attributes (for mirror application only)
      @param value      all cached attribute names

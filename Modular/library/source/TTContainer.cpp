@@ -79,7 +79,7 @@ contentAttribute(NULL)
 	mIsSending = false;
     
     // cache some attribute for observer notification
-    this->findAttribute(kTTSym_activity, &activityAttribute);
+    this->findAttribute(kTTSym_monitor, &activityAttribute);
     this->findAttribute(kTTSym_content, &contentAttribute);
 }
 
@@ -658,7 +658,7 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		TTObject activityObserver = TTObject("callback");
 		
 		// create a activity Attribute observer on it
-		anObject.instance()->findAttribute(kTTSym_activity, &anAttribute);
+		anObject.instance()->findAttribute(kTTSym_monitor, &anAttribute);
 				
 		baton = TTValue(TTObject(this), aRelativeAddress);
 		
@@ -748,7 +748,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 				// unregister activity observer
 				anObserver = cacheElement[1];
 				anAttribute = NULL;
-				err = anObject.instance()->findAttribute(kTTSym_activity, &anAttribute);
+				err = anObject.instance()->findAttribute(kTTSym_monitor, &anAttribute);
 				
 				if (!err)
 					err = anAttribute->unregisterObserverForNotifications(anObserver);
@@ -827,7 +827,7 @@ TTErr TTContainer::unbind()
                 // unregister activity observer
                 aValueObserver = cacheElement[1];
                 anAttribute = NULL;
-                err = anObject.instance()->findAttribute(kTTSym_activity, &anAttribute);
+                err = anObject.instance()->findAttribute(kTTSym_monitor, &anAttribute);
                 
                 if (!err)
                     anAttribute->unregisterObserverForNotifications(aValueObserver);

@@ -1494,7 +1494,7 @@ TTErr TTApplicationManagerProtocolActivityInCallback(const TTValue& baton, const
 	// set the activityIn attribute of the local application
 	v = data;
 	v.prepend(aProtocolName);
-	TTModularApplicationManager->mApplicationLocal.set(kTTSym_activityIn, v);
+	TTModularApplicationManager->mApplicationLocal.set(kTTSym_monitorIn, v);
 	
 	return kTTErrNone;
 }
@@ -1510,7 +1510,7 @@ TTErr TTApplicationManagerProtocolActivityOutCallback(const TTValue& baton, cons
 	// set the activityOut attribute of the local application
 	v = data;
 	v.prepend(aProtocolName);
-	TTModularApplicationManager->mApplicationLocal.set(kTTSym_activityOut, v);
+	TTModularApplicationManager->mApplicationLocal.set(kTTSym_monitorOut, v);
 	
 	return kTTErrNone;
 }

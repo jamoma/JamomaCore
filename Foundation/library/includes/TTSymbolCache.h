@@ -162,9 +162,9 @@ extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_ClockTicked;
 
 // attribute, message or any word often used
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_active;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_activity;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_activityIn;
-extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_activityOut;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_monitor;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_monitorIn;
+extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_monitorOut;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_address;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_addresses;
 extern TTFOUNDATION_EXPORT TTSymbol	kTTSym_alias;
