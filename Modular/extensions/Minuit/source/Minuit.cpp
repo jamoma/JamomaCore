@@ -566,11 +566,11 @@ TTErr Minuit::sendMessage(TTSymbol applicationName, TTSymbol header, TTValue& ar
             ; // TODO : have bundle system
         }
         
-        else if (mActivity)
+        else if (mMonitor)
         {
             v = arguments;
             v.prepend(header);
-            ActivityOutMessage(v);
+            MonitorOutMessage(v);
         }
     }
 
@@ -611,7 +611,7 @@ TTErr Minuit::receivedMessage(const TTValue& message, TTValue& outputValue)
 	 
 	 */
 	
-	if (mActivity) ActivityInMessage(message);
+	if (mMonitor) MonitorInMessage(message);
 	
 	aSymbol = message[0];
 	headerString = aSymbol.string();

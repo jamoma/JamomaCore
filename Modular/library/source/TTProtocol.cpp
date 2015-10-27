@@ -26,8 +26,8 @@ mRunning(NO),
 mSelectedApplication(kTTSymEmpty)
 {
     mApplicationManager = arguments[0];
-    mActivityInCallback = arguments[1];
-    mActivityOutCallback = arguments[2];
+    mMonitorInCallback = arguments[1];
+    mMonitorOutCallback = arguments[2];
     
 	registerAttribute(TTSymbol("applicationNames"), kTypeLocalValue, NULL, (TTGetterMethod)& TTProtocol::getApplicationNames);
 
@@ -55,7 +55,7 @@ mSelectedApplication(kTTSymEmpty)
     addAttribute(DiscoverAll, kTypeBoolean);
 	addAttributeProperty(DiscoverAll, readOnly, YES);
 	
-	addAttribute(Activity, kTypeBoolean);
+	addAttribute(Monitor, kTypeBoolean);
 
 	addMessageWithArguments(ApplicationRegister);
     addMessageWithArguments(ApplicationRename);
@@ -409,18 +409,18 @@ TTErr TTProtocol::ReceiveListenAnswer(TTSymbol from, TTAddress address, const TT
     return kTTErrGeneric;
 }
 
-TTErr TTProtocol::ActivityInMessage(const TTValue& message)
+TTErr TTProtocol::MonitorInMessage(const TTValue& message)
 {
 	TTValue dummy;
 	
-    return mActivityInCallback.send("notify", message, dummy);
+    return mMonitorInCallback.send("notify", message, dummy);
 }
 
-TTErr TTProtocol::ActivityOutMessage(const TTValue& message)
+TTErr TTProtocol::MonitorOutMessage(const TTValue& message)
 {
 	TTValue dummy;
 
-    return mActivityOutCallback.send("notify", message, dummy);
+    return mMonitorOutCallback.send("notify", message, dummy);
 }
 
 

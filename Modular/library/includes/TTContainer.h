@@ -38,7 +38,7 @@ private:
     TTBoolean			mActive;                        ///< ATTRIBUTE : is it active ?
 	TTAddress           mAddress;						///< ATTRIBUTE : the address of the container in the directory
 	TTAddress           mAlias;							///< ATTRIBUTE : an alias address to retrieve the container using another address
-	TTValue				mActivity;                      ///< ATTRIBUTE : a local value to allow observation of outputing data
+	TTValue				mMonitor;                      ///< ATTRIBUTE : a local value to allow observation of outputing data
     TTValue             mContent;                       ///< ATTRIBUTE : a local value to allow observation of all address handled by the container
 	TTObject            mReturnAddressCallback;			///< a way to return back address to the owner of this container
 	TTObject            mReturnValueCallback;			///< a way to return back value to the owner of this container
@@ -46,7 +46,7 @@ private:
 	TTObject            mObserver;						///< a life cycle observer
 	TTBoolean			mIsSending;						///< a flag to lock the object in case of infinite loop
     
-    TTAttributePtr      activityAttribute;              ///< cache activity attribute for observer notification
+    TTAttributePtr      monitorAttribute;               ///< cache monitor attribute for observer notification
     TTAttributePtr      contentAttribute;               ///< cache content attribute for observer notification
 	
 	/** */

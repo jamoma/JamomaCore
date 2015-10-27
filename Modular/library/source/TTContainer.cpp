@@ -29,7 +29,7 @@ mInitialized(NO),
 mActive(YES),
 mAddress(kTTAdrsEmpty),
 mAlias(kTTAdrsEmpty),
-activityAttribute(NULL),
+monitorAttribute(NULL),
 contentAttribute(NULL)
 {
 	if(arguments.size() == 2)
@@ -56,8 +56,8 @@ contentAttribute(NULL)
 	
 	addAttributeWithSetter(Alias, kTypeSymbol);
 
-	addAttribute(Activity, kTypeLocalValue);             // TODO : have a way to add notification (instead of a readonly attribute)
-	addAttributeProperty(Activity, readOnly, YES);
+	addAttribute(Monitor, kTypeLocalValue);             // TODO : have a way to add notification (instead of a readonly attribute)
+	addAttributeProperty(Monitor, readOnly, YES);
     
     addAttribute(Content, kTypeLocalValue);             // TODO : have a way to add notification (instead of a readonly attribute)
 	addAttributeProperty(Content, readOnly, YES);
@@ -79,7 +79,7 @@ contentAttribute(NULL)
 	mIsSending = false;
     
     // cache some attribute for observer notification
-    this->findAttribute(kTTSym_monitor, &activityAttribute);
+    this->findAttribute(kTTSym_monitor, &monitorAttribute);
     this->findAttribute(kTTSym_content, &contentAttribute);
 }
 
@@ -652,23 +652,23 @@ TTErr TTContainer::makeCacheElement(TTNodePtr aNode)
 		cacheElement.append(returnedValueObserver);
 	}
 	
-	// Special case for Container : observe his activity
+	// Special case for Container : observe his monitor
 	else if (anObject.name() == kTTSym_Container) {
 
-		TTObject activityObserver = TTObject("callback");
+		TTObject monitorObserver = TTObject("callback");
 		
-		// create a activity Attribute observer on it
+		// create a monitor Attribute observer on it
 		anObject.instance()->findAttribute(kTTSym_monitor, &anAttribute);
 				
 		baton = TTValue(TTObject(this), aRelativeAddress);
 		
-		activityObserver.set(kTTSym_baton, baton);
-		activityObserver.set(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
+		monitorObserver.set(kTTSym_baton, baton);
+		monitorObserver.set(kTTSym_function, TTPtr(&TTContainerValueAttributeCallback));
 		
-		anAttribute->registerObserverForNotifications(activityObserver);
+		anAttribute->registerObserverForNotifications(monitorObserver);
 		
 		// 1 : cache observer
-		cacheElement.append(activityObserver);
+		cacheElement.append(monitorObserver);
 	}
     
     // Special case for PresetManager : do nothing ?
@@ -745,7 +745,7 @@ TTErr TTContainer::deleteCacheElement(TTNodePtr aNode)
 			// it is a Container
 			else if (anObject.name() == kTTSym_Container) {
 				
-				// unregister activity observer
+				// unregister monitor observer
 				anObserver = cacheElement[1];
 				anAttribute = NULL;
 				err = anObject.instance()->findAttribute(kTTSym_monitor, &anAttribute);
@@ -824,7 +824,7 @@ TTErr TTContainer::unbind()
             }
             else if (anObject.name() == kTTSym_Container) {
                 
-                // unregister activity observer
+                // unregister monitor observer
                 aValueObserver = cacheElement[1];
                 anAttribute = NULL;
                 err = anObject.instance()->findAttribute(kTTSym_monitor, &anAttribute);
@@ -1396,7 +1396,7 @@ TTErr TTContainerValueAttributeCallback(const TTValue& baton, const TTValue& dat
                         
                         v = data; // protect the data
                     }
-                    // CONTAINER CASE : activity out observation
+                    // CONTAINER CASE : monitor out observation
                     // the data is <relativeDataAddress, value, ...>
                     else {
                         
@@ -1414,9 +1414,9 @@ TTErr TTContainerValueAttributeCallback(const TTValue& baton, const TTValue& dat
                     // return the value to the owner of the #TTContainer
                     TTContainerPtr(aContainer.instance())->mReturnValueCallback.send("notify", v, dummy);
                     
-                    // Notify activity observers (about value changes only)
+                    // Notify monitor observers (about value changes only)
                     v.prepend(relativeAddress);
-                    TTContainerPtr(aContainer.instance())->activityAttribute->sendNotification(kTTSym_notify, v);	// we use kTTSym_notify because we know that observers are TTCallback
+                    TTContainerPtr(aContainer.instance())->monitorAttribute->sendNotification(kTTSym_notify, v);	// we use kTTSym_notify because we know that observers are TTCallback
                     
                     return kTTErrNone;
                 }

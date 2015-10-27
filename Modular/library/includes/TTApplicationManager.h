@@ -325,8 +325,8 @@ public:
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerAddApplicationObserver(TTSymbol anApplicationName, const TTObject anObserver);
 	friend TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol anApplicationName, const TTObject anObserver);
 	
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(const TTValue& baton, const TTValue& data);
-	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolMonitorInCallback(const TTValue& baton, const TTValue& data);
+	friend TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolMonitorOutCallback(const TTValue& baton, const TTValue& data);
 };
 
 typedef TTApplicationManager* TTApplicationManagerPtr;
@@ -354,12 +354,12 @@ TTErr TTMODULAR_EXPORT TTApplicationManagerRemoveApplicationObserver(TTSymbol an
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityInCallback(const TTValue& baton, const TTValue& data);
+TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolMonitorInCallback(const TTValue& baton, const TTValue& data);
 
 /** To get back raw outputing messages from any protocol
  @param	baton						..
  @param	data						..
  @return							an error code */
-TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolActivityOutCallback(const TTValue& baton, const TTValue& data);
+TTErr TTMODULAR_EXPORT TTApplicationManagerProtocolMonitorOutCallback(const TTValue& baton, const TTValue& data);
 
 #endif // __TT_APPLICATION_MANAGER_H__

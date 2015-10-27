@@ -90,27 +90,27 @@ private:
      @return #TTErr    always returns #kTTErrNone */
 	TTErr setName(const TTValue& value);
 	
-	/** Attribute accesor: enable activity
+	/** Attribute accesor: enable monitor
      @param  value
      @return #TTErr    always returns #kTTErrNone */
 	TTErr setMonitor(const TTValue& value);
 	
-    /** Attribute accesor: get activity in
+    /** Attribute accesor: get monitor in
      @param  value
      @return #TTErr    always returns #kTTErrNone */
 	TTErr getMonitorIn(TTValue& value);
     
-	/** Attribute accesor: set activity in
+	/** Attribute accesor: set monitor in
      @param  value
      @return #TTErr    always returns #kTTErrNone */
 	TTErr setMonitorIn(const TTValue& value);
 	
-	/** Attribute accesor: get activity out
+	/** Attribute accesor: get monitor out
      @param  value
      @return #TTErr    always returns #kTTErrNone */
 	TTErr getMonitorOut(TTValue& value);
 	
-	/** Attribute accesor: set activity out
+	/** Attribute accesor: set monitor out
      @param  value
      @return #TTErr    always returns #kTTErrNone */
 	TTErr setMonitorOut(const TTValue& value);
