@@ -22,6 +22,10 @@ public:
     // This application is divided into four main functions
     void Setup();
     void Export();
+    void Set(std::string appName, std::string address, std::string value);
+    void Get(std::string appName, std::string address);
+    void Discover(std::string appName, std::string address);
+    void DiscoverAll(std::string appName, std::string address);
     void Execute(std::string command);
     void Quit();
 
@@ -67,9 +71,16 @@ main(int argc, char **argv)
 
         std::string s;
         std::getline(std::cin, s);
+        std::string buf; // Have a buffer string
+        std::stringstream ss(s); // Insert the string into a stream
+        
+        std::vector<std::string> tokens; // Create vector to hold our words
+        
+        while (ss >> buf)
+            tokens.push_back(buf);
 
         // quit the application
-        if (!s.compare("quit")) {
+        if (!tokens[0].compare("quit")) {
 
             app.Quit();
 
@@ -77,14 +88,32 @@ main(int argc, char **argv)
             return EXIT_SUCCESS;
         }
         // dump informations about the application
-        else if (!s.compare("export")) {
+        else if (!tokens[0].compare("export")) {
 
             app.Export();
         }
         // parse a command and execute it
+        else if (!tokens[0].compare("set")) {
+            
+            app.Set(tokens[1], tokens[2], tokens[3]);
+        }
+        // parse a command and execute it
+        else if (!tokens[0].compare("get")) {
+            
+            app.Get(tokens[1], tokens[2]);
+        }
+        // parse a command and execute it
+        else if (!tokens[0].compare("discover")) {
+            
+            app.Discover(tokens[1], tokens[2]);
+        }
+        else if (!tokens[0].compare("discoverAll")) {
+            
+            app.DiscoverAll(tokens[1], tokens[2]);
+        }
         else {
-
-            app.Execute(s);
+            
+            app.Execute(tokens[0]);
         }
     }
     while (YES);
@@ -124,60 +153,61 @@ DemoApp::Setup()
     }
 
 
-    //TTLogMessage("\n*** Enable Minuit communication ***\n");
-    //////////////////////////////////////////////////////////////////////////
-    //
-    //// Create a Minuit protocol unit
-    //err = mApplicationManager.send("ProtocolInstantiate", "Minuit", out);
-    //
-    //if (err) {
-    //    TTLogError("Error : can't create Minuit protocol unit \n");
-    //    return;
-    //}
-    //else
-    //    mProtocolMinuit = out[0];
-    //
-    //// Get Minuit Protocol attribute names and types
-    //mProtocolMinuit.get("parameterNames", out);
-    //for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
-    //    TTSymbol name = TTElement(*it);
-    //    TTSymbol type = mProtocolMinuit.attributeType(name);
-    //    TTLogMessage("Minuit %s parameter is a %s \n", name.c_str(), type.c_str());
-    //}
-    //
-    //// Register mymyRemoteAppApp and myRemoteApp to the Minuit protocol
-    //mProtocolMinuit.send("ApplicationRegister", "myDemoApp", out);
-    //mProtocolMinuit.send("ApplicationRegister", "myRemoteApp", out);
-    //
-    //// Select myDemoApp to set its protocol parameters
-    //mProtocolMinuit.send("ApplicationSelect", "myDemoApp", out);
-    //mProtocolMinuit.set("port", 9998);
-    //mProtocolMinuit.set("ip", "127.0.0.1");
-    //
-    //// Select myRemoteApp to set its protocol parameters
-    //mProtocolMinuit.send("ApplicationSelect", "myRemoteApp", out);
-    //mProtocolMinuit.set("port", 13579);
-    //mProtocolMinuit.set("ip", "127.0.0.1");
-    //
-    //// Get Minuit parameters for each registered application
-    //mProtocolMinuit.get("applicationNames", out);
-    //for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
-    //    TTSymbol name = TTElement(*it);
-    //
-    //    mProtocolMinuit.send("ApplicationSelect", name, out);
-    //    TTLogMessage("Minuit setup for %s application : \n", name.c_str());
-    //
-    //    mProtocolMinuit.get("ip", v);
-    //    TTSymbol ip = v[0];
-    //    TTLogMessage("- ip = %s \n", ip.c_str());
-    //
-    //    mProtocolMinuit.get("port", v);
-    //    TTUInt16 port = v[0];
-    //    TTLogMessage("- port = %d \n", port);
-    //}
-    //
-    //// Enable Minuit communication
-    //mProtocolMinuit.send("Run");
+    TTLogMessage("\n*** Enable Minuit communication ***\n");
+    ////////////////////////////////////////////////////////////////////////
+    
+    // Create a Minuit protocol unit
+    err = mApplicationManager.send("ProtocolInstantiate", "Minuit", out);
+    
+    if (err) {
+       TTLogError("Error : can't create Minuit protocol unit \n");
+       return;
+    }
+    else
+       mProtocolMinuit = out[0];
+    
+    // Get Minuit Protocol attribute names and types
+    mProtocolMinuit.get("parameterNames", out);
+    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
+       TTSymbol name = TTElement(*it);
+       TTSymbol type = mProtocolMinuit.attributeType(name);
+       TTLogMessage("Minuit %s parameter is a %s \n", name.c_str(), type.c_str());
+    }
+    
+    // Register mymyRemoteAppApp and myRemoteApp to the Minuit protocol
+    mProtocolMinuit.send("ApplicationRegister", "myDemoApp", out);
+    mProtocolMinuit.send("ApplicationRegister", "myRemoteApp", out);
+    
+    // Select myDemoApp to set its protocol parameters
+    mProtocolMinuit.send("ApplicationSelect", "myDemoApp", out);
+    mProtocolMinuit.set("port", 9998);
+    mProtocolMinuit.set("ip", "127.0.0.1");
+    
+    // Select myRemoteApp to set its protocol parameters
+    mProtocolMinuit.send("ApplicationSelect", "myRemoteApp", out);
+    mProtocolMinuit.set("port", 13579);
+    mProtocolMinuit.set("ip", "127.0.0.1");
+    
+    // Get Minuit parameters for each registered application
+    mProtocolMinuit.get("applicationNames", out);
+    for (TTElementIter it = out.begin() ; it != out.end() ; it++) {
+       TTSymbol name = TTElement(*it);
+    
+       mProtocolMinuit.send("ApplicationSelect", name, out);
+       TTLogMessage("Minuit setup for %s application : \n", name.c_str());
+    
+       mProtocolMinuit.get("ip", v);
+       TTSymbol ip = v[0];
+       TTLogMessage("- ip = %s \n", ip.c_str());
+    
+       mProtocolMinuit.get("port", v);
+       TTUInt16 port = v[0];
+       TTLogMessage("- port = %d \n", port);
+    }
+    
+    // Enable Minuit communication
+    mProtocolMinuit.send("Run");
+
 
     TTLogMessage("\n*** Enable WebSocket communication ***\n");
     ////////////////////////////////////////////////////////////////////////
@@ -198,8 +228,6 @@ DemoApp::Setup()
     
     // Select myDemoApp to set its protocol parameters
     mProtocolWebSocket.send("ApplicationSelect", "myDemoApp");
-    // mProtocolWebSocket.set("htmlPath", "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");
-//  mProtocolWebSocket.set("htmlPath", "C:/Users/Laugre/Travail/09-ossia/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");
 
     // get the path where the binary resides
     char buf[4046];
@@ -210,17 +238,16 @@ DemoApp::Setup()
     _NSGetExecutablePath(buf, &bufsize);
     char *buf2 = dirname(buf);
     strncpy(buf, buf2, sizeof buf - 1);
-    buf[sizeof buf] = '\0';
+    buf[sizeof buf - 1] = '\0';
 #else
     readlink("/proc/self/exe", buf, 4046);
 #endif
 
     std::string str = std::string(buf);
     std::size_t found = str.find_last_of("/\\");
-    std::string stringPath = str.substr(0,found) + std::string("/to_test_websocket");
+    std::string stringPath = str.substr(0,found) + std::string("/to_test_websocket/jamomarmot");
 
-    std::cout << "websocket htmlPath : " << stringPath << std::endl;
-
+    // Set WebSocket parameters
     mProtocolWebSocket.set("htmlPath", stringPath.c_str());
     mProtocolWebSocket.set("port", 9001);
 
@@ -399,19 +426,6 @@ DemoApp::Setup()
         address = out[0];
         TTLogMessage("\n /myReturn : effective registration address is %s \n", address.c_str());
     }
-
-//    TTLogMessage("\n*** Exploration of myRemoteApp ***\n");
-//    /////////////////////////////////////////////////////////
-//
-//    // Explore the namespace of the myRemoteApp application (myRemoteApp have to be opened and configured with a Minuit "myDemoApp" device)
-//    mApplicationRemote.send("DirectoryBuild");
-//    
-//    
-//    TTLogMessage("\n*** Control of myRemoteApp ***\n");
-//    /////////////////////////////////////////////////////////
-//    
-////    v = TTValue("/test", 1);
-////    mApplicationRemote.send("ObjectSend", v);
 }
 
 void
@@ -434,6 +448,58 @@ DemoApp::Execute(std::string command)
     
     // Send the command to the object at the given address
     mApplicationRemote.send("ObjectSend", v);
+}
+
+void
+DemoApp::Set(std::string appName, std::string address, std::string value)
+{
+    TTLogMessage("\n*** Send set request ***\n");
+    
+    // set arguments
+    TTValue v = TTString(value);
+    v.fromString();
+    TTValue args = TTValue(address.c_str(), v[0]);
+    
+    if (appName == "myDemoApp")
+        mApplicationDemo.send("ObjectSend", args);
+    else
+        mApplicationRemote.send("ObjectSend", args);
+}
+
+void
+DemoApp::Get(std::string appName, std::string address)
+{
+    TTLogMessage("\n*** Send get request ***\n");
+    
+    // set arguments
+    // TTValue args = TTValue(address.c_str());
+    // TTValue output;
+    
+    // mApplicationRemote.send("DirectorySendGetRequest", args, output);
+}
+
+void
+DemoApp::Discover(std::string appName, std::string address)
+{
+    TTLogMessage("\n*** Send discover request ***\n");
+    
+    // set arguments
+    // TTValue args = TTValue(address.c_str());
+    // TTValue output;
+    
+    // mApplicationRemote.send("DirectorySendDiscoverRequest", args, output);
+}
+
+void
+DemoApp::DiscoverAll(std::string appName, std::string address)
+{
+    TTLogMessage("\n*** Send discover all request ***\n");
+    
+    // set arguments
+    // TTValue args = TTValue(address.c_str());
+    // TTValue output;
+    
+    // mApplicationRemote.send("DirectorySendDiscoverAllRequest", args, output);
 }
 
 void
