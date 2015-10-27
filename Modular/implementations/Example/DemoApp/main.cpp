@@ -8,6 +8,7 @@
 #endif
 #ifdef TT_PLATFORM_MAC
 #include <mach-o/dyld.h>
+#include <libgen.h>
 #endif
 
 // A class for our application
@@ -198,7 +199,7 @@ DemoApp::Setup()
     // Select myDemoApp to set its protocol parameters
     mProtocolWebSocket.send("ApplicationSelect", "myDemoApp");
     // mProtocolWebSocket.set("htmlPath", "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");
-//	mProtocolWebSocket.set("htmlPath", "C:/Users/Laugre/Travail/09-ossia/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");
+//  mProtocolWebSocket.set("htmlPath", "C:/Users/Laugre/Travail/09-ossia/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");
 
     // get the path where the binary resides
     char buf[4046];
@@ -207,6 +208,9 @@ DemoApp::Setup()
     GetModuleFileName(NULL, buf, bufsize);
 #elif defined(TT_PLATFORM_MAC)
     _NSGetExecutablePath(buf, &bufsize);
+    char *buf2 = dirname(buf);
+    strncpy(buf, buf2, sizeof buf - 1);
+    buf[sizeof buf] = '\0';
 #else
     readlink("/proc/self/exe", buf, 4046);
 #endif
@@ -217,8 +221,7 @@ DemoApp::Setup()
 
     std::cout << "websocket htmlPath : " << stringPath << std::endl;
 
-    /*mProtocolWebSocket.set("htmlPath", "/Users/ProLauGre/Travail/09-ossia/Jamoma/Core/Modular/implementations/Example/DemoApp/to_test_websocket/jamomarmot");*/
-	mProtocolWebSocket.set("htmlPath", stringPath.c_str());
+    mProtocolWebSocket.set("htmlPath", stringPath.c_str());
     mProtocolWebSocket.set("port", 9001);
 
     // Get WebSocket parameters for each registered application
@@ -249,7 +252,7 @@ DemoApp::Setup()
     }
 
 
-	TTLogMessage("\n*** Creation and registration of datas into myDemoApp ***\n");
+    TTLogMessage("\n*** Creation and registration of datas into myDemoApp ***\n");
     /////////////////////////////////////////////////////////
 
     TTLogMessage("\n*** Creation and registration of a decimal parameter ***\n");
