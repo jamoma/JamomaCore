@@ -1813,8 +1813,15 @@ TTObject TTApplication::appendMirrorObject(TTProtocolPtr aProtocol, TTAddress an
         if (v.size() == 0)
             aMirror.send("AttributesInstantiate", attributesName);
         
-        // register object into the directory
-        this->mDirectory->TTNodeCreate(anAddress, aMirror, NULL, &aNode, &newInstanceCreated);
+        // if the node doesn't exist yet
+        if (this->mDirectory->getTTNode(anAddress, &aNode))
+            
+            // register object into the directory
+            this->mDirectory->TTNodeCreate(anAddress, aMirror, NULL, &aNode, &newInstanceCreated);
+        
+        else
+            // update the node's object
+            aNode->setObject(aMirror);
     }
     
     return aMirror;
