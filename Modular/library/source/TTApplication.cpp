@@ -1721,13 +1721,11 @@ TTErr TTApplication::MirrorObjectInstantiate(const TTValue& inputValue, TTValue&
                             TTSymbol cachedAttribute = attributesToCache[i];
                             
                             // if the attribute exist
-                            TTValue v;
-                            if (anObject.get(cachedAttribute, v) != kTTErrInvalidAttribute)
+                            TTAttributePtr anAttribute;
+                            if (anObject.instance()->findAttribute(cachedAttribute, &anAttribute) != kTTErrInvalidAttribute)
                             {
-                                // cache the attribute value
-                                TTValue args = cachedAttribute;
-                                args.append((TTPtr)&v);
-                                anObject.send("AttributeCache", args);
+                                // cache the attribute value without value
+                                anObject.send("AttributeCache", cachedAttribute);
                             }
                         }
                     }
