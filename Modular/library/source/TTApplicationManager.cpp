@@ -594,16 +594,14 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
 	err = directory->Lookup(whereToDiscover, nodeList, &firstNode);
 	
     // if the address to discover exist : fill the answer
-	if (!err) {
-		
-		firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
-		
+	if (!err)
+    {
         *returnedType = kTTSym_none;
         
         // check if there is an object
 		anObject = firstNode->getObject();
-		if (anObject.valid()) {
-            
+		if (anObject.valid())
+        {
             // fill returned type
             objectType = anObject.name();
             
@@ -615,13 +613,31 @@ TTErr TTApplicationManager::ApplicationDiscover(const TTValue& inputValue, TTVal
         }
         
         // sort children by priority
+        firstNode->getChildren(S_WILDCARD, S_WILDCARD, childList);
         childList.sort(&compareNodePriorityThenNameThenInstance);
 		
 		// fill returned children names
-		for (childList.begin(); childList.end(); childList.next()) {
-			
+		for (childList.begin(); childList.end(); childList.next())
+        {
 			// get the returned node
 			aNode = TTNodePtr((TTPtr)childList.current()[0]);
+            
+            // théo: to not overcrowed namespace
+            // don't add Container with view service
+            // (this is very Max specific)
+            anObject = aNode->getObject();
+            if (anObject.valid())
+            {
+                objectType = anObject.name();
+                if (objectType == kTTSym_Container)
+                {
+                    TTSymbol service;
+                    anObject.get("service", service);
+                    
+                    if (service == kTTSym_view)
+                        continue;
+                }
+            }
 			
 			// get the relative address
 			aNode->getAddress(nodeAddress, whereToDiscover);
