@@ -74,15 +74,12 @@ endFunction()
 
 
 function(add_jamoma_library)
-	# Dynamic
-	add_library(${PROJECT_NAME}
-				SHARED
-				${PROJECT_SRCS} ${PROJECT_HDRS})
+	add_library(${PROJECT_NAME} ${PROJECT_SRCS} ${PROJECT_HDRS})
 
 	setupJamomaLibraryProperties(${PROJECT_NAME})
 
 	# Static
-	if(APPLE AND STATIC_TESTING)
+	if(STATIC_TESTING)
 		# i386
 		add_library(${PROJECT_NAME}-i386-static
 					STATIC
@@ -116,21 +113,18 @@ endFunction()
 
 ### Extensions ###
 function(add_jamoma_extension)
-	# TODO : static extensions
-	add_library(${PROJECT_NAME}
-				SHARED
-				${PROJECT_SRCS} ${PROJECT_HDRS})
+	add_library(${PROJECT_NAME} ${PROJECT_SRCS} ${PROJECT_HDRS})
 
 	target_link_libraries(${PROJECT_NAME} PUBLIC ${JAMOMA_CURRENT_LIBRARY_NAME})
 
 	# Rpath
-    if(APPLE)
-        set_property(TARGET ${PROJECT_NAME}
-                     PROPERTY INSTALL_RPATH "@loader_path")
-    elseif(NOT WIN)
-        set_property(TARGET ${PROJECT_NAME}
-                     PROPERTY INSTALL_RPATH "\$ORIGIN")
-    endif()
+	if(APPLE)
+		set_property(TARGET ${PROJECT_NAME}
+			PROPERTY INSTALL_RPATH "@loader_path")
+	elseif(NOT WIN)
+		set_property(TARGET ${PROJECT_NAME}
+			PROPERTY INSTALL_RPATH "\$ORIGIN")
+	endif()
 
 	# Install the extension
 	if(APPLE)
@@ -146,16 +140,19 @@ function(add_jamoma_extension)
 			COMPONENT Extensions)
 
 	# Set extension suffix according to platform conventions
-	set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
-	if(APPLE)
-		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdylib")
-	elseif(ANDROID)
-		set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "lib")
-		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".so")
-	elseif(UNIX)
-		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttso")
-	elseif(WIN32)
-		set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdll")
+
+	if(NOT JAMOMA_STATIC_BUILD)
+		set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+		if(APPLE)
+			set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdylib")
+		elseif(ANDROID)
+			set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "lib")
+			set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".so")
+		elseif(UNIX)
+			set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttso")
+		elseif(WIN32)
+			set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".ttdll")
+		endif()
 	endif()
 
 	### Tests ###
@@ -179,12 +176,12 @@ function(target_link_frameworks)
 	cmake_parse_arguments(target_link_frameworks "" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
 
 	if(APPLE)
-	foreach(THE_FRAMEWORK ${target_link_frameworks_FRAMEWORKS})
-		unset(THE_LIBRARY CACHE)
-		find_library(THE_LIBRARY ${THE_FRAMEWORK})
-		target_link_libraries(${target_link_frameworks_TARGET} PUBLIC ${THE_LIBRARY})
-		message("Linking ${target_link_frameworks_TARGET} with ${THE_LIBRARY}")
-	endforeach()
+		foreach(THE_FRAMEWORK ${target_link_frameworks_FRAMEWORKS})
+			unset(THE_LIBRARY CACHE)
+			find_library(THE_LIBRARY ${THE_FRAMEWORK})
+			target_link_libraries(${target_link_frameworks_TARGET} PUBLIC ${THE_LIBRARY})
+			message("Linking ${target_link_frameworks_TARGET} with ${THE_LIBRARY}")
+		endforeach()
 	endif()
 endFunction()
 
@@ -212,29 +209,32 @@ endFunction()
 
 ## Function to create test targets ##
 function(addTestTarget)
-	if(NOT WIN32)
-		if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp)
+	if(WIN32 OR JAMOMA_STATIC_BUILD)
+		return()
+	endif()
 
-			if(APPLE AND NOT IS_EXTENSION AND STATIC_TESTING)
-				# i386
-				add_executable("test32_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
-				set_property(TARGET "test32_${PROJECT_NAME}" PROPERTY OSX_ARCHITECTURES i386)
-				target_link_libraries("test32_${PROJECT_NAME}" ${PROJECT_NAME}-i386-static)
-				add_test("test32_${PROJECT_NAME}" "test32_${PROJECT_NAME}")
+	if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp)
+		return()
+	endif()
 
-				# x86_64
-				add_executable("test64_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
-				set_property(TARGET "test64_${PROJECT_NAME}" PROPERTY OSX_ARCHITECTURES x86_64)
-				target_link_libraries("test64_${PROJECT_NAME}" ${PROJECT_NAME}-x86_64-static)
+	if(STATIC_TESTING AND NOT IS_EXTENSION)
+		# i386
+		add_executable("test32_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
+		set_property(TARGET "test32_${PROJECT_NAME}" PROPERTY OSX_ARCHITECTURES i386)
+		target_link_libraries("test32_${PROJECT_NAME}" ${PROJECT_NAME}-i386-static)
+		add_test("test32_${PROJECT_NAME}" "test32_${PROJECT_NAME}")
 
-				add_test("test64_${PROJECT_NAME}" "test64_${PROJECT_NAME}")
-			else()
-				add_executable("test_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
-				target_link_libraries("test_${PROJECT_NAME}" ${PROJECT_NAME})
+		# x86_64
+		add_executable("test64_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
+		set_property(TARGET "test64_${PROJECT_NAME}" PROPERTY OSX_ARCHITECTURES x86_64)
+		target_link_libraries("test64_${PROJECT_NAME}" ${PROJECT_NAME}-x86_64-static)
 
-				add_test("test_${PROJECT_NAME}" "test_${PROJECT_NAME}")
-			endif()
-		endif()
+		add_test("test64_${PROJECT_NAME}" "test64_${PROJECT_NAME}")
+	else()
+		add_executable("test_${PROJECT_NAME}" ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp ${TEST_SRCS})
+		target_link_libraries("test_${PROJECT_NAME}" ${PROJECT_NAME})
+
+		add_test("test_${PROJECT_NAME}" "test_${PROJECT_NAME}")
 	endif()
 endFunction()
 

@@ -17,7 +17,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/source/TTParameter.cpp
 
 file(GLOB_RECURSE PROJECT_HDRS ${CMAKE_CURRENT_SOURCE_DIR}/includes/*.h)
 include_directories("${PROJECT_SOURCE_DIR}/includes")
-if ( APPLE AND STATIC_TESTING)
+if (STATIC_TESTING)
   include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes/")
   include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes/")
 endif()

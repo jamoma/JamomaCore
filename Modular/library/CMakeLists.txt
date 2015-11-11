@@ -60,7 +60,7 @@ file(GLOB_RECURSE PROJECT_HDRS
 
 include_directories("${PROJECT_SOURCE_DIR}/includes")
 include_directories(${LIBXML2_INCLUDE_DIR})
-if ( APPLE AND STATIC_TESTING)
+if (STATIC_TESTING)
 	include_directories("${PROJECT_SOURCE_DIR}/../../Foundation/library/includes/")
 	include_directories("${PROJECT_SOURCE_DIR}/../../DSP/library/includes/")
 endif()
@@ -88,7 +88,7 @@ endif()
 
 ### Tests ###
 addTestTarget()
-if ( APPLE AND STATIC_TESTING)
+if (STATIC_TESTING)
 	target_link_libraries("test32_${PROJECT_NAME}" Foundation-i386-static)
 	target_link_libraries("test64_${PROJECT_NAME}" Foundation-x86_64-static)
 	target_link_libraries("test32_${PROJECT_NAME}" DSP-i386-static)
