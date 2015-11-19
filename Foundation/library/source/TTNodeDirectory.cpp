@@ -36,7 +36,17 @@ TTErr TTNodeDirectory::init()
 {
 	TTBoolean   nodeCreated = NO;
     TTObject    empty;
-	
+    
+    // notify all observers that each node will be destroyed
+    TTValue k;
+    directory.getKeys(k);
+    for (int i=0; i < k.size(); i++)
+    {
+        TTNodePtr aNode;
+        getTTNode(k[i], &aNode);
+        notifyObservers(k[i], aNode, kAddressDestroyed);
+    }
+    
 	// create a new directory
 	directory.clear();
 	
@@ -107,7 +117,7 @@ TTErr TTNodeDirectory::getAlias(TTAddress anAddress, TTAddress& returnedAlias)
 	
 	// Retrieve the alias binding on this address
 	aliases.getKeys(ak);
-	for (int i=0; i < aliases.getKeys(ak); i++) {
+	for (int i=0; i < ak.size(); i++) {
 		
 		alias = ak[i];
 		aliases.lookup(*alias, v);
