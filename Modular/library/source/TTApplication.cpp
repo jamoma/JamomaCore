@@ -921,7 +921,6 @@ TTErr TTApplication::ObjectRetreive(const TTValue& inputValue, TTValue& outputVa
 
 TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
 {
-    std::cout << "ObjectSend" << std::endl;
     // get address
     if (inputValue.size() >= 1) {
         
@@ -935,8 +934,6 @@ TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
             TTErr err = mDirectory->Lookup(address, aNodeList, &aNode);
             
             if (!err) {
-                
-                std::cout << "ok" << std::endl;
                 
                 TTValue valueToSend, none;
                 
@@ -952,21 +949,23 @@ TTErr TTApplication::ObjectSend(const TTValue& inputValue, TTValue& outputValue)
                     
                     if (anObject.valid()) {
                         
+                        TTSymbol attributeName = address.getAttribute();
+                        
                         // TTData case : for value attribute use Command message
                         if (anObject.name() == kTTSym_Data) {
                             
-                            if (address.getAttribute() == kTTSym_value)
+                            if (attributeName == kTTSym_value || attributeName == kTTSymEmpty)
                                 err = anObject.send(kTTSym_Command, valueToSend);
                             else
-                                err = anObject.set(address.getAttribute(), valueToSend);
+                                err = anObject.set(attributeName, valueToSend);
                         }
                         else {
                             // try to set an attribute
-                            err = anObject.set(address.getAttribute(), valueToSend);
+                            err = anObject.set(attributeName, valueToSend);
                             
                             // try to use a message
                             if (err == address)
-                                err = anObject.send(address.getAttribute(), valueToSend);
+                                err = anObject.send(attributeName, valueToSend);
                         }
                     }
                     
