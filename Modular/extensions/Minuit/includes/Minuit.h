@@ -76,6 +76,7 @@ private:
 	
     TT_PROTOCOL_PARAMETER(Ip);						///< PROTOCOL PARAMETER : each registered application have to setup its ip
 	TT_PROTOCOL_PARAMETER(Port);					///< PROTOCOL PARAMETER : each registered application have to setup its port
+    TT_PROTOCOL_PARAMETER(Timeout);					///< PROTOCOL PARAMETER : how many time in millisecond before to send a new request
     
 	TTObject                mOscReceive;
 	

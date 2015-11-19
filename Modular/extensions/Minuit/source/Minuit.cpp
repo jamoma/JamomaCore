@@ -85,9 +85,14 @@ mSenderManager(NULL)
 	
     addAttributeAsProtocolParameter(Ip, kTypeSymbol);
 	addAttributeAsProtocolParameter(Port, kTypeUInt16);
+    addAttributeAsProtocolParameter(Timeout, kTypeUInt32);
 	
 	addMessageWithArguments(receivedMessage);
 	addMessageProperty(receivedMessage, hidden, YES);
+    
+    ApplicationSelectLocal();
+    TTObject minuitProtocol(this);
+    minuitProtocol.set("timeout", TTUInt32(DEFAULT_TIMEOUT));
 }
 
 Minuit::~Minuit()
@@ -234,9 +239,15 @@ TTErr Minuit::SendDiscoverRequest(TTSymbol to, TTAddress address,
 #ifdef TT_PROTOCOL_DEBUG
 		std::cout << "Minuit : applicationSendDiscoverRequest " << std::endl;
 #endif
-		
-		// Wait for an answer
-		mAnswerManager->AddDiscoverAnswer(to, address);
+        // get time out value per application
+        TTObject minuitProtocol(this);
+        minuitProtocol.send("ApplicationSelect", to);
+        TTUInt32 timeout;
+        minuitProtocol.get("timeout", timeout);
+        if (timeout == 0) timeout = DEFAULT_TIMEOUT;
+        
+        // Wait for an answer
+		mAnswerManager->AddDiscoverAnswer(to, address, timeout);
 		
 		state = NO_ANSWER;
 		do
@@ -300,8 +311,15 @@ TTErr Minuit::SendGetRequest(TTSymbol to, TTAddress address,
         std::cout << "Minuit : applicationSendGetRequest " << std::endl;
 #endif
         
+        // get time out value per application
+        TTObject minuitProtocol(this);
+        minuitProtocol.send("ApplicationSelect", to);
+        TTUInt32 timeout;
+        minuitProtocol.get("timeout", timeout);
+        if (timeout == 0) timeout = DEFAULT_TIMEOUT;
+
         // Wait for an answer
-        mAnswerManager->AddGetAnswer(to, address);
+        mAnswerManager->AddGetAnswer(to, address, timeout);
         
         state = ANSWER_RECEIVED;
         do
