@@ -282,15 +282,20 @@ TTErr TTCue::processRamp(TTObject aScript, TTUInt32 ramp)
             
                 anObject = aNode->getObject();
                 
-                if (anObject.valid()) {
+                if (anObject.valid())
+                {
+                    TTSymbol objectName = anObject.name();
                     
-                    if (anObject.name() == kTTSym_Data) {
-                        
+                    if (objectName == kTTSym_Mirror)
+                        objectName = TTMirrorPtr(anObject.instance())->getName();
+                    
+                    if (objectName == kTTSym_Data)
+                    {
                         anObject.get(kTTSym_rampDrive, v);
                         rampDrive = v[0];
                         
-                        if (rampDrive != kTTSym_none) {
-                            
+                        if (rampDrive != kTTSym_none)
+                        {
                             // set the ramp
                             if (ramp)
                                 aLine->append(kTTSym_ramp, r);
@@ -487,10 +492,15 @@ TTErr TTCue::processStore(TTObject aScript, const TTAddressItemPtr aSelection, T
 				anObject = aNode->getObject();
 				
 				// edit the script depending on the object type
-				if (anObject.valid()) {
+				if (anObject.valid())
+                {
+                    TTSymbol objectName = anObject.name();
+                    
+                    if (objectName == kTTSym_Mirror)
+                        objectName = TTMirrorPtr(anObject.instance())->getName();
 					
 					// DATA case : get value attribute
-					if (anObject.name() == kTTSym_Data)
+					if (objectName == kTTSym_Data)
                     {
 						v.clear();
 						anObject.get(kTTSym_service, v);
@@ -550,8 +560,13 @@ TTErr TTCue::processStore(TTObject aScript, const TTAddressItemPtr aSelection, T
                 {
 					if (anObject.valid())
                     {
+                        TTSymbol objectName = anObject.name();
+                        
+                        if (objectName == kTTSym_Mirror)
+                            objectName = TTMirrorPtr(anObject.instance())->getName();
+                        
 						// CONTAINER case : append a comment line to the script before the sub script line
-						if (anObject.name() == kTTSym_Container)
+						if (objectName == kTTSym_Container)
 							aScript.send("AppendComment", none, parsedLine);
 					}
 					
@@ -625,7 +640,12 @@ TTErr TTCue::processUpdate(TTObject aScript)
                 
                 if (anObject.valid())
                 {
-                    if (anObject.name() == kTTSym_Data)
+                    TTSymbol objectName = anObject.name();
+                    
+                    if (objectName == kTTSym_Mirror)
+                        objectName = TTMirrorPtr(anObject.instance())->getName();
+                    
+                    if (objectName == kTTSym_Data)
                     {
                         // get his service attribute value
                         anObject.get(kTTSym_service, v);
