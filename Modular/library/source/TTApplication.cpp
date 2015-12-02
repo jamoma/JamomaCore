@@ -87,19 +87,19 @@ mTempAddress(kTTAdrsRoot)
 	addMessageProperty(UpdateAttribute, hidden, YES);
     
     addMessageWithArguments(ObjectRegister);
-    addMessageProperty(RegisterObject, hidden, YES);
+    addMessageProperty(ObjectRegister, hidden, YES);
     
     addMessageWithArguments(ObjectUnregister);
-    addMessageProperty(UnregisterObject, hidden, YES);
+    addMessageProperty(ObjectUnregister, hidden, YES);
     
     addMessageWithArguments(ObjectRename);
     addMessageProperty(ObjectRename, hidden, YES);
     
     addMessageWithArguments(ObjectRetreive);
-    addMessageProperty(RetreiveObject, hidden, YES);
+    addMessageProperty(ObjectRetreive, hidden, YES);
     
     addMessageWithArguments(ObjectSend);
-    addMessageProperty(RetreiveObject, hidden, YES);
+    addMessageProperty(ObjectSend, hidden, YES);
 	
 	// symbol conversion
 	addAttributeWithGetter(AllAppNames, kTypeLocalValue);
