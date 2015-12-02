@@ -64,6 +64,8 @@ mDefaultNamespace(NULL)
     addMessageWithArguments(Update);
     addMessageWithArguments(Append);
 	addMessageWithArguments(Recall);
+    addMessage(RecallNext);
+    addMessage(RecallPrevious);
 	addMessageWithArguments(Output);
 	addMessageWithArguments(Interpolate);
 	addMessageWithArguments(Mix);
@@ -302,7 +304,10 @@ TTErr TTCueManager::NamespaceGrab(const TTValue& inputValue, TTValue& outputValu
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
             
-            mCurrentPosition = inputValue[0];
+            TTValue toClip = inputValue;
+            toClip.clip(1, mNames.size());
+            
+            mCurrentPosition = toClip[0];
             
             if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
                 mCurrent = mNames[mCurrentPosition-1];
@@ -427,7 +432,10 @@ TTErr TTCueManager::Update(const TTValue& inputValue, TTValue& outputValue)
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
             
-            mCurrentPosition = inputValue[0];
+            TTValue toClip = inputValue;
+            toClip.clip(1, mNames.size());
+            
+            mCurrentPosition = toClip[0];
             
             if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
                 mCurrent = mNames[mCurrentPosition-1];
@@ -475,7 +483,10 @@ TTErr TTCueManager::Append(const TTValue& inputValue, TTValue& outputValue)
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
             
-            mCurrentPosition = inputValue[0];
+            TTValue toClip = inputValue;
+            toClip.clip(1, mNames.size());
+            
+            mCurrentPosition = toClip[0];
             
             if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
                 mCurrent = mNames[mCurrentPosition-1];
@@ -556,7 +567,10 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
             
-            mCurrentPosition = inputValue[0];
+            TTValue toClip = inputValue;
+            toClip.clip(1, mNames.size());
+            
+            mCurrentPosition = toClip[0];
             
             if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
                 mCurrent = mNames[mCurrentPosition-1];
@@ -579,6 +593,18 @@ TTErr TTCueManager::Recall(const TTValue& inputValue, TTValue& outputValue)
 	}
 	
 	return kTTErrGeneric;
+}
+
+TTErr TTCueManager::RecallNext()
+{
+    TTValue none;
+    return Recall(TTInt32(mCurrentPosition+1), none);
+}
+
+TTErr TTCueManager::RecallPrevious()
+{
+    TTValue none;
+    return Recall(TTInt32(mCurrentPosition-1), none);
 }
 
 TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
@@ -605,7 +631,10 @@ TTErr TTCueManager::Output(const TTValue& inputValue, TTValue& outputValue)
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
             
-            mCurrentPosition = inputValue[0];
+            TTValue toClip = inputValue;
+            toClip.clip(1, mNames.size());
+            
+            mCurrentPosition = toClip[0];
             
             if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
                 mCurrent = mNames[mCurrentPosition-1];
@@ -738,7 +767,10 @@ TTErr TTCueManager::Move(const TTValue& inputValue, TTValue& outputValue)
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
             
-            mCurrentPosition = inputValue[0];
+            TTValue toClip = inputValue;
+            toClip.clip(1, mNames.size());
+            
+            mCurrentPosition = toClip[0];
             
             if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
                 mCurrent = mNames[mCurrentPosition-1];
@@ -807,7 +839,10 @@ TTErr TTCueManager::Delete(const TTValue& inputValue, TTValue& outputValue)
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
             
-            mCurrentPosition = inputValue[0];
+            TTValue toClip = inputValue;
+            toClip.clip(1, mNames.size());
+            
+            mCurrentPosition = toClip[0];
             
             if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
                 mCurrent = mNames[mCurrentPosition-1];
@@ -885,7 +920,10 @@ TTErr TTCueManager::Rename(const TTValue& inputValue, TTValue& outputValue)
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
             
-            mCurrentPosition = inputValue[0];
+            TTValue toClip = inputValue;
+            toClip.clip(1, mNames.size());
+            
+            mCurrentPosition = toClip[0];
             
             if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
                 mCurrent = mNames[mCurrentPosition-1];
@@ -952,7 +990,10 @@ TTErr TTCueManager::Copy(const TTValue& inputValue, TTValue& outputValue)
         // get cue at position
         if (inputValue[0].type() == kTypeInt32) {
             
-            mCurrentPosition = inputValue[0];
+            TTValue toClip = inputValue;
+            toClip.clip(1, mNames.size());
+            
+            mCurrentPosition = toClip[0];
 
             if (mCurrentPosition > 0 && mCurrentPosition <= mNames.size())
                 mCurrent = mNames[mCurrentPosition-1];

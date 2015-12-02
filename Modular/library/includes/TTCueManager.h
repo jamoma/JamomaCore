@@ -106,8 +106,14 @@ private:
 		name/id : recall the cue.
 		nothing : recall the current cue */
 	TTErr	Recall(const TTValue& inputValue, TTValue& outputValue);
+    
+    /** Recall the next cue */
+    TTErr	RecallNext();
+    
+    /** Recall the previous cue */
+    TTErr	RecallPrevious();
 	
-	/** Output a cue using the mReturnLineCallback : 
+	/** Output a cue using the mReturnLineCallback :
 	 name/id : output the cue.
 	 nothing : output the current cue */
 	TTErr	Output(const TTValue& inputValue, TTValue& outputValue);
