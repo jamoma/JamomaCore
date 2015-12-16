@@ -88,4 +88,26 @@ elseif(WIN32)
 	set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "ExecWait '\\\"$INSTDIR\\\\vcredist_x86.exe\\\" /q:a'")
 endif()
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug" 
+   AND "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang"
+   OR  "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+   
+  if("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
+    if(JAMOMA_LIBCXX_DEBUG)
+      add_definitions(-D_GLIBCXX_DEBUG)
+      add_definitions(-D_GLIBCXX_DEBUG_PEDANTIC)
+    else()
+      remove_definitions(-D_GLIBCXX_DEBUG)
+      remove_definitions(-D_GLIBCXX_DEBUG_PEDANTIC)
+    endif()
+    # In 2018 : _LIBCPP_DEBUG
+  endif()
+
+  if(JAMOMA_SANITIZE_UNDEFINED)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fsanitize=undefined")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=undefined")
+  endif()
+endif()
+
 message("CMAKE_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}")
