@@ -45,6 +45,7 @@ TTRegex::~TTRegex()
 
 TTErr TTRegex::parse(TTStringIter begin, TTStringIter end)
 {
+	mRESULT = TTRegexStringResult();
 	if (regex_search(begin, end, mRESULT, mEXPRESSION))
 		return kTTErrNone;
 
