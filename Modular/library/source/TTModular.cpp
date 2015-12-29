@@ -34,7 +34,6 @@ static bool TTModularInitialized = false;
 TTApplicationManagerPtr TTModularApplicationManager = NULL;
 std::unique_ptr<TTHash> TTModularSelections;
 
-std::unique_ptr<TTObjectBase> TTModularApplicationManagerOwner;
 
 #ifdef TT_PLATFORM_LINUX
 int main(void)
@@ -68,8 +67,6 @@ void TTModularInit(const char* binaries, bool loadFromBuiltinPaths)
         // Register classes -- both internal and external
         TTApplication::registerClass();
         TTApplicationManager::registerClass();
-        TTModularApplicationManagerOwner.reset(TTModularApplicationManager);
-
         TTContainer::registerClass();
         TTCue::registerClass();
         TTCueManager::registerClass();
