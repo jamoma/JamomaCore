@@ -20,6 +20,17 @@
 using namespace std;
 using TTStringVector = vector<string>;
 
+#if defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX) && !defined(__MINGW32__)
+#include <dlfcn.h>
+using TTHandlePtr = std::unique_ptr<void,  decltype(&dlclose)> ;
+#elif defined(TT_PLATFORM_WIN) || defined(__MINGW32__)
+#include <shlobj.h>
+using TTHandlePtr = std::unique_ptr<void,  decltype(&FreeLibrary)> ;
+#endif
+using TTHandleVector = vector<TTHandlePtr>;
+
+TTHandleVector handles;
+
 // Utility compile-time functions to work with string constants.
 // Except on windows, where constexpr will only be in VS2015 (hopefully...)
 // This would allow to shrink this file size by a small half.
@@ -42,22 +53,22 @@ template<typename OS>
 // is a correct extension filename for the platform we're in.
 bool TTIsExtensionFilename(const string& filename)
 {
-	auto res = mismatch(begin(OS::extensionPrefix),
-						end(OS::extensionPrefix),
-						begin(filename));
+    auto res = mismatch(begin(OS::extensionPrefix),
+                        end(OS::extensionPrefix),
+                        begin(filename));
 
-	if (string_empty(OS::extensionPrefix) || res.first == (end(OS::extensionPrefix)))
-	{
-		if(filename.length() >= string_length(OS::extensionSuffix))
-		{
-			return (0 == filename.compare(
-							filename.length() - string_length(OS::extensionSuffix),
-							string_length(OS::extensionSuffix),
-							OS::extensionSuffix));
-		}
-	}
+    if (string_empty(OS::extensionPrefix) || res.first == (end(OS::extensionPrefix)))
+    {
+        if(filename.length() >= string_length(OS::extensionSuffix))
+        {
+            return (0 == filename.compare(
+                            filename.length() - string_length(OS::extensionSuffix),
+                            string_length(OS::extensionSuffix),
+                            OS::extensionSuffix));
+        }
+    }
 
-	return false;
+    return false;
 }
 
 template<typename OS>
@@ -65,56 +76,59 @@ template<typename OS>
 // ex. : libWebSocket.so on Android -> WebSocket
 string TTFilenameToExtensionName(string name)
 {
-	// Remove the prefix
-	if(!string_empty(OS::extensionPrefix))
-		name.erase(begin(name),
-				   begin(name) + string_length(OS::extensionPrefix));
+    // Remove the prefix
+    if(!string_empty(OS::extensionPrefix))
+        name.erase(begin(name),
+                   begin(name) + string_length(OS::extensionPrefix));
 
-	// Remove the suffix
-	if(!string_empty(OS::extensionSuffix))
-		name.erase(end(name) - string_length(OS::extensionSuffix),
-				   end(name));
+    // Remove the suffix
+    if(!string_empty(OS::extensionSuffix))
+        name.erase(end(name) - string_length(OS::extensionSuffix),
+                   end(name));
 
-	return name;
+    return name;
 }
 
-template<typename OS, typename Loader, typename GetProc>
+template<typename OS, typename Loader, typename GetProc, typename CloseFun>
 // A generic way to load classes.
 // Loader  : a callable object that takes a filename of a shared object,
 //           and returns a handle.
 // GetProc : a callable object that takes a handle and a function name,
 //           and returns a pointer to the function.
 bool TTLoadExtension(const string& filename,
-			   const string& folder,
-			   Loader&& handle_fun,
-			   GetProc&& getproc_fun)
+               const string& folder,
+               Loader handle_fun,
+               GetProc getproc_fun,
+               CloseFun close_fun)
 {
-	// Check if the file is a Jamoma extension
-	if(!TTIsExtensionFilename<OS>(filename))
-		return false;
+    // Check if the file is a Jamoma extension
+    if(!TTIsExtensionFilename<OS>(filename))
+        return false;
 
-	// Get a handle
-	void *handle = handle_fun((folder + "/" + filename).c_str());
-	if (!handle)
-	{
-		TTLogMessage("Error when trying to get an handle on %s.\n", filename.c_str());
-		return false;
-	}
+    // Get a handle
+    void *handle = handle_fun((folder + "/" + filename).c_str());
+    if (!handle)
+    {
+        TTLogMessage("Error when trying to get an handle on %s.\n", filename.c_str());
+        return false;
+    }
 
-	// Load the Jamoma extension
-	string initFun = "TTLoadJamomaExtension_" + TTFilenameToExtensionName<OS>(filename);
-	auto initializer = reinterpret_cast<TTExtensionInitializationMethod>(getproc_fun(handle, initFun.c_str()));
-	if (initializer)
-	{
-		auto err = initializer();
-		if(err != kTTErrNone)
-		{
-			TTLogMessage("Error when initializing extension %s.\n", filename.c_str());
-			return false;
-		}
-		return true;
-	}
-	return false;
+    handles.emplace_back(TTHandlePtr(handle, close_fun));
+
+    // Load the Jamoma extension
+    string initFun = "TTLoadJamomaExtension_" + TTFilenameToExtensionName<OS>(filename);
+    auto initializer = reinterpret_cast<TTExtensionInitializationMethod>(getproc_fun(handle, initFun.c_str()));
+    if (initializer)
+    {
+        auto err = initializer();
+        if(err != kTTErrNone)
+        {
+            TTLogMessage("Error when initializing extension %s.\n", filename.c_str());
+            return false;
+        }
+        return true;
+    }
+    return false;
 }
 
 // Here is the platform-specific code.
@@ -128,7 +142,6 @@ bool TTLoadExtension(const string& filename,
 //	   and a compiled-in absolute path (to allow package maintainers to add their own paths)
 //   * Common code for Unix-like platforms is abstracted in TTUnixCommon.
 #if defined(TT_PLATFORM_MAC) || defined(TT_PLATFORM_LINUX) && !defined(__MINGW32__)
-#include <dlfcn.h>
 #include <dirent.h>
 
 // This class contains informations that are applicable to
@@ -136,100 +149,101 @@ bool TTLoadExtension(const string& filename,
 // and load shared objects using dlopen / dlsym).
 class TTUnixCommon
 {
-	public:
-		static TTStringVector builtinAbsolutePaths()
-		{
-			return {
+    public:
+        static TTStringVector builtinAbsolutePaths()
+        {
+            return {
 #if defined(JAMOMA_EXTENSIONS_INSTALL_PREFIX)
-				JAMOMA_EXTENSIONS_INSTALL_PREFIX,
+                JAMOMA_EXTENSIONS_INSTALL_PREFIX,
 #endif
-				"/usr/lib/jamoma",
-				"/usr/local/lib/jamoma",
-				"/usr/jamoma/lib",
-				"/usr/jamoma/extensions",
-				"/usr/local/jamoma/lib",
-				"/usr/local/jamoma/extensions"
-			};
-		}
+                "/usr/lib/jamoma",
+                "/usr/local/lib/jamoma",
+                "/usr/jamoma/lib",
+                "/usr/jamoma/extensions",
+                "/usr/local/jamoma/lib",
+                "/usr/local/jamoma/extensions"
+            };
+        }
 
-		template<typename OS>
-		// Try to load extensions. Returns "true" only if at least one extension was loaded.
-		static bool TTLoadExtensionsFromFolder(const string& folder)
-		{
-			DIR* dirp = opendir(folder.c_str());
-			if(!dirp)
-				return false;
+        template<typename OS>
+        // Try to load extensions. Returns "true" only if at least one extension was loaded.
+        static bool TTLoadExtensionsFromFolder(const string& folder)
+        {
+            DIR* dirp = opendir(folder.c_str());
+            if(!dirp)
+                return false;
 
-			dirent* dp{};
-			int count = 0; // Number of extensions loaded.
-			while ((dp = readdir(dirp)))
-			{
-				if(TTLoadExtension<OS>(dp->d_name,
-								 folder,
-								[] (const char * file)
-								{ return dlopen(file, RTLD_LAZY); },
-								[] (void* handle, const char * fun)
-								{ return dlsym(handle, fun); }))
-				{
-					++count;
-				}
-			}
+            dirent* dp{};
+            int count = 0; // Number of extensions loaded.
+            while ((dp = readdir(dirp)))
+            {
+                if(TTLoadExtension<OS>(dp->d_name,
+                                 folder,
+                                [] (const char * file)
+                                { return dlopen(file, RTLD_LAZY); },
+                                [] (void* handle, const char * fun)
+                                { return dlsym(handle, fun); },
+                                dlclose))
+                {
+                    ++count;
+                }
+            }
 
-			closedir(dirp);
+            closedir(dirp);
 
-			if(count > 0)
-			{
-				TTFoundationBinaryPath = folder.c_str();
-				return true;
-			}
+            if(count > 0)
+            {
+                TTFoundationBinaryPath = folder.c_str();
+                return true;
+            }
 
-			return false;
-		}
+            return false;
+        }
 
-		// Returns the path of the extensions
-		// relative to the folder of the JamomaFoundation library
-		// the application uses.
-		static string computedRelativePath()
-		{
-			Dl_info		info;
-			char		mainBundleStr[4096];
+        // Returns the path of the extensions
+        // relative to the folder of the JamomaFoundation library
+        // the application uses.
+        static string computedRelativePath()
+        {
+            Dl_info		info;
+            char		mainBundleStr[4096];
 
-			// Use the path of JamomaFoundation
-			if (dladdr((const void*)TTLoadExtensions, &info))
-			{
-				char *c = 0;
+            // Use the path of JamomaFoundation
+            if (dladdr((const void*)TTLoadExtensions, &info))
+            {
+                char *c = 0;
 
-				TTLogMessage("computedRelativePath(): %s\n", info.dli_fname);
+                TTLogMessage("computedRelativePath(): %s\n", info.dli_fname);
 
-				strncpy(mainBundleStr, info.dli_fname, 4096);
-				c = strrchr(mainBundleStr, '/');
-				if (c)
-					*c = 0; // chop the "/JamomaFoundation.dylib/so off of the path
-			}
+                strncpy(mainBundleStr, info.dli_fname, 4096);
+                c = strrchr(mainBundleStr, '/');
+                if (c)
+                    *c = 0; // chop the "/JamomaFoundation.dylib/so off of the path
+            }
 
-			return mainBundleStr;
-		}
+            return mainBundleStr;
+        }
 };
 #endif
 
 #if defined(TT_PLATFORM_MAC)
 class TTOSXSpecific
 {
-	public:
-		static constexpr const char extensionPrefix[]{""};
-		static constexpr const char extensionSuffix[]{".ttdylib"};
+    public:
+        static constexpr const char extensionPrefix[]{""};
+        static constexpr const char extensionSuffix[]{".ttdylib"};
 
-		static string computedRelativePath()
-		{ return TTUnixCommon::computedRelativePath(); }
+        static string computedRelativePath()
+        { return TTUnixCommon::computedRelativePath(); }
 
-		static TTStringVector builtinRelativePaths()
-		{ return {"../Frameworks/jamoma/extensions"}; }
+        static TTStringVector builtinRelativePaths()
+        { return {"../Frameworks/jamoma/extensions"}; }
 
-		static TTStringVector builtinAbsolutePaths()
-		{ return TTUnixCommon::builtinAbsolutePaths(); }
+        static TTStringVector builtinAbsolutePaths()
+        { return TTUnixCommon::builtinAbsolutePaths(); }
 
-		static bool TTLoadExtensionsFromFolder(const string& folderName)
-		{ return TTUnixCommon::TTLoadExtensionsFromFolder<TTOSXSpecific>(folderName); }
+        static bool TTLoadExtensionsFromFolder(const string& folderName)
+        { return TTUnixCommon::TTLoadExtensionsFromFolder<TTOSXSpecific>(folderName); }
 };
 using TTOperatingSystem = TTOSXSpecific;
 #endif
@@ -263,27 +277,27 @@ using TTOperatingSystem = TTiOSSpecific;
 
 class TTAndroidSpecific
 {
-	public:
-		static constexpr const char extensionPrefix[]{"lib"};
-		static constexpr const char extensionSuffix[]{".so"};
+    public:
+        static constexpr const char extensionPrefix[]{"lib"};
+        static constexpr const char extensionSuffix[]{".so"};
 
-		static string computedRelativePath()
-		{
-			string s{"/proc/" + string{getpid()} + "/cmdline"};
-			ifstream input{s.c_str()};
-			string line;
-			getline(input, line);
-			return string{"/data/data/"} + line + string{"/lib"};
-		}
+        static string computedRelativePath()
+        {
+            string s{"/proc/" + string{getpid()} + "/cmdline"};
+            ifstream input{s.c_str()};
+            string line;
+            getline(input, line);
+            return string{"/data/data/"} + line + string{"/lib"};
+        }
 
-		static TTStringVector builtinRelativePaths()
-		{ return {}; }
+        static TTStringVector builtinRelativePaths()
+        { return {}; }
 
-		static TTStringVector builtinAbsolutePaths()
-		{ return {}; }
+        static TTStringVector builtinAbsolutePaths()
+        { return {}; }
 
-		static bool TTLoadExtensionsFromFolder(const string& folderName)
-		{ return TTUnixCommon::TTLoadExtensionsFromFolder<TTAndroidSpecific>(folderName); }
+        static bool TTLoadExtensionsFromFolder(const string& folderName)
+        { return TTUnixCommon::TTLoadExtensionsFromFolder<TTAndroidSpecific>(folderName); }
 };
 using TTOperatingSystem = TTAndroidSpecific;
 #endif
@@ -292,140 +306,140 @@ using TTOperatingSystem = TTAndroidSpecific;
 #if defined(TT_PLATFORM_LINUX) && !defined(__MINGW32__)
 class TTLinuxSpecific
 {
-	public:
-		static constexpr const char extensionPrefix[]="";
-		static constexpr const char extensionSuffix[]=".ttso";
+    public:
+        static constexpr const char extensionPrefix[]="";
+        static constexpr const char extensionSuffix[]=".ttso";
 
-		static string computedRelativePath()
-		{ return TTUnixCommon::computedRelativePath(); }
+        static string computedRelativePath()
+        { return TTUnixCommon::computedRelativePath(); }
 
-		static TTStringVector builtinRelativePaths()
-		{ return {"./extensions"}; }
+        static TTStringVector builtinRelativePaths()
+        { return {"./extensions"}; }
 
-		static TTStringVector builtinAbsolutePaths()
-		{ return TTUnixCommon::builtinAbsolutePaths(); }
+        static TTStringVector builtinAbsolutePaths()
+        { return TTUnixCommon::builtinAbsolutePaths(); }
 
-		static bool TTLoadExtensionsFromFolder(const string& folderName)
-		{ return TTUnixCommon::TTLoadExtensionsFromFolder<TTLinuxSpecific>(folderName); }
+        static bool TTLoadExtensionsFromFolder(const string& folderName)
+        { return TTUnixCommon::TTLoadExtensionsFromFolder<TTLinuxSpecific>(folderName); }
 };
 using TTOperatingSystem = TTLinuxSpecific;
 #endif
 
 
 #if defined(TT_PLATFORM_WIN) || defined(__MINGW32__)
-#include <shlobj.h>
 
 class TTWinSpecific
 {
-	public:
-		static const char* extensionPrefix;
-		static const char* extensionSuffix;
+    public:
+        static const char* extensionPrefix;
+        static const char* extensionSuffix;
 
-		static string computedRelativePath();
-		static TTStringVector builtinRelativePaths();
-		static TTStringVector builtinAbsolutePaths();
-		static bool TTLoadExtensionsFromFolder(const string& folder);
+        static string computedRelativePath();
+        static TTStringVector builtinRelativePaths();
+        static TTStringVector builtinAbsolutePaths();
+        static bool TTLoadExtensionsFromFolder(const string& folder);
 };
 
 // Specializations since windows does not support constexpr yet.
 template<>
 string TTFilenameToExtensionName<TTWinSpecific>(string name)
 {
-	name.erase(end(name) - strlen(TTWinSpecific::extensionSuffix), end(name));
-	return name;
+    name.erase(end(name) - strlen(TTWinSpecific::extensionSuffix), end(name));
+    return name;
 }
 
 template<>
 bool TTIsExtensionFilename<TTWinSpecific>(const string& filename)
 {
-	auto suffix_len = strlen(TTWinSpecific::extensionSuffix);
-	if(filename.length() >= suffix_len)
-	{
-		return (0 == filename.compare(
-						filename.length() - suffix_len,
-						suffix_len,
-						TTWinSpecific::extensionSuffix));
-	}
+    auto suffix_len = strlen(TTWinSpecific::extensionSuffix);
+    if(filename.length() >= suffix_len)
+    {
+        return (0 == filename.compare(
+                        filename.length() - suffix_len,
+                        suffix_len,
+                        TTWinSpecific::extensionSuffix));
+    }
 
-	return false;
+    return false;
 }
 
 string TTWinSpecific::computedRelativePath()
 {
-	TTString	fullpath{};
-	char		temppath[4096];
-	LONG		lRes;
+    TTString	fullpath{};
+    char		temppath[4096];
+    LONG		lRes;
 
-	LPCSTR moduleName = "JamomaFoundation.dll";
-	HMODULE	hmodule = GetModuleHandle(moduleName);
-	// get the path
-	GetModuleFileName(hmodule, (LPSTR)temppath, 4096);
+    LPCSTR moduleName = "JamomaFoundation.dll";
+    HMODULE	hmodule = GetModuleHandle(moduleName);
+    // get the path
+    GetModuleFileName(hmodule, (LPSTR)temppath, 4096);
 
-	if (!FAILED(hmodule) && temppath[0])
-	{
-		fullpath = temppath;
+    if (!FAILED(hmodule) && temppath[0])
+    {
+        fullpath = temppath;
 
-		// get support folder path
-		fullpath = fullpath.substr(0, fullpath.length() - (strlen(moduleName) + 1));
-		lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
-	}
+        // get support folder path
+        fullpath = fullpath.substr(0, fullpath.length() - (strlen(moduleName) + 1));
+        lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
+    }
 
-	return fullpath.c_str();
+    return fullpath.c_str();
 }
 
 TTStringVector TTWinSpecific::builtinRelativePaths()
 {
-	return {"./extensions"};
+    return {"./extensions"};
 }
 
 TTStringVector TTWinSpecific::builtinAbsolutePaths()
 {
-	return {
+    return {
 #if defined(JAMOMA_EXTENSIONS_INSTALL_PREFIX)
-		JAMOMA_EXTENSIONS_INSTALL_PREFIX,
+        JAMOMA_EXTENSIONS_INSTALL_PREFIX,
 #endif
 #if defined(_WIN64)
-		"c:\\Program Files\\Jamoma\\extensions"
+        "c:\\Program Files\\Jamoma\\extensions"
 #else
-		"c:\\Program Files (x86)\\Jamoma\\extensions"
+        "c:\\Program Files (x86)\\Jamoma\\extensions"
 #endif
-	};
+    };
 }
 
 bool TTWinSpecific::TTLoadExtensionsFromFolder(const string& folder)
 {
-	auto windowsPathSpec = folder
-							+ "/*"
-							+ string{TTWinSpecific::extensionSuffix};
-	WIN32_FIND_DATA FindFileData;
-	HANDLE hFind = FindFirstFile(windowsPathSpec.c_str(), &FindFileData);
+    auto windowsPathSpec = folder
+                            + "/*"
+                            + string{TTWinSpecific::extensionSuffix};
+    WIN32_FIND_DATA FindFileData;
+    HANDLE hFind = FindFirstFile(windowsPathSpec.c_str(), &FindFileData);
 
-	int count = 0; // Number of extensions loaded.
-	if (hFind == INVALID_HANDLE_VALUE)
-		return false;
+    int count = 0; // Number of extensions loaded.
+    if (hFind == INVALID_HANDLE_VALUE)
+        return false;
 
-	do {
-		if(TTLoadExtension<TTWinSpecific>(
-						 FindFileData.cFileName,
-						 folder,
-						[] (const char * file)
-						{ return LoadLibrary(file); },
-						[] (void* handle, const char * fun)
-						{ return GetProcAddress((HMODULE) handle, fun); }))
-		{
-			++count;
-		}
+    do {
+        if(TTLoadExtension<TTWinSpecific>(
+                         FindFileData.cFileName,
+                         folder,
+                        [] (const char * file)
+                        { return LoadLibrary(file); },
+                        [] (void* handle, const char * fun)
+                        { return GetProcAddress((HMODULE) handle, fun); },
+                        FreeLibrary))
+        {
+            ++count;
+        }
 
-	} while (FindNextFile(hFind, &FindFileData));
-	FindClose(hFind);
+    } while (FindNextFile(hFind, &FindFileData));
+    FindClose(hFind);
 
-	if(count > 0)
-	{
-		TTFoundationBinaryPath = folder.c_str();
-		return true;
-	}
+    if(count > 0)
+    {
+        TTFoundationBinaryPath = folder.c_str();
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 using TTOperatingSystem = TTWinSpecific;
@@ -445,17 +459,17 @@ template<typename OS>
 // This will return on the first successful folder.
 bool TTLoadExtensionsFromPaths(TTStringVector&& v)
 {
-	return find_if(begin(v), end(v), [] (const string& path)
-			{ return OS::TTLoadExtensionsFromFolder(path); }) != end(v);
+    return find_if(begin(v), end(v), [] (const string& path)
+            { return OS::TTLoadExtensionsFromFolder(path); }) != end(v);
 }
 
 template<typename OS>
 // Try to load Jamoma classes from a path computed at runtime.
 bool TTLoadExtensionsFromComputedPaths()
 {
-	auto computedPath = TTOperatingSystem::computedRelativePath();
-	return (!computedPath.empty()
-			&& TTOperatingSystem::TTLoadExtensionsFromFolder(computedPath));
+    auto computedPath = TTOperatingSystem::computedRelativePath();
+    return (!computedPath.empty()
+            && TTOperatingSystem::TTLoadExtensionsFromFolder(computedPath));
 }
 
 template<typename OS>
@@ -463,32 +477,32 @@ template<typename OS>
 // platform.
 bool TTLoadExtensionsFromBuiltinPaths()
 {
-	return TTLoadExtensionsFromPaths<OS>(OS::builtinRelativePaths()) ||
-		   TTLoadExtensionsFromPaths<OS>(OS::builtinAbsolutePaths());
+    return TTLoadExtensionsFromPaths<OS>(OS::builtinRelativePaths()) ||
+           TTLoadExtensionsFromPaths<OS>(OS::builtinAbsolutePaths());
 }
 
 void TTLoadExtensions(const char* pathToBinaries, bool loadFromOtherPaths)
 {
-	if(!pathToBinaries)
-	{
-		if(!TTLoadExtensionsFromComputedPaths<TTOperatingSystem>() && loadFromOtherPaths)
-		{
-			TTLoadExtensionsFromBuiltinPaths<TTOperatingSystem>();
-		}
-	}
-	else
-	{
-		if(!TTOperatingSystem::TTLoadExtensionsFromFolder(pathToBinaries) && loadFromOtherPaths)
-		{
-			if(!TTLoadExtensionsFromComputedPaths<TTOperatingSystem>())
-			{
-				TTLoadExtensionsFromBuiltinPaths<TTOperatingSystem>();
-			}
-		}
-	}
+    if(!pathToBinaries)
+    {
+        if(!TTLoadExtensionsFromComputedPaths<TTOperatingSystem>() && loadFromOtherPaths)
+        {
+            TTLoadExtensionsFromBuiltinPaths<TTOperatingSystem>();
+        }
+    }
+    else
+    {
+        if(!TTOperatingSystem::TTLoadExtensionsFromFolder(pathToBinaries) && loadFromOtherPaths)
+        {
+            if(!TTLoadExtensionsFromComputedPaths<TTOperatingSystem>())
+            {
+                TTLoadExtensionsFromBuiltinPaths<TTOperatingSystem>();
+            }
+        }
+    }
 
-	if(TTFoundationBinaryPath == "")
-	{
-		TTLogMessage("Warning: no classes were loaded.");
-	}
+    if(TTFoundationBinaryPath == "")
+    {
+        TTLogMessage("Warning: no classes were loaded.");
+    }
 }

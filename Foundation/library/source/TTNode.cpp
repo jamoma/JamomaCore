@@ -11,175 +11,174 @@
 #include "TTNode.h"
 
 TTNode::TTNode(TTSymbol& aName, TTSymbol& anInstance, TTObject& anObject, TTPtr aContext, TTNodeDirectoryPtr aDirectory):
-	parent(NULL)
+    parent(NULL)
 {
     name = aName;
     instance = anInstance;
-	object = anObject;
-	context = aContext;
-	directory = aDirectory;
+    object = anObject;
+    context = aContext;
+    directory = aDirectory;
 
-	// a new TTNode have no child
-	children = new TTHash();
+    // a new TTNode have no child
+    children = new TTHash();
 }
 
 TTNode::~TTNode()
 {
-	TTErr       err;
-	unsigned int i, j, nb_c, nb_i;
-	TTValue     hk, hk_i;
-	TTAddress	anAddress;
-	TTSymbol	key;
-	TTSymbol	key_i;
-	TTValue     c, c_i, p_c, data;
-	TTHashPtr   ht_i, p_ht_i;
-	TTNodePtr   n_c;
+    TTErr       err;
+    unsigned int i, j, nb_c, nb_i;
+    TTValue     hk, hk_i;
+    TTAddress	anAddress;
+    TTSymbol	key;
+    TTSymbol	key_i;
+    TTValue     c, c_i, p_c, data;
+    TTHashPtr   ht_i, p_ht_i;
+    TTNodePtr   n_c;
 
-	// destroy all his children
-	nb_c = this->children->getSize();
-	if (nb_c) {
+    // destroy all his children
+    nb_c = this->children->getSize();
+    if (nb_c) {
 
-		this->children->getKeys(hk);
+        this->children->getKeys(hk);
 
-		for (i = 0; i < nb_c; i++) {
+        for (i = 0; i < nb_c; i++) {
 
-			key = hk[i];
-			err = this->children->lookup(key, c);
+            key = hk[i];
+            err = this->children->lookup(key, c);
 
-			if (err != kTTErrValueNotFound) {
+            if (err != kTTErrValueNotFound) {
 
-				ht_i = TTHashPtr(TTPtr(c[0]));
+                ht_i = TTHashPtr(TTPtr(c[0]));
 
-				// if there are instances
-				nb_i = ht_i->getSize();
-				if (nb_i) {
+                // if there are instances
+                nb_i = ht_i->getSize();
+                if (nb_i) {
 
-					ht_i->getKeys(hk_i);
+                    ht_i->getKeys(hk_i);
 
-					// for each instance
-					for (j = 0; j < nb_i; j++) {
+                    // for each instance
+                    for (j = 0; j < nb_i; j++) {
 
-						key_i = hk_i[j];
-						err = ht_i->lookup(key_i, c_i);
+                        key_i = hk_i[j];
+                        err = ht_i->lookup(key_i, c_i);
 
-						if (err != kTTErrValueNotFound) {
-							n_c = TTNodePtr(TTPtr(c_i[0]));
-							n_c->getAddress(anAddress);
-							this->directory->TTNodeRemove(anAddress);		// remove children properly using the TTNodeDirectory
-						}
-					}
-				}
-			}
-		}
-	}
+                        if (err != kTTErrValueNotFound) {
+                            n_c = TTNodePtr(TTPtr(c_i[0]));
+                            n_c->getAddress(anAddress);
+                            this->directory->TTNodeRemove(anAddress);		// remove children properly using the TTNodeDirectory
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	// it is not a child of his parent anymore
-	if (this->parent) {
-		err = this->parent->children->lookup(this->name, p_c);
-		
-		if (err != kTTErrValueNotFound) {
-			p_ht_i = TTHashPtr((TTPtr)p_c[0]);
-			p_ht_i->remove(this->instance);
-			
-			// If it was the last instance
-			// remove the hashtab
-			if (p_ht_i->getSize() == 0) {
-				p_ht_i->~TTHash();
-				this->parent->children->remove(this->name);
-			}
-		}
-		
-		this->parent = NULL;
-	}
+    // it is not a child of his parent anymore
+    if (this->parent) {
+        err = this->parent->children->lookup(this->name, p_c);
 
-	this->children->clear();
-	this->children->~TTHash();
+        if (err != kTTErrValueNotFound) {
+            p_ht_i = TTHashPtr((TTPtr)p_c[0]);
+            p_ht_i->remove(this->instance);
 
-	this->context = NULL;
+            // If it was the last instance
+            // remove the hashtab
+            if (p_ht_i->getSize() == 0) {
+                p_ht_i->~TTHash();
+                this->parent->children->remove(this->name);
+            }
+        }
+
+        this->parent = NULL;
+    }
+
+    delete this->children;
+
+    this->context = NULL;
 }
 
 TTErr TTNode::setNameInstance(TTAddress& aNameInstance, TTSymbol& newInstance, TTBoolean *newInstanceCreated)
 {
-	TTErr       err;
-	TTUInt32    i;
-	TTValue     hk, p_c, c, n;
-	TTString    temp, t;
-	TTAddress	oldAddress, newAddress;
-	TTAddress	old_key, new_key;
-	TTHashPtr   p_ht_i;
-	TTNodePtr   n_c;
+    TTErr       err;
+    TTUInt32    i;
+    TTValue     hk, p_c, c, n;
+    TTString    temp, t;
+    TTAddress	oldAddress, newAddress;
+    TTAddress	old_key, new_key;
+    TTHashPtr   p_ht_i;
+    TTNodePtr   n_c;
     TTHash      ht_o;
 
-	// get his actual address
-	this->getAddress(oldAddress);
-    
+    // get his actual address
+    this->getAddress(oldAddress);
+
     // for each key of the directory
     this->directory->getDirectory()->getKeys(hk);
-    
-	for (i=0; i<hk.size(); i++) {
-        
-		old_key = hk[i];
-        
-		// if the key starts by the oldAddress
-		if (strstr(old_key.c_str(), oldAddress.c_str()) == old_key.c_str()) {
-            
-			// get the TTNode
-			err = this->directory->getDirectory()->lookup(old_key, c);
-			if (err != kTTErrValueNotFound) {
-				n_c = TTNodePtr((TTPtr)c[0]);
-                
+
+    for (i=0; i<hk.size(); i++) {
+
+        old_key = hk[i];
+
+        // if the key starts by the oldAddress
+        if (strstr(old_key.c_str(), oldAddress.c_str()) == old_key.c_str()) {
+
+            // get the TTNode
+            err = this->directory->getDirectory()->lookup(old_key, c);
+            if (err != kTTErrValueNotFound) {
+                n_c = TTNodePtr((TTPtr)c[0]);
+
                 // notify directory observers that an address will be destroyed BEFORE the unregistration
                 this->directory->notifyObservers(old_key, n_c, kAddressDestroyed);
-                
+
                 // remove the old key
                 this->directory->getDirectory()->remove(old_key);
-                
+
                 // append to a temporary table to rename them later
                 ht_o.append(old_key, TTPtr(n_c));
-			}
-		}
-	}
+            }
+        }
+    }
 
-	// remove the his actual name in the parent TTNode
-	err = this->parent->children->lookup(this->name, p_c);
+    // remove the his actual name in the parent TTNode
+    err = this->parent->children->lookup(this->name, p_c);
 
-	if (err != kTTErrValueNotFound) {
-		p_ht_i = TTHashPtr((TTPtr)p_c[0]);
-		p_ht_i->remove(this->instance);
+    if (err != kTTErrValueNotFound) {
+        p_ht_i = TTHashPtr((TTPtr)p_c[0]);
+        p_ht_i->remove(this->instance);
 
-		// If it was the last instance
-		// remove the hashtab
-		if (p_ht_i->getSize() == 0) {
-			p_ht_i->~TTHash();
-			this->parent->children->remove(this->name);
-		}
-	}
+        // If it was the last instance
+        // remove the hashtab
+        if (p_ht_i->getSize() == 0) {
+            p_ht_i->~TTHash();
+            this->parent->children->remove(this->name);
+        }
+    }
 
-	// change his name and his instance
-	this->name = aNameInstance.getName();
+    // change his name and his instance
+    this->name = aNameInstance.getName();
     this->instance = aNameInstance.getInstance();
 
-	// add this TTNode to his parent
-	// and change his instance if already exists
-	*newInstanceCreated = false;
-	while (this->parent->setChild(this) == kTTErrGeneric) {
-		this->parent->generateInstance(this->name, this->instance);
-		newInstance = this->instance;
-		*newInstanceCreated = true;
-	}
+    // add this TTNode to his parent
+    // and change his instance if already exists
+    *newInstanceCreated = false;
+    while (this->parent->setChild(this) == kTTErrGeneric) {
+        this->parent->generateInstance(this->name, this->instance);
+        newInstance = this->instance;
+        *newInstanceCreated = true;
+    }
 
-	// get the new address
-	this->getAddress(newAddress);
+    // get the new address
+    this->getAddress(newAddress);
 
-	// for all the address witch starts by oldAddress :
-	// replace the beginning by the newAddress
-	ht_o.getKeys(hk);
+    // for all the address witch starts by oldAddress :
+    // replace the beginning by the newAddress
+    ht_o.getKeys(hk);
 
-	// for each key of the temprary table
-	for (i=0; i<hk.size(); i++) {
+    // for each key of the temprary table
+    for (i=0; i<hk.size(); i++) {
 
-		old_key = hk[i];
-        
+        old_key = hk[i];
+
         ht_o.lookup(old_key, n);
         n_c = TTNodePtr((TTPtr)n[0]);
 
@@ -188,96 +187,96 @@ TTErr TTNode::setNameInstance(TTAddress& aNameInstance, TTSymbol& newInstance, T
         t = (char *)(old_key.c_str() + strlen(oldAddress.c_str()));
         temp += t;
         new_key = TTAddress(temp);
-        
+
         // append the new key
         this->directory->getDirectory()->append(new_key, n_c);
-        
+
         // notify directory observers that an address have been created AFTER the registration
         this->directory->notifyObservers(new_key, n_c, kAddressCreated);
-	}
+    }
 
-	return kTTErrNone;
+    return kTTErrNone;
 }
 
 TTErr TTNode::setParent(TTAddress parentAddress, TTBoolean *newParentCreated)
 {
-	TTValue     found;
+    TTValue     found;
     TTObject    empty;
-	TTErr       err;
+    TTErr       err;
 
-	// look into the hashtab to check if the address exist in the directory
-	err = this->directory->getDirectory()->lookup(parentAddress, found);
+    // look into the hashtab to check if the address exist in the directory
+    err = this->directory->getDirectory()->lookup(parentAddress, found);
 
-	// if the address doesn't exist
-	if (err == kTTErrValueNotFound) {
+    // if the address doesn't exist
+    if (err == kTTErrValueNotFound) {
 
-		// we create a container TTNode
-		this->directory->TTNodeCreate(parentAddress, empty, NULL, &this->parent, newParentCreated);
+        // we create a container TTNode
+        this->directory->TTNodeCreate(parentAddress, empty, NULL, &this->parent, newParentCreated);
 
-		// Is it a good test ?
-		if (*newParentCreated && (this->parent->instance != NO_INSTANCE))
-			return kTTErrGeneric;
-	}
-	else
-		this->parent = TTNodePtr((TTPtr)found[0]);
+        // Is it a good test ?
+        if (*newParentCreated && (this->parent->instance != NO_INSTANCE))
+            return kTTErrGeneric;
+    }
+    else
+        this->parent = TTNodePtr((TTPtr)found[0]);
 
-	return kTTErrNone;
+    return kTTErrNone;
 }
 
 TTErr TTNode::setChild(TTNodePtr child)
 {
-	TTErr err;
-	TTValue c, c_i;
-	TTHashPtr ht_i;
+    TTErr err;
+    TTValue c, c_i;
+    TTHashPtr ht_i;
 
-	// Is an instance of this child
-	// already exist in the children table ?
-	err = this->children->lookup(child->name, c);
+    // Is an instance of this child
+    // already exist in the children table ?
+    err = this->children->lookup(child->name, c);
 
-	if (err == kTTErrValueNotFound) {
+    if (err == kTTErrValueNotFound) {
 
-		// create an instance table
-		// with this child as first instance
-		ht_i = new TTHash();
-		ht_i->append(child->instance,child);
+        // create an instance table
+        // with this child as first instance
+        ht_i = new TTHash();
+        ht_i->append(child->instance,child);
 
-		// add the instance table to the children table
-		this->children->append(child->name, ht_i);
+        // add the instance table to the children table
+        this->children->append(child->name, ht_i);
 
-		// no instance created
-		return kTTErrNone;
-	}
-	else {
+        // no instance created
+        return kTTErrNone;
+    }
+    else {
 
-		// get the instance table
-		ht_i = TTHashPtr((TTPtr)c[0]);
+        // get the instance table
+        ht_i = TTHashPtr((TTPtr)c[0]);
 
-		// check if the instance already exists
-		err = ht_i->lookup(child->instance, c_i);
+        // check if the instance already exists
+        err = ht_i->lookup(child->instance, c_i);
 
-		// if not
-		if (err == kTTErrValueNotFound) {
+        // if not
+        if (err == kTTErrValueNotFound) {
 
-			// add the child to the hashtab
-			ht_i->append(child->instance,child);
+            // add the child to the hashtab
+            ht_i->append(child->instance,child);
 
-			return kTTErrNone;
-		}
-		else
-			return kTTErrGeneric;
-	}
+            return kTTErrNone;
+        }
+        else
+            return kTTErrGeneric;
+    }
 }
 
 TTErr TTNode::setObject(TTObject anObject)
 {
-	this->object = anObject;
-	return kTTErrNone;
+    this->object = anObject;
+    return kTTErrNone;
 }
 
 TTErr TTNode::setContext(TTPtr aContext)
 {
-	this->context = aContext;
-	return kTTErrNone;
+    this->context = aContext;
+    return kTTErrNone;
 }
 
 
@@ -285,7 +284,7 @@ TTErr TTNode::setContext(TTPtr aContext)
 
 TTSymbol& TTNode::getName()
 {
-	return this->name;
+    return this->name;
 }
 
 TTSymbol& TTNode::getInstance()
@@ -300,314 +299,314 @@ return this->parent;
 
 TTErr TTNode::getChildren(TTSymbol& aName, TTSymbol& anInstance, TTList& returnedChildren)
 {
-	unsigned int i, j;
-	TTErr err;
-	TTValue hk, hk_i, c, c_i;
-	TTSymbol	key;
-	TTSymbol	key_i;
-	TTHashPtr ht_i;
-	TTNodePtr n_c;
+    unsigned int i, j;
+    TTErr err;
+    TTValue hk, hk_i, c, c_i;
+    TTSymbol	key;
+    TTSymbol	key_i;
+    TTHashPtr ht_i;
+    TTNodePtr n_c;
 
-	// default : no child
-	returnedChildren.clear();
+    // default : no child
+    returnedChildren.clear();
 
-	// if there are children
-	if (this->children->getSize()) {
+    // if there are children
+    if (this->children->getSize()) {
 
-		this->children->getKeys(hk);
+        this->children->getKeys(hk);
 
-		if (aName == S_WILDCARD) {
-			// for each children
-			for (i=0; i<this->children->getSize(); i++) {
+        if (aName == S_WILDCARD) {
+            // for each children
+            for (i=0; i<this->children->getSize(); i++) {
 
-				key = hk[i];
-				this->children->lookup(key, c);
-				ht_i = TTHashPtr((TTPtr)c[0]);
+                key = hk[i];
+                this->children->lookup(key, c);
+                ht_i = TTHashPtr((TTPtr)c[0]);
 
-				// if there are instances
-				if (ht_i->getSize()) {
+                // if there are instances
+                if (ht_i->getSize()) {
 
-					ht_i->getKeys(hk_i);
+                    ht_i->getKeys(hk_i);
 
-					if (anInstance == S_WILDCARD) {
-						// for each instance
-						for (j=0; j<ht_i->getSize(); j++) {
-							key_i = hk_i[j];
-							ht_i->lookup(key_i, c_i);
-							n_c = TTNodePtr((TTPtr)c_i[0]);
+                    if (anInstance == S_WILDCARD) {
+                        // for each instance
+                        for (j=0; j<ht_i->getSize(); j++) {
+                            key_i = hk_i[j];
+                            ht_i->lookup(key_i, c_i);
+                            n_c = TTNodePtr((TTPtr)c_i[0]);
 
-							returnedChildren.append(n_c);
-						}
-					}
-					// there is an instance
-					else {
-						err = ht_i->lookup(anInstance, c_i);
-						if (err == kTTErrNone) {
-							n_c = TTNodePtr((TTPtr)c_i[0]);
-							returnedChildren.append(n_c);
-						}
-						// don't stop because there are maybe other names
-					}
-				}
-			}
-		}
-		// there is a name
-		else {
-			err = this->children->lookup(aName, c);
-			if (err == kTTErrNone) {
-				ht_i = TTHashPtr((TTPtr)c[0]);
+                            returnedChildren.append(n_c);
+                        }
+                    }
+                    // there is an instance
+                    else {
+                        err = ht_i->lookup(anInstance, c_i);
+                        if (err == kTTErrNone) {
+                            n_c = TTNodePtr((TTPtr)c_i[0]);
+                            returnedChildren.append(n_c);
+                        }
+                        // don't stop because there are maybe other names
+                    }
+                }
+            }
+        }
+        // there is a name
+        else {
+            err = this->children->lookup(aName, c);
+            if (err == kTTErrNone) {
+                ht_i = TTHashPtr((TTPtr)c[0]);
 
-				// if there are instances
-				if (ht_i->getSize()) {
+                // if there are instances
+                if (ht_i->getSize()) {
 
-					ht_i->getKeys(hk_i);
+                    ht_i->getKeys(hk_i);
 
-					if (anInstance == S_WILDCARD) {
-						// for each instance
-						for (j=0; j<ht_i->getSize(); j++) {
-							key_i = hk_i[j];
-							ht_i->lookup(key_i, c_i);
-							n_c = TTNodePtr((TTPtr)c_i[0]);
+                    if (anInstance == S_WILDCARD) {
+                        // for each instance
+                        for (j=0; j<ht_i->getSize(); j++) {
+                            key_i = hk_i[j];
+                            ht_i->lookup(key_i, c_i);
+                            n_c = TTNodePtr((TTPtr)c_i[0]);
 
-							returnedChildren.append(n_c);
-						}
-					}
-					// there is an instance
-					else {
-						err = ht_i->lookup(anInstance, c_i);
-						if (err == kTTErrNone) {
-							n_c = TTNodePtr((TTPtr)c_i[0]);
-							returnedChildren.append(n_c);
-						}
-						else
-							return err;
-					}
-				}
-			}
-			else
-				return err;
-		}
-	}
-	else
-		return kTTErrGeneric;
+                            returnedChildren.append(n_c);
+                        }
+                    }
+                    // there is an instance
+                    else {
+                        err = ht_i->lookup(anInstance, c_i);
+                        if (err == kTTErrNone) {
+                            n_c = TTNodePtr((TTPtr)c_i[0]);
+                            returnedChildren.append(n_c);
+                        }
+                        else
+                            return err;
+                    }
+                }
+            }
+            else
+                return err;
+        }
+    }
+    else
+        return kTTErrGeneric;
 
-	return kTTErrNone;
+    return kTTErrNone;
 }
 
 TTErr TTNode::getChildrenName(TTList& returnedChildrenName)
 {
-	unsigned int i;
-	TTValue hk;
-	TTSymbol	key;
+    unsigned int i;
+    TTValue hk;
+    TTSymbol	key;
 
-	// default : no child
-	returnedChildrenName.clear();
+    // default : no child
+    returnedChildrenName.clear();
 
-	// if there are children
-	if(this->children->getSize()){
+    // if there are children
+    if(this->children->getSize()){
 
-		this->children->getKeys(hk);
+        this->children->getKeys(hk);
 
-		// for each children
-		for(i=0; i<this->children->getSize(); i++){
+        // for each children
+        for(i=0; i<this->children->getSize(); i++){
 
-			key = hk[i];
-			returnedChildrenName.append(key);
-		}
-	}
-	else
-		return kTTErrGeneric;
+            key = hk[i];
+            returnedChildrenName.append(key);
+        }
+    }
+    else
+        return kTTErrGeneric;
 
-	return kTTErrNone;
+    return kTTErrNone;
 }
 
 TTErr TTNode::getChildrenInstance(TTSymbol& aName, TTList& returnedChildrenInstance)
 {
-	unsigned int j;
-	TTErr err;
-	TTValue hk, hk_i, c;
-	TTSymbol	key_i;
-	TTHashPtr ht_i;
+    unsigned int j;
+    TTErr err;
+    TTValue hk, hk_i, c;
+    TTSymbol	key_i;
+    TTHashPtr ht_i;
 
-	// default : no child
-	returnedChildrenInstance.clear();
+    // default : no child
+    returnedChildrenInstance.clear();
 
-	// if there are children
-	if(this->children->getSize()){
+    // if there are children
+    if(this->children->getSize()){
 
-		this->children->getKeys(hk);
+        this->children->getKeys(hk);
 
-		err = this->children->lookup(aName, c);
-		if(err == kTTErrNone){
-			ht_i = TTHashPtr((TTPtr)c[0]);
+        err = this->children->lookup(aName, c);
+        if(err == kTTErrNone){
+            ht_i = TTHashPtr((TTPtr)c[0]);
 
-			// if there are instances
-			if(ht_i->getSize()){
+            // if there are instances
+            if(ht_i->getSize()){
 
-				ht_i->getKeys(hk_i);
+                ht_i->getKeys(hk_i);
 
-				// for each instance
-				for(j=0; j<ht_i->getSize(); j++){
+                // for each instance
+                for(j=0; j<ht_i->getSize(); j++){
 
-					key_i = hk_i[j];
-					returnedChildrenInstance.append(key_i);
-				}
-			}
-			else
-				return kTTErrGeneric;
-		}
-		else
-			return kTTErrGeneric;
-	}
-	else
-		return kTTErrGeneric;
+                    key_i = hk_i[j];
+                    returnedChildrenInstance.append(key_i);
+                }
+            }
+            else
+                return kTTErrGeneric;
+        }
+        else
+            return kTTErrGeneric;
+    }
+    else
+        return kTTErrGeneric;
 
-	return kTTErrNone;
+    return kTTErrNone;
 }
 
 TTObject& TTNode::getObject()
 {
-	return this->object;
+    return this->object;
 }
 
 TTPtr TTNode::getContext()
 {
-	return this->context;
+    return this->context;
 }
 
 TTErr TTNode::getAddress(TTAddress& returnedAddress, TTAddress from)
 {
-	unsigned int	i, nb_ancestor, len = 0;
-	TTAddress		fromNorm;
-	TTAddress		returnedPart1;
-	TTAddress		returnedPart2;
-	TTNodePtr       ptr;
-	TTValue         ancestor;
-	TTString		anAddressString;
+    unsigned int	i, nb_ancestor, len = 0;
+    TTAddress		fromNorm;
+    TTAddress		returnedPart1;
+    TTAddress		returnedPart2;
+    TTNodePtr       ptr;
+    TTValue         ancestor;
+    TTString		anAddressString;
 
-	// First, count the number of ancestor
-	// and the length of the entire address (with slash and dot)
-	nb_ancestor = 0;
+    // First, count the number of ancestor
+    // and the length of the entire address (with slash and dot)
+    nb_ancestor = 0;
 
-	if (this->name != NO_NAME)
-		len = strlen(this->name.c_str());
+    if (this->name != NO_NAME)
+        len = strlen(this->name.c_str());
 
-	if (this->instance != NO_INSTANCE)
-		len += strlen(this->instance.c_str()) + 1;
+    if (this->instance != NO_INSTANCE)
+        len += strlen(this->instance.c_str()) + 1;
 
-	ptr = this;
+    ptr = this;
 
-	while (ptr->parent) {
+    while (ptr->parent) {
 
-		ptr = ptr->parent;
-		nb_ancestor++;
+        ptr = ptr->parent;
+        nb_ancestor++;
 
-		if (ptr->name != NO_NAME)
-			len += (strlen(ptr->name.c_str()) + 1);		// +1 for /
+        if (ptr->name != NO_NAME)
+            len += (strlen(ptr->name.c_str()) + 1);		// +1 for /
 
-		if (ptr->instance != NO_INSTANCE)
-			len += (strlen(ptr->instance.c_str()) + 1);	// +1 for .
-	}
+        if (ptr->instance != NO_INSTANCE)
+            len += (strlen(ptr->instance.c_str()) + 1);	// +1 for .
+    }
 
-	// Then, prepare a value to store all the ancestor and a string
-	if (nb_ancestor)
-		ancestor.resize(nb_ancestor);
+    // Then, prepare a value to store all the ancestor and a string
+    if (nb_ancestor)
+        ancestor.resize(nb_ancestor);
 
-	// this is the root
-	else {
-		returnedAddress = kTTAdrsRoot;
-		return kTTErrNone;
-	}
+    // this is the root
+    else {
+        returnedAddress = kTTAdrsRoot;
+        return kTTErrNone;
+    }
 
-	// The root have to be the first ancestor
-	i = nb_ancestor;
-	ptr = this;
-	while (ptr->parent) {
-		i--;
-		ptr = ptr->parent;
-		ancestor[i] = (TTPtr)ptr;
-	}
+    // The root have to be the first ancestor
+    i = nb_ancestor;
+    ptr = this;
+    while (ptr->parent) {
+        i--;
+        ptr = ptr->parent;
+        ancestor[i] = (TTPtr)ptr;
+    }
 
-	// Finaly, copy the name of each ancestor
-	// copy the root before
-	anAddressString = TTNodePtr((TTPtr)ancestor[0])->name.c_str();
-	for (i=1; i<nb_ancestor; i++) {
+    // Finaly, copy the name of each ancestor
+    // copy the root before
+    anAddressString = TTNodePtr((TTPtr)ancestor[0])->name.c_str();
+    for (i=1; i<nb_ancestor; i++) {
 
-		if (TTNodePtr((TTPtr)ancestor[i])->name != NO_NAME)
-			anAddressString += TTNodePtr((TTPtr)ancestor[i])->name.c_str();
+        if (TTNodePtr((TTPtr)ancestor[i])->name != NO_NAME)
+            anAddressString += TTNodePtr((TTPtr)ancestor[i])->name.c_str();
 
-		if (TTNodePtr((TTPtr)ancestor[i])->instance != NO_INSTANCE) {
-			anAddressString += S_INSTANCE.c_str();
-			anAddressString += TTNodePtr((TTPtr)ancestor[i])->instance.c_str();
-		}
+        if (TTNodePtr((TTPtr)ancestor[i])->instance != NO_INSTANCE) {
+            anAddressString += S_INSTANCE.c_str();
+            anAddressString += TTNodePtr((TTPtr)ancestor[i])->instance.c_str();
+        }
 
-		anAddressString += S_SEPARATOR.c_str();
-	}
+        anAddressString += S_SEPARATOR.c_str();
+    }
 
-	if (this->name != NO_NAME)
-		anAddressString += this->name.c_str();
+    if (this->name != NO_NAME)
+        anAddressString += this->name.c_str();
 
-	if (this->instance != NO_INSTANCE) {
-		anAddressString += S_INSTANCE.c_str();
-		anAddressString += this->instance.c_str();
-	}
+    if (this->instance != NO_INSTANCE) {
+        anAddressString += S_INSTANCE.c_str();
+        anAddressString += this->instance.c_str();
+    }
 
-	if (len) {
-		
-		returnedAddress = TTAddress(anAddressString);
+    if (len) {
 
-		// make it relative from
-		if (from != kTTAdrsEmpty) {
-			
-			fromNorm = from.normalize();
-			if (fromNorm == kTTAdrsRoot)
-				returnedAddress.splitAt(0, returnedPart1, returnedPart2);
-			else
-				returnedAddress.splitAt(fromNorm.countSeparator(), returnedPart1, returnedPart2);
-			
-			returnedAddress = returnedPart2;
-		}
+        returnedAddress = TTAddress(anAddressString);
 
-		return kTTErrNone;
-	}
+        // make it relative from
+        if (from != kTTAdrsEmpty) {
+
+            fromNorm = from.normalize();
+            if (fromNorm == kTTAdrsRoot)
+                returnedAddress.splitAt(0, returnedPart1, returnedPart2);
+            else
+                returnedAddress.splitAt(fromNorm.countSeparator(), returnedPart1, returnedPart2);
+
+            returnedAddress = returnedPart2;
+        }
+
+        return kTTErrNone;
+    }
 
 //	*returnedAddress = NULL;
-	return kTTErrGeneric;
+    return kTTErrGeneric;
 }
 
 TTErr TTNode::generateInstance(TTSymbol& childName, TTSymbol& newInstance)
 {
-	TTErr err;
-	unsigned int i;
-	char instances[8];
-	TTValue c, c_i;
-	TTHashPtr ht_i;
+    TTErr err;
+    unsigned int i;
+    char instances[8];
+    TTValue c, c_i;
+    TTHashPtr ht_i;
 
-	// first check if an instance of this child
-	// already exist in the HashTab.
-	err = this->children->lookup(childName, c);
+    // first check if an instance of this child
+    // already exist in the HashTab.
+    err = this->children->lookup(childName, c);
 
-	if (err == kTTErrValueNotFound) {
-		// no child with that name
-		return kTTErrGeneric;
-	}
-	else {
-		// get the instance table
-		ht_i = TTHashPtr((TTPtr)c[0]);
+    if (err == kTTErrValueNotFound) {
+        // no child with that name
+        return kTTErrGeneric;
+    }
+    else {
+        // get the instance table
+        ht_i = TTHashPtr((TTPtr)c[0]);
 
-		// create a new instance
-		i = 1;
-		err = kTTErrNone;
-		while (err != kTTErrValueNotFound) {
-			snprintf(instances,8,"%u",i);
-			err = ht_i->lookup(TT(instances), c_i);
-			i++;
-		}
+        // create a new instance
+        i = 1;
+        err = kTTErrNone;
+        while (err != kTTErrValueNotFound) {
+            snprintf(instances,8,"%u",i);
+            err = ht_i->lookup(TT(instances), c_i);
+            i++;
+        }
 
-		// return the new instance created
-		newInstance = TT(instances);
-		return kTTErrNone;
-	}
+        // return the new instance created
+        newInstance = TT(instances);
+        return kTTErrNone;
+    }
 }
 
 #endif

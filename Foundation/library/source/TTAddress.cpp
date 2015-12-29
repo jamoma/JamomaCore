@@ -17,32 +17,32 @@ using namespace boost;
 using namespace std;
 #endif
 
-TTFOUNDATION_EXPORT TTRegex* ttRegexForInstanceZero = NULL;
+TTFOUNDATION_EXPORT std::unique_ptr<TTRegex> ttRegexForInstanceZero;
 
 TTErr TTAddress::parseInstanceZero(const char* cstr, TTString& parsed)
 {
     // filter single "0" string
     TTString toParse(cstr);
     if (toParse.size() > 1) {
-        
+
         parsed = toParse;
-        
+
         TTStringIter begin = parsed.begin();
         TTStringIter end = parsed.end();
-        
+
         // parse and remove ".0"
         while (!ttRegexForInstanceZero->parse(begin, end)) {
             TTStringIter z_begin = ttRegexForInstanceZero->begin();
             TTStringIter z_end = ttRegexForInstanceZero->end();
-            
+
             TTString a(begin, z_begin);
             TTString b(z_end, end);
             parsed = a+b;
-            
+
             begin = parsed.begin();
             end = parsed.end();
         }
     }
-    
+
     return kTTErrNone;
 }
