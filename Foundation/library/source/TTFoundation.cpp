@@ -35,7 +35,6 @@
 #include "TTNodeLib.test.h"
 #endif
 
-
 TTString        TTFoundationBinaryPath = "";
 
 static bool		TTFoundationHasInitialized = false;
@@ -45,65 +44,65 @@ TTObjectBasePtr	TTFoundationInstantiateInternalClass(TTSymbol className, TTValue
 /****************************************************************************************************/
 void TTFoundationInit(const char* pathToBinaries, bool loadFromOtherPaths)
 {
-	if (!TTFoundationHasInitialized) {
-		TTFoundationHasInitialized = true;
+    if (!TTFoundationHasInitialized) {
+        TTFoundationHasInitialized = true;
 
-		if (pathToBinaries)
-			TTFoundationBinaryPath = pathToBinaries;
+        if (pathToBinaries)
+            TTFoundationBinaryPath = pathToBinaries;
 
-		for (int i=0; i<kNumTTDataTypes; i++)
-			TTDataInfo::addDataInfoForType(TTDataType(i));
+        for (int i=0; i<kNumTTDataTypes; i++)
+            TTDataInfo::addDataInfoForType(TTDataType(i));
 
-		// Regex requires Boost libraries, not available for iOS for the time-being
+        // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef DISABLE_NODELIB
-		TTNodeLibInit();
+        TTNodeLibInit();
 #endif
 
-		ttEnvironment = new TTEnvironment;
+        ttEnvironment = std::unique_ptr<TTEnvironment>(new TTEnvironment);
 
-		// Regex requires Boost libraries, not available for iOS for the time-being
-		//#ifndef DISABLE_NODELIB
-		//		TTAddressCacheInit();
-		//#endif
+        // Regex requires Boost libraries, not available for iOS for the time-being
+        //#ifndef DISABLE_NODELIB
+        //		TTAddressCacheInit();
+        //#endif
 
 #ifdef TT_DEBUG
-		TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s - %s", JAMOMACORE_VERSION, JAMOMACORE_REV);
-		ttEnvironment->mDebugBasic = true;
+        TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s - %s", JAMOMACORE_VERSION, JAMOMACORE_REV);
+        ttEnvironment->mDebugBasic = true;
 #else
-		TTLogMessage("JamomaFoundation -- Version %s - %s", JAMOMACORE_VERSION, JAMOMACORE_REV);
+        TTLogMessage("JamomaFoundation -- Version %s - %s", JAMOMACORE_VERSION, JAMOMACORE_REV);
 #endif
-		if (pathToBinaries)
-			TTLogMessage("-- Path %s\n", pathToBinaries);
-		else
-			TTLogMessage("\n");
+        if (pathToBinaries)
+            TTLogMessage("-- Path %s\n", pathToBinaries);
+        else
+            TTLogMessage("\n");
 
-		// register classes -- both internal and external
-		TTCallback::registerClass();
-		TTMatrixBase::registerClass();
-		TTMatrixArray::registerClass();
-		TTObjectTest::registerClass();
+        // register classes -- both internal and external
+        TTCallback::registerClass();
+        TTMatrixBase::registerClass();
+        TTMatrixArray::registerClass();
+        TTObjectTest::registerClass();
         TTRegexTest::registerClass();
-		TTStringTest::registerClass();
-		TTSymbolTest::registerClass();
-		TTValueTest::registerClass();
-		TTInterpolateTest::registerClass();
-		TTDictionaryTest::registerClass();
-		TTListTest::registerClass();
-		// Regex requires Boost libraries, not available for iOS for the time-being
+        TTStringTest::registerClass();
+        TTSymbolTest::registerClass();
+        TTValueTest::registerClass();
+        TTInterpolateTest::registerClass();
+        TTDictionaryTest::registerClass();
+        TTListTest::registerClass();
+        // Regex requires Boost libraries, not available for iOS for the time-being
 #ifndef DISABLE_NODELIB
-		TTNodeLibTest::registerClass();
+        TTNodeLibTest::registerClass();
 #endif
 
-		TTLoadExtensions(pathToBinaries, loadFromOtherPaths);
-	}
+        TTLoadExtensions(pathToBinaries, loadFromOtherPaths);
+    }
 }
 
 void TTFoundationShutdown();
 void TTFoundationShutdown()
 {
-	// FIXME: How do we call this (i.e. TTDSPShutdown()?) -- do we need to setup an observer of some sort on the environment class?
-	// TODO: we need to free singletons like the environment here!
+    // FIXME: How do we call this (i.e. TTDSPShutdown()?) -- do we need to setup an observer of some sort on the environment class?
+    // TODO: we need to free singletons like the environment here!
 
-	// Note : it is possible to do this using atexit();
+    // Note : it is possible to do this using atexit();
 }
 

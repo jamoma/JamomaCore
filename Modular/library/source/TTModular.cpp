@@ -32,40 +32,44 @@
 static bool TTModularInitialized = false;
 
 TTApplicationManagerPtr TTModularApplicationManager = NULL;
-TTHashPtr TTModularSelections = NULL;
+std::unique_ptr<TTHash> TTModularSelections;
+
+std::unique_ptr<TTObjectBase> TTModularApplicationManagerOwner;
 
 #ifdef TT_PLATFORM_LINUX
 int main(void)
 {
-	// TODO: should we call TTModularInit here ?
-	return 0;
+    // TODO: should we call TTModularInit here ?
+    return 0;
 }
 #endif
 
 void TTModularInit(const char* binaries, bool loadFromBuiltinPaths)
 {
     // Initialized Foundation framework
-	TTFoundationInit(binaries, loadFromBuiltinPaths);
-    
+    TTFoundationInit(binaries, loadFromBuiltinPaths);
+
 //#define TO_DEBUG
 #ifdef TO_DEBUG
-    
+
     TTValue t, out;
-	TTObject test("nodelib.test");
-	test.send("test", t, out);
-    
+    TTObject test("nodelib.test");
+    test.send("test", t, out);
+
 #endif // TO_DEBUG
-    
+
     // if Modular has not been initialized
-	if (!TTModularInitialized) {
-        
+    if (!TTModularInitialized) {
+
         TTModularInitialized = true;
-        
+
         TTValue v, none;
-        
+
         // Register classes -- both internal and external
         TTApplication::registerClass();
         TTApplicationManager::registerClass();
+        TTModularApplicationManagerOwner.reset(TTModularApplicationManager);
+
         TTContainer::registerClass();
         TTCue::registerClass();
         TTCueManager::registerClass();
@@ -76,7 +80,7 @@ void TTModularInit(const char* binaries, bool loadFromBuiltinPaths)
         TTMapper::registerClass();
         TTMapperManager::registerClass();
         TTMirror::registerClass();
-		TTNodeInfo::registerClass();
+        TTNodeInfo::registerClass();
         TTOutput::registerClass();
         TTOutputAudio::registerClass();
         TTPreset::registerClass();
@@ -89,10 +93,10 @@ void TTModularInit(const char* binaries, bool loadFromBuiltinPaths)
         TTTextHandler::registerClass();
         TTViewer::registerClass();
         TTXmlHandler::registerClass();
-        
+
         // Create a hash table to manage namespace selections
-		TTModularSelections = new TTHash();
-        
+        TTModularSelections.reset(new TTHash);
+
 #ifdef TT_DEBUG
         TTLogMessage("Modular -- Version %s -- Debugging Enabled\n", TTMODULAR_VERSION_STRING);
 #else
@@ -110,24 +114,24 @@ void TTModularInit(const char* binaries, bool loadFromBuiltinPaths)
 TTAddressItemPtr TTModularSelectionLookup(const TTSymbol selectionName)
 {
     TTAddressItemPtr	aSelection = NULL;
-	TTValue				v;
-	
-	if (selectionName != kTTSymEmpty && selectionName != kTTSym_none) {
-		
-		if (!TTModularSelections->lookup(selectionName, v)) {
-            
-			aSelection = TTAddressItemPtr((TTPtr)v[0]);
-		
+    TTValue				v;
+
+    if (selectionName != kTTSymEmpty && selectionName != kTTSym_none) {
+
+        if (!TTModularSelections->lookup(selectionName, v)) {
+
+            aSelection = TTAddressItemPtr((TTPtr)v[0]);
+
         } else {
-            
-			aSelection = new TTAddressItem();
-			
-			v = TTValue((TTPtr)aSelection);
-			TTModularSelections->append(selectionName, v);
-		}
-	}
-    
-	return aSelection;
+
+            aSelection = new TTAddressItem();
+
+            v = TTValue((TTPtr)aSelection);
+            TTModularSelections->append(selectionName, v);
+        }
+    }
+
+    return aSelection;
 }
 
 #if 0

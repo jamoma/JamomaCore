@@ -46,36 +46,36 @@ extern TTMODULAR_EXPORT TTApplicationManagerPtr TTModularApplicationManager;
 #pragma mark Selection management
 #endif
 
-extern TTMODULAR_EXPORT TTHashPtr TTModularSelections;
+extern TTMODULAR_EXPORT std::unique_ptr<TTHash> TTModularSelections;
 
-/** Get a selection or create one if it doesn't exist yet 
+/** Get a selection or create one if it doesn't exist yet
  @param selectionName               a symbol */
 TTAddressItemPtr TTMODULAR_EXPORT TTModularSelectionLookup(const TTSymbol selectionName);
-    
+
 #if 0
 #pragma mark -
 #pragma mark Addresses edition
 #endif
-    
+
 /** Edit a specific integer instance address using an integer format address
  @param integerFormatAddress        a symbol as integer format address : /any/level/name.%d
  @param instanceNumber              an unsigned integer
  @return #TTAddress like /any/level/name.1 */
 TTAddress TTMODULAR_EXPORT TTModularAddressEditNumericInstance(const TTSymbol integerFormatAddress,
                                                       const TTUInt32 instanceNumber);
-    
+
 /** Edit a specific symbol instance address using an symbol format address
  @param symbolFormatAddress         a symbol as symbol format address : /any/level/name.%s
  @param instanceSymbol              a symbol
  @return #TTAddress like /any/level/name.foo */
 TTAddress TTMODULAR_EXPORT TTModularAddressEditSymbolInstance(const TTSymbol symbolFormatAddress,
                                                      const TTSymbol instanceSymbol);
-    
-/** Get all intances at an address 
+
+/** Get all intances at an address
  @param address                     an address without instance part :
                                         - /any/level/name
-                                        - distantApp:/any/level/name 
- @param instances                   the returned instances symbols 
+                                        - distantApp:/any/level/name
+ @param instances                   the returned instances symbols
  @return #kTTErrGeneric if the address doesn't exist */
 TTErr TTMODULAR_EXPORT TTModularAddressGetInstances(const TTAddress address,
                                            TTValue& instances);
