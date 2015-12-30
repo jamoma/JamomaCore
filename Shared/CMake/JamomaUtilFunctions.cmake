@@ -48,11 +48,26 @@ function(setupJamomaLibraryProperties LIBNAME)
 
 	if(APPLE)
 		if(BUILD_JAMOMAMAX)
+			
+			# TODO there appears to be some ambiguity when building because some things are build into debug/release even though CMAKE_BUILD_TYPE is the other here... [tap]
+			
+			# ADD_CUSTOM_COMMAND(
+			#   TARGET ${LIBNAME}
+			#   POST_BUILD
+			#   COMMAND ${CMAKE_COMMAND} -E make_directory
+			#    ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/support
+			# )
 			ADD_CUSTOM_COMMAND(
 			  TARGET ${LIBNAME}
 			  POST_BUILD
 			  COMMAND ${CMAKE_COMMAND} -E make_directory
-			   ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/support
+			   ${CMAKE_BINARY_DIR}/Debug/support
+			)
+			ADD_CUSTOM_COMMAND(
+			  TARGET ${LIBNAME}
+			  POST_BUILD
+			  COMMAND ${CMAKE_COMMAND} -E make_directory
+			   ${CMAKE_BINARY_DIR}/Release/support
 			)
 			ADD_CUSTOM_COMMAND(
 			  TARGET ${LIBNAME} #Jamoma::Foundation # for instance
