@@ -48,34 +48,35 @@ function(setupJamomaLibraryProperties LIBNAME)
 
 	if(APPLE)
 		if(BUILD_JAMOMAMAX)
+			if(!$ENV{TRAVIS})			
+				# TODO there appears to be some ambiguity when building because some things are build into debug/release even though CMAKE_BUILD_TYPE is the other here... [tap]
 			
-			# TODO there appears to be some ambiguity when building because some things are build into debug/release even though CMAKE_BUILD_TYPE is the other here... [tap]
-			
-			# ADD_CUSTOM_COMMAND(
-			#   TARGET ${LIBNAME}
-			#   POST_BUILD
-			#   COMMAND ${CMAKE_COMMAND} -E make_directory
-			#    ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/support
-			# )
-			ADD_CUSTOM_COMMAND(
-			  TARGET ${LIBNAME}
-			  POST_BUILD
-			  COMMAND ${CMAKE_COMMAND} -E make_directory
-			   ${CMAKE_BINARY_DIR}/Debug/support
-			)
-			ADD_CUSTOM_COMMAND(
-			  TARGET ${LIBNAME}
-			  POST_BUILD
-			  COMMAND ${CMAKE_COMMAND} -E make_directory
-			   ${CMAKE_BINARY_DIR}/Release/support
-			)
-			ADD_CUSTOM_COMMAND(
-			  TARGET ${LIBNAME} #Jamoma::Foundation # for instance
-			  POST_BUILD
-			  COMMAND ${CMAKE_COMMAND} -E copy
-			      ${CMAKE_BINARY_DIR}/JamomaCore/${LIBNAME}/library/${CMAKE_BUILD_TYPE}/libJamoma${LIBNAME}.dylib #* # we have to be careful with .so / .dll
-			      ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/support #/libJamomaFoundation.dylib
-			)
+				# ADD_CUSTOM_COMMAND(
+				#   TARGET ${LIBNAME}
+				#   POST_BUILD
+				#   COMMAND ${CMAKE_COMMAND} -E make_directory
+				#    ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/support
+				# )
+				ADD_CUSTOM_COMMAND(
+				  TARGET ${LIBNAME}
+				  POST_BUILD
+				  COMMAND ${CMAKE_COMMAND} -E make_directory
+				   ${CMAKE_BINARY_DIR}/Debug/support
+				)
+				ADD_CUSTOM_COMMAND(
+				  TARGET ${LIBNAME}
+				  POST_BUILD
+				  COMMAND ${CMAKE_COMMAND} -E make_directory
+				   ${CMAKE_BINARY_DIR}/Release/support
+				)
+				ADD_CUSTOM_COMMAND(
+				  TARGET ${LIBNAME} #Jamoma::Foundation # for instance
+				  POST_BUILD
+				  COMMAND ${CMAKE_COMMAND} -E copy
+				      ${CMAKE_BINARY_DIR}/JamomaCore/${LIBNAME}/library/${CMAKE_BUILD_TYPE}/libJamoma${LIBNAME}.dylib #* # we have to be careful with .so / .dll
+				      ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/support #/libJamomaFoundation.dylib
+				)
+			endif() # !$ENV{TRAVIS}
 		endif() # BUILD_JAMOMAMAX
 	endif() # APPLE
 
@@ -200,19 +201,21 @@ function(add_jamoma_extension)
 	
 	if(APPLE)
 		if(BUILD_JAMOMAMAX)
-			ADD_CUSTOM_COMMAND(
-			  TARGET ${PROJECT_NAME}
-			  POST_BUILD
-			  COMMAND ${CMAKE_COMMAND} -E make_directory
-			   ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/support
-			)
-			ADD_CUSTOM_COMMAND(
-			  TARGET ${PROJECT_NAME} #Jamoma::Foundation # for instance
-			  POST_BUILD
-			  COMMAND ${CMAKE_COMMAND} -E copy
-			      ${CMAKE_BINARY_DIR}/JamomaCore/${JAMOMA_CURRENT_LIBRARY_NAME}/extensions/${PROJECT_NAME}/${CMAKE_BUILD_TYPE}/${PROJECT_NAME}.ttdylib #* # we have to be careful with .so / .dll
-			      ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/support #/libJamomaFoundation.dylib
-			)
+			if(!$ENV{TRAVIS})			
+				ADD_CUSTOM_COMMAND(
+				  TARGET ${PROJECT_NAME}
+				  POST_BUILD
+				  COMMAND ${CMAKE_COMMAND} -E make_directory
+				   ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/support
+				)
+				ADD_CUSTOM_COMMAND(
+				  TARGET ${PROJECT_NAME} #Jamoma::Foundation # for instance
+				  POST_BUILD
+				  COMMAND ${CMAKE_COMMAND} -E copy
+				      ${CMAKE_BINARY_DIR}/JamomaCore/${JAMOMA_CURRENT_LIBRARY_NAME}/extensions/${PROJECT_NAME}/${CMAKE_BUILD_TYPE}/${PROJECT_NAME}.ttdylib #* # we have to be careful with .so / .dll
+				      ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/support #/libJamomaFoundation.dylib
+				)
+			endif() # !$ENV{TRAVIS}
 		endif() # BUILD_JAMOMAMAX
 	endif() # APPLE
 	
