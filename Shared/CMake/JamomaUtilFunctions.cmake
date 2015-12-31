@@ -48,7 +48,9 @@ function(setupJamomaLibraryProperties LIBNAME)
 
 	if(APPLE)
 		if(BUILD_JAMOMAMAX)
-			if(!$ENV{TRAVIS})			
+			if($ENV{TRAVIS})
+				message("no copy for travis")
+			else()
 				# TODO there appears to be some ambiguity when building because some things are build into debug/release even though CMAKE_BUILD_TYPE is the other here... [tap]
 			
 				# ADD_CUSTOM_COMMAND(
@@ -201,7 +203,9 @@ function(add_jamoma_extension)
 	
 	if(APPLE)
 		if(BUILD_JAMOMAMAX)
-			if(!$ENV{TRAVIS})			
+			if($ENV{TRAVIS})
+				message("no copy for travis")
+			else()
 				ADD_CUSTOM_COMMAND(
 				  TARGET ${PROJECT_NAME}
 				  POST_BUILD
