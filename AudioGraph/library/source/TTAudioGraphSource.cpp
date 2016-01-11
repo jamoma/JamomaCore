@@ -74,6 +74,7 @@ TTAudioGraphSource::~TTAudioGraphSource()
 	
 	mSourceObject = NULL;
 	mOutletNumber = 0;
+	mOwner = nullptr;
 }
 
 

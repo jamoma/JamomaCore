@@ -23,6 +23,7 @@
 TTProtocol::TTProtocol(const TTValue& arguments) :
 TTObjectBase(arguments),
 mRunning(NO),
+mMonitor(NO),
 mSelectedApplication(kTTSymEmpty)
 {
     mApplicationManager = arguments[0];
