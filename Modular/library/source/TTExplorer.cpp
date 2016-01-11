@@ -747,8 +747,8 @@ TTErr TTExplorer::returnResultBack()
 	TTBoolean			found;
 	
 	// Return the value result back
-	if (mReturnValueCallback.valid()) {
-		
+	if (mReturnValueCallback.valid())
+    {
 		// sort keys if needed
 		if (mSort == kTTSym_alphabetic)
 			mResult->getKeysSorted(keys);
@@ -757,18 +757,20 @@ TTErr TTExplorer::returnResultBack()
 			mResult->getKeysSorted(keys, &TTExplorerCompareNodePriority);
 		
 		// children case : keep only the name part and filter repetitions
-		if (mOutput == kTTSym_children) {
-			
-			for (i = 0; i < keys.size(); i++) {
-				
+		if (mOutput == kTTSym_children)
+        {
+			for (i = 0; i < keys.size(); i++)
+            {
 				relativeAddress = keys[i];
 				newName = relativeAddress.getName();
 				
 				// filter repetitions
 				found = false;
-				for (j = 0; j < result.size(); j++) {
+				for (j = 0; j < result.size(); j++)
+                {
 					lastName = result[j];
-					if (newName == lastName) {
+					if (newName == lastName)
+                    {
 						found = true;
 						break;
 					}
@@ -782,10 +784,10 @@ TTErr TTExplorer::returnResultBack()
 		}
 		
 		// brothers case : keep only instance part
-		else if (mOutput == kTTSym_brothers) {
-			
-			for (i = 0; i < keys.size(); i++) {
-				
+		else if (mOutput == kTTSym_brothers)
+        {
+			for (i = 0; i < keys.size(); i++)
+            {
 				relativeAddress = keys[i];
 				result.append(relativeAddress.getInstance());
 			}
@@ -796,16 +798,16 @@ TTErr TTExplorer::returnResultBack()
 			result = keys;
 		
 		// filter repetitions of a same result (but output empty result)
-		if (!(result == mLastResult) || result.empty()) {
-			
+		if (!(result == mLastResult) || result.empty())
+        {
 			// update namespace
 			aSelection = TTModularSelectionLookup(mNamespace);
-			if (aSelection) {
-				
+			if (aSelection)
+            {
 				// append mAddress to the namespace 
 				// and go to mAddress namespace item
-                if (aSelection->find(mAddress, &aSelection) == kTTErrValueNotFound) {
-                    
+                if (aSelection->find(mAddress, &aSelection) == kTTErrValueNotFound)
+                {
                     aSelection->append(mAddress, &aSelection);
                     aSelection->setSelection(YES, YES);
                 }
@@ -815,21 +817,27 @@ TTErr TTExplorer::returnResultBack()
 					aSelection = aSelection->getParent();
 				
 				// append the result to the namespace
-				for (i = 0; i < result.size(); i++) {
-					
+				for (i = 0; i < result.size(); i++)
+                {
 					relativeAddress = result[i];
                     
                     // append relativeAddress to the namespace
-                    if (aSelection->find(relativeAddress, &anItem) == kTTErrValueNotFound) {
+                    if (aSelection->find(relativeAddress, &anItem) == kTTErrValueNotFound)
+                    {
                         
                         aSelection->append(relativeAddress, &anItem);
                         anItem->setSelection(YES, YES);
                     }
+                    // if the item exist add an empty option
+                    // to store its state if it binds on a parameter for example
+                    else
+                        anItem->getOptions()->appendUnique(kTTSymEmpty);
+
 				}
 			}
+            
 			TTValue dummy;
 			
-
 			mLastResult = result;
 			mReturnValueCallback.send("notify", result, dummy);
 			
