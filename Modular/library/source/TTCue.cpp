@@ -401,7 +401,7 @@ TTErr TTCue::processStore(TTObject aScript, const TTAddressItemPtr aSelection, T
     
     // get the scriptNode address
     scriptNode->getAddress(scriptAddress);
-    
+
 	// each script line is a name.instance (which means 2 levels of the namespace)
     // but the first level name can be directory:/name sometimes to include other directory
 	
@@ -469,7 +469,7 @@ TTErr TTCue::processStore(TTObject aScript, const TTAddressItemPtr aSelection, T
 		for (nameItem->begin(); nameItem->end(); nameItem->next()) {
 			
 			instanceItem = nameItem->current();
-			
+            
 			if (!instanceItem->getSelection())
 				continue;
 			
