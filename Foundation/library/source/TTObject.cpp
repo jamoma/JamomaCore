@@ -20,7 +20,7 @@
 TTObject::TTObject(const TTSymbol aClassName, const TTValue arguments) :
 mObjectInstance(NULL)
 {
-	TTErr err = ttEnvironment->createInstance(aClassName, &mObjectInstance, arguments);
+	TTErr err = ttEnvironment().createInstance(aClassName, &mObjectInstance, arguments);
 	
 	if (err) {
 		TTLogError("TTObject -- error %i instantiating %s\n", err, aClassName.c_str());
@@ -32,7 +32,7 @@ mObjectInstance(NULL)
 TTObject::TTObject(const TTSymbol aClassName) :
 mObjectInstance(NULL)
 {
-	TTErr err = ttEnvironment->createInstance(aClassName, &mObjectInstance, TTValue());
+	TTErr err = ttEnvironment().createInstance(aClassName, &mObjectInstance, TTValue());
 	
 	if (err) {
 		TTLogError("TTObject -- error %i instantiating %s\n", err, aClassName.c_str());
@@ -51,33 +51,33 @@ mObjectInstance(NULL)
 TTObject::TTObject(TTObjectBase* anObjectBase) :
 mObjectInstance(NULL)
 {
-	mObjectInstance = ttEnvironment->referenceInstance(anObjectBase);
+	mObjectInstance = ttEnvironment().referenceInstance(anObjectBase);
 }
 
 
 TTObject::TTObject(const TTObject& anObjectToCopy)
 {
-	mObjectInstance = ttEnvironment->referenceInstance(anObjectToCopy.mObjectInstance);
+	mObjectInstance = ttEnvironment().referenceInstance(anObjectToCopy.mObjectInstance);
 }
 
 
 TTObject::~TTObject()
 {
     if (mObjectInstance)
-        ttEnvironment->releaseInstance(&mObjectInstance);
+        ttEnvironment().releaseInstance(&mObjectInstance);
 }
 
 
 TTErr TTObject::GetRegisteredClassNames(TTValue& classNames)
 {
 	TTValue unused;
-	return ttEnvironment->getAllClassNames(unused, classNames);
+	return ttEnvironment().getAllClassNames(unused, classNames);
 }
 
 
 TTErr TTObject::GetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags)
 {
-	return ttEnvironment->getClassNamesWithTags(classNames, searchTags);
+	return ttEnvironment().getClassNamesWithTags(classNames, searchTags);
 }
 
 
@@ -91,10 +91,10 @@ TTErr TTObject::GetRegisteredTags(TTValue& tags)
 TTObject& TTObject::operator = (TTObject object)
 {
 	if (mObjectInstance)
-		ttEnvironment->releaseInstance(&mObjectInstance);
+		ttEnvironment().releaseInstance(&mObjectInstance);
 	
     if (object.mObjectInstance)
-        mObjectInstance = ttEnvironment->referenceInstance(object.mObjectInstance);
+        mObjectInstance = ttEnvironment().referenceInstance(object.mObjectInstance);
     else
         mObjectInstance = NULL;
     

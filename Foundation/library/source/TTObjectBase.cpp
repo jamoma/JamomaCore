@@ -362,7 +362,7 @@ TTErr TTObjectBase::registerMessage(const TTSymbol name, TTMethod method)
 {
     TTMessagePtr newMessage = new TTMessage(name, method, kTTMessageDefaultFlags);
 
-    if (ttEnvironment && ttEnvironment->mDebugMessaging)
+    if (ttEnvironment && ttEnvironment().mDebugMessaging)
         logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld\n", name.c_str(), kTTMessageDefaultFlags, messages->getSize());
 
     messages->append(name, TTPtr(newMessage));
@@ -374,7 +374,7 @@ TTErr TTObjectBase::registerMessage(const TTSymbol name, TTMethod method, TTMess
 {
     TTMessagePtr newMessage = new TTMessage(name, method, flags);
 
-    if (ttEnvironment->mDebugMessaging)
+    if (ttEnvironment().mDebugMessaging)
         logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld\n", name.c_str(), kTTMessageDefaultFlags, messages->getSize());
 
     messages->append(name, TTPtr(newMessage));
@@ -571,7 +571,7 @@ TTErr TTObjectBase::logError(TTImmutableCString fmtstring, ...)
 
 TTErr TTObjectBase::logDebug(TTImmutableCString fmtstring, ...)
 {
-    if (ttEnvironment->mDebugBasic) {
+    if (ttEnvironment().mDebugBasic) {
         char	str[4096];
         char	fullstr[4096];
         va_list	ap;

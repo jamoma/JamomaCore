@@ -49,21 +49,21 @@ TTOutput(arguments)
     
     // note : crossfade instantiation can failed if JamomaDSP is not loaded.
     // maybe this means we should move TTOutputAudio into JamomaDSP ?
-    if (!ttEnvironment->isClassRegistered("crossfade")) {
+    if (!ttEnvironment().isClassRegistered("crossfade")) {
         mMixUnit = TTObject("crossfade", 1);
         mMixUnit.set("position", 1.0);
     }
 	
     // note : gain instantiation can failed if JamomaDSP is not loaded.
     // maybe this means we should move TTOutputAudio into JamomaDSP ?
-    if (!ttEnvironment->isClassRegistered("gain")) {
+    if (!ttEnvironment().isClassRegistered("gain")) {
         mGainUnit = TTObject("gain", 1);
         mGainUnit.set("linearGain", 1.0);
     }
     
     // note : ramp instantiation can failed if JamomaDSP is not loaded.
     // maybe this means we should move TTOutputAudio into JamomaDSP ?
-    if (!ttEnvironment->isClassRegistered("ramp")) {
+    if (!ttEnvironment().isClassRegistered("ramp")) {
         mRampMixUnit = TTObject(TTSymbol("ramp"), 1);
         mRampGainUnit = TTObject(TTSymbol("ramp"), 1);
     }

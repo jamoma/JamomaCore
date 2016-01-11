@@ -59,6 +59,7 @@ public:
 
     /**	Constructor	*/
     TTEnvironment();
+    void init();
 
 
     /**	Destructor */
@@ -174,8 +175,7 @@ public:
 
 /** The environment object has one instance, which is global in scope.
  */
-extern TTFOUNDATION_EXPORT std::unique_ptr<TTEnvironment> ttEnvironment;
-
+TTFOUNDATION_EXPORT TTEnvironment& ttEnvironment();
 
 // Public Interface -- REPLACED BY TTOBJECT
 

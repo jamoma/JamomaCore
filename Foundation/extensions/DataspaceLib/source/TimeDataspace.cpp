@@ -277,7 +277,7 @@ void SampleUnit::convertToNeutral(const TTValue& input, TTValue& output)
 {
 	TTValue globalSampleRate;	
 	
-    ttEnvironment->getAttributeValue(kTTSym_sampleRate, globalSampleRate);
+    ttEnvironment().getAttributeValue(kTTSym_sampleRate, globalSampleRate);
 	double sampleRate = globalSampleRate;
     
 	output = TTFloat64(input) / sampleRate;
@@ -287,7 +287,7 @@ void SampleUnit::convertFromNeutral(const TTValue& input, TTValue& output)
 {
 	TTValue globalSampleRate;	
 	
-    ttEnvironment->getAttributeValue(kTTSym_sampleRate, globalSampleRate);
+    ttEnvironment().getAttributeValue(kTTSym_sampleRate, globalSampleRate);
 	double sampleRate = globalSampleRate;
 	
     output = TTFloat64(input) * sampleRate;

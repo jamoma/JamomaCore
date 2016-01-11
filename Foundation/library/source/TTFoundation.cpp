@@ -58,7 +58,7 @@ void TTFoundationInit(const char* pathToBinaries, bool loadFromOtherPaths)
         TTNodeLibInit();
 #endif
 
-        ttEnvironment = std::unique_ptr<TTEnvironment>(new TTEnvironment);
+        ttEnvironment().init();
 
         // Regex requires Boost libraries, not available for iOS for the time-being
         //#ifndef DISABLE_NODELIB
@@ -67,7 +67,7 @@ void TTFoundationInit(const char* pathToBinaries, bool loadFromOtherPaths)
 
 #ifdef TT_DEBUG
         TTLogMessage("JamomaFoundation (TT_DEBUG) -- Version %s - %s", JAMOMACORE_VERSION, JAMOMACORE_REV);
-        ttEnvironment->mDebugBasic = true;
+        TTEnvironmentInstance().mDebugBasic = true;
 #else
         TTLogMessage("JamomaFoundation -- Version %s - %s", JAMOMACORE_VERSION, JAMOMACORE_REV);
 #endif

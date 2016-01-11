@@ -39,8 +39,8 @@ TTDataObjectBase::TTDataObjectBase(const TTValue& arguments) :
 	registerMessage("resetBenchmarking",		(TTMethod)&TTDataObjectBase::resetBenchmarking, kTTMessagePassNone);
 	registerMessage("getProcessingBenchmark",	(TTMethod)&TTDataObjectBase::getProcessingBenchmark);
 
-	ttEnvironment->createInstance(kTTSym_matrixarray, (TTObjectBasePtr*)&mInputArray, 2);
-	ttEnvironment->createInstance(kTTSym_matrixarray, (TTObjectBasePtr*)&mOutputArray, 2);
+	ttEnvironment().createInstance(kTTSym_matrixarray, (TTObjectBasePtr*)&mInputArray, 2);
+	ttEnvironment().createInstance(kTTSym_matrixarray, (TTObjectBasePtr*)&mOutputArray, 2);
 	
 	// Set Defaults...	
     setMatrixCalculate(&TTDataObjectBase::defaultMatrixCalculateMethod);
@@ -50,8 +50,8 @@ TTDataObjectBase::TTDataObjectBase(const TTValue& arguments) :
 
 TTDataObjectBase::~TTDataObjectBase()
 {
-	ttEnvironment->releaseInstance((TTObjectBasePtr*)&mInputArray);
-	ttEnvironment->releaseInstance((TTObjectBasePtr*)&mOutputArray);
+	ttEnvironment().releaseInstance((TTObjectBasePtr*)&mInputArray);
+	ttEnvironment().releaseInstance((TTObjectBasePtr*)&mOutputArray);
 }
 
 
@@ -110,7 +110,7 @@ TTErr TTDataObjectBase::calculate(const TTMatrixArray* inputs, TTMatrixArray* ou
 	TTErr	err = kTTErrGeneric;
 	
 	if (valid) {
-		if (!ttEnvironment->mBenchmarking){
+		if (!ttEnvironment().mBenchmarking){
 			lock();
 			err = (this->*mCurrentMatrixCalculateMethod)(inputs, outputs);
 			unlock();
@@ -138,7 +138,7 @@ TTErr TTDataObjectBase::calculate(const TTMatrixBase& x, TTMatrixBase& y)
 		mInputArray->setMatrix(0, (TTMatrixBase&)x);
 		mOutputArray->setMatrixCount(1);
 		mOutputArray->setMatrix(0, y);
-		if (!ttEnvironment->mBenchmarking)
+		if (!ttEnvironment().mBenchmarking)
 			err = (this->*mCurrentMatrixCalculateMethod)(mInputArray, mOutputArray);
 		else{
 			mStartProcessingTime = TTGetTimeInMicroseconds();

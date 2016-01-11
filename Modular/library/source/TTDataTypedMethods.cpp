@@ -176,7 +176,7 @@ TTErr TTData::setType(const TTValue& value)
 		// If TTModularLib is not used with the Max implementation, "max" rampDrive need to be substituted for "system".
 		// TODO : Move this very Max specific thing else where
 		if (mRampDrive == TTSymbol("max"))
-			if (ttEnvironment->isClassRegistered("max"))
+			if (ttEnvironment().isClassRegistered("max"))
 				mRampDrive = TTSymbol("system");
 		
 		rampSetup();

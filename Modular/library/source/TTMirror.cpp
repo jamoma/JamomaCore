@@ -47,7 +47,7 @@ mType(kTTSymEmpty)
             mListenAttributeCallback = arguments[4];
         
         // if the class exist
-        if (!ttEnvironment->isClassRegistered(mType)) {
+        if (!ttEnvironment().isClassRegistered(mType)) {
             
             TTObject anObject = TTObject(mType);
             

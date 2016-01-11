@@ -52,7 +52,7 @@ void TTAudioSignalArray::chuck()
 {
 	for (TTChannelCount i=0; i<mAudioSignalMaxCount ;i++) {
 		if (mAudioSignals[i])
-			ttEnvironment->releaseInstance((TTObjectBase**)&mAudioSignals[i]);
+			ttEnvironment().releaseInstance((TTObjectBase**)&mAudioSignals[i]);
 	}
 	delete[] mAudioSignals;
 }

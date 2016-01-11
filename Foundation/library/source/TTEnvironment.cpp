@@ -26,8 +26,11 @@
 static std::unordered_map<TTObjectBasePtr, TTBoolean> sFreeInProgress;
 
 // The environment object has one instance, which is global in scope.
-std::unique_ptr<TTEnvironment>	ttEnvironment;
-
+TTEnvironment& ttEnvironment()
+{
+    static TTEnvironment env;
+    return env;
+}
 
 /****************************************************************************************************/
 
@@ -37,6 +40,13 @@ TTEnvironment::TTEnvironment()
     classes = new TTHash();
     tags = new TTHash();
 
+    // Important : init() shall never be called here.
+    // This is because addMessageWithArguments will
+    // call TTEnvironmentInstance() recursively.
+}
+
+void TTEnvironment::init()
+{
     addAttribute(DebugBasic,		kTypeBoolean);
     addAttribute(DebugMessaging,	kTypeBoolean);
     addAttribute(SampleRate,		kTypeUInt32);
@@ -331,27 +341,27 @@ TTErr TTEnvironment::releaseInstance(TTObjectBasePtr* anObject)
 
 TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTValue arguments)
 {
-    return ttEnvironment->createInstance(className, returnedObjectPtr, arguments);
+    return ttEnvironment().createInstance(className, returnedObjectPtr, arguments);
 }
 
 
 TTErr TTObjectBaseInstantiate(const TTSymbol className, TTObjectBasePtr* returnedObjectPtr, const TTUInt16 arguments)
 {
     TTValue	v(arguments);
-    return ttEnvironment->createInstance(className, returnedObjectPtr, v);
+    return ttEnvironment().createInstance(className, returnedObjectPtr, v);
 }
 
 
 TTObjectBasePtr TTObjectBaseReference(TTObjectBasePtr anObject)
 {
-    return ttEnvironment->referenceInstance(anObject);
+    return ttEnvironment().referenceInstance(anObject);
 }
 
 
 TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject)
 {
     if (*anObject)
-        return ttEnvironment->releaseInstance(anObject);
+        return ttEnvironment().releaseInstance(anObject);
     else
         return kTTErrNone;
 }
@@ -359,24 +369,24 @@ TTErr TTObjectBaseRelease(TTObjectBasePtr* anObject)
 
 TTErr TTClassRegister(const TTSymbol className, const TTString& tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 {
-    return ttEnvironment->registerClass(className, tagString, anInstantiationMethod);
+    return ttEnvironment().registerClass(className, tagString, anInstantiationMethod);
 }
 
 TTErr TTClassRegister(const TTSymbol className, TTImmutableCString tagString, const TTObjectBaseInstantiationMethod anInstantiationMethod)
 {
-    return ttEnvironment->registerClass(className, TTString(tagString), anInstantiationMethod);
+    return ttEnvironment().registerClass(className, TTString(tagString), anInstantiationMethod);
 }
 
 
 TTErr TTGetRegisteredClassNames(TTValue& classNames)
 {
     TTValue unused;
-    return ttEnvironment->getAllClassNames(unused, classNames);
+    return ttEnvironment().getAllClassNames(unused, classNames);
 }
 
 
 TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags)
 {
-    return ttEnvironment->getClassNamesWithTags(classNames, searchTags);
+    return ttEnvironment().getClassNamesWithTags(classNames, searchTags);
 }
 
