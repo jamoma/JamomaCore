@@ -30,27 +30,7 @@ public:	// use public for quick acces during signal processing
 	void process(TTSampleValue* anInputSampleVector, TTSampleValue* anOutputSampleVector, TTUInt16 aVectorSize);
 
 	// dsp
-	void setupAudioSignals(TTUInt16 aVectorSize, TTFloat64 aSampleRate)
-	{
-		mRampGainUnit.set(kTTSym_sampleRate, aSampleRate);	// convert midi to db for tap_gain
-		mGainUnit.set("interpolated", 1);
-		mRampMixUnit.set(kTTSym_sampleRate, aSampleRate);	// convert midi to db for tap_gain
-		
-		mSignalIn.set(kTTSym_numChannels, 1);
-		mSignalOut.set(kTTSym_numChannels, 1);
-		mSignalTemp.set(kTTSym_numChannels, 1);
-		mSignalZero.set(kTTSym_numChannels, 1);
-		
-		mSignalIn.set(kTTSym_vectorSize, aVectorSize);
-		mSignalOut.set(kTTSym_vectorSize, aVectorSize);
-		mSignalTemp.set(kTTSym_vectorSize, aVectorSize);
-		mSignalZero.set(kTTSym_vectorSize, aVectorSize);
-		
-		mSignalOut.send(kTTSym_alloc);
-		mSignalTemp.send(kTTSym_alloc);
-		mSignalZero.send(kTTSym_alloc);
-		mSignalZero.send(kTTSym_clear);
-	}
+    void setupAudioSignals(TTUInt16 aVectorSize, TTFloat64 aSampleRate);
 };
 
 typedef TTOutputAudio* TTOutputAudioPtr;

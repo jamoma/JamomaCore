@@ -78,7 +78,7 @@ TTOutputAudio::~TTOutputAudio()
 
 void TTOutputAudio::process(TTSampleValue* anInputSampleVector, TTSampleValue* anOutputSampleVector, TTUInt16 aVectorSize)
 {
-	// Store the audio vector as a proper audio signal
+	// store the audio vector as a proper audio signal
 	TTAudioSignalPtr(mSignalIn.instance())->setVector64Copy(0, aVectorSize, anInputSampleVector);
 	
 	// if the output signal is muted
@@ -86,8 +86,8 @@ void TTOutputAudio::process(TTSampleValue* anInputSampleVector, TTSampleValue* a
 		TTAudioSignal::copy(*TTAudioSignalPtr(mSignalZero.instance()), *TTAudioSignalPtr(mSignalOut.instance()));
 	
 	// if input signal exists
-	else if (mInputObject.instance()) {
-		
+	else if (mInputObject.instance())
+    {
 		// if input signal is bypassed : copy input (in Temp)
 		if (TTInputPtr(mInputObject.instance())->mBypass)
 			TTAudioSignal::copy(*TTAudioSignalPtr(TTInputPtr(mInputObject.instance())->mSignalIn.instance()), *TTAudioSignalPtr(mSignalTemp.instance()));
@@ -103,7 +103,37 @@ void TTOutputAudio::process(TTSampleValue* anInputSampleVector, TTSampleValue* a
 	else
 		TTAudioObjectBasePtr(mGainUnit.instance())->process(TTAudioSignalPtr(mSignalIn.instance()), TTAudioSignalPtr(mSignalOut.instance()));
 	
-	// Send the input on to the outlets for the algorithm
+	// send the input on to the outlets for the algorithm
 	TTAudioSignalPtr(mSignalOut.instance())->getVectorCopy(0, aVectorSize, anOutputSampleVector);
 }
 
+void TTOutputAudio::setupAudioSignals(TTUInt16 aVectorSize, TTFloat64 aSampleRate)
+{
+    mRampGainUnit.set(kTTSym_sampleRate, aSampleRate);	// convert midi to db for tap_gain
+    mGainUnit.set("interpolated", 1);
+    mRampMixUnit.set(kTTSym_sampleRate, aSampleRate);	// convert midi to db for tap_gain
+    
+    mSignalIn.set(kTTSym_numChannels, 1);
+    mSignalOut.set(kTTSym_numChannels, 1);
+    mSignalTemp.set(kTTSym_numChannels, 1);
+    mSignalZero.set(kTTSym_numChannels, 1);
+    
+    mSignalIn.set(kTTSym_vectorSize, aVectorSize);
+    mSignalOut.set(kTTSym_vectorSize, aVectorSize);
+    mSignalTemp.set(kTTSym_vectorSize, aVectorSize);
+    mSignalZero.set(kTTSym_vectorSize, aVectorSize);
+    
+    mSignalOut.send(kTTSym_alloc);
+    mSignalOut.send(kTTSym_clear);
+    
+    mSignalTemp.send(kTTSym_alloc);
+    
+    mSignalZero.send(kTTSym_alloc);
+    mSignalZero.send(kTTSym_clear);
+    
+    // debug
+    std::cout << ">>>> setup signal out (" << TTAudioSignalPtr(mSignalOut.instance()) << ") : ";
+    for (TTUInt16 i = 0; i < aVectorSize; i++)
+        std::cout << TTAudioSignalPtr(mSignalOut.instance())->mSampleVectors[0][i] << " ";
+    std::cout << std::endl;
+}

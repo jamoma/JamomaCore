@@ -79,3 +79,19 @@ void TTInputAudio::process(TTSampleValue* anInputSampleVector, TTSampleValue* an
 		TTAudioSignalPtr(mSignalOut.instance())->getVectorCopy(0, aVectorSize, anOutputSampleVector);
 }
 
+void TTInputAudio::setupAudioSignals(TTUInt16 aVectorSize)
+{
+    mSignalIn.set(kTTSym_numChannels, 1);
+    mSignalOut.set(kTTSym_numChannels, 1);
+    mSignalZero.set(kTTSym_numChannels, 1);
+    
+    mSignalIn.set(kTTSym_vectorSize, aVectorSize);
+    mSignalOut.set(kTTSym_vectorSize, aVectorSize);
+    mSignalZero.set(kTTSym_vectorSize, aVectorSize);
+    
+    mSignalOut.send(kTTSym_alloc);
+    mSignalOut.send(kTTSym_clear);
+    
+    mSignalZero.send(kTTSym_alloc);
+    mSignalZero.send(kTTSym_clear);
+}

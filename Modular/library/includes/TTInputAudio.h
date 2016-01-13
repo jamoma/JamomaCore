@@ -43,20 +43,7 @@ public:
 	
 	/**	Used e.g. by the dsp method in j.in~
 	 */
-	void setupAudioSignals(TTUInt16 aVectorSize)
-	{
-		mSignalIn.set(kTTSym_numChannels, 1);
-		mSignalOut.set(kTTSym_numChannels, 1);
-        mSignalZero.set(kTTSym_numChannels, 1);
-        
-		mSignalIn.set(kTTSym_vectorSize, aVectorSize);
-		mSignalOut.set(kTTSym_vectorSize, aVectorSize);
-        mSignalZero.set(kTTSym_vectorSize, aVectorSize);
-		
-		mSignalOut.send(kTTSym_alloc);
-        mSignalZero.send(kTTSym_alloc);
-        mSignalZero.send(kTTSym_clear);
-	}
+    void setupAudioSignals(TTUInt16 aVectorSize);
 };
 
 typedef TTInputAudio* TTInputAudioPtr;
