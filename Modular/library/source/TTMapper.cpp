@@ -656,15 +656,29 @@ TTErr TTMapper::processMapping(const TTValue& inputValue, TTValue& outputValue)
 	size = inputCopy.size();
 	
 	// clip input value
-	if (mClipmode != kTTSym_none) {
-		if (mClipmode == kTTSym_low)
-			inputCopy.cliplow(mInputMin);
-		else if (mClipmode == kTTSym_high)
-			inputCopy.cliphigh(mInputMax);
-		else if (mClipmode == kTTSym_both)
-			inputCopy.clip(mInputMin, mInputMax);
-		// Invalid values for mClipmode will result in no clipping
-	}
+    if (mClipmode != kTTSym_none)
+    {
+        if (mInputMin < mInputMax)
+        {
+            if (mClipmode == kTTSym_low)
+                inputCopy.cliplow(mInputMin);
+            else if (mClipmode == kTTSym_high)
+                inputCopy.cliphigh(mInputMax);
+            else if (mClipmode == kTTSym_both)
+                inputCopy.clip(mInputMin, mInputMax);
+        }
+        else
+        {
+            if (mClipmode == kTTSym_low)
+                inputCopy.cliplow(mInputMax);
+            else if (mClipmode == kTTSym_high)
+                inputCopy.cliphigh(mInputMin);
+            else if (mClipmode == kTTSym_both)
+                inputCopy.clip(mInputMax, mInputMin);
+        }
+        
+        // Invalid values for mClipmode will result in no clipping
+    }
 	
 	// scale input value
 	for (i = 0; i < size; i++) {
