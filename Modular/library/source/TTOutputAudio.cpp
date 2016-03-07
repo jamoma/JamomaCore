@@ -130,10 +130,4 @@ void TTOutputAudio::setupAudioSignals(TTUInt16 aVectorSize, TTFloat64 aSampleRat
     
     mSignalZero.send(kTTSym_alloc);
     mSignalZero.send(kTTSym_clear);
-    
-    // debug
-    std::cout << ">>>> setup signal out (" << TTAudioSignalPtr(mSignalOut.instance()) << ") : ";
-    for (TTUInt16 i = 0; i < aVectorSize; i++)
-        std::cout << TTAudioSignalPtr(mSignalOut.instance())->mSampleVectors[0][i] << " ";
-    std::cout << std::endl;
 }
