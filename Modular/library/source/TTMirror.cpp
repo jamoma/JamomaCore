@@ -28,6 +28,7 @@ mType(kTTSymEmpty)
 	TTAttributePtr		anAttribute;
 	TTAttributeFlags	attributeFlags = kTTAttrPassObject;
 	TTMessagePtr		aMessage;
+    TTMessageFlags      messageFlags = kTTMessagePassNameAndValue;
 	
 	if (arguments.size() >= 1)
 		mType = arguments[0];
@@ -47,15 +48,15 @@ mType(kTTSymEmpty)
             mListenAttributeCallback = arguments[4];
         
         // if the class exist
-        if (!ttEnvironment->isClassRegistered(mType)) {
-            
+        if (!ttEnvironment->isClassRegistered(mType))
+        {
             TTObject anObject = TTObject(mType);
             
-            if (anObject.valid()) {
-                
+            if (anObject.valid())
+            {
                 anObject.attributes(attributeNames);
-                for (TTUInt32 i = 0; i < attributeNames.size(); i++) {
-                    
+                for (TTUInt32 i = 0; i < attributeNames.size(); i++)
+                {
                     anAttribute = NULL;
                     name = attributeNames[i];
                     anObject.instance()->getAttribute(name, &anAttribute);
@@ -64,8 +65,8 @@ mType(kTTSymEmpty)
                         addMirrorAttribute(name, anAttribute->type);
                     
                     // else cache the attribute value
-                    else {
-                        
+                    else
+                    {
                         addMirrorCachedAttribute(name, anAttribute->type);
                         
                         mAttributeValueCache.append(name, none);
@@ -79,12 +80,12 @@ mType(kTTSymEmpty)
                 }
                 
                 anObject.messages(messageNames);
-                for (TTUInt32 i = 0; i < messageNames.size(); i++) {
-                    
+                for (TTUInt32 i = 0; i < messageNames.size(); i++)
+                {
                     name = messageNames[i];
                     anObject.instance()->getMessage(name, &aMessage);
                     
-                    addMirrorMessage(name, aMessage->flags);
+                    addMirrorMessage(name, messageFlags);
                     
                     // TODO : addMirrorMessageProperty
                 }
@@ -322,12 +323,12 @@ TTErr TTMirror::sendMirrorMessage(const TTSymbol* messageName, const TTValue& in
 	TTValue data, none;
     TTErr   err = kTTErrNone;
 	
-	if (mSendMessageCallback.valid()) {
-		
-		data.append(messageName);
+	if (mSendMessageCallback.valid())
+    {
+		data.append((TTSymbol)*messageName);
 		data.append((TTPtr)&inputValue);
 		
-		err = mSetAttributeCallback.send("notify", data);
+		err = mSendMessageCallback.send("notify", data);
 	}
 	
 	return err;
