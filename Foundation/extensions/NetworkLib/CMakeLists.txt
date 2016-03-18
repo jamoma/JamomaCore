@@ -59,6 +59,10 @@ endif()
 
 add_jamoma_extension()
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  add_definitions(-DTT_PROTOCOL_DEBUG)
+endif()
+
 if(BUILD_JAMOMAPD)
         install(TARGETS ${PROJECT_NAME}
                         DESTINATION "${JAMOMAPD_INSTALL_FOLDER}/Jamoma/support"
