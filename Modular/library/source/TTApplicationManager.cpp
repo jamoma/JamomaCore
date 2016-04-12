@@ -712,7 +712,6 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 	
 	TTList		aNodeList;
 	TTNodePtr	nodeToSet;
-	TTSymbol	objectType;
 	TTObject	anObject;
     TTValue     none;
 	TTErr       err;
@@ -724,8 +723,8 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 	// allow to use wilcards
 	err = directory->Lookup(whereToSet, aNodeList, &nodeToSet);
 	
-	if (!err) {
-		
+	if (!err)
+    {
         err = kTTErrNone;
 		for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
 		{
@@ -734,26 +733,24 @@ TTErr TTApplicationManager::ApplicationSet(const TTValue& inputValue, TTValue& o
 			
 			anObject = nodeToSet->getObject();
             
-            if (anObject.valid()) {
-                
-                objectType = anObject.name();
+            if (anObject.valid())
+            {
+                TTSymbol        objectType = anObject.name();
+                TTSymbol        ttAttributeName = whereToSet.getAttribute();
+                TTAttributePtr	anAttribute;
+                TTMessagePtr	aMessage;
 			
-                // TTData case : for value attribute use Command message
-                if (objectType == kTTSym_Data) {
-				
-                    if (whereToSet.getAttribute() == kTTSym_value)
-                        err = anObject.send(kTTSym_Command, *newValue);
-                    else
-                        err = anObject.set(whereToSet.getAttribute(), *newValue);
-                }
-                else {
-					// try to set an attribute
-                    err = anObject.set(whereToSet.getAttribute(), *newValue);
-					
-					// try to use a message
-                	if (err == kTTErrInvalidAttribute)
-                    	err = anObject.send(whereToSet.getAttribute(), *newValue);
-				}
+                // TTData case for value attribute : use Command message
+                if (objectType == kTTSym_Data && ttAttributeName == kTTSym_value)
+                    err = anObject.send(kTTSym_Command, *newValue);
+                
+                // or look for attribute and set it
+                else if (!anObject.instance()->findAttribute(ttAttributeName, &anAttribute))
+                    err = anObject.set(ttAttributeName, *newValue);
+                
+                // Or look for message and send it
+                else if (!anObject.instance()->findMessage(ttAttributeName, &aMessage))
+                    err = anObject.send(ttAttributeName, *newValue);
             }
             
             if (err)
