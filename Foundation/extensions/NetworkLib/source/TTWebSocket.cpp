@@ -119,7 +119,9 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
         }
     }
     if (i >= CONNECTIONS) {
+#ifdef TT_PROTOCOL_DEBUG
         fprintf(stderr, "websocket received websocket data from unknown connection\n");
+#endif
         return 1;
     }
     
@@ -137,10 +139,14 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
         flags &= 0x7f;
         switch (flags) {
             case WEBSOCKET_OPCODE_CONTINUATION:
+#ifdef TT_PROTOCOL_DEBUG
                 fprintf(stderr, "websocket receive CONTINUATION...\n");
+#endif
                 break;
             case WEBSOCKET_OPCODE_TEXT:
+#ifdef TT_PROTOCOL_DEBUG
                 fprintf(stderr, "websocket receive : %-.*s\n", (int)data_len, data);
+#endif
                 
                 // store this connection to send back data
                 mLastConnection = conn;
@@ -170,10 +176,14 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
                 }
                 break;
             case WEBSOCKET_OPCODE_BINARY:
+#ifdef TT_PROTOCOL_DEBUG
                 fprintf(stderr, "websocket receive BINARY...\n");
+#endif
                 break;
             case WEBSOCKET_OPCODE_CONNECTION_CLOSE:
+#ifdef TT_PROTOCOL_DEBUG
                 fprintf(stderr, "websocket receive CLOSE...\n");
+#endif
                 /* If client initiated close, respond with close message in acknowlegement */
                 if (!ws_conn[wsd].closing) {
                     mg_websocket_write(conn, WEBSOCKET_OPCODE_CONNECTION_CLOSE, data, data_len);
@@ -189,7 +199,9 @@ static int websocket_data_handler(struct mg_connection *conn, int flags,
                 /* received PONG to our PING, no action */
                 break;
             default:
+#ifdef TT_PROTOCOL_DEBUG
                 fprintf(stderr, "websocket Unknown flags: %02x\n", flags);
+#endif
                 break;
         }
     }
