@@ -72,7 +72,6 @@ TTErr System::Go()
     }
     else if (mExternalTick)
     {
-
         // reset timing informations
         mRunning = true;
         mPaused = NO;
@@ -118,12 +117,11 @@ TTErr System::Stop()
 
 TTErr System::Tick()
 {
-    TTFloat64 delta = computeDeltaTime() * mSpeed;
-
     // test paused and running status after the computeDeltatTime because there is a sleep inside
     if (mPaused || !mRunning)
         return kTTErrNone;
 
+    TTFloat64 delta = computeDeltaTime() * mSpeed;
 	mPosition += delta / mDuration;
     mDate += delta;
 
@@ -146,10 +144,9 @@ TTErr System::Tick()
         // notify each observers
         sendNotification(TTSymbol("ClockTicked"), TTValue(mPosition, mDate));
 
-        // if the clock is still running : stop it
-        // note : because it is possible that another thread stops the clock before
-        if (mRunning)
-            Stop();
+        // the clock is not running anymore
+        // note : we don't delete the thread ourself to avoid deadlock
+        mRunning = false;
     }
 
     return kTTErrNone;
