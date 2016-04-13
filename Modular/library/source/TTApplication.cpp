@@ -537,8 +537,8 @@ TTErr TTApplication::RemoveDirectoryListener(const TTValue& inputValue, TTValue&
 	key = TTSymbol(editKey);
 	
 	// if this listener exists
-	if (!mDirectoryListenersCache.lookup(key, cacheElement)) {
-        
+	if (!mDirectoryListenersCache.lookup(key, cacheElement))
+    {
 		returnValueCallback = cacheElement[0];
 		mDirectory->removeObserverForNotifications(whereToListen, returnValueCallback);
 		
@@ -637,12 +637,12 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 	key = TTSymbol(editKey);
     
 	// if this listener exists
-	if (!mAttributeListenersCache.lookup(key, cacheElement)) {
-		
+	if (!mAttributeListenersCache.lookup(key, cacheElement))
+    {
 		err = mDirectory->Lookup(whereToListen, aNodeList, &nodeToListen);
 		
-		if (!err) {
-			
+		if (!err)
+        {
 			i = 0;
 			for (aNodeList.begin(); aNodeList.end(); aNodeList.next())
 			{
@@ -650,14 +650,14 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 				nodeToListen = TTNodePtr((TTPtr)aNodeList.current()[0]);
 				
 				anObject = nodeToListen->getObject();
-				if (anObject.valid()) {
-					
+				if (anObject.valid())
+                {
 					// delete Attribute observer
 					anAttribute = NULL;
 					err = anObject.instance()->findAttribute(whereToListen.getAttribute(), &anAttribute);
 					
-					if (!err) {
-                        
+					if (!err)
+                    {
                         TTObject returnValueCallback = cacheElement[i];
 						
 						anAttribute->unregisterObserverForNotifications(returnValueCallback);
@@ -666,9 +666,9 @@ TTErr TTApplication::RemoveAttributeListener(const TTValue& inputValue, TTValue&
 					}
 				}
 			}
-			
-			return mAttributeListenersCache.remove(key);
 		}
+        
+        return mAttributeListenersCache.remove(key);
 	}
     
 	return kTTErrGeneric;
@@ -724,9 +724,11 @@ TTErr TTApplication::UpdateDirectory(const TTValue& inputValue, TTValue& outputV
         }
 	}
     
-    // if the node exists : remove it
+    // if the node exists : remove the node
 	else if (!err && type == TTSymbol("delete"))
+    {
         return mDirectory->TTNodeRemove(whereComesFrom);
+    }
 	
 	return kTTErrGeneric;
 }
