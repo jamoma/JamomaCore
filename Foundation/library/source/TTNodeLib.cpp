@@ -77,7 +77,7 @@ TTErr convertUpperCasedNameInAddress(TTSymbol upperCasedName, TTAddress& convert
 	else
 		convertedInAddress = TTAddress(upperCasedName);
 	
-	delete upperCasedNameCString;
+	delete[] upperCasedNameCString;
 	upperCasedNameCString = NULL;
 
 	return kTTErrNone;
