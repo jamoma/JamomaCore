@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.0)
 project(Modular)
 
 add_definitions(-DTTMODULAR_EXPORTS)
-
 find_package(LibXml2 REQUIRED CONFIG QUIET)
 if(WIN32)
 	find_package(Libiconv REQUIRED QUIET)

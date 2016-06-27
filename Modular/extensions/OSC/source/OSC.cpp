@@ -144,8 +144,13 @@ TTErr OSC::Run(const TTValue& inputValue, TTValue& outputValue)
                 ApplicationSelectLocal();
                 oscProtocol.get("port", v);
                 
+                if (v.empty())
+                {
+                    TTLogError("OSC::Run : unable to get port for %s application\n", applicationName.c_str());
+                    return kTTErrGeneric;
+                }
+
                 port = v[0];
-                
                 err = mLocalApplicationOscReceiver.set("port", port);
                 
                 if (!err) {
