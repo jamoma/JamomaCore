@@ -93,7 +93,7 @@ TTErr TTLowpassButterworth1::setFrequency(const TTValue& newValue)
 
 void TTLowpassButterworth1::calculateCoefficients()
 {
-	mA0 = mK/(mK+mRadians); 
+	mA0 = mRadians/(mK+mRadians); 
 	//mA1 = mA0; 
 	mB1 = (mRadians-mK)/(mK+mRadians);
 }	
